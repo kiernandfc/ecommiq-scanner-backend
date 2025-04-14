@@ -94,7 +94,8 @@ class Database:
         return self.prices.insert(data)
 
     def get_price_history(self, catalog_id: int) -> List[PriceHistory]:
-        docs = self.prices.search(self.Query.catalog_id == catalog_id)
+        # Using lambda for comparison since Query may not be working properly with catalog_id
+        docs = self.prices.search(lambda x: x.get('catalog_id') == catalog_id)
         return [PriceHistory(**doc) for doc in docs]
 
     def get_products_to_update(self, hours_threshold: int = 24) -> List[CatalogProduct]:
@@ -105,10 +106,39 @@ class Database:
 
     def get_latest_price(self, catalog_id: int) -> Optional[PriceHistory]:
         """Get the most recent price for a catalog product"""
-        prices = self.prices.search(self.Query.catalog_id == catalog_id)
+        # Using lambda for comparison since Query may not be working properly with catalog_id
+        prices = self.prices.search(lambda x: x.get('catalog_id') == catalog_id)
         if not prices:
             return None
             
         # Sort by timestamp and get the latest
         latest = sorted(prices, key=lambda x: x['timestamp'], reverse=True)[0]
-        return PriceHistory(**latest) 
+        return PriceHistory(**latest)
+
+    def add_or_update_catalog_product_with_status(self, product: CatalogProduct) -> tuple[int, bool]:
+        """
+        Add or update a catalog product and return status about whether it was newly created
+        
+        Args:
+            product: The CatalogProduct to add or update
+            
+        Returns:
+            Tuple of (product_id, is_new) where is_new is True if the product was newly created
+        """
+        data = product.model_dump()
+        data['last_checked'] = data['last_checked'].isoformat()
+        data['created_at'] = data['created_at'].isoformat()
+        data['updated_at'] = data['updated_at'].isoformat()
+
+        # Check if product already exists
+        existing = self.catalog.get(
+            (self.Query.google_shopping_id == product.google_shopping_id) &
+            (self.Query.competitor_brand_id == product.competitor_brand_id)
+        )
+        
+        if existing:
+            self.catalog.update(data, doc_ids=[existing.doc_id])
+            return existing.doc_id, False
+            
+        new_id = self.catalog.insert(data)
+        return new_id, True 

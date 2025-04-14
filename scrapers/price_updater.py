@@ -1,6 +1,7 @@
 from datetime import datetime
-from typing import List
+from typing import List, Dict, Any
 import logging
+import traceback
 
 from db.models import CatalogProduct, PriceHistory
 from db.database import Database
@@ -56,7 +57,7 @@ class PriceUpdater:
         self.logger.info(f"Successfully updated price for product {product.id}: {price.price} {price.currency}")
         return price
 
-    def update_stale_products(self, hours_threshold: int = 24) -> List[PriceHistory]:
+    def update_stale_products(self, hours_threshold: int = 24) -> Dict[str, Any]:
         """
         Update prices for all products that haven't been checked recently
         
@@ -64,22 +65,61 @@ class PriceUpdater:
             hours_threshold: Number of hours to consider a price check as stale
             
         Returns:
-            List of new PriceHistory entries
+            Dictionary with updated prices and error information
         """
+        start_time = utc_now()
         self.logger.info(f"Starting update for stale products (threshold: {hours_threshold} hours)")
         
-        products = self.db.get_products_to_update(hours_threshold)
-        self.logger.debug(f"Found {len(products)} products to update")
-        
         new_prices = []
-        for product in products:
-            try:
-                self.logger.debug(f"Processing product: {product.id} - {product.name}")
-                price = self.update_product_price(product)
-                new_prices.append(price)
-            except Exception as e:
-                self.logger.error(f"Error updating price for product {product.id}: {str(e)}")
-                continue
+        errors = []
+        error_summary = {}
         
-        self.logger.info(f"Completed price updates. Updated {len(new_prices)} products")        
-        return new_prices 
+        try:
+            products = self.db.get_products_to_update(hours_threshold)
+            self.logger.debug(f"Found {len(products)} products to update")
+            
+            for product in products:
+                try:
+                    self.logger.debug(f"Processing product: {product.id} - {product.name}")
+                    price = self.update_product_price(product)
+                    new_prices.append(price)
+                except Exception as e:
+                    error_msg = f"Error updating price for product {product.id} - {product.name}: {str(e)}"
+                    self.logger.error(error_msg)
+                    errors.append({
+                        "product_id": product.id,
+                        "product_name": product.name,
+                        "competitor_brand_id": product.competitor_brand_id,
+                        "error": str(e),
+                        "traceback": traceback.format_exc()
+                    })
+                    # Update error summary by product brand
+                    brand_key = f"Brand ID: {product.competitor_brand_id}"
+                    error_summary[brand_key] = error_summary.get(brand_key, 0) + 1
+                    continue
+        
+        except Exception as e:
+            error_msg = f"Error in main price update loop: {str(e)}"
+            self.logger.error(error_msg)
+            errors.append({
+                "product_id": None,
+                "product_name": "GLOBAL",
+                "competitor_brand_id": None,
+                "error": str(e),
+                "traceback": traceback.format_exc()
+            })
+            error_summary["GLOBAL"] = error_summary.get("GLOBAL", 0) + 1
+        
+        end_time = utc_now()
+        duration = (end_time - start_time).total_seconds()
+        
+        self.logger.info(f"Completed price updates. Updated {len(new_prices)} products, Errors: {len(errors)}, Duration: {duration:.2f} seconds")
+        
+        return {
+            "updated_prices": new_prices,
+            "errors": errors,
+            "error_summary": error_summary,
+            "start_time": start_time,
+            "end_time": end_time,
+            "duration_seconds": duration
+        } 
