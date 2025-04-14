@@ -17,7 +17,8 @@ def init_db(clear_existing=True):
     
     # Clear existing competitor data if requested
     if clear_existing:
-        db.clear_tables(['competitors'])
+        db.clear_tables(['competitors', 'catalog', 'prices'])
+        print("Cleared all tables")
     
     # Read competitor data from CSV
     with open(csv_path, 'r', encoding='utf-8') as csvfile:

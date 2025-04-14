@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List, Dict, Any
 import logging
 import traceback
+from tqdm import tqdm
 
 from db.models import CatalogProduct, PriceHistory
 from db.database import Database
@@ -39,6 +40,7 @@ class PriceUpdater:
         # Create price history entry
         price = PriceHistory(
             catalog_id=product.id,
+            merchant=item.get('merchant', {}).get('name', product.primary_merchant),
             price=float(item['price']),
             currency=item['currency'],
             in_stock=True if item.get('availability') == 'in_stock' else False
@@ -57,18 +59,20 @@ class PriceUpdater:
         self.logger.info(f"Successfully updated price for product {product.id}: {price.price} {price.currency}")
         return price
 
-    def update_stale_products(self, hours_threshold: int = 24) -> Dict[str, Any]:
+    def update_stale_products(self, hours_threshold: int = 24, show_progress: bool = False) -> Dict[str, Any]:
         """
         Update prices for all products that haven't been checked recently
         
         Args:
             hours_threshold: Number of hours to consider a price check as stale
+            show_progress: If True, display a progress bar instead of detailed logs
             
         Returns:
             Dictionary with updated prices and error information
         """
         start_time = utc_now()
-        self.logger.info(f"Starting update for stale products (threshold: {hours_threshold} hours)")
+        if not show_progress:
+            self.logger.info(f"Starting update for stale products (threshold: {hours_threshold} hours)")
         
         new_prices = []
         errors = []
@@ -76,13 +80,31 @@ class PriceUpdater:
         
         try:
             products = self.db.get_products_to_update(hours_threshold)
-            self.logger.debug(f"Found {len(products)} products to update")
+            if not show_progress:
+                self.logger.debug(f"Found {len(products)} products to update")
+            else:
+                print(f"Found {len(products)} products to update")
             
-            for product in products:
+            # Use tqdm for progress bar if requested
+            iterator = tqdm(products, desc="Updating prices", unit="product") if show_progress else products
+            
+            for product in iterator:
                 try:
-                    self.logger.debug(f"Processing product: {product.id} - {product.name}")
+                    if not show_progress:
+                        self.logger.debug(f"Processing product: {product.id} - {product.name}")
+                    else:
+                        # Update progress bar description (shortened for clarity)
+                        if isinstance(iterator, tqdm):
+                            short_name = (product.name[:30] + '...') if len(product.name) > 30 else product.name
+                            iterator.set_description(f"Updating {short_name}")
+                    
                     price = self.update_product_price(product)
                     new_prices.append(price)
+                    
+                    # Update progress bar postfix
+                    if show_progress and isinstance(iterator, tqdm):
+                        iterator.set_postfix(price=f"{price.price:.2f} {price.currency}")
+                        
                 except Exception as e:
                     error_msg = f"Error updating price for product {product.id} - {product.name}: {str(e)}"
                     self.logger.error(error_msg)
@@ -113,7 +135,10 @@ class PriceUpdater:
         end_time = utc_now()
         duration = (end_time - start_time).total_seconds()
         
-        self.logger.info(f"Completed price updates. Updated {len(new_prices)} products, Errors: {len(errors)}, Duration: {duration:.2f} seconds")
+        if not show_progress:
+            self.logger.info(f"Completed price updates. Updated {len(new_prices)} products, Errors: {len(errors)}, Duration: {duration:.2f} seconds")
+        else:
+            print(f"Completed price updates. Updated {len(new_prices)} products, Errors: {len(errors)}, Duration: {duration:.2f} seconds")
         
         return {
             "updated_prices": new_prices,

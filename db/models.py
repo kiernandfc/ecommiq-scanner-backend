@@ -16,7 +16,7 @@ class CompetitorBrand(BaseModel):
 class CatalogProduct(BaseModel):
     id: Optional[int] = None
     competitor_brand_id: int
-    brand: str
+    primary_merchant: str
     name: str
     url: str
     canonical_url: Optional[str] = None
@@ -28,6 +28,7 @@ class CatalogProduct(BaseModel):
 class PriceHistory(BaseModel):
     id: Optional[int] = None
     catalog_id: int
+    merchant: str
     price: float
     currency: str = "USD"
     in_stock: bool

@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime
 import logging
 from tabulate import tabulate
+from tqdm import tqdm
 
 from db.database import Database
 from db.models import CompetitorBrand
@@ -170,36 +171,50 @@ def main():
     # Load environment variables
     load_dotenv()
     
-    # Configure logging
-    logger = configure_logger("ecommiq", logging.DEBUG)
-    logger.debug("Starting EcommiQ Scanner")
-    
-    # Initialize components
-    logger.debug("Initializing database connection")
-    db = Database()
-    
-    logger.debug("Initializing Oxylabs client")
-    oxylabs = OxylabsClient()
-    
-    logger.debug("Initializing scanners and updaters")
-    scanner = SearchScanner(db, oxylabs)
-    updater = PriceUpdater(db, oxylabs)
-    
     # Parse arguments
-    logger.debug("Parsing command line arguments")
     parser = argparse.ArgumentParser(description='EcommiQ Scanner')
     parser.add_argument('--mode', choices=['scan', 'update', 'both'], default='both',
                       help='Operation mode: scan new products, update existing prices, or both')
     parser.add_argument('--hours', type=int, default=24,
                       help='Hours threshold for considering prices as stale')
+    parser.add_argument('--progress', action='store_true',
+                      help='Show progress bar instead of detailed logs')
     args = parser.parse_args()
-    logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}")
+    
+    # Configure logging based on progress option
+    log_level = logging.WARNING if args.progress else logging.DEBUG
+    logger = configure_logger("ecommiq", log_level)
+    
+    if not args.progress:
+        logger.debug("Starting EcommiQ Scanner")
+        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}")
+    else:
+        print(f"EcommiQ Scanner - Mode: {args.mode}, Hours threshold: {args.hours}")
+    
+    # Initialize components
+    if not args.progress:
+        logger.debug("Initializing database connection")
+    db = Database()
+    
+    if not args.progress:
+        logger.debug("Initializing Oxylabs client")
+    oxylabs = OxylabsClient()
+    
+    if not args.progress:
+        logger.debug("Initializing scanners and updaters")
+    scanner = SearchScanner(db, oxylabs)
+    updater = PriceUpdater(db, oxylabs)
     
     # Execute requested operations
     if args.mode in ['scan', 'both']:
-        logger.info(f"Starting competitor product scan...")
+        if args.progress:
+            print("Starting competitor product scan...")
+        else:
+            logger.info("Starting competitor product scan...")
+            
         try:
-            scan_results = scanner.scan_all_competitors()
+            # Pass progress flag to scanner
+            scan_results = scanner.scan_all_competitors(show_progress=args.progress)
             
             # Display comprehensive scan summary
             print_scan_summary(scan_results, logger)
@@ -207,16 +222,24 @@ def main():
             logger.error(f"Critical error in scan mode: {str(e)}")
         
     if args.mode in ['update', 'both']:
-        logger.info(f"Starting price updates...")
+        if args.progress:
+            print("Starting price updates...")
+        else:
+            logger.info("Starting price updates...")
+            
         try:
-            update_results = updater.update_stale_products(args.hours)
+            # Pass progress flag to updater
+            update_results = updater.update_stale_products(hours_threshold=args.hours, show_progress=args.progress)
             
             # Display price update summary
             print_price_update_summary(update_results, logger)
         except Exception as e:
             logger.error(f"Critical error in update mode: {str(e)}")
     
-    logger.debug("EcommiQ Scanner completed successfully")
+    if not args.progress:
+        logger.debug("EcommiQ Scanner completed successfully")
+    else:
+        print("EcommiQ Scanner completed successfully")
 
 if __name__ == "__main__":
     main()

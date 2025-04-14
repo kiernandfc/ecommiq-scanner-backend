@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List, Dict, Any
 import logging
 import traceback
+from tqdm import tqdm
 
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
 from db.database import Database
@@ -46,16 +47,20 @@ class SearchScanner:
             for item in organic_results:
                 try:
                     # Check if this is from the competitor brand we're monitoring
-                    if competitor.competitor_brand.lower() not in item['merchant']['name'].lower():
-                        self.logger.debug(f"Skipping product from non-target merchant: {item['merchant']['name']}")
+                    brand_in_merchant = competitor.competitor_brand.lower() in item['merchant']['name'].lower()
+                    brand_in_title = competitor.competitor_brand.lower() in item['title'].lower()
+                    
+                    if not (brand_in_merchant or brand_in_title):
+                        self.logger.debug(f"Skipping product, brand not found in merchant or title: {item['merchant']['name']} - {item['title']}")
                         continue
                         
                     self.logger.debug(f"Processing product: {item['title']} from {item['merchant']['name']}")
+                    self.logger.debug(f"Match type: {'Merchant' if brand_in_merchant else ''}{' & ' if brand_in_merchant and brand_in_title else ''}{'Title' if brand_in_title else ''}")
                     
                     # Create catalog entry
                     product = CatalogProduct(
                         competitor_brand_id=competitor.id,
-                        brand=item['merchant']['name'],
+                        primary_merchant=item['merchant']['name'],
                         name=item['title'],
                         url=item['url'],
                         canonical_url=item['merchant'].get('url'),
@@ -76,6 +81,7 @@ class SearchScanner:
                     # Add price history entry
                     price = PriceHistory(
                         catalog_id=product_id,
+                        merchant=item['merchant']['name'],
                         price=float(item['price']),
                         currency=item['currency'],
                         in_stock=True if item.get('delivery') else False
@@ -112,15 +118,19 @@ class SearchScanner:
             "errors": errors
         }
 
-    def scan_all_competitors(self) -> dict:
+    def scan_all_competitors(self, show_progress: bool = False) -> dict:
         """
         Scan all active competitors in the database
         
+        Args:
+            show_progress: If True, display a progress bar instead of detailed logs
+            
         Returns:
             Dictionary with scan results including products created/updated and timing info
         """
         start_time = utc_now()
-        self.logger.info("Starting scan of all active competitors")
+        if not show_progress:
+            self.logger.info("Starting scan of all active competitors")
         
         all_created = []
         all_updated = []
@@ -130,16 +140,32 @@ class SearchScanner:
         
         try:
             competitors = self.db.get_active_competitors()
-            self.logger.debug(f"Found {len(competitors)} active competitors to scan")
+            if not show_progress:
+                self.logger.debug(f"Found {len(competitors)} active competitors to scan")
+            else:
+                print(f"Found {len(competitors)} competitors to scan")
             
-            for competitor in competitors:
+            # Use tqdm for progress bar if requested
+            iterator = tqdm(competitors, desc="Scanning competitors", unit="competitor") if show_progress else competitors
+            
+            for competitor in iterator:
                 try:
-                    self.logger.debug(f"Processing competitor: {competitor.competitor_brand}")
+                    if not show_progress:
+                        self.logger.debug(f"Processing competitor: {competitor.competitor_brand}")
+                    else:
+                        # Update progress bar description
+                        if isinstance(iterator, tqdm):
+                            iterator.set_description(f"Scanning {competitor.competitor_brand}")
+                    
                     result = self.scan_for_competitor(competitor)
                     
                     all_created.extend(result["created"])
                     all_updated.extend(result["updated"])
                     all_errors.extend(result["errors"])
+                    
+                    # Update progress bar postfix with counts
+                    if show_progress and isinstance(iterator, tqdm):
+                        iterator.set_postfix(created=len(result["created"]), updated=len(result["updated"]))
                     
                     # Update error summary
                     if result["errors"]:
@@ -202,5 +228,9 @@ class SearchScanner:
             "duration_seconds": duration
         }
         
-        self.logger.info(f"Completed scan of all competitors. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
+        if not show_progress:
+            self.logger.info(f"Completed scan of all competitors. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
+        else:
+            print(f"Completed scan. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
+            
         return scan_result 
