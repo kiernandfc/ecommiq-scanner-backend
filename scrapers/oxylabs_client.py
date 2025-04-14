@@ -2,12 +2,17 @@ import os
 import requests
 from typing import Dict, Any
 from datetime import datetime
+import logging
+
+from utils.logger import configure_logger
 
 class OxylabsClient:
     def __init__(self):
         self.username = os.getenv('OXYLABS_USERNAME')
         self.password = os.getenv('OXYLABS_PASSWORD')
         self.base_url = 'https://realtime.oxylabs.io/v1/queries'
+        self.logger = configure_logger(f"{__name__}.OxylabsClient", logging.DEBUG)
+        self.logger.debug("OxylabsClient initialized")
 
     def search_google_shopping(self, query: str) -> Dict[str, Any]:
         """
@@ -19,12 +24,15 @@ class OxylabsClient:
         Returns:
             Dict containing the parsed results from Oxylabs
         """
+        self.logger.debug(f"Executing Google Shopping search for query: {query}")
+        
         payload = {
             'source': 'google_shopping_search',
             'query': query,
             'parse': True
         }
 
+        self.logger.debug(f"Sending request to Oxylabs API")
         response = requests.post(
             self.base_url,
             auth=(self.username, self.password),
@@ -32,8 +40,11 @@ class OxylabsClient:
         )
         
         if response.status_code != 200:
-            raise Exception(f"Oxylabs API error: {response.status_code} - {response.text}")
-            
+            error_msg = f"Oxylabs API error: {response.status_code} - {response.text}"
+            self.logger.error(error_msg)
+            raise Exception(error_msg)
+        
+        self.logger.debug(f"Received successful response from Oxylabs API")    
         return response.json()
 
     def get_product_details(self, url: str) -> Dict[str, Any]:
@@ -46,12 +57,15 @@ class OxylabsClient:
         Returns:
             Dict containing the parsed product details
         """
+        self.logger.debug(f"Getting product details for URL: {url}")
+        
         payload = {
             'source': 'google_shopping_product',
             'url': url,
             'parse': True
         }
 
+        self.logger.debug(f"Sending request to Oxylabs API")
         response = requests.post(
             self.base_url,
             auth=(self.username, self.password),
@@ -59,6 +73,9 @@ class OxylabsClient:
         )
         
         if response.status_code != 200:
-            raise Exception(f"Oxylabs API error: {response.status_code} - {response.text}")
+            error_msg = f"Oxylabs API error: {response.status_code} - {response.text}"
+            self.logger.error(error_msg)
+            raise Exception(error_msg)
             
+        self.logger.debug(f"Received successful response from Oxylabs API")
         return response.json() 
