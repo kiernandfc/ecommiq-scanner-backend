@@ -39,14 +39,28 @@ class Database:
         data['created_at'] = data['created_at'].isoformat()
         data['updated_at'] = data['updated_at'].isoformat()
         doc_id = self.competitors.insert(data)
+        competitor.id = doc_id  # Set the ID on the competitor object
         return doc_id
 
     def get_all_competitors(self) -> List[CompetitorBrand]:
-        return [CompetitorBrand(**doc) for doc in self.competitors.all()]
+        docs = self.competitors.all()
+        competitors = []
+        for doc in docs:
+            doc_id = doc.doc_id
+            competitor = CompetitorBrand(**doc)
+            competitor.id = doc_id  # Explicitly set the ID
+            competitors.append(competitor)
+        return competitors
     
     def get_active_competitors(self) -> List[CompetitorBrand]:
         docs = self.competitors.search(self.Query.active == True)
-        return [CompetitorBrand(**doc) for doc in docs]
+        competitors = []
+        for doc in docs:
+            doc_id = doc.doc_id
+            competitor = CompetitorBrand(**doc)
+            competitor.id = doc_id  # Explicitly set the ID
+            competitors.append(competitor)
+        return competitors
 
     def add_or_update_catalog_product(self, product: CatalogProduct) -> int:
         data = product.dict()

@@ -34,7 +34,7 @@ def init_db(clear_existing=True):
             
             db.add_reference(competitor)
             count += 1
-            print(f"Added competitor tracking: {competitor.reference_brand} {competitor.reference_product} -> {competitor.competitor_brand}")
+            print(f"Added competitor tracking (ID: {competitor.id}): {competitor.reference_brand} {competitor.reference_product} -> {competitor.competitor_brand}")
         
         print(f"\nSuccessfully added {count} competitor brands to monitor")
 
