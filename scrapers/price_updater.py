@@ -5,13 +5,13 @@ import traceback
 from tqdm import tqdm
 
 from db.models import CatalogProduct, PriceHistory
-from db.database import Database
+from db.dynamodb import DynamoDBDatabase
 from utils.helpers import utc_now
 from utils.logger import configure_logger
 from .oxylabs_client import OxylabsClient
 
 class PriceUpdater:
-    def __init__(self, db: Database, oxylabs: OxylabsClient):
+    def __init__(self, db: DynamoDBDatabase, oxylabs: OxylabsClient):
         self.db = db
         self.oxylabs = oxylabs
         self.logger = configure_logger(f"{__name__}.PriceUpdater", logging.DEBUG)

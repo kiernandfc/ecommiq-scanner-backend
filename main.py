@@ -6,7 +6,7 @@ import logging
 from tabulate import tabulate
 from tqdm import tqdm
 
-from db.database import Database
+from db.dynamodb import DynamoDBDatabase
 from db.models import CompetitorBrand
 from scrapers.oxylabs_client import OxylabsClient
 from scrapers.search_scanner import SearchScanner
@@ -179,6 +179,11 @@ def main():
                       help='Hours threshold for considering prices as stale')
     parser.add_argument('--progress', action='store_true',
                       help='Show progress bar instead of detailed logs')
+    # Add new arguments for DynamoDB
+    parser.add_argument('--region', type=str, default=None,
+                      help='AWS region for DynamoDB (defaults to AWS_REGION env var or us-east-1)')
+    parser.add_argument('--endpoint-url', type=str, default=None,
+                      help='DynamoDB endpoint URL (for local testing)')
     args = parser.parse_args()
     
     # Configure logging based on progress option
@@ -193,8 +198,9 @@ def main():
     
     # Initialize components
     if not args.progress:
-        logger.debug("Initializing database connection")
-    db = Database()
+        logger.debug("Initializing DynamoDB connection")
+    # Use DynamoDBDatabase instead of Database
+    db = DynamoDBDatabase(region_name=args.region, endpoint_url=args.endpoint_url)
     
     if not args.progress:
         logger.debug("Initializing Oxylabs client")

@@ -1,12 +1,12 @@
 import csv
 import argparse
 from pathlib import Path
-from db.database import Database
+from db.dynamodb import DynamoDBDatabase
 from db.models import CompetitorBrand
 
 def init_db(clear_existing=True):
     """Initialize the database with competitor brands from CSV file"""
-    db = Database()
+    db = DynamoDBDatabase()
     
     # Path to the CSV file
     csv_path = 'competitor_map.csv'

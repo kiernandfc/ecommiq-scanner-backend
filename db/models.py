@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from utils.helpers import utc_now
 
 class CompetitorBrand(BaseModel):
-    id: Optional[int] = None
+    id: Optional[str] = None
     reference_brand: str
     reference_product: str
     competitor_brand: str
@@ -14,8 +14,8 @@ class CompetitorBrand(BaseModel):
     updated_at: datetime = utc_now()
 
 class CatalogProduct(BaseModel):
-    id: Optional[int] = None
-    competitor_brand_id: int
+    id: Optional[str] = None
+    competitor_brand_id: str
     primary_merchant: str
     name: str
     url: str
@@ -26,8 +26,8 @@ class CatalogProduct(BaseModel):
     updated_at: datetime = utc_now()
 
 class PriceHistory(BaseModel):
-    id: Optional[int] = None
-    catalog_id: int
+    id: Optional[str] = None
+    catalog_id: str
     merchant: str
     price: float
     currency: str = "USD"
