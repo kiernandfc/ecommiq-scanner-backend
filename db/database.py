@@ -35,7 +35,7 @@ class Database:
             print(f"Tables {', '.join(tables)} cleared")
 
     def add_reference(self, competitor: CompetitorBrand) -> int:
-        data = competitor.dict()
+        data = competitor.model_dump()
         data['created_at'] = data['created_at'].isoformat()
         data['updated_at'] = data['updated_at'].isoformat()
         doc_id = self.competitors.insert(data)
@@ -63,7 +63,7 @@ class Database:
         return competitors
 
     def add_or_update_catalog_product(self, product: CatalogProduct) -> int:
-        data = product.dict()
+        data = product.model_dump()
         data['last_checked'] = data['last_checked'].isoformat()
         data['created_at'] = data['created_at'].isoformat()
         data['updated_at'] = data['updated_at'].isoformat()
@@ -89,7 +89,7 @@ class Database:
         return [CatalogProduct(**doc) for doc in docs]
 
     def add_price(self, price: PriceHistory) -> int:
-        data = price.dict()
+        data = price.model_dump()
         data['timestamp'] = data['timestamp'].isoformat()
         return self.prices.insert(data)
 
