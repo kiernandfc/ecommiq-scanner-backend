@@ -3,7 +3,7 @@ import argparse
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from db.dynamodb import DynamoDBDatabase
+from db.factory import get_database
 from db.models import CompetitorBrand
 
 def init_db(clear_existing=True):
@@ -11,7 +11,8 @@ def init_db(clear_existing=True):
     # Load environment variables from .env file
     load_dotenv()
     
-    db = DynamoDBDatabase()
+    # Get the configured database
+    db = get_database()
     
     # Path to the CSV file
     csv_path = 'competitor_map.csv'

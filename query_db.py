@@ -2,7 +2,8 @@ import json
 import csv
 import os
 from datetime import datetime
-from db.dynamodb import DynamoDBDatabase
+from dotenv import load_dotenv
+from db.factory import get_database
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
 
 def save_to_csv(data, filename):
@@ -22,10 +23,13 @@ def save_to_csv(data, filename):
     print(f"Data saved to {filepath}")
 
 def main():
-    # Initialize database connection
-    db = DynamoDBDatabase()
+    # Load environment variables
+    load_dotenv()
     
-    # Get data directly from DynamoDB
+    # Initialize database connection
+    db = get_database()
+    
+    # Get data from database
     competitors = db.get_all_competitors()
     
     # Get all catalog products
