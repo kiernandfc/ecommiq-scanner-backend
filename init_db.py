@@ -1,11 +1,16 @@
 import csv
 import argparse
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 from db.dynamodb import DynamoDBDatabase
 from db.models import CompetitorBrand
 
 def init_db(clear_existing=True):
     """Initialize the database with competitor brands from CSV file"""
+    # Load environment variables from .env file
+    load_dotenv()
+    
     db = DynamoDBDatabase()
     
     # Path to the CSV file

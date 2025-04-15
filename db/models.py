@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 from utils.helpers import utc_now
+from decimal import Decimal
 
 class CompetitorBrand(BaseModel):
     id: Optional[str] = None
@@ -29,12 +30,13 @@ class PriceHistory(BaseModel):
     id: Optional[str] = None
     catalog_id: str
     merchant: str
-    price: float
+    price: Decimal
     currency: str = "USD"
     in_stock: bool
     timestamp: datetime = utc_now()
 
     class Config:
         json_encoders = {
-            datetime: lambda v: v.isoformat()
+            datetime: lambda v: v.isoformat(),
+            Decimal: lambda v: str(v)
         } 

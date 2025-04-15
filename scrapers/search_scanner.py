@@ -3,6 +3,7 @@ from typing import List, Dict, Any
 import logging
 import traceback
 from tqdm import tqdm
+from decimal import Decimal
 
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
 from db.dynamodb import DynamoDBDatabase
@@ -82,7 +83,7 @@ class SearchScanner:
                     price = PriceHistory(
                         catalog_id=product_id,
                         merchant=item['merchant']['name'],
-                        price=float(item['price']),
+                        price=Decimal(str(item['price'])),
                         currency=item['currency'],
                         in_stock=True if item.get('delivery') else False
                     )

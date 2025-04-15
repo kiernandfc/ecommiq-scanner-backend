@@ -3,6 +3,7 @@ from typing import List, Dict, Any
 import logging
 import traceback
 from tqdm import tqdm
+from decimal import Decimal
 
 from db.models import CatalogProduct, PriceHistory
 from db.dynamodb import DynamoDBDatabase
@@ -41,7 +42,7 @@ class PriceUpdater:
         price = PriceHistory(
             catalog_id=product.id,
             merchant=item.get('merchant', {}).get('name', product.primary_merchant),
-            price=float(item['price']),
+            price=Decimal(str(item['price'])),
             currency=item['currency'],
             in_stock=True if item.get('availability') == 'in_stock' else False
         )
