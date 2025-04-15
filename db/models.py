@@ -17,7 +17,7 @@ class CompetitorBrand(BaseModel):
 class CatalogProduct(BaseModel):
     id: Optional[str] = None
     competitor_brand_id: str
-    primary_merchant: str
+    primary_merchant: Optional[str] = None
     name: str
     url: str
     canonical_url: Optional[str] = None
