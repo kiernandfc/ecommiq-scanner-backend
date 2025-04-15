@@ -74,17 +74,13 @@ def migrate_data():
         catalog_count = 0
         
         for original_competitor_id, new_competitor_id in id_mapping.items():
-            # Get catalog products for this competitor using original ID
-            catalog_products = source_db.get_catalog_by_reference(original_competitor_id)
+            # Get all catalog products for this competitor
+            logger.info(f"Found {len(source_db.get_catalog_by_competitor(original_competitor_id))} products for competitor ID {original_competitor_id}")
             
-            logger.info(f"Found {len(catalog_products)} products for competitor ID {original_competitor_id}")
-            
-            for product in catalog_products:
-                # Update the product to reference the new competitor ID
-                product.competitor_brand_id = new_competitor_id
+            for product in source_db.get_catalog_by_competitor(original_competitor_id):
+                # Migrate the catalog product and pass in the competitor ID to create the mapping
+                target_db.add_or_update_catalog_product(product, [new_competitor_id])
                 
-                # Add to PostgreSQL
-                product_id = target_db.add_or_update_catalog_product(product)
                 catalog_count += 1
                 
                 # Migrate price history for this product
@@ -93,7 +89,7 @@ def migrate_data():
                 
                 for price in prices:
                     # Make sure price references the correct catalog product ID
-                    price.catalog_id = product_id
+                    price.catalog_id = product.id
                     target_db.add_price(price)
                     price_count += 1
                 

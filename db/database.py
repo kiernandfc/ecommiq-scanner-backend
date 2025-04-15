@@ -15,6 +15,7 @@ class Database:
         self.competitors = self.db.table('competitors')
         self.catalog = self.db.table('catalog')
         self.prices = self.db.table('prices')
+        self.mapping = self.db.table('mapping')
         self.Query = Query()
 
     def clear_tables(self, tables=None):
@@ -23,6 +24,7 @@ class Database:
             self.competitors.truncate()
             self.catalog.truncate()
             self.prices.truncate()
+            self.mapping.truncate()
             print("All tables cleared")
         else:
             for table_name in tables:
@@ -32,6 +34,8 @@ class Database:
                     self.catalog.truncate()
                 elif table_name == 'prices':
                     self.prices.truncate()
+                elif table_name == 'mapping':
+                    self.mapping.truncate()
             print(f"Tables {', '.join(tables)} cleared")
 
     def add_reference(self, competitor: CompetitorBrand) -> int:
@@ -62,23 +66,96 @@ class Database:
             competitors.append(competitor)
         return competitors
 
-    def add_or_update_catalog_product(self, product: CatalogProduct) -> int:
+    def add_or_update_catalog_product(self, product: CatalogProduct, competitor_ids: List[str] = None) -> int:
         data = product.model_dump()
         data['last_checked'] = data['last_checked'].isoformat()
         data['created_at'] = data['created_at'].isoformat()
         data['updated_at'] = data['updated_at'].isoformat()
 
-        # Check if product already exists
-        existing = self.catalog.get(
-            (self.Query.google_shopping_id == product.google_shopping_id) &
-            (self.Query.competitor_brand_id == product.competitor_brand_id)
-        )
+        # Check if product already exists by google_shopping_id
+        existing = self.catalog.get(self.Query.google_shopping_id == product.google_shopping_id)
         
         if existing:
             self.catalog.update(data, doc_ids=[existing.doc_id])
-            return existing.doc_id
+            product_id = existing.doc_id
             
-        return self.catalog.insert(data)
+            # Update mappings if competitor_ids provided
+            if competitor_ids:
+                self._update_competitor_mappings(product_id, competitor_ids)
+                
+            return product_id
+        
+        # Insert new product
+        product_id = self.catalog.insert(data)
+        
+        # Create mappings if competitor_ids provided
+        if competitor_ids:
+            self._update_competitor_mappings(product_id, competitor_ids)
+            
+        return product_id
+        
+    def _update_competitor_mappings(self, catalog_id: int, competitor_ids: List[int]):
+        """Update the mappings between a catalog product and competitors"""
+        # Get existing mappings
+        existing_mappings = self.mapping.search(self.Query.catalog_id == catalog_id)
+        
+        # Create a set of existing competitor IDs
+        existing_competitor_ids = {mapping['competitor_id'] for mapping in existing_mappings}
+        
+        # Add new mappings
+        for competitor_id in competitor_ids:
+            if competitor_id not in existing_competitor_ids:
+                self.mapping.insert({
+                    'competitor_id': competitor_id,
+                    'catalog_id': catalog_id,
+                    'created_at': utc_now().isoformat()
+                })
+    
+    def add_competitor_to_catalog(self, competitor_id: int, catalog_id: int) -> int:
+        """Add a competitor to a catalog product"""
+        mapping_id = self.mapping.insert({
+            'competitor_id': competitor_id,
+            'catalog_id': catalog_id,
+            'created_at': utc_now().isoformat()
+        })
+        return mapping_id
+    
+    def add_or_update_catalog_product_with_status(self, product: CatalogProduct, competitor_ids: List[str] = None) -> tuple[int, bool]:
+        """
+        Add or update a catalog product and return status about whether it was newly created
+        
+        Args:
+            product: The CatalogProduct to add or update
+            competitor_ids: Optional list of competitor IDs to map to this product
+            
+        Returns:
+            Tuple of (product_id, is_new) where is_new is True if the product was newly created
+        """
+        data = product.model_dump()
+        data['last_checked'] = data['last_checked'].isoformat()
+        data['created_at'] = data['created_at'].isoformat()
+        data['updated_at'] = data['updated_at'].isoformat()
+
+        # Check if product already exists by google_shopping_id
+        existing = self.catalog.get(self.Query.google_shopping_id == product.google_shopping_id)
+        
+        if existing:
+            self.catalog.update(data, doc_ids=[existing.doc_id])
+            
+            # Update mappings if competitor_ids provided
+            if competitor_ids:
+                self._update_competitor_mappings(existing.doc_id, competitor_ids)
+                
+            return existing.doc_id, False
+        
+        # Insert new product
+        new_id = self.catalog.insert(data)
+        
+        # Create mappings if competitor_ids provided
+        if competitor_ids:
+            self._update_competitor_mappings(new_id, competitor_ids)
+            
+        return new_id, True
 
     def get_catalog_product(self, product_id: int) -> Optional[CatalogProduct]:
         doc = self.catalog.get(doc_id=product_id)
@@ -115,30 +192,38 @@ class Database:
         latest = sorted(prices, key=lambda x: x['timestamp'], reverse=True)[0]
         return PriceHistory(**latest)
 
-    def add_or_update_catalog_product_with_status(self, product: CatalogProduct) -> tuple[int, bool]:
-        """
-        Add or update a catalog product and return status about whether it was newly created
+    def get_catalog_by_competitor(self, competitor_id: int) -> List[CatalogProduct]:
+        """Get catalog products associated with a competitor"""
+        # Find all mappings for this competitor
+        mappings = self.mapping.search(self.Query.competitor_id == competitor_id)
         
-        Args:
-            product: The CatalogProduct to add or update
-            
-        Returns:
-            Tuple of (product_id, is_new) where is_new is True if the product was newly created
-        """
-        data = product.model_dump()
-        data['last_checked'] = data['last_checked'].isoformat()
-        data['created_at'] = data['created_at'].isoformat()
-        data['updated_at'] = data['updated_at'].isoformat()
-
-        # Check if product already exists
-        existing = self.catalog.get(
-            (self.Query.google_shopping_id == product.google_shopping_id) &
-            (self.Query.competitor_brand_id == product.competitor_brand_id)
-        )
+        # Get all catalog IDs
+        catalog_ids = [mapping['catalog_id'] for mapping in mappings]
         
-        if existing:
-            self.catalog.update(data, doc_ids=[existing.doc_id])
-            return existing.doc_id, False
-            
-        new_id = self.catalog.insert(data)
-        return new_id, True 
+        # Get all catalog products
+        products = []
+        for catalog_id in catalog_ids:
+            doc = self.catalog.get(doc_id=catalog_id)
+            if doc:
+                products.append(CatalogProduct(**doc))
+                
+        return products
+    
+    def get_competitors_by_catalog(self, catalog_id: int) -> List[CompetitorBrand]:
+        """Get competitors associated with a catalog product"""
+        # Find all mappings for this catalog product
+        mappings = self.mapping.search(self.Query.catalog_id == catalog_id)
+        
+        # Get all competitor IDs
+        competitor_ids = [mapping['competitor_id'] for mapping in mappings]
+        
+        # Get all competitors
+        competitors = []
+        for competitor_id in competitor_ids:
+            doc = self.competitors.get(doc_id=competitor_id)
+            if doc:
+                competitor = CompetitorBrand(**doc)
+                competitor.id = competitor_id
+                competitors.append(competitor)
+                
+        return competitors 

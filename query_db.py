@@ -34,9 +34,17 @@ def main():
     
     # Get all catalog products
     catalog_products = []
-    for competitor in competitors:
-        products = db.get_catalog_by_reference(competitor.id)
-        catalog_products.extend(products)
+    for i, competitor in enumerate(competitors):
+        print(f"{i+1}. {competitor.reference_brand} {competitor.reference_product} -> {competitor.competitor_brand}")
+
+    choice = int(input("\nSelect a competitor to view products: "))
+    competitor = competitors[choice - 1]
+    
+    print(f"\nProducts for {competitor.competitor_brand}:\n")
+    
+    # Get products for this competitor
+    products = db.get_catalog_by_competitor(competitor.id)
+    catalog_products.extend(products)
     
     # Count prices
     price_count = 0

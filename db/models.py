@@ -14,9 +14,14 @@ class CompetitorBrand(BaseModel):
     created_at: datetime = utc_now()
     updated_at: datetime = utc_now()
 
+class CompetitorCatalogMap(BaseModel):
+    id: Optional[str] = None
+    competitor_id: str
+    catalog_id: str
+    created_at: datetime = utc_now()
+
 class CatalogProduct(BaseModel):
     id: Optional[str] = None
-    competitor_brand_id: str
     primary_merchant: Optional[str] = None
     name: str
     url: str

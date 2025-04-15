@@ -60,18 +60,17 @@ class SearchScanner:
                     
                     # Create catalog entry
                     product = CatalogProduct(
-                        competitor_brand_id=competitor.id,
-                        primary_merchant=item['merchant']['name'],
                         name=item['title'],
                         url=item['url'],
                         canonical_url=item['merchant'].get('url'),
                         google_shopping_id=item['product_id'],
+                        primary_merchant=item['merchant']['name'],
                         last_checked=utc_now()
                     )
                     
                     # Add/update in catalog
                     self.logger.debug(f"Adding/updating product in database: {product.name}")
-                    product_id, is_new = self.db.add_or_update_catalog_product_with_status(product)
+                    product_id, is_new = self.db.add_or_update_catalog_product_with_status(product, [competitor.id])
                     product.id = product_id
                     
                     if is_new:

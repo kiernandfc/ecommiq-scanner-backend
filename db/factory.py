@@ -10,7 +10,7 @@ def get_database():
     load_dotenv()
     
     # Get database type from environment
-    db_type = os.getenv('DATABASE_TYPE', 'dynamodb').lower()
+    db_type = os.getenv('DATABASE_TYPE', 'postgresql').lower()
     
     if db_type == 'postgresql':
         # Import here to avoid circular imports

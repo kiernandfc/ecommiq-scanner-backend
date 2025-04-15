@@ -29,6 +29,7 @@ class DynamoDBDatabase:
         self.competitors_table_name = os.getenv('DYNAMODB_COMPETITORS_TABLE', 'ecommiq_competitors')
         self.catalog_table_name = os.getenv('DYNAMODB_CATALOG_TABLE', 'ecommiq_catalog')
         self.prices_table_name = os.getenv('DYNAMODB_PRICES_TABLE', 'ecommiq_prices')
+        self.mapping_table_name = os.getenv('DYNAMODB_MAPPING_TABLE', 'ecommiq_competitor_catalog_map')
         
         # Create tables if they don't exist
         self._ensure_tables_exist()
@@ -76,21 +77,45 @@ class DynamoDBDatabase:
                 ],
                 AttributeDefinitions=[
                     {'AttributeName': 'id', 'AttributeType': 'S'},
-                    {'AttributeName': 'competitor_brand_id', 'AttributeType': 'S'},
                     {'AttributeName': 'google_shopping_id', 'AttributeType': 'S'},
                 ],
                 GlobalSecondaryIndexes=[
                     {
-                        'IndexName': 'competitor_brand_id-index',
+                        'IndexName': 'google_shopping_id-index',
                         'KeySchema': [
-                            {'AttributeName': 'competitor_brand_id', 'KeyType': 'HASH'},
+                            {'AttributeName': 'google_shopping_id', 'KeyType': 'HASH'},
+                        ],
+                        'Projection': {'ProjectionType': 'ALL'}
+                    }
+                ],
+                BillingMode='PAY_PER_REQUEST'
+            )
+
+        # Create mapping table if it doesn't exist
+        if self.mapping_table_name not in existing_tables:
+            self.logger.info(f"Creating mapping table: {self.mapping_table_name}")
+            self.client.create_table(
+                TableName=self.mapping_table_name,
+                KeySchema=[
+                    {'AttributeName': 'id', 'KeyType': 'HASH'},  # Partition key
+                ],
+                AttributeDefinitions=[
+                    {'AttributeName': 'id', 'AttributeType': 'S'},
+                    {'AttributeName': 'competitor_id', 'AttributeType': 'S'},
+                    {'AttributeName': 'catalog_id', 'AttributeType': 'S'},
+                ],
+                GlobalSecondaryIndexes=[
+                    {
+                        'IndexName': 'competitor_id-index',
+                        'KeySchema': [
+                            {'AttributeName': 'competitor_id', 'KeyType': 'HASH'},
                         ],
                         'Projection': {'ProjectionType': 'ALL'}
                     },
                     {
-                        'IndexName': 'google_shopping_id-index',
+                        'IndexName': 'catalog_id-index',
                         'KeySchema': [
-                            {'AttributeName': 'google_shopping_id', 'KeyType': 'HASH'},
+                            {'AttributeName': 'catalog_id', 'KeyType': 'HASH'},
                         ],
                         'Projection': {'ProjectionType': 'ALL'}
                     }
@@ -125,11 +150,13 @@ class DynamoDBDatabase:
         # Wait for tables to be created
         self.client.get_waiter('table_exists').wait(TableName=self.competitors_table_name)
         self.client.get_waiter('table_exists').wait(TableName=self.catalog_table_name)
+        self.client.get_waiter('table_exists').wait(TableName=self.mapping_table_name)
         self.client.get_waiter('table_exists').wait(TableName=self.prices_table_name)
         
         # Get table references
         self.competitors = self.dynamodb.Table(self.competitors_table_name)
         self.catalog = self.dynamodb.Table(self.catalog_table_name)
+        self.mapping = self.dynamodb.Table(self.mapping_table_name)
         self.prices = self.dynamodb.Table(self.prices_table_name)
         
         self.logger.debug("All DynamoDB tables verified")
@@ -142,7 +169,7 @@ class DynamoDBDatabase:
     def clear_tables(self, tables=None):
         """Clear specified tables or all tables if none specified"""
         if tables is None:
-            tables = ['competitors', 'catalog', 'prices']
+            tables = ['competitors', 'catalog', 'prices', 'mapping']
             
         for table_name in tables:
             if table_name == 'competitors':
@@ -151,6 +178,8 @@ class DynamoDBDatabase:
                 self._clear_table(self.catalog)
             elif table_name == 'prices':
                 self._clear_table(self.prices)
+            elif table_name == 'mapping':
+                self._clear_table(self.mapping)
         
         self.logger.info(f"Tables {', '.join(tables)} cleared")
     
@@ -228,7 +257,7 @@ class DynamoDBDatabase:
         
         return competitor.id
     
-    def add_or_update_catalog_product_with_status(self, product: CatalogProduct) -> tuple[str, bool]:
+    def add_or_update_catalog_product_with_status(self, product: CatalogProduct, competitor_ids: List[str] = None) -> tuple[str, bool]:
         """Add or update a catalog product and return status"""
         # Convert model to dictionary
         data = product.model_dump()
@@ -238,13 +267,9 @@ class DynamoDBDatabase:
         data['created_at'] = data['created_at'].isoformat()
         data['updated_at'] = data['updated_at'].isoformat()
         
-        # Convert competitor_brand_id to string (DynamoDB requirement)
-        data['competitor_brand_id'] = str(data['competitor_brand_id'])
-        
-        # Check if product already exists by google_shopping_id and competitor_brand_id
+        # Check if product already exists by google_shopping_id
         response = self.catalog.scan(
-            FilterExpression=Attr('google_shopping_id').eq(product.google_shopping_id) & 
-                           Attr('competitor_brand_id').eq(str(product.competitor_brand_id))
+            FilterExpression=Attr('google_shopping_id').eq(product.google_shopping_id)
         )
         
         existing_items = response.get('Items', [])
@@ -259,6 +284,11 @@ class DynamoDBDatabase:
             data['updated_at'] = utc_now().isoformat()
             
             self.catalog.put_item(Item=data)
+            
+            # If competitor_ids is provided, update mappings
+            if competitor_ids:
+                self._update_competitor_mappings(product_id, competitor_ids)
+                
             return product_id, False
         else:
             # New product, create it
@@ -266,11 +296,87 @@ class DynamoDBDatabase:
             data['id'] = product_id
             
             self.catalog.put_item(Item=data)
+            
+            # If competitor_ids is provided, create mappings
+            if competitor_ids:
+                self._update_competitor_mappings(product_id, competitor_ids)
+                
             return product_id, True
     
-    def add_or_update_catalog_product(self, product: CatalogProduct) -> str:
+    def _update_competitor_mappings(self, catalog_id: str, competitor_ids: List[str]):
+        """Update the mappings between a catalog product and competitors"""
+        # Get existing mappings for this catalog item
+        response = self.mapping.query(
+            IndexName='catalog_id-index',
+            KeyConditionExpression=Key('catalog_id').eq(catalog_id)
+        )
+        
+        # Create a set of existing competitor IDs in the mapping
+        existing_competitor_ids = {item['competitor_id'] for item in response.get('Items', [])}
+        
+        # Add new mappings
+        for competitor_id in competitor_ids:
+            if competitor_id not in existing_competitor_ids:
+                mapping_id = self._generate_id("map_")
+                self.mapping.put_item(Item={
+                    'id': mapping_id,
+                    'competitor_id': competitor_id,
+                    'catalog_id': catalog_id,
+                    'created_at': utc_now().isoformat()
+                })
+    
+    def add_competitor_to_catalog(self, competitor_id: str, catalog_id: str) -> str:
+        """Add a competitor to a catalog product"""
+        mapping_id = self._generate_id("map_")
+        self.mapping.put_item(Item={
+            'id': mapping_id,
+            'competitor_id': competitor_id,
+            'catalog_id': catalog_id,
+            'created_at': utc_now().isoformat()
+        })
+        return mapping_id
+    
+    def get_catalog_by_competitor(self, competitor_id: str) -> List[CatalogProduct]:
+        """Get catalog products by competitor ID"""
+        # Find all mappings for this competitor
+        mapping_response = self.mapping.query(
+            IndexName='competitor_id-index',
+            KeyConditionExpression=Key('competitor_id').eq(competitor_id)
+        )
+        
+        catalog_ids = [item['catalog_id'] for item in mapping_response.get('Items', [])]
+        
+        products = []
+        for catalog_id in catalog_ids:
+            response = self.catalog.get_item(Key={'id': catalog_id})
+            item = response.get('Item')
+            if item:
+                products.append(CatalogProduct(**item))
+                
+        return products
+    
+    def get_competitors_by_catalog(self, catalog_id: str) -> List[CompetitorBrand]:
+        """Get competitors for a catalog product"""
+        # Find all mappings for this catalog product
+        mapping_response = self.mapping.query(
+            IndexName='catalog_id-index',
+            KeyConditionExpression=Key('catalog_id').eq(catalog_id)
+        )
+        
+        competitor_ids = [item['competitor_id'] for item in mapping_response.get('Items', [])]
+        
+        competitors = []
+        for competitor_id in competitor_ids:
+            response = self.competitors.get_item(Key={'id': competitor_id})
+            item = response.get('Item')
+            if item:
+                competitors.append(CompetitorBrand(**item))
+                
+        return competitors
+    
+    def add_or_update_catalog_product(self, product: CatalogProduct, competitor_ids: List[str] = None) -> str:
         """Add or update a catalog product"""
-        product_id, _ = self.add_or_update_catalog_product_with_status(product)
+        product_id, _ = self.add_or_update_catalog_product_with_status(product, competitor_ids)
         return product_id
     
     def get_catalog_product(self, product_id: str) -> Optional[CatalogProduct]:
@@ -283,16 +389,8 @@ class DynamoDBDatabase:
         return None
     
     def get_catalog_by_reference(self, reference_id: str) -> List[CatalogProduct]:
-        """Get catalog products by reference ID"""
-        response = self.catalog.scan(
-            FilterExpression=Attr('competitor_brand_id').eq(str(reference_id))
-        )
-        
-        products = []
-        for item in response.get('Items', []):
-            products.append(CatalogProduct(**item))
-            
-        return products
+        """Get catalog products by reference ID (legacy compatibility)"""
+        return self.get_catalog_by_competitor(reference_id)
     
     def add_price(self, price: PriceHistory) -> str:
         """Add a price history record"""

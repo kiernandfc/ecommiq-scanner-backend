@@ -28,13 +28,20 @@ class CompetitorBrandDB(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    catalog_products = relationship("CatalogProductDB", back_populates="competitor_brand")
+    catalog_products = relationship("CatalogProductDB", secondary="competitor_catalog_map", back_populates="competitors")
 
+class CompetitorCatalogMapDB(Base):
+    __tablename__ = 'competitor_catalog_map'
+    
+    id = Column(String, primary_key=True)
+    competitor_id = Column(String, ForeignKey('competitors.id'), nullable=False)
+    catalog_id = Column(String, ForeignKey('catalog.id'), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
 class CatalogProductDB(Base):
     __tablename__ = 'catalog'
     
     id = Column(String, primary_key=True)
-    competitor_brand_id = Column(String, ForeignKey('competitors.id'), nullable=False)
     google_shopping_id = Column(String, index=True)
     title = Column(String)
     link = Column(String)
@@ -47,7 +54,7 @@ class CatalogProductDB(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     description = Column(Text)
     
-    competitor_brand = relationship("CompetitorBrandDB", back_populates="catalog_products")
+    competitors = relationship("CompetitorBrandDB", secondary="competitor_catalog_map", back_populates="catalog_products")
     price_history = relationship("PriceHistoryDB", back_populates="catalog_product")
 
 class PriceHistoryDB(Base):
@@ -391,18 +398,21 @@ class PostgreSQLDatabase:
             self.logger.error(f"Failed to configure serverless capacity: {e}")
             return False
 
-    def add_or_update_catalog_product_with_status(self, product: CatalogProduct) -> tuple[str, bool]:
-        """Add or update a catalog product and return status"""
+    def add_or_update_catalog_product_with_status(self, product: CatalogProduct, competitor_ids: List[str] = None) -> tuple[str, bool]:
+        """Add or update a catalog product and return status (id, is_new)"""
         session = self.Session()
         try:
-            # Check if product already exists by google_shopping_id and competitor_brand_id
-            existing = session.query(CatalogProductDB).filter(
-                CatalogProductDB.google_shopping_id == product.google_shopping_id,
-                CatalogProductDB.competitor_brand_id == product.competitor_brand_id
-            ).first()
-            
+            # Check if the product already exists
+            if product.google_shopping_id:
+                existing = session.query(CatalogProductDB).filter(
+                    CatalogProductDB.google_shopping_id == product.google_shopping_id
+                ).first()
+            else:
+                existing = None
+                
             if existing:
                 # Update existing product
+                existing.google_shopping_id = product.google_shopping_id
                 existing.title = product.title if hasattr(product, 'title') else product.name
                 existing.link = product.link if hasattr(product, 'link') else product.url
                 existing.image_link = product.image_link if hasattr(product, 'image_link') else None
@@ -410,10 +420,18 @@ class PostgreSQLDatabase:
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
                 existing.last_checked = product.last_checked
-                existing.updated_at = utc_now()
+                existing.updated_at = product.updated_at
                 existing.description = product.description if hasattr(product, 'description') else None
                 
                 session.commit()
+                
+                # Update the model with the ID
+                product.id = existing.id
+                
+                # If competitor_ids is provided, update competitor mappings
+                if competitor_ids:
+                    self._update_competitor_mappings(session, existing.id, competitor_ids)
+                
                 return existing.id, False
             else:
                 # Create new product
@@ -430,7 +448,6 @@ class PostgreSQLDatabase:
                 
                 catalog_db = CatalogProductDB(
                     id=product_id,
-                    competitor_brand_id=product.competitor_brand_id,
                     google_shopping_id=product.google_shopping_id,
                     title=product.title if hasattr(product, 'title') else product.name,
                     link=product.link if hasattr(product, 'link') else product.url,
@@ -449,6 +466,11 @@ class PostgreSQLDatabase:
                 
                 # Update the model with the ID
                 product.id = product_id
+                
+                # If competitor_ids is provided, create mappings
+                if competitor_ids:
+                    self._update_competitor_mappings(session, product_id, competitor_ids)
+                
                 return product_id, True
         except Exception as e:
             session.rollback()
@@ -457,9 +479,109 @@ class PostgreSQLDatabase:
         finally:
             session.close()
     
-    def add_or_update_catalog_product(self, product: CatalogProduct) -> str:
+    def _update_competitor_mappings(self, session, catalog_id: str, competitor_ids: List[str]):
+        """Update the mappings between a catalog product and competitors"""
+        # Get existing mappings
+        existing_mappings = session.query(CompetitorCatalogMapDB).filter(
+            CompetitorCatalogMapDB.catalog_id == catalog_id
+        ).all()
+        
+        # Create a set of existing competitor IDs
+        existing_competitor_ids = {mapping.competitor_id for mapping in existing_mappings}
+        
+        # Add new mappings
+        for competitor_id in competitor_ids:
+            if competitor_id not in existing_competitor_ids:
+                mapping_id = self._generate_id("map_")
+                mapping = CompetitorCatalogMapDB(
+                    id=mapping_id,
+                    competitor_id=competitor_id,
+                    catalog_id=catalog_id
+                )
+                session.add(mapping)
+        
+        session.commit()
+    
+    def add_competitor_to_catalog(self, competitor_id: str, catalog_id: str) -> str:
+        """Add a competitor to a catalog product"""
+        session = self.Session()
+        try:
+            mapping_id = self._generate_id("map_")
+            mapping = CompetitorCatalogMapDB(
+                id=mapping_id,
+                competitor_id=competitor_id,
+                catalog_id=catalog_id
+            )
+            session.add(mapping)
+            session.commit()
+            return mapping_id
+        except Exception as e:
+            session.rollback()
+            self.logger.error(f"Error adding competitor to catalog: {e}")
+            raise
+        finally:
+            session.close()
+    
+    def get_catalog_by_competitor(self, competitor_id: str) -> List[CatalogProduct]:
+        """Get catalog products by competitor ID"""
+        session = self.Session()
+        try:
+            product_dbs = session.query(CatalogProductDB).join(
+                CompetitorCatalogMapDB,
+                CatalogProductDB.id == CompetitorCatalogMapDB.catalog_id
+            ).filter(
+                CompetitorCatalogMapDB.competitor_id == competitor_id
+            ).all()
+            
+            products = []
+            for product_db in product_dbs:
+                catalog_product = CatalogProduct(
+                    id=product_db.id,
+                    google_shopping_id=product_db.google_shopping_id,
+                    name=product_db.title,
+                    url=product_db.link,
+                    last_checked=product_db.last_checked,
+                    created_at=product_db.created_at,
+                    updated_at=product_db.updated_at
+                )
+                products.append(catalog_product)
+                
+            return products
+        finally:
+            session.close()
+    
+    def get_competitors_by_catalog(self, catalog_id: str) -> List[CompetitorBrand]:
+        """Get competitors for a catalog product"""
+        session = self.Session()
+        try:
+            competitor_dbs = session.query(CompetitorBrandDB).join(
+                CompetitorCatalogMapDB,
+                CompetitorBrandDB.id == CompetitorCatalogMapDB.competitor_id
+            ).filter(
+                CompetitorCatalogMapDB.catalog_id == catalog_id
+            ).all()
+            
+            competitors = []
+            for competitor_db in competitor_dbs:
+                competitor = CompetitorBrand(
+                    id=competitor_db.id,
+                    reference_brand=competitor_db.reference_brand,
+                    reference_product=competitor_db.reference_product,
+                    competitor_brand=competitor_db.competitor_brand,
+                    search_query=competitor_db.search_query,
+                    active=competitor_db.active,
+                    created_at=competitor_db.created_at,
+                    updated_at=competitor_db.updated_at
+                )
+                competitors.append(competitor)
+                
+            return competitors
+        finally:
+            session.close()
+    
+    def add_or_update_catalog_product(self, product: CatalogProduct, competitor_ids: List[str] = None) -> str:
         """Add or update a catalog product"""
-        product_id, _ = self.add_or_update_catalog_product_with_status(product)
+        product_id, _ = self.add_or_update_catalog_product_with_status(product, competitor_ids)
         return product_id
     
     def get_catalog_product(self, product_id: str) -> Optional[CatalogProduct]:
@@ -474,7 +596,6 @@ class PostgreSQLDatabase:
             # Convert database object to model
             catalog_product = CatalogProduct(
                 id=product_db.id,
-                competitor_brand_id=product_db.competitor_brand_id,
                 google_shopping_id=product_db.google_shopping_id,
                 name=product_db.title,
                 url=product_db.link,
@@ -488,30 +609,8 @@ class PostgreSQLDatabase:
             session.close()
     
     def get_catalog_by_reference(self, reference_id: str) -> List[CatalogProduct]:
-        """Get catalog products by reference ID"""
-        session = self.Session()
-        try:
-            product_dbs = session.query(CatalogProductDB).filter(
-                CatalogProductDB.competitor_brand_id == reference_id
-            ).all()
-            
-            products = []
-            for product_db in product_dbs:
-                catalog_product = CatalogProduct(
-                    id=product_db.id,
-                    competitor_brand_id=product_db.competitor_brand_id,
-                    google_shopping_id=product_db.google_shopping_id,
-                    name=product_db.title,
-                    url=product_db.link,
-                    last_checked=product_db.last_checked,
-                    created_at=product_db.created_at,
-                    updated_at=product_db.updated_at
-                )
-                products.append(catalog_product)
-                
-            return products
-        finally:
-            session.close()
+        """Get catalog products by reference ID (legacy compatibility)"""
+        return self.get_catalog_by_competitor(reference_id)
     
     def add_price(self, price: PriceHistory) -> str:
         """Add a price history record"""
@@ -594,7 +693,6 @@ class PostgreSQLDatabase:
             for product_db in product_dbs:
                 catalog_product = CatalogProduct(
                     id=product_db.id,
-                    competitor_brand_id=product_db.competitor_brand_id,
                     google_shopping_id=product_db.google_shopping_id,
                     name=product_db.title,
                     url=product_db.link,

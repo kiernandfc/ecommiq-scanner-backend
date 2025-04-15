@@ -55,7 +55,13 @@ class PriceUpdater:
         # Update last checked timestamp
         self.logger.debug(f"Updating last_checked timestamp for product {product.id}")
         product.last_checked = utc_now()
-        self.db.add_or_update_catalog_product(product)
+        
+        # Get all competitors for this product
+        competitors = self.db.get_competitors_by_catalog(product.id)
+        competitor_ids = [comp.id for comp in competitors]
+        
+        # Update the product with existing competitor mappings
+        self.db.add_or_update_catalog_product(product, competitor_ids)
         
         self.logger.info(f"Successfully updated price for product {product.id}: {price.price} {price.currency}")
         return price

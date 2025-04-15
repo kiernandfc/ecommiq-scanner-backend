@@ -6,7 +6,8 @@ import logging
 from tabulate import tabulate
 from tqdm import tqdm
 
-from db.dynamodb import DynamoDBDatabase
+# Replace direct DynamoDB import with factory import
+from db.factory import get_database
 from db.models import CompetitorBrand
 from scrapers.oxylabs_client import OxylabsClient
 from scrapers.search_scanner import SearchScanner
@@ -179,11 +180,13 @@ def main():
                       help='Hours threshold for considering prices as stale')
     parser.add_argument('--progress', action='store_true',
                       help='Show progress bar instead of detailed logs')
-    # Add new arguments for DynamoDB
+    # Update arguments for database configuration
     parser.add_argument('--region', type=str, default=None,
                       help='AWS region for DynamoDB (defaults to AWS_REGION env var or us-east-1)')
     parser.add_argument('--endpoint-url', type=str, default=None,
                       help='DynamoDB endpoint URL (for local testing)')
+    parser.add_argument('--db-type', type=str, choices=['dynamodb', 'postgresql'], default=None,
+                      help='Database type to use (overrides DATABASE_TYPE env var)')
     args = parser.parse_args()
     
     # Configure logging based on progress option
@@ -198,9 +201,16 @@ def main():
     
     # Initialize components
     if not args.progress:
-        logger.debug("Initializing DynamoDB connection")
-    # Use DynamoDBDatabase instead of Database
-    db = DynamoDBDatabase(region_name=args.region, endpoint_url=args.endpoint_url)
+        logger.debug("Initializing database connection")
+    
+    # Override DATABASE_TYPE env var if --db-type is specified
+    if args.db_type:
+        os.environ['DATABASE_TYPE'] = args.db_type
+        if not args.progress:
+            logger.info(f"Using database type: {args.db_type} (from command line)")
+    
+    # Use the factory to get the appropriate database instance
+    db = get_database()
     
     if not args.progress:
         logger.debug("Initializing Oxylabs client")

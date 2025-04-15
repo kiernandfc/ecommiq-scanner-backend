@@ -23,8 +23,33 @@ def init_db(clear_existing=True):
     
     # Clear existing competitor data if requested
     if clear_existing:
-        db.clear_tables(['competitors', 'catalog', 'prices'])
-        print("Cleared all tables")
+        # Clear tables in the correct order to avoid foreign key constraint errors
+        # First clear the mapping table if it exists (for many-to-many schema)
+        try:
+            db.clear_tables(['mapping'])
+            print("Cleared mapping table")
+        except Exception as e:
+            print(f"Warning: Could not clear mapping table: {e}")
+        
+        # Then clear prices and catalog tables before competitors
+        try:
+            db.clear_tables(['prices'])
+            print("Cleared prices table")
+        except Exception as e:
+            print(f"Warning: Could not clear prices table: {e}")
+            
+        try:
+            db.clear_tables(['catalog'])
+            print("Cleared catalog table")
+        except Exception as e:
+            print(f"Warning: Could not clear catalog table: {e}")
+            
+        # Finally clear competitors table
+        try:
+            db.clear_tables(['competitors'])
+            print("Cleared competitors table")
+        except Exception as e:
+            print(f"Warning: Could not clear competitors table: {e}")
     
     # Read competitor data from CSV
     with open(csv_path, 'r', encoding='utf-8') as csvfile:
