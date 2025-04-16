@@ -180,6 +180,9 @@ def main():
                       help='Hours threshold for considering prices as stale')
     parser.add_argument('--progress', action='store_true',
                       help='Show progress bar instead of detailed logs')
+    # Add threads parameter
+    parser.add_argument('--threads', type=int, default=5,
+                      help='Number of threads to use for parallel processing (default: 5)')
     # Update arguments for database configuration
     parser.add_argument('--region', type=str, default=None,
                       help='AWS region for DynamoDB (defaults to AWS_REGION env var or us-east-1)')
@@ -195,9 +198,9 @@ def main():
     
     if not args.progress:
         logger.debug("Starting EcommiQ Scanner")
-        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}")
+        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}, threads: {args.threads}")
     else:
-        print(f"EcommiQ Scanner - Mode: {args.mode}, Hours threshold: {args.hours}")
+        print(f"EcommiQ Scanner - Mode: {args.mode}, Hours threshold: {args.hours}, Threads: {args.threads}")
     
     # Initialize components
     if not args.progress:
@@ -229,8 +232,8 @@ def main():
             logger.info("Starting competitor product scan...")
             
         try:
-            # Pass progress flag to scanner
-            scan_results = scanner.scan_all_competitors(show_progress=args.progress)
+            # Pass progress flag and threads value to scanner
+            scan_results = scanner.scan_all_competitors(show_progress=args.progress, max_workers=args.threads)
             
             # Display comprehensive scan summary
             print_scan_summary(scan_results, logger)
@@ -244,8 +247,12 @@ def main():
             logger.info("Starting price updates...")
             
         try:
-            # Pass progress flag to updater
-            update_results = updater.update_stale_products(hours_threshold=args.hours, show_progress=args.progress)
+            # Pass progress flag and threads value to updater
+            update_results = updater.update_stale_products(
+                hours_threshold=args.hours, 
+                show_progress=args.progress,
+                max_workers=args.threads
+            )
             
             # Display price update summary
             print_price_update_summary(update_results, logger)

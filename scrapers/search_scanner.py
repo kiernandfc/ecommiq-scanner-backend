@@ -4,6 +4,8 @@ import logging
 import traceback
 from tqdm import tqdm
 from decimal import Decimal
+import concurrent.futures
+from functools import partial
 
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
 from db.dynamodb import DynamoDBDatabase
@@ -118,19 +120,20 @@ class SearchScanner:
             "errors": errors
         }
 
-    def scan_all_competitors(self, show_progress: bool = False) -> dict:
+    def scan_all_competitors(self, show_progress: bool = False, max_workers: int = 5) -> dict:
         """
         Scan all active competitors in the database
         
         Args:
             show_progress: If True, display a progress bar instead of detailed logs
+            max_workers: Maximum number of threads to use for parallel scanning
             
         Returns:
             Dictionary with scan results including products created/updated and timing info
         """
         start_time = utc_now()
         if not show_progress:
-            self.logger.info("Starting scan of all active competitors")
+            self.logger.info(f"Starting parallel scan of all active competitors with {max_workers} workers")
         
         all_created = []
         all_updated = []
@@ -143,64 +146,85 @@ class SearchScanner:
             if not show_progress:
                 self.logger.debug(f"Found {len(competitors)} active competitors to scan")
             else:
-                print(f"Found {len(competitors)} competitors to scan")
+                print(f"Found {len(competitors)} competitors to scan with {max_workers} threads")
             
-            # Use tqdm for progress bar if requested
-            iterator = tqdm(competitors, desc="Scanning competitors", unit="competitor") if show_progress else competitors
+            # Function to process competitor results and update progress
+            def process_result(result, pbar=None):
+                nonlocal all_created, all_updated, all_errors, results_by_competitor, error_summary
+                
+                competitor = result["competitor"]
+                
+                all_created.extend(result["created"])
+                all_updated.extend(result["updated"])
+                all_errors.extend(result["errors"])
+                
+                # Update progress bar if available
+                if pbar:
+                    pbar.update(1)
+                    pbar.set_postfix(created=len(result["created"]), updated=len(result["updated"]))
+                
+                # Update error summary
+                if result["errors"]:
+                    error_summary[competitor.competitor_brand] = len(result["errors"])
+                
+                reference_key = f"{competitor.reference_brand} - {competitor.reference_product}"
+                if reference_key not in results_by_competitor:
+                    results_by_competitor[reference_key] = {
+                        "created": 0,
+                        "updated": 0,
+                        "errors": 0,
+                        "competitors": []
+                    }
+                
+                results_by_competitor[reference_key]["created"] += len(result["created"])
+                results_by_competitor[reference_key]["updated"] += len(result["updated"])
+                results_by_competitor[reference_key]["errors"] += len(result["errors"])
+                results_by_competitor[reference_key]["competitors"].append({
+                    "name": competitor.competitor_brand,
+                    "created": len(result["created"]),
+                    "updated": len(result["updated"]),
+                    "errors": len(result["errors"])
+                })
+                
+                return result
             
-            for competitor in iterator:
-                try:
-                    if not show_progress:
-                        self.logger.debug(f"Processing competitor: {competitor.competitor_brand}")
-                    else:
-                        # Update progress bar description
-                        if isinstance(iterator, tqdm):
-                            iterator.set_description(f"Scanning {competitor.competitor_brand}")
-                    
-                    result = self.scan_for_competitor(competitor)
-                    
-                    all_created.extend(result["created"])
-                    all_updated.extend(result["updated"])
-                    all_errors.extend(result["errors"])
-                    
-                    # Update progress bar postfix with counts
-                    if show_progress and isinstance(iterator, tqdm):
-                        iterator.set_postfix(created=len(result["created"]), updated=len(result["updated"]))
-                    
-                    # Update error summary
-                    if result["errors"]:
-                        error_summary[competitor.competitor_brand] = len(result["errors"])
-                    
-                    reference_key = f"{competitor.reference_brand} - {competitor.reference_product}"
-                    if reference_key not in results_by_competitor:
-                        results_by_competitor[reference_key] = {
-                            "created": 0,
-                            "updated": 0,
-                            "errors": 0,
-                            "competitors": []
-                        }
-                    
-                    results_by_competitor[reference_key]["created"] += len(result["created"])
-                    results_by_competitor[reference_key]["updated"] += len(result["updated"])
-                    results_by_competitor[reference_key]["errors"] += len(result["errors"])
-                    results_by_competitor[reference_key]["competitors"].append({
-                        "name": competitor.competitor_brand,
-                        "created": len(result["created"]),
-                        "updated": len(result["updated"]),
-                        "errors": len(result["errors"])
-                    })
-                    
-                except Exception as e:
-                    error_msg = f"Error in competitor scan loop for {competitor.competitor_brand}: {str(e)}"
-                    self.logger.error(error_msg)
-                    all_errors.append({
-                        "competitor": competitor.competitor_brand,
-                        "product": None,
-                        "error": str(e),
-                        "traceback": traceback.format_exc()
-                    })
-                    error_summary[competitor.competitor_brand] = error_summary.get(competitor.competitor_brand, 0) + 1
-                    continue  # Continue with next competitor
+            # Create progress bar if showing progress
+            pbar = None
+            if show_progress:
+                pbar = tqdm(total=len(competitors), desc="Scanning competitors", unit="competitor")
+            
+            # Run scans in parallel with ThreadPoolExecutor
+            with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Submit all scanning tasks to the executor
+                future_to_competitor = {
+                    executor.submit(self.scan_for_competitor, competitor): competitor 
+                    for competitor in competitors
+                }
+                
+                # Process results as they complete
+                for future in concurrent.futures.as_completed(future_to_competitor):
+                    competitor = future_to_competitor[future]
+                    try:
+                        result = future.result()
+                        process_result(result, pbar)
+                    except Exception as e:
+                        error_msg = f"Error in competitor scan for {competitor.competitor_brand}: {str(e)}"
+                        self.logger.error(error_msg)
+                        all_errors.append({
+                            "competitor": competitor.competitor_brand,
+                            "product": None,
+                            "error": str(e),
+                            "traceback": traceback.format_exc()
+                        })
+                        error_summary[competitor.competitor_brand] = error_summary.get(competitor.competitor_brand, 0) + 1
+                        
+                        # Update progress bar if available
+                        if pbar:
+                            pbar.update(1)
+            
+            # Close progress bar
+            if pbar:
+                pbar.close()
                     
         except Exception as e:
             error_msg = f"Error in main scan loop: {str(e)}"
@@ -229,7 +253,7 @@ class SearchScanner:
         }
         
         if not show_progress:
-            self.logger.info(f"Completed scan of all competitors. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
+            self.logger.info(f"Completed parallel scan of all competitors. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
         else:
             print(f"Completed scan. Created: {len(all_created)}, Updated: {len(all_updated)}, Errors: {len(all_errors)}, Duration: {duration:.2f} seconds")
             
