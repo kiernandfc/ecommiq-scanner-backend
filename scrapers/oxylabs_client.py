@@ -8,11 +8,19 @@ from utils.logger import configure_logger
 
 class OxylabsClient:
     def __init__(self):
+        # Get logger instance, level is inherited from root config set in main.py
+        self.logger = configure_logger(f"{__name__}.OxylabsClient")
+        
         self.username = os.getenv('OXYLABS_USERNAME')
         self.password = os.getenv('OXYLABS_PASSWORD')
+        
+        if not self.username or not self.password:
+            self.logger.error("Oxylabs credentials not found in environment variables (OXYLABS_USERNAME, OXYLABS_PASSWORD)")
+            raise ValueError("Oxylabs credentials not configured")
+            
+        # self.logger.debug("OxylabsClient initialized") # Filtered if root is INFO
+        
         self.base_url = 'https://realtime.oxylabs.io/v1/queries'
-        self.logger = configure_logger(f"{__name__}.OxylabsClient", logging.DEBUG)
-        self.logger.debug("OxylabsClient initialized")
 
     def search_google_shopping(self, query: str) -> Dict[str, Any]:
         """
@@ -78,4 +86,7 @@ class OxylabsClient:
             raise Exception(error_msg)
             
         self.logger.debug(f"Received successful response from Oxylabs API")
-        return response.json() 
+        return response.json()
+
+    def _make_request(self, payload):
+        """Make a request to Oxylabs API""" 

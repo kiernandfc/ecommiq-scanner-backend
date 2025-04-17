@@ -16,8 +16,9 @@ class PriceUpdater:
     def __init__(self, db: DynamoDBDatabase, oxylabs: OxylabsClient):
         self.db = db
         self.oxylabs = oxylabs
-        self.logger = configure_logger(f"{__name__}.PriceUpdater", logging.DEBUG)
-        self.logger.debug("PriceUpdater initialized")
+        # Get logger instance, level is inherited from root config set in main.py
+        self.logger = configure_logger(f"{__name__}.PriceUpdater")
+        # self.logger.debug("PriceUpdater initialized") # Filtered if root is INFO
 
     def update_product_price(self, product: CatalogProduct) -> PriceHistory:
         """

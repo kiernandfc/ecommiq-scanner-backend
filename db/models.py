@@ -27,6 +27,8 @@ class CatalogProduct(BaseModel):
     url: str
     canonical_url: Optional[str] = None
     google_shopping_id: str
+    review_count: Optional[int] = None
+    position: Optional[int] = None
     last_checked: datetime = utc_now()
     created_at: datetime = utc_now()
     updated_at: datetime = utc_now()
@@ -38,6 +40,8 @@ class PriceHistory(BaseModel):
     price: Decimal
     currency: str = "USD"
     in_stock: bool
+    review_count: Optional[int] = None
+    position: Optional[int] = None
     timestamp: datetime = utc_now()
 
     class Config:

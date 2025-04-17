@@ -13,7 +13,7 @@ from scrapers.oxylabs_client import OxylabsClient
 from scrapers.search_scanner import SearchScanner
 from scrapers.price_updater import PriceUpdater
 from utils.helpers import utc_now
-from utils.logger import configure_logger
+from utils.logger import setup_main_logger, configure_logger
 
 def print_scan_summary(scan_results, logger):
     """Print a detailed summary of scan results"""
@@ -183,6 +183,9 @@ def main():
     # Add threads parameter
     parser.add_argument('--threads', type=int, default=5,
                       help='Number of threads to use for parallel processing (default: 5)')
+    # Add log level argument
+    parser.add_argument('--log-level', type=str, choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], 
+                      default='INFO', help='Set the logging level (default: INFO)')
     # Update arguments for database configuration
     parser.add_argument('--region', type=str, default=None,
                       help='AWS region for DynamoDB (defaults to AWS_REGION env var or us-east-1)')
@@ -192,19 +195,26 @@ def main():
                       help='Database type to use (overrides DATABASE_TYPE env var)')
     args = parser.parse_args()
     
-    # Configure logging based on progress option
-    log_level = logging.WARNING if args.progress else logging.DEBUG
-    logger = configure_logger("ecommiq", log_level)
+    # Configure logging using the new setup function
+    # Map string log level to logging constants
+    log_level_map = {
+        'DEBUG': logging.DEBUG,
+        'INFO': logging.INFO,
+        'WARNING': logging.WARNING,
+        'ERROR': logging.ERROR,
+        'CRITICAL': logging.CRITICAL
+    }
+    log_level = log_level_map[args.log_level.upper()]
+    logger = setup_main_logger("ecommiq", log_level)
     
     if not args.progress:
-        logger.debug("Starting EcommiQ Scanner")
-        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}, threads: {args.threads}")
+        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}, threads: {args.threads}, log level: {args.log_level}")
     else:
         print(f"EcommiQ Scanner - Mode: {args.mode}, Hours threshold: {args.hours}, Threads: {args.threads}")
     
     # Initialize components
     if not args.progress:
-        logger.debug("Initializing database connection")
+        pass
     
     # Override DATABASE_TYPE env var if --db-type is specified
     if args.db_type:
@@ -216,11 +226,11 @@ def main():
     db = get_database()
     
     if not args.progress:
-        logger.debug("Initializing Oxylabs client")
+        pass
     oxylabs = OxylabsClient()
     
     if not args.progress:
-        logger.debug("Initializing scanners and updaters")
+        pass
     scanner = SearchScanner(db, oxylabs)
     updater = PriceUpdater(db, oxylabs)
     
@@ -260,7 +270,7 @@ def main():
             logger.error(f"Critical error in update mode: {str(e)}")
     
     if not args.progress:
-        logger.debug("EcommiQ Scanner completed successfully")
+        logger.info("EcommiQ Scanner completed successfully")
     else:
         print("EcommiQ Scanner completed successfully")
 

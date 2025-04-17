@@ -14,13 +14,13 @@ class DynamoDBDatabase:
     """Database implementation using AWS DynamoDB"""
     
     def __init__(self, region_name=None, endpoint_url=None):
-        # Configure logger
-        self.logger = configure_logger(f"{__name__}.DynamoDBDatabase", logging.DEBUG)
-        self.logger.debug("Initializing DynamoDB connection")
+        # Configure logger - level is inherited from root config set in main.py
+        self.logger = configure_logger(f"{__name__}.DynamoDBDatabase")
+        # self.logger.debug("Initializing DynamoDB connection") # Filtered if root is INFO
         
-        # Get configuration from environment variables or use defaults
+        # Determine region and endpoint
         self.region_name = region_name or os.getenv('AWS_REGION', 'us-east-1')
-        self.endpoint_url = endpoint_url or os.getenv('DYNAMODB_ENDPOINT_URL')
+        self.endpoint_url = endpoint_url or os.getenv('DYNAMODB_ENDPOINT_URL') # For local testing
         
         # Initialize DynamoDB session
         self._init_dynamodb()

@@ -17,8 +17,9 @@ class SearchScanner:
     def __init__(self, db: DynamoDBDatabase, oxylabs: OxylabsClient):
         self.db = db
         self.oxylabs = oxylabs
-        self.logger = configure_logger(f"{__name__}.SearchScanner", logging.DEBUG)
-        self.logger.debug("SearchScanner initialized")
+        # Get logger instance, level is inherited from root config set in main.py
+        self.logger = configure_logger(f"{__name__}.SearchScanner")
+        # self.logger.debug("SearchScanner initialized") # This will be filtered if root is INFO
 
     def scan_for_competitor(self, competitor: CompetitorBrand) -> Dict[str, Any]:
         """
@@ -59,16 +60,25 @@ class SearchScanner:
                         
                     self.logger.debug(f"Processing product: {item['title']} from {item['merchant']['name']}")
                     self.logger.debug(f"Match type: {'Merchant' if brand_in_merchant else ''}{' & ' if brand_in_merchant and brand_in_title else ''}{'Title' if brand_in_title else ''}")
+                    self.logger.debug(f"Raw item data (reviews_count, pos): reviews_count={item.get('reviews_count')}, pos={item.get('pos')}")
                     
                     # Create catalog entry
+                    product_review_count = item.get('reviews_count') # Extract review_count separately for logging
+                    product_position = item.get('pos') # Extract position separately for logging
+                    self.logger.debug(f"Extracted reviews_count for CatalogProduct: {product_review_count}")
+                    self.logger.debug(f"Extracted position for CatalogProduct: {product_position}")
+                    
                     product = CatalogProduct(
                         name=item['title'],
                         url=item['url'],
                         canonical_url=item['merchant'].get('url'),
                         google_shopping_id=item['product_id'],
                         primary_merchant=item['merchant']['name'],
+                        review_count=product_review_count,
+                        position=product_position,
                         last_checked=utc_now()
                     )
+                    self.logger.debug(f"Created CatalogProduct object: review_count={product.review_count}, position={product.position}")
                     
                     # Add/update in catalog
                     self.logger.debug(f"Adding/updating product in database: {product.name}")
@@ -81,13 +91,21 @@ class SearchScanner:
                         updated_products.append(product)
                     
                     # Add price history entry
+                    price_review_count = item.get('reviews_count') # Extract review_count separately for logging
+                    price_position = item.get('pos') # Extract position separately for logging
+                    self.logger.debug(f"Extracted reviews_count for PriceHistory: {price_review_count}")
+                    self.logger.debug(f"Extracted position for PriceHistory: {price_position}")
+
                     price = PriceHistory(
                         catalog_id=product_id,
                         merchant=item['merchant']['name'],
                         price=Decimal(str(item['price'])),
                         currency=item['currency'],
-                        in_stock=True if item.get('delivery') else False
+                        in_stock=True if item.get('delivery') else False,
+                        review_count=price_review_count,
+                        position=price_position
                     )
+                    self.logger.debug(f"Created PriceHistory object: review_count={price.review_count}, position={price.position}")
                     self.logger.debug(f"Adding price history: {price.price} {price.currency}")
                     self.db.add_price(price)
                     

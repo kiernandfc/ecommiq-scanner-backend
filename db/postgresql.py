@@ -1,7 +1,7 @@
 import os
 import logging
 import boto3
-from sqlalchemy import create_engine, Column, String, Float, Boolean, DateTime, ForeignKey, Text, MetaData
+from sqlalchemy import create_engine, Column, String, Float, Boolean, DateTime, ForeignKey, Text, MetaData, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
@@ -49,6 +49,8 @@ class CatalogProductDB(Base):
     price = Column(Float)
     currency = Column(String)
     is_available = Column(Boolean, default=True)
+    review_count = Column(Integer, nullable=True)
+    position = Column(Integer, nullable=True)
     last_checked = Column(DateTime, default=datetime.utcnow)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -68,6 +70,8 @@ class PriceHistoryDB(Base):
     is_available = Column(Boolean, default=True)
     date_checked = Column(DateTime, default=datetime.utcnow)
     created_at = Column(DateTime, default=datetime.utcnow)
+    review_count = Column(Integer, nullable=True)
+    position = Column(Integer, nullable=True)
     
     catalog_product = relationship("CatalogProductDB", back_populates="price_history")
 
@@ -75,9 +79,9 @@ class PostgreSQLDatabase:
     """Database implementation using PostgreSQL"""
     
     def __init__(self):
-        # Configure logger
-        self.logger = configure_logger(f"{__name__}.PostgreSQLDatabase", logging.DEBUG)
-        self.logger.debug("Initializing PostgreSQL connection")
+        # Configure logger - level is inherited from root config set in main.py
+        self.logger = configure_logger(f"{__name__}.PostgreSQLDatabase")
+        # self.logger.debug("Initializing PostgreSQL connection") # Filtered if root is INFO
         
         # Get configuration from environment variables
         db_host = os.getenv('POSTGRESQL_HOST')
@@ -419,6 +423,12 @@ class PostgreSQLDatabase:
                 existing.price = float(product.price) if hasattr(product, 'price') else None
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
+                
+                # Log review_count before update
+                self.logger.debug(f"Updating product ID {existing.id}. Incoming review_count: {product.review_count}, position: {product.position}. Existing value: {existing.review_count}, {existing.position}")
+                
+                existing.review_count = product.review_count
+                existing.position = product.position
                 existing.last_checked = product.last_checked
                 existing.updated_at = product.updated_at
                 existing.description = product.description if hasattr(product, 'description') else None
@@ -455,6 +465,11 @@ class PostgreSQLDatabase:
                     price=float(product.price) if hasattr(product, 'price') else None,
                     currency=product.currency if hasattr(product, 'currency') else None,
                     is_available=product.is_available if hasattr(product, 'is_available') else True,
+                    
+                    # Log review_count before insert
+                    review_count=product.review_count,
+                    position=product.position,
+                    
                     last_checked=product.last_checked,
                     created_at=product.created_at,
                     updated_at=product.updated_at,
@@ -628,6 +643,9 @@ class PostgreSQLDatabase:
                 # Generate a new unique ID
                 price_id = self._generate_id("price_")
             
+            # Log review_count before insert
+            self.logger.debug(f"Adding price history for catalog ID {price.catalog_id}. Incoming review_count: {price.review_count}, position: {price.position}")
+            
             price_db = PriceHistoryDB(
                 id=price_id,
                 catalog_id=price.catalog_id,
@@ -635,6 +653,8 @@ class PostgreSQLDatabase:
                 currency=price.currency,
                 merchant=price.merchant,
                 is_available=price.in_stock,
+                review_count=price.review_count,
+                position=price.position,
                 date_checked=price.timestamp,
                 created_at=utc_now()
             )
@@ -669,6 +689,8 @@ class PostgreSQLDatabase:
                     price=price_db.price,
                     currency=price_db.currency,
                     in_stock=price_db.is_available,
+                    review_count=price_db.review_count,
+                    position=price_db.position,
                     timestamp=price_db.date_checked
                 )
                 prices.append(price_history)
@@ -724,6 +746,8 @@ class PostgreSQLDatabase:
                 price=price_db.price,
                 currency=price_db.currency,
                 in_stock=price_db.is_available,
+                review_count=price_db.review_count,
+                position=price_db.position,
                 timestamp=price_db.date_checked
             )
             
