@@ -2,6 +2,11 @@ import os
 import logging
 from dotenv import load_dotenv
 from datetime import datetime
+import sys
+
+# Add the parent directory (workspace root) to the Python path
+# This allows the script to find modules in db, scrapers, utils, etc.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Load environment variables
 load_dotenv()
@@ -10,7 +15,7 @@ from db.models import CompetitorBrand
 from db.postgresql import PostgreSQLDatabase  # Assuming PostgreSQL
 from scrapers.oxylabs_client import OxylabsClient
 from scrapers.search_scanner import SearchScanner
-from utils.logger import configure_logger
+from utils.logger import setup_main_logger
 
 # --- Configuration ---
 # Option 1: Define a competitor directly
@@ -26,7 +31,9 @@ from utils.logger import configure_logger
 COMPETITOR_ID_TO_FETCH = "comp_180ed0a9c8814521bd36138eb97fe086" # <--- CHANGE THIS
 
 # --- Setup ---
-logger = configure_logger("test_single_scan", logging.DEBUG)
+# logger = configure_logger("test_single_scan", logging.DEBUG)
+# Use setup_main_logger when running as a script to set the root level
+logger = setup_main_logger("test_single_scan", logging.DEBUG)
 
 def run_single_scan():
     logger.info("--- Starting Single Scan Test ---")

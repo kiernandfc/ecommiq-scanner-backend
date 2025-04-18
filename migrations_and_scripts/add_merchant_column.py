@@ -12,12 +12,12 @@ from utils.logger import configure_logger
 
 def add_merchant_column():
     """Add merchant column to prices table"""
-    # Configure logging
-    logger = configure_logger("schema_update", logging.INFO)
-    logger.info("Adding merchant column to prices table")
-    
-    # Load environment variables
+    # Load environment variables from .env file
     load_dotenv()
+
+    # Initialize logging
+    logger = configure_logger(__name__)
+    logger.info("Adding merchant column to prices table")
     
     try:
         # Connect to PostgreSQL
@@ -54,11 +54,5 @@ def add_merchant_column():
         return False
 
 if __name__ == "__main__":
-    # Override environment variables for connection
-    os.environ['DATABASE_TYPE'] = 'postgresql'
-    
-    # Load environment variables
-    load_dotenv()
-    
     success = add_merchant_column()
     sys.exit(0 if success else 1) 

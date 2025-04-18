@@ -172,8 +172,10 @@ def main():
     # Load environment variables
     load_dotenv()
     
-    # Parse arguments
-    parser = argparse.ArgumentParser(description='EcommiQ Scanner')
+    # Initialize Argument Parser
+    parser = argparse.ArgumentParser(description='Ecommiq Scanner: Monitor competitor prices.')
+    
+    # Mode arguments
     parser.add_argument('--mode', choices=['scan', 'update', 'both'], default='both',
                       help='Operation mode: scan new products, update existing prices, or both')
     parser.add_argument('--hours', type=int, default=24,
@@ -183,29 +185,20 @@ def main():
     # Add threads parameter
     parser.add_argument('--threads', type=int, default=5,
                       help='Number of threads to use for parallel processing (default: 5)')
-    # Add log level argument
-    parser.add_argument('--log-level', type=str, choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], 
-                      default='INFO', help='Set the logging level (default: INFO)')
-    # Update arguments for database configuration
-    parser.add_argument('--region', type=str, default=None,
-                      help='AWS region for DynamoDB (defaults to AWS_REGION env var or us-east-1)')
-    parser.add_argument('--endpoint-url', type=str, default=None,
-                      help='DynamoDB endpoint URL (for local testing)')
-    parser.add_argument('--db-type', type=str, choices=['dynamodb', 'postgresql'], default=None,
-                      help='Database type to use (overrides DATABASE_TYPE env var)')
+    
+    # Scheduler arguments
+    parser.add_argument('--run-once', action='store_true', help='Run the scan cycle once and exit.')
+    parser.add_argument('--schedule', type=str, default='0 */6 * * *', help='Cron-like schedule for running scans.')
+    
+    # Other arguments
+    parser.add_argument('--log-level', type=str, default='INFO', help='Set logging level (DEBUG, INFO, WARNING, ERROR)')
+    
+    # Parse arguments
     args = parser.parse_args()
     
-    # Configure logging using the new setup function
-    # Map string log level to logging constants
-    log_level_map = {
-        'DEBUG': logging.DEBUG,
-        'INFO': logging.INFO,
-        'WARNING': logging.WARNING,
-        'ERROR': logging.ERROR,
-        'CRITICAL': logging.CRITICAL
-    }
-    log_level = log_level_map[args.log_level.upper()]
-    logger = setup_main_logger("ecommiq", log_level)
+    # Set log level
+    configure_logger(args.log_level)
+    logger = configure_logger(__name__)
     
     if not args.progress:
         logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}, threads: {args.threads}, log level: {args.log_level}")
@@ -216,23 +209,17 @@ def main():
     if not args.progress:
         pass
     
-    # Override DATABASE_TYPE env var if --db-type is specified
-    if args.db_type:
-        os.environ['DATABASE_TYPE'] = args.db_type
-        if not args.progress:
-            logger.info(f"Using database type: {args.db_type} (from command line)")
-    
     # Use the factory to get the appropriate database instance
     db = get_database()
+    logger.info("Database connection established.")
+    
+    # Initialize Oxylabs Client
+    oxylabs_client = OxylabsClient()
     
     if not args.progress:
         pass
-    oxylabs = OxylabsClient()
-    
-    if not args.progress:
-        pass
-    scanner = SearchScanner(db, oxylabs)
-    updater = PriceUpdater(db, oxylabs)
+    scanner = SearchScanner(db, oxylabs_client)
+    updater = PriceUpdater(db, oxylabs_client)
     
     # Execute requested operations
     if args.mode in ['scan', 'both']:

@@ -81,23 +81,7 @@ USE_IAM_AUTH=false  # Set to true if using IAM authentication
 AURORA_RESUME_TIMEOUT=30
 AURORA_MIN_CAPACITY=0.5
 AURORA_MAX_CAPACITY=4
-
-# Database Type
-DATABASE_TYPE=postgresql
 ```
-
-## Migrating from DynamoDB
-
-To migrate your data from DynamoDB to Aurora Serverless PostgreSQL:
-
-1. Ensure your `.env` file is configured with both DynamoDB and PostgreSQL settings.
-
-2. Run the migration script:
-   ```
-   python migrate_to_postgres.py
-   ```
-
-3. Once migration is complete, set `DATABASE_TYPE=postgresql` in your `.env` file to use PostgreSQL as your primary database.
 
 ## Performance Optimization
 
@@ -171,4 +155,16 @@ In the AWS console:
 2. Check the "Connectivity & security" tab to verify endpoint and port.
 3. Look at "Monitoring" for CPU usage to confirm the database is responsive.
 
-If all else fails, create a new Aurora instance with simplified settings to test basic connectivity. 
+If all else fails, create a new Aurora instance with simplified settings to test basic connectivity.
+
+### 2. Apply Migrations
+
+Run the database creation script first (if needed):
+```bash
+python -m migrations_and_scripts.create_postgres_db
+```
+
+Then, create the tables:
+```bash
+python -m migrations_and_scripts.create_db
+``` 

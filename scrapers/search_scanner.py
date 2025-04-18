@@ -6,15 +6,17 @@ from tqdm import tqdm
 from decimal import Decimal
 import concurrent.futures
 from functools import partial
+from collections import defaultdict
+import time
 
+from db.postgresql import PostgreSQLDatabase
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
-from db.dynamodb import DynamoDBDatabase
 from utils.helpers import utc_now
 from utils.logger import configure_logger
 from .oxylabs_client import OxylabsClient
 
 class SearchScanner:
-    def __init__(self, db: DynamoDBDatabase, oxylabs: OxylabsClient):
+    def __init__(self, db: PostgreSQLDatabase, oxylabs: OxylabsClient):
         self.db = db
         self.oxylabs = oxylabs
         # Get logger instance, level is inherited from root config set in main.py

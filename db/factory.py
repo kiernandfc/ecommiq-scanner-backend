@@ -1,22 +1,15 @@
 import os
 from dotenv import load_dotenv
 
+# Import PostgreSQLDatabase directly
+from .postgresql import PostgreSQLDatabase
+
 def get_database():
     """
-    Factory function to get the appropriate database implementation
-    based on configuration.
+    Factory function to get the PostgreSQL database implementation.
     """
-    # Load environment variables
+    # Load environment variables (still useful for connection string)
     load_dotenv()
     
-    # Get database type from environment
-    db_type = os.getenv('DATABASE_TYPE', 'postgresql').lower()
-    
-    if db_type == 'postgresql':
-        # Import here to avoid circular imports
-        from .postgresql import PostgreSQLDatabase
-        return PostgreSQLDatabase()
-    else:
-        # Default to DynamoDB
-        from .dynamodb import DynamoDBDatabase
-        return DynamoDBDatabase() 
+    # Directly return PostgreSQLDatabase instance
+    return PostgreSQLDatabase() 

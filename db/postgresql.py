@@ -631,21 +631,10 @@ class PostgreSQLDatabase:
         """Add a price history record"""
         session = self.Session()
         try:
-            # Generate a unique ID if not provided
+            # Generate a unique ID for the price history entry if needed
             price_id = price.id or self._generate_id("price_")
-            
-            # Check if a record with this ID already exists (to handle migration duplicates)
-            id_exists = session.query(PriceHistoryDB).filter(
-                PriceHistoryDB.id == price_id
-            ).first() is not None
-            
-            if id_exists:
-                # Generate a new unique ID
-                price_id = self._generate_id("price_")
-            
-            # Log review_count before insert
-            self.logger.debug(f"Adding price history for catalog ID {price.catalog_id}. Incoming review_count: {price.review_count}, position: {price.position}")
-            
+
+            # Convert the PriceHistory model object to PriceHistoryDB for database interaction
             price_db = PriceHistoryDB(
                 id=price_id,
                 catalog_id=price.catalog_id,

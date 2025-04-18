@@ -1,22 +1,23 @@
-from datetime import datetime
-from typing import List, Dict, Any
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timedelta
 import logging
-import traceback
 from tqdm import tqdm
 from decimal import Decimal
-import concurrent.futures
+import traceback
 
-from db.models import CatalogProduct, PriceHistory
-from db.dynamodb import DynamoDBDatabase
+from db.postgresql import PostgreSQLDatabase
+from scrapers.oxylabs_client import OxylabsClient
 from utils.helpers import utc_now
+from db.models import CatalogProduct, PriceHistory
 from utils.logger import configure_logger
-from .oxylabs_client import OxylabsClient
 
 class PriceUpdater:
-    def __init__(self, db: DynamoDBDatabase, oxylabs: OxylabsClient):
+    """Handles fetching and updating prices for products"""
+    def __init__(self, db: PostgreSQLDatabase, oxylabs: OxylabsClient):
         self.db = db
         self.oxylabs = oxylabs
-        # Get logger instance, level is inherited from root config set in main.py
+        # Configure logger - gets level from root logger
         self.logger = configure_logger(f"{__name__}.PriceUpdater")
         # self.logger.debug("PriceUpdater initialized") # Filtered if root is INFO
 
