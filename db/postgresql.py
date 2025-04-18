@@ -24,6 +24,7 @@ class CompetitorBrandDB(Base):
     reference_product = Column(String, nullable=False)
     competitor_brand = Column(String, nullable=False)
     search_query = Column(String, nullable=False)
+    reference_product_description = Column(Text, nullable=True)
     active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

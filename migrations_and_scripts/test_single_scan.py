@@ -66,7 +66,7 @@ def run_single_scan():
         # --- Get Competitor ---
         competitor_to_scan = None
         if 'COMPETITOR_TO_TEST' in locals():
-             competitor_to_scan = COMPETITOR_TO_TEST
+             competitor_to_scan = COMPETITOR_ID_TO_FETCH
              # Optional: Add the test competitor to the DB if it doesn't exist
              # try:
              #     db.add_reference(competitor_to_scan)

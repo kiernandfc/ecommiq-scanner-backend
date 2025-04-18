@@ -5,6 +5,7 @@ import logging
 from tqdm import tqdm
 from decimal import Decimal
 import traceback
+from typing import Any, Dict, List, Optional
 
 from db.postgresql import PostgreSQLDatabase
 from scrapers.oxylabs_client import OxylabsClient

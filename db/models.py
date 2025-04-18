@@ -10,6 +10,7 @@ class CompetitorBrand(BaseModel):
     reference_product: str
     competitor_brand: str
     search_query: str
+    reference_product_description: Optional[str] = None
     active: bool = True
     created_at: datetime = utc_now()
     updated_at: datetime = utc_now()

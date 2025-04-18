@@ -40,9 +40,13 @@ class SearchScanner:
         errors = []
         
         try:
+            # Construct full search query by appending competitor brand
+            full_search_query = f"{competitor.search_query.strip()} {competitor.competitor_brand.strip()}"
+            self.logger.info(f"Using full search query: '{full_search_query}'")
+            
             # Get search results from Oxylabs
             self.logger.debug(f"Requesting Google Shopping results via Oxylabs")
-            results = self.oxylabs.search_google_shopping(competitor.search_query)
+            results = self.oxylabs.search_google_shopping(full_search_query)
             
             self.logger.debug(f"Processing search results")
             
