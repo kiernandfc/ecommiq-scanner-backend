@@ -234,6 +234,27 @@ def main():
             
             # Display comprehensive scan summary
             print_scan_summary(scan_results, logger)
+            
+            # Refresh materialized views after scan is complete
+            if args.progress:
+                print("Refreshing materialized views...")
+            else:
+                logger.info("Refreshing materialized views...")
+                
+            # Call the refresh function
+            refresh_result = db.refresh_materialized_views()
+            
+            if refresh_result:
+                if args.progress:
+                    print("Materialized views refreshed successfully")
+                else:
+                    logger.info("Materialized views refreshed successfully")
+            else:
+                if args.progress:
+                    print("Warning: Failed to refresh materialized views")
+                else:
+                    logger.warning("Failed to refresh materialized views")
+                    
         except Exception as e:
             logger.error(f"Critical error in scan mode: {str(e)}")
         

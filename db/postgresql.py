@@ -1,7 +1,7 @@
 import os
 import logging
 import boto3
-from sqlalchemy import create_engine, Column, String, Float, Boolean, DateTime, ForeignKey, Text, MetaData, Integer
+from sqlalchemy import create_engine, Column, String, Float, Boolean, DateTime, ForeignKey, Text, MetaData, Integer, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
@@ -742,6 +742,40 @@ class PostgreSQLDatabase:
             )
             
             return price_history
+        finally:
+            session.close()
+
+    def refresh_materialized_views(self):
+        """
+        Refresh all materialized views in the correct dependency order:
+        1. daily_price_summary
+        2. interpolated_price_summary_14day
+        3. competitor_weighted_price_14day
+        """
+        session = self.Session()
+        try:
+            self.logger.info("Starting to refresh materialized views...")
+            
+            # Step 1: Refresh daily_price_summary
+            self.logger.info("Refreshing daily_price_summary...")
+            session.execute(text("REFRESH MATERIALIZED VIEW daily_price_summary"))
+            
+            # Step 2: Refresh interpolated_price_summary_14day (depends on daily_price_summary)
+            self.logger.info("Refreshing interpolated_price_summary_14day...")
+            session.execute(text("REFRESH MATERIALIZED VIEW interpolated_price_summary_14day"))
+            
+            # Step 3: Refresh competitor_weighted_price_14day (depends on interpolated view)
+            self.logger.info("Refreshing competitor_weighted_price_14day...")
+            session.execute(text("REFRESH MATERIALIZED VIEW competitor_weighted_price_14day"))
+            
+            # Commit all changes
+            session.commit()
+            self.logger.info("All materialized views refreshed successfully.")
+            return True
+        except Exception as e:
+            session.rollback()
+            self.logger.error(f"Error refreshing materialized views: {e}", exc_info=True)
+            return False
         finally:
             session.close()
 
