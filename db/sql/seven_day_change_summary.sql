@@ -1,3 +1,4 @@
+DROP view seven_day_change_summary;
 -- Create a view that shows 7-day price and review count changes with product context
 CREATE OR REPLACE VIEW seven_day_change_summary AS
 WITH 
@@ -7,9 +8,10 @@ last_seven_days AS (
         catalog_id,
         AVG(avg_price) AS avg_price_last_7_days,
         AVG(max_review_count) AS avg_review_count_last_7_days,
-        COUNT(DISTINCT summary_date) AS days_with_data_last_7_days
+        COUNT(DISTINCT summary_date) AS days_with_data_last_7_days,
+        STRING_AGG(DISTINCT merchants, ', ' ORDER BY merchants) AS merchants_last_7_days
     FROM daily_price_summary
-    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '7 days' AND CURRENT_DATE
+    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '3 days' AND CURRENT_DATE
     GROUP BY catalog_id
 ),
 -- Get data for the prior 7 days (days 8-14)
@@ -18,9 +20,10 @@ prior_seven_days AS (
         catalog_id,
         AVG(avg_price) AS avg_price_prior_7_days,
         AVG(max_review_count) AS avg_review_count_prior_7_days,
-        COUNT(DISTINCT summary_date) AS days_with_data_prior_7_days
+        COUNT(DISTINCT summary_date) AS days_with_data_prior_7_days,
+        STRING_AGG(DISTINCT merchants, ', ' ORDER BY merchants) AS merchants_prior_7_days
     FROM daily_price_summary
-    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '14 days' AND CURRENT_DATE - INTERVAL '8 days'
+    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '7 days' AND CURRENT_DATE - INTERVAL '4 days'
     GROUP BY catalog_id
 )
 -- Main query combining the periods and joining with context data
@@ -39,9 +42,11 @@ SELECT
     l7.avg_review_count_last_7_days,
     p7.avg_review_count_prior_7_days,
     (l7.avg_review_count_last_7_days - p7.avg_review_count_prior_7_days) AS review_count_change,
+    l7.merchants_last_7_days AS merchants,
     comp.reference_brand,
     comp.reference_product,
     comp.competitor_brand,
+    comp.search_query as category,
     ccm.relevancy_score
 FROM last_seven_days l7
 JOIN prior_seven_days p7 ON l7.catalog_id = p7.catalog_id
@@ -50,8 +55,8 @@ JOIN competitor_catalog_map ccm ON ccm.catalog_id = c.id
 JOIN competitors comp ON comp.id = ccm.competitor_id
 WHERE 
     -- Only include products with at least 3 days of data in both periods
-    l7.days_with_data_last_7_days >= 3
-    AND p7.days_with_data_prior_7_days >= 3
+    l7.days_with_data_last_7_days >= 2
+    AND p7.days_with_data_prior_7_days >= 2
 ORDER BY 
     comp.reference_brand,
     comp.reference_product,
