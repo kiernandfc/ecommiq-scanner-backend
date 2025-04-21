@@ -341,6 +341,11 @@ class PostgreSQLDatabase:
             competitor_db.competitor_brand = competitor.competitor_brand
             competitor_db.search_query = competitor.search_query
             competitor_db.active = competitor.active
+            
+            # Preserve the reference_product_description if it exists
+            if hasattr(competitor, 'reference_product_description'):
+                competitor_db.reference_product_description = competitor.reference_product_description
+            
             competitor_db.updated_at = utc_now()
             
             session.commit()
@@ -776,6 +781,14 @@ class PostgreSQLDatabase:
             session.rollback()
             self.logger.error(f"Error refreshing materialized views: {e}", exc_info=True)
             return False
+        finally:
+            session.close()
+
+    def get_total_catalog_count(self) -> int:
+        """Get total number of products in the catalog"""
+        session = self.Session()
+        try:
+            return session.query(CatalogProductDB).count()
         finally:
             session.close()
 

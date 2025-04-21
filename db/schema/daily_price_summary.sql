@@ -1,5 +1,5 @@
 -- Drop the view if it already exists (optional, useful for development)
--- DROP MATERIALIZED VIEW IF EXISTS daily_price_summary;
+DROP MATERIALIZED VIEW IF EXISTS daily_price_summary;
 
 -- Create the materialized view for daily summaries
 CREATE MATERIALIZED VIEW daily_price_summary AS
@@ -11,9 +11,12 @@ SELECT
     MAX(review_count) AS max_review_count,       -- Maximum review count observed on that day
     AVG(position) AS avg_position,               -- Average position for the day
     MAX(date_checked) AS latest_check_timestamp, -- Latest timestamp checked on that day
-    MAX(created_at) AS latest_creation_timestamp -- Latest record creation timestamp for that day
+    MAX(created_at) AS latest_creation_timestamp, -- Latest record creation timestamp for that day
+    STRING_AGG(DISTINCT merchant, ', ' ORDER BY merchant) AS merchants -- List of merchants for the day
 FROM
     prices  -- Assumes your table name is 'prices' based on PriceHistoryDB
+WHERE
+    merchant NOT ILIKE '%ebay%' -- Exclude merchants containing 'ebay' (case insensitive)
 GROUP BY
     catalog_id,
     date_trunc('day', date_checked) -- Group by product and day

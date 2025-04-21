@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250421_090824",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men The Desk To Dinner Shirt by Bonobos'\n  - Name='Bonobos Men's Tech Button Down Slim Fit Long Sleeve Shirt'\n  - Name='Indochino Men's Helston Anti-Wrinkle Microcheck Cotton Shirt'\n  - Name='Indochino Men's Sudbury Cotton Linen Shirt'\n  - Name='Indochino Men's Paddington Dobby Twill Shirt'\n  - Name='Indochino Men's Glynn Brushed Melange Shirt'\n  - Name='Indochino Men's Hyde Check Cotton Shirt'\n  - Name='Indochino Men's Custom London Diamond Print Cotton Shirt'\n  - Name='Indochino Men's Netham Brushed Plaid Shirt'\n  - Name='J.crew Slim Untucked American Pima Cotton Oxford Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men The Desk To Dinner Shirt by Bonobos\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"The name suggests it's a versatile shirt suited for both formal and casual occasions, much like the reference non-iron dress shirt. However, the presence or absence of non-iron treatment is unclear, so it's not a perfect match.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Button Down Slim Fit Long Sleeve Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This product is also a slim fit, long sleeve shirt likely aimed at office/casual transition, and 'Tech' often points to performance or easy-care features, likely similar in function to non-iron. However, the collar style and exact non-iron property aren't confirmed.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Helston Anti-Wrinkle Microcheck Cotton Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a cotton dress shirt with anti-wrinkle (non-iron) properties, making it almost identical in core features, construction, and use to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Sudbury Cotton Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a cotton linen blend shirt, which is typically more casual and less formal than a traditional dress shirt. Its construction and fabric make it less relevant to a non-iron, all-occasion dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Paddington Dobby Twill Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While this is a dress shirt with dressy fabric ('dobby twill'), there's no mention of non-iron or anti-wrinkle properties. However, the silhouette and core purpose are likely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Glynn Brushed Melange Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A 'brushed melange' shirt is likely softer and more casual, indicating a more relaxed or non-traditional dress shirt. It shares some features but diverges in core fabric and likely intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Hyde Check Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is likely a cotton dress shirt with a check pattern. The level of formality and possible non-iron properties aren't clear, but it may still serve similar occasions, albeit probably a bit more casual.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom London Diamond Print Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a cotton dress shirt with a print, presumably in a dress silhouette, but 'custom' and 'print' suggest it may be less of a staple wardrobe item. Non-iron qualities are not mentioned, so score is moderate.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Netham Brushed Plaid Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A brushed plaid shirt is much more casual and likely less structured than a standard dress shirt, making it less relevant to the reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Slim Untucked American Pima Cotton Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a slim fit oxford shirt made from quality cotton and designed to be worn untucked, which is less formal than a standard dress shirt but may still appeal to overlapping customers, especially if used in business-casual settings. Non-iron feature is absent.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men The Desk To Dinner Shirt by Bonobos",
+      "score": 9,
+      "rationale": "The name suggests it's a versatile shirt suited for both formal and casual occasions, much like the reference non-iron dress shirt. However, the presence or absence of non-iron treatment is unclear, so it's not a perfect match.",
+      "map_id": "map_14af0ef2275b4b79922ad896e1b03299"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Button Down Slim Fit Long Sleeve Shirt",
+      "score": 8,
+      "rationale": "This product is also a slim fit, long sleeve shirt likely aimed at office/casual transition, and 'Tech' often points to performance or easy-care features, likely similar in function to non-iron. However, the collar style and exact non-iron property aren't confirmed.",
+      "map_id": "map_b14136a155f14fe3a0fce8f2b40409a9"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Helston Anti-Wrinkle Microcheck Cotton Shirt",
+      "score": 10,
+      "rationale": "This is a cotton dress shirt with anti-wrinkle (non-iron) properties, making it almost identical in core features, construction, and use to the reference product.",
+      "map_id": "map_58fe7eec89c94f86878e6ed6b142277c"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Sudbury Cotton Linen Shirt",
+      "score": 4,
+      "rationale": "This is a cotton linen blend shirt, which is typically more casual and less formal than a traditional dress shirt. Its construction and fabric make it less relevant to a non-iron, all-occasion dress shirt.",
+      "map_id": "map_630ec97e01794fc6aab614005d351d0e"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Paddington Dobby Twill Shirt",
+      "score": 7,
+      "rationale": "While this is a dress shirt with dressy fabric ('dobby twill'), there's no mention of non-iron or anti-wrinkle properties. However, the silhouette and core purpose are likely similar.",
+      "map_id": "map_e67649e064c84c61943c91450903c6f1"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Glynn Brushed Melange Shirt",
+      "score": 5,
+      "rationale": "A 'brushed melange' shirt is likely softer and more casual, indicating a more relaxed or non-traditional dress shirt. It shares some features but diverges in core fabric and likely intended use.",
+      "map_id": "map_59a06e28549942448ec05ba80f2d84b9"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Hyde Check Cotton Shirt",
+      "score": 6,
+      "rationale": "This is likely a cotton dress shirt with a check pattern. The level of formality and possible non-iron properties aren't clear, but it may still serve similar occasions, albeit probably a bit more casual.",
+      "map_id": "map_e9c0d17d2b0f4f659d69505a1f65c804"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom London Diamond Print Cotton Shirt",
+      "score": 6,
+      "rationale": "This is a cotton dress shirt with a print, presumably in a dress silhouette, but 'custom' and 'print' suggest it may be less of a staple wardrobe item. Non-iron qualities are not mentioned, so score is moderate.",
+      "map_id": "map_2dbdc4217ec54a209af60ef569e4999e"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Netham Brushed Plaid Shirt",
+      "score": 3,
+      "rationale": "A brushed plaid shirt is much more casual and likely less structured than a standard dress shirt, making it less relevant to the reference non-iron dress shirt.",
+      "map_id": "map_8a837bf59ecd4a13ac5ff843404b8197"
+    },
+    {
+      "competitor_product_name": "J.crew Slim Untucked American Pima Cotton Oxford Shirt",
+      "score": 7,
+      "rationale": "This is a slim fit oxford shirt made from quality cotton and designed to be worn untucked, which is less formal than a standard dress shirt but may still appeal to overlapping customers, especially if used in business-casual settings. Non-iron feature is absent.",
+      "map_id": "map_87c1902930df4785beaf199ba95cb224"
+    }
+  ]
+}

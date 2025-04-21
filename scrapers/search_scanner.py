@@ -172,6 +172,9 @@ class SearchScanner:
             else:
                 print(f"Found {len(competitors)} competitors to scan with {max_workers} threads")
             
+            # Get total catalog count before scan
+            total_catalog_count = self.db.get_total_catalog_count()
+            
             # Function to process competitor results and update progress
             def process_result(result, pbar=None):
                 nonlocal all_created, all_updated, all_errors, results_by_competitor, error_summary
@@ -273,7 +276,8 @@ class SearchScanner:
             "by_reference": results_by_competitor,
             "start_time": start_time,
             "end_time": end_time,
-            "duration_seconds": duration
+            "duration_seconds": duration,
+            "total_catalog_count": total_catalog_count
         }
         
         if not show_progress:

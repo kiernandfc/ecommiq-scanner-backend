@@ -1,5 +1,5 @@
 -- Drop the view if it already exists (optional, useful for development)
--- DROP MATERIALIZED VIEW IF EXISTS competitor_weighted_price_14day;
+DROP MATERIALIZED VIEW IF EXISTS competitor_weighted_price_14day;
 
 -- Create the materialized view for competitor weighted average prices
 CREATE MATERIALIZED VIEW competitor_weighted_price_14day AS

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250421_090719",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Banana Republic Men's Slim Fit Non-Iron Check Long Sleeve Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Banana Republic Slim Fit Non Iron Check Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n  - Name='Nordstrom Traditional Fit Dress Shirt'\n  - Name='Nordstrom Trim Fit Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt'\n  - Name='Men's Wearhouse French Cuff Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Dress Shirt'\n  - Name='Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt at Men's Wearhouse, Pink Solid - Size: 16 1/2 32/33'\n  - Name='Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt'\n  - Name='Calvin Klein Men's Infinite Non-Iron Slim Fit Stretch Collar Dress Shirt'\n  - Name='Pronto Uomo Men's Wearhouse Button Down Shirt'\n  - Name='Marc New York Men's Slim-Fit Motion-Ease Collar Wrinkle-Free Diamond Print'\n  - Name='Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Egara Men's Wearhouse Checkered Shirt'\n  - Name='Nordstrom Trim Fit Gingham Check Dress Shirt'\n  - Name='Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt'\n  - Name='Nordstrom Trim Fit Easy Care Shadow Check Cotton Dress Shirt'\n  - Name='4X Stretch Slim Fit Neat Dress Shirt'\n  - Name='Brooks Brothers Oxford Shirt'\n  - Name='Calvin Klein Men's Refined Knit Cotton Stretch Dress Shirt'\n  - Name='Joseph Abboud Men's Formal Tuxedo Shirt'\n  - Name='Pronto Uomo Men's Slim Fit French Cuff Tuxedo Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Non-Iron Check Long Sleeve Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Highly relevant; it's a slim-fit, non-iron dress shirt, matching the reference product's core features. The main difference is the check pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Relevant in function and construction, but doesn't specify non-iron treatment, which is central to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Slim Fit Non Iron Check Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Highly relevant; slim fit and non-iron match the reference, only differing in pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Highly relevant; non-iron dress shirt with fit and function matching the reference, only pattern differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Relevant as a traditional dress shirt, but lacks mention of non-iron treatment which differentiates it from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit dress shirt aligns with silhouette, but no clear indication of non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt is relevant; core function similar though 'ultra performance stretch' suggests extra performance features not specified in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Wearhouse French Cuff Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Relevant as a dress shirt, but French cuffs are a more formal construction and not aligned with the reference product’s versatility.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt with stretch is relevant; lacks explicit non-iron property, which slightly reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit, spread collar, and dress shirt function are similar; lack of non-iron mention reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt at Men's Wearhouse, Pink Solid - Size: 16 1/2 32/33\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit, dress shirt, and wrinkle-resistant features align closely with non-iron; size and color are not scored.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit, wrinkle-free (functionally similar to non-iron), and dress shirt, so highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Infinite Non-Iron Slim Fit Stretch Collar Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical in core function: slim fit, non-iron, dress shirt; only minor possible style variations.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Wearhouse Button Down Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Button down shirts are close in silhouette and purpose, but may not always be a dress shirt (sometimes considered more casual) and lacks non-iron info.\"\n    },\n    {\n      \"competitor_product_name\": \"Marc New York Men's Slim-Fit Motion-Ease Collar Wrinkle-Free Diamond Print\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit, dress shirt, and wrinkle-free align closely; diamond print only affects pattern, not scored.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Skinny fit is more tailored than the reference, but function and wrinkle resistance align well. Slightly less versatile due to fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Wearhouse Checkered Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Checkered shirts may be less formal and could be casual; unclear if it's non-iron or specifically a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Gingham Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit and dress shirt features are relevant, but no non-iron noted; gingham pattern not penalized.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Extra trim fit and easy care (similar to non-iron) are relevant; dress shirt function matches.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Easy Care Shadow Check Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit, easy care, and dress shirt features align, though not explicitly described as non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"4X Stretch Slim Fit Neat Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with high stretch; relevant but lacks explicit non-iron or wrinkle-free feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Oxford Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Oxford shirts are more casual in structure than most dress shirts and may lack non-iron or dressier elements like semi-spread collars.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Refined Knit Cotton Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt and stretch features are relevant, but knit cotton construction is less traditional for dress shirts; lacks non-iron attribute.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Formal Tuxedo Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tuxedo shirts are formalwear, differing in function, construction, and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Slim Fit French Cuff Tuxedo Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tuxedo shirt with French cuffs is substantially more formal and constructed differently from standard non-iron dress shirts.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Non-Iron Check Long Sleeve Shirt",
+      "score": 9,
+      "rationale": "Highly relevant; it's a slim-fit, non-iron dress shirt, matching the reference product's core features. The main difference is the check pattern.",
+      "map_id": "map_c29ec0e5ea6740b8a5c39027b5e54dc1"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Relevant in function and construction, but doesn't specify non-iron treatment, which is central to the reference product.",
+      "map_id": "map_51d4a5e60e9c4cb9bf3e2f0bf31feb26"
+    },
+    {
+      "competitor_product_name": "Banana Republic Slim Fit Non Iron Check Shirt",
+      "score": 9,
+      "rationale": "Highly relevant; slim fit and non-iron match the reference, only differing in pattern.",
+      "map_id": "map_83f073fe8272421b951193cbd8d1c8dc"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 9,
+      "rationale": "Highly relevant; non-iron dress shirt with fit and function matching the reference, only pattern differs.",
+      "map_id": "map_f5afa5a5f31745bdba13ea9647bb9b8f"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Relevant as a traditional dress shirt, but lacks mention of non-iron treatment which differentiates it from the reference.",
+      "map_id": "map_45a4d3a833f84955b410e265f8173bdd"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit dress shirt aligns with silhouette, but no clear indication of non-iron feature.",
+      "map_id": "map_f983417bd19949498edbef4632d5dd83"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt is relevant; core function similar though 'ultra performance stretch' suggests extra performance features not specified in the reference.",
+      "map_id": "map_6c3c3ccf74f8455593830b19242a3936"
+    },
+    {
+      "competitor_product_name": "Men's Wearhouse French Cuff Dress Shirt",
+      "score": 6,
+      "rationale": "Relevant as a dress shirt, but French cuffs are a more formal construction and not aligned with the reference product’s versatility.",
+      "map_id": "map_c3583e08df294e5eb5752c4c58a07415"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt with stretch is relevant; lacks explicit non-iron property, which slightly reduces relevancy.",
+      "map_id": "map_96f80017c8364a238875e3656fda517b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt",
+      "score": 8,
+      "rationale": "Classic fit, spread collar, and dress shirt function are similar; lack of non-iron mention reduces relevancy.",
+      "map_id": "map_bdacda0833cd42cb8238c1495c5999b6"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt at Men's Wearhouse, Pink Solid - Size: 16 1/2 32/33",
+      "score": 9,
+      "rationale": "Slim fit, dress shirt, and wrinkle-resistant features align closely with non-iron; size and color are not scored.",
+      "map_id": "map_12471641cc7e49739454fe838ad2a604"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit, wrinkle-free (functionally similar to non-iron), and dress shirt, so highly relevant.",
+      "map_id": "map_66ceb0a24b8648fc86afe8d45ec5a649"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Infinite Non-Iron Slim Fit Stretch Collar Dress Shirt",
+      "score": 10,
+      "rationale": "Identical in core function: slim fit, non-iron, dress shirt; only minor possible style variations.",
+      "map_id": "map_6b7c3549fcf94cb98a4fd6261fb09569"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Wearhouse Button Down Shirt",
+      "score": 6,
+      "rationale": "Button down shirts are close in silhouette and purpose, but may not always be a dress shirt (sometimes considered more casual) and lacks non-iron info.",
+      "map_id": "map_0890eb4f6a9046c5a96804ad5107931c"
+    },
+    {
+      "competitor_product_name": "Marc New York Men's Slim-Fit Motion-Ease Collar Wrinkle-Free Diamond Print",
+      "score": 8,
+      "rationale": "Slim fit, dress shirt, and wrinkle-free align closely; diamond print only affects pattern, not scored.",
+      "map_id": "map_25847447bbd247458230f25b03def914"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Skinny fit is more tailored than the reference, but function and wrinkle resistance align well. Slightly less versatile due to fit.",
+      "map_id": "map_052c7ece83334d37b126d7bd000acd79"
+    },
+    {
+      "competitor_product_name": "Egara Men's Wearhouse Checkered Shirt",
+      "score": 6,
+      "rationale": "Checkered shirts may be less formal and could be casual; unclear if it's non-iron or specifically a dress shirt.",
+      "map_id": "map_c94866df2afe4d6d868222a943c8be67"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Gingham Check Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit and dress shirt features are relevant, but no non-iron noted; gingham pattern not penalized.",
+      "map_id": "map_47f71804610d466480ed8daf2ec49d58"
+    },
+    {
+      "competitor_product_name": "Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt",
+      "score": 8,
+      "rationale": "Extra trim fit and easy care (similar to non-iron) are relevant; dress shirt function matches.",
+      "map_id": "map_c09cd2f51dad4aefa9e83c8207c3dc43"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Easy Care Shadow Check Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit, easy care, and dress shirt features align, though not explicitly described as non-iron.",
+      "map_id": "map_e14c88dcd5854ce7bcdc65fd7355d753"
+    },
+    {
+      "competitor_product_name": "4X Stretch Slim Fit Neat Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with high stretch; relevant but lacks explicit non-iron or wrinkle-free feature.",
+      "map_id": "map_2b4618618dcb4b2bae549bf86fdab91d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Oxford Shirt",
+      "score": 5,
+      "rationale": "Oxford shirts are more casual in structure than most dress shirts and may lack non-iron or dressier elements like semi-spread collars.",
+      "map_id": "map_4b20fb8904bf493c9aeeaa22b972b321"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Refined Knit Cotton Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt and stretch features are relevant, but knit cotton construction is less traditional for dress shirts; lacks non-iron attribute.",
+      "map_id": "map_76c9951b2a7b4b028784894bcb8b3aa9"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Formal Tuxedo Shirt",
+      "score": 4,
+      "rationale": "Tuxedo shirts are formalwear, differing in function, construction, and intended use.",
+      "map_id": "map_0d136a9dea544d71bff9f3fbb3e23da4"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Slim Fit French Cuff Tuxedo Shirt",
+      "score": 4,
+      "rationale": "Tuxedo shirt with French cuffs is substantially more formal and constructed differently from standard non-iron dress shirts.",
+      "map_id": "map_83e21c575cba41029f261203a8e0335e"
+    }
+  ]
+}

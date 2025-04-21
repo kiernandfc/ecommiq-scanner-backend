@@ -1,0 +1,95 @@
+{
+  "timestamp": "20250421_091101",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='BUCK MASON Men's Oxford Button Up Shirt'\n  - Name='Taylor Stitch Men's Jack Oxford Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Shop Shirt in Stone Chipped Canvas'\n  - Name='Men's Taylor Stitch Short Sleeve California in Fired Clay Hemp'\n  - Name='Taylor Stitch Men's The Jack Everyday Oxford Shirt'\n  - Name='Taylor Stitch Men's Conrad Organic Cotton Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Oxford Jack Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"BUCK MASON Men's Oxford Button Up Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's Oxford button-up shirt, matching the function, silhouette, and construction style of the reference product. The score is slightly lower than maximum because it is from a different brand and may have subtle construction or fit differences, though it is categorically very similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This appears to be the same product as the reference (The Jack Oxford Shirt by Taylor Stitch), making it functionally and construction-wise identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Shop Shirt in Stone Chipped Canvas\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Although it is a Taylor Stitch shirt made from organic cotton, 'Shop Shirt' suggests a different silhouette and purpose (more workwear-oriented, possibly heavier canvas). Construction and intended use likely differ from the Oxford button-down.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch Short Sleeve California in Fired Clay Hemp\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a short sleeve shirt, not an Oxford, and it uses hemp instead of cotton. The silhouette and core product type differ significantly from the reference long-sleeve Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Jack Everyday Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Highly similar to the reference product. The 'Everyday' distinction may suggest a slight difference in material or fit, but it is otherwise the same product line and type.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Conrad Organic Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is an organic cotton shirt from Taylor Stitch, which may resemble the reference in material, but the 'Conrad' name suggests a different style, fit, or design details, thus reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Oxford Jack Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product matches the reference in every named feature: material (organic cotton), construction (oxford), brand, and product line (Jack). It is essentially identical to the reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "BUCK MASON Men's Oxford Button Up Shirt",
+      "score": 8,
+      "rationale": "This is a men's Oxford button-up shirt, matching the function, silhouette, and construction style of the reference product. The score is slightly lower than maximum because it is from a different brand and may have subtle construction or fit differences, though it is categorically very similar.",
+      "map_id": "map_74947490af54482ebbc8183db886cfce"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "This appears to be the same product as the reference (The Jack Oxford Shirt by Taylor Stitch), making it functionally and construction-wise identical.",
+      "map_id": "map_848a3ef04048432eb41abd72517217ee"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Shop Shirt in Stone Chipped Canvas",
+      "score": 4,
+      "rationale": "Although it is a Taylor Stitch shirt made from organic cotton, 'Shop Shirt' suggests a different silhouette and purpose (more workwear-oriented, possibly heavier canvas). Construction and intended use likely differ from the Oxford button-down.",
+      "map_id": "map_dc834e4a847a4ce49056c5afcedc0a3d"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch Short Sleeve California in Fired Clay Hemp",
+      "score": 3,
+      "rationale": "This is a short sleeve shirt, not an Oxford, and it uses hemp instead of cotton. The silhouette and core product type differ significantly from the reference long-sleeve Oxford.",
+      "map_id": "map_853ecc54b65948a5a93c7dca53b2ea88"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Jack Everyday Oxford Shirt",
+      "score": 9,
+      "rationale": "Highly similar to the reference product. The 'Everyday' distinction may suggest a slight difference in material or fit, but it is otherwise the same product line and type.",
+      "map_id": "map_8145a1e47fd54038b50672fe97c6c648"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Conrad Organic Cotton Shirt",
+      "score": 6,
+      "rationale": "This is an organic cotton shirt from Taylor Stitch, which may resemble the reference in material, but the 'Conrad' name suggests a different style, fit, or design details, thus reducing relevancy.",
+      "map_id": "map_0ac46a4fec324beca234a98f47ad5f38"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Oxford Jack Shirt",
+      "score": 10,
+      "rationale": "This product matches the reference in every named feature: material (organic cotton), construction (oxford), brand, and product line (Jack). It is essentially identical to the reference product.",
+      "map_id": "map_a41e053e2de747ff92a6071332003d7f"
+    }
+  ]
+}

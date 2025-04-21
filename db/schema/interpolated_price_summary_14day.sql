@@ -13,11 +13,19 @@ WITH date_series AS (
 ),
 distinct_products AS (
     -- Get all unique product IDs that have data in the relevant period
-    -- Consider using `SELECT DISTINCT catalog_id FROM catalog` if you want ALL products,
-    -- even those with no price history in the last 14 days.
-    SELECT DISTINCT catalog_id
-    FROM prices
-    WHERE date_checked >= CURRENT_DATE - INTERVAL '13 days'
+    -- AND have at least 3 datapoints in the last 14 days
+    SELECT catalog_id
+    FROM (
+        SELECT 
+            catalog_id,
+            COUNT(DISTINCT date_trunc('day', date_checked)::date) AS datapoint_count
+        FROM prices
+        WHERE 
+            date_checked >= CURRENT_DATE - INTERVAL '13 days'
+            AND merchant NOT ILIKE '%ebay%' -- Exclude merchants containing 'ebay' (case insensitive)
+        GROUP BY catalog_id
+    ) AS product_counts
+    WHERE datapoint_count >= 3 -- Only include products with at least 3 datapoints
 ),
 product_date_combinations AS (
     -- Create all product x date combinations for the 14-day window
@@ -28,24 +36,10 @@ product_date_combinations AS (
     CROSS JOIN date_series d
 ),
 daily_data AS (
-    -- Use the previously defined daily summary view for efficiency
-    -- Or recalculate if you prefer not to depend on the first view:
-    /*
-    SELECT
-        catalog_id,
-        date_trunc('day', date_checked)::date AS summary_date,
-        AVG(price) AS avg_price,
-        BOOL_OR(is_available) AS is_available_on_day,
-        MAX(review_count) AS max_review_count,
-        AVG(position) AS avg_position,
-        MAX(date_checked) AS latest_check_timestamp,
-        MAX(created_at) AS latest_creation_timestamp
-    FROM prices
-    WHERE date_checked >= CURRENT_DATE - INTERVAL '13 days' -- Optimization
-    GROUP BY catalog_id, date_trunc('day', date_checked)
-    */
     SELECT * FROM daily_price_summary
-    WHERE summary_date >= CURRENT_DATE - INTERVAL '13 days' -- Filter data from the first view
+    WHERE 
+        summary_date >= CURRENT_DATE - INTERVAL '13 days' -- Filter data from the first view
+        AND catalog_id IN (SELECT catalog_id FROM distinct_products) -- Filter to only include products with 3+ datapoints
 ),
 joined_data AS (
     -- Left join the date combinations with actual daily data
@@ -57,7 +51,8 @@ joined_data AS (
         dd.max_review_count,
         dd.avg_position,
         dd.latest_check_timestamp, -- Keep original timestamp if data exists
-        dd.latest_creation_timestamp -- Keep original timestamp if data exists
+        dd.latest_creation_timestamp, -- Keep original timestamp if data exists
+        dd.merchants -- Add merchants from daily summary
     FROM product_date_combinations pdc
     LEFT JOIN daily_data dd ON pdc.catalog_id = dd.catalog_id AND pdc.report_date = dd.summary_date
 ),
@@ -127,6 +122,9 @@ SELECT
     -- Need the previous value from the new CTE
     COALESCE(is_available_on_day, prev_is_available) AS is_available_filled,
     COALESCE(max_review_count, prev_max_review_count) AS max_review_count_filled,
+
+    -- Merchant list: Only show for days with actual data (not interpolated)
+    merchants,
 
     -- Timestamps: Show only if data actually exists for this specific day
     latest_check_timestamp,

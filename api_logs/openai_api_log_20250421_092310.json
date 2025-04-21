@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250421_092310",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Jordan Men's Essentials Fleece Hoodie'\n  - Name='UNIQLO Sweat Pullover Hoodie'\n  - Name='UNIQLO Half-Zip Sweatshirt'\n  - Name='UNIQLO Men's Legendary Zigboy-Stag Ramdam Full Zip Hoodie'\n  - Name='UNIQLO Men's Sweat Hoodie'\n  - Name='UNIQLO:C Sweat Oversize Pull Hoodie'\n  - Name='UNIQLO Sweatshirt'\n  - Name='Uniqlo C Sweat Oversized Pullover Hoodie'\n  - Name='Uniqlo Men's Hoodie'\n  - Name='Uniqlo Men's Hoodie'\n  - Name='UNIQLO Oversized Sweat Hoodie'\n  - Name='UNIQLO Sweat Full-Zip Hoodie'\n  - Name='UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection'\n  - Name='UNIQLO Men's Hoodie'\n  - Name='UNIQLO x Jeff Koons Graphic Hoodie'\n  - Name='EUC Uniqlo Men's Dry Stretch Sweat Full Zip Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Jordan Men's Essentials Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a fleece hoodie, a core product match in both silhouette and function. It is designed for comfort and casual wear, very similar to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweat Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A pullover hoodie closely matches the reference product's design, function, and core product type.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Half-Zip Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While it's a sweatshirt using similar materials and targeting the same use, the half-zip construction differs from a classic hoodie, losing some relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Legendary Zigboy-Stag Ramdam Full Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a full-zip hoodie. While the zip structure is different from a typical pullover, it still fits the main definition of a hoodie, appealing to similar customers.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Sweat Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a classic hoodie that directly aligns with the reference product in silhouette, construction, and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO:C Sweat Oversize Pull Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized pull hoodie is essentially the same product, just with an updated fit. The function and silhouette are equivalent.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A sweatshirt is similar in comfort and materials but lacks a hood, making it less directly relevant to the specific 'hoodie' product.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo C Sweat Oversized Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized pullover hoodie matches the Boston Scally Hoodie in function and main product features, barring only a fashion-based difference in cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's hoodie is a direct analog to the reference hoodie, matching features, silhouette, and use case.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A repetition, but once again a direct match as a classic hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Oversized Sweat Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized sweat hoodie is extremely close, with only sizing fit differentiating it slightly from a standard fit hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweat Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A full-zip hoodie shares the core hoodie features but differs slightly in the zip construction, making it almost a perfect match.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a hoodie, but with a technical fabric and sports features, which might slightly shift away from the super-soft, laid-back comfort positioning of the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a direct product match to the Boston Scally Hoodie as a classic hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO x Jeff Koons Graphic Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Despite the graphic/art collaboration, it's still a classic hoodie in core construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"EUC Uniqlo Men's Dry Stretch Sweat Full Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A full-zip hoodie with a stretch or performance material is slightly more 'activewear,' reducing direct relevance to the super-soft, comfort-first aesthetic, but still very close to the reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Jordan Men's Essentials Fleece Hoodie",
+      "score": 9,
+      "rationale": "This is a fleece hoodie, a core product match in both silhouette and function. It is designed for comfort and casual wear, very similar to the Boston Scally Hoodie.",
+      "map_id": "map_6dbec1b3d82a42c880d1318a75e03bcc"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweat Pullover Hoodie",
+      "score": 10,
+      "rationale": "A pullover hoodie closely matches the reference product's design, function, and core product type.",
+      "map_id": "map_eabd08cb62b840899d7f9405bae2a9f1"
+    },
+    {
+      "competitor_product_name": "UNIQLO Half-Zip Sweatshirt",
+      "score": 7,
+      "rationale": "While it's a sweatshirt using similar materials and targeting the same use, the half-zip construction differs from a classic hoodie, losing some relevancy.",
+      "map_id": "map_5b5702dfae9c41dfbef48c8f5e0f757b"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Legendary Zigboy-Stag Ramdam Full Zip Hoodie",
+      "score": 9,
+      "rationale": "This is a full-zip hoodie. While the zip structure is different from a typical pullover, it still fits the main definition of a hoodie, appealing to similar customers.",
+      "map_id": "map_3b813bc481f842cca4f535d0a43eff8f"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Sweat Hoodie",
+      "score": 10,
+      "rationale": "This is a classic hoodie that directly aligns with the reference product in silhouette, construction, and intended use.",
+      "map_id": "map_be13707cffe74a399a3eb73cfe615592"
+    },
+    {
+      "competitor_product_name": "UNIQLO:C Sweat Oversize Pull Hoodie",
+      "score": 9,
+      "rationale": "An oversized pull hoodie is essentially the same product, just with an updated fit. The function and silhouette are equivalent.",
+      "map_id": "map_3a2ffc97f6054833ad1a5b3a81376c6f"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweatshirt",
+      "score": 6,
+      "rationale": "A sweatshirt is similar in comfort and materials but lacks a hood, making it less directly relevant to the specific 'hoodie' product.",
+      "map_id": "map_0eafcfed333e4c0b856874a40e10431f"
+    },
+    {
+      "competitor_product_name": "Uniqlo C Sweat Oversized Pullover Hoodie",
+      "score": 9,
+      "rationale": "An oversized pullover hoodie matches the Boston Scally Hoodie in function and main product features, barring only a fashion-based difference in cut.",
+      "map_id": "map_7bc616be89944ae9bef246532aefae0f"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie",
+      "score": 10,
+      "rationale": "A men's hoodie is a direct analog to the reference hoodie, matching features, silhouette, and use case.",
+      "map_id": "map_d750291b8452445f8cb1308af7d3b94e"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie",
+      "score": 10,
+      "rationale": "A men's hoodie is a direct analog to the reference hoodie, matching features, silhouette, and use case.",
+      "map_id": "map_8c5ba996a28746c9a36397b6e3c07bbc"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie",
+      "score": 10,
+      "rationale": "A repetition, but once again a direct match as a classic hoodie.",
+      "map_id": "map_d750291b8452445f8cb1308af7d3b94e"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie",
+      "score": 10,
+      "rationale": "A repetition, but once again a direct match as a classic hoodie.",
+      "map_id": "map_8c5ba996a28746c9a36397b6e3c07bbc"
+    },
+    {
+      "competitor_product_name": "UNIQLO Oversized Sweat Hoodie",
+      "score": 9,
+      "rationale": "An oversized sweat hoodie is extremely close, with only sizing fit differentiating it slightly from a standard fit hoodie.",
+      "map_id": "map_0d44b6278f404eb6be49bba57aedee52"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweat Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "A full-zip hoodie shares the core hoodie features but differs slightly in the zip construction, making it almost a perfect match.",
+      "map_id": "map_5299f162dd384bf4a04d92c1f0511454"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection",
+      "score": 8,
+      "rationale": "This is a hoodie, but with a technical fabric and sports features, which might slightly shift away from the super-soft, laid-back comfort positioning of the Boston Scally Hoodie.",
+      "map_id": "map_40d0c6cd6637482d9850d8bb0f3874c8"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 10,
+      "rationale": "This is a direct product match to the Boston Scally Hoodie as a classic hoodie.",
+      "map_id": "map_05abde60ed7d453f9f205b8f3fd65d7c"
+    },
+    {
+      "competitor_product_name": "UNIQLO x Jeff Koons Graphic Hoodie",
+      "score": 10,
+      "rationale": "Despite the graphic/art collaboration, it's still a classic hoodie in core construction and intended use.",
+      "map_id": "map_1adbd6b2594442ce89943be42b1268ba"
+    },
+    {
+      "competitor_product_name": "EUC Uniqlo Men's Dry Stretch Sweat Full Zip Hoodie",
+      "score": 8,
+      "rationale": "A full-zip hoodie with a stretch or performance material is slightly more 'activewear,' reducing direct relevance to the super-soft, comfort-first aesthetic, but still very close to the reference product.",
+      "map_id": "map_d65d5668a8b64ffa9ca49e3f6c1b62df"
+    }
+  ]
+}

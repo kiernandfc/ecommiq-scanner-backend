@@ -176,19 +176,13 @@ def main():
     parser = argparse.ArgumentParser(description='Ecommiq Scanner: Monitor competitor prices.')
     
     # Mode arguments
-    parser.add_argument('--mode', choices=['scan', 'update', 'both'], default='both',
-                      help='Operation mode: scan new products, update existing prices, or both')
-    parser.add_argument('--hours', type=int, default=24,
-                      help='Hours threshold for considering prices as stale')
+    parser.add_argument('--mode', choices=['scan', 'update', 'both'], default='scan',
+                      help='Operation mode: scan new products (only scan is currently supported)')
     parser.add_argument('--progress', action='store_true',
                       help='Show progress bar instead of detailed logs')
     # Add threads parameter
     parser.add_argument('--threads', type=int, default=5,
                       help='Number of threads to use for parallel processing (default: 5)')
-    
-    # Scheduler arguments
-    parser.add_argument('--run-once', action='store_true', help='Run the scan cycle once and exit.')
-    parser.add_argument('--schedule', type=str, default='0 */6 * * *', help='Cron-like schedule for running scans.')
     
     # Other arguments
     parser.add_argument('--log-level', type=str, default='INFO', help='Set logging level (DEBUG, INFO, WARNING, ERROR)')
@@ -199,11 +193,16 @@ def main():
     # Set log level
     configure_logger(args.log_level)
     logger = configure_logger(__name__)
+
+    # Check for unsupported modes
+    if args.mode in ['update', 'both']:
+        logger.error("Error: Only 'scan' mode is currently supported. The 'update' functionality is not available.")
+        return
     
     if not args.progress:
-        logger.info(f"Running in mode: {args.mode}, hours threshold: {args.hours}, threads: {args.threads}, log level: {args.log_level}")
+        logger.info(f"Running in mode: {args.mode}, threads: {args.threads}, log level: {args.log_level}")
     else:
-        print(f"EcommiQ Scanner - Mode: {args.mode}, Hours threshold: {args.hours}, Threads: {args.threads}")
+        print(f"EcommiQ Scanner - Mode: {args.mode}, Threads: {args.threads}")
     
     # Initialize components
     if not args.progress:
@@ -219,63 +218,56 @@ def main():
     if not args.progress:
         pass
     scanner = SearchScanner(db, oxylabs_client)
-    updater = PriceUpdater(db, oxylabs_client)
     
-    # Execute requested operations
-    if args.mode in ['scan', 'both']:
-        if args.progress:
-            print("Starting competitor product scan...")
-        else:
-            logger.info("Starting competitor product scan...")
-            
-        try:
-            # Pass progress flag and threads value to scanner
-            scan_results = scanner.scan_all_competitors(show_progress=args.progress, max_workers=args.threads)
-            
-            # Display comprehensive scan summary
-            print_scan_summary(scan_results, logger)
-            
-            # Refresh materialized views after scan is complete
-            if args.progress:
-                print("Refreshing materialized views...")
-            else:
-                logger.info("Refreshing materialized views...")
-                
-            # Call the refresh function
-            refresh_result = db.refresh_materialized_views()
-            
-            if refresh_result:
-                if args.progress:
-                    print("Materialized views refreshed successfully")
-                else:
-                    logger.info("Materialized views refreshed successfully")
-            else:
-                if args.progress:
-                    print("Warning: Failed to refresh materialized views")
-                else:
-                    logger.warning("Failed to refresh materialized views")
-                    
-        except Exception as e:
-            logger.error(f"Critical error in scan mode: {str(e)}")
+    # Execute scan operation
+    if args.progress:
+        print("Starting competitor product scan...")
+    else:
+        logger.info("Starting competitor product scan...")
         
-    if args.mode in ['update', 'both']:
+    try:
+        # Pass progress flag and threads value to scanner
+        scan_results = scanner.scan_all_competitors(show_progress=args.progress, max_workers=args.threads)
+        
+        # Display comprehensive scan summary
+        print_scan_summary(scan_results, logger)
+        
+        # Refresh materialized views after scan is complete
         if args.progress:
-            print("Starting price updates...")
+            print("Refreshing materialized views...")
         else:
-            logger.info("Starting price updates...")
+            logger.info("Refreshing materialized views...")
             
-        try:
-            # Pass progress flag and threads value to updater
-            update_results = updater.update_stale_products(
-                hours_threshold=args.hours, 
-                show_progress=args.progress,
-                max_workers=args.threads
-            )
-            
-            # Display price update summary
-            print_price_update_summary(update_results, logger)
-        except Exception as e:
-            logger.error(f"Critical error in update mode: {str(e)}")
+        # Call the refresh function
+        refresh_result = db.refresh_materialized_views()
+        
+        if refresh_result:
+            if args.progress:
+                print("Materialized views refreshed successfully")
+            else:
+                logger.info("Materialized views refreshed successfully")
+        else:
+            if args.progress:
+                print("Warning: Failed to refresh materialized views")
+            else:
+                logger.warning("Failed to refresh materialized views")
+
+        # Print percentage summary regardless of log level
+        total_catalog_count = scan_results["total_catalog_count"]
+        products_this_scan = len(scan_results["created"]) + len(scan_results["updated"])
+        
+        print("\nPRODUCT UPDATE SUMMARY")
+        print("=" * 30)
+        print(f"New Products:     {len(scan_results['created'])} ({(len(scan_results['created']) / total_catalog_count * 100):.1f}% of catalog)")
+        print(f"Updated Products: {len(scan_results['updated'])} ({(len(scan_results['updated']) / total_catalog_count * 100):.1f}% of catalog)")
+        print(f"Products Found:   {products_this_scan} ({(products_this_scan / total_catalog_count * 100):.1f}% of catalog)")
+        print(f"Total in Catalog: {total_catalog_count}")
+        if len(scan_results["errors"]) > 0:
+            error_percent = (len(scan_results["errors"]) / total_catalog_count) * 100
+            print(f"Failed Products:  {len(scan_results['errors'])} ({error_percent:.1f}% of catalog)")
+                    
+    except Exception as e:
+        logger.error(f"Critical error in scan mode: {str(e)}")
     
     if not args.progress:
         logger.info("EcommiQ Scanner completed successfully")
