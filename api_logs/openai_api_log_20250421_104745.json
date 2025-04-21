@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250421_104745",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nNo description available.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nordstrom Easy Care Extra Trim Fit Geometric Print Dress Shirt'\n  - Name='Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt'\n  - Name='Mizzen+Main Leeward Dress Shirt'\n  - Name='Awearness Kenneth Cole Big & Tall Men's Modern Fit Performance 4-Way Stretch Button Up Shirt at Men's Wearhouse'\n  - Name='Joseph Abboud Men's Modern Fit Twill Button Up Shirt'\n  - Name='L.L.Bean Men's Signature Donegal Long-Sleeve Twill Flannel Shirt'\n  - Name='L.L.Bean Men's Tropicwear Plaid Long-Sleeve Shirt'\n  - Name='Stone Rose Long Sleeve Dry Touch Shirt'\n  - Name='JB Britches Men's Oxford Dress Shirt'\n  - Name='L.L.Bean Women's Relaxed Fit Long-Sleeve Pinpoint Oxford Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt'\n  - Name='Men's L.L.Bean Signature Northwoods Twill Shirt'\n  - Name='David Donahue Men's Trim-Fit Micro-Birdseye French Cuff Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Stretch Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Knit Button Up Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt'\n  - Name='L.L.Bean Men's Signature Premium Pima Cotton Oxford Shirt'\n  - Name='L.L.Bean Women's Signature Soft Poplin Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt'\n  - Name='L.L.Bean Men's Riverton Ripstop Short-Sleeve Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nordstrom Easy Care Extra Trim Fit Geometric Print Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's easy-care (likely non-iron), extra trim fit dress shirt, very similar in function, construction, and intended use to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another 'easy care' (likely non-iron), trim-fit dress shirt, matching core product type, silhouette, and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Leeward Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A modern performance dress shirt known for its non-iron, wrinkle-resistant properties, nearly identical in function and appeal to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Awearness Kenneth Cole Big & Tall Men's Modern Fit Performance 4-Way Stretch Button Up Shirt at Men's Wearhouse\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A performance button up shirt with modern fit and stretch; it's a dress shirt with added features (stretch), closely related to the reference, though marketed to Big & Tall.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Twill Button Up Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A modern fit button up shirt in twill fabric, likely formal though not specified as non-iron. Still very similar to the reference in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Donegal Long-Sleeve Twill Flannel Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A twill flannel shirt has a more casual construction and texture. While both are long sleeve and button up, this is less formal and not a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Tropicwear Plaid Long-Sleeve Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Marketed as an outdoor/casual 'Tropicwear' shirt with plaids - not formal wear, and likely different materials and features.\"\n    },\n    {\n      \"competitor_product_name\": \"Stone Rose Long Sleeve Dry Touch Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A long sleeve shirt with 'Dry Touch' (potentially moisture wicking, easy care), likely more performance-based but still similar in construction; just less traditional than a standard dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"JB Britches Men's Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An oxford dress shirt is very close in form and function to the reference, though the specific fabric (oxford) may have a slightly different feel.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Women's Relaxed Fit Long-Sleeve Pinpoint Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Though intended for women, the silhouette (relaxed fit), fabric, and construction are similar to a dress shirt, but fit and market differ.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a performance shirt with stretch, likely suitable for casual and dress, but not specified as a dress shirt; somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A twill shirt with stretch and casual fit, not explicitly marketed as a dress shirt, and functionally more casual.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Signature Northwoods Twill Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A twill shirt, likely rugged and casual as implied by 'Northwoods', quite removed from a non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"David Donahue Men's Trim-Fit Micro-Birdseye French Cuff Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A classic dress shirt (trim fit, French cuff), very similar in silhouette and use to the reference, even if the cuff style varies.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit, stretch, and dress shirt type match the reference product’s key features closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Knit Button Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A modern fit button up with a knit construction—may be more casual or have stretch, but shares shirt structure and likely multipurpose wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A performance stretch dress shirt, matching the reference in core features and use.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Premium Pima Cotton Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A premium cotton oxford is a quality dress or business-casual shirt, quite relevant despite not specifying non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Women's Signature Soft Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A poplin button shirt for women shares silhouette and construction, but is fit for a different demographic.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A stretch dress shirt with a slim fit, nearly identical in function to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A 'traditional untucked' fit and plaid suggest a casual shirt rather than a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A chambray shirt is typically more casual; while similar in format (long sleeve, button up), the material and positioning differ.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A canvas shirt is largely casual and rugged, not typically worn as a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Corduroy is a casual, textured fabric. Different from a dress shirt in feel, function, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Riverton Ripstop Short-Sleeve Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A short-sleeve ripstop shirt is a utility or outdoor piece, not comparable to a long sleeve non-iron dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nordstrom Easy Care Extra Trim Fit Geometric Print Dress Shirt",
+      "score": 9,
+      "rationale": "This is a men's easy-care (likely non-iron), extra trim fit dress shirt, very similar in function, construction, and intended use to the reference.",
+      "map_id": "map_60a24836d809428884910291d04043a1"
+    },
+    {
+      "competitor_product_name": "Nordstrom Easy Care Extra Trim Fit Plaid Dress Shirt",
+      "score": 9,
+      "rationale": "Another 'easy care' (likely non-iron), trim-fit dress shirt, matching core product type, silhouette, and purpose.",
+      "map_id": "map_b6e0fa3d82d04b7ca5ee1e05ce415bd7"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Leeward Dress Shirt",
+      "score": 9,
+      "rationale": "A modern performance dress shirt known for its non-iron, wrinkle-resistant properties, nearly identical in function and appeal to the reference.",
+      "map_id": "map_01df7aeb3ffe4f60ba3c563779d899fc"
+    },
+    {
+      "competitor_product_name": "Awearness Kenneth Cole Big & Tall Men's Modern Fit Performance 4-Way Stretch Button Up Shirt at Men's Wearhouse",
+      "score": 8,
+      "rationale": "A performance button up shirt with modern fit and stretch; it's a dress shirt with added features (stretch), closely related to the reference, though marketed to Big & Tall.",
+      "map_id": "map_4c3b9a566e6c47f791f29af9c01a69a0"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Twill Button Up Shirt",
+      "score": 8,
+      "rationale": "A modern fit button up shirt in twill fabric, likely formal though not specified as non-iron. Still very similar to the reference in function and silhouette.",
+      "map_id": "map_f42c24cd947e4ee7be8a2629b1042a81"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Donegal Long-Sleeve Twill Flannel Shirt",
+      "score": 3,
+      "rationale": "A twill flannel shirt has a more casual construction and texture. While both are long sleeve and button up, this is less formal and not a dress shirt.",
+      "map_id": "map_bd0d32e02bec4ca5a74f9e46a1c5e8e1"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Tropicwear Plaid Long-Sleeve Shirt",
+      "score": 2,
+      "rationale": "Marketed as an outdoor/casual 'Tropicwear' shirt with plaids - not formal wear, and likely different materials and features.",
+      "map_id": "map_42ebaa3945764c54b36d9d0c39f979ea"
+    },
+    {
+      "competitor_product_name": "Stone Rose Long Sleeve Dry Touch Shirt",
+      "score": 7,
+      "rationale": "A long sleeve shirt with 'Dry Touch' (potentially moisture wicking, easy care), likely more performance-based but still similar in construction; just less traditional than a standard dress shirt.",
+      "map_id": "map_4da946e130624c77925a42b13b6cccc2"
+    },
+    {
+      "competitor_product_name": "JB Britches Men's Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "An oxford dress shirt is very close in form and function to the reference, though the specific fabric (oxford) may have a slightly different feel.",
+      "map_id": "map_fd4867afac6446fca36ee084ebd6358e"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Women's Relaxed Fit Long-Sleeve Pinpoint Oxford Shirt",
+      "score": 6,
+      "rationale": "Though intended for women, the silhouette (relaxed fit), fabric, and construction are similar to a dress shirt, but fit and market differ.",
+      "map_id": "map_84f18ee3205a40c5b4328775e64179b1"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt",
+      "score": 6,
+      "rationale": "This is a performance shirt with stretch, likely suitable for casual and dress, but not specified as a dress shirt; somewhat relevant.",
+      "map_id": "map_45b3c789a6374103be52b5882d4b091e"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt",
+      "score": 4,
+      "rationale": "A twill shirt with stretch and casual fit, not explicitly marketed as a dress shirt, and functionally more casual.",
+      "map_id": "map_db13e675a2fe4cf5a8e69144de68da93"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Signature Northwoods Twill Shirt",
+      "score": 3,
+      "rationale": "A twill shirt, likely rugged and casual as implied by 'Northwoods', quite removed from a non-iron dress shirt.",
+      "map_id": "map_c7302c3525454dbe9195001f2966de40"
+    },
+    {
+      "competitor_product_name": "David Donahue Men's Trim-Fit Micro-Birdseye French Cuff Dress Shirt",
+      "score": 9,
+      "rationale": "A classic dress shirt (trim fit, French cuff), very similar in silhouette and use to the reference, even if the cuff style varies.",
+      "map_id": "map_607c1454f62a4e9685889fcd18d4dc7a"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit, stretch, and dress shirt type match the reference product’s key features closely.",
+      "map_id": "map_1ab28b46db214391ac369b6d233324d0"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Knit Button Up Shirt",
+      "score": 7,
+      "rationale": "A modern fit button up with a knit construction—may be more casual or have stretch, but shares shirt structure and likely multipurpose wear.",
+      "map_id": "map_b56f87b9e35b4a1e99a5520815f11aab"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt",
+      "score": 9,
+      "rationale": "A performance stretch dress shirt, matching the reference in core features and use.",
+      "map_id": "map_9ed7b1a3d3a242c59c16355763c66f7c"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Premium Pima Cotton Oxford Shirt",
+      "score": 7,
+      "rationale": "A premium cotton oxford is a quality dress or business-casual shirt, quite relevant despite not specifying non-iron treatment.",
+      "map_id": "map_4c2d7ea2d63644bfa247a4840115ca00"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Women's Signature Soft Poplin Shirt",
+      "score": 6,
+      "rationale": "A poplin button shirt for women shares silhouette and construction, but is fit for a different demographic.",
+      "map_id": "map_8b97b7cd9e0c47d38984569ba8189cdb"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "A stretch dress shirt with a slim fit, nearly identical in function to the reference.",
+      "map_id": "map_d70bd692326e432682df0663181b027a"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt",
+      "score": 3,
+      "rationale": "A 'traditional untucked' fit and plaid suggest a casual shirt rather than a dress shirt.",
+      "map_id": "map_51061cfc6586499e9f3acc53f34f3551"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt",
+      "score": 4,
+      "rationale": "A chambray shirt is typically more casual; while similar in format (long sleeve, button up), the material and positioning differ.",
+      "map_id": "map_8abb943fe99942a98a52729b68b342aa"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt",
+      "score": 2,
+      "rationale": "A canvas shirt is largely casual and rugged, not typically worn as a dress shirt.",
+      "map_id": "map_b55238f823864424844fceb8d03d66cd"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt",
+      "score": 2,
+      "rationale": "Corduroy is a casual, textured fabric. Different from a dress shirt in feel, function, and use.",
+      "map_id": "map_fb34b4233bf24ec784ef1864332b0e53"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Riverton Ripstop Short-Sleeve Shirt",
+      "score": 1,
+      "rationale": "A short-sleeve ripstop shirt is a utility or outdoor piece, not comparable to a long sleeve non-iron dress shirt.",
+      "map_id": "map_c28a4fbee78a4385bfeacd83243d5174"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250421_104753",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nNo description available.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Lands' End School Uniform Short Sleeve No Iron Dress Shirt'\n  - Name='Indochino Men's Hyde Herringbone Cotton Shirt'\n  - Name='Lands' End Men's Traditional Fit No Iron Dress Shirt'\n  - Name='Lands' End Men's Relaxed Sail Rigger Oxford Shirt'\n  - Name='Bonobos Men's Stretch Oxford Shirt'\n  - Name='No Iron Lands' End Men's Tailored Fit Dress Shirt'\n  - Name='Lands' End Women's No Gape Long Sleeve Stretch Shirt'\n  - Name='Indochino Men's London Floral Vine Print Cotton Shirt'\n  - Name='Indochino Men's Netham Brushed Plaid Shirt'\n  - Name='Indochino Men's Custom Hailey Cotton Stretch'\n  - Name='Indochino Men's Oakington Seersucker Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Lands' End School Uniform Short Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"It is a 'No Iron Dress Shirt,' aligning closely with the reference product's core features, but is short sleeve and specifically for school uniform, making it slightly less relevant than a standard men's long sleeve dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Hyde Herringbone Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a men's cotton shirt intended for formal wear, but absence of 'no iron' feature and uncertainty around precise dress shirt construction lowers the score.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Almost an identical match: men's, traditional fit, no iron, dress shirt, directly matching the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Relaxed Sail Rigger Oxford Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is an oxford shirt with a relaxed fit, which is less formal and lacks the 'no iron' attribute, making it moderately relevant to a non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Oxford Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A men's oxford shirt of similar silhouette and purpose but not specifically a non-iron dress shirt, which is a key feature of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"No Iron Lands' End Men's Tailored Fit Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Virtually identical product to the reference: men's, no iron, dress shirt, only fit may differ but function and features are identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's No Gape Long Sleeve Stretch Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it is 'no iron' and of similar construction, it is a women's shirt with unique features such as 'no gape,' making it less relevant to a standard men's non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's London Floral Vine Print Cotton Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Men's shirt, likely of similar silhouette, but with a print and no mention of no-iron technology, reducing its relevance for direct comparison.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Netham Brushed Plaid Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A plaid, possibly more casual shirt with brushed finish, making it less similar in construction and intended use to a non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom Hailey Cotton Stretch\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Custom men's cotton stretch shirt may share core construction, but lacks 'no iron' feature and may be less formal than a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Oakington Seersucker Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A men's shirt, but made of seersucker (a more casual fabric) and lacking the non-iron attribute, so moderately relevant but not a close match.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Lands' End School Uniform Short Sleeve No Iron Dress Shirt",
+      "score": 7,
+      "rationale": "It is a 'No Iron Dress Shirt,' aligning closely with the reference product's core features, but is short sleeve and specifically for school uniform, making it slightly less relevant than a standard men's long sleeve dress shirt.",
+      "map_id": "map_596a7689a690497d9d0260013a0c1c55"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Hyde Herringbone Cotton Shirt",
+      "score": 6,
+      "rationale": "This is a men's cotton shirt intended for formal wear, but absence of 'no iron' feature and uncertainty around precise dress shirt construction lowers the score.",
+      "map_id": "map_0aa1bd038b8a48129489438fec64c471"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit No Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Almost an identical match: men's, traditional fit, no iron, dress shirt, directly matching the reference product.",
+      "map_id": "map_2e0550d0620846cfa6267bad544c3caf"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Relaxed Sail Rigger Oxford Shirt",
+      "score": 5,
+      "rationale": "This is an oxford shirt with a relaxed fit, which is less formal and lacks the 'no iron' attribute, making it moderately relevant to a non-iron dress shirt.",
+      "map_id": "map_99cfd41a0c424336be4c2b74f2f33f5d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Oxford Shirt",
+      "score": 5,
+      "rationale": "A men's oxford shirt of similar silhouette and purpose but not specifically a non-iron dress shirt, which is a key feature of the reference product.",
+      "map_id": "map_2251dfee9e264f54983bc344ee83b297"
+    },
+    {
+      "competitor_product_name": "No Iron Lands' End Men's Tailored Fit Dress Shirt",
+      "score": 10,
+      "rationale": "Virtually identical product to the reference: men's, no iron, dress shirt, only fit may differ but function and features are identical.",
+      "map_id": "map_d48cfd0730364bcaa5cda8c297e974e3"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's No Gape Long Sleeve Stretch Shirt",
+      "score": 4,
+      "rationale": "While it is 'no iron' and of similar construction, it is a women's shirt with unique features such as 'no gape,' making it less relevant to a standard men's non-iron dress shirt.",
+      "map_id": "map_df9567e703ba45f0a17b3ef14cc9c934"
+    },
+    {
+      "competitor_product_name": "Indochino Men's London Floral Vine Print Cotton Shirt",
+      "score": 4,
+      "rationale": "Men's shirt, likely of similar silhouette, but with a print and no mention of no-iron technology, reducing its relevance for direct comparison.",
+      "map_id": "map_dbfd1165fd1c4c6191b636aa2233975d"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Netham Brushed Plaid Shirt",
+      "score": 3,
+      "rationale": "A plaid, possibly more casual shirt with brushed finish, making it less similar in construction and intended use to a non-iron dress shirt.",
+      "map_id": "map_5b155f9ec80f4a74af6a65dd2dd88a48"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom Hailey Cotton Stretch",
+      "score": 5,
+      "rationale": "Custom men's cotton stretch shirt may share core construction, but lacks 'no iron' feature and may be less formal than a dress shirt.",
+      "map_id": "map_e6b7d4629eee4a8a9b25572d6f5991de"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Oakington Seersucker Shirt",
+      "score": 4,
+      "rationale": "A men's shirt, but made of seersucker (a more casual fabric) and lacking the non-iron attribute, so moderately relevant but not a close match.",
+      "map_id": "map_028cd90dda86488294da17cbb04f7180"
+    }
+  ]
+}

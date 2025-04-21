@@ -1,0 +1,95 @@
+{
+  "timestamp": "20250421_105131",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Bamboo Hawker'\n  - Name='Men Kangol 504 Wool Flexfit'\n  - Name='KANGOL SEAMLESS WOOL 507 K0875FA-DG301'\n  - Name='Kangol Tropic Ventair Spacecap'\n  - Name='Kangol Tropic Halifax'\n  - Name='Kangol - Herringbone 507-flat Cap-houndstooth-wool/acrylic/cotton-'\n  - Name='Kangol Easy Carry 5 Panel'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Bamboo Hawker\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The Bamboo Hawker is an 8-panel flat cap, similar in silhouette and construction to 'The Driver.' Both feature a form-fitting, classic design. The main difference is that the Hawker is made from bamboo rather than sport micro-poly, making it slightly less aligned in terms of performance fabric but highly similar overall.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Kangol 504 Wool Flexfit\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The 504 Wool Flexfit is an iconic flat cap but features a single-panel seamless construction rather than the 8-panel design, and uses wool, not technical micro-poly fabrics. It shares the same general category and likely customer, but differs notably in materials and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"KANGOL SEAMLESS WOOL 507 K0875FA-DG301\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This model is also a flat cap but uses a seamless construction and wool material. Its overall shape and function are somewhat similar, but it departs further from the multi-panel, technical performance focus of 'The Driver.'\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Ventair Spacecap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Although designed for breathability with a synthetic blend (Tropic material) and ventilation, the 'Spacecap' has a more modern silhouette, which is distinct from the classic flat/driver cap shape, making it moderately related but less relevant in precise style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Halifax\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Halifax is typically an 8-panel cap made from Kangol's breathable Tropic fabric, bringing it close to 'The Driver' in both shape and intended technical comfort, though with different branding and fabric specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol - Herringbone 507-flat Cap-houndstooth-wool/acrylic/cotton-\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This cap is a flat cap but made with traditional materials like wool, acrylic, and cotton, and a slightly modernized shape (the '507' is narrower than a typical 8-panel). It is within the flat cap family but lacks the athletic performance focus of 'The Driver.'\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Easy Carry 5 Panel\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This cap is a 5-panel, which is a totally different silhouette, often used for casual or streetwear with a softer, unstructured look. Its construction, purpose, and style are less relevant to the classic, fitted, athletic-performance driver cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Bamboo Hawker",
+      "score": 8,
+      "rationale": "The Bamboo Hawker is an 8-panel flat cap, similar in silhouette and construction to 'The Driver.' Both feature a form-fitting, classic design. The main difference is that the Hawker is made from bamboo rather than sport micro-poly, making it slightly less aligned in terms of performance fabric but highly similar overall.",
+      "map_id": "map_05342b659f4744218750472c786f73ff"
+    },
+    {
+      "competitor_product_name": "Men Kangol 504 Wool Flexfit",
+      "score": 6,
+      "rationale": "The 504 Wool Flexfit is an iconic flat cap but features a single-panel seamless construction rather than the 8-panel design, and uses wool, not technical micro-poly fabrics. It shares the same general category and likely customer, but differs notably in materials and construction.",
+      "map_id": "map_98c2c23b87f443ebb3db7116bfcc3232"
+    },
+    {
+      "competitor_product_name": "KANGOL SEAMLESS WOOL 507 K0875FA-DG301",
+      "score": 5,
+      "rationale": "This model is also a flat cap but uses a seamless construction and wool material. Its overall shape and function are somewhat similar, but it departs further from the multi-panel, technical performance focus of 'The Driver.'",
+      "map_id": "map_54fa5ae51a0745dfa8938e1872a7cac8"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Ventair Spacecap",
+      "score": 5,
+      "rationale": "Although designed for breathability with a synthetic blend (Tropic material) and ventilation, the 'Spacecap' has a more modern silhouette, which is distinct from the classic flat/driver cap shape, making it moderately related but less relevant in precise style.",
+      "map_id": "map_ce95f1b04ed84a6782e895cf2df56d72"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Halifax",
+      "score": 7,
+      "rationale": "The Halifax is typically an 8-panel cap made from Kangol's breathable Tropic fabric, bringing it close to 'The Driver' in both shape and intended technical comfort, though with different branding and fabric specifics.",
+      "map_id": "map_a95ed0df4ed344ef8f2282a6ca707614"
+    },
+    {
+      "competitor_product_name": "Kangol - Herringbone 507-flat Cap-houndstooth-wool/acrylic/cotton-",
+      "score": 6,
+      "rationale": "This cap is a flat cap but made with traditional materials like wool, acrylic, and cotton, and a slightly modernized shape (the '507' is narrower than a typical 8-panel). It is within the flat cap family but lacks the athletic performance focus of 'The Driver.'",
+      "map_id": "map_4595c9974f00430f82973fa8b99bfa52"
+    },
+    {
+      "competitor_product_name": "Kangol Easy Carry 5 Panel",
+      "score": 3,
+      "rationale": "This cap is a 5-panel, which is a totally different silhouette, often used for casual or streetwear with a softer, unstructured look. Its construction, purpose, and style are less relevant to the classic, fitted, athletic-performance driver cap.",
+      "map_id": "map_d07f29072b084181a89845eb30ca4ab3"
+    }
+  ]
+}

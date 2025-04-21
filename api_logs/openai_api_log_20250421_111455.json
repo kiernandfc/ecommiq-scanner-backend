@@ -1,0 +1,65 @@
+{
+  "timestamp": "20250421_111455",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Organic Cotton Shop Tee",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Organic Cotton Shop Tee\"\nReference Product Description:\nThe heavyweight champ of our tailored tee shirt lineup, The Organic Cotton Shop Tee is crafted from a burly organic cotton jersey with a subtle ribbed finish for increased stretch and comfort. Built to stand up to the most demanding of days, this one stays on hand all year long and gets better with every wear.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Marine Layer Women's Boyfriend V-Neck T-Shirt'\n  - Name='Taylor Stitch Men's Heavy Bag Upcycled Cotton T-Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Marine Layer Women's Boyfriend V-Neck T-Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While this is also a casual cotton t-shirt, it is a women's cut with a v-neck and likely a different fit/silhouette than the tailored but heavyweight crewneck of the reference product. The features and construction suggested in the reference (heavyweight, ribbed, organic cotton) may not apply here, but both serve as basic t-shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Heavy Bag Upcycled Cotton T-Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's t-shirt from the same brand, featuring heavy, rugged construction and focus on quality materials. While it uses upcycled cotton rather than specifically organic cotton, it is almost identical in function, silhouette, and construction to the reference product, likely appealing to the same customer. The only deduction is for the slight material difference.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Marine Layer Women's Boyfriend V-Neck T-Shirt",
+      "score": 5,
+      "rationale": "While this is also a casual cotton t-shirt, it is a women's cut with a v-neck and likely a different fit/silhouette than the tailored but heavyweight crewneck of the reference product. The features and construction suggested in the reference (heavyweight, ribbed, organic cotton) may not apply here, but both serve as basic t-shirts.",
+      "map_id": "map_fbf5da3e41694e33aea8950c27a986c8"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Heavy Bag Upcycled Cotton T-Shirt",
+      "score": 9,
+      "rationale": "This is a men's t-shirt from the same brand, featuring heavy, rugged construction and focus on quality materials. While it uses upcycled cotton rather than specifically organic cotton, it is almost identical in function, silhouette, and construction to the reference product, likely appealing to the same customer. The only deduction is for the slight material difference.",
+      "map_id": "map_59bc1cc5f4824cd1a162ce262254c944"
+    }
+  ]
+}

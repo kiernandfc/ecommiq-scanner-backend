@@ -1,0 +1,155 @@
+{
+  "timestamp": "20250421_110708",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt'\n  - Name='Mizzen+Main Colorado Boulder Ellis Sky Oxford'\n  - Name='Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt'\n  - Name='J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Slim Fit Oxford Shirt'\n  - Name='Buck Mason Men's Pacific Twill One Pocket Shirt'\n  - Name='Taylor Stitch Men's Jack Oxford Shirt'\n  - Name='Taylor Stitch The Cotton Button Up Jack Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Ledge Shirt'\n  - Name='Taylor Stitch Long Sleeve Shirt'\n  - Name='Taylor Stitch Men's Jack Oxford Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is an Oxford shirt, matching the core product type and likely similar in construction and versatility. The presence of stretch and a striped pattern are minor differences, but the shirt's function and silhouette are highly aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Colorado Boulder Ellis Sky Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is identified as an Oxford shirt, sharing the same silhouette and likely targeting the same use case as the reference product. Differences may exist in material blend or proprietary construction, but overall relevancy is high.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While still a long-sleeve collared shirt, the cutaway collar and twill fabric veer towards a dressier product compared to the casual, versatile Oxford. Less closely matched in construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to above, a cutaway collar and dressier construction set it apart from the reference Oxford shirt's rugged, casual style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Although it is a cotton shirt, it is positioned as a dress shirt with stretch and non-iron features, likely lacking the heavier basket weave, casual versatility, and Oxford construction of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a cotton Oxford button-down with a non-iron feature, very closely matching the product type, silhouette, and intended use of the reference shirt. The main difference is the non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This shirt uses a cotton-linen blend and non-iron treatment, likely offering a different texture, breathability, and appearance, and is positioned more as a dress shirt than a rugged Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is nearly identical to the reference: an organic cotton Oxford shirt with a slim fit and broken-in feel, matching details and intended versatility.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Slim Fit Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product is a slim fit Oxford shirt, highly aligned with the reference product in style, fabric, and versatility. May lack specific details like garment wash or organic cotton, but overall very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Pacific Twill One Pocket Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While it is a long-sleeve collared shirt, it's constructed from twill rather than Oxford or basket weave, and the presence of a chest pocket may signal a more casual or denim-style shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is essentially the same product as the reference, with both the product name and brand matching most criteria.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch The Cotton Button Up Jack Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Clearly a shirt from the same signature line and brand as the reference; unless there are minor differences in fabric or finishing, this is almost identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Ledge Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While it is a Taylor Stitch shirt using organic cotton, the 'Ledge Shirt' is likely a different silhouette or fabric (often heavier, with a different weave or pocket configuration), making it related but less directly matched.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Long Sleeve Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A Taylor Stitch long sleeve shirt is closely related, but without specifying the 'Jack' or 'Oxford' construction, it may include other shirts with different features, making it potentially less directly similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Direct match—this is the same brand and product as the reference, so the relevancy is identical.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt",
+      "score": 8,
+      "rationale": "This is an Oxford shirt, matching the core product type and likely similar in construction and versatility. The presence of stretch and a striped pattern are minor differences, but the shirt's function and silhouette are highly aligned.",
+      "map_id": "map_11dfdfa5463b463abb2eab1b16ee02f1"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Colorado Boulder Ellis Sky Oxford",
+      "score": 8,
+      "rationale": "This is identified as an Oxford shirt, sharing the same silhouette and likely targeting the same use case as the reference product. Differences may exist in material blend or proprietary construction, but overall relevancy is high.",
+      "map_id": "map_5ca6e65a8ee84b1daec01adf1716767e"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt",
+      "score": 5,
+      "rationale": "While still a long-sleeve collared shirt, the cutaway collar and twill fabric veer towards a dressier product compared to the casual, versatile Oxford. Less closely matched in construction and intended use.",
+      "map_id": "map_c0802f2c58854c46af0a61f1420e61d7"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt",
+      "score": 5,
+      "rationale": "Similar to above, a cutaway collar and dressier construction set it apart from the reference Oxford shirt's rugged, casual style.",
+      "map_id": "map_1f7c8bb76e4343779aecb61c0323eda5"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt",
+      "score": 5,
+      "rationale": "Although it is a cotton shirt, it is positioned as a dress shirt with stretch and non-iron features, likely lacking the heavier basket weave, casual versatility, and Oxford construction of the reference.",
+      "map_id": "map_027ea485ec7a4101a94395b59ad79b5d"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "This is a cotton Oxford button-down with a non-iron feature, very closely matching the product type, silhouette, and intended use of the reference shirt. The main difference is the non-iron treatment.",
+      "map_id": "map_8bd8b6bfa5a347a384f62d7e01a9c170"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt",
+      "score": 4,
+      "rationale": "This shirt uses a cotton-linen blend and non-iron treatment, likely offering a different texture, breathability, and appearance, and is positioned more as a dress shirt than a rugged Oxford.",
+      "map_id": "map_d58c56e5eec541358ef40955bee2b895"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt",
+      "score": 10,
+      "rationale": "This is nearly identical to the reference: an organic cotton Oxford shirt with a slim fit and broken-in feel, matching details and intended versatility.",
+      "map_id": "map_068165a5a98d47009e0921d86f8af0b3"
+    },
+    {
+      "competitor_product_name": "J.Crew Slim Fit Oxford Shirt",
+      "score": 9,
+      "rationale": "This product is a slim fit Oxford shirt, highly aligned with the reference product in style, fabric, and versatility. May lack specific details like garment wash or organic cotton, but overall very relevant.",
+      "map_id": "map_21dfba4acbb84882a80ffb4c10df7030"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Pacific Twill One Pocket Shirt",
+      "score": 6,
+      "rationale": "While it is a long-sleeve collared shirt, it's constructed from twill rather than Oxford or basket weave, and the presence of a chest pocket may signal a more casual or denim-style shirt.",
+      "map_id": "map_1d28b6a649524afcba1feaa49ddc5d4e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "This is essentially the same product as the reference, with both the product name and brand matching most criteria.",
+      "map_id": "map_c37a2a65a80843b48d1c18c9754e616f"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "This is essentially the same product as the reference, with both the product name and brand matching most criteria.",
+      "map_id": "map_c0703c4184104414baf2ffd5abf7791b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch The Cotton Button Up Jack Shirt",
+      "score": 9,
+      "rationale": "Clearly a shirt from the same signature line and brand as the reference; unless there are minor differences in fabric or finishing, this is almost identical.",
+      "map_id": "map_f69f8ce29c4e406397a32a496bf51549"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Ledge Shirt",
+      "score": 7,
+      "rationale": "While it is a Taylor Stitch shirt using organic cotton, the 'Ledge Shirt' is likely a different silhouette or fabric (often heavier, with a different weave or pocket configuration), making it related but less directly matched.",
+      "map_id": "map_5f7b2d938ef4465286a2239f3312b64d"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Long Sleeve Shirt",
+      "score": 8,
+      "rationale": "A Taylor Stitch long sleeve shirt is closely related, but without specifying the 'Jack' or 'Oxford' construction, it may include other shirts with different features, making it potentially less directly similar.",
+      "map_id": "map_c62742fb1c9f430492b343f91cc218e2"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Direct match—this is the same brand and product as the reference, so the relevancy is identical.",
+      "map_id": "map_c37a2a65a80843b48d1c18c9754e616f"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Direct match—this is the same brand and product as the reference, so the relevancy is identical.",
+      "map_id": "map_c0703c4184104414baf2ffd5abf7791b"
+    }
+  ]
+}
