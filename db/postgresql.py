@@ -791,6 +791,14 @@ class PostgreSQLDatabase:
             return session.query(CatalogProductDB).count()
         finally:
             session.close()
+            
+    def get_unique_search_query_count(self) -> int:
+        """Get total number of unique search queries"""
+        session = self.Session()
+        try:
+            return session.query(CompetitorBrandDB.search_query).distinct().count()
+        finally:
+            session.close()
 
     # Implement other methods similar to DynamoDB class but using SQLAlchemy ORM
     # For example: add_or_update_catalog_product, get_price_history, etc. 

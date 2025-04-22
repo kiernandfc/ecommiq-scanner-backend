@@ -72,7 +72,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     logger.error("OPENAI_API_KEY environment variable not found.")
     exit(1)
-OPENAI_MODEL = "gpt-4.1" # Updated model
+OPENAI_MODEL = "gpt-4.1-mini" # Updated model
 
 # Database Configuration (Using existing POSTGRESQL_* variables)
 DB_HOST = os.getenv("POSTGRESQL_HOST")
