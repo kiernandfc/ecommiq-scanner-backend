@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250428_091241",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's Startup Shirt'\n  - Name='Everlane Boxy Oxford'\n  - Name='Everlane Men's Organic Cotton Canvas Overshirt Sweater'\n  - Name='Everlane Men's Utility Shirt Jacket'\n  - Name='Everlane Men's Linen Resort Shirt'\n  - Name='Men's Mizzen+Main Leeward Dress Shirt'\n  - Name='Unt Ellis Men's Lightweight Wrinkle-Free Oxford Dress Shirt'\n  - Name='Bonobos Men's Raleigh Gingham Everyday Casual Shirt'\n  - Name='Bonobos Men's Stretch Everyday Shirt'\n  - Name='EVERLANE Oxford Shirt'\n  - Name='Alex Mill Jo Shirt In Positano Stripe'\n  - Name='Mizzen + Main Men's Texas Tech Ellis Oxford Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Royal Oxford Shirt'\n  - Name='Charles Tyrwhitt Men's Stretch Washed Oxford Shirt'\n  - Name='Everlane Men's Classic Oxford Button Up Shirt'\n  - Name='Everlane Men's Classic Linen Short-Sleeve Shirt'\n  - Name='Ellis Nile Solid Oxford'\n  - Name='Ellis Sky Solid Oxford'\n  - Name='Todd Snyder Men's Cotton Jacquard Point Collar Shirt'\n  - Name='Mizzen+Main Gonzaga Ellis Oxford'\n  - Name='Everlane Men's Slim Oxford Button Up Shirt'\n  - Name='Todd Snyder Men's Slim Fit Favorite Oxford Shirt'\n  - Name='Everlane Men's Relaxed Utility Shirt'\n  - Name='Todd Snyder Men's Slim Fit Flannel Dress Shirt'\n  - Name='Todd Snyder Men's Striped Cotton Spread Collar Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's Startup Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a men's button-up shirt but no specific fabric or construction details; moderately relevant as a casual shirt but unknown if Oxford or organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Boxy Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford shirt which matches the fabric type closely; 'Boxy' fit differs from tailored but still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Cotton Canvas Overshirt Sweater\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Made of organic cotton which matches fabric philosophy, but it's an overshirt sweater which is heavier and different in construction than a tailored Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Utility Shirt Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A shirt jacket implies heavier construction and outerwear use; not as similar to tailored Oxford shirt but shares some shirt elements.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Linen Resort Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Linen fabric and resort style differ significantly from cotton Oxford tailored shirt; different fabric and likely relaxed fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Leeward Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A dress shirt is related; possible similar use and fit but unknown fabric type, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Unt Ellis Men's Lightweight Wrinkle-Free Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An Oxford dress shirt with wrinkle-free feature aligns closely in fabric and use; very relevant to reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Raleigh Gingham Everyday Casual Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual shirt with gingham pattern; likely cotton but different pattern and casual style makes it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Everyday Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Everyday shirt with stretch suggests casual and comfort focus; cotton likely but no mention of Oxford fabric; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly an Oxford shirt from a reputable brand, very similar in core fabric and style to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Jo Shirt In Positano Stripe\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Shirt with pattern (stripe) that affects perceived style; unknown fabric but likely casual shirt – moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Men's Texas Tech Ellis Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford dress shirt similar in fabric and use; fits well with reference product features.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Royal Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic Oxford shirt with non-iron finish; closely related in fabric and construction to reference; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oxford shirt with stretch and washed finish; very similar in core style and probable construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Classic Oxford Button Up Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic Oxford shirt nearly identical in category and likely fabric and construction; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Classic Linen Short-Sleeve Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Linen fabric and short sleeves differ significantly from Oxford cotton long-sleeve shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Ellis Nile Solid Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Solid Oxford shirt, aligns well with fabric and style though details on cut unknown; fairly high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Ellis Sky Solid Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same reasoning as Nile Solid Oxford; a classic Oxford shirt highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cotton Jacquard Point Collar Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton shirt with jacquard fabric indicates different texture and pattern; point collar differs from button-down but still a cotton shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Gonzaga Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt by Mizzen+Main; very similar in fabric and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Slim Oxford Button Up Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit Oxford button-up closely parallels reference shirt's tailored fit and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Slim Fit Favorite Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit Oxford shirt matching fabric and construction with a tailored, clean style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Relaxed Utility Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Utility shirt often heavier and less tailored than Oxford dress shirts; relevant as a shirt but functional purpose differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Slim Fit Flannel Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flannel fabric differs from Oxford cotton; slim dress shirt form relevant but fabric and heaviness reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Striped Cotton Spread Collar Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton dress shirt is relevant but spread collar and stripe pattern differ from button-down Oxford shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's Startup Shirt",
+      "score": 7,
+      "rationale": "Likely a men's button-up shirt but no specific fabric or construction details; moderately relevant as a casual shirt but unknown if Oxford or organic cotton.",
+      "map_id": "map_d7cb1ae1e45e4e98b4f444c6d933d6bd"
+    },
+    {
+      "competitor_product_name": "Everlane Boxy Oxford",
+      "score": 8,
+      "rationale": "An Oxford shirt which matches the fabric type closely; 'Boxy' fit differs from tailored but still highly relevant.",
+      "map_id": "map_b6da3020c4ee47f1b932fa81036afba4"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Cotton Canvas Overshirt Sweater",
+      "score": 4,
+      "rationale": "Made of organic cotton which matches fabric philosophy, but it's an overshirt sweater which is heavier and different in construction than a tailored Oxford shirt.",
+      "map_id": "map_8f3262ff827b4ce5bc02a56a1f835db5"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Utility Shirt Jacket",
+      "score": 3,
+      "rationale": "A shirt jacket implies heavier construction and outerwear use; not as similar to tailored Oxford shirt but shares some shirt elements.",
+      "map_id": "map_dd316d0147ce451fb4220d4d56f1d4af"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Linen Resort Shirt",
+      "score": 2,
+      "rationale": "Linen fabric and resort style differ significantly from cotton Oxford tailored shirt; different fabric and likely relaxed fit.",
+      "map_id": "map_24a82bd471b14b8e852321b80ced465f"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Leeward Dress Shirt",
+      "score": 6,
+      "rationale": "A dress shirt is related; possible similar use and fit but unknown fabric type, so moderate relevancy.",
+      "map_id": "map_8e3fc0aa6b2247e3b475f9c6c7ed8b9c"
+    },
+    {
+      "competitor_product_name": "Unt Ellis Men's Lightweight Wrinkle-Free Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "An Oxford dress shirt with wrinkle-free feature aligns closely in fabric and use; very relevant to reference shirt.",
+      "map_id": "map_160f642bcc4d4a21a11c9f9eed98d463"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Raleigh Gingham Everyday Casual Shirt",
+      "score": 5,
+      "rationale": "Casual shirt with gingham pattern; likely cotton but different pattern and casual style makes it moderately relevant.",
+      "map_id": "map_0e0bb2cff9e744e5be93034ca136823c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Everyday Shirt",
+      "score": 6,
+      "rationale": "Everyday shirt with stretch suggests casual and comfort focus; cotton likely but no mention of Oxford fabric; moderately relevant.",
+      "map_id": "map_5a2d61a86d8445ed9651a3f5a603490d"
+    },
+    {
+      "competitor_product_name": "EVERLANE Oxford Shirt",
+      "score": 9,
+      "rationale": "Explicitly an Oxford shirt from a reputable brand, very similar in core fabric and style to reference.",
+      "map_id": "map_bc8c5badd0394470b22e8c6ecda07118"
+    },
+    {
+      "competitor_product_name": "Alex Mill Jo Shirt In Positano Stripe",
+      "score": 5,
+      "rationale": "Shirt with pattern (stripe) that affects perceived style; unknown fabric but likely casual shirt – moderate relevancy.",
+      "map_id": "map_4ce537ed4a5a4264b89fca6cc816a4fb"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Men's Texas Tech Ellis Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "An Oxford dress shirt similar in fabric and use; fits well with reference product features.",
+      "map_id": "map_40b6ea5e3d3f494eaee2f0057ebd22ba"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Royal Oxford Shirt",
+      "score": 9,
+      "rationale": "Classic Oxford shirt with non-iron finish; closely related in fabric and construction to reference; highly relevant.",
+      "map_id": "map_7a8e8d24907840d48024ea931ebd3543"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Oxford Shirt",
+      "score": 9,
+      "rationale": "Oxford shirt with stretch and washed finish; very similar in core style and probable construction.",
+      "map_id": "map_876d7aa7d4b248bd9b26df5ee165358a"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Classic Oxford Button Up Shirt",
+      "score": 9,
+      "rationale": "Classic Oxford shirt nearly identical in category and likely fabric and construction; highly relevant.",
+      "map_id": "map_164bbf9defd648fd878794aa14c1c84a"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Classic Linen Short-Sleeve Shirt",
+      "score": 2,
+      "rationale": "Linen fabric and short sleeves differ significantly from Oxford cotton long-sleeve shirt.",
+      "map_id": "map_6a64c9ff9f794751b0dcbc29f91cac75"
+    },
+    {
+      "competitor_product_name": "Ellis Nile Solid Oxford",
+      "score": 8,
+      "rationale": "Solid Oxford shirt, aligns well with fabric and style though details on cut unknown; fairly high relevance.",
+      "map_id": "map_fe0bd687a8e8486bbd7f781a986d50d9"
+    },
+    {
+      "competitor_product_name": "Ellis Sky Solid Oxford",
+      "score": 8,
+      "rationale": "Same reasoning as Nile Solid Oxford; a classic Oxford shirt highly relevant.",
+      "map_id": "map_2a62e02c6dbe440eb99624b3679a9067"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cotton Jacquard Point Collar Shirt",
+      "score": 6,
+      "rationale": "Cotton shirt with jacquard fabric indicates different texture and pattern; point collar differs from button-down but still a cotton shirt.",
+      "map_id": "map_7bcea2b501794682a449e8630cc87aca"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Gonzaga Ellis Oxford",
+      "score": 8,
+      "rationale": "Oxford shirt by Mizzen+Main; very similar in fabric and intended use.",
+      "map_id": "map_253b8e94fdd847f8b553a76d300a8d3f"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Slim Oxford Button Up Shirt",
+      "score": 9,
+      "rationale": "Slim fit Oxford button-up closely parallels reference shirt's tailored fit and fabric.",
+      "map_id": "map_d1f0c4aad4464f1bab692880400866c3"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Slim Fit Favorite Oxford Shirt",
+      "score": 9,
+      "rationale": "Slim fit Oxford shirt matching fabric and construction with a tailored, clean style.",
+      "map_id": "map_9a5118e4f3214a9081676610ef8d0a91"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Relaxed Utility Shirt",
+      "score": 4,
+      "rationale": "Utility shirt often heavier and less tailored than Oxford dress shirts; relevant as a shirt but functional purpose differs.",
+      "map_id": "map_1702632f18484afcb3ab82f1d7fb4250"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Slim Fit Flannel Dress Shirt",
+      "score": 5,
+      "rationale": "Flannel fabric differs from Oxford cotton; slim dress shirt form relevant but fabric and heaviness reduce relevancy.",
+      "map_id": "map_7714b13f256c4ad6995bd19168ecae6a"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Striped Cotton Spread Collar Dress Shirt",
+      "score": 6,
+      "rationale": "Cotton dress shirt is relevant but spread collar and stripe pattern differ from button-down Oxford shirt.",
+      "map_id": "map_2e99e88f479e4a45a2fc1ad3dbbcf5d2"
+    }
+  ]
+}

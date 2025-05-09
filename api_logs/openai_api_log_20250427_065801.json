@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250427_065801",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Men's Polo Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Men's Polo Shirt\"\nReference Product Description:\nDiscover the perfect blend of comfort, quality, and style with our men's knit polos collection.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Patagonia Men's Sunrise Stream Organic Cotton Shirt'\n  - Name='Patagonia Men's Daily Polo'\n  - Name='Original Penguin Men's Stripe Tie Bar'\n  - Name='Bubble Plane Tie Bar'\n  - Name='The Tie Bar Men's Brushed Metal Tie Clip'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Patagonia Men's Sunrise Stream Organic Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a men's shirt made of organic cotton, which relates to comfort and quality in the reference knit polos, but it does not specify being a polo shirt or knit, so similarity is moderate.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Daily Polo\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's polo shirt, directly matching the product type and purpose of the reference product, likely similar in silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Original Penguin Men's Stripe Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a tie bar accessory, unrelated to shirts or polos in function or construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Bubble Plane Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a tie bar, a fashion accessory unrelated to knit polo shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Brushed Metal Tie Clip\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A men's tie clip is an accessory with no relevance to men's polo shirts in terms of function or product type.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Patagonia Men's Sunrise Stream Organic Cotton Shirt",
+      "score": 6,
+      "rationale": "This is a men's shirt made of organic cotton, which relates to comfort and quality in the reference knit polos, but it does not specify being a polo shirt or knit, so similarity is moderate.",
+      "map_id": "map_059aba0e21d746aaaa05432373c12fb6"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Daily Polo",
+      "score": 9,
+      "rationale": "This is a men's polo shirt, directly matching the product type and purpose of the reference product, likely similar in silhouette and construction.",
+      "map_id": "map_f769311cb3d54940a049efe9c5169df7"
+    },
+    {
+      "competitor_product_name": "Original Penguin Men's Stripe Tie Bar",
+      "score": 1,
+      "rationale": "This is a tie bar accessory, unrelated to shirts or polos in function or construction.",
+      "map_id": "map_6a5d06a11fdb45faabf67f9cdb901eed"
+    },
+    {
+      "competitor_product_name": "Bubble Plane Tie Bar",
+      "score": 1,
+      "rationale": "This is a tie bar, a fashion accessory unrelated to knit polo shirts.",
+      "map_id": "map_a2addcdf2eea4eb899b08dbcfcf983a6"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Brushed Metal Tie Clip",
+      "score": 1,
+      "rationale": "A men's tie clip is an accessory with no relevance to men's polo shirts in terms of function or product type.",
+      "map_id": "map_ba270000c1ec4e88bb42cce06f302544"
+    }
+  ]
+}

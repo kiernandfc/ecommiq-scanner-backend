@@ -1,0 +1,185 @@
+{
+  "timestamp": "20250508_090957",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nNo description available.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Todd Snyder Men's Rayon Miami Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Royal Oxford Stripe Cotton Formal Shirt'\n  - Name='Alex Mill Men's Allen Henley'\n  - Name='Todd Snyder Men's Relaxed Summerweight Point Collar Shirt'\n  - Name='Men's Charles Tyrwhitt Collarless Stretch Washed Oxford Stripe Cotton Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Cotton Formal Shirt'\n  - Name='J.Crew Men's Flex Oxford Slim Fit Long Sleeve Shirt Top'\n  - Name='J.crew Men's Performance Button Down Oxford Shirt'\n  - Name='J.crew Men's Relaxed Traditional Weight Oxford Shirt'\n  - Name='J.crew Men's Flex Oxford Casual Shirt'\n  - Name='J.crew Men's Flex Oxford Casual Shirt'\n  - Name='J.Crew Factory Men's Classic Fit Long Sleeve Flex Oxford Shirt'\n  - Name='J.Crew Men's Slim-Fit Long Sleeve Flex Oxford Shirt'\n  - Name='Frank & Oak Jasper Preppy Classic Button Down Shirt'\n  - Name='Buck Mason Women's Mainstay Shirt'\n  - Name='Buck Mason Men's California Oxford Shirt'\n  - Name='Buck Mason 2 Pocket Double Weave Vintage Twill Button Up Long Sleeve Shirt'\n  - Name='Taylor Stitch Men's Jack Long Sleeve Chambray Shirt'\n  - Name='Buck Mason Men's Field-Spec Cotton Heavy Tee'\n  - Name='Buck Mason Men's Flannel Workshirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Rayon Miami Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are men's casual shirts likely similar in style and material ('rayon' suggests a casual, soft fabric), so moderately relevant to a shirt product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Royal Oxford Stripe Cotton Formal Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Formal cotton shirt with non-iron treatment differs in use and style from typical casual or work shirts; less relevant without casual or rugged cues.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Allen Henley\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Henley is a collarless pullover shirt distinct from typical button-up shirts like 'Jack Shirt,' so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Relaxed Summerweight Point Collar Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Relaxed fit, summerweight button-down shirt likely similar in silhouette and casual intent, so fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Collarless Stretch Washed Oxford Stripe Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Collarless Oxford shirt is a button-top style but collarless style reduces similarity, still somewhat relevant as a casual shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Cotton Formal Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Formal twill cotton non-iron shirt likely more dressy than the reference; moderate relevancy as a men's shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Flex Oxford Slim Fit Long Sleeve Shirt Top\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit Oxford shirt is a common casual shirt style, likely similar construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Men's Performance Button Down Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance Oxford button-down shirt is structurally similar, likely casual with modern fabric technology.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Men's Relaxed Traditional Weight Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Relaxed traditional weight Oxford closely aligns with a casual durable shirt like Jack Shirt, high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Men's Flex Oxford Casual Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Casual button-down Oxford shirt with flexible fabric is similar in function, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Men's Flex Oxford Casual Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated product: same relevancy as above.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Factory Men's Classic Fit Long Sleeve Flex Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit long sleeve Oxford casual shirt likely very similar to the reference in style and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-Fit Long Sleeve Flex Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim-fit long sleeve Oxford shirt is similar but cut is slimmer, slightly less relevant but still close.\"\n    },\n    {\n      \"competitor_product_name\": \"Frank & Oak Jasper Preppy Classic Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic button down shirt with preppy style is generally similar and relevant to a versatile men's button-up shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Women's Mainstay Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's shirt differs in fit and possibly styling from men's 'Jack Shirt,' so lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's California Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's Oxford shirt similar in fabric and style to Jack Shirt, high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason 2 Pocket Double Weave Vintage Twill Button Up Long Sleeve Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Vintage twill button-up with two pockets suggests a rugged, durable shirt very similar in construction and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Long Sleeve Chambray Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact product match except with added fabric detail, maximum relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Field-Spec Cotton Heavy Tee\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Heavy tee is a different category (t-shirt not button-up shirt), minimal relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Flannel Workshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flannel workshirt is a rugged button-up shirt similar in silhouette and intended use, quite relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Todd Snyder Men's Rayon Miami Shirt",
+      "score": 7,
+      "rationale": "Both are men's casual shirts likely similar in style and material ('rayon' suggests a casual, soft fabric), so moderately relevant to a shirt product.",
+      "map_id": "map_756acfedd44a4070b04120c50290920b"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Royal Oxford Stripe Cotton Formal Shirt",
+      "score": 5,
+      "rationale": "Formal cotton shirt with non-iron treatment differs in use and style from typical casual or work shirts; less relevant without casual or rugged cues.",
+      "map_id": "map_4140ccf69ba84eaebe235ab42635d96f"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Allen Henley",
+      "score": 3,
+      "rationale": "Henley is a collarless pullover shirt distinct from typical button-up shirts like 'Jack Shirt,' so low relevancy.",
+      "map_id": "map_1488c508d6d74bb5b31e05ea5841f389"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Relaxed Summerweight Point Collar Shirt",
+      "score": 8,
+      "rationale": "Relaxed fit, summerweight button-down shirt likely similar in silhouette and casual intent, so fairly relevant.",
+      "map_id": "map_fb3a5cad2fb64ff2a033b070d938631c"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Collarless Stretch Washed Oxford Stripe Cotton Shirt",
+      "score": 6,
+      "rationale": "Collarless Oxford shirt is a button-top style but collarless style reduces similarity, still somewhat relevant as a casual shirt.",
+      "map_id": "map_83f96c5258b34d009334ff8ced6688af"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Cotton Formal Shirt",
+      "score": 5,
+      "rationale": "Formal twill cotton non-iron shirt likely more dressy than the reference; moderate relevancy as a men's shirt.",
+      "map_id": "map_128a5ab2519948d9970913710a9a0df0"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Flex Oxford Slim Fit Long Sleeve Shirt Top",
+      "score": 7,
+      "rationale": "Slim fit Oxford shirt is a common casual shirt style, likely similar construction and purpose.",
+      "map_id": "map_1dff1f0f8f344a3b8c4775a17933f213"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Performance Button Down Oxford Shirt",
+      "score": 7,
+      "rationale": "Performance Oxford button-down shirt is structurally similar, likely casual with modern fabric technology.",
+      "map_id": "map_a72c6c646bd1482eb042c5e1b5acde16"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Relaxed Traditional Weight Oxford Shirt",
+      "score": 8,
+      "rationale": "Relaxed traditional weight Oxford closely aligns with a casual durable shirt like Jack Shirt, high relevancy.",
+      "map_id": "map_f7e216e29a0a4c69b448a76c6dde27b8"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Flex Oxford Casual Shirt",
+      "score": 7,
+      "rationale": "Casual button-down Oxford shirt with flexible fabric is similar in function, moderately relevant.",
+      "map_id": "map_ebd1516996c445528df496aa0d191496"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Flex Oxford Casual Shirt",
+      "score": 7,
+      "rationale": "Casual button-down Oxford shirt with flexible fabric is similar in function, moderately relevant.",
+      "map_id": "map_42316f5659e0455483d09b961e238d53"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Flex Oxford Casual Shirt",
+      "score": 7,
+      "rationale": "Repeated product: same relevancy as above.",
+      "map_id": "map_ebd1516996c445528df496aa0d191496"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Flex Oxford Casual Shirt",
+      "score": 7,
+      "rationale": "Repeated product: same relevancy as above.",
+      "map_id": "map_42316f5659e0455483d09b961e238d53"
+    },
+    {
+      "competitor_product_name": "J.Crew Factory Men's Classic Fit Long Sleeve Flex Oxford Shirt",
+      "score": 8,
+      "rationale": "Classic fit long sleeve Oxford casual shirt likely very similar to the reference in style and silhouette.",
+      "map_id": "map_bd99e5a6c88746229f6694c08cb34a69"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim-Fit Long Sleeve Flex Oxford Shirt",
+      "score": 7,
+      "rationale": "Slim-fit long sleeve Oxford shirt is similar but cut is slimmer, slightly less relevant but still close.",
+      "map_id": "map_039efc175bd54a4994bc0b28d34143e3"
+    },
+    {
+      "competitor_product_name": "Frank & Oak Jasper Preppy Classic Button Down Shirt",
+      "score": 7,
+      "rationale": "Classic button down shirt with preppy style is generally similar and relevant to a versatile men's button-up shirt.",
+      "map_id": "map_4951b660fbf34d6c8e16b9a3cebfbb0a"
+    },
+    {
+      "competitor_product_name": "Buck Mason Women's Mainstay Shirt",
+      "score": 4,
+      "rationale": "Women's shirt differs in fit and possibly styling from men's 'Jack Shirt,' so lower relevancy.",
+      "map_id": "map_7e20bb27fa1049f8a675ecaee0ffaa26"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's California Oxford Shirt",
+      "score": 8,
+      "rationale": "Men's Oxford shirt similar in fabric and style to Jack Shirt, high relevancy.",
+      "map_id": "map_cb3858d6542f4558acf036e41730b526"
+    },
+    {
+      "competitor_product_name": "Buck Mason 2 Pocket Double Weave Vintage Twill Button Up Long Sleeve Shirt",
+      "score": 9,
+      "rationale": "Vintage twill button-up with two pockets suggests a rugged, durable shirt very similar in construction and use.",
+      "map_id": "map_afda510427574b05a4a9fccf16455074"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Long Sleeve Chambray Shirt",
+      "score": 10,
+      "rationale": "Exact product match except with added fabric detail, maximum relevancy.",
+      "map_id": "map_cb465f3ce3ae465fa8a0ca9711e024a4"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Field-Spec Cotton Heavy Tee",
+      "score": 2,
+      "rationale": "Heavy tee is a different category (t-shirt not button-up shirt), minimal relevancy.",
+      "map_id": "map_3f1b25bc237e43219621cd7add69503a"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Flannel Workshirt",
+      "score": 8,
+      "rationale": "Flannel workshirt is a rugged button-up shirt similar in silhouette and intended use, quite relevant.",
+      "map_id": "map_99244596696c49bca5300fc834f55d0a"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250425_080206",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Untucked-Fit Slim Flex Oxford Shirt'\n  - Name='J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt'\n  - Name='J.Crew Men's Slim Secret Wash Cotton Poplin Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Poplin Cotton Formal Shirt'\n  - Name='J.Crew Men's Tailored Performance Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Slim Fit Non-Iron Dress Shirt'\n  - Name='J.Crew Men's Performance Knit Oxford Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Oxford Stripe Dress Shirt'\n  - Name='Men's Slim Untucked Dress Shirt'\n  - Name='Banana Republic Dress Shirt'\n  - Name='Thomas Mason for J.Crew Men's Washed Poplin Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Wrinkle-Free Kennebunk Sport Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Oxford Shirt'\n  - Name='L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Short-Sleeve Polo'\n  - Name='Lands' End Men's Tailored Fit No Iron Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Michael Kors Men's Big & Tall Non-Iron Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit 4-Way Stretch Button Up Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Untucked-Fit Slim Flex Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar type of men's shirt with a slim fit and flexible fabric, but specifically designed to be untucked and made of Oxford cloth, which differs from the non-iron dress shirt fabric and traditional fit options.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A slim fit cotton Oxford dress shirt similar in style and function to the reference non-iron dress shirt, but made of Portuguese cotton and likely not non-iron treated.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle-free dress shirt is very close in function to a non-iron dress shirt with similar intended use, likely similar fits and dress shirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with cotton Oxford fabric from a direct menswear competitor; likely very similar fit and features, though collar style may differ (button-down vs. semi-spread).\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A slim cotton poplin shirt that is washed but not specified as non-iron; similar dress shirt category but differs in fabric treatment and possibly construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A direct match in category and non-iron treatment, likely very similar in features, fit, and construction to the reference product from the same dress shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Poplin Cotton Formal Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron cotton poplin formal shirt, very close to reference product's category and use though possibly differed collar and fit details.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tailored Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tailored dress shirt emphasizing performance (likely wrinkle resistance or stretch), similar in purpose but possibly different fabric treatment than non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Slim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron dress shirt in a slim fit by a direct competitor, very closely aligned with the reference product features and style.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Performance Knit Oxford Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Performance knit Oxford shirt mixes performance fabric with Oxford style but likely differs in formality, texture, and intended wear compared to woven non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron Oxford dress shirt with stretch and stripe pattern; very similar core product but with stretch fabric and stripe detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Untucked Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim untucked shirt suggests a casual dress shirt designed for informal wear; similar silhouette but less formal and probably lacks non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic dress shirt from a comparable brand likely to be similar in general dress shirt function but lacking specific non-iron mention.\"\n    },\n    {\n      \"competitor_product_name\": \"Thomas Mason for J.Crew Men's Washed Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Washed poplin shirt, likely a dress shirt but washed treatment generally differs from non-iron; probably similar silhouette but with different fabric care properties.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt tailored to athletic build, similar in category but differing in silhouette from the trim and standard fits mentioned in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Almost identical product type: traditional fit, cotton Oxford, non-iron dress shirt from a major retailer; aligns very well with reference features.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle-resistant dress shirt with modern fit, closely related to non-iron with similar dress and care features though potentially different fabric technology.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Wrinkle-Free Kennebunk Sport Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wrinkle-free sport shirt suggests a casual shirt less formal than dress shirt, limiting relevancy despite wrinkle-free fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Comfort stretch Oxford shirt could serve as a dress shirt but no mention of non-iron or dress formal fit; some relevancy due to style and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Hemp fabric casual long-sleeve shirt likely differs significantly in dress level, fabric, and intended use from a non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Short-Sleeve Polo\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Short-sleeve polo shirt, casual and very different product type and silhouette from long-sleeve non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"No iron dress shirt with tailored fit; directly comparable product with same fabric treatment and similar fit options.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Duplicate entry; same rationale as above: highly relevant wrinkle-resistant modern fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Big & Tall Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt designed for big & tall sizing; highly relevant due to fabric treatment and purpose, though likely different sizing focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit 4-Way Stretch Button Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit button-up with 4-way stretch likely dress shirt or casual shirt; relevant for similar function despite stretch fabric focus and no non-iron mention.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Untucked-Fit Slim Flex Oxford Shirt",
+      "score": 6,
+      "rationale": "Similar type of men's shirt with a slim fit and flexible fabric, but specifically designed to be untucked and made of Oxford cloth, which differs from the non-iron dress shirt fabric and traditional fit options.",
+      "map_id": "map_56bd7cb3589f4901bff71eb69036e9ed"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "A slim fit cotton Oxford dress shirt similar in style and function to the reference non-iron dress shirt, but made of Portuguese cotton and likely not non-iron treated.",
+      "map_id": "map_08981995db3f4f10a81d06684a3b8ae5"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle-free dress shirt is very close in function to a non-iron dress shirt with similar intended use, likely similar fits and dress shirt style.",
+      "map_id": "map_2e54323d4cf84557bf17112c0422ded1"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with cotton Oxford fabric from a direct menswear competitor; likely very similar fit and features, though collar style may differ (button-down vs. semi-spread).",
+      "map_id": "map_5dd04167b42a414d8751b87ab43fdca5"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Secret Wash Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "A slim cotton poplin shirt that is washed but not specified as non-iron; similar dress shirt category but differs in fabric treatment and possibly construction.",
+      "map_id": "map_55a1b36a22da4784a89db31bc019c0f2"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "A direct match in category and non-iron treatment, likely very similar in features, fit, and construction to the reference product from the same dress shirt category.",
+      "map_id": "map_8e26eea719434650ac0abd70575dfbd3"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Poplin Cotton Formal Shirt",
+      "score": 9,
+      "rationale": "Non-iron cotton poplin formal shirt, very close to reference product's category and use though possibly differed collar and fit details.",
+      "map_id": "map_09f14d1de3aa4ee1aa78538e9d98a3a3"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tailored Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Tailored dress shirt emphasizing performance (likely wrinkle resistance or stretch), similar in purpose but possibly different fabric treatment than non-iron.",
+      "map_id": "map_d6c55341f1f64de883388f721c6678fb"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Slim Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Non-iron dress shirt in a slim fit by a direct competitor, very closely aligned with the reference product features and style.",
+      "map_id": "map_8c3b248e1ab4431f8f79da8f53601c1d"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Performance Knit Oxford Shirt",
+      "score": 5,
+      "rationale": "Performance knit Oxford shirt mixes performance fabric with Oxford style but likely differs in formality, texture, and intended wear compared to woven non-iron dress shirt.",
+      "map_id": "map_fbf2477345184365b0ed361d2b09930b"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Oxford Stripe Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron Oxford dress shirt with stretch and stripe pattern; very similar core product but with stretch fabric and stripe detail.",
+      "map_id": "map_548f39fa32bf4bbd92557397181dc1cc"
+    },
+    {
+      "competitor_product_name": "Men's Slim Untucked Dress Shirt",
+      "score": 6,
+      "rationale": "Slim untucked shirt suggests a casual dress shirt designed for informal wear; similar silhouette but less formal and probably lacks non-iron treatment.",
+      "map_id": "map_9d8667920bf34ac1acab3acb27f227ac"
+    },
+    {
+      "competitor_product_name": "Banana Republic Dress Shirt",
+      "score": 7,
+      "rationale": "Generic dress shirt from a comparable brand likely to be similar in general dress shirt function but lacking specific non-iron mention.",
+      "map_id": "map_d688c4c022e44fda8dc2e243e9f8da97"
+    },
+    {
+      "competitor_product_name": "Thomas Mason for J.Crew Men's Washed Poplin Shirt",
+      "score": 6,
+      "rationale": "Washed poplin shirt, likely a dress shirt but washed treatment generally differs from non-iron; probably similar silhouette but with different fabric care properties.",
+      "map_id": "map_173ccb81a62747a2986bc6600f11c954"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt tailored to athletic build, similar in category but differing in silhouette from the trim and standard fits mentioned in the reference.",
+      "map_id": "map_53913e86fcec4991b191a30f6a03fad5"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Almost identical product type: traditional fit, cotton Oxford, non-iron dress shirt from a major retailer; aligns very well with reference features.",
+      "map_id": "map_27bddc91a3f8459f8f8648bbbcbf4026"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle-resistant dress shirt with modern fit, closely related to non-iron with similar dress and care features though potentially different fabric technology.",
+      "map_id": "map_5db6c2f46ff9457082d701163084ca4b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle-resistant dress shirt with modern fit, closely related to non-iron with similar dress and care features though potentially different fabric technology.",
+      "map_id": "map_7b69b3f5555d45a1a5a6814d20528a1d"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Wrinkle-Free Kennebunk Sport Shirt",
+      "score": 5,
+      "rationale": "Wrinkle-free sport shirt suggests a casual shirt less formal than dress shirt, limiting relevancy despite wrinkle-free fabric.",
+      "map_id": "map_f158b1d78da24d949c2cd1f8f5ff8841"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Oxford Shirt",
+      "score": 6,
+      "rationale": "Comfort stretch Oxford shirt could serve as a dress shirt but no mention of non-iron or dress formal fit; some relevancy due to style and fabric.",
+      "map_id": "map_ed5aee9fb99c480d868f6d65ca21455c"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Hemp fabric casual long-sleeve shirt likely differs significantly in dress level, fabric, and intended use from a non-iron dress shirt.",
+      "map_id": "map_218dd84659104894b4a03ac71d0272de"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Short-Sleeve Polo",
+      "score": 2,
+      "rationale": "Short-sleeve polo shirt, casual and very different product type and silhouette from long-sleeve non-iron dress shirt.",
+      "map_id": "map_146b0cb26e8a4e8db7ee3765fa82e4bf"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Dress Shirt",
+      "score": 10,
+      "rationale": "No iron dress shirt with tailored fit; directly comparable product with same fabric treatment and similar fit options.",
+      "map_id": "map_fd350e174bcc47e38e56f95fc208bc70"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Duplicate entry; same rationale as above: highly relevant wrinkle-resistant modern fit dress shirt.",
+      "map_id": "map_5db6c2f46ff9457082d701163084ca4b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Duplicate entry; same rationale as above: highly relevant wrinkle-resistant modern fit dress shirt.",
+      "map_id": "map_7b69b3f5555d45a1a5a6814d20528a1d"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Big & Tall Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt designed for big & tall sizing; highly relevant due to fabric treatment and purpose, though likely different sizing focus.",
+      "map_id": "map_0965452c226e4611ba67dee7040347b2"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit 4-Way Stretch Button Up Shirt",
+      "score": 7,
+      "rationale": "Slim fit button-up with 4-way stretch likely dress shirt or casual shirt; relevant for similar function despite stretch fabric focus and no non-iron mention.",
+      "map_id": "map_06d0681da56643c4bf3d1d9648d0d89e"
+    }
+  ]
+}

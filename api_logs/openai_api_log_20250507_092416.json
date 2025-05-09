@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250507_092416",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Pre-owned Men's Carhartt Wip Chore Coat In Plant'\n  - Name='Engineered Garments Workaday Chore Jacket Beige Xs 2200465107117'\n  - Name='Universal Works Men's Alpaca Single-Breasted Coat'\n  - Name='Faherty Men's Jersey Shirt Jacket'\n  - Name='Norse Projects Vargo Gore-Tex Windstopper Raglan Mac men'\n  - Name='Faherty Men's Atmosphere Quilted Shirt Jacket'\n  - Name='Filson Men's Chore Jacket'\n  - Name='Filson Men's Ranger Field Jacket'\n  - Name='Men Norse Projects Sten Gore-Tex Windstopper shirt Jacket'\n  - Name='Norse Projects Herluf Tech Poplin Jacket'\n  - Name='Levi's Men's Plaid-Lined Canvas Chore Coat'\n  - Name='Levi's Men's Trucker Jacket'\n  - Name='Levi's Men's Cotton Canvas Field Jacket'\n  - Name='Levi's Men's Vintage Chore Jacket'\n  - Name='Faherty Savannah Cotton Overshirt'\n  - Name='Faherty Men's Legend High Pile Fleece Shirt Jacket'\n  - Name='Levi's broadway engineer coat Men's'\n  - Name='Filson Men's Mackinaw Wool Jac Shirt'\n  - Name='Faherty Men's Expedition Down Parka Jacket'\n  - Name='Levi's 1936 Type I Jacket Men's'\n  - Name='Filson Outerwear Utility Jacket'\n  - Name='Barbour Men's Newbury Waxed Cotton Jacket'\n  - Name='Barbour Men's Beaufort Waterproof Waxed Cotton Jacket'\n  - Name='Barbour Men's Ashby Quilted Jacket'\n  - Name='Barbour Men's Transport Wax Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Pre-owned Men's Carhartt Wip Chore Coat In Plant\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This competitor is a chore coat similar in silhouette and function, likely constructed from durable workwear fabric, closely matching the reference jacket's purpose and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Workaday Chore Jacket Beige Xs 2200465107117\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a chore jacket with utility-focused design cues, likely similar in silhouette and construction, making it highly relevant to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Alpaca Single-Breasted Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Single-breasted coat likely has a different silhouette and materials (alpaca wool), less directly comparable in function and construction to the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Jersey Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Shirt jacket offers some similarity in casual layering but typically lighter construction and different silhouette than chore coat, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Vargo Gore-Tex Windstopper Raglan Mac men\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A mac coat with Gore-Tex windstopper fabric and raglan sleeves differs significantly in silhouette, materials, and intended utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Atmosphere Quilted Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Quilted shirt jacket may share layering function but differs in construction and lacks chore coat's workwear utility focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Chore Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Directly named chore jacket from a known workwear brand, likely very similar in silhouette, materials, and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Field Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Field jacket shares outdoor usage and durability but has a different silhouette and construction than a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Norse Projects Sten Gore-Tex Windstopper shirt Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Windstopper shirt jacket differs in fabric technology and likely silhouette, less relevant to heavy-duty chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Herluf Tech Poplin Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Light tech poplin fabric and jacket form less comparable to sturdy chore coat's twill construction and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Plaid-Lined Canvas Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic chore coat from Levi's with durable canvas material and utility design very similar to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Trucker Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Trucker jacket has a different, more fitted silhouette and often denim construction, moderately related to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Canvas Field Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Field jacket with cotton canvas fabric offers rugged construction but a different silhouette than chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Vintage Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Vintage chore jacket implies similar style and construction to the reference, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Savannah Cotton Overshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Overshirt provides layering but typically lighter and less structured than chore coat, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Legend High Pile Fleece Shirt Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Fleece shirt jacket differs in material, likely softer and less durable than chore coat, lowering relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's broadway engineer coat Men's\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Engineer coat has workwear roots but different silhouette and function compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Mackinaw Wool Jac Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wool shirt jacket has a different material focus and lighter structure than a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Expedition Down Parka Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Down parka designed for insulation and different use, very different silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's 1936 Type I Jacket Men's\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Type I is a trucker-style denim jacket, differing substantially in silhouette and intended use from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Outerwear Utility Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Utility jacket likely has functional features and rugged construction similar to chore coat, though silhouette details may vary.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Newbury Waxed Cotton Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Waxed cotton jacket with outdoor utility overlaps in durability and function, but styling and fabric treatment differ from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Beaufort Waterproof Waxed Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar waxed cotton construction and outdoor focus but different silhouette and heavier weatherproofing than chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Quilted Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Quilted jacket focuses on insulation and layering, differing from chore coat's tailored utility design.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Transport Wax Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wax jacket with heritage outdoor design shares durability but silhouette and fabric treatment differ from chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Pre-owned Men's Carhartt Wip Chore Coat In Plant",
+      "score": 9,
+      "rationale": "This competitor is a chore coat similar in silhouette and function, likely constructed from durable workwear fabric, closely matching the reference jacket's purpose and style.",
+      "map_id": "map_a5f1b9f5652b4890b4946507a15a3781"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Workaday Chore Jacket Beige Xs 2200465107117",
+      "score": 9,
+      "rationale": "Also a chore jacket with utility-focused design cues, likely similar in silhouette and construction, making it highly relevant to the reference product.",
+      "map_id": "map_376dab49ee99427e8e1c1847abb9d41f"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Alpaca Single-Breasted Coat",
+      "score": 4,
+      "rationale": "Single-breasted coat likely has a different silhouette and materials (alpaca wool), less directly comparable in function and construction to the chore coat.",
+      "map_id": "map_62354f59db9d46bc9bfd7109b38f3e6d"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Jersey Shirt Jacket",
+      "score": 5,
+      "rationale": "Shirt jacket offers some similarity in casual layering but typically lighter construction and different silhouette than chore coat, reducing relevancy.",
+      "map_id": "map_1d58f1dc8de2408a95382c778b3360f0"
+    },
+    {
+      "competitor_product_name": "Norse Projects Vargo Gore-Tex Windstopper Raglan Mac men",
+      "score": 3,
+      "rationale": "A mac coat with Gore-Tex windstopper fabric and raglan sleeves differs significantly in silhouette, materials, and intended utility.",
+      "map_id": "map_df8188fd01e840a29fa8a46921d5d759"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Atmosphere Quilted Shirt Jacket",
+      "score": 5,
+      "rationale": "Quilted shirt jacket may share layering function but differs in construction and lacks chore coat's workwear utility focus.",
+      "map_id": "map_46080e2356b24364bec33a990333d441"
+    },
+    {
+      "competitor_product_name": "Filson Men's Chore Jacket",
+      "score": 10,
+      "rationale": "Directly named chore jacket from a known workwear brand, likely very similar in silhouette, materials, and utility features.",
+      "map_id": "map_caaa685d107244df8cbe3714fd9abae9"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Field Jacket",
+      "score": 6,
+      "rationale": "Field jacket shares outdoor usage and durability but has a different silhouette and construction than a chore coat.",
+      "map_id": "map_d10a934b3455432b8ad4b705a4ff0aa1"
+    },
+    {
+      "competitor_product_name": "Men Norse Projects Sten Gore-Tex Windstopper shirt Jacket",
+      "score": 4,
+      "rationale": "Windstopper shirt jacket differs in fabric technology and likely silhouette, less relevant to heavy-duty chore coat.",
+      "map_id": "map_ea4f15201f314a379c43a51cd6d2d982"
+    },
+    {
+      "competitor_product_name": "Norse Projects Herluf Tech Poplin Jacket",
+      "score": 4,
+      "rationale": "Light tech poplin fabric and jacket form less comparable to sturdy chore coat's twill construction and utility features.",
+      "map_id": "map_bb513aa9d8c243dabee3e0f7c706ef2e"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Plaid-Lined Canvas Chore Coat",
+      "score": 9,
+      "rationale": "Classic chore coat from Levi's with durable canvas material and utility design very similar to the reference product.",
+      "map_id": "map_17aeac2789244002b2bdceb3b31f5701"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Trucker Jacket",
+      "score": 6,
+      "rationale": "Trucker jacket has a different, more fitted silhouette and often denim construction, moderately related to chore coat.",
+      "map_id": "map_c4a848c9f05042ab97df7fbc990b96b6"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Canvas Field Jacket",
+      "score": 7,
+      "rationale": "Field jacket with cotton canvas fabric offers rugged construction but a different silhouette than chore coat.",
+      "map_id": "map_d64fa4322ffe40a793c3e43deaff4e25"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Vintage Chore Jacket",
+      "score": 9,
+      "rationale": "Vintage chore jacket implies similar style and construction to the reference, making it highly relevant.",
+      "map_id": "map_816629f2759540298db98f340efc9b4f"
+    },
+    {
+      "competitor_product_name": "Faherty Savannah Cotton Overshirt",
+      "score": 5,
+      "rationale": "Overshirt provides layering but typically lighter and less structured than chore coat, reducing relevancy.",
+      "map_id": "map_eac9ad5cffda404599dbdf7f9db5620b"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Legend High Pile Fleece Shirt Jacket",
+      "score": 4,
+      "rationale": "Fleece shirt jacket differs in material, likely softer and less durable than chore coat, lowering relevance.",
+      "map_id": "map_f19d16f694ad45fb9b8665fb216bb253"
+    },
+    {
+      "competitor_product_name": "Levi's broadway engineer coat Men's",
+      "score": 5,
+      "rationale": "Engineer coat has workwear roots but different silhouette and function compared to chore coat.",
+      "map_id": "map_a2ebe19717d8431c88b93eb9e17a25f3"
+    },
+    {
+      "competitor_product_name": "Filson Men's Mackinaw Wool Jac Shirt",
+      "score": 5,
+      "rationale": "Wool shirt jacket has a different material focus and lighter structure than a chore coat.",
+      "map_id": "map_53c3b1efdbcc46e3957de5eab5f63541"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Expedition Down Parka Jacket",
+      "score": 2,
+      "rationale": "Down parka designed for insulation and different use, very different silhouette and construction.",
+      "map_id": "map_bafb1fc13f124bdd9fe76c45c5a52327"
+    },
+    {
+      "competitor_product_name": "Levi's 1936 Type I Jacket Men's",
+      "score": 4,
+      "rationale": "Type I is a trucker-style denim jacket, differing substantially in silhouette and intended use from a chore coat.",
+      "map_id": "map_5c3f7f10fa4c4aa5a4ffe54c3e32d7eb"
+    },
+    {
+      "competitor_product_name": "Filson Outerwear Utility Jacket",
+      "score": 8,
+      "rationale": "Utility jacket likely has functional features and rugged construction similar to chore coat, though silhouette details may vary.",
+      "map_id": "map_b41e51f8d81a40bb8b81192e1214dcca"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Newbury Waxed Cotton Jacket",
+      "score": 7,
+      "rationale": "Waxed cotton jacket with outdoor utility overlaps in durability and function, but styling and fabric treatment differ from chore coat.",
+      "map_id": "map_a4f5312a857e44cd8a2ccb6bd941c79b"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Beaufort Waterproof Waxed Cotton Jacket",
+      "score": 6,
+      "rationale": "Similar waxed cotton construction and outdoor focus but different silhouette and heavier weatherproofing than chore coat.",
+      "map_id": "map_c7be435bbdfe4265a0650792945ab848"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Quilted Jacket",
+      "score": 5,
+      "rationale": "Quilted jacket focuses on insulation and layering, differing from chore coat's tailored utility design.",
+      "map_id": "map_41d07f9e44184d46a63e5ac4f7020242"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Transport Wax Jacket",
+      "score": 6,
+      "rationale": "Wax jacket with heritage outdoor design shares durability but silhouette and fabric treatment differ from chore coat.",
+      "map_id": "map_ebc5220dc1c346188be045b23a208075"
+    }
+  ]
+}

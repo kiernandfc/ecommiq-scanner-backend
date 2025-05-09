@@ -155,7 +155,7 @@ def get_db_connection():
         return None
 
 # --- Core Logic ---
-def get_products_to_score(conn, update_all=False):
+def get_products_to_score(conn, update_all=False, use_progress_bar=False):
     """Fetches products from competitor_catalog_map that need scoring,
     joining with competitors and catalog tables to get necessary names and context.
 
@@ -163,6 +163,7 @@ def get_products_to_score(conn, update_all=False):
         conn: Active database connection object.
         update_all: If True, fetch all products regardless of current score. If False (default),
                    only fetch products with NULL or 0 scores.
+        use_progress_bar: If True, use progress bar output instead of detailed logging.
 
     Returns:
         A list of dictionaries, each containing 'map_id',
@@ -207,10 +208,13 @@ def get_products_to_score(conn, update_all=False):
             results = cur.fetchall()
             products = [dict(row) for row in results]
             
+            # Only log if not in progress bar mode
             if update_all:
-                logger.info(f"Fetched {len(products)} products for scoring (including existing scores).")
+                if not use_progress_bar:
+                    logger.info(f"Fetched {len(products)} products for scoring (including existing scores).")
             else:
-                logger.info(f"Fetched {len(products)} products requiring relevancy scoring (NULL or 0 scores).")
+                if not use_progress_bar:
+                    logger.info(f"Fetched {len(products)} products requiring relevancy scoring (NULL or 0 scores).")
     except psycopg2.Error as e:
         logger.error(f"Database error while fetching products: {e}")
         # Optionally re-raise or handle differently
@@ -575,9 +579,12 @@ if __name__ == "__main__":
     if conn:
         try:
             # 1. Fetch products to score (all or just NULL/0 based on update-all flag)
-            all_products_to_score = get_products_to_score(conn, update_all=args.update_all)
+            all_products_to_score = get_products_to_score(conn, update_all=args.update_all, use_progress_bar=args.progress_bar)
             total_products = len(all_products_to_score)
-            logger.info(f"Found {total_products} products to score.")
+            
+            # Only log if not using progress bar
+            if not args.progress_bar:
+                logger.info(f"Found {total_products} products to score.")
 
             all_scores_calculated = []
 

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250509_073920",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Kent Cotton Linen Flat Cap'\n  - Name='Carhartt WIP Backley Cap'\n  - Name='Carhartt Men's Rugged Flex Twill Mesh-Back Script Patch Cap'\n  - Name='Carhartt WIP Nash Cap'\n  - Name='Bailey of Hollywood Men's Lord Nailhead Wool Flat Cap'\n  - Name='Bailey 1922 Ormond Ivy Cap'\n  - Name='Kangol Wool Spitfire'\n  - Name='Kangol Furgora 504'\n  - Name='Bailey 90058 Slater'\n  - Name='Carhartt WIP New Tools Cap'\n  - Name='Brixton Gomex Snapback Cap'\n  - Name='Brixton Men's Pledge Mesh Cap'\n  - Name='Brixton Men's Rival Stamp Crossover Trucker Cap'\n  - Name='Brixton Oath Surplus Trucker Cap'\n  - Name='Goorin Bros. Men's Rooster Mesh Trucker Cap'\n  - Name='Goorin Bros. Women's Mesh Trucker Snapback Baseball Cap'\n  - Name='Goorin Bros. The Lone Wolf Trucker Hat'\n  - Name='Goorin Bros. Crabby Mesh Trucker Snapback Baseball Cap'\n  - Name='Goorin Bros Bandit Trucker'\n  - Name='Barbour Wax Flat Cap - Men's Black, Size 7 1/8, 100% Waxed Cotton | Water-Resistant, Traditional Style, Tartan Lining'\n  - Name='Brixton Men's Hat Cap'\n  - Name='Brixton Rival Medium Profile Snapback Hat'\n  - Name='Brixton Alpha LP Adjustable Cord Hat'\n  - Name='Goorin Bros. Men's White Tiger Snapback Trucker Hat'\n  - Name='Goorin Bros. Moto Stud Trucker Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Kent Cotton Linen Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a flat cap similar in silhouette to the scally cap but made from cotton linen rather than micro-poly athletic fabric, thus somewhat relevant but different materials and likely less sporty.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Backley Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A cap by Carhartt WIP carrying a casual, likely curved bill design; probably a more casual sporty cap but not explicitly a scally or flat cap; moderately relevant due to likely sport/casual use and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rugged Flex Twill Mesh-Back Script Patch Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a mesh-back baseball style cap more rugged and bulkier than a form-fitting scally; moderate relevance due to performance fabric and casual sporty use.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Nash Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Nash cap is typically a casual flat or rounded cap similar to a newsboy, with more casual sporty style and fit; the fabric might differ, but it aligns more closely to the scally than trucker or baseball caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Lord Nailhead Wool Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A wool flat cap with classic traditional styling; similar silhouette but heavier fabric and less emphasis on sport technology; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey 1922 Ormond Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Ivy cap is close in silhouette to scally and trainer caps; the Bailey Ormond likely has classic form but materials differ; therefore reasonably relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Spitfire\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Kangol Spitfire is a wool cap with classic flat cap style, somewhat similar silhouette and use; material differs but style and purpose overlap, hence moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Furgora 504\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The Furgora 504 is a classic wool blend flat cap but with a more traditional construction lacking sport fabric technology; less breathable but similar silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey 90058 Slater\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The 'Slater' by Bailey is typically a flat or ivy style cap with traditional materials; style close but fabric and breathability differ from Boston Scally Driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP New Tools Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is likely a casual cap with sturdy materials and casual sporty style but not specifically a scally or flat cap; medium relevance for casual outdoor wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Gomex Snapback Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Snapback caps have a different silhouette and construction than 8-panel scallys; more streetwear oriented; less relevant despite being a cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Pledge Mesh Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Mesh cap with sporty elements but different style and structure than scally; lower relevance due to style differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Rival Stamp Crossover Trucker Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker cap with mesh back and different silhouette and construction; less relevant to form-fitting scally Driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Oath Surplus Trucker Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similarly a trucker style cap, mesh backed and casual streetwear, not matching scally style or construction closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Rooster Mesh Trucker Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Mesh trucker style cap with completely different silhouette and ventilation approach; low relevance to scally Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Women's Mesh Trucker Snapback Baseball Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Snapback trucker baseball cap style with mesh, very different construction and styling than scally, low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Lone Wolf Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker hat style and construction are significantly different from the breathable, lightweight, and form-fitting 8-panel scally Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Crabby Mesh Trucker Snapback Baseball Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Mesh snapback trucker cap with vastly different construction and silhouette; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Bandit Trucker\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Another trucker style with mesh back and different purpose and silhouette; minimal relevance to scally Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wax Flat Cap - Men's Black, Size 7 1/8, 100% Waxed Cotton | Water-Resistant, Traditional Style, Tartan Lining\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Traditional waxed cotton flat cap with classic style; similar silhouette but differing materials and lacking sport fabric benefits; moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Hat Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic cap reference; unable to specify exact style but Brixton caps often vary; assumed moderate-low relevance without specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Rival Medium Profile Snapback Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Snapback hats differ from 8-panel scally in fit and construction; moderate to low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Alpha LP Adjustable Cord Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a structured cap with adjustable cord; style diverges from scally but serves casual outdoor use; moderate-low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's White Tiger Snapback Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Snapback trucker cap away from scally dimensionally and stylistically; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Moto Stud Trucker Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker cap with studs, definitely stylistically and functionally very different from the Driver scally cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Kent Cotton Linen Flat Cap",
+      "score": 6,
+      "rationale": "This is a flat cap similar in silhouette to the scally cap but made from cotton linen rather than micro-poly athletic fabric, thus somewhat relevant but different materials and likely less sporty.",
+      "map_id": "map_187eb2351af94a3d8c5efa1d1ae25d14"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Backley Cap",
+      "score": 7,
+      "rationale": "A cap by Carhartt WIP carrying a casual, likely curved bill design; probably a more casual sporty cap but not explicitly a scally or flat cap; moderately relevant due to likely sport/casual use and fabric.",
+      "map_id": "map_abedd64b160e4596ac0a12ec9d56045c"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rugged Flex Twill Mesh-Back Script Patch Cap",
+      "score": 5,
+      "rationale": "This is a mesh-back baseball style cap more rugged and bulkier than a form-fitting scally; moderate relevance due to performance fabric and casual sporty use.",
+      "map_id": "map_1670d5c9c0ed45c88995f1019db5c204"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Nash Cap",
+      "score": 7,
+      "rationale": "The Nash cap is typically a casual flat or rounded cap similar to a newsboy, with more casual sporty style and fit; the fabric might differ, but it aligns more closely to the scally than trucker or baseball caps.",
+      "map_id": "map_621cb8b83f7b462489a97cc822c718b2"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Lord Nailhead Wool Flat Cap",
+      "score": 6,
+      "rationale": "A wool flat cap with classic traditional styling; similar silhouette but heavier fabric and less emphasis on sport technology; moderately relevant.",
+      "map_id": "map_a571cd6c2ef14b659db715a516c0bcfc"
+    },
+    {
+      "competitor_product_name": "Bailey 1922 Ormond Ivy Cap",
+      "score": 7,
+      "rationale": "Ivy cap is close in silhouette to scally and trainer caps; the Bailey Ormond likely has classic form but materials differ; therefore reasonably relevant.",
+      "map_id": "map_e5f24d22f6aa4fa79924b843be8b10fa"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Spitfire",
+      "score": 7,
+      "rationale": "Kangol Spitfire is a wool cap with classic flat cap style, somewhat similar silhouette and use; material differs but style and purpose overlap, hence moderately relevant.",
+      "map_id": "map_99c1fbf926974c0ebf6544f08123d169"
+    },
+    {
+      "competitor_product_name": "Kangol Furgora 504",
+      "score": 6,
+      "rationale": "The Furgora 504 is a classic wool blend flat cap but with a more traditional construction lacking sport fabric technology; less breathable but similar silhouette.",
+      "map_id": "map_1489dd09de2147c7ac0159d4f47493f1"
+    },
+    {
+      "competitor_product_name": "Bailey 90058 Slater",
+      "score": 6,
+      "rationale": "The 'Slater' by Bailey is typically a flat or ivy style cap with traditional materials; style close but fabric and breathability differ from Boston Scally Driver cap.",
+      "map_id": "map_ca32a651d3fd42de84b4418bc44730e6"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP New Tools Cap",
+      "score": 6,
+      "rationale": "This is likely a casual cap with sturdy materials and casual sporty style but not specifically a scally or flat cap; medium relevance for casual outdoor wear.",
+      "map_id": "map_d6c563fa10e549f08ca20261d732d682"
+    },
+    {
+      "competitor_product_name": "Brixton Gomex Snapback Cap",
+      "score": 5,
+      "rationale": "Snapback caps have a different silhouette and construction than 8-panel scallys; more streetwear oriented; less relevant despite being a cap.",
+      "map_id": "map_f0a9f746e59c4c2b816b5becc026bd9a"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Pledge Mesh Cap",
+      "score": 5,
+      "rationale": "Mesh cap with sporty elements but different style and structure than scally; lower relevance due to style differences.",
+      "map_id": "map_08ccbf376d234f2c915adff64a25a481"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Rival Stamp Crossover Trucker Cap",
+      "score": 4,
+      "rationale": "Trucker cap with mesh back and different silhouette and construction; less relevant to form-fitting scally Driver cap.",
+      "map_id": "map_d1cc72cc39b34e6c816953cc1b5dd07d"
+    },
+    {
+      "competitor_product_name": "Brixton Oath Surplus Trucker Cap",
+      "score": 4,
+      "rationale": "Similarly a trucker style cap, mesh backed and casual streetwear, not matching scally style or construction closely.",
+      "map_id": "map_9e37290d50fa428b8a8682d7ee5e7c65"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Rooster Mesh Trucker Cap",
+      "score": 4,
+      "rationale": "Mesh trucker style cap with completely different silhouette and ventilation approach; low relevance to scally Driver.",
+      "map_id": "map_0e86d4aa4e1a4e51beca43c03e9824ce"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Women's Mesh Trucker Snapback Baseball Cap",
+      "score": 4,
+      "rationale": "Snapback trucker baseball cap style with mesh, very different construction and styling than scally, low relevance.",
+      "map_id": "map_6b7d2fdd931b421eae89ce7f2657bf8b"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Lone Wolf Trucker Hat",
+      "score": 4,
+      "rationale": "Trucker hat style and construction are significantly different from the breathable, lightweight, and form-fitting 8-panel scally Driver.",
+      "map_id": "map_eeb60688215546c4836212d9ba84cfa4"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Crabby Mesh Trucker Snapback Baseball Cap",
+      "score": 4,
+      "rationale": "Mesh snapback trucker cap with vastly different construction and silhouette; low relevance.",
+      "map_id": "map_2efd9f454ead460693095648317028a0"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Bandit Trucker",
+      "score": 4,
+      "rationale": "Another trucker style with mesh back and different purpose and silhouette; minimal relevance to scally Driver.",
+      "map_id": "map_feae1401f2954f8ab118d10c252529d2"
+    },
+    {
+      "competitor_product_name": "Barbour Wax Flat Cap - Men's Black, Size 7 1/8, 100% Waxed Cotton | Water-Resistant, Traditional Style, Tartan Lining",
+      "score": 6,
+      "rationale": "Traditional waxed cotton flat cap with classic style; similar silhouette but differing materials and lacking sport fabric benefits; moderate relevance.",
+      "map_id": "map_574cff8d85c64057ae6863c722add2db"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Hat Cap",
+      "score": 5,
+      "rationale": "Generic cap reference; unable to specify exact style but Brixton caps often vary; assumed moderate-low relevance without specifics.",
+      "map_id": "map_0393c67cb5324dea95b7d09bff76757f"
+    },
+    {
+      "competitor_product_name": "Brixton Rival Medium Profile Snapback Hat",
+      "score": 5,
+      "rationale": "Snapback hats differ from 8-panel scally in fit and construction; moderate to low relevance.",
+      "map_id": "map_b0221eb0d1fa4a8eac87853a6fd9d035"
+    },
+    {
+      "competitor_product_name": "Brixton Alpha LP Adjustable Cord Hat",
+      "score": 5,
+      "rationale": "Likely a structured cap with adjustable cord; style diverges from scally but serves casual outdoor use; moderate-low relevance.",
+      "map_id": "map_c00d48ef19b34e59b56e162da21ad11c"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's White Tiger Snapback Trucker Hat",
+      "score": 4,
+      "rationale": "Snapback trucker cap away from scally dimensionally and stylistically; low relevance.",
+      "map_id": "map_fbe5d0c383d04388af4e823426d1a297"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Moto Stud Trucker Cap",
+      "score": 4,
+      "rationale": "Trucker cap with studs, definitely stylistically and functionally very different from the Driver scally cap.",
+      "map_id": "map_0e6360a41ddb4f3bb64fe21691bf4966"
+    }
+  ]
+}

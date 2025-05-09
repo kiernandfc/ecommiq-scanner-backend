@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250427_070623",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Dickies Men's FLEX Regular-Fit Straight Leg Tough Max Duck 5-Pocket Pants'\n  - Name='Levi's Men's 512 Slim Taper Jeans'\n  - Name='Levi's Men's 505 Regular Fit Stretch Jeans'\n  - Name='Levi's Men's 565 Loose Straight Jeans'\n  - Name='Carhartt WIP Aviation Pant Men'\n  - Name='Carhartt WIP OG Single Knee Canvas Pants'\n  - Name='Everlane Women's Utility Pants'\n  - Name='Outerknown Mens Pants The Field'\n  - Name='Taylor Stitch Men's Sheffield Linen Trousers'\n  - Name='Bonobos Men's Pleated Wool Trouser Pants'\n  - Name='Bonobos Men's Big & Tall Chino 2.0 Athletic'\n  - Name='Bonobos Men's Weekday Warrior Check Stretch Cotton Dress Pants'\n  - Name='Patagonia Men's Denim Workender Pants'\n  - Name='Carhartt WIP Double Knee Pant'\n  - Name='Carhartt WIP Sid Pant'\n  - Name='Carhartt WIP Trousers'\n  - Name='Everlane Men's Tech Pants'\n  - Name='UNIQLO Men's Easy Work Pants'\n  - Name='Outerknown Ambassador Slim Selvedge'\n  - Name='Outerknown Mens Pants The Field 36 / Desert (DSR)'\n  - Name='Taylor Stitch Men's Organic Cotton/Linen Tweed Apres Pants'\n  - Name='Patagonia Men's Cliffside Rugged Trail Pants'\n  - Name='Carhartt WIP Brandon Pant'\n  - Name='Carhartt WIP Newel Pant Men'\n  - Name='Men Carhartt WIP \"Nolan\" Straight Jeans'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Dickies Men's FLEX Regular-Fit Straight Leg Tough Max Duck 5-Pocket Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"These pants are workwear-oriented duck canvas with multiple pockets and durable construction similar to the chore pant's organic cotton canvas and reinforced areas, serving a similar utility purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 512 Slim Taper Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"These are slim taper jeans primarily denim with less focus on workwear durability features like double-knee reinforcement and heavy canvas.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 505 Regular Fit Stretch Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Regular fit jeans made from denim, less workwear-focused construction and features than the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 565 Loose Straight Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Loose straight jeans, denim fabric and casual use, lacking the heavy-duty workwear construction of the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Aviation Pant Men\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Workwear-style pant by Carhartt with durable fabric and functional design, likely comparable in construction and purpose though possibly different silhouette and details.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Single Knee Canvas Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Canvas work pants with single knee reinforcement align closely with the chore pant's double-knee reinforced construction and canvas fabric, making this very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Utility Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility pants emphasize functionality and durable materials similar to chore pants but targeted to women and may differ in silhouette and fabric weight.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Mens Pants The Field\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"These are likely casual or field pants with functional features but potentially less heavy-duty canvas or double-knee reinforcement compared to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Sheffield Linen Trousers\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen trousers are more dressy and lightweight with less focus on durability and utility compared to heavy canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Pleated Wool Trouser Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Dress wool trousers differ significantly in fabric, construction, and intended use compared to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Big & Tall Chino 2.0 Athletic\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chino pants similar silhouette but generally lighter fabric and dressier than rugged chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Check Stretch Cotton Dress Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Stretch dress pants in a check pattern are considerably different in fabric, design, and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Denim Workender Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Denim work pants with a rugged design align well with chore pant's workwear purpose and construction focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Double Knee Pant\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Double knee reinforced pant from Carhartt WIP is functionally and construction-wise nearly identical to the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Sid Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual Carhartt pant likely less focused on workwear reinforcements but similar durability and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Trousers\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General trousers by Carhartt WIP may vary but typically less heavy-duty than double-knee canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Tech Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Tech pants focus on stretch and lightweight performance fabrics, differing from heavy organic cotton canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Easy Work Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work pants designed for ease and utility but likely lighter construction and less reinforcement than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Ambassador Slim Selvedge\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Selvedge jeans with sustainable focus but denim and slimmer fit reduces direct relevancy compared to canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Mens Pants The Field 36 / Desert (DSR)\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to other Field pants, utility focus with durable fabric but potentially less reinforcements than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton/Linen Tweed Apres Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are more casual/lifestyle trousers with organic cotton/linen tweed, much lighter and dressier than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Cliffside Rugged Trail Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Rugged trail pants with durable build and outdoor utility share similarities with chore pant's utility features though different intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Brandon Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual Carhartt pants typically durable but lacking specific reinforcements like double-knee found in chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Newel Pant Men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another casual Carhartt style that offers some durability and utility but less heavy-duty construction than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP \\\"Nolan\\\" Straight Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Straight jeans from Carhartt WIP have utility streetwear focus but denim fabric and lack of reinforced workwear features lower relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Dickies Men's FLEX Regular-Fit Straight Leg Tough Max Duck 5-Pocket Pants",
+      "score": 8,
+      "rationale": "These pants are workwear-oriented duck canvas with multiple pockets and durable construction similar to the chore pant's organic cotton canvas and reinforced areas, serving a similar utility purpose.",
+      "map_id": "map_88de219e3a054267bc7dbe6bcc45fd1c"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 512 Slim Taper Jeans",
+      "score": 4,
+      "rationale": "These are slim taper jeans primarily denim with less focus on workwear durability features like double-knee reinforcement and heavy canvas.",
+      "map_id": "map_1ff4582220f34384b4460309df6124c8"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 505 Regular Fit Stretch Jeans",
+      "score": 4,
+      "rationale": "Regular fit jeans made from denim, less workwear-focused construction and features than the chore pant.",
+      "map_id": "map_4e157957ce4340ed9bc540cef6ecc1cd"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 565 Loose Straight Jeans",
+      "score": 4,
+      "rationale": "Loose straight jeans, denim fabric and casual use, lacking the heavy-duty workwear construction of the chore pant.",
+      "map_id": "map_30144d6fbe3042358639b63cf4ae811a"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Aviation Pant Men",
+      "score": 7,
+      "rationale": "Workwear-style pant by Carhartt with durable fabric and functional design, likely comparable in construction and purpose though possibly different silhouette and details.",
+      "map_id": "map_774ca7aa43204bdb91626ab8b32457cf"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Single Knee Canvas Pants",
+      "score": 9,
+      "rationale": "Canvas work pants with single knee reinforcement align closely with the chore pant's double-knee reinforced construction and canvas fabric, making this very relevant.",
+      "map_id": "map_4235116d756f41e58238da963ac67149"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Utility Pants",
+      "score": 7,
+      "rationale": "Utility pants emphasize functionality and durable materials similar to chore pants but targeted to women and may differ in silhouette and fabric weight.",
+      "map_id": "map_65741c2cf46a48e58246b014276e698f"
+    },
+    {
+      "competitor_product_name": "Outerknown Mens Pants The Field",
+      "score": 6,
+      "rationale": "These are likely casual or field pants with functional features but potentially less heavy-duty canvas or double-knee reinforcement compared to chore pant.",
+      "map_id": "map_d3826f789e5c4e7b92ffcfda5ca8c4b6"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Sheffield Linen Trousers",
+      "score": 3,
+      "rationale": "Linen trousers are more dressy and lightweight with less focus on durability and utility compared to heavy canvas chore pant.",
+      "map_id": "map_f43419f559774216a4bed0ac5e58c3a8"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Pleated Wool Trouser Pants",
+      "score": 2,
+      "rationale": "Dress wool trousers differ significantly in fabric, construction, and intended use compared to chore pant.",
+      "map_id": "map_e50f554c7b9c4c9bac0376ebbc2830d7"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Big & Tall Chino 2.0 Athletic",
+      "score": 5,
+      "rationale": "Chino pants similar silhouette but generally lighter fabric and dressier than rugged chore pant.",
+      "map_id": "map_00e279c3af8b4eebae94752d5e1a8565"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Check Stretch Cotton Dress Pants",
+      "score": 2,
+      "rationale": "Stretch dress pants in a check pattern are considerably different in fabric, design, and purpose.",
+      "map_id": "map_4df29d797aed4b91a031edd4543cbde5"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Denim Workender Pants",
+      "score": 8,
+      "rationale": "Denim work pants with a rugged design align well with chore pant's workwear purpose and construction focus.",
+      "map_id": "map_2644cd26fe0846a0b34bb9e8a1a8e7ef"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Double Knee Pant",
+      "score": 10,
+      "rationale": "Double knee reinforced pant from Carhartt WIP is functionally and construction-wise nearly identical to the chore pant.",
+      "map_id": "map_99e7523bbd9346208be6129233b70d64"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Sid Pant",
+      "score": 6,
+      "rationale": "Casual Carhartt pant likely less focused on workwear reinforcements but similar durability and style.",
+      "map_id": "map_60f6ed20d2524bd3aa214e77f7d93394"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Trousers",
+      "score": 5,
+      "rationale": "General trousers by Carhartt WIP may vary but typically less heavy-duty than double-knee canvas chore pant.",
+      "map_id": "map_5ad1a242ecbd4288b68bc2f0e322d43b"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Tech Pants",
+      "score": 5,
+      "rationale": "Tech pants focus on stretch and lightweight performance fabrics, differing from heavy organic cotton canvas chore pant.",
+      "map_id": "map_f0157f9ed69b4687a61313b9458f8f53"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Easy Work Pants",
+      "score": 6,
+      "rationale": "Work pants designed for ease and utility but likely lighter construction and less reinforcement than chore pant.",
+      "map_id": "map_a1d3ebdc9ad348a8babbb1cd0598df93"
+    },
+    {
+      "competitor_product_name": "Outerknown Ambassador Slim Selvedge",
+      "score": 5,
+      "rationale": "Selvedge jeans with sustainable focus but denim and slimmer fit reduces direct relevancy compared to canvas chore pant.",
+      "map_id": "map_fb53f25765334a1799a53fde3ff8ae68"
+    },
+    {
+      "competitor_product_name": "Outerknown Mens Pants The Field 36 / Desert (DSR)",
+      "score": 6,
+      "rationale": "Similar to other Field pants, utility focus with durable fabric but potentially less reinforcements than chore pant.",
+      "map_id": "map_6988c0d9accc43ec9acb934bf67d680a"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton/Linen Tweed Apres Pants",
+      "score": 3,
+      "rationale": "These are more casual/lifestyle trousers with organic cotton/linen tweed, much lighter and dressier than chore pant.",
+      "map_id": "map_3a6d02812fd045708ecb8b564710fc6f"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Cliffside Rugged Trail Pants",
+      "score": 7,
+      "rationale": "Rugged trail pants with durable build and outdoor utility share similarities with chore pant's utility features though different intended use.",
+      "map_id": "map_a02a97e1812749cba454b2e7a061aead"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Brandon Pant",
+      "score": 6,
+      "rationale": "Casual Carhartt pants typically durable but lacking specific reinforcements like double-knee found in chore pant.",
+      "map_id": "map_c9167d9a730b46b7b05ae65abc4e396d"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Newel Pant Men",
+      "score": 6,
+      "rationale": "Another casual Carhartt style that offers some durability and utility but less heavy-duty construction than chore pant.",
+      "map_id": "map_5b120f2bd7a846dabe519c294682c910"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP \"Nolan\" Straight Jeans",
+      "score": 6,
+      "rationale": "Straight jeans from Carhartt WIP have utility streetwear focus but denim fabric and lack of reinforced workwear features lower relevancy.",
+      "map_id": "map_afbd93eb16d84ae282335ca5c21e2828"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250505_094749",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Men's Union Engineer Cardigan'\n  - Name='Filson Men's Down Bomber Jacket'\n  - Name='Filson Wool Jac-Shirt'\n  - Name='Barbour Men's International Union Jack Wax Jacket'\n  - Name='Barbour International Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Men's Union Engineer Cardigan\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a cardigan, a knitwear piece, which differs significantly in silhouette and construction from the structured chore coat style of The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Down Bomber Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A bomber jacket has a distinct rounded and insulated silhouette focused on warmth, differing from the chore coat's utility and twill fabric, though both are outerwear jackets.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Wool Jac-Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A jac-shirt is a shirt-jacket hybrid with a similar utility and layering function and can have a chore coat-like style, but made from wool and styled more like a shirt than a classic chore coat jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's International Union Jack Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A wax jacket from Barbour is a utility-focused, durable outerwear piece with a similar workwear heritage and layering purpose, somewhat analogous in silhouette to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This jacket shares a utility and workwear inspiration but may have a motorcycle or sportier cut, making it somewhat less aligned with the traditional chore coat silhouette and fabric of The Ojai.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Men's Union Engineer Cardigan",
+      "score": 3,
+      "rationale": "This is a cardigan, a knitwear piece, which differs significantly in silhouette and construction from the structured chore coat style of The Ojai Jacket.",
+      "map_id": "map_1544012877e344f1b743440a53d39533"
+    },
+    {
+      "competitor_product_name": "Filson Men's Down Bomber Jacket",
+      "score": 4,
+      "rationale": "A bomber jacket has a distinct rounded and insulated silhouette focused on warmth, differing from the chore coat's utility and twill fabric, though both are outerwear jackets.",
+      "map_id": "map_0402d663be624c479171876f07c3671b"
+    },
+    {
+      "competitor_product_name": "Filson Wool Jac-Shirt",
+      "score": 6,
+      "rationale": "A jac-shirt is a shirt-jacket hybrid with a similar utility and layering function and can have a chore coat-like style, but made from wool and styled more like a shirt than a classic chore coat jacket.",
+      "map_id": "map_495e40860f824489b00d867379b2e1e3"
+    },
+    {
+      "competitor_product_name": "Barbour Men's International Union Jack Wax Jacket",
+      "score": 7,
+      "rationale": "A wax jacket from Barbour is a utility-focused, durable outerwear piece with a similar workwear heritage and layering purpose, somewhat analogous in silhouette to a chore coat.",
+      "map_id": "map_41d8deec835c440c87d520b7be5ad3a3"
+    },
+    {
+      "competitor_product_name": "Barbour International Jacket",
+      "score": 6,
+      "rationale": "This jacket shares a utility and workwear inspiration but may have a motorcycle or sportier cut, making it somewhat less aligned with the traditional chore coat silhouette and fabric of The Ojai.",
+      "map_id": "map_01d69f868b8a4761914d98f172648e42"
+    }
+  ]
+}

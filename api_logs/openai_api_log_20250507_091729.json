@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250507_091729",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson 8 Panel Houndstooth Flat Cap'\n  - Name='Carhartt Men's Ashland Cap'\n  - Name='Kangol Tropic 504 Ventair'\n  - Name='Kangol Bamboo Hawker'\n  - Name='Kangol Men's Ivy Cap'\n  - Name='Kangol 504 Wool'\n  - Name='Kangol Accessories Nos Vintage 90s Streetwear Spell Out Wool Cabbie Newsboy Cap'\n  - Name='Kangol Wool Spitfire'\n  - Name='Kangol Men's Cord Hawker'\n  - Name='Vintage Kangol Wool Newsboy Hat'\n  - Name='Kangol Bermuda 504'\n  - Name='FWS Tweed Wool Hatteras Cap'\n  - Name='Stetson Ivy Virgin Wool Cap'\n  - Name='Stetson Hatteras Donegal Tweed Cap'\n  - Name='Goorin River Wide Brim Merino Wool Felt Fedora'\n  - Name='Goorin Bros. The Boss Trucker Hat'\n  - Name='Men's Barbour Fawdon Bakerboy Hat'\n  - Name='Stetson Hatteras Hilverston News Boy Cap'\n  - Name='Goorin Bros. Brick Wall Trucker Hat'\n  - Name='Kangol Tropic Spitfire'\n  - Name='Furman Contour Cap'\n  - Name='Goorin Bros. The Bandit Trucker'\n  - Name='Brixton Brood Cap'\n  - Name='Kangol Men's Flat Newsboy Hat'\n  - Name='Kangol Men's Felt Ivy Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson 8 Panel Houndstooth Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Both are 8-panel flat caps similar in construction and style, focusing on traditional flat cap silhouette like the reference's 'Peaky' design.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Ashland Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a flat or casual cap but Carhartt's Ashland is typically a low-profile cap with different design elements, less similar to an 8-panel scally/peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic 504 Ventair\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The Kangol 504 is a flat cap but not an 8-panel style and tends to have a different lightweight construction focusing on ventilation.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Bamboo Hawker\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hawker caps share a similar silhouette to newsboy/peaky caps, often 6- or 8-panel, so moderately relevant in construction style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy caps are usually streamlined flat caps with fewer panels, different silhouette than an 8-panel peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 504 Wool\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"504 is a classic flat cap with a similar purpose but differs in panel construction and shape from the 8-panel peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Nos Vintage 90s Streetwear Spell Out Wool Cabbie Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy caps share a very similar silhouette and panel construction as the peaky style, making it more relevant than standard flat caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Spitfire\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The Spitfire is a version of an 8-panel cap, similar construction with a fuller crown, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Cord Hawker\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hawker caps resemble the peaky/newsboy cap silhouette with multiple panels and a rounded crown, somewhat similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Vintage Kangol Wool Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy hats are generally 8-panel styles with a full crown like the Peaky collection, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Bermuda 504\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Another 504 style flat cap variant, lighter and less structured, less similar to an 8-panel peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"FWS Tweed Wool Hatteras Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hatteras caps generally feature multiple panels and a fuller shape like peaky caps, fairly relevant in design.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Ivy Virgin Wool Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ivy caps are slimmer and have a different panel construction compared to the 8-panel Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Donegal Tweed Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hatteras caps are similar in shape and construction with multi-panel design like peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin River Wide Brim Merino Wool Felt Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora hats have a completely different silhouette and construction, wide brim unlike flat caps, very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Boss Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Trucker hats are structured baseball-style caps, unrelated in silhouette or construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Fawdon Bakerboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Bakerboy hats are synonymous with peaky/newsboy styles, featuring similar multi-panel construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Hilverston News Boy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy caps are closely related to the Peaky style with similar panel design and crown fullness.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Brick Wall Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Another trucker hat with unrelated silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Spitfire\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Spitfire cap resembles an 8-panel style or fuller cap, moderately relevant as it shares features with peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Furman Contour Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Insufficient detail but 'Contour Cap' likely differs substantially from an 8-panel flat cap or peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Bandit Trucker\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Trucker hat, unrelated type with different construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Brood caps from Brixton are historically similar to newsboy or peaky caps with multiple panels and fuller silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Flat Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flat newsboy hats share the classic 8-panel construction and silhouette very similar to peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Felt Ivy Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ivy caps tend to have a sleeker, less paneled design compared to peaky caps, less relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson 8 Panel Houndstooth Flat Cap",
+      "score": 9,
+      "rationale": "Both are 8-panel flat caps similar in construction and style, focusing on traditional flat cap silhouette like the reference's 'Peaky' design.",
+      "map_id": "map_3d9d62f0607540a1b530d7938aa23ddc"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Ashland Cap",
+      "score": 5,
+      "rationale": "Likely a flat or casual cap but Carhartt's Ashland is typically a low-profile cap with different design elements, less similar to an 8-panel scally/peaky.",
+      "map_id": "map_732e05f2bbee4dd8994a8940833da6e4"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic 504 Ventair",
+      "score": 4,
+      "rationale": "The Kangol 504 is a flat cap but not an 8-panel style and tends to have a different lightweight construction focusing on ventilation.",
+      "map_id": "map_8518e7d27af2461dbcce4cab026f7bec"
+    },
+    {
+      "competitor_product_name": "Kangol Bamboo Hawker",
+      "score": 6,
+      "rationale": "Hawker caps share a similar silhouette to newsboy/peaky caps, often 6- or 8-panel, so moderately relevant in construction style.",
+      "map_id": "map_3affa509ad3743c38b8033d53a5c32fa"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy caps are usually streamlined flat caps with fewer panels, different silhouette than an 8-panel peaky cap.",
+      "map_id": "map_f1ce3ec2679342ddafa353bcbec35071"
+    },
+    {
+      "competitor_product_name": "Kangol 504 Wool",
+      "score": 5,
+      "rationale": "504 is a classic flat cap with a similar purpose but differs in panel construction and shape from the 8-panel peaky.",
+      "map_id": "map_b614c092f38f4e3096b0e771ff69d0b2"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Nos Vintage 90s Streetwear Spell Out Wool Cabbie Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy caps share a very similar silhouette and panel construction as the peaky style, making it more relevant than standard flat caps.",
+      "map_id": "map_3fb366ce92524370a7fd343adb6ae728"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Spitfire",
+      "score": 6,
+      "rationale": "The Spitfire is a version of an 8-panel cap, similar construction with a fuller crown, moderately relevant.",
+      "map_id": "map_a6a3b20087c74a16b7de018dd61fa145"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Cord Hawker",
+      "score": 6,
+      "rationale": "Hawker caps resemble the peaky/newsboy cap silhouette with multiple panels and a rounded crown, somewhat similar.",
+      "map_id": "map_a2a5f98e1e43463584c28444780680c5"
+    },
+    {
+      "competitor_product_name": "Vintage Kangol Wool Newsboy Hat",
+      "score": 8,
+      "rationale": "Newsboy hats are generally 8-panel styles with a full crown like the Peaky collection, highly relevant.",
+      "map_id": "map_361771741c444728aab90ce3893627cc"
+    },
+    {
+      "competitor_product_name": "Kangol Bermuda 504",
+      "score": 4,
+      "rationale": "Another 504 style flat cap variant, lighter and less structured, less similar to an 8-panel peaky cap.",
+      "map_id": "map_6c162aed778a41d18adf09a31e4944f1"
+    },
+    {
+      "competitor_product_name": "FWS Tweed Wool Hatteras Cap",
+      "score": 7,
+      "rationale": "Hatteras caps generally feature multiple panels and a fuller shape like peaky caps, fairly relevant in design.",
+      "map_id": "map_46b3f500f3b04c2f8d537db1875e9d48"
+    },
+    {
+      "competitor_product_name": "Stetson Ivy Virgin Wool Cap",
+      "score": 4,
+      "rationale": "Ivy caps are slimmer and have a different panel construction compared to the 8-panel Peaky style.",
+      "map_id": "map_0eaba0649797442ab3f7fca4cc9d223d"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Donegal Tweed Cap",
+      "score": 7,
+      "rationale": "Hatteras caps are similar in shape and construction with multi-panel design like peaky caps.",
+      "map_id": "map_f918907d31ba4dd89e1f41b4d0c93f50"
+    },
+    {
+      "competitor_product_name": "Goorin River Wide Brim Merino Wool Felt Fedora",
+      "score": 2,
+      "rationale": "Fedora hats have a completely different silhouette and construction, wide brim unlike flat caps, very low relevancy.",
+      "map_id": "map_2f9a3d0e9a6e44929d108de00c3fed62"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Boss Trucker Hat",
+      "score": 1,
+      "rationale": "Trucker hats are structured baseball-style caps, unrelated in silhouette or construction.",
+      "map_id": "map_6b8150c8d5fd4c7cae029f9cedb6f642"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Fawdon Bakerboy Hat",
+      "score": 8,
+      "rationale": "Bakerboy hats are synonymous with peaky/newsboy styles, featuring similar multi-panel construction and silhouette.",
+      "map_id": "map_5f798b6cd8fe42df8da46a6efbe91fbf"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Hilverston News Boy Cap",
+      "score": 8,
+      "rationale": "Newsboy caps are closely related to the Peaky style with similar panel design and crown fullness.",
+      "map_id": "map_d1c42c57a66d446eb4038cc675a4048c"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Brick Wall Trucker Hat",
+      "score": 1,
+      "rationale": "Another trucker hat with unrelated silhouette and construction.",
+      "map_id": "map_157b7df88e8f4bf3a8e8e7cbb0a665fb"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Spitfire",
+      "score": 6,
+      "rationale": "Spitfire cap resembles an 8-panel style or fuller cap, moderately relevant as it shares features with peaky caps.",
+      "map_id": "map_260a7dd7d8e34051af3cf211d4b3b941"
+    },
+    {
+      "competitor_product_name": "Furman Contour Cap",
+      "score": 3,
+      "rationale": "Insufficient detail but 'Contour Cap' likely differs substantially from an 8-panel flat cap or peaky style.",
+      "map_id": "map_a491d58abadb44be8da9da9392be18bc"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Bandit Trucker",
+      "score": 1,
+      "rationale": "Trucker hat, unrelated type with different construction and silhouette.",
+      "map_id": "map_de37c15be4a44b0d966a053596c285d4"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Cap",
+      "score": 8,
+      "rationale": "Brood caps from Brixton are historically similar to newsboy or peaky caps with multiple panels and fuller silhouette.",
+      "map_id": "map_1fff69a4b0504acb924828e228c6dc96"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Flat Newsboy Hat",
+      "score": 8,
+      "rationale": "Flat newsboy hats share the classic 8-panel construction and silhouette very similar to peaky caps.",
+      "map_id": "map_dc9752d960a746b2bc71daa239838bad"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Felt Ivy Cap",
+      "score": 4,
+      "rationale": "Ivy caps tend to have a sleeker, less paneled design compared to peaky caps, less relevant.",
+      "map_id": "map_2cd37d2a0c1b404c84805d612f801f37"
+    }
+  ]
+}

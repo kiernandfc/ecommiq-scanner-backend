@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250502_084521",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's Felted Merino Hoodie'\n  - Name='Gap Men's Vintage Soft Hoodie'\n  - Name='H&M Men's Regular Fit Sweatshirt'\n  - Name='Gap Men's Full Zip Fleece Hoodie'\n  - Name='EVERLANE Felted Merino Hoodie'\n  - Name='H&M Men's Loose Fit Printed Sweatshirt'\n  - Name='H&M Men's Loose Fit Sweatshirt'\n  - Name='GapFit Kids Fit Tech Hoodie'\n  - Name='Supreme Men's Small Box Hooded Sweatshirt'\n  - Name='Nike Men's Therma-FIT Pullover Fleece Hoodie'\n  - Name='Nike Men's Sportswear Club Fleece Pullover Hoodie'\n  - Name='Nike Men's Club Hoodie'\n  - Name='Nike Men's Hoodie'\n  - Name='American Apparel Men's Flex Fleece Long Sleeve Zip Hoodie'\n  - Name='Men's adidas 2025-26 LAFC Travel Hoodie'\n  - Name='H&M Men's Loose Fit Hooded Jacket'\n  - Name='Supreme Men's Logo-Patch Cotton Hoodie'\n  - Name='Supreme Men's Pilled Zip Up Hooded Sweatshirt'\n  - Name='H&M Men's Oversized Hoodie'\n  - Name='Gap Men's Heritage Logo Zip Hoodie'\n  - Name='Gap x Disney Oversized Hoodie'\n  - Name='Supreme Box Logo Cotton Hoodie'\n  - Name='Men's Supreme Box Logo Hooded Sweatshirt'\n  - Name='Nike Men's Club Fleece Embroidered Hoodie'\n  - Name='Custom American Apparel ReFlex Fleece Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's Felted Merino Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are men's hoodies offering soft, comfortable materials; however, merino wool differs from typical sweatshirt fleece, suggesting a different feel and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's soft hoodie is very similar in function and style to the reference product, aligning closely with the Boston Scally Hoodie’s comfort and casual wear purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular Fit Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A sweatshirt is similar but lacks confirmation of a hood, which is central to the 'hoodie' classification, making it somewhat less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Full Zip Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A fleece hoodie with a full zip remains a very close product type and function, offering soft comfort and casual wear, though the zip differs from a pullover style.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Felted Merino Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same rationale as the similarly named Everlane product; comfortable hoodie but made from a different material affecting the softness and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Printed Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Though a sweatshirt, it lacks a hood and includes prints, which takes it away from the classic hooded sweatshirt form the reference centers on.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A sweatshirt is similar but the absence of a hood reduces relevancy in comparison to a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"GapFit Kids Fit Tech Hoodie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though a hoodie, designed for kids and tech performance focus differs from the adult, casual, soft comfort emphasis of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Small Box Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's hooded sweatshirt closely matches the reference product in style, function, and target customer.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Therma-FIT Pullover Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's pullover fleece hoodie shares strong similarities in shape and function but with a focus on performance warmth rather than just casual comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a pullover fleece hoodie designed for soft comfort and casual use, similar in style and purpose to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's hoodie aligns well with the Boston Scally Hoodie in style and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as above; a men's hoodie offering soft sweatshirt comfort similar to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Flex Fleece Long Sleeve Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A zip hoodie offers similar function, fleece material and comfort, differing mainly in closure type.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's adidas 2025-26 LAFC Travel Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A branded travel hoodie is similar in form and function but likely geared toward sports travel rather than general casual comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Hooded Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A hooded jacket implies a different silhouette and likely a shell or lighter construction, differing from a soft sweatshirt hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Logo-Patch Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A cotton men's hoodie aligns closely with the reference product in style and casual usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Pilled Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zip-up hooded sweatshirt is close in style and function, though the zip is a notable design difference.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized men's hoodie is very similar in features and intended casual comfort, differing primarily in fit style.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Heritage Logo Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zip hoodie emphasizes soft fleece comfort and casual wear, similar to the reference except for zipper closure.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap x Disney Oversized Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oversized hoodie aligns closely with the reference hoodie in material and function; branded or themed but core product is similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Box Logo Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A cotton hoodie with iconic branding fits well within the casual, comfortable hoodie category matching the reference closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Supreme Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Essentially the same product class—a men's hooded sweatshirt with soft cotton fabric and casual wear intent.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Embroidered Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A fleece hoodie with embroidery shares core characteristics with the reference hoodie, differing only slightly by detail elements.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom American Apparel ReFlex Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A fleece pullover hoodie designed for comfort and casual wear, similar in silhouette to the reference hoodie though possibly stretch/flex features increase utility.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's Felted Merino Hoodie",
+      "score": 7,
+      "rationale": "Both are men's hoodies offering soft, comfortable materials; however, merino wool differs from typical sweatshirt fleece, suggesting a different feel and intended use.",
+      "map_id": "map_0fc850b3d4a241d0ab62237da15d8dbe"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Hoodie",
+      "score": 9,
+      "rationale": "A men's soft hoodie is very similar in function and style to the reference product, aligning closely with the Boston Scally Hoodie’s comfort and casual wear purpose.",
+      "map_id": "map_93e9200272594e72afd6c5366d97f150"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular Fit Sweatshirt",
+      "score": 6,
+      "rationale": "A sweatshirt is similar but lacks confirmation of a hood, which is central to the 'hoodie' classification, making it somewhat less relevant.",
+      "map_id": "map_62c6172f34e34c8fbe1a5e0cf269953b"
+    },
+    {
+      "competitor_product_name": "Gap Men's Full Zip Fleece Hoodie",
+      "score": 8,
+      "rationale": "A fleece hoodie with a full zip remains a very close product type and function, offering soft comfort and casual wear, though the zip differs from a pullover style.",
+      "map_id": "map_ae415d8f56124a1dbc15989b5ea394c6"
+    },
+    {
+      "competitor_product_name": "EVERLANE Felted Merino Hoodie",
+      "score": 7,
+      "rationale": "Same rationale as the similarly named Everlane product; comfortable hoodie but made from a different material affecting the softness and feel.",
+      "map_id": "map_ed826eb80e084e74ae2d2cf8b053b5a5"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Printed Sweatshirt",
+      "score": 5,
+      "rationale": "Though a sweatshirt, it lacks a hood and includes prints, which takes it away from the classic hooded sweatshirt form the reference centers on.",
+      "map_id": "map_26c7749c2fca439483b6bdfd6d28172a"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Sweatshirt",
+      "score": 6,
+      "rationale": "A sweatshirt is similar but the absence of a hood reduces relevancy in comparison to a hoodie.",
+      "map_id": "map_ca8f0b913ca6404d89159ce54ffb8f0a"
+    },
+    {
+      "competitor_product_name": "GapFit Kids Fit Tech Hoodie",
+      "score": 4,
+      "rationale": "Though a hoodie, designed for kids and tech performance focus differs from the adult, casual, soft comfort emphasis of the reference.",
+      "map_id": "map_1dea3f558827473788aec3148425dba9"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Small Box Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A men's hooded sweatshirt closely matches the reference product in style, function, and target customer.",
+      "map_id": "map_e6a7f8252a7546f7800f687c827abc64"
+    },
+    {
+      "competitor_product_name": "Nike Men's Therma-FIT Pullover Fleece Hoodie",
+      "score": 8,
+      "rationale": "A men's pullover fleece hoodie shares strong similarities in shape and function but with a focus on performance warmth rather than just casual comfort.",
+      "map_id": "map_9a403e8cb4354f28be4cb50d672b6485"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Also a pullover fleece hoodie designed for soft comfort and casual use, similar in style and purpose to the reference.",
+      "map_id": "map_b407b78daac0480587012ddad53315c6"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Hoodie",
+      "score": 8,
+      "rationale": "A men's hoodie aligns well with the Boston Scally Hoodie in style and intended use.",
+      "map_id": "map_f333f68ced6445aa9ac8bc1929c52360"
+    },
+    {
+      "competitor_product_name": "Nike Men's Hoodie",
+      "score": 8,
+      "rationale": "Same as above; a men's hoodie offering soft sweatshirt comfort similar to the reference product.",
+      "map_id": "map_00af9b2298d549a5b5f094d209945240"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Flex Fleece Long Sleeve Zip Hoodie",
+      "score": 7,
+      "rationale": "A zip hoodie offers similar function, fleece material and comfort, differing mainly in closure type.",
+      "map_id": "map_d1f2255108744d25b71a93d897f82857"
+    },
+    {
+      "competitor_product_name": "Men's adidas 2025-26 LAFC Travel Hoodie",
+      "score": 7,
+      "rationale": "A branded travel hoodie is similar in form and function but likely geared toward sports travel rather than general casual comfort.",
+      "map_id": "map_778658688c294d1cbc349ca1d4aee601"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Hooded Jacket",
+      "score": 5,
+      "rationale": "A hooded jacket implies a different silhouette and likely a shell or lighter construction, differing from a soft sweatshirt hoodie.",
+      "map_id": "map_749529024eb54d3596d4a6146f77d28e"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Logo-Patch Cotton Hoodie",
+      "score": 9,
+      "rationale": "A cotton men's hoodie aligns closely with the reference product in style and casual usage.",
+      "map_id": "map_05886795a3fe49228ff74c6b7cdd4f57"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Pilled Zip Up Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "A zip-up hooded sweatshirt is close in style and function, though the zip is a notable design difference.",
+      "map_id": "map_7dd1923c25d94a35ae21577fe5639ca1"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Hoodie",
+      "score": 9,
+      "rationale": "An oversized men's hoodie is very similar in features and intended casual comfort, differing primarily in fit style.",
+      "map_id": "map_c324d7cb41804ca08b0bd89bffbedbda"
+    },
+    {
+      "competitor_product_name": "Gap Men's Heritage Logo Zip Hoodie",
+      "score": 8,
+      "rationale": "A zip hoodie emphasizes soft fleece comfort and casual wear, similar to the reference except for zipper closure.",
+      "map_id": "map_46f5806183a04dbdbaff3b380ccbd195"
+    },
+    {
+      "competitor_product_name": "Gap x Disney Oversized Hoodie",
+      "score": 9,
+      "rationale": "Oversized hoodie aligns closely with the reference hoodie in material and function; branded or themed but core product is similar.",
+      "map_id": "map_50dd255450554016adfdaead3e98bc5c"
+    },
+    {
+      "competitor_product_name": "Supreme Box Logo Cotton Hoodie",
+      "score": 9,
+      "rationale": "A cotton hoodie with iconic branding fits well within the casual, comfortable hoodie category matching the reference closely.",
+      "map_id": "map_790892908b8d4e4ebbe9e809af0f501e"
+    },
+    {
+      "competitor_product_name": "Men's Supreme Box Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Essentially the same product class—a men's hooded sweatshirt with soft cotton fabric and casual wear intent.",
+      "map_id": "map_00f23868a6b94f1b993156d21afa82d7"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Embroidered Hoodie",
+      "score": 8,
+      "rationale": "A fleece hoodie with embroidery shares core characteristics with the reference hoodie, differing only slightly by detail elements.",
+      "map_id": "map_03d023c23c844646a7f909231ebbefbd"
+    },
+    {
+      "competitor_product_name": "Custom American Apparel ReFlex Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "A fleece pullover hoodie designed for comfort and casual wear, similar in silhouette to the reference hoodie though possibly stretch/flex features increase utility.",
+      "map_id": "map_021d456988834f0d93ce9d973acea7ac"
+    }
+  ]
+}

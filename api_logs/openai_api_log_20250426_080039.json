@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250426_080039",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Boondock Collectors Edition",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Boondock Collectors Edition\"\nReference Product Description:\nVeritas meaning ‘truth’ and Aequitas meaning ‘justice’ is what we as a community feel is an important aspect of our culture. It’s a deep rooted city that is built upon loyalty. The black shamrock is a subtle yet strong touch to this six panel scally cap.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt Accessories Newsboy Cap Hat'\n  - Name='Christys' London Men's Wool Cashmere Baker Boy Hat'\n  - Name='Barbour Flat Cap Wool Hat'\n  - Name='Barbour Wool Newsboy Streetwear Cap'\n  - Name='Carhartt Heavy Duty Flat Bill Cap Hat'\n  - Name='Carhartt Men's Norwich Bucket Hat'\n  - Name='Carhartt WIP Paloma Hat'\n  - Name='Carhartt WIP Canvas Cap'\n  - Name='Crane's Country Store Camo Fleece 2-in-1 Hat'\n  - Name='Hats.com Shawk Newsboy'\n  - Name='BARBOUR WILKIN FLAT CAP - NAVY HERRINGBONE US M'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt Accessories Newsboy Cap Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a newsboy cap like the reference six-panel scally cap, sharing similar silhouette and usage as a casual flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' London Men's Wool Cashmere Baker Boy Hat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A baker boy hat is very similar in style and construction to a scally cap, typically six or eight panels, making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Flat Cap Wool Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat caps differ somewhat from scally/newsboy caps in silhouette and panel construction, but both are traditional flat hats, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wool Newsboy Streetwear Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap style aligns closely with the reference scally cap's shape and function, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Heavy Duty Flat Bill Cap Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A flat bill cap (like a baseball cap) differs substantially in shape and style from a scally/newsboy cap, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Norwich Bucket Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A bucket hat is a completely different silhouette and construction, making it irrelevant to a scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Paloma Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Without specific details, likely a casual or bucket style hat, which is less relevant to a six-panel scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Canvas Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a baseball or casual cap style made of canvas; not very close to a scally/newsboy cap in shape or tradition.\"\n    },\n    {\n      \"competitor_product_name\": \"Crane's Country Store Camo Fleece 2-in-1 Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A 2-in-1 fleece hat likely means a multifunction winter hat, which differs completely from a structured flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Hats.com Shawk Newsboy\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"As a newsboy cap, it shares the same general flat cap construction and style as the reference scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"BARBOUR WILKIN FLAT CAP - NAVY HERRINGBONE US M\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flat cap has a different shape from a newsboy/scally cap but is still a traditional flat hat, moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt Accessories Newsboy Cap Hat",
+      "score": 8,
+      "rationale": "This is a newsboy cap like the reference six-panel scally cap, sharing similar silhouette and usage as a casual flat cap.",
+      "map_id": "map_f89c3518185348218a171ee9c68fb6a4"
+    },
+    {
+      "competitor_product_name": "Christys' London Men's Wool Cashmere Baker Boy Hat",
+      "score": 9,
+      "rationale": "A baker boy hat is very similar in style and construction to a scally cap, typically six or eight panels, making this highly relevant.",
+      "map_id": "map_13ebf9e165574fc189d0927e1c58f017"
+    },
+    {
+      "competitor_product_name": "Barbour Flat Cap Wool Hat",
+      "score": 6,
+      "rationale": "Flat caps differ somewhat from scally/newsboy caps in silhouette and panel construction, but both are traditional flat hats, so moderately relevant.",
+      "map_id": "map_271f050eb35548be85cfe70a142012ce"
+    },
+    {
+      "competitor_product_name": "Barbour Wool Newsboy Streetwear Cap",
+      "score": 8,
+      "rationale": "Newsboy cap style aligns closely with the reference scally cap's shape and function, making it quite relevant.",
+      "map_id": "map_fb888ac31e814d3fa9a3e38bb4ad9fbd"
+    },
+    {
+      "competitor_product_name": "Carhartt Heavy Duty Flat Bill Cap Hat",
+      "score": 2,
+      "rationale": "A flat bill cap (like a baseball cap) differs substantially in shape and style from a scally/newsboy cap, so low relevancy.",
+      "map_id": "map_24aeaf140a9f4f56af260e02cb9056eb"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Norwich Bucket Hat",
+      "score": 1,
+      "rationale": "A bucket hat is a completely different silhouette and construction, making it irrelevant to a scally cap.",
+      "map_id": "map_2de343b9f0984c62a1bb1b6f1a077350"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Paloma Hat",
+      "score": 4,
+      "rationale": "Without specific details, likely a casual or bucket style hat, which is less relevant to a six-panel scally cap.",
+      "map_id": "map_42bef591f25f4ae387522948ec0991c5"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Canvas Cap",
+      "score": 3,
+      "rationale": "Likely a baseball or casual cap style made of canvas; not very close to a scally/newsboy cap in shape or tradition.",
+      "map_id": "map_299b660e2db84832a7abf87e12f62a3f"
+    },
+    {
+      "competitor_product_name": "Crane's Country Store Camo Fleece 2-in-1 Hat",
+      "score": 1,
+      "rationale": "A 2-in-1 fleece hat likely means a multifunction winter hat, which differs completely from a structured flat cap.",
+      "map_id": "map_008b17bfcd1f4430b45cec8bee5c944d"
+    },
+    {
+      "competitor_product_name": "Hats.com Shawk Newsboy",
+      "score": 8,
+      "rationale": "As a newsboy cap, it shares the same general flat cap construction and style as the reference scally cap.",
+      "map_id": "map_55a1d98474b84add803075a9a79f0e04"
+    },
+    {
+      "competitor_product_name": "BARBOUR WILKIN FLAT CAP - NAVY HERRINGBONE US M",
+      "score": 6,
+      "rationale": "A flat cap has a different shape from a newsboy/scally cap but is still a traditional flat hat, moderately relevant.",
+      "map_id": "map_7acabf1b31324639a4a710ee36e01248"
+    }
+  ]
+}

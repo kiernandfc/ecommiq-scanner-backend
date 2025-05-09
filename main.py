@@ -14,6 +14,8 @@ from scrapers.search_scanner import SearchScanner
 from scrapers.price_updater import PriceUpdater
 from utils.helpers import utc_now
 from utils.logger import setup_main_logger, configure_logger
+# Import for relevancy calculation
+from brain.calculate_relevancy import get_products_to_score, get_batch_relevancy_scores, update_relevancy_scores, configure_logging
 
 def print_scan_summary(scan_results, logger):
     """Print a detailed summary of scan results"""
@@ -231,6 +233,94 @@ def main():
         
         # Display comprehensive scan summary
         print_scan_summary(scan_results, logger)
+        
+        # Calculate relevancy scores
+        if args.progress:
+            print("Calculating product relevancy scores...")
+        else:
+            logger.info("Calculating product relevancy scores...")
+        
+        # Get products that need relevancy scoring
+        conn = db.get_connection() # Assuming you have a get_connection method in your db object
+        products_to_score = get_products_to_score(conn, use_progress_bar=args.progress)
+        total_to_evaluate = len(products_to_score)
+        
+        if total_to_evaluate > 0:
+            if args.progress:
+                print(f"Found {total_to_evaluate} products requiring relevancy calculation")
+                # Configure progress bar mode in the relevancy calculator
+                configure_logging(args.progress)
+                
+                # Initialize progress bars
+                processed_products = 0
+                relevancy_progress = tqdm(total=total_to_evaluate, desc="Calculating Relevancy", position=0)
+            else:
+                logger.info(f"Found {total_to_evaluate} products requiring relevancy calculation")
+                
+            # Process products by reference product
+            reference_product_groups = {}
+            for product in products_to_score:
+                reference_key = (product['reference_product_name'], product['reference_brand'])
+                if reference_key not in reference_product_groups:
+                    reference_product_groups[reference_key] = []
+                reference_product_groups[reference_key].append(product)
+            
+            all_scores = []
+            high_relevancy_count = 0
+            
+            # Process each reference product group
+            for (reference_name, reference_brand), products_group in reference_product_groups.items():
+                reference_product_description = products_group[0]['reference_product_description']
+                
+                # Process in batches of 25
+                for i in range(0, len(products_group), 25):
+                    batch = products_group[i:i+25]
+                    
+                    # Prepare competitor data for the batch scoring function
+                    competitor_data_for_batch = []
+                    for product in batch:
+                        competitor_data_for_batch.append({
+                            'map_id': product['map_id'],
+                            'competitor_product_name': product['competitor_product_name'],
+                            'reference_product_name': reference_name,
+                            'reference_product_description': reference_product_description
+                        })
+                    
+                    # Call the batch scoring function with progress bar flag
+                    batch_scores = get_batch_relevancy_scores(reference_brand, competitor_data_for_batch, args.progress)
+                    
+                    if batch_scores is not None:
+                        all_scores.extend(batch_scores)
+                        # Count high relevancy scores (>=7)
+                        for score_item in batch_scores:
+                            if score_item['score'] >= 7:
+                                high_relevancy_count += 1
+                        
+                        # Update progress bar if enabled
+                        if args.progress:
+                            batch_size = len(batch_scores)
+                            processed_products += batch_size
+                            relevancy_progress.update(batch_size)
+            
+            # Close progress bar if enabled
+            if args.progress:
+                relevancy_progress.close()
+            
+            # Update database with all calculated scores
+            if all_scores:
+                update_relevancy_scores(conn, all_scores, args.progress)
+                
+                # Print relevancy summary
+                print("\nRELEVANCY CALCULATION SUMMARY")
+                print("=" * 30)
+                print(f"Products evaluated:      {total_to_evaluate}")
+                print(f"High relevancy (>=7):    {high_relevancy_count} ({(high_relevancy_count / total_to_evaluate * 100):.1f}% of evaluated)")
+                print(f"Low relevancy (<7):      {total_to_evaluate - high_relevancy_count} ({((total_to_evaluate - high_relevancy_count) / total_to_evaluate * 100):.1f}% of evaluated)")
+        else:
+            if args.progress:
+                print("No products require relevancy calculation.")
+            else:
+                logger.info("No products require relevancy calculation.")
         
         # Refresh materialized views after scan is complete
         if args.progress:

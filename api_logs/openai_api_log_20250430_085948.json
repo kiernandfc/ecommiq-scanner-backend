@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250430_085948",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Mens Detroit Jacket'\n  - Name='Alex Mill Chiltern Street Jacket In Waxed Cotton'\n  - Name='Carhartt WIP OG Active Jacket Men'\n  - Name='Alex Mill Miller Canvas Zip Jacket'\n  - Name='Filson Women's Waxed Down Parka'\n  - Name='Filson Men's Worksmith Insulated Bomber Jacket'\n  - Name='Barbour Men's Korbel Waterproof Jacket'\n  - Name='Barbour Beaufort Wax Jacket Mens'\n  - Name='Filson Women's Jackets'\n  - Name='Filson Lightweight Down Jac-Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Detroit Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The Detroit Jacket is a chore coat-style jacket typically made of durable cotton canvas, similar in silhouette and utility function to The Ojai Jacket, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Chiltern Street Jacket In Waxed Cotton\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This jacket uses waxed cotton and follows a casual jacket style with some workwear influence, somewhat similar in function and style though the material differs and it is more waxed than twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Active Jacket Men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While this jacket is a durable workwear piece from Carhartt, it is less specifically chore coat style and more activewear focused, so somewhat relevant but less directly comparable.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Miller Canvas Zip Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A canvas zip jacket reflects a sturdy outerwear piece with utility focus, similar in durability and casual style though differing in closure type and possibly silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Waxed Down Parka\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A waxed down parka is more insulated and bulkier than the chore coat silhouette, aimed at colder weather and different styling, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Worksmith Insulated Bomber Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A bomber jacket has a different silhouette and construction compared to a chore coat, despite being a durable outerwear piece, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Korbel Waterproof Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While the Barbour Korbel is a durable and functional jacket, its style leans towards waterproof outerwear with a different cut than a chore coat, resulting in moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Beaufort Wax Jacket Mens\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The Beaufort is a classic waxed jacket with utility features, similar in ruggedness and appeal but differs in material and silhouette from a cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Jackets\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This category is broad and unspecified, likely encompassing various styles, many of which may not align closely with the chore coat style or material.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Lightweight Down Jac-Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A lightweight down insulated jacket differs greatly in construction, insulation, and style from The Ojai's chore coat design, reducing relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Mens Detroit Jacket",
+      "score": 8,
+      "rationale": "The Detroit Jacket is a chore coat-style jacket typically made of durable cotton canvas, similar in silhouette and utility function to The Ojai Jacket, making it quite relevant.",
+      "map_id": "map_12374a96c6db45269db91460e467c408"
+    },
+    {
+      "competitor_product_name": "Alex Mill Chiltern Street Jacket In Waxed Cotton",
+      "score": 7,
+      "rationale": "This jacket uses waxed cotton and follows a casual jacket style with some workwear influence, somewhat similar in function and style though the material differs and it is more waxed than twill.",
+      "map_id": "map_b06364d6136b4c4ca28abbf82dfe942d"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Active Jacket Men",
+      "score": 6,
+      "rationale": "While this jacket is a durable workwear piece from Carhartt, it is less specifically chore coat style and more activewear focused, so somewhat relevant but less directly comparable.",
+      "map_id": "map_c16ad4beb6ff44d8a49f482aeeda1799"
+    },
+    {
+      "competitor_product_name": "Alex Mill Miller Canvas Zip Jacket",
+      "score": 7,
+      "rationale": "A canvas zip jacket reflects a sturdy outerwear piece with utility focus, similar in durability and casual style though differing in closure type and possibly silhouette.",
+      "map_id": "map_f8400b9eb3b5474d8b0fb395feec8a2f"
+    },
+    {
+      "competitor_product_name": "Filson Women's Waxed Down Parka",
+      "score": 3,
+      "rationale": "A waxed down parka is more insulated and bulkier than the chore coat silhouette, aimed at colder weather and different styling, so low relevancy.",
+      "map_id": "map_7fc2aa4a8e30495ba167c8925362884c"
+    },
+    {
+      "competitor_product_name": "Filson Men's Worksmith Insulated Bomber Jacket",
+      "score": 4,
+      "rationale": "A bomber jacket has a different silhouette and construction compared to a chore coat, despite being a durable outerwear piece, making it less relevant.",
+      "map_id": "map_ed14e1bd23314d4b8207e694fa75da10"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Korbel Waterproof Jacket",
+      "score": 5,
+      "rationale": "While the Barbour Korbel is a durable and functional jacket, its style leans towards waterproof outerwear with a different cut than a chore coat, resulting in moderate relevancy.",
+      "map_id": "map_732739c64fc24ae4b6199473741645d0"
+    },
+    {
+      "competitor_product_name": "Barbour Beaufort Wax Jacket Mens",
+      "score": 6,
+      "rationale": "The Beaufort is a classic waxed jacket with utility features, similar in ruggedness and appeal but differs in material and silhouette from a cotton twill chore coat.",
+      "map_id": "map_89a035de7bcc408f81a00015eb69f068"
+    },
+    {
+      "competitor_product_name": "Filson Women's Jackets",
+      "score": 3,
+      "rationale": "This category is broad and unspecified, likely encompassing various styles, many of which may not align closely with the chore coat style or material.",
+      "map_id": "map_4d0b84d406bb4ae8825ad7fb5c3d3297"
+    },
+    {
+      "competitor_product_name": "Filson Lightweight Down Jac-Shirt",
+      "score": 4,
+      "rationale": "A lightweight down insulated jacket differs greatly in construction, insulation, and style from The Ojai's chore coat design, reducing relevancy.",
+      "map_id": "map_911863b4dbff41dea0e3fbec41080995"
+    }
+  ]
+}

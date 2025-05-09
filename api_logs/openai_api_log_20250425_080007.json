@@ -1,0 +1,143 @@
+{
+  "timestamp": "20250425_080007",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Eton Men's Paisley Silk Bow Tie'\n  - Name='Eton Men's Textured Silk Tie'\n  - Name='Eton Men's Silk Jacquard-Print Bow Tie'\n  - Name='Eton Men's Silk Micro Weave Tie'\n  - Name='Eton of Sweden Men's Geometric Silk Tie'\n  - Name='Eton Bow Tie'\n  - Name='Joseph Abboud Pure Silk Paisley-Like Necktie'\n  - Name='Charles Tyrwhitt Slim Silk Tie'\n  - Name='Brooks Brothers Moongrid Silk Tie'\n  - Name='Brooks Brothers Men's Classic Tie'\n  - Name='Brooks Brothers Silk Textured Dot Tie'\n  - Name='Brooks Brothers Silk Striped Necktie'\n  - Name='Brooks Brothers Men's Silk Ties'\n  - Name='Brooks Brothers Men's Classic Double-Stripe Tie'\n  - Name='Brooks Brothers Men's Silk Whale Motif Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Eton Men's Paisley Silk Bow Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a silk bow tie rather than a necktie; while both are formal neckwear made of silk, bow ties differ significantly in shape and styling from standard satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Textured Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A silk tie similar in material and style to the reference, but textured rather than solid satin. Still close in construction and use, but less sleek and smooth finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Silk Jacquard-Print Bow Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A bow tie with a jacquard print differs substantially in shape and pattern from a solid satin tie, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Silk Micro Weave Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie similar in purpose and shape, but micro weave differs in texture from satin, making it less sleek but close in overall type.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton of Sweden Men's Geometric Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie, but with a geometric pattern which deviates from the solid style; still similar in silhouette and usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Bow Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Generic bow tie probably made of silk or similar fabric, but bow ties differ in shape and styling from satin neckties.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Pure Silk Paisley-Like Necktie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Pure silk necktie similar in material and silhouette, but with a paisley-like pattern instead of solid satin finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Slim Silk Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A slim silk tie similar in material and finish; likely close in sleekness and purpose to a solid satin tie, though possibly slimmer cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Moongrid Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie with moongrid pattern, differing from solid satin but similar in material and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Classic Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic silk necktie likely similar in silhouette; material probably silk though pattern detail unknown; close to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Silk Textured Dot Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A silk necktie with texture and dot pattern, differing from solid satin finish but similar in material and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Silk Striped Necktie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie similar in shape and material; striped pattern differs from solid satin but still comparable product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Ties\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"General category of silk ties from the brand, probably including styles similar to solid satin ties; relevant overall.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Classic Double-Stripe Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie with double-stripe pattern; differs in pattern but similar in material and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Whale Motif Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk necktie with a motif pattern (whale) markedly different from solid satin in style, but similar in material and purpose.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Eton Men's Paisley Silk Bow Tie",
+      "score": 4,
+      "rationale": "This is a silk bow tie rather than a necktie; while both are formal neckwear made of silk, bow ties differ significantly in shape and styling from standard satin ties.",
+      "map_id": "map_75913c000f6846058019ae8176ee9e58"
+    },
+    {
+      "competitor_product_name": "Eton Men's Textured Silk Tie",
+      "score": 7,
+      "rationale": "A silk tie similar in material and style to the reference, but textured rather than solid satin. Still close in construction and use, but less sleek and smooth finish.",
+      "map_id": "map_0ccb2f96dab44db9a7d37c16b393a0ff"
+    },
+    {
+      "competitor_product_name": "Eton Men's Silk Jacquard-Print Bow Tie",
+      "score": 3,
+      "rationale": "A bow tie with a jacquard print differs substantially in shape and pattern from a solid satin tie, lowering relevancy.",
+      "map_id": "map_ae976ee8f1914af883c135e206053108"
+    },
+    {
+      "competitor_product_name": "Eton Men's Silk Micro Weave Tie",
+      "score": 6,
+      "rationale": "Silk necktie similar in purpose and shape, but micro weave differs in texture from satin, making it less sleek but close in overall type.",
+      "map_id": "map_075922cc8fbc498aa16ab963d3308b6c"
+    },
+    {
+      "competitor_product_name": "Eton of Sweden Men's Geometric Silk Tie",
+      "score": 6,
+      "rationale": "Silk necktie, but with a geometric pattern which deviates from the solid style; still similar in silhouette and usage.",
+      "map_id": "map_5038931fecba4c04b00cee9819b9e04a"
+    },
+    {
+      "competitor_product_name": "Eton Bow Tie",
+      "score": 3,
+      "rationale": "Generic bow tie probably made of silk or similar fabric, but bow ties differ in shape and styling from satin neckties.",
+      "map_id": "map_75edf6af899e481a823e55a13c0764e9"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Pure Silk Paisley-Like Necktie",
+      "score": 6,
+      "rationale": "Pure silk necktie similar in material and silhouette, but with a paisley-like pattern instead of solid satin finish.",
+      "map_id": "map_42e2b7e9b9954640a41bdf042e4150e1"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Slim Silk Tie",
+      "score": 8,
+      "rationale": "A slim silk tie similar in material and finish; likely close in sleekness and purpose to a solid satin tie, though possibly slimmer cut.",
+      "map_id": "map_572bd0a6ded24165bf0793be4d5007ee"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Moongrid Silk Tie",
+      "score": 6,
+      "rationale": "Silk tie with moongrid pattern, differing from solid satin but similar in material and shape.",
+      "map_id": "map_cd33046e8d9e4d159e7793164e1c0edf"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Classic Tie",
+      "score": 7,
+      "rationale": "Classic silk necktie likely similar in silhouette; material probably silk though pattern detail unknown; close to solid satin tie.",
+      "map_id": "map_8282dc74842c466096150c47bf6fd59f"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Silk Textured Dot Tie",
+      "score": 6,
+      "rationale": "A silk necktie with texture and dot pattern, differing from solid satin finish but similar in material and purpose.",
+      "map_id": "map_97be25938e324552b2e2e2d3bdd49677"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Silk Striped Necktie",
+      "score": 6,
+      "rationale": "Silk necktie similar in shape and material; striped pattern differs from solid satin but still comparable product type.",
+      "map_id": "map_e5951460b08d460087a010ed7b6be21f"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Ties",
+      "score": 7,
+      "rationale": "General category of silk ties from the brand, probably including styles similar to solid satin ties; relevant overall.",
+      "map_id": "map_9945106118554ca490be0ddad73d9bcf"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Classic Double-Stripe Tie",
+      "score": 6,
+      "rationale": "Silk necktie with double-stripe pattern; differs in pattern but similar in material and function.",
+      "map_id": "map_3f075d7922254b648b1a08668fa17ad8"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Whale Motif Tie",
+      "score": 5,
+      "rationale": "Silk necktie with a motif pattern (whale) markedly different from solid satin in style, but similar in material and purpose.",
+      "map_id": "map_7d2e27563eb24164a9a7e1e088751948"
+    }
+  ]
+}

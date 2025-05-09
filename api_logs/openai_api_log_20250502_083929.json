@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250502_083929",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Seersucker Pants'\n  - Name='Everlane Men's Performance Chino'\n  - Name='Carhartt WIP Albert Pant'\n  - Name='Everlane Men's Linen Easy Pant'\n  - Name='Taylor Stitch Men's Organic Cotton Camp Pants in Stone Chipped Canvas'\n  - Name='Everlane Men's Relaxed 4-Way Stretch Organic Jean'\n  - Name='Everlane Men's Slim-Fit Organic Cotton Jeans'\n  - Name='Taylor Stitch Men's Organic Cotton Apres Pant'\n  - Name='Everlane Men's Performance Traveler Chino'\n  - Name='Taylor Stitch Men's Organic Cotton Breakwater Pants'\n  - Name='UNIQLO Relaxed Linen Blend Pants'\n  - Name='Outerknown Nomad Chino'\n  - Name='Outerknown The Field Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Seersucker Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are pants from Taylor Stitch made from organic cotton, but seersucker is a lighter, textured fabric differing from heavy canvas chore pants, indicating moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Chino\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar chino-style pants designed for performance; likely similar silhouette but differing fabric technology and style from heavy canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Albert Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt's Albert Pant shares workwear inspiration and sturdy canvas material with chore pants, making it highly relevant in terms of function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Linen Easy Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Linen fabric and 'easy' fit suggest a lighter, more casual pant differing in material and construction from heavyweight chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Camp Pants in Stone Chipped Canvas\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product by the same brand using organic cotton canvas material; likely similar construction and intended use to the Chore Pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Relaxed 4-Way Stretch Organic Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Organic cotton denim jeans with stretch differ in construction and fabric from rigid canvas chore pants, resulting in moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Slim-Fit Organic Cotton Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim jeans in organic cotton differ in silhouette, fabric weight, and intended purpose from chore pants, giving moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Apres Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same brand and organic cotton composition; however, 'Apres Pant' suggests a more casual or lounge style distinct from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Traveler Chino\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance chino with functional appeal resembles chore pants in purpose and silhouette but differs in fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Breakwater Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Taylor Stitch organic cotton pants likely share similar construction and heaviness of fabric, close to chore pants in function and design.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen blend and relaxed silhouette represent a lighter, more casual pant differing significantly from heavy duty chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Nomad Chino\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Outerknown Nomad Chino is a casual, durable chino-style pant with some workwear inspiration, moderately similar to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Field Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Field pants by Outerknown are designed for utility and durability, likely sharing similar rugged construction and intent as chore pants.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Seersucker Pants",
+      "score": 6,
+      "rationale": "Both are pants from Taylor Stitch made from organic cotton, but seersucker is a lighter, textured fabric differing from heavy canvas chore pants, indicating moderate relevancy.",
+      "map_id": "map_28adae223e3c409eba4bd16002b9041b"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Chino",
+      "score": 7,
+      "rationale": "Similar chino-style pants designed for performance; likely similar silhouette but differing fabric technology and style from heavy canvas chore pants.",
+      "map_id": "map_fea1d0c785744da5b45c9dd35eb4c34f"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Albert Pant",
+      "score": 8,
+      "rationale": "Carhartt's Albert Pant shares workwear inspiration and sturdy canvas material with chore pants, making it highly relevant in terms of function and construction.",
+      "map_id": "map_47ef9cbb83e04f4b9863e42e37480064"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Linen Easy Pant",
+      "score": 4,
+      "rationale": "Linen fabric and 'easy' fit suggest a lighter, more casual pant differing in material and construction from heavyweight chore pants.",
+      "map_id": "map_8daf9dfef94f435cb774e06a7fcacfde"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Camp Pants in Stone Chipped Canvas",
+      "score": 9,
+      "rationale": "Very similar product by the same brand using organic cotton canvas material; likely similar construction and intended use to the Chore Pant.",
+      "map_id": "map_94f1b69f98184b01a17aac73daebf35e"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Relaxed 4-Way Stretch Organic Jean",
+      "score": 5,
+      "rationale": "Organic cotton denim jeans with stretch differ in construction and fabric from rigid canvas chore pants, resulting in moderate relevancy.",
+      "map_id": "map_aa92066150fe491780777b03fcb957d1"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Slim-Fit Organic Cotton Jeans",
+      "score": 5,
+      "rationale": "Slim jeans in organic cotton differ in silhouette, fabric weight, and intended purpose from chore pants, giving moderate relevancy.",
+      "map_id": "map_54aa1be2c8284792b750a66053f64cb4"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Apres Pant",
+      "score": 7,
+      "rationale": "Same brand and organic cotton composition; however, 'Apres Pant' suggests a more casual or lounge style distinct from chore pants.",
+      "map_id": "map_54d17353ccc74e59becc5a08f6a1176c"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Traveler Chino",
+      "score": 7,
+      "rationale": "Performance chino with functional appeal resembles chore pants in purpose and silhouette but differs in fabric.",
+      "map_id": "map_5767afc0b14e4bb5b4913cdc0cdb2ee1"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Breakwater Pants",
+      "score": 8,
+      "rationale": "Taylor Stitch organic cotton pants likely share similar construction and heaviness of fabric, close to chore pants in function and design.",
+      "map_id": "map_4f96ab4a93534c4bb1bc088bb801243a"
+    },
+    {
+      "competitor_product_name": "UNIQLO Relaxed Linen Blend Pants",
+      "score": 3,
+      "rationale": "Linen blend and relaxed silhouette represent a lighter, more casual pant differing significantly from heavy duty chore pants.",
+      "map_id": "map_fb2ad09a543b4eccaf558dfda0c8c4a0"
+    },
+    {
+      "competitor_product_name": "Outerknown Nomad Chino",
+      "score": 7,
+      "rationale": "Outerknown Nomad Chino is a casual, durable chino-style pant with some workwear inspiration, moderately similar to chore pants.",
+      "map_id": "map_fa0ff907ad154b5c81f26c68bc7e218d"
+    },
+    {
+      "competitor_product_name": "Outerknown The Field Pants",
+      "score": 8,
+      "rationale": "Field pants by Outerknown are designed for utility and durability, likely sharing similar rugged construction and intent as chore pants.",
+      "map_id": "map_80cd9b0f67a147c2b499f395b6ec85c4"
+    }
+  ]
+}

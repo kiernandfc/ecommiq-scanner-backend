@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250507_101800",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Signature Chair Ledge Lounger'\n  - Name='Purple Leaf 11ft Square Patio Umbrella'\n  - Name='Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle'\n  - Name='Signature in Pool Chaise Lounge Ledge Lounger'\n  - Name='Signature Chaise Ledge Lounger'\n  - Name='Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\n  - Name='Ledge Lounger Essential Umbrella'\n  - Name='Signature Ledge Lounger'\n  - Name='Ledge Lounger Essential Fiberglass Umbrella 10' Square Pulley'\n  - Name='Signature Collection Ledge Lounger Side Table with Umbrella'\n  - Name='Grand patio Balcony Umbrella, JENA 6x4 FT Outdoor Umbrella, Rectangular Flat Canopy Versatile Patio Shade with 360 Degree Roating Knob for Deck'\n  - Name='Purple Leaf 11 ft 360 Degree Rotation Patio Cantilever Umbrella with Base'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Signature Chair Ledge Lounger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a chair product, different category and function from an umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 11ft Square Patio Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar outdoor umbrella product, likely similar usage and features although brand and possibly some materials differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Furniture bundle including multiple items, mostly not an umbrella product.\"\n    },\n    {\n      \"competitor_product_name\": \"Signature in Pool Chaise Lounge Ledge Lounger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Chaise lounge furniture, different product type and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Signature Chaise Ledge Lounger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Chaise lounge furniture, not an umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Outdoor umbrella with similar size, aluminum, and features like tilt adjustment, though it is cantilever type rather than center pole.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Essential Umbrella\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product name and brand, same essential umbrella as reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Signature Ledge Lounger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a lounge chair product, not an umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Essential Fiberglass Umbrella 10' Square Pulley\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same product with added detail on material and mechanism, very high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Signature Collection Ledge Lounger Side Table with Umbrella\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Includes an umbrella but also a table; umbrella likely related but product is a multi-piece set, less focused on umbrella alone.\"\n    },\n    {\n      \"competitor_product_name\": \"Grand patio Balcony Umbrella, JENA 6x4 FT Outdoor Umbrella, Rectangular Flat Canopy Versatile Patio Shade with 360 Degree Roating Knob for Deck\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Outdoor umbrella product but rectangular shape and different features reduce exact relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 11 ft 360 Degree Rotation Patio Cantilever Umbrella with Base\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Outdoor cantilever umbrella similar in use and materials though different from center pole design.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Signature Chair Ledge Lounger",
+      "score": 2,
+      "rationale": "This is a chair product, different category and function from an umbrella.",
+      "map_id": "map_116bb038f9c1450a9694d0cbff759700"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 11ft Square Patio Umbrella",
+      "score": 8,
+      "rationale": "Similar outdoor umbrella product, likely similar usage and features although brand and possibly some materials differ.",
+      "map_id": "map_ebd02e49c65f4f799eb7eae82523460c"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle",
+      "score": 3,
+      "rationale": "Furniture bundle including multiple items, mostly not an umbrella product.",
+      "map_id": "map_36891e3e760541b0a4ea4a94b11947b9"
+    },
+    {
+      "competitor_product_name": "Signature in Pool Chaise Lounge Ledge Lounger",
+      "score": 2,
+      "rationale": "Chaise lounge furniture, different product type and function.",
+      "map_id": "map_63e5fe70ef30413796a9ab656e598a71"
+    },
+    {
+      "competitor_product_name": "Signature Chaise Ledge Lounger",
+      "score": 2,
+      "rationale": "Chaise lounge furniture, not an umbrella.",
+      "map_id": "map_ca90d9433ad34116a49287ee0d7c07c0"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Essential Umbrella",
+      "score": 10,
+      "rationale": "Identical product name and brand, same essential umbrella as reference.",
+      "map_id": "map_99b8389280e1473fa605387cb5ce791f"
+    },
+    {
+      "competitor_product_name": "Signature Ledge Lounger",
+      "score": 2,
+      "rationale": "Likely a lounge chair product, not an umbrella.",
+      "map_id": "map_483734cd607d4816b1f538b72365b4e1"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Essential Fiberglass Umbrella 10' Square Pulley",
+      "score": 10,
+      "rationale": "Same product with added detail on material and mechanism, very high relevance.",
+      "map_id": "map_273a57f4c40b4d86a6697478da69a756"
+    },
+    {
+      "competitor_product_name": "Signature Collection Ledge Lounger Side Table with Umbrella",
+      "score": 5,
+      "rationale": "Includes an umbrella but also a table; umbrella likely related but product is a multi-piece set, less focused on umbrella alone.",
+      "map_id": "map_eb6ad2ac6bb2404c8d68ebf5e53901c6"
+    },
+    {
+      "competitor_product_name": "Grand patio Balcony Umbrella, JENA 6x4 FT Outdoor Umbrella, Rectangular Flat Canopy Versatile Patio Shade with 360 Degree Roating Knob for Deck",
+      "score": 7,
+      "rationale": "Outdoor umbrella product but rectangular shape and different features reduce exact relevancy.",
+      "map_id": "map_9411f10b8f4e460db81e52a5bbddad50"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 11 ft 360 Degree Rotation Patio Cantilever Umbrella with Base",
+      "score": 8,
+      "rationale": "Outdoor cantilever umbrella similar in use and materials though different from center pole design.",
+      "map_id": "map_039f0cbb491d49be8813a27c619f79a3"
+    }
+  ]
+}

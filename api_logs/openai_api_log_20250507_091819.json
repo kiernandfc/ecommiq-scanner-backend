@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250507_091819",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nike Men's Team 31 Club NBA Pullover Hoodie'\n  - Name='Everlane Unisex French Terry Crew Neck Sweater'\n  - Name='Everlane Human Crew Neck'\n  - Name='Everlane Men's Hoodie Sweatshirt'\n  - Name='Everlane Men's Hoodie'\n  - Name='Gap Men's Waffle-Lined Quilted Zip Hoodie'\n  - Name='Gap Arch Logo Hoodie'\n  - Name='H&M Men's Oversized Printed Hoodie'\n  - Name='H&M Men's Loose Fit Scuba Hoodie'\n  - Name='H&M Men's Loose-Fit Sports Hoodie'\n  - Name='H&M Men's Loose Fit Sweatshirt'\n  - Name='H&M Men's Oversized Fit Hooded Jacket'\n  - Name='H&M Men's Loose-Fit Sleeveless Sports Hoodie'\n  - Name='H&M Men's Regular Fit Half-Zip Sweatshirt'\n  - Name='H&M Men's Loose Fit Thermolite Half-Zip Sweatshirt'\n  - Name='H&M Men's Loose Fit Printed Sweatshirt'\n  - Name='H&M Men's Loose Fit Thermolite Sweatshirt'\n  - Name='H&M Men's Hoodie'\n  - Name='Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt'\n  - Name='Nike Men's Solo Swoosh Fleece Pullover Hoodie'\n  - Name='Everlane Men's Off-Duty Terry Hoodie'\n  - Name='Everlane Men's Classic Cotton Sweater'\n  - Name='Everlane Off-Duty Terry Crew Neck'\n  - Name='EVERLANE Waffle-knit Hoodie'\n  - Name='Everlane Men's Graphic Print Flaw Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nike Men's Team 31 Club NBA Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's pullover hoodie similar in type, style, and intended casual use as the Boston Scally Hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Unisex French Terry Crew Neck Sweater\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a crew neck sweater without a hood, differing significantly in silhouette and function from the hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Human Crew Neck\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"As a crew neck without a hood, it lacks the key hoodie feature, reducing relevancy to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Hoodie Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's hoodie sweatshirt matches the Boston Scally Hoodie in core function and style, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's hoodie closely matching the reference product in silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Waffle-Lined Quilted Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A zip hoodie with waffle lining is similar but differs by closure type (zipper vs pullover) and possibly construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Arch Logo Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A standard hoodie from Gap closely aligns with the reference product in form and function.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Printed Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An oversized printed hoodie shares core features and construction except for fit and print, which do not heavily affect relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Scuba Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A loose fit hooded sweatshirt but possibly differing in fabric ('Scuba') and fit; still relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose-Fit Sports Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A loose-fit sports hoodie shares the hoodie attributes and intended casual/sporty use.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A loose fit sweatshirt but no mention of a hood, less relevant than actual hoodies.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Fit Hooded Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Although it has a hood, it is described as a jacket which implies different construction and possibly heavier material, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose-Fit Sleeveless Sports Hoodie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sleeveless hoodies are quite different in function and silhouette from traditional hoodies.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular Fit Half-Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A half-zip sweatshirt with hood mention missing, partially relevant but different closure and possible lack of hood.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Thermolite Half-Zip Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Half-zip sweatshirt with unspecified hood status and thermolite fabric indicate less similarity to pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Printed Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Sweatshirt likely without hood and pullover style, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Thermolite Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Thermolite fabric and sweatshirt style without explicit hood reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hoodie matching in primary features and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a hooded T-shirt, much lighter and different construction than a sweatshirt hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece pullover hoodie similar in type and function, highly relevant to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Off-Duty Terry Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A terry fabric hoodie aligns closely with the Boston Scally Hoodie by silhouette and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Classic Cotton Sweater\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A sweater without hood differs substantially from the hoodie reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Off-Duty Terry Crew Neck\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Crew neck without hood, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Waffle-knit Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A waffle-knit hoodie shares silhouette and hooded feature but differs somewhat in fabric texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Graphic Print Flaw Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A pullover hoodie with graphic print matches the basic construction and function of the Boston Scally Hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nike Men's Team 31 Club NBA Pullover Hoodie",
+      "score": 9,
+      "rationale": "This is a men's pullover hoodie similar in type, style, and intended casual use as the Boston Scally Hoodie, making it highly relevant.",
+      "map_id": "map_ffa5305b7076443192dad3c0b9583bc0"
+    },
+    {
+      "competitor_product_name": "Everlane Unisex French Terry Crew Neck Sweater",
+      "score": 3,
+      "rationale": "This is a crew neck sweater without a hood, differing significantly in silhouette and function from the hoodie.",
+      "map_id": "map_cf5c41d4d24f48498af0c363fc1edd22"
+    },
+    {
+      "competitor_product_name": "Everlane Human Crew Neck",
+      "score": 2,
+      "rationale": "As a crew neck without a hood, it lacks the key hoodie feature, reducing relevancy to the Boston Scally Hoodie.",
+      "map_id": "map_e0be63876b68490c8f87f3f2c8977dab"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Hoodie Sweatshirt",
+      "score": 8,
+      "rationale": "A men's hoodie sweatshirt matches the Boston Scally Hoodie in core function and style, making it very relevant.",
+      "map_id": "map_0a9e748d1ee94528a11e5021ea0a5498"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Hoodie",
+      "score": 8,
+      "rationale": "This is a men's hoodie closely matching the reference product in silhouette and function.",
+      "map_id": "map_fc54a852d7a94bef82f06cc812ff3cc6"
+    },
+    {
+      "competitor_product_name": "Gap Men's Waffle-Lined Quilted Zip Hoodie",
+      "score": 7,
+      "rationale": "A zip hoodie with waffle lining is similar but differs by closure type (zipper vs pullover) and possibly construction.",
+      "map_id": "map_d22951324e884a89bbba8a2eb7da1726"
+    },
+    {
+      "competitor_product_name": "Gap Arch Logo Hoodie",
+      "score": 8,
+      "rationale": "A standard hoodie from Gap closely aligns with the reference product in form and function.",
+      "map_id": "map_d87758a14e414ac58c23970ca5f45f20"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Printed Hoodie",
+      "score": 8,
+      "rationale": "An oversized printed hoodie shares core features and construction except for fit and print, which do not heavily affect relevancy.",
+      "map_id": "map_5f45e096a2734cf8811f398f0a6721a7"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Scuba Hoodie",
+      "score": 7,
+      "rationale": "A loose fit hooded sweatshirt but possibly differing in fabric ('Scuba') and fit; still relevant.",
+      "map_id": "map_f50b4ce59ef8468786bc5175b6d826c7"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose-Fit Sports Hoodie",
+      "score": 8,
+      "rationale": "A loose-fit sports hoodie shares the hoodie attributes and intended casual/sporty use.",
+      "map_id": "map_58b41137667e44289701afbc75691a95"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Sweatshirt",
+      "score": 5,
+      "rationale": "A loose fit sweatshirt but no mention of a hood, less relevant than actual hoodies.",
+      "map_id": "map_ae11ddce19484f7e933dd325bcd62de7"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Fit Hooded Jacket",
+      "score": 4,
+      "rationale": "Although it has a hood, it is described as a jacket which implies different construction and possibly heavier material, less relevant.",
+      "map_id": "map_97e8a93cceb54f14b35fd112f417dfaa"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose-Fit Sleeveless Sports Hoodie",
+      "score": 5,
+      "rationale": "Sleeveless hoodies are quite different in function and silhouette from traditional hoodies.",
+      "map_id": "map_b413b99e25254cf7863432f921393f49"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular Fit Half-Zip Sweatshirt",
+      "score": 5,
+      "rationale": "A half-zip sweatshirt with hood mention missing, partially relevant but different closure and possible lack of hood.",
+      "map_id": "map_13dbc1e2e69449d28f74a10e6aba289f"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Thermolite Half-Zip Sweatshirt",
+      "score": 4,
+      "rationale": "Half-zip sweatshirt with unspecified hood status and thermolite fabric indicate less similarity to pullover hoodie.",
+      "map_id": "map_5830a31b925e4eabb5344e5edf134fd1"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Printed Sweatshirt",
+      "score": 4,
+      "rationale": "Sweatshirt likely without hood and pullover style, reducing relevancy.",
+      "map_id": "map_5b00d6a8d30c4c4480cf4568487db6ac"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Thermolite Sweatshirt",
+      "score": 4,
+      "rationale": "Thermolite fabric and sweatshirt style without explicit hood reduces relevancy.",
+      "map_id": "map_daa7c7c08db7435cadd68ae14119a0f4"
+    },
+    {
+      "competitor_product_name": "H&M Men's Hoodie",
+      "score": 8,
+      "rationale": "A hoodie matching in primary features and purpose.",
+      "map_id": "map_241b389381094f8888618c123c86f840"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt",
+      "score": 5,
+      "rationale": "This is a hooded T-shirt, much lighter and different construction than a sweatshirt hoodie.",
+      "map_id": "map_0b339a8556e4454aabc1d6423e419e0f"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A fleece pullover hoodie similar in type and function, highly relevant to the Boston Scally Hoodie.",
+      "map_id": "map_8467e599a58c40c4aed3bb33a031dfda"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Off-Duty Terry Hoodie",
+      "score": 8,
+      "rationale": "A terry fabric hoodie aligns closely with the Boston Scally Hoodie by silhouette and casual use.",
+      "map_id": "map_d81157303e484465932b755a1520d2ee"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Classic Cotton Sweater",
+      "score": 3,
+      "rationale": "A sweater without hood differs substantially from the hoodie reference.",
+      "map_id": "map_bcc526c28c8a46aebeaf6e5470a94229"
+    },
+    {
+      "competitor_product_name": "Everlane Off-Duty Terry Crew Neck",
+      "score": 3,
+      "rationale": "Crew neck without hood, less relevant.",
+      "map_id": "map_28faa88b674147df9f310f8808bd27a0"
+    },
+    {
+      "competitor_product_name": "EVERLANE Waffle-knit Hoodie",
+      "score": 7,
+      "rationale": "A waffle-knit hoodie shares silhouette and hooded feature but differs somewhat in fabric texture.",
+      "map_id": "map_fb80bc1838c44b37ba420da9dc0fa5bb"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Graphic Print Flaw Pullover Hoodie",
+      "score": 8,
+      "rationale": "A pullover hoodie with graphic print matches the basic construction and function of the Boston Scally Hoodie.",
+      "map_id": "map_45eb9c044f1e4db5be65333c9731b630"
+    }
+  ]
+}

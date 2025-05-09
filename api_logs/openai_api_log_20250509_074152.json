@@ -1,0 +1,77 @@
+{
+  "timestamp": "20250509_074152",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Young Wool Newsboy Cap'\n  - Name='Kangol Accessories Vintage Cabbie Newsboy Golf Caddy Cap Hat'\n  - Name='Kangol Wool 507 Ivy Cap'\n  - Name='Brixton Brood Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Young Wool Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Both products are newsboy style caps, likely with similar 8-panel construction, made from wool or similar fabric. They share core design and function, matching closely to the reference Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Vintage Cabbie Newsboy Golf Caddy Cap Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is also a newsboy/cabbie style cap geared toward similar casual/formal uses. While slight variations in styling and target use may exist, it shares the silhouette and general design family with the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool 507 Ivy Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The Ivy cap is a different style silhouette from the 8-panel newsboy/Peaky cap, typically smoother and less structured with no panels. Though also a hat, the distinct shape lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Brixton Brood caps often share retro newsboy-inspired styling with panel construction, similar to a Peaky cap. Without specific details, we assume similar function and style, but exact matches in materials or construction may vary.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Young Wool Newsboy Cap",
+      "score": 9,
+      "rationale": "Both products are newsboy style caps, likely with similar 8-panel construction, made from wool or similar fabric. They share core design and function, matching closely to the reference Peaky cap.",
+      "map_id": "map_d563c00061c54e7fa659918592e88516"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Vintage Cabbie Newsboy Golf Caddy Cap Hat",
+      "score": 8,
+      "rationale": "This is also a newsboy/cabbie style cap geared toward similar casual/formal uses. While slight variations in styling and target use may exist, it shares the silhouette and general design family with the reference.",
+      "map_id": "map_39800b772e7e4c769e8969f58251d9d7"
+    },
+    {
+      "competitor_product_name": "Kangol Wool 507 Ivy Cap",
+      "score": 4,
+      "rationale": "The Ivy cap is a different style silhouette from the 8-panel newsboy/Peaky cap, typically smoother and less structured with no panels. Though also a hat, the distinct shape lowers relevancy.",
+      "map_id": "map_797448cbd37c496facd8a53eca21c9ef"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Cap",
+      "score": 7,
+      "rationale": "Brixton Brood caps often share retro newsboy-inspired styling with panel construction, similar to a Peaky cap. Without specific details, we assume similar function and style, but exact matches in materials or construction may vary.",
+      "map_id": "map_773f1148f6a6429cb7cb66620488ecae"
+    }
+  ]
+}

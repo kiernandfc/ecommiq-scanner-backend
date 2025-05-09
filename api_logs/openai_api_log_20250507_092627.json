@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250507_092627",
+  "reference_brand": "PicturesOnGold",
+  "reference_name": "Script Name Necklace",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"PicturesOnGold\"\nReference Product Name: \"Script Name Necklace\"\nReference Product Description:\nNames are beautiful and unique. Make sure you don't miss this special Modern Script Name Necklace and wear yours with style!\n\n16 inch is perfect for a Child or someone on the shorter side.\n18 Inches is the most popular size for most woman.\n20 inches for anyone who is tall or likes to wear their chain on the longer side\nNameplate can measure up to 1.75 inches wide depending on name length.\nAvailable in Sterling Silver, 14k Gold & Gold Plated\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Zales \"Love\" Script Necklace in 10K'\n  - Name='14K Solid Gold Personalized Name Necklace'\n  - Name='Zales Script Monogram Pendant (3 Initials)'\n  - Name='Personalized Minimalist Name Necklace'\n  - Name='Zales Script Monogram Necklace (3 Initials)'\n  - Name='Personalized 925 Silver Nameplate Pendant Necklace'\n  - Name='BaubleBar Initial Pendant Necklace'\n  - Name='PicturesOnGold Dog Tag Photo Pendant Necklace'\n  - Name='Minimalist Sterling Silver Name Necklace'\n  - Name='10K White Gold 2 1/2 ct. tw. Diamond Tennis Necklace'\n  - Name='Personalized Handwriting Name Necklace'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Zales \\\"Love\\\" Script Necklace in 10K\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a script style necklace with a word, similar in silhouette and style, but it uses a specific word \\\"Love\\\" rather than personalized name, so somewhat relevant but less personalized.\"\n    },\n    {\n      \"competitor_product_name\": \"14K Solid Gold Personalized Name Necklace\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Highly relevant as it specifically states personalized name necklace in solid gold, matching the core concept of the reference modern script name necklace.\"\n    },\n    {\n      \"competitor_product_name\": \"Zales Script Monogram Pendant (3 Initials)\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Shares script style but focuses on monogram initials (3 letters) rather than full names, using a pendant rather than a nameplate, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Personalized Minimalist Name Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Personalized name necklace in a minimalist style closely matches the reference product's function and construction, only style differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Zales Script Monogram Necklace (3 Initials)\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to the other monogram necklace, focuses on 3 initials not a full nameplate, so less relevant but similar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Personalized 925 Silver Nameplate Pendant Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A personalized nameplate pendant in sterling silver closely matches the material and function, very consistent with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"BaubleBar Initial Pendant Necklace\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Initial pendant necklaces differ from full name necklaces in scope and appearance, less relevant since it is just an initial rather than full script nameplate.\"\n    },\n    {\n      \"competitor_product_name\": \"PicturesOnGold Dog Tag Photo Pendant Necklace\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Same brand but completely different style and function (dog tag with photo pendant), not relevant to script name necklaces.\"\n    },\n    {\n      \"competitor_product_name\": \"Minimalist Sterling Silver Name Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Minimalist sterling silver name necklace is very similar in material and function to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"10K White Gold 2 1/2 ct. tw. Diamond Tennis Necklace\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a diamond tennis necklace, a completely different style and function from a personalized name necklace.\"\n    },\n    {\n      \"competitor_product_name\": \"Personalized Handwriting Name Necklace\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Personalized handwriting style name necklace directly matches the reference product’s core concept, style, and construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Zales \"Love\" Script Necklace in 10K",
+      "score": 7,
+      "rationale": "This is a script style necklace with a word, similar in silhouette and style, but it uses a specific word \"Love\" rather than personalized name, so somewhat relevant but less personalized.",
+      "map_id": "map_e57da4e3f27545a3bdbf0c6ab822cbe1"
+    },
+    {
+      "competitor_product_name": "14K Solid Gold Personalized Name Necklace",
+      "score": 10,
+      "rationale": "Highly relevant as it specifically states personalized name necklace in solid gold, matching the core concept of the reference modern script name necklace.",
+      "map_id": "map_0bb3d2c13608490686a55e529bac11f5"
+    },
+    {
+      "competitor_product_name": "Zales Script Monogram Pendant (3 Initials)",
+      "score": 5,
+      "rationale": "Shares script style but focuses on monogram initials (3 letters) rather than full names, using a pendant rather than a nameplate, so moderately relevant.",
+      "map_id": "map_8688f16a93274391842b5d11a026d477"
+    },
+    {
+      "competitor_product_name": "Personalized Minimalist Name Necklace",
+      "score": 9,
+      "rationale": "Personalized name necklace in a minimalist style closely matches the reference product's function and construction, only style differs slightly.",
+      "map_id": "map_8d5e56ffb8d34a668635dd1100ccfecf"
+    },
+    {
+      "competitor_product_name": "Zales Script Monogram Necklace (3 Initials)",
+      "score": 5,
+      "rationale": "Similar to the other monogram necklace, focuses on 3 initials not a full nameplate, so less relevant but similar style.",
+      "map_id": "map_cef710635d0e4f3b9bd886bfbc61fb22"
+    },
+    {
+      "competitor_product_name": "Personalized 925 Silver Nameplate Pendant Necklace",
+      "score": 9,
+      "rationale": "A personalized nameplate pendant in sterling silver closely matches the material and function, very consistent with the reference product.",
+      "map_id": "map_ed73d9c3f48a42f1a4bf4551e211e87e"
+    },
+    {
+      "competitor_product_name": "BaubleBar Initial Pendant Necklace",
+      "score": 4,
+      "rationale": "Initial pendant necklaces differ from full name necklaces in scope and appearance, less relevant since it is just an initial rather than full script nameplate.",
+      "map_id": "map_3370a7077f604f48a7487629d0428770"
+    },
+    {
+      "competitor_product_name": "PicturesOnGold Dog Tag Photo Pendant Necklace",
+      "score": 2,
+      "rationale": "Same brand but completely different style and function (dog tag with photo pendant), not relevant to script name necklaces.",
+      "map_id": "map_446ca034c51a46048a426b8ee216c0b9"
+    },
+    {
+      "competitor_product_name": "Minimalist Sterling Silver Name Necklace",
+      "score": 9,
+      "rationale": "Minimalist sterling silver name necklace is very similar in material and function to the reference product.",
+      "map_id": "map_8b92f5df66e94ee3bee849929a2f2756"
+    },
+    {
+      "competitor_product_name": "10K White Gold 2 1/2 ct. tw. Diamond Tennis Necklace",
+      "score": 1,
+      "rationale": "This is a diamond tennis necklace, a completely different style and function from a personalized name necklace.",
+      "map_id": "map_ba65ec5f19ec4a319b29fe5fae424b08"
+    },
+    {
+      "competitor_product_name": "Personalized Handwriting Name Necklace",
+      "score": 10,
+      "rationale": "Personalized handwriting style name necklace directly matches the reference product’s core concept, style, and construction.",
+      "map_id": "map_1ab7679d880c4bfbbe717e0ab98df239"
+    }
+  ]
+}

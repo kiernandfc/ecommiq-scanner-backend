@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250427_070829",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='adidas Men's Atlanta United FC 2025 Travel Pullover Hoodie'\n  - Name='Supreme Inside Out Box Logo Hoodie'\n  - Name='Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Logo Graphic Hoodie'\n  - Name='Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac'\n  - Name='Champion Powerblend Fleece Full-Zip Hoodie'\n  - Name='Carhartt Men's Flannel Lined Duck Active Jacket'\n  - Name='Champion Men's Pullover Reverse Weave Hoodie'\n  - Name='Carhartt Men's Textured Full-Zip Fleece Jacket'\n  - Name='Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Sweatshirt'\n  - Name='Carhartt Women's Tencel Fiber Series Loose Fit Sleeve Graphic Sweatshirt'\n  - Name='Supreme Men's Inside Out Box Logo Hooded Sweatshirt'\n  - Name='adidas Men's Austin FC 2025 Travel Pullover Hoodie'\n  - Name='American Apparel Unisex Flex Fleece Zip Hoodie'\n  - Name='Jordan Essentials Men's Fleece Hoodie'\n  - Name='Supreme Men's Collegiate Sleeve Hooded Sweatshirt'\n  - Name='American Apparel CCL Holiday Shop Reflex Fleece Full-Zip Hoodie'\n  - Name='Uniqlo Basic Hoodie Boxy Fit'\n  - Name='Uniqlo Men's Hoodie Dragon Ball Moss Green Size L'\n  - Name='Uniqlo : C Sweat Oversized Pullover Hoodie Unisex 6 Colors , Size Xs'\n  - Name='UNIQLO : C Sweat Oversized Pullover Hoodie 475379 2024 AW JAPAN'\n  - Name='UNIQLO : C Oversized Sweat Pullover Hoodie Sweatshirt 471808'\n  - Name='UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection'\n  - Name='Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark Brown/olive'\n  - Name='Uniqlo Hoodie - Men | Color: White | Size: L'\n  - Name='Uniqlo : C Sweatshirt Oversized Pullover Hoodie Xs-4xl 6 Color 475379'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"adidas Men's Atlanta United FC 2025 Travel Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a pullover hoodie similar in function and silhouette to the reference hoodie; likely soft, casual sweatshirt with hood.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Inside Out Box Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt with similar fit and construction, very relevant as a comfortable soft hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Logo Graphic Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A hoodie but specialized flame-resistant material and loose fit make it less similar in intended casual comfort and softness.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though hooded, this is more a shirt jacket hybrid with flannel lining, less soft sweatshirt feel and more functional outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Powerblend Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie very similar in function and comfortable soft sweatshirt nature, just with a full zip.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flannel Lined Duck Active Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a heavier lined jacket without hoodie; more of a workwear jacket than soft casual sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Pullover Reverse Weave Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie made from soft fleece, very similar function and construction as the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Textured Full-Zip Fleece Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Fleece jacket with full zip but no hood; less relevant due to lack of hood and more jacket style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A sweatshirt but no hood; more of a graphic sweatshirt than hoodie so less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Tencel Fiber Series Loose Fit Sleeve Graphic Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Again a sweatshirt without a hood, and likely different fabric focus; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Inside Out Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Similar hooded sweatshirt in style and purpose to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Austin FC 2025 Travel Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie likely similar in comfort and style to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Unisex Flex Fleece Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece zip hoodie similar in core features and comfort level to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jordan Essentials Men's Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece pullover hoodie with the soft, comfortable sweatshirt qualities like the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Collegiate Sleeve Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Hooded sweatshirt similar in design and comfort to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel CCL Holiday Shop Reflex Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Full zip fleece hoodie with similar construction and intended casual comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Basic Hoodie Boxy Fit\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Basic boxy fit hoodie, likely soft, casual sweatshirt similar to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Hoodie Dragon Ball Moss Green Size L\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's hoodie similar in form and function for casual wear and comfort, relevant despite specific graphics.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo : C Sweat Oversized Pullover Hoodie Unisex 6 Colors , Size Xs\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oversized pullover hoodie similar core construction and casual comfort function.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO : C Sweat Oversized Pullover Hoodie 475379 2024 AW JAPAN\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Likely same or very similar pullover oversized hoodie, similar in material and style.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO : C Oversized Sweat Pullover Hoodie Sweatshirt 471808\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another oversized pullover hoodie in sweat fabric, comparable to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full zip hoodie with performance features like UV protection, slightly less focused on softness but still relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark Brown/olive\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same style as other oversized pullover hoodies from Uniqlo, relevant based on design and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Hoodie - Men | Color: White | Size: L\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Basic men’s hoodie probably similar in style but no specifics on fabric softness; relevant but less detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo : C Sweatshirt Oversized Pullover Hoodie Xs-4xl 6 Color 475379\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oversized pullover hoodie in sweat fabric similar in concept and comfort to the reference hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "adidas Men's Atlanta United FC 2025 Travel Pullover Hoodie",
+      "score": 8,
+      "rationale": "This is a pullover hoodie similar in function and silhouette to the reference hoodie; likely soft, casual sweatshirt with hood.",
+      "map_id": "map_2a051817487d463fba92cbc31b9908bf"
+    },
+    {
+      "competitor_product_name": "Supreme Inside Out Box Logo Hoodie",
+      "score": 9,
+      "rationale": "A hooded sweatshirt with similar fit and construction, very relevant as a comfortable soft hoodie.",
+      "map_id": "map_d3eff925a54b42168699d52b1ea89033"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Logo Graphic Hoodie",
+      "score": 6,
+      "rationale": "A hoodie but specialized flame-resistant material and loose fit make it less similar in intended casual comfort and softness.",
+      "map_id": "map_21d1b188c83843d49da14c83e1f271d9"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac",
+      "score": 4,
+      "rationale": "Though hooded, this is more a shirt jacket hybrid with flannel lining, less soft sweatshirt feel and more functional outerwear.",
+      "map_id": "map_1d597d59afd44df6bf91081855fd7fca"
+    },
+    {
+      "competitor_product_name": "Champion Powerblend Fleece Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie very similar in function and comfortable soft sweatshirt nature, just with a full zip.",
+      "map_id": "map_f095a3a10ac6480281c491548c508d91"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flannel Lined Duck Active Jacket",
+      "score": 3,
+      "rationale": "This is a heavier lined jacket without hoodie; more of a workwear jacket than soft casual sweatshirt.",
+      "map_id": "map_0cd550810d9445649c84b098ad86b89f"
+    },
+    {
+      "competitor_product_name": "Champion Men's Pullover Reverse Weave Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie made from soft fleece, very similar function and construction as the reference product.",
+      "map_id": "map_2bd9df4cf4b74e159e77407d522a893c"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Textured Full-Zip Fleece Jacket",
+      "score": 5,
+      "rationale": "Fleece jacket with full zip but no hood; less relevant due to lack of hood and more jacket style.",
+      "map_id": "map_4f255d41bf144b23bd9e71e743c00b9c"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Sweatshirt",
+      "score": 4,
+      "rationale": "A sweatshirt but no hood; more of a graphic sweatshirt than hoodie so less relevant.",
+      "map_id": "map_79383ed13a29419db33ed22ec85723c3"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Tencel Fiber Series Loose Fit Sleeve Graphic Sweatshirt",
+      "score": 4,
+      "rationale": "Again a sweatshirt without a hood, and likely different fabric focus; less relevant.",
+      "map_id": "map_fbfac1eda052483dbb6dfb209362c513"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Inside Out Box Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Similar hooded sweatshirt in style and purpose to the reference hoodie.",
+      "map_id": "map_be7cf7bca6354df88159519532e6d5eb"
+    },
+    {
+      "competitor_product_name": "adidas Men's Austin FC 2025 Travel Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie likely similar in comfort and style to the reference hoodie.",
+      "map_id": "map_f05a632b367a40f5a813b2ccc14ae002"
+    },
+    {
+      "competitor_product_name": "American Apparel Unisex Flex Fleece Zip Hoodie",
+      "score": 9,
+      "rationale": "A fleece zip hoodie similar in core features and comfort level to the reference hoodie.",
+      "map_id": "map_115210982efa4ff280ec7d11f3bc9496"
+    },
+    {
+      "competitor_product_name": "Jordan Essentials Men's Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece pullover hoodie with the soft, comfortable sweatshirt qualities like the reference.",
+      "map_id": "map_094c664b0c5240cc88eaed1e969045c5"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Collegiate Sleeve Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Hooded sweatshirt similar in design and comfort to the reference hoodie.",
+      "map_id": "map_78fd9ee1b5cb41f2b55e6e8e3f300444"
+    },
+    {
+      "competitor_product_name": "American Apparel CCL Holiday Shop Reflex Fleece Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "Full zip fleece hoodie with similar construction and intended casual comfort.",
+      "map_id": "map_f61707c503c8456c8aef27cae902ad29"
+    },
+    {
+      "competitor_product_name": "Uniqlo Basic Hoodie Boxy Fit",
+      "score": 8,
+      "rationale": "Basic boxy fit hoodie, likely soft, casual sweatshirt similar to reference.",
+      "map_id": "map_f975cc7d34e94785b2d9246be034923c"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie Dragon Ball Moss Green Size L",
+      "score": 8,
+      "rationale": "Men's hoodie similar in form and function for casual wear and comfort, relevant despite specific graphics.",
+      "map_id": "map_8dd6918df234492696103d8760355ad0"
+    },
+    {
+      "competitor_product_name": "Uniqlo : C Sweat Oversized Pullover Hoodie Unisex 6 Colors , Size Xs",
+      "score": 8,
+      "rationale": "Oversized pullover hoodie similar core construction and casual comfort function.",
+      "map_id": "map_3ccf46172a3348a4b789e0b3017d6598"
+    },
+    {
+      "competitor_product_name": "UNIQLO : C Sweat Oversized Pullover Hoodie 475379 2024 AW JAPAN",
+      "score": 8,
+      "rationale": "Likely same or very similar pullover oversized hoodie, similar in material and style.",
+      "map_id": "map_1cec1b9ecc894ba9be0ed22bab3e16e1"
+    },
+    {
+      "competitor_product_name": "UNIQLO : C Oversized Sweat Pullover Hoodie Sweatshirt 471808",
+      "score": 8,
+      "rationale": "Another oversized pullover hoodie in sweat fabric, comparable to reference product.",
+      "map_id": "map_ef8b411c9f7a412b9cb13fb17a5cede4"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection",
+      "score": 7,
+      "rationale": "Full zip hoodie with performance features like UV protection, slightly less focused on softness but still relevant.",
+      "map_id": "map_54157e144db6464d982b95a580bc1973"
+    },
+    {
+      "competitor_product_name": "Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark Brown/olive",
+      "score": 8,
+      "rationale": "Same style as other oversized pullover hoodies from Uniqlo, relevant based on design and construction.",
+      "map_id": "map_e6738f486b8549a39114e32200e985bf"
+    },
+    {
+      "competitor_product_name": "Uniqlo Hoodie - Men | Color: White | Size: L",
+      "score": 7,
+      "rationale": "Basic men’s hoodie probably similar in style but no specifics on fabric softness; relevant but less detail.",
+      "map_id": "map_6dff4c34175c49cabf062b08eaddfdb2"
+    },
+    {
+      "competitor_product_name": "Uniqlo : C Sweatshirt Oversized Pullover Hoodie Xs-4xl 6 Color 475379",
+      "score": 8,
+      "rationale": "Oversized pullover hoodie in sweat fabric similar in concept and comfort to the reference hoodie.",
+      "map_id": "map_41ad308998ad45aeb31a845050be343b"
+    }
+  ]
+}

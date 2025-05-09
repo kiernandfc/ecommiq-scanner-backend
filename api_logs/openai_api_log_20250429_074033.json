@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250429_074033",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim Bowery Performance Stretch Dress Shirt'\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar'\n  - Name='J.Crew Men's Brushed Twill Shirt'\n  - Name='J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt'\n  - Name='J.Crew Men's Giant-fit Oxford Shirt'\n  - Name='Johnston & Murphy Men's birdseye Non-Iron Dress Shirt'\n  - Name='Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt'\n  - Name='L.L.Bean Men's VentureStretch Woven Shirt'\n  - Name='J.Crew Men's Tailored Performance Dress Shirt'\n  - Name='J.Crew Men's Performance Knit Oxford Shirt'\n  - Name='J.Crew Men's Secret Wash Organic Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim Untucked Cotton Poplin Shirt'\n  - Name='J.Crew Men's Stretch Cotton Poplin Shirt'\n  - Name='J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt'\n  - Name='Men's Slim Untucked Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Trim Fit Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Knit Button Up Shirt'\n  - Name='Mens Eton Slim Fit Twill Shirt'\n  - Name='L.L.Bean Men's Signature Rugged Cotton Twill Shirt'\n  - Name='J.Crew Men's Ludlow Premium Cotton Dress Shirt'\n  - Name='Banana Republic Men's Non-Iron Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt'\n  - Name='Lands' End Men's Short Sleeve No Iron Twill Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar dress shirt type and fabric (cotton poplin), but no mention of non-iron feature, which is key to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Bowery Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance and stretch features related to dress shirts, but no direct mention of non-iron and unclear if texture is similar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar cotton poplin material but point collar differs from reference's semi-spread collar; no mention of non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Brushed Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt with different fabric (twill) and no mention of non-iron or specific collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford fabric is common for dress shirts, slim fit mentioned; non-iron status uncertain.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Giant-fit Oxford Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"More casual and oversized fit (giant-fit) likely less similar to trim or standard fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Johnston & Murphy Men's birdseye Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Specifically non-iron dress shirt, similar function, likely similar construction; birdseye fabric texture differs but closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit cotton dress shirt similar silhouette; microcheck pattern and unclear if non-iron, so slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve and performance fabric diverge from long sleeve non-iron dress shirt; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's VentureStretch Woven Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Woven shirt with stretch is somewhat related, but no mention of non-iron or dress shirt styling.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tailored Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance and tailored fit for dress shirts aligns well, though non-iron feature is not confirmed.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Performance Knit Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance knit for dress shirt is similar category; knit fabric differs from woven in reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Organic Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar cotton poplin fabric and shirt style; no mention of non-iron though.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton poplin dress shirt but designed for untucked wear, indicating a different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Stretch Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar fabric with stretch added; no mention of non-iron but otherwise close in style and material.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Relaxed fit diverges from reference's trim or standard fit, though fabric is similar; no non-iron mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Untucked Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit dress shirt but designed for untucked wear, silhouette varies from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Trim Fit Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches key reference features exactly: non-iron, trim fit dress shirt, likely similar construction and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Knit Button Up Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Modern fit and knit fabric may differ in texture and construction from woven non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mens Eton Slim Fit Twill Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit twill dress shirt is similar in silhouette and dress function; non-iron status unknown.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Rugged Cotton Twill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Rugged twill suggests casual work shirt different in style and construction from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Ludlow Premium Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Premium cotton and dress shirt focus align well, although no non-iron feature mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product category and key feature (non-iron dress shirt), closely matching the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron dress shirt aligns with reference; pinpoint fabric and button down collar differ slightly from semi-spread collar though.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Short Sleeve No Iron Twill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve and twill fabric differ substantially from long sleeve woven non-iron dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Similar dress shirt type and fabric (cotton poplin), but no mention of non-iron feature, which is key to the reference product.",
+      "map_id": "map_49556b8a0bfc44efa81e8614fe6f79e1"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Bowery Performance Stretch Dress Shirt",
+      "score": 6,
+      "rationale": "Performance and stretch features related to dress shirts, but no direct mention of non-iron and unclear if texture is similar.",
+      "map_id": "map_31323b2966da4f809a61c95b355398e2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar",
+      "score": 6,
+      "rationale": "Similar cotton poplin material but point collar differs from reference's semi-spread collar; no mention of non-iron.",
+      "map_id": "map_5c478a11855244e78091287a4e5bc362"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Brushed Twill Shirt",
+      "score": 5,
+      "rationale": "Dress shirt with different fabric (twill) and no mention of non-iron or specific collar style.",
+      "map_id": "map_e69a9b1cc9c147e781643b1374b9469c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "Oxford fabric is common for dress shirts, slim fit mentioned; non-iron status uncertain.",
+      "map_id": "map_85abcd9fd65342688ded6c40ec5e7b8c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Giant-fit Oxford Shirt",
+      "score": 4,
+      "rationale": "More casual and oversized fit (giant-fit) likely less similar to trim or standard fit dress shirt.",
+      "map_id": "map_9e418fdc5f7d4984b826a6088b20264f"
+    },
+    {
+      "competitor_product_name": "Johnston & Murphy Men's birdseye Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Specifically non-iron dress shirt, similar function, likely similar construction; birdseye fabric texture differs but closely related.",
+      "map_id": "map_c2cf2d459fab4deabbea1cfd28208647"
+    },
+    {
+      "competitor_product_name": "Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit cotton dress shirt similar silhouette; microcheck pattern and unclear if non-iron, so slightly less relevant.",
+      "map_id": "map_8ad40bc0e0cf4a078f1099bf82c640da"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt",
+      "score": 3,
+      "rationale": "Short-sleeve and performance fabric diverge from long sleeve non-iron dress shirt; lower relevancy.",
+      "map_id": "map_fbbfd331daab425aa657361e1569a271"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's VentureStretch Woven Shirt",
+      "score": 5,
+      "rationale": "Woven shirt with stretch is somewhat related, but no mention of non-iron or dress shirt styling.",
+      "map_id": "map_7893e4c0fe7941558dd42d5a4b026eae"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tailored Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Performance and tailored fit for dress shirts aligns well, though non-iron feature is not confirmed.",
+      "map_id": "map_187fc48f1afd4ea4abc39577d124605d"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Performance Knit Oxford Shirt",
+      "score": 6,
+      "rationale": "Performance knit for dress shirt is similar category; knit fabric differs from woven in reference.",
+      "map_id": "map_9445940940774ec290d0880b75ba3f35"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Organic Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Similar cotton poplin fabric and shirt style; no mention of non-iron though.",
+      "map_id": "map_a676d2b027404a4cae44561dc9fb90e5"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "Cotton poplin dress shirt but designed for untucked wear, indicating a different silhouette.",
+      "map_id": "map_e63006d7da7c4bceb9fff51d3f474709"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Stretch Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Similar fabric with stretch added; no mention of non-iron but otherwise close in style and material.",
+      "map_id": "map_b6ee10215be24544a81256cc17169d33"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "Relaxed fit diverges from reference's trim or standard fit, though fabric is similar; no non-iron mentioned.",
+      "map_id": "map_2af5db60c6554c42a2d455c18b20e71f"
+    },
+    {
+      "competitor_product_name": "Men's Slim Untucked Dress Shirt",
+      "score": 6,
+      "rationale": "Slim fit dress shirt but designed for untucked wear, silhouette varies from reference.",
+      "map_id": "map_1f0f3827939f42e6a758c74f5f0e1a12"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "Matches key reference features exactly: non-iron, trim fit dress shirt, likely similar construction and use.",
+      "map_id": "map_f72b072b3f824c5c84205492e9d3cae2"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Knit Button Up Shirt",
+      "score": 5,
+      "rationale": "Modern fit and knit fabric may differ in texture and construction from woven non-iron dress shirt.",
+      "map_id": "map_a7e53a1ffb5544fc994c5a05c4f379fa"
+    },
+    {
+      "competitor_product_name": "Mens Eton Slim Fit Twill Shirt",
+      "score": 7,
+      "rationale": "Slim fit twill dress shirt is similar in silhouette and dress function; non-iron status unknown.",
+      "map_id": "map_f80ed63453494a6ca4293867f70c2fc8"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Rugged Cotton Twill Shirt",
+      "score": 4,
+      "rationale": "Rugged twill suggests casual work shirt different in style and construction from dress shirt.",
+      "map_id": "map_05930b74d9714d7b90233534c5c51337"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Ludlow Premium Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Premium cotton and dress shirt focus align well, although no non-iron feature mentioned.",
+      "map_id": "map_71cec59faded4e0faa089d22725df595"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Identical product category and key feature (non-iron dress shirt), closely matching the reference product.",
+      "map_id": "map_1594c9354d9f4edab90155fa4a4c9b08"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt",
+      "score": 8,
+      "rationale": "No iron dress shirt aligns with reference; pinpoint fabric and button down collar differ slightly from semi-spread collar though.",
+      "map_id": "map_fa6eb1ce82b5427b967df55df5e39884"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Short Sleeve No Iron Twill Shirt",
+      "score": 4,
+      "rationale": "Short sleeve and twill fabric differ substantially from long sleeve woven non-iron dress shirt.",
+      "map_id": "map_e612fa7f4b08429ba3e0745fa2896e96"
+    }
+  ]
+}

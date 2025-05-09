@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250502_084445",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Alex Mill Linen Shirt'\n  - Name='Alex Mill Men's Linen Mill Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt'\n  - Name='Todd Snyder Men's Cotton Check Camp Collar Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt'\n  - Name='Todd Snyder Men's Sea Soft Irish Linen Camp Collar Shirt'\n  - Name='Men's Mizzen+Main Halyard Dress Shirt'\n  - Name='Men's Mizzen+Main Leeward Long Sleeve Button Up Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Premium Linen Dress Shirt'\n  - Name='Bonobos Men's Tech Performance Short Sleeve Button-Up Shirt'\n  - Name='Alex Mill Cotton Oxford Button-Down Collar Shirt'\n  - Name='Alex Mill Mill Men's Striped Cotton-Poplin Shirt'\n  - Name='Todd Snyder Men's Chamois Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Washed Oxford Short Sleeve Cotton Shirt'\n  - Name='Men's Charles Tyrwhitt Slim-Fit Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt'\n  - Name='Todd Snyder Men's Sea Soft Irish Linen Point Collar Shirt'\n  - Name='Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt'\n  - Name='J.Crew Men's Tall Short-Sleeve Organic Chambray Shirt'\n  - Name='J.Crew Men's Classic-Fit Long Sleeve Flex Oxford Shirt'\n  - Name='J.Crew Men's Performance Knit Oxford Shirt'\n  - Name='J.Crew Men's Cotton Oxford Short-Sleeve Shirt'\n  - Name='J.Crew Men's Baird Mcnutt Irish Linen Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a linen shirt, differing in material and texture from the Oxford cotton of the reference; less durable and more casual in construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Linen Mill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Also linen fabric; lacks the sturdiness and weave style of the Oxford cotton shirt, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This product is an Oxford dress shirt, closely matching the reference in fabric type and style, with non-iron and stretch features differing but still aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cotton Check Camp Collar Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Made from cotton but features a camp collar and check pattern, differing in collar style and likely construction from the button-down Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar to the reference with Oxford fabric and dress shirt construction; non-iron finish is a minor difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Sea Soft Irish Linen Camp Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen fabric with a camp collar is quite divergent from the Oxford button-down shirt's fabric and collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Halyard Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A dress shirt potentially with performance fabric; likely similar function but possibly distinct materials and construction from the Oxford cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Leeward Long Sleeve Button Up Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve button-up aligns with reference type, though Mizzen+Main often uses performance fabrics contrasting with organic cotton Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford construction and non-iron finish align closely; stripe pattern is secondary and less important to relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Premium Linen Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Linen fabric differs from the Oxford cotton; although dress shirt, less durable and different texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Performance Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Performance fabric and short sleeve design diverge significantly from reference's fabric and tailored long sleeve cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cotton Oxford Button-Down Collar Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Cotton Oxford button-down collar closely matches the reference's fabric, collar, and style; very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Mill Men's Striped Cotton-Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton poplin is lighter and less textured than Oxford; styled as a shirt but different fabric and likely finishing.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Chamois Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Chamois fabric is distinct, softer and heavier; differs substantially from basket weave Oxford cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Twill fabric and pattern differ from Oxford basket weave; used for dress shirts but less closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Washed Oxford Short Sleeve Cotton Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford fabric matches, but short sleeves and washed finish slightly differentiate it from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Slim-Fit Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely similar in function and style but lacks fabric specification; slim fit aligns somewhat with tailored fit of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Cotton linen blend differs in texture and breathability from pure organic cotton Oxford; less sturdy and structured.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Sea Soft Irish Linen Point Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Irish linen and point collar make it stylistically and materially less relevant to Oxford button-down design.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Twill fabric and cutaway collar denote a different style and construction from Oxford basket weave with button-down collar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Short-Sleeve Organic Chambray Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton aligns with reference's fabric choice; chambray weave and short sleeve differ from Oxford and long sleeve style.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Classic-Fit Long Sleeve Flex Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Flexible Oxford fabric and long sleeve dress shirt design closely match reference; classic fit is similar to tailored fit.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Performance Knit Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford knit fabric is structurally different but functionally similar; performance knit adds divergence from pure cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Cotton Oxford Short-Sleeve Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton Oxford fabric matches but short sleeve diverges from the long sleeve reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Baird Mcnutt Irish Linen Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Irish linen fabric and likely different finishing mark it as less relevant to quilting basket weave organic cotton Oxford.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Alex Mill Linen Shirt",
+      "score": 4,
+      "rationale": "This is a linen shirt, differing in material and texture from the Oxford cotton of the reference; less durable and more casual in construction.",
+      "map_id": "map_f623f8f437484d5fb769f4be2e9ae9cd"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Linen Mill Shirt",
+      "score": 4,
+      "rationale": "Also linen fabric; lacks the sturdiness and weave style of the Oxford cotton shirt, making it less relevant.",
+      "map_id": "map_0a2e558e1dfa4260878943f98e0cb946"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "This product is an Oxford dress shirt, closely matching the reference in fabric type and style, with non-iron and stretch features differing but still aligned.",
+      "map_id": "map_e420c5f0a0d949648ffd06fde6254b6f"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cotton Check Camp Collar Shirt",
+      "score": 5,
+      "rationale": "Made from cotton but features a camp collar and check pattern, differing in collar style and likely construction from the button-down Oxford.",
+      "map_id": "map_62b7d3b269fd4e41a2866fae43bb6682"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "Similar to the reference with Oxford fabric and dress shirt construction; non-iron finish is a minor difference.",
+      "map_id": "map_c367d2be612e440082b2e0520a21dea3"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Sea Soft Irish Linen Camp Collar Shirt",
+      "score": 3,
+      "rationale": "Linen fabric with a camp collar is quite divergent from the Oxford button-down shirt's fabric and collar style.",
+      "map_id": "map_287003d435d0442d8e74107c3cddd466"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Halyard Dress Shirt",
+      "score": 6,
+      "rationale": "A dress shirt potentially with performance fabric; likely similar function but possibly distinct materials and construction from the Oxford cotton.",
+      "map_id": "map_fa415f05507541afbce4534b3d6519a8"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Leeward Long Sleeve Button Up Shirt",
+      "score": 6,
+      "rationale": "Long sleeve button-up aligns with reference type, though Mizzen+Main often uses performance fabrics contrasting with organic cotton Oxford.",
+      "map_id": "map_6cad514aaa7e41a392626424d4e3d805"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt",
+      "score": 7,
+      "rationale": "Oxford construction and non-iron finish align closely; stripe pattern is secondary and less important to relevancy.",
+      "map_id": "map_dc34c9920e1544cd8dc9ef5d89943f6f"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Premium Linen Dress Shirt",
+      "score": 4,
+      "rationale": "Linen fabric differs from the Oxford cotton; although dress shirt, less durable and different texture.",
+      "map_id": "map_229f6c1a0030447eb36db8e0e0ef3b62"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Performance Short Sleeve Button-Up Shirt",
+      "score": 4,
+      "rationale": "Performance fabric and short sleeve design diverge significantly from reference's fabric and tailored long sleeve cut.",
+      "map_id": "map_b4ab2db3447548e4bc007ef697bb88cd"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cotton Oxford Button-Down Collar Shirt",
+      "score": 9,
+      "rationale": "Cotton Oxford button-down collar closely matches the reference's fabric, collar, and style; very high relevancy.",
+      "map_id": "map_f3911f4c0bc74d2c8913399bb179535d"
+    },
+    {
+      "competitor_product_name": "Alex Mill Mill Men's Striped Cotton-Poplin Shirt",
+      "score": 6,
+      "rationale": "Cotton poplin is lighter and less textured than Oxford; styled as a shirt but different fabric and likely finishing.",
+      "map_id": "map_e18df68342224830a981d1ae2c7912cc"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Chamois Shirt",
+      "score": 3,
+      "rationale": "Chamois fabric is distinct, softer and heavier; differs substantially from basket weave Oxford cotton.",
+      "map_id": "map_38924c9781b74d3e96b25bf7e80fd797"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Dress Shirt",
+      "score": 6,
+      "rationale": "Twill fabric and pattern differ from Oxford basket weave; used for dress shirts but less closely related.",
+      "map_id": "map_0261acbffcb946aeacb9025cddd2fc80"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Washed Oxford Short Sleeve Cotton Shirt",
+      "score": 7,
+      "rationale": "Oxford fabric matches, but short sleeves and washed finish slightly differentiate it from the reference.",
+      "map_id": "map_06f3974434b449f3a72b28c84478586c"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Slim-Fit Dress Shirt",
+      "score": 6,
+      "rationale": "Likely similar in function and style but lacks fabric specification; slim fit aligns somewhat with tailored fit of reference.",
+      "map_id": "map_1d6b76a04a5448dba822eef6d3396a10"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Cotton Linen Dress Shirt",
+      "score": 5,
+      "rationale": "Cotton linen blend differs in texture and breathability from pure organic cotton Oxford; less sturdy and structured.",
+      "map_id": "map_e1ac17620ba346b5b2de5289edae768e"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Sea Soft Irish Linen Point Collar Shirt",
+      "score": 3,
+      "rationale": "Irish linen and point collar make it stylistically and materially less relevant to Oxford button-down design.",
+      "map_id": "map_d3bd5945c2c84a03bdcfdfd161a7764b"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Cutaway Collar Non-Iron Twill Dress Shirt",
+      "score": 5,
+      "rationale": "Twill fabric and cutaway collar denote a different style and construction from Oxford basket weave with button-down collar.",
+      "map_id": "map_179a518875a8452fb9db6ba5f3f0a732"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Short-Sleeve Organic Chambray Shirt",
+      "score": 6,
+      "rationale": "Organic cotton aligns with reference's fabric choice; chambray weave and short sleeve differ from Oxford and long sleeve style.",
+      "map_id": "map_b49063f176df4d0eb8fb3ff52a719e3c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic-Fit Long Sleeve Flex Oxford Shirt",
+      "score": 9,
+      "rationale": "Flexible Oxford fabric and long sleeve dress shirt design closely match reference; classic fit is similar to tailored fit.",
+      "map_id": "map_5e5a5282c4a24c4184d64e1f1cb78d69"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Performance Knit Oxford Shirt",
+      "score": 7,
+      "rationale": "Oxford knit fabric is structurally different but functionally similar; performance knit adds divergence from pure cotton.",
+      "map_id": "map_faf923c3f3ea46049c6d0d111c2a05c0"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Cotton Oxford Short-Sleeve Shirt",
+      "score": 7,
+      "rationale": "Cotton Oxford fabric matches but short sleeve diverges from the long sleeve reference shirt.",
+      "map_id": "map_592bbaadb7fd43e98cae35b09292d7fb"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Baird Mcnutt Irish Linen Shirt",
+      "score": 3,
+      "rationale": "Irish linen fabric and likely different finishing mark it as less relevant to quilting basket weave organic cotton Oxford.",
+      "map_id": "map_080125ac3f2a483da28cb84e145b244e"
+    }
+  ]
+}

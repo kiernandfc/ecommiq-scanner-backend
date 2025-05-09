@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250425_081534",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband'\n  - Name='Goorin Bros. Dean The Butcher Wide Brim Wool Felt Fedora'\n  - Name='Barbour Men's Herringbone Tweed Cap'\n  - Name='Barbour Men's Herringbone Tweed Baker Boy Hat'\n  - Name='Barbour Plaid Tweed Flat Cap'\n  - Name='Kangol Men's Wool 504 Earflap Cap'\n  - Name='Men Stetson Texas Shadow Plaid'\n  - Name='Stetson Glencheck Linen Ivy Cap'\n  - Name='Goorin Bros. The King Lion Trucker'\n  - Name='Bailey of Hollywood Men's Plaid Liston Flat Cap'\n  - Name='Barbour Plaid Tweed Wool Flat Cap'\n  - Name='Kangol Plaid Newsboy Tam Cap'\n  - Name='Kangol Newsboy 504 Style Plaid Flat Cap'\n  - Name='Kangol Wool Spacecap'\n  - Name='Goorin Bros. Teddy Spaghets Fedora'\n  - Name='Barbour Men's Tweed Flat Cap'\n  - Name='Barbour Men's Gallingale Tartan-Check Flat Cap'\n  - Name='Carhartt Men's Canvas Mountain Patch Cap'\n  - Name='Barbour Crieff Flat Cap'\n  - Name='Barbour Men's Tartan Check Print Cap'\n  - Name='Kangol Men's Grunge Plaid 507 Flat Cap'\n  - Name='Kangol Wool Plaid Newsboy Cap Hat'\n  - Name='Summer Prep 504 Ivy Cap'\n  - Name='Kangol Gray/White Plaid Newsboy Hat'\n  - Name='Kangol Men's Groovy Warp 507 Flat Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a 6-panel ivy flat cap, somewhat similar to an 8-panel peaky cap but differs in panel count and style with sweatband, so somewhat relevant but not identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Dean The Butcher Wide Brim Wool Felt Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A fedora with a wide brim is a different silhouette and style compared to an 8-panel peaky cap, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Herringbone Tweed Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a flat cap similar in style and material (tweed) to the reference peaky cap, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Herringbone Tweed Baker Boy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Baker boy hats share similarities with peaky caps including the 8-panel style; herringbone tweed also close in material, so quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Plaid Tweed Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A flat cap in plaid tweed is similar in material and style, but might differ in panel style or shape, somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Wool 504 Earflap Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The 504 is a flat cap style but earflaps add functional difference; material is wool but overall less similar than standard peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Texas Shadow Plaid\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Assuming this is a plaid cap, likely a flat cap or similar, but not enough detail to confirm panel style; mid relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Glencheck Linen Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An ivy cap is a different style and typically has a smaller, more streamlined silhouette than a peaky cap; linen material also differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The King Lion Trucker\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A trucker hat is a completely different style and function compared to a peaky cap, very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Plaid Liston Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A plaid flat cap similar in style and material, reasonably relevant but may differ in panel number or brim material.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Plaid Tweed Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to other Barbour plaid tweed flat caps; similar style but possibly differs in panel shape or construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Plaid Newsboy Tam Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy caps are closely related to peaky caps in silhouette and panel structure; relevant though differences in exact construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Newsboy 504 Style Plaid Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"504 style is a flat cap with fewer panels than newsboy; relevant but less so than actual newsboy or peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Spacecap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Spacecap is a different, more fitted silhouette, less structured, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Teddy Spaghets Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora style differs in brim and crown shape from peaky caps, very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Tweed Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A typical tweed flat cap closely related to the peaky cap style, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Gallingale Tartan-Check Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tartan-check flat cap with similar fabric and style; relevant but may differ in panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mountain Patch Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a casual baseball or trucker style cap with canvas; quite different function and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Crieff Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Barbour flat cap likely similar in style and material to peaky cap, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Tartan Check Print Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A tartan check cap probably a flat cap or similar; relevant but details on construction unclear.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Grunge Plaid 507 Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"507 flat cap differs somewhat in silhouette from peaky cap but shares plaid material, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Plaid Newsboy Cap Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap closely resembles 8-panel peaky cap in style and construction, high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Summer Prep 504 Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A 504 ivy cap style is different silhouette and fewer panels than peaky, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Gray/White Plaid Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy hat style closely matches the peaky 8-panel style; high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Groovy Warp 507 Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"507 flat cap style moderately similar but different silhouette from peaky cap, relevant but not highly so.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband",
+      "score": 6,
+      "rationale": "This is a 6-panel ivy flat cap, somewhat similar to an 8-panel peaky cap but differs in panel count and style with sweatband, so somewhat relevant but not identical.",
+      "map_id": "map_aae4f274532844cf935c689fd1b93ab7"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Dean The Butcher Wide Brim Wool Felt Fedora",
+      "score": 2,
+      "rationale": "A fedora with a wide brim is a different silhouette and style compared to an 8-panel peaky cap, so low relevancy.",
+      "map_id": "map_4f4c303b5c4748debf1699ac0c84527a"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Herringbone Tweed Cap",
+      "score": 7,
+      "rationale": "Likely a flat cap similar in style and material (tweed) to the reference peaky cap, fairly relevant.",
+      "map_id": "map_01194263cbc54716bccb0e5f06312783"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Herringbone Tweed Baker Boy Hat",
+      "score": 8,
+      "rationale": "Baker boy hats share similarities with peaky caps including the 8-panel style; herringbone tweed also close in material, so quite relevant.",
+      "map_id": "map_6f861f6d51db4d699412266835d93874"
+    },
+    {
+      "competitor_product_name": "Barbour Plaid Tweed Flat Cap",
+      "score": 7,
+      "rationale": "A flat cap in plaid tweed is similar in material and style, but might differ in panel style or shape, somewhat relevant.",
+      "map_id": "map_aca6aec7d2d94882857a1cbd3070988a"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Wool 504 Earflap Cap",
+      "score": 4,
+      "rationale": "The 504 is a flat cap style but earflaps add functional difference; material is wool but overall less similar than standard peaky cap.",
+      "map_id": "map_6734ee37ee9442cab98fc98f50fbcecb"
+    },
+    {
+      "competitor_product_name": "Men Stetson Texas Shadow Plaid",
+      "score": 5,
+      "rationale": "Assuming this is a plaid cap, likely a flat cap or similar, but not enough detail to confirm panel style; mid relevancy.",
+      "map_id": "map_0bef576ec10f4cd38e969762857b42f4"
+    },
+    {
+      "competitor_product_name": "Stetson Glencheck Linen Ivy Cap",
+      "score": 5,
+      "rationale": "An ivy cap is a different style and typically has a smaller, more streamlined silhouette than a peaky cap; linen material also differs.",
+      "map_id": "map_c375780da9e2480891a561d941d03bca"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The King Lion Trucker",
+      "score": 1,
+      "rationale": "A trucker hat is a completely different style and function compared to a peaky cap, very low relevancy.",
+      "map_id": "map_56c7a67aa66d43178afc8440f689556b"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Plaid Liston Flat Cap",
+      "score": 7,
+      "rationale": "A plaid flat cap similar in style and material, reasonably relevant but may differ in panel number or brim material.",
+      "map_id": "map_31e0217e92aa420593650fd2b660e5be"
+    },
+    {
+      "competitor_product_name": "Barbour Plaid Tweed Wool Flat Cap",
+      "score": 7,
+      "rationale": "Similar to other Barbour plaid tweed flat caps; similar style but possibly differs in panel shape or construction.",
+      "map_id": "map_f24e559892b6413d9c74af70d98e0b17"
+    },
+    {
+      "competitor_product_name": "Kangol Plaid Newsboy Tam Cap",
+      "score": 7,
+      "rationale": "Newsboy caps are closely related to peaky caps in silhouette and panel structure; relevant though differences in exact construction.",
+      "map_id": "map_b495e86f62df4848a2bbf74f5e8f04aa"
+    },
+    {
+      "competitor_product_name": "Kangol Newsboy 504 Style Plaid Flat Cap",
+      "score": 6,
+      "rationale": "504 style is a flat cap with fewer panels than newsboy; relevant but less so than actual newsboy or peaky cap.",
+      "map_id": "map_7efdcfcd874541858a8d3dc6ecc93ab7"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Spacecap",
+      "score": 5,
+      "rationale": "Spacecap is a different, more fitted silhouette, less structured, so moderately relevant.",
+      "map_id": "map_f46868c0d7cf44efa28b37de247f6874"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Teddy Spaghets Fedora",
+      "score": 2,
+      "rationale": "Fedora style differs in brim and crown shape from peaky caps, very low relevancy.",
+      "map_id": "map_10208d6f28674ce7a7df9282234b85c9"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Tweed Flat Cap",
+      "score": 7,
+      "rationale": "A typical tweed flat cap closely related to the peaky cap style, fairly relevant.",
+      "map_id": "map_ea13aa8f05dd4b62861cc1f67fed2564"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Gallingale Tartan-Check Flat Cap",
+      "score": 7,
+      "rationale": "Tartan-check flat cap with similar fabric and style; relevant but may differ in panel construction.",
+      "map_id": "map_684f6ae7af564d9d9e9214604b9a71e6"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mountain Patch Cap",
+      "score": 3,
+      "rationale": "Likely a casual baseball or trucker style cap with canvas; quite different function and shape.",
+      "map_id": "map_8f8244d567754b1fa14d9a042d5c6dcc"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 7,
+      "rationale": "Another Barbour flat cap likely similar in style and material to peaky cap, fairly relevant.",
+      "map_id": "map_e768c1cb4080457cb6a0669ab9093a7c"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Tartan Check Print Cap",
+      "score": 6,
+      "rationale": "A tartan check cap probably a flat cap or similar; relevant but details on construction unclear.",
+      "map_id": "map_99d59cddcf5d4550b56efac45aa469ff"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Grunge Plaid 507 Flat Cap",
+      "score": 6,
+      "rationale": "507 flat cap differs somewhat in silhouette from peaky cap but shares plaid material, moderately relevant.",
+      "map_id": "map_c9be2cff7f1741cebc32437f23c8d2ee"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Plaid Newsboy Cap Hat",
+      "score": 8,
+      "rationale": "Newsboy cap closely resembles 8-panel peaky cap in style and construction, high relevancy.",
+      "map_id": "map_adf9a7cd55e34c8b95958839c52fe2dd"
+    },
+    {
+      "competitor_product_name": "Summer Prep 504 Ivy Cap",
+      "score": 5,
+      "rationale": "A 504 ivy cap style is different silhouette and fewer panels than peaky, so moderate relevancy.",
+      "map_id": "map_064a5fe93d6e444f91a1e33ce3ad2ea4"
+    },
+    {
+      "competitor_product_name": "Kangol Gray/White Plaid Newsboy Hat",
+      "score": 8,
+      "rationale": "Newsboy hat style closely matches the peaky 8-panel style; high relevancy.",
+      "map_id": "map_e308f69230c246b3928cb4d51456d414"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Groovy Warp 507 Flat Cap",
+      "score": 6,
+      "rationale": "507 flat cap style moderately similar but different silhouette from peaky cap, relevant but not highly so.",
+      "map_id": "map_abfe5814e46048b1a940500e211fc1d9"
+    }
+  ]
+}

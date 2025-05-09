@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250426_080717",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Ojai Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket'\n  - Name='Men's Taylor Stitch The Foundation Blazer'\n  - Name='Taylor Stitch Men's Cotton/Linen Stevens Sportcoat'\n  - Name='Taylor Stitch Men's The Ojai Chore Coat'\n  - Name='Alex Mill Britt Work Jacket in Herringbone'\n  - Name='Men Universal Works Kyoto Work Jacket'\n  - Name='Alex Mill Lightweight Denim Shirt Jacket'\n  - Name='Alex Mill Cotton Twill Duffle Bag'\n  - Name='Universal Works Tropical Suiting Two Button Jacket'\n  - Name='Universal Works Wool Fleece Shirt Jacket'\n  - Name='Universal Works Kyoto Work Jacket'\n  - Name='Universal Works Men's Cotton Jacket'\n  - Name='Alex Mill Recycled Denim Work Jacket'\n  - Name='Engineered Garments Outerwear 495587 Coat'\n  - Name='Alex Mill Herringbone Cotton Work Jacket'\n  - Name='Carhartt WIP OG Chore Coat'\n  - Name='Engineered Garments Chore Jackets'\n  - Name='Engineered Garments M41 3-Layer Nyco Cloth Jacket'\n  - Name='Norse Projects Men's Marcus Canvas Overshirt'\n  - Name='Carhartt WIP Work Jacket \"Og Michigan'\n  - Name='Faherty Men's Commander Shirt Jacket'\n  - Name='Norse Projects Marcus Cotton Wool Twill Jacket'\n  - Name='Carhartt WIP OG Detroit Jacket Men'\n  - Name='Faherty Men's Teton Valley Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Ojai Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact same product name and likely identical features and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Also a jacket from Taylor Stitch using organic cotton but different name and probably different silhouette and fabric (corduroy vs twill chore coat).\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch The Foundation Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same brand but blazer silhouette different from chore coat, less utility focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Cotton/Linen Stevens Sportcoat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Another sportcoat from same brand but different construction, fabric blend, and purpose compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Ojai Chore Coat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact same product indicated by name as chore coat 'Ojai', very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Britt Work Jacket in Herringbone\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with chore coat style from a different brand; likely similar silhouette and utility focus though fabric differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Universal Works Kyoto Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with a similar utilitarian function and silhouette as a chore coat, different brand.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Lightweight Denim Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Jacket with shirt-like construction, similar layering piece but lighter weight and different fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cotton Twill Duffle Bag\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Not a garment but a bag; completely different product category.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Tropical Suiting Two Button Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Suit jacket with a very different silhouette and intended use compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Wool Fleece Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt jacket likely similar layering piece and casual utility style, but fabric and construction differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Kyoto Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same as previous Kyoto Work Jacket entry; similar workwear utility style.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic cotton jacket likely similar in casual use and construction, but less detail on style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Recycled Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with denim fabric, similar use and silhouette but different material.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Outerwear 495587 Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Outerwear from a different brand, potentially similar rugged aesthetic but less clear on chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Herringbone Cotton Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with similar function and material type (cotton) and style close to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close to reference product with chore coat style and durable fabric from a well-known workwear brand.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Chore Jackets\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jackets from a different brand; similar silhouette and function to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments M41 3-Layer Nyco Cloth Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Military-inspired layered jacket, somewhat similar rugged utility focus but different style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Marcus Canvas Overshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Overshirt with durable canvas fabric, akin to chore coat in use and style but overshirt silhouette slightly different.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Work Jacket \\\"Og Michigan\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work jacket similar in style and function with durable fabric, close to chore coat concept.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Commander Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt jacket with casual layering and utility aspect, but likely lighter fabric and less structured.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Marcus Cotton Wool Twill Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Jacket blending cotton and wool in twill fabric, similar material weight and purpose, close to chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Detroit Jacket Men\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Glass fiber-lined chore-style jacket from Carhartt WIP, similar use and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Teton Valley Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual jacket but less focused on chore coat silhouette or heavy-duty materials, lower relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Ojai Jacket",
+      "score": 10,
+      "rationale": "Exact same product name and likely identical features and construction.",
+      "map_id": "map_ba85c43a392c4eaaae1d5ea1d7013b10"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket",
+      "score": 5,
+      "rationale": "Also a jacket from Taylor Stitch using organic cotton but different name and probably different silhouette and fabric (corduroy vs twill chore coat).",
+      "map_id": "map_e6525bb0253b46fab497d168415f0e81"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch The Foundation Blazer",
+      "score": 3,
+      "rationale": "Same brand but blazer silhouette different from chore coat, less utility focus.",
+      "map_id": "map_152991c37fad4ab6a02d1bc39e3edbe3"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Cotton/Linen Stevens Sportcoat",
+      "score": 3,
+      "rationale": "Another sportcoat from same brand but different construction, fabric blend, and purpose compared to chore coat.",
+      "map_id": "map_3ec9fb76c81e44c9886821ef538a6bff"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat",
+      "score": 10,
+      "rationale": "Exact same product indicated by name as chore coat 'Ojai', very high relevancy.",
+      "map_id": "map_28f855e683404de889bc30e7eee7302c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Britt Work Jacket in Herringbone",
+      "score": 7,
+      "rationale": "Work jacket with chore coat style from a different brand; likely similar silhouette and utility focus though fabric differs.",
+      "map_id": "map_dace667e37344520b1db5fc0f5ac6c7c"
+    },
+    {
+      "competitor_product_name": "Men Universal Works Kyoto Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket with a similar utilitarian function and silhouette as a chore coat, different brand.",
+      "map_id": "map_3eeaaf9eb3e143169e64c31297ee8c6c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Lightweight Denim Shirt Jacket",
+      "score": 6,
+      "rationale": "Jacket with shirt-like construction, similar layering piece but lighter weight and different fabric.",
+      "map_id": "map_011e7db294d74ca18c14f08fff2b843d"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cotton Twill Duffle Bag",
+      "score": 1,
+      "rationale": "Not a garment but a bag; completely different product category.",
+      "map_id": "map_9e37a13720f14c9cbdebb71c4f1f039d"
+    },
+    {
+      "competitor_product_name": "Universal Works Tropical Suiting Two Button Jacket",
+      "score": 2,
+      "rationale": "Suit jacket with a very different silhouette and intended use compared to chore coat.",
+      "map_id": "map_df3fc1074db045da8e52c83cb9e5fa3a"
+    },
+    {
+      "competitor_product_name": "Universal Works Wool Fleece Shirt Jacket",
+      "score": 6,
+      "rationale": "Shirt jacket likely similar layering piece and casual utility style, but fabric and construction differ.",
+      "map_id": "map_8cbb607537d2472ba5c889ba4f1affbf"
+    },
+    {
+      "competitor_product_name": "Universal Works Kyoto Work Jacket",
+      "score": 7,
+      "rationale": "Same as previous Kyoto Work Jacket entry; similar workwear utility style.",
+      "map_id": "map_132c0a43b3be4077a2b7846ecf967b5c"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Cotton Jacket",
+      "score": 6,
+      "rationale": "Generic cotton jacket likely similar in casual use and construction, but less detail on style.",
+      "map_id": "map_bb66f03be10e4c59a9068ce1a16db62c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Recycled Denim Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket with denim fabric, similar use and silhouette but different material.",
+      "map_id": "map_b950b9fd23d443cabf2ad3a59f01f224"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Outerwear 495587 Coat",
+      "score": 5,
+      "rationale": "Outerwear from a different brand, potentially similar rugged aesthetic but less clear on chore coat style.",
+      "map_id": "map_5e24a792f5df49dd9383a059801c7281"
+    },
+    {
+      "competitor_product_name": "Alex Mill Herringbone Cotton Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket with similar function and material type (cotton) and style close to chore coat.",
+      "map_id": "map_f4fe3184628b44b68528475815716981"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "Very close to reference product with chore coat style and durable fabric from a well-known workwear brand.",
+      "map_id": "map_aac2d80b0f834ea18eb07c1b332051a1"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Chore Jackets",
+      "score": 8,
+      "rationale": "Chore jackets from a different brand; similar silhouette and function to the reference.",
+      "map_id": "map_c73e6850d3124af1a9b83de26edc689a"
+    },
+    {
+      "competitor_product_name": "Engineered Garments M41 3-Layer Nyco Cloth Jacket",
+      "score": 6,
+      "rationale": "Military-inspired layered jacket, somewhat similar rugged utility focus but different style and construction.",
+      "map_id": "map_0c9cff24093c43a9aff6c45b971c826f"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Marcus Canvas Overshirt",
+      "score": 7,
+      "rationale": "Overshirt with durable canvas fabric, akin to chore coat in use and style but overshirt silhouette slightly different.",
+      "map_id": "map_509d8790e2044d93af551af18f6303b0"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Work Jacket \"Og Michigan",
+      "score": 8,
+      "rationale": "Work jacket similar in style and function with durable fabric, close to chore coat concept.",
+      "map_id": "map_c67a134a1880425185b173eb8d01dc6a"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Commander Shirt Jacket",
+      "score": 6,
+      "rationale": "Shirt jacket with casual layering and utility aspect, but likely lighter fabric and less structured.",
+      "map_id": "map_5b4750e543cb4867966f794a7bc6e364"
+    },
+    {
+      "competitor_product_name": "Norse Projects Marcus Cotton Wool Twill Jacket",
+      "score": 7,
+      "rationale": "Jacket blending cotton and wool in twill fabric, similar material weight and purpose, close to chore coat style.",
+      "map_id": "map_075208fdca5a4315a0987e479c6233b1"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Detroit Jacket Men",
+      "score": 7,
+      "rationale": "Glass fiber-lined chore-style jacket from Carhartt WIP, similar use and silhouette.",
+      "map_id": "map_7de3d0e911704606a5b511564b717081"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Teton Valley Jacket",
+      "score": 5,
+      "rationale": "Casual jacket but less focused on chore coat silhouette or heavy-duty materials, lower relevancy.",
+      "map_id": "map_272b8c58172e4512a2ec3e115955bd70"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250501_091129",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Eton Men's Geometric Silk Neck Tie'\n  - Name='Jos. A. Bank Reserve Collection Satin Weave Tie'\n  - Name='OTAA Men's Satin Necktie'\n  - Name='Charles Tyrwhitt Men's French Cuff Evening Dress Shirt'\n  - Name='OTAA Men's Satin Skinny Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Neat Octagon Tie'\n  - Name='Jos. A. Bank Reserve Collection Paisley Tie'\n  - Name='Eton Men's Solid Satin Silk Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Tonal Diamond Tie'\n  - Name='Peter Hayer Microfiber Tie'\n  - Name='Jos. A. Bank Men's Traveler Micro Tie'\n  - Name='Jos. A. Bank Reserve Collection Two Lane Stripe Tie'\n  - Name='Jos. A. Bank Halo Dot Tie'\n  - Name='Eton Men's Silk Floral Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Mini Shell Tie'\n  - Name='Suitsupply Men's Luxury Paisley Necktie'\n  - Name='Jos. A. Bank Men's Traveler Collection Micro Diamond Tie'\n  - Name='Jos. A. Bank Men's Stripe On Stripe Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Pin Dot Tie'\n  - Name='ETON Men's Paisley Silk Neck Tie'\n  - Name='Charles Tyrwhitt Pattern Print Stain Resistant Silk Tie'\n  - Name='Jos. A. Bank Medallion Tie'\n  - Name='Joseph Abboud Men's Narrow Enchanted Tie'\n  - Name='Joseph Abboud Men's Narrow Enchanted Tie'\n  - Name='Eton Men's Embossed Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Eton Men's Geometric Silk Neck Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a silk neck tie like the reference, but features a geometric pattern instead of a solid satin finish, making it somewhat relevant but not identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Satin Weave Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A satin weave tie closely matches the reference's satin fabric and sophisticated style, making it highly relevant though weave details may differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Necktie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"An exact match in fabric (satin) and product category (men's necktie) with no pattern specified, making it fully relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's French Cuff Evening Dress Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a dress shirt, a different product category entirely, so it is not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Skinny Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A satin tie similar to the reference but with a skinny cut, making it quite relevant but differing somewhat in silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Neat Octagon Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Though a tie, the 'Neat Octagon' pattern diverges from solid satin, lowering relevancy compared to a plain satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Paisley Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A patterned paisley tie differs significantly from the solid satin reference, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Solid Satin Silk Tie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"An exact match by fabric (solid satin silk) and product type, identical in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Tonal Diamond Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The tonal diamond pattern indicates a texture or pattern distinct from the smooth solid satin, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Peter Hayer Microfiber Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Made of microfiber rather than satin silk, and material differences lower relevancy despite similar function.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Micro Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A micro-patterned tie different from solid satin, and likely a different fabric texture, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Two Lane Stripe Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped pattern distinguishes this from a solid satin tie, reducing relevancy despite similar type.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Halo Dot Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned with dots unlike plain satin, decreasing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Silk Floral Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk but patterned floral tie differs from solid satin, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Mini Shell Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned mini shell design diverges from solid satin, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Luxury Paisley Necktie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Paisley pattern and likely different fabric finish reduce relevancy compared to solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Micro Diamond Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Micro diamond pattern differs from plain satin, impacting relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Stripe On Stripe Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped pattern reduces similarity to the solid satin reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Pin Dot Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Pin dot pattern diverges from the reference's plain satin appearance.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Paisley Silk Neck Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Paisley pattern significantly lowers relevancy despite same silk material.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Pattern Print Stain Resistant Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Patterned and stain resistant finish add differences from plain satin, thus moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Medallion Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Medallion pattern differentiates it from the solid satin reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Enchanted Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Narrow silhouette differs but likely similar fabric; 'Enchanted' likely indicates some finish or pattern that is not solid satin, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Enchanted Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Duplicate of prior entry; same rationale applies.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Embossed Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Embossed texture differentiates it from smooth satin but otherwise silk neck tie is similar, so moderate relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Eton Men's Geometric Silk Neck Tie",
+      "score": 7,
+      "rationale": "This is a silk neck tie like the reference, but features a geometric pattern instead of a solid satin finish, making it somewhat relevant but not identical.",
+      "map_id": "map_21684d92c95c4c94bd7f0809c0480c26"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Satin Weave Tie",
+      "score": 9,
+      "rationale": "A satin weave tie closely matches the reference's satin fabric and sophisticated style, making it highly relevant though weave details may differ slightly.",
+      "map_id": "map_38cf7170e2eb435ea43571f1eba10ca2"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Necktie",
+      "score": 10,
+      "rationale": "An exact match in fabric (satin) and product category (men's necktie) with no pattern specified, making it fully relevant.",
+      "map_id": "map_a7f822ecc0f64ca2aba9a405fa89001a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's French Cuff Evening Dress Shirt",
+      "score": 1,
+      "rationale": "This is a dress shirt, a different product category entirely, so it is not relevant.",
+      "map_id": "map_c25331373ec445a6911efc7f16507529"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Skinny Tie",
+      "score": 8,
+      "rationale": "A satin tie similar to the reference but with a skinny cut, making it quite relevant but differing somewhat in silhouette.",
+      "map_id": "map_f38586f55230485ab7b8e07a06561c90"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Neat Octagon Tie",
+      "score": 5,
+      "rationale": "Though a tie, the 'Neat Octagon' pattern diverges from solid satin, lowering relevancy compared to a plain satin tie.",
+      "map_id": "map_b4fe1934dcb342289b9ab2edc280da5a"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Paisley Tie",
+      "score": 4,
+      "rationale": "A patterned paisley tie differs significantly from the solid satin reference, reducing relevancy.",
+      "map_id": "map_13bec72ff82f4aa48d21ca53eaca8315"
+    },
+    {
+      "competitor_product_name": "Eton Men's Solid Satin Silk Tie",
+      "score": 10,
+      "rationale": "An exact match by fabric (solid satin silk) and product type, identical in function and style.",
+      "map_id": "map_7bf81e9634404f21b825f1fb3b756893"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Tonal Diamond Tie",
+      "score": 5,
+      "rationale": "The tonal diamond pattern indicates a texture or pattern distinct from the smooth solid satin, reducing relevancy.",
+      "map_id": "map_1dfa6142b791453ebfd4c2a07dbbb68c"
+    },
+    {
+      "competitor_product_name": "Peter Hayer Microfiber Tie",
+      "score": 3,
+      "rationale": "Made of microfiber rather than satin silk, and material differences lower relevancy despite similar function.",
+      "map_id": "map_0421e746e7534b0f99188199e4a17219"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Micro Tie",
+      "score": 3,
+      "rationale": "A micro-patterned tie different from solid satin, and likely a different fabric texture, lowering relevancy.",
+      "map_id": "map_2c96f9a2264c460cabe798fd39cfdae4"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Two Lane Stripe Tie",
+      "score": 4,
+      "rationale": "Striped pattern distinguishes this from a solid satin tie, reducing relevancy despite similar type.",
+      "map_id": "map_34534bc067134d5da0c322e41cace570"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Halo Dot Tie",
+      "score": 4,
+      "rationale": "Patterned with dots unlike plain satin, decreasing relevancy.",
+      "map_id": "map_4f4c392904654e1ab7ad5f6b52abb3d5"
+    },
+    {
+      "competitor_product_name": "Eton Men's Silk Floral Tie",
+      "score": 4,
+      "rationale": "Silk but patterned floral tie differs from solid satin, lowering relevancy.",
+      "map_id": "map_959c3d11ff4d4da9a32156cd10b0efd1"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Mini Shell Tie",
+      "score": 4,
+      "rationale": "Patterned mini shell design diverges from solid satin, lowering relevancy.",
+      "map_id": "map_ca59ddad61ba42dd93d2319d6302ee92"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Luxury Paisley Necktie",
+      "score": 4,
+      "rationale": "Paisley pattern and likely different fabric finish reduce relevancy compared to solid satin.",
+      "map_id": "map_c6a15f06aca54abbad12ebe9cd780f3e"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Micro Diamond Tie",
+      "score": 4,
+      "rationale": "Micro diamond pattern differs from plain satin, impacting relevancy.",
+      "map_id": "map_09b729adce9b4dd2b53bc745cfa20e87"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Stripe On Stripe Tie",
+      "score": 4,
+      "rationale": "Striped pattern reduces similarity to the solid satin reference.",
+      "map_id": "map_2138692900b9442ea0521f2b4fb25459"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Pin Dot Tie",
+      "score": 4,
+      "rationale": "Pin dot pattern diverges from the reference's plain satin appearance.",
+      "map_id": "map_951b6fcc99b5497e8f7274ed0136911d"
+    },
+    {
+      "competitor_product_name": "ETON Men's Paisley Silk Neck Tie",
+      "score": 4,
+      "rationale": "Paisley pattern significantly lowers relevancy despite same silk material.",
+      "map_id": "map_d9c13909ce33439cbf5dce229b5f0dfd"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Pattern Print Stain Resistant Silk Tie",
+      "score": 5,
+      "rationale": "Patterned and stain resistant finish add differences from plain satin, thus moderate relevancy.",
+      "map_id": "map_3978bb46b791430ba9517bfbb73eb105"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Medallion Tie",
+      "score": 4,
+      "rationale": "Medallion pattern differentiates it from the solid satin reference.",
+      "map_id": "map_181b06d4613e43aca0953953f42ac635"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Enchanted Tie",
+      "score": 6,
+      "rationale": "Narrow silhouette differs but likely similar fabric; 'Enchanted' likely indicates some finish or pattern that is not solid satin, so moderate relevancy.",
+      "map_id": "map_9d9b64bd23e64dcaa4d0a804d96ce8a8"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Enchanted Tie",
+      "score": 6,
+      "rationale": "Narrow silhouette differs but likely similar fabric; 'Enchanted' likely indicates some finish or pattern that is not solid satin, so moderate relevancy.",
+      "map_id": "map_8f548674127c4950bb300dbb25d299aa"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Enchanted Tie",
+      "score": 6,
+      "rationale": "Duplicate of prior entry; same rationale applies.",
+      "map_id": "map_9d9b64bd23e64dcaa4d0a804d96ce8a8"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Enchanted Tie",
+      "score": 6,
+      "rationale": "Duplicate of prior entry; same rationale applies.",
+      "map_id": "map_8f548674127c4950bb300dbb25d299aa"
+    },
+    {
+      "competitor_product_name": "Eton Men's Embossed Silk Tie",
+      "score": 6,
+      "rationale": "Embossed texture differentiates it from smooth satin but otherwise silk neck tie is similar, so moderate relevancy.",
+      "map_id": "map_c4bc0906066543f5bfea53f3cce182fb"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250508_092303",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Performance Link Pants'\n  - Name='Bonobos Men's Weekday Warrior Stretch Cotton Dress Pants'\n  - Name='Bonobos Men's Weekday Warrior Dress Pants'\n  - Name='Bonobos Men's Tailored Stretch Washed Stretch Cotton Chinos'\n  - Name='The Original Chino Athletic for Men by Bonobos'\n  - Name='Bonobos Men's Slim Performance Link 5-Pocket Pants'\n  - Name='Men Big & Tall Weekday Warrior Dress Pants by Bonobos'\n  - Name='Bonobos Men's Chino 2.0 Slim'\n  - Name='The Original Chino Straight Fit by Bonobos'\n  - Name='Bonobos Men's Tech Trouser Pants'\n  - Name='Bonobos Men's Brushed Twill Chino Tailored'\n  - Name='Men Course Legend Pants by Bonobos'\n  - Name='Bonobos Men's Big & Tall Performance Link Pants'\n  - Name='UNIQLO Men's Pleated Wide Pants'\n  - Name='UNIQLO Men's Wide Fit Tall Chino Pants'\n  - Name='UNIQLO Ultra Stretch Active Track Pants'\n  - Name='Outerknowns.E.A. Legs Slim Rugged'\n  - Name='Outerknown Men's Straight Fit Twill Pants'\n  - Name='Outerknown Nomad Chino'\n  - Name='Outerknown Men's Pants'\n  - Name='Taylor Stitch Men's Organic Cotton Democratic Jean'\n  - Name='Outerknown The Dunes Straight Jean'\n  - Name='Outerknown The Cove Slim Jean'\n  - Name='Outerknown The Field Utility Off Duty Pants'\n  - Name='Taylor Stitch Men's Organic Cotton Camp Pants in Aged Penny Chipped Canvas'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Performance Link Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance pants may share some functional elements but likely differ in fabric and construction; less workwear oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Stretch Cotton Dress Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Dress pants with stretch focus are more formal and less rugged than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar to above, dress pants differ substantially in construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tailored Stretch Washed Stretch Cotton Chinos\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chinos share some silhouette and cotton material but tailored stretch chinos are dressier with less rugged reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"The Original Chino Athletic for Men by Bonobos\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chino athletic style shares some silhouette but lacks detailed workwear features like double-knee reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Performance Link 5-Pocket Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"5-pocket style closer to utility/workwear, performance fabrics may be different than canvas.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Big & Tall Weekday Warrior Dress Pants by Bonobos\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Dress pants category implies less ruggedness and function than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Chino 2.0 Slim\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim chinos provide similar cropped silhouette and cotton base but lack heavy-duty features.\"\n    },\n    {\n      \"competitor_product_name\": \"The Original Chino Straight Fit by Bonobos\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Straight fit chino is similar in style but less workwear focused.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Trouser Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tech trousers imply different fabric and more formal or casual focus; less industrial.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Brushed Twill Chino Tailored\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Brushed twill and chino concept relates to cotton pants but tailored suggests dress influence.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Course Legend Pants by Bonobos\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Name is vague; likely casual pants but not clearly chore or workwear specific.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Big & Tall Performance Link Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance fabric and link construction possibly adds durability, somewhat functional.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Pleated Wide Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Pleated wide pants deviate significantly in silhouette and likely fabric from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Fit Tall Chino Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar utilitarian pant style made in chino-like fabric, but wider and less reinforced.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Ultra Stretch Active Track Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Track pants differ entirely in function, fabric, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknowns.E.A. Legs Slim Rugged\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim rugged pants align closely with workwear function and style, similar fabric weight likely.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Men's Straight Fit Twill Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Twill pants share durable cotton fabric and straight fit, less detail about reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Nomad Chino\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Nomad chino likely more casual cotton chinos, less heavy-duty construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Men's Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Generic name with no clear style, probably less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Democratic Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Organic cotton jean similar sustainable fabric philosophy, but jeans differ structurally from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Dunes Straight Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Straight jean construction differs from canvas chore pant but related in casual workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Cove Slim Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim jean silhouette differs but shares casual rugged styling with chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Field Utility Off Duty Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Utility off-duty pants strongly overlap in function, silhouette, and rugged workwear construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Camp Pants in Aged Penny Chipped Canvas\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Almost identical fabric, organic cotton canvas, and styling; close in silhouette and construction to chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Performance Link Pants",
+      "score": 6,
+      "rationale": "Performance pants may share some functional elements but likely differ in fabric and construction; less workwear oriented.",
+      "map_id": "map_723b3eec2f7840db9f4feca8d7f5066b"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Stretch Cotton Dress Pants",
+      "score": 3,
+      "rationale": "Dress pants with stretch focus are more formal and less rugged than chore pants.",
+      "map_id": "map_d772d74a753a4a869a39a57eb2438d39"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Pants",
+      "score": 3,
+      "rationale": "Similar to above, dress pants differ substantially in construction and intended use.",
+      "map_id": "map_f0c80e4f91db49b1802f3456a0a90e15"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tailored Stretch Washed Stretch Cotton Chinos",
+      "score": 5,
+      "rationale": "Chinos share some silhouette and cotton material but tailored stretch chinos are dressier with less rugged reinforcement.",
+      "map_id": "map_38db5eb35d294c6bac170ce5d8717ef8"
+    },
+    {
+      "competitor_product_name": "The Original Chino Athletic for Men by Bonobos",
+      "score": 5,
+      "rationale": "Chino athletic style shares some silhouette but lacks detailed workwear features like double-knee reinforcement.",
+      "map_id": "map_bc1e10ae3d734d8a9784a381b349b6c2"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Performance Link 5-Pocket Pants",
+      "score": 6,
+      "rationale": "5-pocket style closer to utility/workwear, performance fabrics may be different than canvas.",
+      "map_id": "map_7c558a4b1d6948bb9db892e1176a5cbc"
+    },
+    {
+      "competitor_product_name": "Men Big & Tall Weekday Warrior Dress Pants by Bonobos",
+      "score": 3,
+      "rationale": "Dress pants category implies less ruggedness and function than chore pant.",
+      "map_id": "map_368da4442a864d0a93980b6bf4416d85"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Chino 2.0 Slim",
+      "score": 5,
+      "rationale": "Slim chinos provide similar cropped silhouette and cotton base but lack heavy-duty features.",
+      "map_id": "map_2b0a2ec0028e4c56b9fe5ec8b95782df"
+    },
+    {
+      "competitor_product_name": "The Original Chino Straight Fit by Bonobos",
+      "score": 5,
+      "rationale": "Straight fit chino is similar in style but less workwear focused.",
+      "map_id": "map_73e178450dc74993a567d5f8b4fa069f"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Trouser Pants",
+      "score": 4,
+      "rationale": "Tech trousers imply different fabric and more formal or casual focus; less industrial.",
+      "map_id": "map_93065b218cd648df91cbe57119c7d2b2"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Brushed Twill Chino Tailored",
+      "score": 5,
+      "rationale": "Brushed twill and chino concept relates to cotton pants but tailored suggests dress influence.",
+      "map_id": "map_cc67cfae3c344797a028a9ec2ed9a7aa"
+    },
+    {
+      "competitor_product_name": "Men Course Legend Pants by Bonobos",
+      "score": 4,
+      "rationale": "Name is vague; likely casual pants but not clearly chore or workwear specific.",
+      "map_id": "map_3553a9a47997412a9d00c8b9bae99dfd"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Big & Tall Performance Link Pants",
+      "score": 6,
+      "rationale": "Performance fabric and link construction possibly adds durability, somewhat functional.",
+      "map_id": "map_972dda70ae8b432bb5e57337f285d036"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Pleated Wide Pants",
+      "score": 2,
+      "rationale": "Pleated wide pants deviate significantly in silhouette and likely fabric from chore pants.",
+      "map_id": "map_1c8719f364ea4beca754ac90a1582e44"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Fit Tall Chino Pants",
+      "score": 5,
+      "rationale": "Similar utilitarian pant style made in chino-like fabric, but wider and less reinforced.",
+      "map_id": "map_3fc1183cd0bf41ddafd4bc7e53df4491"
+    },
+    {
+      "competitor_product_name": "UNIQLO Ultra Stretch Active Track Pants",
+      "score": 2,
+      "rationale": "Track pants differ entirely in function, fabric, and construction.",
+      "map_id": "map_930480d33ea649129ba5632fc26a179f"
+    },
+    {
+      "competitor_product_name": "Outerknowns.E.A. Legs Slim Rugged",
+      "score": 7,
+      "rationale": "Slim rugged pants align closely with workwear function and style, similar fabric weight likely.",
+      "map_id": "map_94af781850da420b81efe738e0d17df0"
+    },
+    {
+      "competitor_product_name": "Outerknown Men's Straight Fit Twill Pants",
+      "score": 6,
+      "rationale": "Twill pants share durable cotton fabric and straight fit, less detail about reinforcements.",
+      "map_id": "map_63fe9f00d10347b7960cb1e5fc7f4715"
+    },
+    {
+      "competitor_product_name": "Outerknown Nomad Chino",
+      "score": 5,
+      "rationale": "Nomad chino likely more casual cotton chinos, less heavy-duty construction.",
+      "map_id": "map_45d4a5cb796942cf84b7c2c1e47b2714"
+    },
+    {
+      "competitor_product_name": "Outerknown Men's Pants",
+      "score": 4,
+      "rationale": "Generic name with no clear style, probably less relevant.",
+      "map_id": "map_dd72321746f64692859b5b78c66396e5"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Democratic Jean",
+      "score": 5,
+      "rationale": "Organic cotton jean similar sustainable fabric philosophy, but jeans differ structurally from chore pants.",
+      "map_id": "map_6025300c8b474071afc090b71c6777b9"
+    },
+    {
+      "competitor_product_name": "Outerknown The Dunes Straight Jean",
+      "score": 5,
+      "rationale": "Straight jean construction differs from canvas chore pant but related in casual workwear style.",
+      "map_id": "map_c49ef419ae3341fe81dc8998bf166ed4"
+    },
+    {
+      "competitor_product_name": "Outerknown The Cove Slim Jean",
+      "score": 5,
+      "rationale": "Slim jean silhouette differs but shares casual rugged styling with chore pant.",
+      "map_id": "map_251415964c1f4d9a99e4a468621caf42"
+    },
+    {
+      "competitor_product_name": "Outerknown The Field Utility Off Duty Pants",
+      "score": 8,
+      "rationale": "Utility off-duty pants strongly overlap in function, silhouette, and rugged workwear construction.",
+      "map_id": "map_4d5046973b0941dcbe8c07d90cfa8bd4"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Camp Pants in Aged Penny Chipped Canvas",
+      "score": 9,
+      "rationale": "Almost identical fabric, organic cotton canvas, and styling; close in silhouette and construction to chore pant.",
+      "map_id": "map_f391065186ab4a0d89f8c08861e64c26"
+    }
+  ]
+}

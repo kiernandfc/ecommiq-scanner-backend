@@ -1,0 +1,71 @@
+{
+  "timestamp": "20250508_093133",
+  "reference_brand": "JAXXON",
+  "reference_name": "Franco Chain - 3mm",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"JAXXON\"\nReference Product Name: \"Franco Chain - 3mm\"\nReference Product Description:\nInspired by the Cuban Link Chain, the gold Franco features two sets of links interlocked in a distinct V-shaped pattern for a strong, flexible, dimensional design. Complete your look with our men's 3mm Franco Bracelet\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='JAXXON Franco Silver Set'\n  - Name='CRAFTD London 3mm Gold Rope Chain'\n  - Name='JAXXON 3mm Cuban Link Gold Bracelet'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"JAXXON Franco Silver Set\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product shares the same chain type (Franco) and likely the same construction and silhouette, differing mainly in metal color (silver vs. gold), which is not a major relevancy factor.\"\n    },\n    {\n      \"competitor_product_name\": \"CRAFTD London 3mm Gold Rope Chain\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"While it shares the 3mm thickness and gold color, the rope chain has a fundamentally different link style and construction compared to the Franco chain's V-shaped interlocked links.\"\n    },\n    {\n      \"competitor_product_name\": \"JAXXON 3mm Cuban Link Gold Bracelet\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This bracelet is closely related as it is a 3mm chain bracelet from the same brand in gold, and the Cuban Link chain is the inspiration for the Franco chain. However, the Cuban Link and Franco links differ in shape and pattern, lowering relevancy somewhat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "JAXXON Franco Silver Set",
+      "score": 9,
+      "rationale": "This product shares the same chain type (Franco) and likely the same construction and silhouette, differing mainly in metal color (silver vs. gold), which is not a major relevancy factor.",
+      "map_id": "map_5bd77cf7b76d4a718024bf87f321e748"
+    },
+    {
+      "competitor_product_name": "CRAFTD London 3mm Gold Rope Chain",
+      "score": 3,
+      "rationale": "While it shares the 3mm thickness and gold color, the rope chain has a fundamentally different link style and construction compared to the Franco chain's V-shaped interlocked links.",
+      "map_id": "map_32b7f6444ada4a31b3ef0223e4d4a14e"
+    },
+    {
+      "competitor_product_name": "JAXXON 3mm Cuban Link Gold Bracelet",
+      "score": 7,
+      "rationale": "This bracelet is closely related as it is a 3mm chain bracelet from the same brand in gold, and the Cuban Link chain is the inspiration for the Franco chain. However, the Cuban Link and Franco links differ in shape and pattern, lowering relevancy somewhat.",
+      "map_id": "map_a6d210be3d214d61a39cc6315a0db688"
+    }
+  ]
+}

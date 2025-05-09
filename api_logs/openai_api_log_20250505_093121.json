@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250505_093121",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's The Performance 5-Pocket Pant'\n  - Name='UNIQLO Men's Wide Fit Half Pants'\n  - Name='EVERLANE Tech Pant'\n  - Name='Outerknown Nomad Chino'\n  - Name='Taylor Stitch Men's Organic Cotton Linen Apres Pants'\n  - Name='Outerknown Ambassador Slim Fit - Sale Faded Indigo'\n  - Name='Taylor Stitch Democratic All Day Pant in Light Khaki Broken Twill'\n  - Name='Taylor Stitch The Wharf Pants'\n  - Name='Outerknown Men's Orbital Work Pants'\n  - Name='Outerknown New Straight Fit Twill Button Fly Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's The Performance 5-Pocket Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are 5-pocket pants designed for durable performance; however, the Everlane pant focuses on tech fabric versus organic cotton canvas and lacks details like double-knee reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Fit Half Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are shorts (half pants) with a wide fit, differing significantly in length and likely purpose from the chore pant's durable full-length design.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Tech Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tech Pant suggests durable, performance-oriented pants; similar function but different material and possibly less traditional workwear construction compared to the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Nomad Chino\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Chino-style pants with likely similar casual or workwear use, but chinos typically lack the reinforced features and heavier canvas material of the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Linen Apres Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Same brand and use of organic cotton but an apres (casual/loungewear) style and different fabric blend (linen) with likely a different construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Ambassador Slim Fit - Sale Faded Indigo\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim fit pants from the same context of casual wear but likely less rugged and lacking the reinforced construction of the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Democratic All Day Pant in Light Khaki Broken Twill\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same brand and similar fabric weight/style (twill), designed as everyday pants; likely similar silhouette but possibly fewer reinforced features than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch The Wharf Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand, likely similar durable construction and work-influenced silhouette, possibly similar materials and functional details aligning closely with chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Men's Orbital Work Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work pants designed for durability and function, similar in purpose and likely construction style to chore pants; strong relevance despite possible material differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown New Straight Fit Twill Button Fly Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Straight fit twill pants with button fly, somewhat similar style but less emphasis on reinforcement or workwear features compared to chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's The Performance 5-Pocket Pant",
+      "score": 7,
+      "rationale": "Both are 5-pocket pants designed for durable performance; however, the Everlane pant focuses on tech fabric versus organic cotton canvas and lacks details like double-knee reinforcement.",
+      "map_id": "map_d3ac44f9386b4e4d9d0900908d57ce84"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Fit Half Pants",
+      "score": 3,
+      "rationale": "These are shorts (half pants) with a wide fit, differing significantly in length and likely purpose from the chore pant's durable full-length design.",
+      "map_id": "map_3b1ac9fdfe6347d5a72484a8c6027fba"
+    },
+    {
+      "competitor_product_name": "EVERLANE Tech Pant",
+      "score": 6,
+      "rationale": "Tech Pant suggests durable, performance-oriented pants; similar function but different material and possibly less traditional workwear construction compared to the chore pant.",
+      "map_id": "map_bb50ef80439648efbbc53539d7767d40"
+    },
+    {
+      "competitor_product_name": "Outerknown Nomad Chino",
+      "score": 6,
+      "rationale": "Chino-style pants with likely similar casual or workwear use, but chinos typically lack the reinforced features and heavier canvas material of the chore pant.",
+      "map_id": "map_526a634568424dada55202da4a96dc85"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Linen Apres Pants",
+      "score": 5,
+      "rationale": "Same brand and use of organic cotton but an apres (casual/loungewear) style and different fabric blend (linen) with likely a different construction and purpose.",
+      "map_id": "map_f54dd658e00348a1b24fd3f3bc80388c"
+    },
+    {
+      "competitor_product_name": "Outerknown Ambassador Slim Fit - Sale Faded Indigo",
+      "score": 5,
+      "rationale": "Slim fit pants from the same context of casual wear but likely less rugged and lacking the reinforced construction of the chore pant.",
+      "map_id": "map_50f0f8eb87544a6aaba68a6323e3b193"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Democratic All Day Pant in Light Khaki Broken Twill",
+      "score": 7,
+      "rationale": "Same brand and similar fabric weight/style (twill), designed as everyday pants; likely similar silhouette but possibly fewer reinforced features than chore pant.",
+      "map_id": "map_2e994e306b7e4823841b0de8eba67e1b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch The Wharf Pants",
+      "score": 8,
+      "rationale": "Same brand, likely similar durable construction and work-influenced silhouette, possibly similar materials and functional details aligning closely with chore pants.",
+      "map_id": "map_47fb07ed4339437792f423e31fa8d67d"
+    },
+    {
+      "competitor_product_name": "Outerknown Men's Orbital Work Pants",
+      "score": 8,
+      "rationale": "Work pants designed for durability and function, similar in purpose and likely construction style to chore pants; strong relevance despite possible material differences.",
+      "map_id": "map_68d8b0cebef14afe8fb39c9e21a7c15b"
+    },
+    {
+      "competitor_product_name": "Outerknown New Straight Fit Twill Button Fly Pants",
+      "score": 6,
+      "rationale": "Straight fit twill pants with button fly, somewhat similar style but less emphasis on reinforcement or workwear features compared to chore pant.",
+      "map_id": "map_5121b7f099064966b518b53fb49a1c1e"
+    }
+  ]
+}

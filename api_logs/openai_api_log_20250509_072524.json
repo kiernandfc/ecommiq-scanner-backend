@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250509_072524",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Men's Solid Tie'\n  - Name='Brooks Brothers Men's Silk BB#2 Striped Tie'\n  - Name='Brooks Brothers BB#3 Rep Tie'\n  - Name='Joseph Abboud Men's Two-Tone Micro Grid Silk Tie'\n  - Name='Brooks Brothers Men's Silk Satin Tie'\n  - Name='Brooks Brothers Men's Silk-Cotton Floral Tie'\n  - Name='Brooks Brothers Men's Silk Oval Motif Tie'\n  - Name='Pronto Uomo Men's Wearhouse Rose Pink Long Necktie'\n  - Name='Brooks Brothers Men's Tie'\n  - Name='Brooks Brothers BB #1 Rep Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Solid Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This tie is solid in color like the reference, likely similar in function and style, though the material isn't explicitly satin, probably silk or similar fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk BB#2 Striped Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar silk construction but features stripes rather than a solid design, which differentiates it from the solid satin tie reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers BB#3 Rep Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a rep tie indicating a patterned design not solid; material not specified as satin but probably silk, so moderate relevancy due to differing pattern and possible texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Two-Tone Micro Grid Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk but patterned with a grid and two-tone rather than solid satin; different texture and appearance reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Satin Tie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Explicitly silk satin, matches the reference material and product style exactly, very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk-Cotton Floral Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Material includes cotton mixed with silk, which affects the sheen and texture; floral pattern diverges from solid satin style, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Oval Motif Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned motif and silk material but not solid satin, different look and texture, moderately low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Wearhouse Rose Pink Long Necktie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Long necktie generally matches silhouette but no mention of satin or solid style; color mentioned but pattern or texture unknown, assumably less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"General men's tie with unspecified pattern or material; could be solid or satin but unclear, so moderate relevancy assumed.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers BB #1 Rep Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Rep ties typically have stripes or motifs rather than solid satin; material not specified but usually silk, so moderate relevancy due to pattern difference.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Men's Solid Tie",
+      "score": 9,
+      "rationale": "This tie is solid in color like the reference, likely similar in function and style, though the material isn't explicitly satin, probably silk or similar fabric.",
+      "map_id": "map_5d6d77f156c340a7b4f6ac124172132a"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk BB#2 Striped Tie",
+      "score": 5,
+      "rationale": "Similar silk construction but features stripes rather than a solid design, which differentiates it from the solid satin tie reference product.",
+      "map_id": "map_faf08fb8e27d4baa967f8e2bb89b8e75"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers BB#3 Rep Tie",
+      "score": 5,
+      "rationale": "Likely a rep tie indicating a patterned design not solid; material not specified as satin but probably silk, so moderate relevancy due to differing pattern and possible texture.",
+      "map_id": "map_3d28499c698748999b84ac7052b2993c"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Two-Tone Micro Grid Silk Tie",
+      "score": 4,
+      "rationale": "Silk but patterned with a grid and two-tone rather than solid satin; different texture and appearance reduce relevancy.",
+      "map_id": "map_b64464e7d890424b8182c126fc9a7de9"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Satin Tie",
+      "score": 10,
+      "rationale": "Explicitly silk satin, matches the reference material and product style exactly, very high relevancy.",
+      "map_id": "map_392c668e8cf24df4bd43b3800ce49e84"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk-Cotton Floral Tie",
+      "score": 3,
+      "rationale": "Material includes cotton mixed with silk, which affects the sheen and texture; floral pattern diverges from solid satin style, lowering relevancy.",
+      "map_id": "map_696544d6cd6246b887703ee4fd836fb7"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Oval Motif Tie",
+      "score": 4,
+      "rationale": "Patterned motif and silk material but not solid satin, different look and texture, moderately low relevancy.",
+      "map_id": "map_1092aad4683d46e8901b95999673aa6a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Wearhouse Rose Pink Long Necktie",
+      "score": 3,
+      "rationale": "Long necktie generally matches silhouette but no mention of satin or solid style; color mentioned but pattern or texture unknown, assumably less relevant.",
+      "map_id": "map_ea0286caf93547b5800bc750a69a8c8d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Tie",
+      "score": 6,
+      "rationale": "General men's tie with unspecified pattern or material; could be solid or satin but unclear, so moderate relevancy assumed.",
+      "map_id": "map_58f47e09720042199fb51f6010cbbbd0"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers BB #1 Rep Tie",
+      "score": 5,
+      "rationale": "Rep ties typically have stripes or motifs rather than solid satin; material not specified but usually silk, so moderate relevancy due to pattern difference.",
+      "map_id": "map_42d36cd1e5fe4ceb9bf7331e22c205a0"
+    }
+  ]
+}

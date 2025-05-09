@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250507_091247",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Incognito Floral Dress Socks",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Incognito Floral Dress Socks\"\nReference Product Description:\nHave you heard? Our Incognito Dress Socks are a 60-second style upgrade. For weddings, formal events or everyday wear, add these affordable dress socks to instantly dress up any look. The light blue background announces warmer weather has arrived, while the abstract floral pattern gets extra mileage as it can look like trend-forward camouflage or subtle tie dye. Need a hand completing the look? Our stylist suggests wearing these dress with a bright blue denim suit and tan suede lace-ups.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Charles Tyrwhitt Men's Rib Socks'\n  - Name='Sock Genius Downey Carded Cotton Socks'\n  - Name='OTAA Men's Happy Penguin Socks'\n  - Name='OTAA Men's Low Cut Dot Socks'\n  - Name='OTAA Men's Textured Cotton-blend Socks'\n  - Name='Jos. A. Bank Men's 3-Pack Microfiber Socks'\n  - Name='OTAA Men's Low-Cut Socks'\n  - Name='Men's Pronto Uomo Modern Herringbone Socks'\n  - Name='OTAA Men's Cotton-blend Socks'\n  - Name='OTAA Men's Textured Socks'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Rib Socks\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"These are men's rib socks likely intended for dress or casual wear; ribbing is a typical dress sock feature, making them moderately relevant to dress socks despite unknown material or pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Sock Genius Downey Carded Cotton Socks\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton socks that might be comfortable and suitable for daily wear, but no indication they are dress socks or have patterns like floral; somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Happy Penguin Socks\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Novelty character socks differ from formal dress socks; while both are socks, the intended use and style differ significantly lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Low Cut Dot Socks\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Low cut style differs from typical dress sock silhouette which is longer; dot pattern is decorative but functionally different and less formal.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Textured Cotton-blend Socks\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Textured cotton-blend socks could be for dress or casual use; texture adds stylistic element but lacks indication of dress focus or pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's 3-Pack Microfiber Socks\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Microfiber dress socks from a formal menswear brand suggest close function and use to the reference dress socks, increasing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Low-Cut Socks\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Low-cut style is generally casual and does not match the traditional dress sock silhouette; likely less formal and less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Pronto Uomo Modern Herringbone Socks\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Herringbone pattern and modern styling suggest dress sock use similar to floral dress socks; likely similar construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Cotton-blend Socks\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic cotton-blend socks could range widely in style and use; no indication these are dress socks or patterned but moderately relevant as socks.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Textured Socks\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Textured socks may offer style but without pattern or dress-specific clues, relevancy is moderate as they differ from floral dress socks.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Rib Socks",
+      "score": 7,
+      "rationale": "These are men's rib socks likely intended for dress or casual wear; ribbing is a typical dress sock feature, making them moderately relevant to dress socks despite unknown material or pattern.",
+      "map_id": "map_501a7fb946464ba087edcf0d31231731"
+    },
+    {
+      "competitor_product_name": "Sock Genius Downey Carded Cotton Socks",
+      "score": 6,
+      "rationale": "Cotton socks that might be comfortable and suitable for daily wear, but no indication they are dress socks or have patterns like floral; somewhat relevant.",
+      "map_id": "map_795dab6ceee747719b87f7433340e0c4"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Happy Penguin Socks",
+      "score": 5,
+      "rationale": "Novelty character socks differ from formal dress socks; while both are socks, the intended use and style differ significantly lowering relevancy.",
+      "map_id": "map_b4a3e4e7d4704ad1a9fb15a6703ba0c2"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Low Cut Dot Socks",
+      "score": 4,
+      "rationale": "Low cut style differs from typical dress sock silhouette which is longer; dot pattern is decorative but functionally different and less formal.",
+      "map_id": "map_a91d217a03b24685aa65b874361c6ba8"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Textured Cotton-blend Socks",
+      "score": 6,
+      "rationale": "Textured cotton-blend socks could be for dress or casual use; texture adds stylistic element but lacks indication of dress focus or pattern.",
+      "map_id": "map_e7c1bc6df0ae4c6caee921dfce5e6a6e"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's 3-Pack Microfiber Socks",
+      "score": 7,
+      "rationale": "Microfiber dress socks from a formal menswear brand suggest close function and use to the reference dress socks, increasing relevancy.",
+      "map_id": "map_29a02a415b7d4345bfa429f8403b2b8a"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Low-Cut Socks",
+      "score": 3,
+      "rationale": "Low-cut style is generally casual and does not match the traditional dress sock silhouette; likely less formal and less relevant.",
+      "map_id": "map_a593fbcce73b4afb89bfecb2c2c1617e"
+    },
+    {
+      "competitor_product_name": "Men's Pronto Uomo Modern Herringbone Socks",
+      "score": 8,
+      "rationale": "Herringbone pattern and modern styling suggest dress sock use similar to floral dress socks; likely similar construction and purpose.",
+      "map_id": "map_05852ea84f0849b1970344d4bb1e165b"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Cotton-blend Socks",
+      "score": 5,
+      "rationale": "Generic cotton-blend socks could range widely in style and use; no indication these are dress socks or patterned but moderately relevant as socks.",
+      "map_id": "map_3c170693cf49423ab600306c87200bfd"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Textured Socks",
+      "score": 5,
+      "rationale": "Textured socks may offer style but without pattern or dress-specific clues, relevancy is moderate as they differ from floral dress socks.",
+      "map_id": "map_ac8f96aab1f0496ab98d6bd85c7e4aeb"
+    }
+  ]
+}

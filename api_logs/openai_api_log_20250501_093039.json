@@ -1,0 +1,77 @@
+{
+  "timestamp": "20250501_093039",
+  "reference_brand": "JAXXON",
+  "reference_name": "Franco Chain - 3mm",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"JAXXON\"\nReference Product Name: \"Franco Chain - 3mm\"\nReference Product Description:\nInspired by the Cuban Link Chain, the gold Franco features two sets of links interlocked in a distinct V-shaped pattern for a strong, flexible, dimensional design. Complete your look with our men's 3mm Franco Bracelet\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='King Ice 4mm Franco Chain Hip Hop Jewelry'\n  - Name='King Ice 4mm Tennis Chain Hip Hop Jewelry'\n  - Name='JAXXON 3mm Cuban Gold Chain Set'\n  - Name='JAXXON St. Michael Gold Pendant Chain'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"King Ice 4mm Franco Chain Hip Hop Jewelry\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This competitor product is also a Franco chain, like the reference, but is 4mm rather than 3mm, making it very similar in style and design but slightly thicker.\"\n    },\n    {\n      \"competitor_product_name\": \"King Ice 4mm Tennis Chain Hip Hop Jewelry\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This product is a Tennis chain, which differs significantly in link style and construction from the Franco chain, thus less relevant despite both being chains.\"\n    },\n    {\n      \"competitor_product_name\": \"JAXXON 3mm Cuban Gold Chain Set\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Though this product is the Cuban Link chain referenced as inspiration for the Franco chain, it differs in link pattern and style although similar in thickness and material.\"\n    },\n    {\n      \"competitor_product_name\": \"JAXXON St. Michael Gold Pendant Chain\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This product is a pendant chain, likely differing in chain style and focus on a pendant. The chain style is unspecified but presumably distinct from the V-shaped Franco link style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "King Ice 4mm Franco Chain Hip Hop Jewelry",
+      "score": 8,
+      "rationale": "This competitor product is also a Franco chain, like the reference, but is 4mm rather than 3mm, making it very similar in style and design but slightly thicker.",
+      "map_id": "map_fc59713494124f3882fb1335247d7e66"
+    },
+    {
+      "competitor_product_name": "King Ice 4mm Tennis Chain Hip Hop Jewelry",
+      "score": 3,
+      "rationale": "This product is a Tennis chain, which differs significantly in link style and construction from the Franco chain, thus less relevant despite both being chains.",
+      "map_id": "map_e691ab48675c4570aae21166243fabe5"
+    },
+    {
+      "competitor_product_name": "JAXXON 3mm Cuban Gold Chain Set",
+      "score": 6,
+      "rationale": "Though this product is the Cuban Link chain referenced as inspiration for the Franco chain, it differs in link pattern and style although similar in thickness and material.",
+      "map_id": "map_8958005ea49b4bb9b2a38bd02360de3c"
+    },
+    {
+      "competitor_product_name": "JAXXON St. Michael Gold Pendant Chain",
+      "score": 4,
+      "rationale": "This product is a pendant chain, likely differing in chain style and focus on a pendant. The chain style is unspecified but presumably distinct from the V-shaped Franco link style.",
+      "map_id": "map_bdb5d956297349399c3b8ea8b6951328"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250505_095021",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella'\n  - Name='Purple Leaf 11ft Patio Umbrella'\n  - Name='Purple Leaf Patio Cantilever Offset Umbrella'\n  - Name='PURPLE LEAF 10ft Patio Umbrella Outdoor Square Large Cantilever Windproof Offset and Heavy Duty Sun Umbrella for Garden Deck Poo'\n  - Name='Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella'\n  - Name='Ledge Lounger Signature 360° Tilt Umbrella'\n  - Name='Purple Leaf Double Top Cantilever Patio'\n  - Name='Ledge Lounger Signature 360° Tilt In Pool & Outdoor Umbrella'\n  - Name='Purple Leaf 13-ft Aluminum Crank Cantilever Patio Umbrella LS04CHC1013-KK'\n  - Name='108'' x 138'' Rectangular Large Cantilever Outdoor Aluminum Offset Umbrella with Base and 360-degree Rotation Purple Leaf'\n  - Name='Purple Leaf Patio Cantilever Umbrella'\n  - Name='Ledge Lounger in-Pool Side Table with Umbrella Hole'\n  - Name='In- Pool Affinity Square Sunbed Ledge Lounger'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a large cantilever umbrella with a rectangular shape, differing significantly in structure and usage from the Essential Umbrella which is designed for in-pool and on-deck use with a center pole and multi-operational features.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 11ft Patio Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This patio umbrella is similar in general use and size to the Essential Umbrella, serving outdoor shade purposes, though lacking indication of in-pool use or multi-operational features.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever offset umbrella differs in pole placement and structure from the Essential Umbrella with a center pole and multi-use operation.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 10ft Patio Umbrella Outdoor Square Large Cantilever Windproof Offset and Heavy Duty Sun Umbrella for Garden Deck Poo\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This heavy-duty cantilever style, while outdoor and windproof, differs in pole type and is offset, unlike the Essential's center pole and in-pool suitability.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever offset design, different from Essential Umbrella's multi-operational center pole design for in-pool and deck use.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Signature 360° Tilt Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand with a 360° tilt feature; likely similar use and construction, although the tilt feature may add functionality beyond the Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Double Top Cantilever Patio\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The cantilever and double top design are distinct from the Essential Umbrella's single center pole and multi-operational design.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Signature 360° Tilt In Pool & Outdoor Umbrella\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is the most similar product: same brand, designed for in-pool and outdoor use with enhanced tilt features analogous to the Essential Umbrella's multi-use design.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 13-ft Aluminum Crank Cantilever Patio Umbrella LS04CHC1013-KK\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever and crank design differ from the Essential Umbrella's center pole and multi-operational use; also primarily patio use rather than in-pool.\"\n    },\n    {\n      \"competitor_product_name\": \"108'' x 138'' Rectangular Large Cantilever Outdoor Aluminum Offset Umbrella with Base and 360-degree Rotation Purple Leaf\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Large cantilever offset umbrella with rotation differs architecturally and functionally from Essential Umbrella's center pole and in-pool design.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Patio Cantilever Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever structure and likely offset pole different from Essential Umbrella's multi-operational center pole construction and in-pool suitability.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger in-Pool Side Table with Umbrella Hole\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a side table with hole for umbrella, not an umbrella itself; only loosely related as an accessory to umbrella usage.\"\n    },\n    {\n      \"competitor_product_name\": \"In- Pool Affinity Square Sunbed Ledge Lounger\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a sunbed product, not an umbrella; unrelated in function and construction to the Essential Umbrella.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella",
+      "score": 4,
+      "rationale": "This is a large cantilever umbrella with a rectangular shape, differing significantly in structure and usage from the Essential Umbrella which is designed for in-pool and on-deck use with a center pole and multi-operational features.",
+      "map_id": "map_b4a7a70375df43428f828433c04386d6"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 11ft Patio Umbrella",
+      "score": 7,
+      "rationale": "This patio umbrella is similar in general use and size to the Essential Umbrella, serving outdoor shade purposes, though lacking indication of in-pool use or multi-operational features.",
+      "map_id": "map_cb02338634674e129e5ccc1f81acc0c3"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Patio Cantilever Offset Umbrella",
+      "score": 4,
+      "rationale": "Cantilever offset umbrella differs in pole placement and structure from the Essential Umbrella with a center pole and multi-use operation.",
+      "map_id": "map_25e8a6c1e60c4e0694905bb871586434"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 10ft Patio Umbrella Outdoor Square Large Cantilever Windproof Offset and Heavy Duty Sun Umbrella for Garden Deck Poo",
+      "score": 5,
+      "rationale": "This heavy-duty cantilever style, while outdoor and windproof, differs in pole type and is offset, unlike the Essential's center pole and in-pool suitability.",
+      "map_id": "map_3977c9f73f974739acd0f5851b43da0d"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella",
+      "score": 4,
+      "rationale": "Cantilever offset design, different from Essential Umbrella's multi-operational center pole design for in-pool and deck use.",
+      "map_id": "map_09eb636aa74f4b3c9e29c4ba70a88731"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Signature 360° Tilt Umbrella",
+      "score": 8,
+      "rationale": "Same brand with a 360° tilt feature; likely similar use and construction, although the tilt feature may add functionality beyond the Essential Umbrella.",
+      "map_id": "map_a7fb5ca7226049fc9e1f6fee56ccfa4a"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Double Top Cantilever Patio",
+      "score": 4,
+      "rationale": "The cantilever and double top design are distinct from the Essential Umbrella's single center pole and multi-operational design.",
+      "map_id": "map_ff13c3cdafbd4de0a5fd47e0a953f0c7"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Signature 360° Tilt In Pool & Outdoor Umbrella",
+      "score": 10,
+      "rationale": "This is the most similar product: same brand, designed for in-pool and outdoor use with enhanced tilt features analogous to the Essential Umbrella's multi-use design.",
+      "map_id": "map_1a4db5d56a78407fb5b59463076283cc"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 13-ft Aluminum Crank Cantilever Patio Umbrella LS04CHC1013-KK",
+      "score": 4,
+      "rationale": "Cantilever and crank design differ from the Essential Umbrella's center pole and multi-operational use; also primarily patio use rather than in-pool.",
+      "map_id": "map_3012e289f90f4be89e9402a7f53d7930"
+    },
+    {
+      "competitor_product_name": "108'' x 138'' Rectangular Large Cantilever Outdoor Aluminum Offset Umbrella with Base and 360-degree Rotation Purple Leaf",
+      "score": 4,
+      "rationale": "Large cantilever offset umbrella with rotation differs architecturally and functionally from Essential Umbrella's center pole and in-pool design.",
+      "map_id": "map_fa06e1b67bae4e7d94d69e95637327c3"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Patio Cantilever Umbrella",
+      "score": 4,
+      "rationale": "Cantilever structure and likely offset pole different from Essential Umbrella's multi-operational center pole construction and in-pool suitability.",
+      "map_id": "map_0dba39daee33434587ae24d4f01734ca"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger in-Pool Side Table with Umbrella Hole",
+      "score": 2,
+      "rationale": "This is a side table with hole for umbrella, not an umbrella itself; only loosely related as an accessory to umbrella usage.",
+      "map_id": "map_2a4271bc427b420ca76e8a911aae5a4b"
+    },
+    {
+      "competitor_product_name": "In- Pool Affinity Square Sunbed Ledge Lounger",
+      "score": 1,
+      "rationale": "This is a sunbed product, not an umbrella; unrelated in function and construction to the Essential Umbrella.",
+      "map_id": "map_cf279756eaa14ad68e98f27f651b84a0"
+    }
+  ]
+}

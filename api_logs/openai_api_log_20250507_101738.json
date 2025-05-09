@@ -1,0 +1,191 @@
+{
+  "timestamp": "20250507_101738",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men Carhartt WIP OG Santa Fe Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton Crew Jacket'\n  - Name='Universal Works Men's Kyoto Work Jacket'\n  - Name='Universal Works Men's Alburquerque Check Bakers Jacket'\n  - Name='Faherty Men's Reserve All Season Blazer'\n  - Name='Engineered Garments Outerwear Utility Jacket'\n  - Name='Carhartt WIP Active Jacket Men'\n  - Name='Carhartt WIP Mens OG Arctic Coat'\n  - Name='Faherty Women's Inlet Knit Blazer'\n  - Name='Levi's Men's Lightweight Cotton Shacket'\n  - Name='Carhartt Wip OG Double Front Jacket'\n  - Name='Faherty Men's Inlet Knit Shirt Jacket'\n  - Name='Barbour Men's Classic Durham Wax Jacket'\n  - Name='Barbour Men's Bristol Wax Jacket'\n  - Name='Universal Works Buttoned Utility Jacket'\n  - Name='Universal Works Seersucker II Bakers Jacket'\n  - Name='Engineered Garments M41 Jacket'\n  - Name='Levi's Men's Sherpa Trucker Jacket'\n  - Name='Carhartt WIP Mens Detroit Jacket'\n  - Name='Faherty Men's Inlet Knit Tweed Blazer'\n  - Name='Engineered Garments Bedford Jacket'\n  - Name='Barbour Bedale Cotton Casual Jacket'\n  - Name='Levi's 1936 Type I Jacket Men's'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP OG Santa Fe Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This jacket is from Carhartt WIP known for durable workwear with a similar functional and utility focus, likely a chore coat style like the Ojai Jacket, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Crew Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same brand and uses organic cotton, but is a crew jacket rather than a chore coat style, making it similar in materials and ethos but different silhouette and design.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Kyoto Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Universal Works produces utility-inspired work jackets with chore coat silhouettes similar to Ojai Jacket, likely strong in function and style overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Alburquerque Check Bakers Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Bakers jacket is related to chore/work jacket styles but check pattern and potentially different fabric make it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Reserve All Season Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Blazer is a more formal silhouette with fewer utility features, differing significantly in function and style from the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Outerwear Utility Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Utility jacket directly matches the utility focus and likely similar construction and silhouette, making it very relevant to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Active Jacket Men\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt WIP active jacket is utility inspired but may have more modern or technical fabric, still relevant due to brand and utility style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens OG Arctic Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Arctic coat is a heavier, insulated winter coat, differing in silhouette, weight, and seasonality from the lighter chore coat style Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Women's Inlet Knit Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women’s knit blazer is a different gender category and a blazer silhouette with knit fabric; not similar in structure or function.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Cotton Shacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Shacket blends shirt and jacket, often in cotton with a casual workwear vibe similar to chore coats, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip OG Double Front Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Double front jacket from Carhartt WIP likely shares the workwear and utility features similar to Ojai Jacket, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Inlet Knit Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt jacket style is lighter and more casual with knit construction, somewhat relevant but less rugged and structured than chore coats.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Classic Durham Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic wax jacket with heritage outdoors utility roots similar in purpose but different materials and waterproofing approach.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Bristol Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to Durham wax jacket, durable utility outerwear with classic heritage style, relevant due to function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Buttoned Utility Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Directly described as utility jacket and from the same brand as other relevant jackets, very similar to the Ojai Jacket in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Seersucker II Bakers Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Bakers jacket with seersucker fabric is lighter and summery but shares some workwear style, moderately relevant but fabric and season differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments M41 Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"M41 jacket is a military-inspired utility jacket with durable fabric and strong workwear roots, very relevant to Ojai Jacket's style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Sherpa Trucker Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Trucker jacket is a different silhouette and the sherpa lining adds casual outdoor usage, moderately relevant but different style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Detroit Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Detroit jacket from Carhartt WIP is a classic work jacket with utility features, quite relevant although may have slightly different cut or fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Inlet Knit Tweed Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Tweed blazer is more formal and different fabric/construction, low relevancy due to different silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Bedford Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Bedford jacket is a utility-inspired piece with functional features, fairly relevant though may have distinct stylistic details.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Bedale Cotton Casual Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Bedale is a cotton casual utility jacket with outdoor/workwear heritage, very relevant given fabric, function, and silhouette similarities.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's 1936 Type I Jacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Type I jacket is a vintage denim trucker jacket style, related heritage but different material and less utility focused than chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men Carhartt WIP OG Santa Fe Jacket",
+      "score": 8,
+      "rationale": "This jacket is from Carhartt WIP known for durable workwear with a similar functional and utility focus, likely a chore coat style like the Ojai Jacket, making it quite relevant.",
+      "map_id": "map_66a11c58fc124025b244c27f94b2fbd8"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Crew Jacket",
+      "score": 7,
+      "rationale": "Same brand and uses organic cotton, but is a crew jacket rather than a chore coat style, making it similar in materials and ethos but different silhouette and design.",
+      "map_id": "map_55ce31fb3b584ee7b543a14ed4e0add4"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Kyoto Work Jacket",
+      "score": 8,
+      "rationale": "Universal Works produces utility-inspired work jackets with chore coat silhouettes similar to Ojai Jacket, likely strong in function and style overlap.",
+      "map_id": "map_9ffd39bb31b74c55b00012441eeb2737"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Alburquerque Check Bakers Jacket",
+      "score": 6,
+      "rationale": "Bakers jacket is related to chore/work jacket styles but check pattern and potentially different fabric make it moderately relevant.",
+      "map_id": "map_7596f05155b5492284083226105b1019"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Reserve All Season Blazer",
+      "score": 3,
+      "rationale": "Blazer is a more formal silhouette with fewer utility features, differing significantly in function and style from the Ojai chore coat.",
+      "map_id": "map_f348dc91eb5144bca8ed87ab6a5c5a12"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Outerwear Utility Jacket",
+      "score": 9,
+      "rationale": "Utility jacket directly matches the utility focus and likely similar construction and silhouette, making it very relevant to the Ojai Jacket.",
+      "map_id": "map_1608d4785fac47ae9338631335b891f7"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Active Jacket Men",
+      "score": 7,
+      "rationale": "Carhartt WIP active jacket is utility inspired but may have more modern or technical fabric, still relevant due to brand and utility style.",
+      "map_id": "map_677b3a2ed28c45a1a1e04c1d50482a22"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens OG Arctic Coat",
+      "score": 4,
+      "rationale": "Arctic coat is a heavier, insulated winter coat, differing in silhouette, weight, and seasonality from the lighter chore coat style Ojai Jacket.",
+      "map_id": "map_0daadf78db7341e78dd127e6fa98c1c5"
+    },
+    {
+      "competitor_product_name": "Faherty Women's Inlet Knit Blazer",
+      "score": 2,
+      "rationale": "Women’s knit blazer is a different gender category and a blazer silhouette with knit fabric; not similar in structure or function.",
+      "map_id": "map_f9802098442940ae9c928ba21fc1d895"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Cotton Shacket",
+      "score": 7,
+      "rationale": "Shacket blends shirt and jacket, often in cotton with a casual workwear vibe similar to chore coats, making it moderately relevant.",
+      "map_id": "map_f5500f6e515547ee96644e67238dd7c9"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip OG Double Front Jacket",
+      "score": 8,
+      "rationale": "Double front jacket from Carhartt WIP likely shares the workwear and utility features similar to Ojai Jacket, making it highly relevant.",
+      "map_id": "map_ec6d638dbf39475ab572dd63f36354d8"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Inlet Knit Shirt Jacket",
+      "score": 6,
+      "rationale": "Shirt jacket style is lighter and more casual with knit construction, somewhat relevant but less rugged and structured than chore coats.",
+      "map_id": "map_b2d9030e0bf74a83b5e7cfa4b378fd79"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Classic Durham Wax Jacket",
+      "score": 7,
+      "rationale": "Classic wax jacket with heritage outdoors utility roots similar in purpose but different materials and waterproofing approach.",
+      "map_id": "map_020ef5519df4417095233caf891b7513"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Bristol Wax Jacket",
+      "score": 7,
+      "rationale": "Similar to Durham wax jacket, durable utility outerwear with classic heritage style, relevant due to function and construction.",
+      "map_id": "map_31b96e1d9db94aa0b989765be22b789d"
+    },
+    {
+      "competitor_product_name": "Universal Works Buttoned Utility Jacket",
+      "score": 8,
+      "rationale": "Directly described as utility jacket and from the same brand as other relevant jackets, very similar to the Ojai Jacket in function and style.",
+      "map_id": "map_1ec887d90f8f4e8bb800ae9de57f935c"
+    },
+    {
+      "competitor_product_name": "Universal Works Seersucker II Bakers Jacket",
+      "score": 5,
+      "rationale": "Bakers jacket with seersucker fabric is lighter and summery but shares some workwear style, moderately relevant but fabric and season differ.",
+      "map_id": "map_dbe9aed194e1400997cfbfdb6d6c0069"
+    },
+    {
+      "competitor_product_name": "Engineered Garments M41 Jacket",
+      "score": 8,
+      "rationale": "M41 jacket is a military-inspired utility jacket with durable fabric and strong workwear roots, very relevant to Ojai Jacket's style and construction.",
+      "map_id": "map_04ff2788055642719fb917b6085637f0"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Sherpa Trucker Jacket",
+      "score": 5,
+      "rationale": "Trucker jacket is a different silhouette and the sherpa lining adds casual outdoor usage, moderately relevant but different style and function.",
+      "map_id": "map_153df9831f334378a7376d1907bbc719"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens Detroit Jacket",
+      "score": 7,
+      "rationale": "Detroit jacket from Carhartt WIP is a classic work jacket with utility features, quite relevant although may have slightly different cut or fabric.",
+      "map_id": "map_89067df38382496b9831765925b959f7"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Inlet Knit Tweed Blazer",
+      "score": 3,
+      "rationale": "Tweed blazer is more formal and different fabric/construction, low relevancy due to different silhouette and function.",
+      "map_id": "map_712e6754bae74015bd79f64e207feaf2"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Bedford Jacket",
+      "score": 7,
+      "rationale": "Bedford jacket is a utility-inspired piece with functional features, fairly relevant though may have distinct stylistic details.",
+      "map_id": "map_a882360af7dc4882b6600181b60c8cab"
+    },
+    {
+      "competitor_product_name": "Barbour Bedale Cotton Casual Jacket",
+      "score": 8,
+      "rationale": "Bedale is a cotton casual utility jacket with outdoor/workwear heritage, very relevant given fabric, function, and silhouette similarities.",
+      "map_id": "map_ebcf63c5198f4f40a7ea3fc675b9c17c"
+    },
+    {
+      "competitor_product_name": "Levi's 1936 Type I Jacket Men's",
+      "score": 6,
+      "rationale": "Type I jacket is a vintage denim trucker jacket style, related heritage but different material and less utility focused than chore coat.",
+      "map_id": "map_35784ec84e3844bd94fe8fb3251aced2"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250428_091648",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Men's Checked Linen Driver Flat Cap'\n  - Name='Men Stetson Texas Shadow Plaid'\n  - Name='Foster Newsboy'\n  - Name='Bailey of Hollywood Shawk Newsboy Cap'\n  - Name='Stetson Men's Hatteras Patchwork Wool Flat Cap'\n  - Name='Carhartt Men's Canvas Mesh-Back C Patch Cap'\n  - Name='Carhartt WIP Script Cap'\n  - Name='Barbour Finnean Flat Cap'\n  - Name='Barbour Cheviot Flat Cap'\n  - Name='Kangol Accessories Men's Ventair 502 Knit Newsboy Hat Cap'\n  - Name='Men Stetson Harris Tweed Houndstooth Flat Cap'\n  - Name='Bailey Men's Leather Newsboy Cap'\n  - Name='Carhartt Plaid Adjustable Hat'\n  - Name='Kangol Carimac Newsboy Gatsby Cabby Hat Cap'\n  - Name='Kangol Men's Alderberry Purple Newsboy Ivy Cap'\n  - Name='Men Stetson Harris Tweed Houndstooth Driver Cap'\n  - Name='Goorin Bros. Mesh Baseball Cap'\n  - Name='Barbour Men's Plaid Lined Newsboy Cap'\n  - Name='Barbour Finnean Cap'\n  - Name='Barbour Classic Wool Newsboy Hat'\n  - Name='Men Kangol Color Burst Ventair 507'\n  - Name='Kangol Tropic 507 Ventair'\n  - Name='Kangol Cord Spitfire'\n  - Name='Kangol 504 Wool'\n  - Name='Brixton Women's Fiddler Plaid Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Men's Checked Linen Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap (similar to a scally/Peaky style) with a checked pattern like the reference; although linen material differs, the core shape and intended style are close.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Texas Shadow Plaid\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Named like a hat but the specific style isn't clear; likely a flat or driver cap with plaid but less direct match to 8-panel Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Foster Newsboy\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy style is very similar to Peaky caps, and likely shares the 8-panel construction; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Shawk Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap similar in silhouette and features to Peaky cap, relevant for core style similarities.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Patchwork Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style in wool patchwork is close in shape and use, though patchwork differs from plaid and leatherette brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mesh-Back C Patch Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Mesh-back and canvas construction suggest a casual, possibly baseball-style cap, less relevant to formal Peaky newsboy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Script Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a baseball or casual script logo cap, unrelated in shape and style to Peaky 8-panel caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Finnean Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style closely related to Peaky caps, classic silhouette with similar uses.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Cheviot Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another traditional flat cap, similar function and shape to Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Men's Ventair 502 Knit Newsboy Hat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Newsboy knit hat shares silhouette and intended style, but knit material differs making it somewhat less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Harris Tweed Houndstooth Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Traditional flat cap made from tweed, with similar shape and style to Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Leather Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap with leather material closer to Peaky's leatherette brim feature; similar silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Plaid Adjustable Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Plaid pattern is similar but adjustable style suggests possibly casual baseball-type cap, less relevancy in shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Carimac Newsboy Gatsby Cabby Hat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy/Gatsby/Cabby hats are very similar styles to Peaky caps with overlapping silhouettes.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Alderberry Purple Newsboy Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy and ivy styles overlap; newsboy is close to Peaky shape, though color/pattern differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Harris Tweed Houndstooth Driver Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap is closely related to flat/Peaky style, and tweed/houndstooth materials correspond to classic constructions.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Mesh Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Mesh and baseball cap style unrelated to Peaky 8-panel newsboy style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Plaid Lined Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Newsboy cap lined with plaid fabric closely matches core style, fabric, and silhouette of the reference Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Finnean Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely flat cap similar to Peaky style, classic shape and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Classic Wool Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic wool newsboy hat very similar in shape and construction to Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Kangol Color Burst Ventair 507\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Kangol 507 Ventair is an ivy or baseball style lightweight cap, differing in shape and structure from Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic 507 Ventair\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar reason as above; 507 style differs distinctly from Peaky cap shape and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Cord Spitfire\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Spitfire is an ivy style cap which is different from Peaky's 8-panel shape, lower similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 504 Wool\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"504 is typically an ivy or flat cap but not newsboy style; less relevant than newsboy styles.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Women's Fiddler Plaid Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fiddler cap is a close cousin to newsboy/Peaky style, plaid fabric aligns with reference characteristics.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Men's Checked Linen Driver Flat Cap",
+      "score": 7,
+      "rationale": "This is a flat cap (similar to a scally/Peaky style) with a checked pattern like the reference; although linen material differs, the core shape and intended style are close.",
+      "map_id": "map_69e4a3b25bc649e8b43373691198816d"
+    },
+    {
+      "competitor_product_name": "Men Stetson Texas Shadow Plaid",
+      "score": 5,
+      "rationale": "Named like a hat but the specific style isn't clear; likely a flat or driver cap with plaid but less direct match to 8-panel Peaky style.",
+      "map_id": "map_c2d2b161c51c4fc284b4d7404dddd7c8"
+    },
+    {
+      "competitor_product_name": "Foster Newsboy",
+      "score": 8,
+      "rationale": "Newsboy style is very similar to Peaky caps, and likely shares the 8-panel construction; highly relevant.",
+      "map_id": "map_a1529731b3224566b8da2e8542807e2c"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Shawk Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap similar in silhouette and features to Peaky cap, relevant for core style similarities.",
+      "map_id": "map_b6ad6f9b24a046cfb93811ec6579a178"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Patchwork Wool Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style in wool patchwork is close in shape and use, though patchwork differs from plaid and leatherette brim.",
+      "map_id": "map_65e03c69e1034c3cb156e4df87005b7b"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mesh-Back C Patch Cap",
+      "score": 3,
+      "rationale": "Mesh-back and canvas construction suggest a casual, possibly baseball-style cap, less relevant to formal Peaky newsboy.",
+      "map_id": "map_1a11e4aa42e6411ab494bd44ed0767f2"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Script Cap",
+      "score": 2,
+      "rationale": "Likely a baseball or casual script logo cap, unrelated in shape and style to Peaky 8-panel caps.",
+      "map_id": "map_1497e97793c84281a2031312b5bfed3a"
+    },
+    {
+      "competitor_product_name": "Barbour Finnean Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style closely related to Peaky caps, classic silhouette with similar uses.",
+      "map_id": "map_19c1a6e82bc948f0999a78c75db82ab3"
+    },
+    {
+      "competitor_product_name": "Barbour Cheviot Flat Cap",
+      "score": 7,
+      "rationale": "Another traditional flat cap, similar function and shape to Peaky caps.",
+      "map_id": "map_55497480cf624d52884d369a089d9475"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Men's Ventair 502 Knit Newsboy Hat Cap",
+      "score": 6,
+      "rationale": "Newsboy knit hat shares silhouette and intended style, but knit material differs making it somewhat less similar.",
+      "map_id": "map_e313f02c75c04b9292de72e8f8b22a43"
+    },
+    {
+      "competitor_product_name": "Men Stetson Harris Tweed Houndstooth Flat Cap",
+      "score": 7,
+      "rationale": "Traditional flat cap made from tweed, with similar shape and style to Peaky caps.",
+      "map_id": "map_a77de29151f8454284fc8c0e4a1ba81f"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Leather Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap with leather material closer to Peaky's leatherette brim feature; similar silhouette and construction.",
+      "map_id": "map_f92baebc66934158afdc33962c5438ab"
+    },
+    {
+      "competitor_product_name": "Carhartt Plaid Adjustable Hat",
+      "score": 4,
+      "rationale": "Plaid pattern is similar but adjustable style suggests possibly casual baseball-type cap, less relevancy in shape.",
+      "map_id": "map_7d8b8c4284174c68b9c1f276644f6704"
+    },
+    {
+      "competitor_product_name": "Kangol Carimac Newsboy Gatsby Cabby Hat Cap",
+      "score": 8,
+      "rationale": "Newsboy/Gatsby/Cabby hats are very similar styles to Peaky caps with overlapping silhouettes.",
+      "map_id": "map_e44c8b9adb2642efa8f4adf5eaac2cfa"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Alderberry Purple Newsboy Ivy Cap",
+      "score": 7,
+      "rationale": "Newsboy and ivy styles overlap; newsboy is close to Peaky shape, though color/pattern differ.",
+      "map_id": "map_12710ef2ca7a4e44a974c28bd769ab25"
+    },
+    {
+      "competitor_product_name": "Men Stetson Harris Tweed Houndstooth Driver Cap",
+      "score": 7,
+      "rationale": "Driver cap is closely related to flat/Peaky style, and tweed/houndstooth materials correspond to classic constructions.",
+      "map_id": "map_4e0e8bec66144ecf8c029aee2415a79d"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Mesh Baseball Cap",
+      "score": 2,
+      "rationale": "Mesh and baseball cap style unrelated to Peaky 8-panel newsboy style.",
+      "map_id": "map_c7121ce034864a8e82047e93ed84d5e2"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Plaid Lined Newsboy Cap",
+      "score": 9,
+      "rationale": "Newsboy cap lined with plaid fabric closely matches core style, fabric, and silhouette of the reference Peaky cap.",
+      "map_id": "map_90debd352b7943bfb8be7ee4fe0a3729"
+    },
+    {
+      "competitor_product_name": "Barbour Finnean Cap",
+      "score": 7,
+      "rationale": "Likely flat cap similar to Peaky style, classic shape and silhouette.",
+      "map_id": "map_4793519cc4b242b5b8bdbf19352a4f47"
+    },
+    {
+      "competitor_product_name": "Barbour Classic Wool Newsboy Hat",
+      "score": 8,
+      "rationale": "Classic wool newsboy hat very similar in shape and construction to Peaky cap.",
+      "map_id": "map_218fee2b2ec64a8b94fd22e726dda6ed"
+    },
+    {
+      "competitor_product_name": "Men Kangol Color Burst Ventair 507",
+      "score": 3,
+      "rationale": "Kangol 507 Ventair is an ivy or baseball style lightweight cap, differing in shape and structure from Peaky caps.",
+      "map_id": "map_2d19915cea71440381649aa87c36b9e9"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic 507 Ventair",
+      "score": 3,
+      "rationale": "Similar reason as above; 507 style differs distinctly from Peaky cap shape and construction.",
+      "map_id": "map_f86f8f61b56d4730b39a645c55fdee5c"
+    },
+    {
+      "competitor_product_name": "Kangol Cord Spitfire",
+      "score": 4,
+      "rationale": "Spitfire is an ivy style cap which is different from Peaky's 8-panel shape, lower similarity.",
+      "map_id": "map_1cb606ea914c40e2b820e510ae6a2bfc"
+    },
+    {
+      "competitor_product_name": "Kangol 504 Wool",
+      "score": 4,
+      "rationale": "504 is typically an ivy or flat cap but not newsboy style; less relevant than newsboy styles.",
+      "map_id": "map_2b52f0281e304dcaa7a15056d4eebc68"
+    },
+    {
+      "competitor_product_name": "Brixton Women's Fiddler Plaid Cap",
+      "score": 8,
+      "rationale": "Fiddler cap is a close cousin to newsboy/Peaky style, plaid fabric aligns with reference characteristics.",
+      "map_id": "map_c268f51094ad4a5a8bccfbfaabaf4821"
+    }
+  ]
+}

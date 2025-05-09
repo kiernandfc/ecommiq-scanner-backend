@@ -1,0 +1,143 @@
+{
+  "timestamp": "20250426_080829",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bailey 1365 Graham Cap'\n  - Name='Men Bailey Hat Company Langham Cap Dark Brown'\n  - Name='Brixton Grade Snapback Baseball Cap'\n  - Name='Brixton Motorways Medium Profile Snapback Cap'\n  - Name='Barbour Crieff Flat Cap'\n  - Name='Goorin Bros. Papa Cap One'\n  - Name='Brixton Men's Crest X Medium Profile Mesh Trucker Cap'\n  - Name='Goorin Bros. Oversized Package Trucker Hat, Blue, One Size, Unisex'\n  - Name='Goorin Bros. Yolo Trucker Hat'\n  - Name='Brixton Men's Hooligan Driver Cap'\n  - Name='Brixton Oath III Snapback'\n  - Name='Brixton Osborn Medium Profile Snapback Hat'\n  - Name='Goorin Bros. Suited Friend Trucker Hat'\n  - Name='Barbour Men's Transport Bucket Hat'\n  - Name='Barbour Men's Cotton Visor Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bailey 1365 Graham Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a traditional flat or scally cap similar in silhouette and intent, but probably made from classic materials rather than micro-poly sport fabric, so less focus on breathability and lightweight performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bailey Hat Company Langham Cap Dark Brown\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another classic style cap probably similar in shape to The Driver; may lack sport fabric and breathability but similar function and silhouette as a flat/scally style cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Grade Snapback Baseball Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A snapback baseball cap differs significantly in silhouette and construction from an 8-panel scally cap and is generally more casual streetwear, not a lightweight sport cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Motorways Medium Profile Snapback Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Snapback baseball cap with medium profile is fairly different in shape and construction from The Driver, which is an 8-panel scally cap designed for sport performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Crieff Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A flat cap is very close in silhouette and purpose to a scally cap; Barbour's cap is likely traditional materials, so less emphasis on sport fabric, but similar overall product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Papa Cap One\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Unclear exact style but Goorin Papa Caps are often flat or newsboy style caps; would share silhouette but may lack technical sport fabric and breathability focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Crest X Medium Profile Mesh Trucker Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A mesh trucker cap has a different construction and silhouette compared to an 8-panel fitted scally cap; more casual and less tailored.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Oversized Package Trucker Hat, Blue, One Size, Unisex\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A trucker hat vastly differs in shape, panel design, and fabric construction compared to the Driver's 8-panel micro-poly scally design.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Yolo Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same reasoning as other trucker hats; very different construction and silhouette from The Driver's tailored scally cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Hooligan Driver Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A 'Driver Cap' is essentially a scally or flat cap variant, very close in silhouette and purpose, likely similar in panel construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Oath III Snapback\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Snapback hat differs significantly in shape and construction from an 8-panel fitted scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Osborn Medium Profile Snapback Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Another snapback medium profile baseball style cap, differing greatly from the fitted scally Driver design.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Suited Friend Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat silhouette and construction very different from The Driver's tailored, breathable sport scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Transport Bucket Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bucket hats have a completely different silhouette and construction, not resembling the 8-panel scally cap at all.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cotton Visor Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A visor cap lacks a full crown and differs fundamentally in purpose and construction from a full scally cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bailey 1365 Graham Cap",
+      "score": 7,
+      "rationale": "Likely a traditional flat or scally cap similar in silhouette and intent, but probably made from classic materials rather than micro-poly sport fabric, so less focus on breathability and lightweight performance.",
+      "map_id": "map_2a270b69c96a4dc797294b0a87fe2ec3"
+    },
+    {
+      "competitor_product_name": "Men Bailey Hat Company Langham Cap Dark Brown",
+      "score": 7,
+      "rationale": "Another classic style cap probably similar in shape to The Driver; may lack sport fabric and breathability but similar function and silhouette as a flat/scally style cap.",
+      "map_id": "map_45712f2faa94471883704d370c0ccb00"
+    },
+    {
+      "competitor_product_name": "Brixton Grade Snapback Baseball Cap",
+      "score": 4,
+      "rationale": "A snapback baseball cap differs significantly in silhouette and construction from an 8-panel scally cap and is generally more casual streetwear, not a lightweight sport cap.",
+      "map_id": "map_71d40f61e4b247afaabcfb07b73b2a45"
+    },
+    {
+      "competitor_product_name": "Brixton Motorways Medium Profile Snapback Cap",
+      "score": 4,
+      "rationale": "Snapback baseball cap with medium profile is fairly different in shape and construction from The Driver, which is an 8-panel scally cap designed for sport performance.",
+      "map_id": "map_972afbf610db4d55811343cbfdf87664"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 8,
+      "rationale": "A flat cap is very close in silhouette and purpose to a scally cap; Barbour's cap is likely traditional materials, so less emphasis on sport fabric, but similar overall product type.",
+      "map_id": "map_fb48361808a2460cbdb2dee1c3ca55dc"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Papa Cap One",
+      "score": 6,
+      "rationale": "Unclear exact style but Goorin Papa Caps are often flat or newsboy style caps; would share silhouette but may lack technical sport fabric and breathability focus.",
+      "map_id": "map_0da06945933b4b5c9287d5942647bcda"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Crest X Medium Profile Mesh Trucker Cap",
+      "score": 5,
+      "rationale": "A mesh trucker cap has a different construction and silhouette compared to an 8-panel fitted scally cap; more casual and less tailored.",
+      "map_id": "map_1142eda28a7e4700bb205aaea79c2805"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Oversized Package Trucker Hat, Blue, One Size, Unisex",
+      "score": 3,
+      "rationale": "A trucker hat vastly differs in shape, panel design, and fabric construction compared to the Driver's 8-panel micro-poly scally design.",
+      "map_id": "map_712dab88304f409996e4941fb51572c9"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Yolo Trucker Hat",
+      "score": 3,
+      "rationale": "Same reasoning as other trucker hats; very different construction and silhouette from The Driver's tailored scally cap style.",
+      "map_id": "map_805a4ec55b21495a8d1d0d29f5191498"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Hooligan Driver Cap",
+      "score": 9,
+      "rationale": "A 'Driver Cap' is essentially a scally or flat cap variant, very close in silhouette and purpose, likely similar in panel construction and intended use.",
+      "map_id": "map_5d89886190014d26be1f476f923be4f0"
+    },
+    {
+      "competitor_product_name": "Brixton Oath III Snapback",
+      "score": 4,
+      "rationale": "Snapback hat differs significantly in shape and construction from an 8-panel fitted scally cap.",
+      "map_id": "map_7a7c5e2782974bdbb623cbc4faffd725"
+    },
+    {
+      "competitor_product_name": "Brixton Osborn Medium Profile Snapback Hat",
+      "score": 4,
+      "rationale": "Another snapback medium profile baseball style cap, differing greatly from the fitted scally Driver design.",
+      "map_id": "map_a1b8b0ea5ed241088beeabddc1774217"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Suited Friend Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat silhouette and construction very different from The Driver's tailored, breathable sport scally cap.",
+      "map_id": "map_0800b4c986a043b084d9587b0ab19228"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Transport Bucket Hat",
+      "score": 2,
+      "rationale": "Bucket hats have a completely different silhouette and construction, not resembling the 8-panel scally cap at all.",
+      "map_id": "map_9e99d45931c9426ea6ab8ba15a59ea99"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cotton Visor Cap",
+      "score": 2,
+      "rationale": "A visor cap lacks a full crown and differs fundamentally in purpose and construction from a full scally cap.",
+      "map_id": "map_139f73cc443a4c3cb1ff3822bc108343"
+    }
+  ]
+}

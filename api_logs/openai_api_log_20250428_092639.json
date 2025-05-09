@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250428_092639",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Universal Works - Nebraska Bakers Chore Jacket - Black Size: L, Colour'\n  - Name='Faherty Savannah Cotton Overshirt'\n  - Name='Norse Projects Men's Alta 2.0 2L Jacket'\n  - Name='Levi's Men's Bronson Overshirt'\n  - Name='Filson x Freeman Wool Lined Raincoat'\n  - Name='Barbour Men's Classic Bedale Jacket'\n  - Name='Filson Men's Tin Cloth PrimaLoft Jacket'\n  - Name='Barbour Men's Stratford Wax Jacket'\n  - Name='J. Crew Wallace & Barnes Cotton Chore Blazer'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Universal Works - Nebraska Bakers Chore Jacket - Black Size: L, Colour\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a chore jacket similar in silhouette to the Ojai Jacket, likely made with durable fabric given the brand and description; highly relevant in style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Savannah Cotton Overshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An overshirt rather than a chore coat; while it shares cotton material and a casual shirt-jacket style, it likely lacks the chore coat silhouette and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Alta 2.0 2L Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Described as a 2-layer jacket which implies technical/outerwear use differing substantially in silhouette and material from a classic chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Bronson Overshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another overshirt, probably similar in casual wear, but less structured and with fewer chore coat features, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson x Freeman Wool Lined Raincoat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A wool-lined raincoat clearly differs in function, material, and likely silhouette from a cotton chore coat—lower relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Classic Bedale Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Classic waxed cotton jacket with a different silhouette (field/hunting jacket) and finish; shares durability but differs stylistically and functionally.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth PrimaLoft Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heavy-duty insulated jacket for cold weather; although rugged like the chore coat, it has a different intended use and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Stratford Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another waxed jacket differing from chore coat silhouette and cotton twill fabric, but still within durable outerwear category.\"\n    },\n    {\n      \"competitor_product_name\": \"J. Crew Wallace & Barnes Cotton Chore Blazer\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A cotton chore-style jacket similar in construction and silhouette; a good match though described as a blazer implying a slightly dressier style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Universal Works - Nebraska Bakers Chore Jacket - Black Size: L, Colour",
+      "score": 9,
+      "rationale": "This is a chore jacket similar in silhouette to the Ojai Jacket, likely made with durable fabric given the brand and description; highly relevant in style and function.",
+      "map_id": "map_9b83b2537abc499ea8e65119b2de648a"
+    },
+    {
+      "competitor_product_name": "Faherty Savannah Cotton Overshirt",
+      "score": 6,
+      "rationale": "An overshirt rather than a chore coat; while it shares cotton material and a casual shirt-jacket style, it likely lacks the chore coat silhouette and utility features.",
+      "map_id": "map_623cf64f67a44a0a8b0f87eacf92aa81"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Alta 2.0 2L Jacket",
+      "score": 4,
+      "rationale": "Described as a 2-layer jacket which implies technical/outerwear use differing substantially in silhouette and material from a classic chore coat.",
+      "map_id": "map_7fc79382ac0f4c1bb77714c21bde26a5"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Bronson Overshirt",
+      "score": 6,
+      "rationale": "Another overshirt, probably similar in casual wear, but less structured and with fewer chore coat features, making it moderately relevant.",
+      "map_id": "map_59cd6f58c5874f548203d6ca6af40788"
+    },
+    {
+      "competitor_product_name": "Filson x Freeman Wool Lined Raincoat",
+      "score": 3,
+      "rationale": "A wool-lined raincoat clearly differs in function, material, and likely silhouette from a cotton chore coat—lower relevance.",
+      "map_id": "map_10c118da379c4c4aba22ec27a2be6d0c"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Classic Bedale Jacket",
+      "score": 5,
+      "rationale": "Classic waxed cotton jacket with a different silhouette (field/hunting jacket) and finish; shares durability but differs stylistically and functionally.",
+      "map_id": "map_96cb913b3a494091b9280cee12d133c3"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth PrimaLoft Jacket",
+      "score": 5,
+      "rationale": "Heavy-duty insulated jacket for cold weather; although rugged like the chore coat, it has a different intended use and construction.",
+      "map_id": "map_7803b9f2685f42a7b7d7e49d48beefae"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Stratford Wax Jacket",
+      "score": 5,
+      "rationale": "Another waxed jacket differing from chore coat silhouette and cotton twill fabric, but still within durable outerwear category.",
+      "map_id": "map_73e5ebcc580a4839a99bd0816ecfda74"
+    },
+    {
+      "competitor_product_name": "J. Crew Wallace & Barnes Cotton Chore Blazer",
+      "score": 8,
+      "rationale": "A cotton chore-style jacket similar in construction and silhouette; a good match though described as a blazer implying a slightly dressier style.",
+      "map_id": "map_130f1cf1cffa499587ec434071ca7200"
+    }
+  ]
+}

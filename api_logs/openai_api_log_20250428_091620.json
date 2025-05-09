@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250428_091620",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='David Donahue Men's Trim-Fit Oxford Dress Shirt'\n  - Name='Charles Tyrwhitt Non-Iron Poplin Slim Fit Shirt Single Cuff in Sky Blue at Nordstrom, Size 17'\n  - Name='Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt'\n  - Name='Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit No Iron Dress Shirt'\n  - Name='Lands' End School Uniform Short Sleeve No Iron Dress Shirt'\n  - Name='Lands' End Men's Long Sleeve Broadcloth Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Dress Shirt'\n  - Name='Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt'\n  - Name='Men's Lands' End Tailored Fit Long Sleeve Sail Rigger Oxford Shirt'\n  - Name='Lands' End Men's Tall Pattern No Iron Dress Shirt'\n  - Name='Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt'\n  - Name='Indochino Men's Jeffery Melange Herringbone Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Dress Shirt'\n  - Name='Lands' End Women's Wrinkle Free No Iron Shirt'\n  - Name='Lands' End Women's Plus Size No Iron Button Front Shirt'\n  - Name='Lands' End Men's Traditional Fit Long Sleeve Plaid Travel Kit Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Supima Pinpoint Dress Shirt'\n  - Name='Lands' End Men's Tall Traditional Fit No Iron Dress Shirt'\n  - Name='Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"David Donahue Men's Trim-Fit Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a trim-fit dress shirt similar in purpose to the reference; however, it is an Oxford shirt, which can be heavier and more casual compared to the likely finer weave of the reference's textured solid dress shirt. Non-iron property is not explicitly mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Non-Iron Poplin Slim Fit Shirt Single Cuff in Sky Blue at Nordstrom, Size 17\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron, slim fit dress shirt similar in style and function to the reference shirt. Poplin fabric and single cuff may vary slightly but overall very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron dress shirt with a quality fabric (Supima Pinpoint) similar in use and function. Tall sizing is a variation but overall highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Oxford construction typically heavier, traditional fit less similar to trim or standard fit reference; no mention of non-iron, so less relevant functionally.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron dress shirt with tailored fit similar to the reference product's options; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End School Uniform Short Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"No iron dress shirt suitable for school uniform with practical use; short sleeve differs from the likely long sleeve reference but still relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Broadcloth Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Long sleeve broadcloth dress shirt likely similar in silhouette and function, but non-iron property not specified reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron Oxford with button-down collar—functional similarity high but collar style differs from semi-spread in reference, which affects styling.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Twill fabric shirt more casual and flexible in use; not explicitly a dress shirt or non-iron, reducing relevancy significantly.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron, tailored fit Oxford dress shirt similar functionally; Oxford fabric and collar style difference slightly lowers score.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Patterned no iron dress shirt shares core features with reference shirt, minus the solid texture; relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"No iron long sleeve dress shirt but designed for boys in uniforms, intended use and fit differ significantly.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Lands' End Tailored Fit Long Sleeve Sail Rigger Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Oxford style Sail Rigger shirt in tailored fit with long sleeves is somewhat relevant but lacks non-iron feature and likely more casual.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Pattern No Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron patterned dress shirt in tall sizes; similar usage and construction minus pattern factor.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"No iron Oxford in traditional fit functional but less similarity in fit and likely fabric weight to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"No iron Supima Pinpoint fabric is similar in quality; button down collar differs from semi-spread, and pattern differs but less critical.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Jeffery Melange Herringbone Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with textured fabric (melange herringbone) matches in style and construction; non-iron status unknown and fit not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron tailored fit dress shirt closely matches reference product's function and fit options.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Wrinkle Free No Iron Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Though non-iron, this is a women's shirt which differs significantly in construction and fit, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Plus Size No Iron Button Front Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Women's plus size non-iron shirt differs significantly in cut and likely styling, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Long Sleeve Plaid Travel Kit Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Plaid travel shirt may be wrinkle resistant but possibly more casual and different fit style than reference; pattern lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron tailored fit Oxford dress shirt matches functionally and in fit, but Oxford fabric and collar style differ somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"High-quality Supima Pinpoint fabric dress shirt likely similar in construction and use; non-iron not specified reduces score from perfect.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Traditional Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron traditional fit dress shirt in tall size closely aligns with reference product, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron, traditional fit Oxford shirt in tall sizing similar in key aspects but Oxford fabric and likely collar differ.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "David Donahue Men's Trim-Fit Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "This is a trim-fit dress shirt similar in purpose to the reference; however, it is an Oxford shirt, which can be heavier and more casual compared to the likely finer weave of the reference's textured solid dress shirt. Non-iron property is not explicitly mentioned.",
+      "map_id": "map_14ee02b2b96242279c01e329c7e281fc"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non-Iron Poplin Slim Fit Shirt Single Cuff in Sky Blue at Nordstrom, Size 17",
+      "score": 9,
+      "rationale": "Non-iron, slim fit dress shirt similar in style and function to the reference shirt. Poplin fabric and single cuff may vary slightly but overall very relevant.",
+      "map_id": "map_664398bc232b497e88824927d1f650ad"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt",
+      "score": 9,
+      "rationale": "No iron dress shirt with a quality fabric (Supima Pinpoint) similar in use and function. Tall sizing is a variation but overall highly relevant.",
+      "map_id": "map_5ebd8707d4434b4e93aefd89dc1a1264"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt",
+      "score": 6,
+      "rationale": "Oxford construction typically heavier, traditional fit less similar to trim or standard fit reference; no mention of non-iron, so less relevant functionally.",
+      "map_id": "map_7f85b460d5904bce9df59fbeb3a8962e"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "No iron dress shirt with tailored fit similar to the reference product's options; highly relevant.",
+      "map_id": "map_90606cc128a54f519b1bbdf0d8a6ad52"
+    },
+    {
+      "competitor_product_name": "Lands' End School Uniform Short Sleeve No Iron Dress Shirt",
+      "score": 7,
+      "rationale": "No iron dress shirt suitable for school uniform with practical use; short sleeve differs from the likely long sleeve reference but still relevant.",
+      "map_id": "map_4305c81668884f83b258e4fb6ce903b8"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Broadcloth Dress Shirt",
+      "score": 8,
+      "rationale": "Long sleeve broadcloth dress shirt likely similar in silhouette and function, but non-iron property not specified reduces relevancy slightly.",
+      "map_id": "map_f14c5f37875340d1aee0f3e667854072"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Button-Down Non-Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron Oxford with button-down collar—functional similarity high but collar style differs from semi-spread in reference, which affects styling.",
+      "map_id": "map_fac6cab8e8e84028b37efdaed7dad4a6"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Shirt",
+      "score": 4,
+      "rationale": "Twill fabric shirt more casual and flexible in use; not explicitly a dress shirt or non-iron, reducing relevancy significantly.",
+      "map_id": "map_fe724b9d39784f7b86a2b91c7f3cfb29"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "No iron, tailored fit Oxford dress shirt similar functionally; Oxford fabric and collar style difference slightly lowers score.",
+      "map_id": "map_108d21c3c22448a190c11ea8d67fafd2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Patterned no iron dress shirt shares core features with reference shirt, minus the solid texture; relevant.",
+      "map_id": "map_e3380ada66804e93b6b09e31bfa0327a"
+    },
+    {
+      "competitor_product_name": "Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt",
+      "score": 5,
+      "rationale": "No iron long sleeve dress shirt but designed for boys in uniforms, intended use and fit differ significantly.",
+      "map_id": "map_7ba329342fc2448f8ea621a4139edb1b"
+    },
+    {
+      "competitor_product_name": "Men's Lands' End Tailored Fit Long Sleeve Sail Rigger Oxford Shirt",
+      "score": 6,
+      "rationale": "Oxford style Sail Rigger shirt in tailored fit with long sleeves is somewhat relevant but lacks non-iron feature and likely more casual.",
+      "map_id": "map_f2f32806adaa40c89379eaf157ae5f68"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Pattern No Iron Dress Shirt",
+      "score": 8,
+      "rationale": "No iron patterned dress shirt in tall sizes; similar usage and construction minus pattern factor.",
+      "map_id": "map_0a10e7241bfe4d00b654498806b9fd7d"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "No iron Oxford in traditional fit functional but less similarity in fit and likely fabric weight to reference.",
+      "map_id": "map_fb67e8289acf421195929a622ae49184"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt",
+      "score": 7,
+      "rationale": "No iron Supima Pinpoint fabric is similar in quality; button down collar differs from semi-spread, and pattern differs but less critical.",
+      "map_id": "map_5000a9908ed04569923c80cc65b85767"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Jeffery Melange Herringbone Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with textured fabric (melange herringbone) matches in style and construction; non-iron status unknown and fit not specified.",
+      "map_id": "map_700ad9a4ad1847d6b3827b76883c855e"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "No iron tailored fit dress shirt closely matches reference product's function and fit options.",
+      "map_id": "map_8a34108d0386496596bbac064642c120"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Wrinkle Free No Iron Shirt",
+      "score": 3,
+      "rationale": "Though non-iron, this is a women's shirt which differs significantly in construction and fit, lowering relevancy.",
+      "map_id": "map_196972d3187f4f839e21fc1446f0c7ea"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Plus Size No Iron Button Front Shirt",
+      "score": 3,
+      "rationale": "Women's plus size non-iron shirt differs significantly in cut and likely styling, making it less relevant.",
+      "map_id": "map_709bac98cbfb498b9bfa82b3a1194ae8"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Long Sleeve Plaid Travel Kit Shirt",
+      "score": 5,
+      "rationale": "Plaid travel shirt may be wrinkle resistant but possibly more casual and different fit style than reference; pattern lowers relevancy.",
+      "map_id": "map_eab88ce13ddd469f918f762ddbbe3704"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "No iron tailored fit Oxford dress shirt matches functionally and in fit, but Oxford fabric and collar style differ somewhat.",
+      "map_id": "map_97db0def6c7b473f8efe235ddd8a66dd"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Supima Pinpoint Dress Shirt",
+      "score": 8,
+      "rationale": "High-quality Supima Pinpoint fabric dress shirt likely similar in construction and use; non-iron not specified reduces score from perfect.",
+      "map_id": "map_5850e48bebc0451d8a5859dae7707916"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Traditional Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "No iron traditional fit dress shirt in tall size closely aligns with reference product, highly relevant.",
+      "map_id": "map_2b0b02b94b664569bdbf270293596bb6"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "No iron, traditional fit Oxford shirt in tall sizing similar in key aspects but Oxford fabric and likely collar differ.",
+      "map_id": "map_291306d1633d458daae5b1f90e7d9780"
+    }
+  ]
+}

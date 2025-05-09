@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250429_075714",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Michigan Coat'\n  - Name='Carhartt Wip Men Jackets'\n  - Name='Alex Mill Quinn Quilted Nylon Jacket'\n  - Name='J.Crew Men's Wallace & Barnes Lightweight Twill Chore Jacket'\n  - Name='Faherty Men's Sunwashed CPO'\n  - Name='Faherty Men's Doug Good Feather Herringbone Shirt Jacket'\n  - Name='Faherty Men's Reserve Knit Coat'\n  - Name='Levi's Women's Lined Chore Coat'\n  - Name='Alex Mill Marfa Work Jacket in Herringbone'\n  - Name='Alex Mill Britt Work Jacket in Denim'\n  - Name='Alex Mill Women's Tie Cuff Balmacaan Jacket'\n  - Name='ALEX MILL Garment Dyed Denim Work Jacket'\n  - Name='J. Crew Wallace & Barnes Corduroy AQ428 Button Front Chore Coat'\n  - Name='Levi's Men's MIJ Type I'\n  - Name='Alex Mill Men's Corduroy Work Jacket'\n  - Name='Alex Mill Men's Railroad Chore Jacket'\n  - Name='Filson Lined Tin Cloth Cruiser Jacket'\n  - Name='Faherty Men's Epic Quilted Fleece Pullover'\n  - Name='Levi's Chore Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The Carhartt WIP Michigan Coat is a chore coat-style jacket designed for durability and utility, similar in silhouette and function to The Ojai Jacket, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Men Jackets\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a broad category of men's jackets from Carhartt WIP; relevance varies by specific product type, but generally likely includes some chore or work jackets making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Quinn Quilted Nylon Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a quilted nylon jacket, likely lighter, more insulated and intended for warmth rather than utilitarian workwear or chore coat use, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Wallace & Barnes Lightweight Twill Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A lightweight twill chore jacket closely matches the classic chore coat silhouette, fabric type, and utility focus of The Ojai, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Sunwashed CPO\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A CPO (shirt jacket) with vintage style; while the silhouette differs slightly from a chore coat, it shares utility and casual layering use, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Doug Good Feather Herringbone Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A shirt jacket with herringbone fabric shares casual layering use but differs in silhouette and function from a chore coat, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Reserve Knit Coat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A knit coat is likely substantially different in construction, fabric, and style from a cotton twill chore coat, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Women's Lined Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A lined chore coat shares the silhouette, function, and construction focus with The Ojai Jacket, though geared toward women; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Marfa Work Jacket in Herringbone\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work jacket in herringbone fabric with a utilitarian purpose is similar in silhouette and construction to a chore coat, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Britt Work Jacket in Denim\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A denim work jacket shares workwear origins and similar construction but differs in fabric which affects character; fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Women's Tie Cuff Balmacaan Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A Balmacaan jacket has a different silhouette, more overcoat style, and is less utility-focused, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"ALEX MILL Garment Dyed Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Denim work jacket aligns with workwear function and construction though in a heavier denim fabric versus twill, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J. Crew Wallace & Barnes Corduroy AQ428 Button Front Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Corduroy chore coat with utility style and classic silhouette is very close in design and function to The Ojai Jacket, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's MIJ Type I\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Type I jacket is a denim trucker jacket, close to workwear but differs in silhouette and fabric context from a chore coat, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Corduroy Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Corduroy work jacket shares workwear roots, utility and construction similar to chore coat style, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Railroad Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a chore jacket designed for workwear use with classic silhouette and features similar to The Ojai, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Lined Tin Cloth Cruiser Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A tin cloth cruiser jacket is rugged and utility-focused but has a different silhouette and heavier fabric compared to a chore coat, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Epic Quilted Fleece Pullover\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A quilted fleece pullover is substantially different in style, construction, and function than a chore coat, minimal relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket from Levi's shares the key silhouette, fabric style and utilitarian function with The Ojai Jacket, very relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Coat",
+      "score": 8,
+      "rationale": "The Carhartt WIP Michigan Coat is a chore coat-style jacket designed for durability and utility, similar in silhouette and function to The Ojai Jacket, making it highly relevant.",
+      "map_id": "map_8efdc8eb263c437ab1a1f21dbbb094c4"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Men Jackets",
+      "score": 5,
+      "rationale": "This is a broad category of men's jackets from Carhartt WIP; relevance varies by specific product type, but generally likely includes some chore or work jackets making it moderately relevant.",
+      "map_id": "map_e75d67fcddda44b1918ef830bd929217"
+    },
+    {
+      "competitor_product_name": "Alex Mill Quinn Quilted Nylon Jacket",
+      "score": 4,
+      "rationale": "This is a quilted nylon jacket, likely lighter, more insulated and intended for warmth rather than utilitarian workwear or chore coat use, making it less relevant.",
+      "map_id": "map_13763d93c9924fec976324589ab3d715"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Wallace & Barnes Lightweight Twill Chore Jacket",
+      "score": 9,
+      "rationale": "A lightweight twill chore jacket closely matches the classic chore coat silhouette, fabric type, and utility focus of The Ojai, making it very relevant.",
+      "map_id": "map_a9b171f4554f42339025c6d0c7e6969b"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Sunwashed CPO",
+      "score": 7,
+      "rationale": "A CPO (shirt jacket) with vintage style; while the silhouette differs slightly from a chore coat, it shares utility and casual layering use, making it fairly relevant.",
+      "map_id": "map_651f284ffa1645e3bf06c004653d70dd"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Doug Good Feather Herringbone Shirt Jacket",
+      "score": 6,
+      "rationale": "A shirt jacket with herringbone fabric shares casual layering use but differs in silhouette and function from a chore coat, moderately relevant.",
+      "map_id": "map_191bda5d277b4774a053f73f629fdbf8"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Reserve Knit Coat",
+      "score": 3,
+      "rationale": "A knit coat is likely substantially different in construction, fabric, and style from a cotton twill chore coat, less relevant.",
+      "map_id": "map_08c76b25892e476786b8e571e605c60a"
+    },
+    {
+      "competitor_product_name": "Levi's Women's Lined Chore Coat",
+      "score": 8,
+      "rationale": "A lined chore coat shares the silhouette, function, and construction focus with The Ojai Jacket, though geared toward women; highly relevant.",
+      "map_id": "map_02a83099a3194e679745707356a302c2"
+    },
+    {
+      "competitor_product_name": "Alex Mill Marfa Work Jacket in Herringbone",
+      "score": 8,
+      "rationale": "Work jacket in herringbone fabric with a utilitarian purpose is similar in silhouette and construction to a chore coat, making it highly relevant.",
+      "map_id": "map_7179698322c9450fbcbe014438062912"
+    },
+    {
+      "competitor_product_name": "Alex Mill Britt Work Jacket in Denim",
+      "score": 7,
+      "rationale": "A denim work jacket shares workwear origins and similar construction but differs in fabric which affects character; fairly relevant.",
+      "map_id": "map_f106db0c10f649ceb36e4b471e95ed9f"
+    },
+    {
+      "competitor_product_name": "Alex Mill Women's Tie Cuff Balmacaan Jacket",
+      "score": 4,
+      "rationale": "A Balmacaan jacket has a different silhouette, more overcoat style, and is less utility-focused, making it less relevant.",
+      "map_id": "map_0897c7ff75fe44b7bfafc30fea47c6e8"
+    },
+    {
+      "competitor_product_name": "ALEX MILL Garment Dyed Denim Work Jacket",
+      "score": 7,
+      "rationale": "Denim work jacket aligns with workwear function and construction though in a heavier denim fabric versus twill, fairly relevant.",
+      "map_id": "map_0f9f2de94f5741139cd413650d77ee52"
+    },
+    {
+      "competitor_product_name": "J. Crew Wallace & Barnes Corduroy AQ428 Button Front Chore Coat",
+      "score": 9,
+      "rationale": "Corduroy chore coat with utility style and classic silhouette is very close in design and function to The Ojai Jacket, very relevant.",
+      "map_id": "map_950a253a6f684302b3a03beb6425ee5b"
+    },
+    {
+      "competitor_product_name": "Levi's Men's MIJ Type I",
+      "score": 6,
+      "rationale": "Type I jacket is a denim trucker jacket, close to workwear but differs in silhouette and fabric context from a chore coat, moderately relevant.",
+      "map_id": "map_bc005db7af4a453e9866e1ef1de74c09"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Corduroy Work Jacket",
+      "score": 8,
+      "rationale": "Corduroy work jacket shares workwear roots, utility and construction similar to chore coat style, making it highly relevant.",
+      "map_id": "map_bf2d6a5f9bca402a90fab76abdb21c90"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Railroad Chore Jacket",
+      "score": 9,
+      "rationale": "Explicitly a chore jacket designed for workwear use with classic silhouette and features similar to The Ojai, very relevant.",
+      "map_id": "map_7ab281fd39644ca28214cb1b16168faf"
+    },
+    {
+      "competitor_product_name": "Filson Lined Tin Cloth Cruiser Jacket",
+      "score": 7,
+      "rationale": "A tin cloth cruiser jacket is rugged and utility-focused but has a different silhouette and heavier fabric compared to a chore coat, fairly relevant.",
+      "map_id": "map_8edcdf6073e44c87b3e023c06ad5a3a1"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Epic Quilted Fleece Pullover",
+      "score": 2,
+      "rationale": "A quilted fleece pullover is substantially different in style, construction, and function than a chore coat, minimal relevance.",
+      "map_id": "map_436846054049425a9bf8ae7bdc9d055b"
+    },
+    {
+      "competitor_product_name": "Levi's Chore Jacket",
+      "score": 9,
+      "rationale": "A chore jacket from Levi's shares the key silhouette, fabric style and utilitarian function with The Ojai Jacket, very relevant.",
+      "map_id": "map_071e3e8c457f4ea297ee86b74c6f9579"
+    }
+  ]
+}

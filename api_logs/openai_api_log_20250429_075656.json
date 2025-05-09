@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250429_075656",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Foundation Sportcoat'\n  - Name='Taylor Stitch Men's Organic Cotton Long Haul Jacket'\n  - Name='Alex Mill Canvas Work Jacket'\n  - Name='Alex Mill Denim Jacket'\n  - Name='ALEX MILL Garment Dyed Denim Work Jacket'\n  - Name='Engineered Garments Utility Shirt Jacket'\n  - Name='ALEX MILL Garment Dyed Denim Work Jacket'\n  - Name='Engineered Garments Bedford PC Iridescent Heavy Twill Jacket'\n  - Name='Carhartt WIP Mens Detroit Jacket'\n  - Name='Carhartt WIP Liam Jacket'\n  - Name='Filson Men's Tin Cloth Cruiser Jacket'\n  - Name='Faherty Ashbury Jacket'\n  - Name='Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket'\n  - Name='Universal Works Men's Chore Coat'\n  - Name='Alex Mill Men's Chore Jacket'\n  - Name='Universal Works Gower Quilt Cotton Jacket'\n  - Name='Barbour Men's Sanderling Casual Jacket'\n  - Name='Norse Projects Men's Pele Insulated Shirt Jacket'\n  - Name='Men Norse Projects Hakon Solotex Corduroy'\n  - Name='Norse Projects Men's Julian Plaid- Check Cotton Shirt Jacket'\n  - Name='Norse Projects Cord Jens Jacket'\n  - Name='Faherty Inlet Knit CPO'\n  - Name='Alex Mill Britt Cotton Work Jacket'\n  - Name='Alex Mill Denim Work Jacket'\n  - Name='Alex Mill Work Jacket Blazer'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Foundation Sportcoat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a sportcoat, which is more formal and structured than the chore coat silhouette of the Ojai Jacket, making it moderately relevant but different in style and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Long Haul Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"As a Taylor Stitch jacket in organic cotton with likely a rugged focus, this is quite relevant; however, the Long Haul is typically a trucker/durable style different from the chore coat silhouette of the Ojai.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Canvas Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A canvas work jacket usually shares the chore coat style and utility emphasis, making it highly relevant to the Ojai Jacket which features a chore coat silhouette and durable cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Denim Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim jackets share some ruggedness but differ in fabric and often have trucker style versus chore coat silhouette, resulting in moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"ALEX MILL Garment Dyed Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A denim work jacket with a possible chore coat influence is fairly relevant; the 'work jacket' and garment dyed details suggest utility akin to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Utility Shirt Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A utility shirt jacket shares the utility focus and casual workwear inspiration, though being a shirt jacket likely lighter and less structured than Ojai's chore coat style, but still relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"ALEX MILL Garment Dyed Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same as previous ALEX MILL denim work jacket; relevant for similar reasons - workwear style and utility, with some fabric and silhouette differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Bedford PC Iridescent Heavy Twill Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A heavy twill jacket with workwear inspiration is quite relevant, similar in fabric weight and utility to the Ojai Jacket's twill fabric, though perhaps different styling details.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Detroit Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Detroit Jacket is a heavy-duty workwear jacket by Carhartt, sharing utility and durability focus, making it fairly relevant despite some stylistic differences from the chore coat cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Liam Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Liam Jacket is a casual workwear piece from Carhartt with some utility, though it may not share chore coat silhouette or fabric emphasis as strongly as others.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Cruiser Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A cruiser jacket in tin cloth is a durable, rugged piece with workwear heritage, relevant for the utility and durability factor though possibly differing in silhouette from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Ashbury Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The Ashbury Jacket is more of a casual outdoor jacket and typically lighter with different silhouette and less utility focus than the chore coat style Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A canvas jacket with workwear elements and durable construction with corduroy collar is fairly relevant to the Ojai Jacket given fabric and utility alignment.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A direct chore coat style from a known workwear brand is very relevant, closely matching the silhouette, fabric focus, and utility-centric design of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket from Alex Mill aligns very closely with the Ojai Jacket's function, silhouette, and construction, scoring high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Gower Quilt Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Although a cotton jacket, the quilted design diverges in style and likely insulation focus, reducing relevance compared to a traditional chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Sanderling Casual Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Barbour jackets are durable and utilitarian but tend toward classic British waxed styles different from the chore coat silhouette of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Pele Insulated Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An insulated shirt jacket is somewhat related in casual, utility focus but differs in insulation, silhouette, and intended seasonal use.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Norse Projects Hakon Solotex Corduroy\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Corduroy fabric and likely different jacket style makes it less relevant despite casual and somewhat rugged nature.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Julian Plaid- Check Cotton Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Plaid shirt jacket is casual and utility influenced, but shirt jacket silhouette and materials differ from Ojai's chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Cord Jens Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Corduroy jacket with casual silhouette less aligned with chore coat style and utility focus, so moderate relevance only.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Inlet Knit CPO\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A knit CPO shirt is a very different material and likely lighter weight garment with less structure than the chore coat, resulting in low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Britt Cotton Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A cotton work jacket from Alex Mill aligns closely with chore coat and utility features of the Ojai Jacket, indicating high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Denim work jacket denotes a similar workwear style but different fabric and potentially silhouette, somewhat relevant but less than a canvas or cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Work Jacket Blazer\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Blazer styling suggests a more structured and formal jacket different from the casual chore coat silhouette and utility focus of the Ojai Jacket.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Foundation Sportcoat",
+      "score": 5,
+      "rationale": "This is a sportcoat, which is more formal and structured than the chore coat silhouette of the Ojai Jacket, making it moderately relevant but different in style and utility features.",
+      "map_id": "map_d34bf772f8ba465ca066fe14149a6ccb"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Long Haul Jacket",
+      "score": 7,
+      "rationale": "As a Taylor Stitch jacket in organic cotton with likely a rugged focus, this is quite relevant; however, the Long Haul is typically a trucker/durable style different from the chore coat silhouette of the Ojai.",
+      "map_id": "map_95738d40e9274087a4f0caf079a0c2a4"
+    },
+    {
+      "competitor_product_name": "Alex Mill Canvas Work Jacket",
+      "score": 8,
+      "rationale": "A canvas work jacket usually shares the chore coat style and utility emphasis, making it highly relevant to the Ojai Jacket which features a chore coat silhouette and durable cotton twill.",
+      "map_id": "map_f113722cc3124542bd282f7d6a327d23"
+    },
+    {
+      "competitor_product_name": "Alex Mill Denim Jacket",
+      "score": 6,
+      "rationale": "Denim jackets share some ruggedness but differ in fabric and often have trucker style versus chore coat silhouette, resulting in moderate relevancy.",
+      "map_id": "map_48aadb7a9831478fac9f0a05823c02ab"
+    },
+    {
+      "competitor_product_name": "ALEX MILL Garment Dyed Denim Work Jacket",
+      "score": 7,
+      "rationale": "A denim work jacket with a possible chore coat influence is fairly relevant; the 'work jacket' and garment dyed details suggest utility akin to the Ojai Jacket.",
+      "map_id": "map_173194948a574db183a3ad508e88123f"
+    },
+    {
+      "competitor_product_name": "ALEX MILL Garment Dyed Denim Work Jacket",
+      "score": 7,
+      "rationale": "A denim work jacket with a possible chore coat influence is fairly relevant; the 'work jacket' and garment dyed details suggest utility akin to the Ojai Jacket.",
+      "map_id": "map_d575241ec19746c2944a5ddc36576287"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Utility Shirt Jacket",
+      "score": 7,
+      "rationale": "A utility shirt jacket shares the utility focus and casual workwear inspiration, though being a shirt jacket likely lighter and less structured than Ojai's chore coat style, but still relevant.",
+      "map_id": "map_4b0a4b4272b84c678d21be36f2d2ca0c"
+    },
+    {
+      "competitor_product_name": "ALEX MILL Garment Dyed Denim Work Jacket",
+      "score": 7,
+      "rationale": "Same as previous ALEX MILL denim work jacket; relevant for similar reasons - workwear style and utility, with some fabric and silhouette differences.",
+      "map_id": "map_173194948a574db183a3ad508e88123f"
+    },
+    {
+      "competitor_product_name": "ALEX MILL Garment Dyed Denim Work Jacket",
+      "score": 7,
+      "rationale": "Same as previous ALEX MILL denim work jacket; relevant for similar reasons - workwear style and utility, with some fabric and silhouette differences.",
+      "map_id": "map_d575241ec19746c2944a5ddc36576287"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Bedford PC Iridescent Heavy Twill Jacket",
+      "score": 7,
+      "rationale": "A heavy twill jacket with workwear inspiration is quite relevant, similar in fabric weight and utility to the Ojai Jacket's twill fabric, though perhaps different styling details.",
+      "map_id": "map_d07096a6ce5b43ae9f886fd6139d0056"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens Detroit Jacket",
+      "score": 7,
+      "rationale": "The Detroit Jacket is a heavy-duty workwear jacket by Carhartt, sharing utility and durability focus, making it fairly relevant despite some stylistic differences from the chore coat cut.",
+      "map_id": "map_2dae5b88a38e4ec793a6adc3c15c1c4b"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Liam Jacket",
+      "score": 6,
+      "rationale": "Liam Jacket is a casual workwear piece from Carhartt with some utility, though it may not share chore coat silhouette or fabric emphasis as strongly as others.",
+      "map_id": "map_61f972c95e1b4143bd617b467b5b3539"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Cruiser Jacket",
+      "score": 7,
+      "rationale": "A cruiser jacket in tin cloth is a durable, rugged piece with workwear heritage, relevant for the utility and durability factor though possibly differing in silhouette from a chore coat.",
+      "map_id": "map_da112668f4974eda986719514cbd9948"
+    },
+    {
+      "competitor_product_name": "Faherty Ashbury Jacket",
+      "score": 5,
+      "rationale": "The Ashbury Jacket is more of a casual outdoor jacket and typically lighter with different silhouette and less utility focus than the chore coat style Ojai Jacket.",
+      "map_id": "map_42f40e179a4e4f5abcae82fb7765b97f"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket",
+      "score": 7,
+      "rationale": "A canvas jacket with workwear elements and durable construction with corduroy collar is fairly relevant to the Ojai Jacket given fabric and utility alignment.",
+      "map_id": "map_8f873336fd7d4e42b26442f049e87a92"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Chore Coat",
+      "score": 9,
+      "rationale": "A direct chore coat style from a known workwear brand is very relevant, closely matching the silhouette, fabric focus, and utility-centric design of the Ojai Jacket.",
+      "map_id": "map_42f7ba58d05348e69b4438d0956c3e48"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Chore Jacket",
+      "score": 9,
+      "rationale": "A chore jacket from Alex Mill aligns very closely with the Ojai Jacket's function, silhouette, and construction, scoring high relevancy.",
+      "map_id": "map_450960a8dec04abea723388aac55d5cb"
+    },
+    {
+      "competitor_product_name": "Universal Works Gower Quilt Cotton Jacket",
+      "score": 6,
+      "rationale": "Although a cotton jacket, the quilted design diverges in style and likely insulation focus, reducing relevance compared to a traditional chore coat.",
+      "map_id": "map_40b4c406aa5c4a1cb1de0a0da8e23d4b"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Sanderling Casual Jacket",
+      "score": 6,
+      "rationale": "Barbour jackets are durable and utilitarian but tend toward classic British waxed styles different from the chore coat silhouette of the Ojai Jacket.",
+      "map_id": "map_b9d16166eb96443fb37f48758c8df329"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Pele Insulated Shirt Jacket",
+      "score": 6,
+      "rationale": "An insulated shirt jacket is somewhat related in casual, utility focus but differs in insulation, silhouette, and intended seasonal use.",
+      "map_id": "map_ab9ca257b5f9404d83fdff4cfcb71a53"
+    },
+    {
+      "competitor_product_name": "Men Norse Projects Hakon Solotex Corduroy",
+      "score": 5,
+      "rationale": "Corduroy fabric and likely different jacket style makes it less relevant despite casual and somewhat rugged nature.",
+      "map_id": "map_e181e081c94c430b8951b2dde9c6d032"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Julian Plaid- Check Cotton Shirt Jacket",
+      "score": 6,
+      "rationale": "Plaid shirt jacket is casual and utility influenced, but shirt jacket silhouette and materials differ from Ojai's chore coat style.",
+      "map_id": "map_9fee2defe49d49b48f262e19c3fa7e7a"
+    },
+    {
+      "competitor_product_name": "Norse Projects Cord Jens Jacket",
+      "score": 6,
+      "rationale": "Corduroy jacket with casual silhouette less aligned with chore coat style and utility focus, so moderate relevance only.",
+      "map_id": "map_ea9657fecd9b4fa3b65cfa607ed2415d"
+    },
+    {
+      "competitor_product_name": "Faherty Inlet Knit CPO",
+      "score": 5,
+      "rationale": "A knit CPO shirt is a very different material and likely lighter weight garment with less structure than the chore coat, resulting in low relevancy.",
+      "map_id": "map_deeb54e1501a4fc799c052fc3f4e82ca"
+    },
+    {
+      "competitor_product_name": "Alex Mill Britt Cotton Work Jacket",
+      "score": 8,
+      "rationale": "A cotton work jacket from Alex Mill aligns closely with chore coat and utility features of the Ojai Jacket, indicating high relevance.",
+      "map_id": "map_d332b9e362764785a5532fbc2a84bead"
+    },
+    {
+      "competitor_product_name": "Alex Mill Denim Work Jacket",
+      "score": 7,
+      "rationale": "Denim work jacket denotes a similar workwear style but different fabric and potentially silhouette, somewhat relevant but less than a canvas or cotton twill chore coat.",
+      "map_id": "map_a8e8ad1c6ae446d4a0135b910050bfee"
+    },
+    {
+      "competitor_product_name": "Alex Mill Work Jacket Blazer",
+      "score": 5,
+      "rationale": "Blazer styling suggests a more structured and formal jacket different from the casual chore coat silhouette and utility focus of the Ojai Jacket.",
+      "map_id": "map_23908fc478d9404db9f682d796ed2321"
+    }
+  ]
+}

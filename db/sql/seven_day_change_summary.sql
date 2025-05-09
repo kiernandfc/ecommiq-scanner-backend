@@ -11,7 +11,7 @@ last_seven_days AS (
         COUNT(DISTINCT summary_date) AS days_with_data_last_7_days,
         STRING_AGG(DISTINCT merchants, ', ' ORDER BY merchants) AS merchants_last_7_days
     FROM daily_price_summary
-    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '1 days' AND CURRENT_DATE
+    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '6 days' AND CURRENT_DATE
     GROUP BY catalog_id
 ),
 -- Get data for the prior 7 days (days 8-14)
@@ -23,7 +23,7 @@ prior_seven_days AS (
         COUNT(DISTINCT summary_date) AS days_with_data_prior_7_days,
         STRING_AGG(DISTINCT merchants, ', ' ORDER BY merchants) AS merchants_prior_7_days
     FROM daily_price_summary
-    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '4 days' AND CURRENT_DATE - INTERVAL '2 days'
+    WHERE summary_date BETWEEN CURRENT_DATE - INTERVAL '13 days' AND CURRENT_DATE - INTERVAL '7 days'
     GROUP BY catalog_id
 )
 -- Main query combining the periods and joining with context data

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250504_073607",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Women's Classic Shirt'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Supima Cotton Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Non-Iron Oxford Button-Down Collar Sport Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Supima Cotton Oxford Dress Shirt'\n  - Name='Brooks Brothers Women's Classic Fit Stretch Supima Cotton Non-Iron Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='Men's Shot Tie Bar Tie Clip'\n  - Name='The Tie Bar Men's Premium Chambray Dress Shirt'\n  - Name='Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Classic Blouse - Blue'\n  - Name='Brooks Brothers Women's Fitted Non-Iron Stretch Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Non-Iron Stretch Twill Solid Ainsley Spread Collar Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt'\n  - Name='Banana Republic Men's Slim Fit Non-Iron Dress Shirt'\n  - Name='Men's Slim Untucked Dress Shirt'\n  - Name='Banana Republic Men's Dress Shirt'\n  - Name='Men's Midnight Plaid Slim Dress Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='Banana Republic Non-Iron Slim Fit Button Down Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Classic Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a women's classic shirt which differs in target gender and possibly fit from the men's non-iron dress shirt reference, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron dress shirt with stretch and big & tall sizing closely matches function and style of the reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Non-Iron Oxford Button-Down Collar Sport Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's non-iron shirt with stretch but a sport shirt and button-down collar differs slightly in formality and collar style from the reference semi-spread dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar to reference: men's non-iron dress shirt with stretch cotton material.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's big & tall stretch non-iron dress shirt but Oxford weave may differ slightly in texture from reference shirt's textured solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Classic Fit Stretch Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Women's non-iron dress shirt with stretch is related but fits different gender and possibly different styling.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and very similar product focus: men's trim fit wrinkle-free (non-iron) dress shirt matching reference product's description.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same as above, trim fit wrinkle-free cotton dress shirt by same brand is essentially the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Shot Tie Bar Tie Clip\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Accessory (tie clip), not a shirt; unrelated product type.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Premium Chambray Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's dress shirt from same brand but chambray fabric differs from textured solid non-iron cotton, reducing relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's non-iron dress shirt, likely similar in use and construction, though Explorer Collection may have distinct styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's slim fit non-iron dress shirt with stretch closely matches reference, though fit name differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Classic Blouse - Blue\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a women's blouse which differs significantly in target demographic and style from men's non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Fitted Non-Iron Stretch Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Women's fitted non-iron shirt related but gender and fit variations reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to above, women's non-iron stretch shirt is somewhat related but different gender category.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Non-Iron Stretch Twill Solid Ainsley Spread Collar Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron dress shirt with spread collar close to the reference semi-spread collar, made of twill fabric, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's non-iron dress shirt, but cutaway collar differs from semi-spread collar in reference, and poplin fabric differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Non-iron men's shirt but with leaf print and stretch, which makes it less aligned with solid textured dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's slim fit non-iron dress shirt closely matches reference product in functionality and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Untucked Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim untucked shirt implies more casual silhouette, less formal and may differ in fabric and collar style from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's dress shirt from a similar market, likely similar in function though details unspecified.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Midnight Plaid Slim Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim dress shirt but pattern is plaid, which is different from the solid textured reference; also unknown if non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Corduroy fabric and comfort stretch styling is casual and heavy texture, dissimilar to dress shirt construction and formal use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Oxford polo is a different silhouette from dress shirt; more casual with collar and button differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Non-Iron Slim Fit Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron slim fit shirt is similar but button down collar differs in style from semi-spread collar of reference shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Women's Classic Shirt",
+      "score": 4,
+      "rationale": "This is a women's classic shirt which differs in target gender and possibly fit from the men's non-iron dress shirt reference, lowering relevancy.",
+      "map_id": "map_6b31a03cd8424f799b810d1134bc44f1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Supima Cotton Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron dress shirt with stretch and big & tall sizing closely matches function and style of the reference shirt.",
+      "map_id": "map_6a5125d47a114436b1bc62b72dc1458a"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Non-Iron Oxford Button-Down Collar Sport Shirt",
+      "score": 7,
+      "rationale": "Men's non-iron shirt with stretch but a sport shirt and button-down collar differs slightly in formality and collar style from the reference semi-spread dress shirt.",
+      "map_id": "map_f55f7f0533d7444394379fc73c2ae3e9"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Very similar to reference: men's non-iron dress shirt with stretch cotton material.",
+      "map_id": "map_d1751b22bbcb4d5993da635cb534c712"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Supima Cotton Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "Men's big & tall stretch non-iron dress shirt but Oxford weave may differ slightly in texture from reference shirt's textured solid.",
+      "map_id": "map_503ea600507d405695a57ca9e47831d5"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Women's Classic Fit Stretch Supima Cotton Non-Iron Dress Shirt",
+      "score": 5,
+      "rationale": "Women's non-iron dress shirt with stretch is related but fits different gender and possibly different styling.",
+      "map_id": "map_03f8536410d749509829454b65dff198"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 10,
+      "rationale": "Same brand and very similar product focus: men's trim fit wrinkle-free (non-iron) dress shirt matching reference product's description.",
+      "map_id": "map_964f05d716f94366bdf2e165d2cc44d9"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "Same as above, trim fit wrinkle-free cotton dress shirt by same brand is essentially the reference product.",
+      "map_id": "map_cf9a3c67f9a94c07ae55542706ecb987"
+    },
+    {
+      "competitor_product_name": "Men's Shot Tie Bar Tie Clip",
+      "score": 1,
+      "rationale": "Accessory (tie clip), not a shirt; unrelated product type.",
+      "map_id": "map_dda167cdbb67486fa801b8064580ff01"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Premium Chambray Dress Shirt",
+      "score": 7,
+      "rationale": "Men's dress shirt from same brand but chambray fabric differs from textured solid non-iron cotton, reducing relevancy slightly.",
+      "map_id": "map_f29d00a8479d400280e408c041db6175"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Men's non-iron dress shirt, likely similar in use and construction, though Explorer Collection may have distinct styling.",
+      "map_id": "map_32363d55e5f643bbbddcae0d4a81d7a9"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's slim fit non-iron dress shirt with stretch closely matches reference, though fit name differs slightly.",
+      "map_id": "map_d87e650b2d314912844aa5a42ef273f9"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Classic Blouse - Blue",
+      "score": 3,
+      "rationale": "Likely a women's blouse which differs significantly in target demographic and style from men's non-iron dress shirt.",
+      "map_id": "map_8df4c3656b1f40f38e493c6ba2ed917b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Women's Fitted Non-Iron Stretch Supima Cotton Dress Shirt",
+      "score": 5,
+      "rationale": "Women's fitted non-iron shirt related but gender and fit variations reduce relevancy.",
+      "map_id": "map_bbe48677974c49449309517843dc6dc5"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt",
+      "score": 5,
+      "rationale": "Similar to above, women's non-iron stretch shirt is somewhat related but different gender category.",
+      "map_id": "map_0e62cf68922240e28690e4e85fd15b07"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Non-Iron Stretch Twill Solid Ainsley Spread Collar Dress Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron dress shirt with spread collar close to the reference semi-spread collar, made of twill fabric, very relevant.",
+      "map_id": "map_67536aaa978c4607b2b97c779ea84322"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt",
+      "score": 8,
+      "rationale": "Men's non-iron dress shirt, but cutaway collar differs from semi-spread collar in reference, and poplin fabric differs slightly.",
+      "map_id": "map_e91cafd60f3e47e69476e99308593b25"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt",
+      "score": 6,
+      "rationale": "Non-iron men's shirt but with leaf print and stretch, which makes it less aligned with solid textured dress shirt.",
+      "map_id": "map_44a5eb97893248b4b99d1a4978ea0a6e"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's slim fit non-iron dress shirt closely matches reference product in functionality and style.",
+      "map_id": "map_417667fabb3c4aed8ca504afb08daf97"
+    },
+    {
+      "competitor_product_name": "Men's Slim Untucked Dress Shirt",
+      "score": 7,
+      "rationale": "Slim untucked shirt implies more casual silhouette, less formal and may differ in fabric and collar style from dress shirt.",
+      "map_id": "map_701a3c028ef84ba6929d78ab95820aa5"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Dress Shirt",
+      "score": 8,
+      "rationale": "Men's dress shirt from a similar market, likely similar in function though details unspecified.",
+      "map_id": "map_3a4e0b5a2488424bbfbf6883704920bf"
+    },
+    {
+      "competitor_product_name": "Men's Midnight Plaid Slim Dress Shirt",
+      "score": 6,
+      "rationale": "Slim dress shirt but pattern is plaid, which is different from the solid textured reference; also unknown if non-iron.",
+      "map_id": "map_b65c22de43ff4b4bb70b416131e06db4"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Corduroy Long-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Corduroy fabric and comfort stretch styling is casual and heavy texture, dissimilar to dress shirt construction and formal use.",
+      "map_id": "map_c5ffdc83e0954438828ed7272563eda1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 4,
+      "rationale": "Oxford polo is a different silhouette from dress shirt; more casual with collar and button differences.",
+      "map_id": "map_b0c4eeb9ae8045b18d4128bcc6332c6a"
+    },
+    {
+      "competitor_product_name": "Banana Republic Non-Iron Slim Fit Button Down Shirt",
+      "score": 7,
+      "rationale": "Non-iron slim fit shirt is similar but button down collar differs in style from semi-spread collar of reference shirt.",
+      "map_id": "map_a6307dc6f0584681a8bfebbf1754877b"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250425_075957",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Satin tie Premier Colours'\n  - Name='MANGO Men's Narrow Satin Tie'\n  - Name='Elite Solid Silk Handmade Wedding Tie'\n  - Name='Goodfellow & Co. Men's Satin Neck Tie'\n  - Name='ETON Men's Geometric Silk Tie'\n  - Name='ETON Men's Floral Silk Tie'\n  - Name='Eton Geometric Silk Tie'\n  - Name='Eton Men's Silk Bow Tie'\n  - Name='ETON M Silk Tie'\n  - Name='Joseph Abboud 100% Silk Men’s Neck Tie Made In China'\n  - Name='Joseph Abboud Men's Polka Dot Tie'\n  - Name='Elite Solid Silk Skinny Tie'\n  - Name='Eton Men's Solid Satin Silk Tie'\n  - Name='Eton Men's Micropattern Silk Tie'\n  - Name='Joseph Abboud 100% Silk Green Blue Squares Geometric Print Men's Long Neck Tie'\n  - Name='OTAA Men's Striped Necktie'\n  - Name='Jos. A. Bank Men's Traveler Collection Woodland Floral Tie'\n  - Name='Jos. A. Bank Reserve Collection Medallion Tie'\n  - Name='Eton Men's Geometric Silk Tie'\n  - Name='ETON Silk Bow Tie'\n  - Name='Eton Biow Tie'\n  - Name='Men's Charles Tyrwhitt Floral Tie - French Blue & Cornflower Size 8cm x 149cm Silk'\n  - Name='Jos. A. Bank Men's Traveler Collection Pin Dot Tie'\n  - Name='ETON Woven Micro-Pattern Silk Tie'\n  - Name='Eton Silk Tennis Racket Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Satin tie Premier Colours\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Matches the reference as a satin tie likely with similar smooth finish and sheen, differing only possibly in color range.\"\n    },\n    {\n      \"competitor_product_name\": \"MANGO Men's Narrow Satin Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A satin tie with a narrow silhouette; still satin so similar material and finish but different shape impacts relevancy moderately.\"\n    },\n    {\n      \"competitor_product_name\": \"Elite Solid Silk Handmade Wedding Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid silk and likely smooth and elegant, but may differ slightly in finish and intended use as a wedding tie versus general satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Goodfellow & Co. Men's Satin Neck Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A satin neck tie aligns closely with the reference in material and form, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Geometric Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk tie but patterned (geometric) which differs from solid satin ties in style and possibly texture.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Floral Silk Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned silk tie, different visual style and richness of pattern lowers relevancy compared to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Geometric Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar to other geometric silk tie, silk material but patterned, less relevant to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Silk Bow Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bow tie shape very different from classic necktie so low relevancy despite silk material.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON M Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie, unspecified pattern, possibly closer to satin but less precise alignment to satin material.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud 100% Silk Men’s Neck Tie Made In China\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie with unspecified finish and pattern, moderately relevant but lacks satin finish specification.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Polka Dot Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned tie again with dots, which differs significantly from solid satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Elite Solid Silk Skinny Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid silk material aligns somewhat with satin in sheen and finish but skinny cut diverges somewhat in silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Solid Satin Silk Tie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches exactly: solid satin silk tie with matching material and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Micropattern Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Micropatterned silk tie differs from solid satin's smooth, uniform finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud 100% Silk Green Blue Squares Geometric Print Men's Long Neck Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned silk tie with geometric print, not solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Striped Necktie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Striped pattern reduces relevancy to solid satin ties; likely different texture as well.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Woodland Floral Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Floral pattern and probable texture differences make it less relevant to smooth solid satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Medallion Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned medallion silk tie diverges from the solid satin tie's smooth solid finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Geometric Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Duplicate of previously listed geometric patterned silk tie, moderately low relevancy for satin tie comparison.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Silk Bow Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bow tie shape differs completely from traditional necktie silhouette of satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Biow Tie\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Unclear product type/name, likely unrelated as no 'satin' or 'silk tie' description.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Floral Tie - French Blue & Cornflower Size 8cm x 149cm Silk\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Floral patterned silk tie is visually and stylistically different from solid satin tie reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Pin Dot Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned with pin dots, lacking the solid smooth satin texture and appearance.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Woven Micro-Pattern Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Textured woven micro-pattern contrasts with smooth solid satin finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Silk Tennis Racket Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Unusual pattern/graphic tie design diverges significantly from solid satin tie style and simplicity.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Satin tie Premier Colours",
+      "score": 9,
+      "rationale": "Matches the reference as a satin tie likely with similar smooth finish and sheen, differing only possibly in color range.",
+      "map_id": "map_051655d5343f4dfeadbcb5e012122884"
+    },
+    {
+      "competitor_product_name": "MANGO Men's Narrow Satin Tie",
+      "score": 8,
+      "rationale": "A satin tie with a narrow silhouette; still satin so similar material and finish but different shape impacts relevancy moderately.",
+      "map_id": "map_4c70002e68aa4657844f063c296c11e7"
+    },
+    {
+      "competitor_product_name": "Elite Solid Silk Handmade Wedding Tie",
+      "score": 7,
+      "rationale": "Solid silk and likely smooth and elegant, but may differ slightly in finish and intended use as a wedding tie versus general satin tie.",
+      "map_id": "map_bbb06f275d1249e686ac102e31732293"
+    },
+    {
+      "competitor_product_name": "Goodfellow & Co. Men's Satin Neck Tie",
+      "score": 9,
+      "rationale": "A satin neck tie aligns closely with the reference in material and form, very relevant.",
+      "map_id": "map_c0880fa0f1eb4202ba8f98f0f1b61294"
+    },
+    {
+      "competitor_product_name": "ETON Men's Geometric Silk Tie",
+      "score": 4,
+      "rationale": "Silk tie but patterned (geometric) which differs from solid satin ties in style and possibly texture.",
+      "map_id": "map_2cc90c06c73a4ddc862bb3f7bc0983a9"
+    },
+    {
+      "competitor_product_name": "ETON Men's Floral Silk Tie",
+      "score": 3,
+      "rationale": "Patterned silk tie, different visual style and richness of pattern lowers relevancy compared to solid satin tie.",
+      "map_id": "map_63beaa7741b344578b6e2514bb2f304c"
+    },
+    {
+      "competitor_product_name": "Eton Geometric Silk Tie",
+      "score": 4,
+      "rationale": "Similar to other geometric silk tie, silk material but patterned, less relevant to solid satin tie.",
+      "map_id": "map_fd5891bd78cc4af5b9f620d2c6e6ef95"
+    },
+    {
+      "competitor_product_name": "Eton Men's Silk Bow Tie",
+      "score": 2,
+      "rationale": "Bow tie shape very different from classic necktie so low relevancy despite silk material.",
+      "map_id": "map_02d93c11a7e9435ca5104ded1857093b"
+    },
+    {
+      "competitor_product_name": "ETON M Silk Tie",
+      "score": 6,
+      "rationale": "Silk tie, unspecified pattern, possibly closer to satin but less precise alignment to satin material.",
+      "map_id": "map_90b1c6f372984e58b7b653e2abfa7655"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud 100% Silk Men’s Neck Tie Made In China",
+      "score": 6,
+      "rationale": "Silk necktie with unspecified finish and pattern, moderately relevant but lacks satin finish specification.",
+      "map_id": "map_482c913e66554bcfb44b491bfa8cb81e"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Polka Dot Tie",
+      "score": 3,
+      "rationale": "Patterned tie again with dots, which differs significantly from solid satin ties.",
+      "map_id": "map_b59d3bb37dde45ab958add23c5eaf343"
+    },
+    {
+      "competitor_product_name": "Elite Solid Silk Skinny Tie",
+      "score": 7,
+      "rationale": "Solid silk material aligns somewhat with satin in sheen and finish but skinny cut diverges somewhat in silhouette.",
+      "map_id": "map_19c5eec5d0574a26a9611f1c2e5a1979"
+    },
+    {
+      "competitor_product_name": "Eton Men's Solid Satin Silk Tie",
+      "score": 10,
+      "rationale": "Matches exactly: solid satin silk tie with matching material and silhouette.",
+      "map_id": "map_154e3357f4c94367aa3242cc3ad4071f"
+    },
+    {
+      "competitor_product_name": "Eton Men's Micropattern Silk Tie",
+      "score": 4,
+      "rationale": "Micropatterned silk tie differs from solid satin's smooth, uniform finish.",
+      "map_id": "map_1291fa1edefc4485980886636e999ff3"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud 100% Silk Green Blue Squares Geometric Print Men's Long Neck Tie",
+      "score": 3,
+      "rationale": "Patterned silk tie with geometric print, not solid satin.",
+      "map_id": "map_5bcea54935e542f88adc7bd5c83bed37"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Striped Necktie",
+      "score": 3,
+      "rationale": "Striped pattern reduces relevancy to solid satin ties; likely different texture as well.",
+      "map_id": "map_9f3239ed5fa84e4b9ba280cdbe62507a"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Woodland Floral Tie",
+      "score": 2,
+      "rationale": "Floral pattern and probable texture differences make it less relevant to smooth solid satin ties.",
+      "map_id": "map_e5fdb9a157e6457fb8e1c72cb2038807"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Medallion Tie",
+      "score": 3,
+      "rationale": "Patterned medallion silk tie diverges from the solid satin tie's smooth solid finish.",
+      "map_id": "map_0d04c4215c0646fba3c60e11ed10b347"
+    },
+    {
+      "competitor_product_name": "Eton Men's Geometric Silk Tie",
+      "score": 4,
+      "rationale": "Duplicate of previously listed geometric patterned silk tie, moderately low relevancy for satin tie comparison.",
+      "map_id": "map_a5e96148c978443e98e92fb348d41579"
+    },
+    {
+      "competitor_product_name": "ETON Silk Bow Tie",
+      "score": 2,
+      "rationale": "Bow tie shape differs completely from traditional necktie silhouette of satin tie.",
+      "map_id": "map_e232026edc07486cbcdc7cfe2ce14057"
+    },
+    {
+      "competitor_product_name": "Eton Biow Tie",
+      "score": 1,
+      "rationale": "Unclear product type/name, likely unrelated as no 'satin' or 'silk tie' description.",
+      "map_id": "map_7a66f3bcc0c54914b2b692d2505f95f2"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Floral Tie - French Blue & Cornflower Size 8cm x 149cm Silk",
+      "score": 3,
+      "rationale": "Floral patterned silk tie is visually and stylistically different from solid satin tie reference.",
+      "map_id": "map_34ab6023fbc64402878a2c4bc0393e28"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Pin Dot Tie",
+      "score": 3,
+      "rationale": "Patterned with pin dots, lacking the solid smooth satin texture and appearance.",
+      "map_id": "map_0002fc5751724719a6c59b31951303db"
+    },
+    {
+      "competitor_product_name": "ETON Woven Micro-Pattern Silk Tie",
+      "score": 4,
+      "rationale": "Textured woven micro-pattern contrasts with smooth solid satin finish.",
+      "map_id": "map_4367ef7f5ac94a97865d5ad09f98a587"
+    },
+    {
+      "competitor_product_name": "Eton Silk Tennis Racket Tie",
+      "score": 2,
+      "rationale": "Unusual pattern/graphic tie design diverges significantly from solid satin tie style and simplicity.",
+      "map_id": "map_3ebd708742214a9f8193c33755416ace"
+    }
+  ]
+}

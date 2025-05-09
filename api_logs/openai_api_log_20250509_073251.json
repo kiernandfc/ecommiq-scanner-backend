@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250509_073251",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Brushed Twill Shirt'\n  - Name='J.Crew Men's Wrinkle Free Buttondowns'\n  - Name='J.Crew Secret Wash Slim Fit Woven Shirt'\n  - Name='J.Crew Men's Performance Knit Oxford Shirt'\n  - Name='J.Crew Men's All-Day Performance Shirt'\n  - Name='Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt'\n  - Name='Nordstrom Traditional Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's Wrinkle-Free Kennebunk Sport Shirt'\n  - Name='WRKNY Men's Regular Fit Performance Dress Shirt'\n  - Name='Lands' End School Uniform Short Sleeve No Iron Dress Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt'\n  - Name='Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt'\n  - Name='Nordstrom Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt'\n  - Name='Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Lands' End Men's Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt'\n  - Name='Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt'\n  - Name='Lands' End Men's Long Sleeve Performance Twill Shirt'\n  - Name='Indochino Men's Custom Stroud Wide Stripe Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt'\n  - Name='Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos'\n  - Name='Bonobos Men's Jetsetter Stretch Mini Check Dress Shirt'\n  - Name='Bonobos Men's Daily Grind Wrinkle Free Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Brushed Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A dress shirt but brushed twill is more casual and likely heavier fabric; may lack non-iron feature mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Wrinkle Free Buttondowns\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle free button-down shirts are similar in function and construction to non-iron dress shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Secret Wash Slim Fit Woven Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Woven shirt with secret wash may have some wrinkle resistance and slim fit but no clear non-iron claim.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Performance Knit Oxford Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Knit oxford shirts have a different knit construction and performance fabric; less similar to woven non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's All-Day Performance Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance shirt suggests stretch or moisture wicking; somewhat similar but may differ in fabric and construction from traditional dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron dress shirt with pinpoint fabric and dress shirt style very close to the reference product, though short sleeve differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Traditional fit non-iron dress shirt matches the reference product type, fit, and feature exactly.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Wrinkle-Free Kennebunk Sport Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wrinkle-free sport shirt is casual style, likely different cut and fabric from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"WRKNY Men's Regular Fit Performance Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Performance dress shirt with regular fit aligns well with non-iron dress shirt functionality.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End School Uniform Short Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron dress shirt similar in fabric and function but intended for uniform use and short sleeve.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford dress shirt in tailored fit is close but lacks explicit non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches exactly by fit, fabric, and non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact match on product type and key features.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chambray and stretch fabric suggest casual style and different construction from reference dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"No iron pinpoint dress shirt with straight collar closely resembles the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A stretch dress shirt emphasizing wrinkle resistance typical of Jetsetter line, close to non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve buttondown shirt may be similar shape but no claim of non-iron or dress shirt styling provided.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt in traditional fit aligns well with dress shirts though no non-iron claim.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"No iron dress shirt but designed for boys' school uniform; similar fabric and function, different target demographic.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Performance Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance twill shirt may offer wrinkle resistance but twill differs from pinpoint or oxford dress shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom Stroud Wide Stripe Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Custom dress shirt likely similar in construction but no explicit non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"No iron oxford dress shirt in tailored fit aligns fully with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Merino wool dress shirt may differ in fabric and care but is a dress shirt with likely wrinkle resistance.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Mini Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Jetsetter stretch dress shirt with wrinkle resistance features similar to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Daily Grind Wrinkle Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle free dress shirt serves the same function and has similar construction and style as non-iron dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Brushed Twill Shirt",
+      "score": 5,
+      "rationale": "A dress shirt but brushed twill is more casual and likely heavier fabric; may lack non-iron feature mentioned.",
+      "map_id": "map_2cd2005bd2d445fea9ccc4b2353e8456"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Wrinkle Free Buttondowns",
+      "score": 8,
+      "rationale": "Wrinkle free button-down shirts are similar in function and construction to non-iron dress shirts.",
+      "map_id": "map_c573bcda8de8433ab5ff93cbd6b904b9"
+    },
+    {
+      "competitor_product_name": "J.Crew Secret Wash Slim Fit Woven Shirt",
+      "score": 6,
+      "rationale": "Woven shirt with secret wash may have some wrinkle resistance and slim fit but no clear non-iron claim.",
+      "map_id": "map_7a148d482e614728a1638928d3d11166"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Performance Knit Oxford Shirt",
+      "score": 4,
+      "rationale": "Knit oxford shirts have a different knit construction and performance fabric; less similar to woven non-iron dress shirt.",
+      "map_id": "map_d1cacd84e6c440a1b2b8d7b698b73ee0"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's All-Day Performance Shirt",
+      "score": 6,
+      "rationale": "Performance shirt suggests stretch or moisture wicking; somewhat similar but may differ in fabric and construction from traditional dress shirt.",
+      "map_id": "map_68682f5cfc6c4e04a2e8e4a4f52061ca"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt",
+      "score": 9,
+      "rationale": "No iron dress shirt with pinpoint fabric and dress shirt style very close to the reference product, though short sleeve differs slightly.",
+      "map_id": "map_e1bbe784b74740cb8ac0dfb872ea4aa4"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Traditional fit non-iron dress shirt matches the reference product type, fit, and feature exactly.",
+      "map_id": "map_90c14d5f7dfd407da25fe582e30e798e"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Wrinkle-Free Kennebunk Sport Shirt",
+      "score": 5,
+      "rationale": "Wrinkle-free sport shirt is casual style, likely different cut and fabric from dress shirt.",
+      "map_id": "map_fef1e44bf0914e6288fad52612c5d390"
+    },
+    {
+      "competitor_product_name": "WRKNY Men's Regular Fit Performance Dress Shirt",
+      "score": 8,
+      "rationale": "Performance dress shirt with regular fit aligns well with non-iron dress shirt functionality.",
+      "map_id": "map_feb02b92cefc46139d7f10532fc23112"
+    },
+    {
+      "competitor_product_name": "Lands' End School Uniform Short Sleeve No Iron Dress Shirt",
+      "score": 8,
+      "rationale": "No iron dress shirt similar in fabric and function but intended for uniform use and short sleeve.",
+      "map_id": "map_65235741d69c467e95cfe46c2e02abb5"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "Oxford dress shirt in tailored fit is close but lacks explicit non-iron feature.",
+      "map_id": "map_ff0579e9c6ad4501aa5b33f31130d547"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Matches exactly by fit, fabric, and non-iron feature.",
+      "map_id": "map_6658cc24280d4a71a137f65ef405c218"
+    },
+    {
+      "competitor_product_name": "Nordstrom Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Exact match on product type and key features.",
+      "map_id": "map_6094e69b5e3541ebac1df31a425acf86"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Chambray Long-Sleeve Shirt",
+      "score": 5,
+      "rationale": "Chambray and stretch fabric suggest casual style and different construction from reference dress shirt.",
+      "map_id": "map_76114082a67b4618b13e0422071b86f0"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt",
+      "score": 10,
+      "rationale": "No iron pinpoint dress shirt with straight collar closely resembles the reference product.",
+      "map_id": "map_bbe19968371d46b3b46290776973125e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "A stretch dress shirt emphasizing wrinkle resistance typical of Jetsetter line, close to non-iron dress shirt.",
+      "map_id": "map_8c2764c621fa42208c309dc925dd84c2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Long sleeve buttondown shirt may be similar shape but no claim of non-iron or dress shirt styling provided.",
+      "map_id": "map_d084f5df04894213ba0ea6f371d6fe00"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt",
+      "score": 7,
+      "rationale": "Oxford shirt in traditional fit aligns well with dress shirts though no non-iron claim.",
+      "map_id": "map_6c93431b5ca7490baba5b58dcedee322"
+    },
+    {
+      "competitor_product_name": "Lands' End Boys' School Uniform Long Sleeve No Iron Dress Shirt",
+      "score": 7,
+      "rationale": "No iron dress shirt but designed for boys' school uniform; similar fabric and function, different target demographic.",
+      "map_id": "map_6cd33e6e446f4f2c86a9311b3b05b82b"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Performance Twill Shirt",
+      "score": 6,
+      "rationale": "Performance twill shirt may offer wrinkle resistance but twill differs from pinpoint or oxford dress shirts.",
+      "map_id": "map_10b37bf9b31041abbf47f6436e7d811a"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom Stroud Wide Stripe Shirt",
+      "score": 7,
+      "rationale": "Custom dress shirt likely similar in construction but no explicit non-iron feature.",
+      "map_id": "map_a2851661b2f1405e8996f0fa27a2f438"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt",
+      "score": 10,
+      "rationale": "No iron oxford dress shirt in tailored fit aligns fully with the reference product.",
+      "map_id": "map_16eff64394d0483083cb6d36eaa6db12"
+    },
+    {
+      "competitor_product_name": "Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos",
+      "score": 7,
+      "rationale": "Merino wool dress shirt may differ in fabric and care but is a dress shirt with likely wrinkle resistance.",
+      "map_id": "map_41d7655fc58744b7b0774443ea5b3a50"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Mini Check Dress Shirt",
+      "score": 8,
+      "rationale": "Jetsetter stretch dress shirt with wrinkle resistance features similar to the reference product.",
+      "map_id": "map_43fd2e6b98284dacac4888a8a2917781"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Daily Grind Wrinkle Free Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle free dress shirt serves the same function and has similar construction and style as non-iron dress shirt.",
+      "map_id": "map_05ed6646bd0f449d95251bc058098c0d"
+    }
+  ]
+}

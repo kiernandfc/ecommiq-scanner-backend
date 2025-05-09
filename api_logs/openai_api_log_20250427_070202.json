@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250427_070202",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt'\n  - Name='L.L.Bean Men's VentureStretch Woven Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Banana Republic Men's Non-Iron Green Tailored Slim Fit Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Untucked Fit Short-Sleeve Wrinkle-Free'\n  - Name='Men's Slim Fit Floral Dress Shirt'\n  - Name='Nordstrom Traditional Fit Herringbone Dress Shirt'\n  - Name='Eton Men's Slim Fit Signature Twill Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt'\n  - Name='4X Stretch Slim Fit Neat Dress Shirt'\n  - Name='UNTUCKit Men's Las Cases Wrinkle-Free Relaxed Fit Cotton Shirt'\n  - Name='L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Shirt'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Bonobos Men's Empire Stretch Tuxedo Shirt'\n  - Name='Indochino Men's Lea Washed Cotton Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt'\n  - Name='Lands' End Men's Tall Long Sleeve Oxford Shirt'\n  - Name='Bonobos Men's Slim Fit Washed End Stretch Pinstripe Shirt'\n  - Name='Bonobos Men's Slim Fit Linen Stripe Shirt'\n  - Name='Indochino Men's Langford Floral Ink Print Shirt'\n  - Name='Lands' End Long Sleeve No Iron Pinpoint Dress Shirt'\n  - Name='Bonobos Men's Everyday Oxford Shirt'\n  - Name='Bonobos Men's Tech Check Slim Fit Button-Up Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short-sleeve performance shirt differs from a traditional long-sleeve dress shirt, less formal and focused on stretch and performance.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's VentureStretch Woven Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Woven shirt likely dress-style but focus on stretch may differ; unspecified wrinkle-free or non-iron properties.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt similar in style and purpose; athletic fit differs from trim or standard fit but still closely related product.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Non-Iron Green Tailored Slim Fit Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with a slim fit, very similar core features and intended use to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt similar in function with stretch performance focus but ultra stretch feature may differ from typical non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Untucked Fit Short-Sleeve Wrinkle-Free\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short-sleeve wrinkle-free shirt differs in formal silhouette and style from long-sleeve non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Fit Floral Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt similar in style and function; floral pattern less relevant but core garment type matches.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Traditional fit dress shirt similar silhouette and construction; herringbone is a fabric weave difference, core product very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Slim Fit Signature Twill Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit twill dress shirt closely matches reference product in style, fabric sophistication, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slightly fitted twill shirt somewhat similar; unspecified if dress shirt or non-iron, which lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"4X Stretch Slim Fit Neat Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with added stretch feature similar but stretch emphasis differentiates from reference non-iron shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"UNTUCKit Men's Las Cases Wrinkle-Free Relaxed Fit Cotton Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Relaxed fit and wrinkle-free cotton shirt differs in fit and possibly informal style relative to trim/standard fit non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long-sleeve shirt somewhat similar but plaid pattern and untucked fit makes it less formal and stylistically different.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Twill shirt with BeanFlex fabric somewhat similar but unspecified fit and no mention of long-sleeve or non-iron, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt designed for everyday wear with likely similar fit and construction to reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Empire Stretch Tuxedo Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tuxedo shirt differs in formal occasion and style; stretch feature diverges from non-iron dress shirt focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Lea Washed Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Washed cotton shirt likely softer and more casual, differs somewhat in fabric finish from non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Tall tailored fit Oxford dress shirt very similar in construction, fit, and purpose to reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Long Sleeve Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Long sleeve Oxford shirt similar silhouette and fit focus but unspecified if non-iron, which limits maximum relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Washed End Stretch Pinstripe Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with stretch and a pinstripe pattern; washed finish differs slightly but product type is close.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Linen Stripe Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Linen stripe shirt is a different material type aiming at different seasonal use; less relevant than cotton blend dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Langford Floral Ink Print Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Printed floral shirt likely more casual or statement piece; core dress shirt format is present but less formal and non-iron feature unclear.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Long Sleeve No Iron Pinpoint Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"No iron pinpoint dress shirt exactly matches the non-iron dress shirt description in function, fit options, and fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Everyday Oxford shirt shares similar construction and fit concepts with reference; likely non-iron not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Check Slim Fit Button-Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tech check slim fit button-up shirt similar in fit and use but check pattern and tech fabric features differentiate.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Short-Sleeve Performance Shirt",
+      "score": 4,
+      "rationale": "Short-sleeve performance shirt differs from a traditional long-sleeve dress shirt, less formal and focused on stretch and performance.",
+      "map_id": "map_08c1001f46a74a85a98ca3b68931ac2f"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's VentureStretch Woven Shirt",
+      "score": 5,
+      "rationale": "Woven shirt likely dress-style but focus on stretch may differ; unspecified wrinkle-free or non-iron properties.",
+      "map_id": "map_e9d72999ad6e4492be6aa132880ea172"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt similar in style and purpose; athletic fit differs from trim or standard fit but still closely related product.",
+      "map_id": "map_3085388f6d504903be05387dbe6e8cba"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Non-Iron Green Tailored Slim Fit Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with a slim fit, very similar core features and intended use to reference product.",
+      "map_id": "map_16a6a3c9c5834b519adefae82733f01c"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt similar in function with stretch performance focus but ultra stretch feature may differ from typical non-iron dress shirt.",
+      "map_id": "map_bb36d65c6d9d4c1bad0dd07031a3d819"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Untucked Fit Short-Sleeve Wrinkle-Free",
+      "score": 4,
+      "rationale": "Short-sleeve wrinkle-free shirt differs in formal silhouette and style from long-sleeve non-iron dress shirt.",
+      "map_id": "map_f27528cebc0a443d96610938a7e70f6d"
+    },
+    {
+      "competitor_product_name": "Men's Slim Fit Floral Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt similar in style and function; floral pattern less relevant but core garment type matches.",
+      "map_id": "map_c69e3b07187a454b990f04d6f511e4e7"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Herringbone Dress Shirt",
+      "score": 8,
+      "rationale": "Traditional fit dress shirt similar silhouette and construction; herringbone is a fabric weave difference, core product very relevant.",
+      "map_id": "map_4521ba1356ca444583d3e02e7ef8df83"
+    },
+    {
+      "competitor_product_name": "Eton Men's Slim Fit Signature Twill Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit twill dress shirt closely matches reference product in style, fabric sophistication, and use.",
+      "map_id": "map_95b1c18b182b4f8e99f8134c69245b64"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt",
+      "score": 6,
+      "rationale": "Slightly fitted twill shirt somewhat similar; unspecified if dress shirt or non-iron, which lowers relevancy.",
+      "map_id": "map_f8ba474945b74319977b2435f9b58085"
+    },
+    {
+      "competitor_product_name": "4X Stretch Slim Fit Neat Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with added stretch feature similar but stretch emphasis differentiates from reference non-iron shirt.",
+      "map_id": "map_597f16e9545344cfbb2c4094287001ef"
+    },
+    {
+      "competitor_product_name": "UNTUCKit Men's Las Cases Wrinkle-Free Relaxed Fit Cotton Shirt",
+      "score": 5,
+      "rationale": "Relaxed fit and wrinkle-free cotton shirt differs in fit and possibly informal style relative to trim/standard fit non-iron dress shirt.",
+      "map_id": "map_64d65d9221e84dba959b126d1e311821"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt",
+      "score": 6,
+      "rationale": "Long-sleeve shirt somewhat similar but plaid pattern and untucked fit makes it less formal and stylistically different.",
+      "map_id": "map_e41dfd92a5764c4f9edaa947f8048eaf"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Shirt",
+      "score": 6,
+      "rationale": "Twill shirt with BeanFlex fabric somewhat similar but unspecified fit and no mention of long-sleeve or non-iron, less relevant.",
+      "map_id": "map_abd4b8219636423289bcdb50f793700c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt designed for everyday wear with likely similar fit and construction to reference non-iron dress shirt.",
+      "map_id": "map_97af86f5836c41e1b5f5a68e755868a8"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Empire Stretch Tuxedo Shirt",
+      "score": 6,
+      "rationale": "Tuxedo shirt differs in formal occasion and style; stretch feature diverges from non-iron dress shirt focus.",
+      "map_id": "map_587f472469fb40e39e4ab01ed15cfc53"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Lea Washed Cotton Shirt",
+      "score": 6,
+      "rationale": "Washed cotton shirt likely softer and more casual, differs somewhat in fabric finish from non-iron dress shirt.",
+      "map_id": "map_d0ef7031811d4a3abebfcd30c00384d9"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit Supima Cotton Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Tall tailored fit Oxford dress shirt very similar in construction, fit, and purpose to reference non-iron dress shirt.",
+      "map_id": "map_0a6d809546e248729c4510d8c17c622b"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Long Sleeve Oxford Shirt",
+      "score": 8,
+      "rationale": "Long sleeve Oxford shirt similar silhouette and fit focus but unspecified if non-iron, which limits maximum relevance.",
+      "map_id": "map_fba888e27719413c874bfabbb72218af"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Washed End Stretch Pinstripe Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with stretch and a pinstripe pattern; washed finish differs slightly but product type is close.",
+      "map_id": "map_de775820f5fa444ba3c1e4cb33841bac"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Linen Stripe Shirt",
+      "score": 5,
+      "rationale": "Linen stripe shirt is a different material type aiming at different seasonal use; less relevant than cotton blend dress shirt.",
+      "map_id": "map_2b076c5591ec4cce888bf98add1fdbac"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Langford Floral Ink Print Shirt",
+      "score": 5,
+      "rationale": "Printed floral shirt likely more casual or statement piece; core dress shirt format is present but less formal and non-iron feature unclear.",
+      "map_id": "map_a17e709a48814bd5be2edf52210600d3"
+    },
+    {
+      "competitor_product_name": "Lands' End Long Sleeve No Iron Pinpoint Dress Shirt",
+      "score": 10,
+      "rationale": "No iron pinpoint dress shirt exactly matches the non-iron dress shirt description in function, fit options, and fabric type.",
+      "map_id": "map_3eeb57fdded44bb59a8738036e271e63"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Oxford Shirt",
+      "score": 8,
+      "rationale": "Everyday Oxford shirt shares similar construction and fit concepts with reference; likely non-iron not specified.",
+      "map_id": "map_f37355cfb9664bf896da45e77fde7ff8"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Check Slim Fit Button-Up Shirt",
+      "score": 7,
+      "rationale": "Tech check slim fit button-up shirt similar in fit and use but check pattern and tech fabric features differentiate.",
+      "map_id": "map_0b4461a6b67f47ef9429e5eceb1a3836"
+    }
+  ]
+}

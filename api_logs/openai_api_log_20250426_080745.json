@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250426_080745",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Barbour Pennan Wool Blazer'\n  - Name='Men's Barbour Jackets'\n  - Name='Barbour Men's Utility Jacket'\n  - Name='Barbour Corbridge Wax Jacket'\n  - Name='Barbour Men's Waxed Cotton Jacket'\n  - Name='Barbour Men's Beaufort Waxed Jacket'\n  - Name='Levi's Men's Menlo Military Jacket'\n  - Name='Levi's Union Engineer Cardigan Men's'\n  - Name='Levi's Cotton Sherpa Lined Shacket Men's'\n  - Name='Levi's 1961 Type 557 Trucker Jacket Men's'\n  - Name='Levi's Men's Portola Chore Coat'\n  - Name='Levi's Vintage 90s Zipped Cotton Chore Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Barbour Pennan Wool Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"While it is an outerwear jacket from Barbour, it is a wool blazer which has a different silhouette and formal style compared to the chore coat design of The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Jackets\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a general category that includes various jacket types; some may share utility or casual styling but without specifics the relevancy is moderate.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Utility Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility jacket suggests functionality similar to the chore coat style and purpose; likely similar use and features though materials may differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Corbridge Wax Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a waxed cotton jacket with a casual outerwear function; it shares some outdoor and utility aspects but waxed fabric and cut likely differ from the chore coat twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar reasoning as above; waxed cotton jacket provides durable, utility outerwear but is different fabric and potentially silhouette from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Beaufort Waxed Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Beaufort waxed jacket is a classic Barbour style with outdoor utility but waxed cotton differs from organic cotton twill chore coat fabric and cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Menlo Military Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Military jacket shares functional heritage and utility features similar to chore coat style, making it fairly relevant though possibly differing silhouette and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Union Engineer Cardigan Men's\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A cardigan is a knit garment quite different in construction and silhouette from a chore coat jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Cotton Sherpa Lined Shacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shackets blend shirts and jackets with utility style; cotton fabric and casual layering function similar, though sherpa lining adds different insulation and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's 1961 Type 557 Trucker Jacket Men's\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A denim trucker jacket is a casual utility jacket but denim fabric and styling differ from the chore coat’s twill and military origin.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Portola Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a chore coat which is the same silhouette and function as The Ojai Jacket, making it very relevant despite possible fabric differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Vintage 90s Zipped Cotton Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zipped chore jacket in cotton fabric aligns closely in function and silhouette though zipper closure differs from typical chore coat buttons.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Barbour Pennan Wool Blazer",
+      "score": 3,
+      "rationale": "While it is an outerwear jacket from Barbour, it is a wool blazer which has a different silhouette and formal style compared to the chore coat design of The Ojai Jacket.",
+      "map_id": "map_7940027d705246659b8610ba23acb48c"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Jackets",
+      "score": 5,
+      "rationale": "This is a general category that includes various jacket types; some may share utility or casual styling but without specifics the relevancy is moderate.",
+      "map_id": "map_05e94f087f914c1fbf25867b34301618"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Utility Jacket",
+      "score": 7,
+      "rationale": "Utility jacket suggests functionality similar to the chore coat style and purpose; likely similar use and features though materials may differ.",
+      "map_id": "map_cad033661d54404ea57b681402cce4cf"
+    },
+    {
+      "competitor_product_name": "Barbour Corbridge Wax Jacket",
+      "score": 6,
+      "rationale": "This is a waxed cotton jacket with a casual outerwear function; it shares some outdoor and utility aspects but waxed fabric and cut likely differ from the chore coat twill.",
+      "map_id": "map_614cc4624a0543f08f8dcece623914be"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed Cotton Jacket",
+      "score": 6,
+      "rationale": "Similar reasoning as above; waxed cotton jacket provides durable, utility outerwear but is different fabric and potentially silhouette from a chore coat.",
+      "map_id": "map_a499902485d846a1a806b1ab53aedc40"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Beaufort Waxed Jacket",
+      "score": 6,
+      "rationale": "Beaufort waxed jacket is a classic Barbour style with outdoor utility but waxed cotton differs from organic cotton twill chore coat fabric and cut.",
+      "map_id": "map_5555bb30988846db84c38a8ed20c7082"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Menlo Military Jacket",
+      "score": 7,
+      "rationale": "Military jacket shares functional heritage and utility features similar to chore coat style, making it fairly relevant though possibly differing silhouette and materials.",
+      "map_id": "map_cec502ec6ce244049ca64333f2230fee"
+    },
+    {
+      "competitor_product_name": "Levi's Union Engineer Cardigan Men's",
+      "score": 3,
+      "rationale": "A cardigan is a knit garment quite different in construction and silhouette from a chore coat jacket.",
+      "map_id": "map_20872908ccf84040b08606c712567c6e"
+    },
+    {
+      "competitor_product_name": "Levi's Cotton Sherpa Lined Shacket Men's",
+      "score": 6,
+      "rationale": "Shackets blend shirts and jackets with utility style; cotton fabric and casual layering function similar, though sherpa lining adds different insulation and silhouette.",
+      "map_id": "map_8201781e58674ea1a99630b116526f66"
+    },
+    {
+      "competitor_product_name": "Levi's 1961 Type 557 Trucker Jacket Men's",
+      "score": 5,
+      "rationale": "A denim trucker jacket is a casual utility jacket but denim fabric and styling differ from the chore coat’s twill and military origin.",
+      "map_id": "map_b78f62d5900e403c81daada188f3ddf1"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Portola Chore Coat",
+      "score": 9,
+      "rationale": "Explicitly a chore coat which is the same silhouette and function as The Ojai Jacket, making it very relevant despite possible fabric differences.",
+      "map_id": "map_58b7eb2fbd784c5eb3757810ce50c77e"
+    },
+    {
+      "competitor_product_name": "Levi's Vintage 90s Zipped Cotton Chore Jacket",
+      "score": 8,
+      "rationale": "A zipped chore jacket in cotton fabric aligns closely in function and silhouette though zipper closure differs from typical chore coat buttons.",
+      "map_id": "map_3f0f2e0efd1343058ad520494cc94d85"
+    }
+  ]
+}

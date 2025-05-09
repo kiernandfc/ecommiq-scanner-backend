@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250501_091606",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Slim Brushed Twill Shirt'\n  - Name='J.Crew Women's Garçon Classic Cotton Poplin Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Banana Republic Men's Standard-Fit Lightweight Textured Shirt'\n  - Name='Banana Republic Non-Iron Camden Fit Shirt'\n  - Name='J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt'\n  - Name='Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n  - Name='Nordstrom Trim Fit Non-Iron Tuxedo Shirt'\n  - Name='Boss Men's Hank Kent Performance Twill Dress Shirt'\n  - Name='Brooklyn Brigade Men's Slim Fit Performance Dress Shirt'\n  - Name='Haggar Men's Classic-Fit Premium Comfort Dress Shirt'\n  - Name='Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt'\n  - Name='Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt'\n  - Name='Bonobos Men's Everyday Oxford Casual Shirt'\n  - Name='Bonobos Men's Weekday Warrior Check Dress Shirt'\n  - Name='Bonobos Men's Slim Desk to Dinner Shirt'\n  - Name='Bonobos Men's Raleigh Gingham Everyday Casual Shirt'\n  - Name='Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Men's Stretch Everyday Shirt'\n  - Name='Bonobos Men's Riviera Floral Slim Fit Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Men's Tech Floral Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Men's Tech Button-Down Shirt'\n  - Name='Bonobos Men's Slim Fit Long Sleeve Dot Print Button-Front Tech Shirt'\n  - Name='Bonobos Daily Grind Wrinkle Free Dress Shirt Blue 17 612524'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Brushed Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a men's slim fit shirt, similar in category, but brushed twill suggests a heavier, more casual fabric compared to a dress shirt; likely less formal and not specified as non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Garçon Classic Cotton Poplin Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Women's shirt, so different target and fit; although cotton poplin can be a dress shirt fabric, gender and possible styling differences lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a men's dress shirt, athletic fit is a variant similar to trim or standard fit; likely similar in purpose and fabric but fit differs slightly from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Standard-Fit Lightweight Textured Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's standard fit textured shirt close to reference which is textured and available in standard fit; unspecified if non-iron which slightly lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Non-Iron Camden Fit Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron dress shirt similar to the reference product with a specific Camden fit that may correspond to trim or standard fit; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's dress shirt but linen fabric and point collar differ from cotton non-iron and semi-spread collar of reference; fabric and collar style impact relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close to reference: men's traditional fit, cotton, non-iron dress shirt; oxford fabric slightly different but commonly used in dress shirts; high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron dress shirt like reference but windowpane pattern makes it potentially less formal or traditional; fit not specified, reducing relevancy somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Non-Iron Tuxedo Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron dress shirt with trim fit like reference, but tuxedo shirts have specific styling details that distinguish them from general dress shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Boss Men's Hank Kent Performance Twill Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's dress shirt similar in category, but performance twill fabric and unspecified non-iron feature decrease relevancy from the reference textured non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooklyn Brigade Men's Slim Fit Performance Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's slim fit dress shirt similar in silhouette but performance fabric and no specification of non-iron or texture lower relevancy somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Haggar Men's Classic-Fit Premium Comfort Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic fit men's dress shirt close to reference standard fit, but unspecified if non-iron or textured reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's solid no-iron dress shirt aligns well with the reference product except different collar style (straight vs semi-spread); high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Traditional fit, oxford fabric but not specified as non-iron; Sail Rigger may imply casual styling, slightly reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Oxford Casual Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's oxford shirt but casual styling and no mention of non-iron or textured dress shirt attributes, making it less relevant to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Check Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's dress shirt but check pattern and no specified non-iron or textured features; less directly comparable but related category.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Desk to Dinner Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's slim fit dress shirt designed for versatile use, likely similar fabric and function though non-iron feature not stated; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Raleigh Gingham Everyday Casual Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Casual gingham pattern shirt less aligned with formal textured non-iron dress shirt focus of reference; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve, tech performance fabric shirt differs substantially from typical dress shirt style, fabric, and likely non-iron finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Everyday Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's daily wear shirt with stretch fabric can be similar in silhouette but no mention of non-iron or textured dress shirt features.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Floral Slim Fit Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve floral shirt more casual and stylistically distant from a textured non-iron dress shirt for work or formal occasions.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Floral Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar reasoning as above: short sleeve, tech fabric, floral pattern distinct from reference dress shirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Button-Down Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Tech fabric shirt with button-down collar differs from semi-spread non-iron dress shirt; moderately related but less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Long Sleeve Dot Print Button-Front Tech Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Dot print and tech fabric with button-front styling indicate casual rather than dress shirt orientation; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Daily Grind Wrinkle Free Dress Shirt Blue 17 612524\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle free dress shirt matches the non-iron concept and likely similar fabric and fit; high relevancy though fabric texture not specified.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Slim Brushed Twill Shirt",
+      "score": 6,
+      "rationale": "This is a men's slim fit shirt, similar in category, but brushed twill suggests a heavier, more casual fabric compared to a dress shirt; likely less formal and not specified as non-iron.",
+      "map_id": "map_0e41a92e681d4dbab7b0ac41a45257a9"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Garçon Classic Cotton Poplin Shirt",
+      "score": 3,
+      "rationale": "Women's shirt, so different target and fit; although cotton poplin can be a dress shirt fabric, gender and possible styling differences lower relevancy.",
+      "map_id": "map_3762903628604b7eb5123a4bdbed9704"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Also a men's dress shirt, athletic fit is a variant similar to trim or standard fit; likely similar in purpose and fabric but fit differs slightly from reference.",
+      "map_id": "map_930bd160a0a24261af157a350a78b9f2"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Standard-Fit Lightweight Textured Shirt",
+      "score": 7,
+      "rationale": "Men's standard fit textured shirt close to reference which is textured and available in standard fit; unspecified if non-iron which slightly lowers relevancy.",
+      "map_id": "map_883c31e2eee74ad885352ebb294587b5"
+    },
+    {
+      "competitor_product_name": "Banana Republic Non-Iron Camden Fit Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron dress shirt similar to the reference product with a specific Camden fit that may correspond to trim or standard fit; very relevant.",
+      "map_id": "map_9d8e258165eb4b4b911cc075cbd3b5ec"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt",
+      "score": 5,
+      "rationale": "Men's dress shirt but linen fabric and point collar differ from cotton non-iron and semi-spread collar of reference; fabric and collar style impact relevancy.",
+      "map_id": "map_18d95fd5075441128182af2142d7b3f5"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Very close to reference: men's traditional fit, cotton, non-iron dress shirt; oxford fabric slightly different but commonly used in dress shirts; high relevancy.",
+      "map_id": "map_6d0b374b43e94f098cef509fbbc5dbac"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 7,
+      "rationale": "Non-iron dress shirt like reference but windowpane pattern makes it potentially less formal or traditional; fit not specified, reducing relevancy somewhat.",
+      "map_id": "map_bfa05c04f255496dbbe92174d44377c1"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Non-Iron Tuxedo Shirt",
+      "score": 7,
+      "rationale": "Non-iron dress shirt with trim fit like reference, but tuxedo shirts have specific styling details that distinguish them from general dress shirts.",
+      "map_id": "map_c48aa9b6ee9744748255e12449d3a039"
+    },
+    {
+      "competitor_product_name": "Boss Men's Hank Kent Performance Twill Dress Shirt",
+      "score": 6,
+      "rationale": "Men's dress shirt similar in category, but performance twill fabric and unspecified non-iron feature decrease relevancy from the reference textured non-iron dress shirt.",
+      "map_id": "map_c5250e16ce39495abc6a380492d57ab1"
+    },
+    {
+      "competitor_product_name": "Brooklyn Brigade Men's Slim Fit Performance Dress Shirt",
+      "score": 6,
+      "rationale": "Men's slim fit dress shirt similar in silhouette but performance fabric and no specification of non-iron or texture lower relevancy somewhat.",
+      "map_id": "map_bb48150cca93476082e0cf378285f225"
+    },
+    {
+      "competitor_product_name": "Haggar Men's Classic-Fit Premium Comfort Dress Shirt",
+      "score": 7,
+      "rationale": "Classic fit men's dress shirt close to reference standard fit, but unspecified if non-iron or textured reduces relevancy slightly.",
+      "map_id": "map_ee5ccce507b74e2dbb5f6c751234231c"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt",
+      "score": 8,
+      "rationale": "Men's solid no-iron dress shirt aligns well with the reference product except different collar style (straight vs semi-spread); high relevancy.",
+      "map_id": "map_0fecf268bdb3423ca0b55b2dc8cd9a39"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Sail Rigger Oxford Shirt",
+      "score": 6,
+      "rationale": "Traditional fit, oxford fabric but not specified as non-iron; Sail Rigger may imply casual styling, slightly reducing relevancy.",
+      "map_id": "map_ff2fca2ccbbb471081687c9bc8b90215"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Oxford Casual Shirt",
+      "score": 5,
+      "rationale": "Men's oxford shirt but casual styling and no mention of non-iron or textured dress shirt attributes, making it less relevant to the reference.",
+      "map_id": "map_a6ca6c886f5845c797273f6e61946458"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Check Dress Shirt",
+      "score": 6,
+      "rationale": "Men's dress shirt but check pattern and no specified non-iron or textured features; less directly comparable but related category.",
+      "map_id": "map_225618aa105f40ba8b1d6cedcf504ff8"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Desk to Dinner Shirt",
+      "score": 7,
+      "rationale": "Men's slim fit dress shirt designed for versatile use, likely similar fabric and function though non-iron feature not stated; moderately relevant.",
+      "map_id": "map_3195b23853704d7d893f4ca9a2b3500e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Raleigh Gingham Everyday Casual Shirt",
+      "score": 4,
+      "rationale": "Casual gingham pattern shirt less aligned with formal textured non-iron dress shirt focus of reference; lower relevancy.",
+      "map_id": "map_9ecf03f269a54abc9a9bfa189379ee06"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt",
+      "score": 4,
+      "rationale": "Short sleeve, tech performance fabric shirt differs substantially from typical dress shirt style, fabric, and likely non-iron finish.",
+      "map_id": "map_9f32324712144ab6a06938f619c55a42"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Everyday Shirt",
+      "score": 6,
+      "rationale": "Men's daily wear shirt with stretch fabric can be similar in silhouette but no mention of non-iron or textured dress shirt features.",
+      "map_id": "map_2c8c4e877e35453f8b4eabbe0fd96586"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Floral Slim Fit Short Sleeve Button-Up Shirt",
+      "score": 3,
+      "rationale": "Short sleeve floral shirt more casual and stylistically distant from a textured non-iron dress shirt for work or formal occasions.",
+      "map_id": "map_ffff6b2c7d4643df9f88f1c76d78a111"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Floral Short Sleeve Button-Up Shirt",
+      "score": 3,
+      "rationale": "Similar reasoning as above: short sleeve, tech fabric, floral pattern distinct from reference dress shirt style.",
+      "map_id": "map_25321c7977ed48fca0be1019d27d69da"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Button-Down Shirt",
+      "score": 5,
+      "rationale": "Tech fabric shirt with button-down collar differs from semi-spread non-iron dress shirt; moderately related but less relevant.",
+      "map_id": "map_f7c26c87914f46a4aeb3e765f6293652"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Long Sleeve Dot Print Button-Front Tech Shirt",
+      "score": 4,
+      "rationale": "Dot print and tech fabric with button-front styling indicate casual rather than dress shirt orientation; less relevant.",
+      "map_id": "map_b2eebd8e481446eba5d6d4a370f7119b"
+    },
+    {
+      "competitor_product_name": "Bonobos Daily Grind Wrinkle Free Dress Shirt Blue 17 612524",
+      "score": 8,
+      "rationale": "Wrinkle free dress shirt matches the non-iron concept and likely similar fabric and fit; high relevancy though fabric texture not specified.",
+      "map_id": "map_62809ef2c8de4eaaa571cf214918affa"
+    }
+  ]
+}

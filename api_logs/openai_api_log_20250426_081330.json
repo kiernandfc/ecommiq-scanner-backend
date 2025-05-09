@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250426_081330",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='ETON Men's Paisley Silk Tie'\n  - Name='Reserve Collection Hibiscus Floral Tie'\n  - Name='Eton Men's Geometric Silk Tie'\n  - Name='Eton Paisley Silk Tie'\n  - Name='Charles Tyrwhitt Blue Geometric Silk Tie'\n  - Name='Charles Tyrwhitt Accessories | Charles Tyrwhitt Jermyn Street London Xl Silk Tie 61\"-2.75\"Ex Cond | Color: Blue | Size: 61\"-2.75\" | Wesell4less's'\n  - Name='Jos. A. Bank Reserve Collection Textured Stripe Tie'\n  - Name='Joseph Abboud Men's 1990s Italian Silk Tie'\n  - Name='Charles Tyrwhitt Men's Slim Knitted Silk Tie'\n  - Name='Charles Tyrwhitt Solid Gray Silk Tie'\n  - Name='Reserve Collection Men's Floral Tile Tie'\n  - Name='Charles Tyrwhitt Tie'\n  - Name='ETON Men's Silk Floral Motif-Print Tie'\n  - Name='ETON Men's Floral Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"ETON Men's Paisley Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a silk tie like the reference, but features a paisley pattern rather than being solid satin, so less similar in design though similar in material and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Reserve Collection Hibiscus Floral Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A floral patterned tie differs from the solid satin style in the reference; likely similar in silhouette and material but distinct in appearance and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Geometric Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie with geometric print; shares material and basic product type with reference, but differs by having a pattern rather than solid satin finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Paisley Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another silk paisley patterned tie; similar construction and material but pattern differs from the solid satin reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Blue Geometric Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie with geometric pattern; shares material and tie construction but not a solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Accessories | Charles Tyrwhitt Jermyn Street London Xl Silk Tie 61\\\"-2.75\\\"Ex Cond | Color: Blue | Size: 61\\\"-2.75\\\" | Wesell4less's\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie similar in material and standard tie construction; cannot confirm pattern but likely similar basic form, making it reasonably relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Textured Stripe Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Textured stripe differs from smooth solid satin surface; while same category, less similar in finish and visual style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's 1990s Italian Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie likely similar in function with possibly smooth finish; no pattern specified, so possibly more similar to solid satin for refinement.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Slim Knitted Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Knitted silk tie differs in texture and construction from smooth satin silk tie; silhouette and finish not the same.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Solid Gray Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A solid silk tie shares the solid pattern and silk material with the reference solid satin tie, highly similar except for possible fabric weave difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Reserve Collection Men's Floral Tile Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Floral tile pattern contrasts with solid satin style; similar tie type but visually distinct from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic tie listing likely silk and similar in shape; insufficient detail but presumably similar product category and form.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Silk Floral Motif-Print Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with floral motif pattern; material matches but pattern differs from solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Floral Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another floral patterned silk tie; similar material but pattern diverges from reference solid satin tie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "ETON Men's Paisley Silk Tie",
+      "score": 6,
+      "rationale": "This is a silk tie like the reference, but features a paisley pattern rather than being solid satin, so less similar in design though similar in material and function.",
+      "map_id": "map_2063488fd8df4ef98ec1f3697686f7b3"
+    },
+    {
+      "competitor_product_name": "Reserve Collection Hibiscus Floral Tie",
+      "score": 5,
+      "rationale": "A floral patterned tie differs from the solid satin style in the reference; likely similar in silhouette and material but distinct in appearance and style.",
+      "map_id": "map_31e9c48086334584b1b53011c1924861"
+    },
+    {
+      "competitor_product_name": "Eton Men's Geometric Silk Tie",
+      "score": 6,
+      "rationale": "Silk tie with geometric print; shares material and basic product type with reference, but differs by having a pattern rather than solid satin finish.",
+      "map_id": "map_90394c00622b4325853818f5155d3a5e"
+    },
+    {
+      "competitor_product_name": "Eton Paisley Silk Tie",
+      "score": 6,
+      "rationale": "Another silk paisley patterned tie; similar construction and material but pattern differs from the solid satin reference.",
+      "map_id": "map_444f98aa049b4ab9a4b5ff83211517c8"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Blue Geometric Silk Tie",
+      "score": 6,
+      "rationale": "Silk tie with geometric pattern; shares material and tie construction but not a solid satin style.",
+      "map_id": "map_ce888c79317a46c8a53f0b8609436d1f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Accessories | Charles Tyrwhitt Jermyn Street London Xl Silk Tie 61\"-2.75\"Ex Cond | Color: Blue | Size: 61\"-2.75\" | Wesell4less's",
+      "score": 7,
+      "rationale": "Silk tie similar in material and standard tie construction; cannot confirm pattern but likely similar basic form, making it reasonably relevant.",
+      "map_id": "map_40618fd7d4fb4e7e976699025962717a"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Textured Stripe Tie",
+      "score": 5,
+      "rationale": "Textured stripe differs from smooth solid satin surface; while same category, less similar in finish and visual style.",
+      "map_id": "map_fdee3577486540749e2636db73ad44a2"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's 1990s Italian Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie likely similar in function with possibly smooth finish; no pattern specified, so possibly more similar to solid satin for refinement.",
+      "map_id": "map_430ecac1f6db4315b6dfde9d50c705e1"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Slim Knitted Silk Tie",
+      "score": 4,
+      "rationale": "Knitted silk tie differs in texture and construction from smooth satin silk tie; silhouette and finish not the same.",
+      "map_id": "map_3f2a16291f8e47ee881027e9040d936c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Solid Gray Silk Tie",
+      "score": 9,
+      "rationale": "A solid silk tie shares the solid pattern and silk material with the reference solid satin tie, highly similar except for possible fabric weave difference.",
+      "map_id": "map_8a443f4994934a0abc0ce76ffe03f44f"
+    },
+    {
+      "competitor_product_name": "Reserve Collection Men's Floral Tile Tie",
+      "score": 5,
+      "rationale": "Floral tile pattern contrasts with solid satin style; similar tie type but visually distinct from the reference.",
+      "map_id": "map_f23afbd19aa04795b3d90be87ea4f136"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Tie",
+      "score": 7,
+      "rationale": "Generic tie listing likely silk and similar in shape; insufficient detail but presumably similar product category and form.",
+      "map_id": "map_670bf31fe8d8486790b3553c57dbd6a5"
+    },
+    {
+      "competitor_product_name": "ETON Men's Silk Floral Motif-Print Tie",
+      "score": 5,
+      "rationale": "Silk tie with floral motif pattern; material matches but pattern differs from solid satin style.",
+      "map_id": "map_dc1b92c7dd094ee7ad5bd41236a75705"
+    },
+    {
+      "competitor_product_name": "ETON Men's Floral Silk Tie",
+      "score": 5,
+      "rationale": "Another floral patterned silk tie; similar material but pattern diverges from reference solid satin tie.",
+      "map_id": "map_470fa413285d4f32aacadc65961abdbb"
+    }
+  ]
+}

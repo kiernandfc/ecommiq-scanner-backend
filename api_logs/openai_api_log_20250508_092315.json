@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250508_092315",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Slim Jean'\n  - Name='Taylor Stitch Men's Patchwork Chino Pants'\n  - Name='EVERLANE Tech Pant'\n  - Name='UNIQLO Men's Wool-Like AirSense Pants'\n  - Name='Carhartt WIP Jace Pant Men'\n  - Name='EVERLANE Tech Pant'\n  - Name='Carhartt WIP Men's Crawford Pant'\n  - Name='Carhartt WIP OG Single Knee Pant'\n  - Name='Taylor Stitch Men's Apres Linen Tweed Pants'\n  - Name='Patagonia Men's Transit Traveler Pants'\n  - Name='Taylor Stitch Men's The Carmel Vacation Pant'\n  - Name='Patagonia Men's Iron Forge Relaxed Fit Canvas Bib Work Overalls'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Slim Jean\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are men's pants made from organic cotton with a focus on natural materials, but this is a slim jean style rather than chore pant style with workwear features and reinforced knees.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Patchwork Chino Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Also men's pants from Taylor Stitch made with a casual chino silhouette, similar in style but likely less rugged with no mention of reinforced knees or heavy canvas like the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Tech Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"These are pants designed with technical fabric focus, likely more for casual or travel, not heavy-duty organic cotton canvas chore pants with workwear reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wool-Like AirSense Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are wool-like pants with an emphasis on softness and breathability, not heavy-duty organic cotton canvas chore pants with reinforced construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Jace Pant Men\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt WIP pants are known for workwear heritage and rugged construction, likely similar function with heavy canvas and reinforced features, close to chore pants in category.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Tech Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Repeated entry, same as above; technical fabric pants less focused on workwear durability compared to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men's Crawford Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar to the Jace Pant, these are workwear-style pants likely heavy-duty with durable construction matching the chore pant's category closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Single Knee Pant\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Highly relevant as this pant features single knee reinforcement typical of workwear pants, very close in silhouette and function to the Taylor Stitch chore pant's double-knee reinforced construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Apres Linen Tweed Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Different material (linen tweed) focusing on a dressier or casual look, lacking heavy-duty canvas and workwear reinforced features.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Transit Traveler Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"These are travel pants with some technical features, likely lighter fabric and less workwear-oriented than heavy canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Carmel Vacation Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Vacation pants imply a lighter, casual style focused on comfort rather than rugged, reinforced workwear like the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Iron Forge Relaxed Fit Canvas Bib Work Overalls\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also heavy canvas workwear, reinforced construction, and made for labor similar to chore pants, but overalls vs pants reduce relevancy slightly.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Slim Jean",
+      "score": 7,
+      "rationale": "Both are men's pants made from organic cotton with a focus on natural materials, but this is a slim jean style rather than chore pant style with workwear features and reinforced knees.",
+      "map_id": "map_75ae27bd8fe448a0953900083f425f18"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Patchwork Chino Pants",
+      "score": 6,
+      "rationale": "Also men's pants from Taylor Stitch made with a casual chino silhouette, similar in style but likely less rugged with no mention of reinforced knees or heavy canvas like the chore pant.",
+      "map_id": "map_e2d09e08dc504e8cb7d43a830cd8de9c"
+    },
+    {
+      "competitor_product_name": "EVERLANE Tech Pant",
+      "score": 4,
+      "rationale": "These are pants designed with technical fabric focus, likely more for casual or travel, not heavy-duty organic cotton canvas chore pants with workwear reinforcement.",
+      "map_id": "map_00babeb74e8d49c0b34cdf8b5adf9fbf"
+    },
+    {
+      "competitor_product_name": "EVERLANE Tech Pant",
+      "score": 4,
+      "rationale": "These are pants designed with technical fabric focus, likely more for casual or travel, not heavy-duty organic cotton canvas chore pants with workwear reinforcement.",
+      "map_id": "map_9f0447aeb41a4e309928a22d9fcd1357"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wool-Like AirSense Pants",
+      "score": 3,
+      "rationale": "These are wool-like pants with an emphasis on softness and breathability, not heavy-duty organic cotton canvas chore pants with reinforced construction.",
+      "map_id": "map_2b99cfbe043640dca4d911407c0048d7"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Jace Pant Men",
+      "score": 8,
+      "rationale": "Carhartt WIP pants are known for workwear heritage and rugged construction, likely similar function with heavy canvas and reinforced features, close to chore pants in category.",
+      "map_id": "map_641ac93f1cfe49ffbaa42be393257036"
+    },
+    {
+      "competitor_product_name": "EVERLANE Tech Pant",
+      "score": 4,
+      "rationale": "Repeated entry, same as above; technical fabric pants less focused on workwear durability compared to chore pant.",
+      "map_id": "map_00babeb74e8d49c0b34cdf8b5adf9fbf"
+    },
+    {
+      "competitor_product_name": "EVERLANE Tech Pant",
+      "score": 4,
+      "rationale": "Repeated entry, same as above; technical fabric pants less focused on workwear durability compared to chore pant.",
+      "map_id": "map_9f0447aeb41a4e309928a22d9fcd1357"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men's Crawford Pant",
+      "score": 8,
+      "rationale": "Similar to the Jace Pant, these are workwear-style pants likely heavy-duty with durable construction matching the chore pant's category closely.",
+      "map_id": "map_395ac8e250b34c839a104fa3e8fe29c0"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Single Knee Pant",
+      "score": 9,
+      "rationale": "Highly relevant as this pant features single knee reinforcement typical of workwear pants, very close in silhouette and function to the Taylor Stitch chore pant's double-knee reinforced construction.",
+      "map_id": "map_e76f92900c444aba8c33537325238eee"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Apres Linen Tweed Pants",
+      "score": 3,
+      "rationale": "Different material (linen tweed) focusing on a dressier or casual look, lacking heavy-duty canvas and workwear reinforced features.",
+      "map_id": "map_e4a3ae7e4d724fdda0206fa5142f37b2"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Transit Traveler Pants",
+      "score": 5,
+      "rationale": "These are travel pants with some technical features, likely lighter fabric and less workwear-oriented than heavy canvas chore pants.",
+      "map_id": "map_5cc2d16241a046fa99d5a03ee8bda678"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Carmel Vacation Pant",
+      "score": 4,
+      "rationale": "Vacation pants imply a lighter, casual style focused on comfort rather than rugged, reinforced workwear like the chore pant.",
+      "map_id": "map_915665af640046b3887fa30b76e43034"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Iron Forge Relaxed Fit Canvas Bib Work Overalls",
+      "score": 7,
+      "rationale": "Also heavy canvas workwear, reinforced construction, and made for labor similar to chore pants, but overalls vs pants reduce relevancy slightly.",
+      "map_id": "map_03eab8f244fb4a51b43b49cf0e006424"
+    }
+  ]
+}

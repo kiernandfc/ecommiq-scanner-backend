@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250427_070740",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Men's Colour Check Linen Flat Cap'\n  - Name='Stetson Hatteras Gallanger Wool Flat Cap'\n  - Name='Bailey Beech Wool Blend Flat Cap'\n  - Name='Carhartt Men's Notus Cap'\n  - Name='Bailey of Hollywood Men's Groves Check Wool Felt Cap'\n  - Name='Bailey of Hollywood Men's Lord Windowpane Plaid Wool Ivy Cap'\n  - Name='Goorin Bros. The Boss Trucker Hat'\n  - Name='Goorin Bros. Men's Realtree Dead Trucker Snapback Hat'\n  - Name='Brixton Brood Snap Cap'\n  - Name='Brixton Fiddler Cap'\n  - Name='Brixton Hooligan Snap Cap'\n  - Name='Bailey Idris Flat Cap'\n  - Name='Goorin Bros. Panthuroy Trucker Hat'\n  - Name='Kangol Gadget 504 Multi'\n  - Name='Bailey of Hollywood Men's Cowley Newsboy Cap 90089BH, Mallard'\n  - Name='Christys' Windowpane Tweed Baker Boy Cap'\n  - Name='Christys' Crown Wool Blend Ivy Cap'\n  - Name='Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat'\n  - Name='Carhartt Women's Flannel Plaid Flat Cap Hat'\n  - Name='Goorin Bros. Big Red Trucker Hat'\n  - Name='Brixton Brood Newsboy Cap'\n  - Name='Brixton Dayton Convertabrim Rancher Hat'\n  - Name='Brixton Kenmore Snap Cap'\n  - Name='Brixton Brood Reserve Suede Newsboy Cap'\n  - Name='Brixton Men's Brood Linen Newsboy Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Men's Colour Check Linen Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are flat caps/scally style hats with a check/plaid pattern, but Stetson's is linen and likely a simpler 6-panel or different panel construction, lacking the signature 8-panel design of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Gallanger Wool Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Also a wool flat cap designed for a classic look, but no indication of 8-panel or Peaky style, so somewhat less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Beech Wool Blend Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar wool blend flat cap, likely comparable style but no mention of multiple panels or leatherette brim which reduces direct similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Notus Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a basic cap, Carhartt style tends more casual and utilitarian, probably not an 8-panel Peaky cap or similar construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Groves Check Wool Felt Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Check wool felt cap aligning with the reference material and pattern style but no explicit mention of the 8-panel Peaky shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Lord Windowpane Plaid Wool Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While wool and plaid, it is specified as an Ivy cap, which typically is a 6-panel silhouette differing from the 8-panel Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Boss Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hats have a very different construction and style (mesh back, snapback) and do not resemble a scally or flat cap at all.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Realtree Dead Trucker Snapback Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Another trucker snapback hat, distinctly different style and construction from the Peaky flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Snap Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Snap cap from Brixton may resemble a flat or newsboy style, likely with similar casual aesthetics but no mention of 8-panel Peaky design.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fiddler Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fiddler caps share a similar rounded, paneled crown design and construction akin to Peaky caps, making it quite relevant though possibly differing in brim and panel count.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Snap Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A snap cap, likely closer to a newsboy or casual cap; somewhat relevant but not clearly an 8-panel scally style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Idris Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap from Bailey aligns well in shape and style, though no specific 8-panel or leatherette brim detail; still reasonably relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Panthuroy Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hat with mesh back, very different from the structured scally or flat cap design of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Gadget 504 Multi\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Kangol 504 is a classic flat cap, similar in overall appearance though paneling and brim material may differ; fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Cowley Newsboy Cap 90089BH, Mallard\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy caps share the 8-panel rounded crown style with scally caps making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Windowpane Tweed Baker Boy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Baker Boy caps are highly similar to Peaky caps in panel construction and shape, especially in tweed and plaid fabrics.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Crown Wool Blend Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap is different in silhouette and paneling compared to Peaky 8-panel cap, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Mixed styles implied, but mostly an Ivy or duckbill cap which differs in panel construction from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Flannel Plaid Flat Cap Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap shape in plaid material similar to the reference, though no mention of 8-panels or leatherette brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Big Red Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hat style unrelated in shape and construction to Peaky scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap closely matches the Peaky style in 8-panel rounded crown design, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Dayton Convertabrim Rancher Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Rancher hats have a distinct wide brim and crown shape, very different from the scally flat/Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Kenmore Snap Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Snap cap, potentially similar in casual style but not necessarily 8-panel or leatherette brim, reducing direct similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Reserve Suede Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap with suede material shares similar 8-panel construction and shape as Peaky, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Brood Linen Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap style with 8-panel rounded crown aligns well with the reference product's construction and style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Men's Colour Check Linen Flat Cap",
+      "score": 7,
+      "rationale": "Both are flat caps/scally style hats with a check/plaid pattern, but Stetson's is linen and likely a simpler 6-panel or different panel construction, lacking the signature 8-panel design of the reference.",
+      "map_id": "map_47793568f145402b9ddaacfbb323b128"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Gallanger Wool Flat Cap",
+      "score": 6,
+      "rationale": "Also a wool flat cap designed for a classic look, but no indication of 8-panel or Peaky style, so somewhat less similar.",
+      "map_id": "map_f37caf433ece4e8889e2c751f8fa4474"
+    },
+    {
+      "competitor_product_name": "Bailey Beech Wool Blend Flat Cap",
+      "score": 6,
+      "rationale": "Similar wool blend flat cap, likely comparable style but no mention of multiple panels or leatherette brim which reduces direct similarity.",
+      "map_id": "map_ca231d2f5c1d4042b03363754b53d3ba"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Notus Cap",
+      "score": 4,
+      "rationale": "Likely a basic cap, Carhartt style tends more casual and utilitarian, probably not an 8-panel Peaky cap or similar construction.",
+      "map_id": "map_29c52445685b45f4b35d6b077605d274"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Groves Check Wool Felt Cap",
+      "score": 7,
+      "rationale": "Check wool felt cap aligning with the reference material and pattern style but no explicit mention of the 8-panel Peaky shape.",
+      "map_id": "map_8ebd55fd6cff424081b6982f5eaf39ea"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Lord Windowpane Plaid Wool Ivy Cap",
+      "score": 5,
+      "rationale": "While wool and plaid, it is specified as an Ivy cap, which typically is a 6-panel silhouette differing from the 8-panel Peaky style.",
+      "map_id": "map_049b04a7b20d4983927c14049efc3843"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Boss Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hats have a very different construction and style (mesh back, snapback) and do not resemble a scally or flat cap at all.",
+      "map_id": "map_543741b4795d4b84a56dddb8914ae770"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Realtree Dead Trucker Snapback Hat",
+      "score": 2,
+      "rationale": "Another trucker snapback hat, distinctly different style and construction from the Peaky flat cap.",
+      "map_id": "map_966d18a6724c48e585b843e0b793f4af"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Snap Cap",
+      "score": 6,
+      "rationale": "Snap cap from Brixton may resemble a flat or newsboy style, likely with similar casual aesthetics but no mention of 8-panel Peaky design.",
+      "map_id": "map_6e84e8194142498f824a9a25d3c39c83"
+    },
+    {
+      "competitor_product_name": "Brixton Fiddler Cap",
+      "score": 8,
+      "rationale": "Fiddler caps share a similar rounded, paneled crown design and construction akin to Peaky caps, making it quite relevant though possibly differing in brim and panel count.",
+      "map_id": "map_33b692220ed7445d8b9b65d990b3fe50"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Snap Cap",
+      "score": 6,
+      "rationale": "A snap cap, likely closer to a newsboy or casual cap; somewhat relevant but not clearly an 8-panel scally style.",
+      "map_id": "map_93d4b84a8f164b3f85d85683c04b1378"
+    },
+    {
+      "competitor_product_name": "Bailey Idris Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap from Bailey aligns well in shape and style, though no specific 8-panel or leatherette brim detail; still reasonably relevant.",
+      "map_id": "map_784d2d34b7a04cdabd9456d03c3413b9"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Panthuroy Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hat with mesh back, very different from the structured scally or flat cap design of the reference.",
+      "map_id": "map_42a5ad8c78d748abb65cc8b4ef793ed8"
+    },
+    {
+      "competitor_product_name": "Kangol Gadget 504 Multi",
+      "score": 7,
+      "rationale": "The Kangol 504 is a classic flat cap, similar in overall appearance though paneling and brim material may differ; fairly relevant.",
+      "map_id": "map_e68fc07adc514b93bed9b3b500941387"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Cowley Newsboy Cap 90089BH, Mallard",
+      "score": 8,
+      "rationale": "Newsboy caps share the 8-panel rounded crown style with scally caps making this highly relevant.",
+      "map_id": "map_7cbe22d58e034cfcb5f980abed2291c5"
+    },
+    {
+      "competitor_product_name": "Christys' Windowpane Tweed Baker Boy Cap",
+      "score": 8,
+      "rationale": "Baker Boy caps are highly similar to Peaky caps in panel construction and shape, especially in tweed and plaid fabrics.",
+      "map_id": "map_e84da9eb6ddc4275b78d344b2c945ff7"
+    },
+    {
+      "competitor_product_name": "Christys' Crown Wool Blend Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy cap is different in silhouette and paneling compared to Peaky 8-panel cap, reducing relevancy.",
+      "map_id": "map_9de3aef158cf4c89803310f6710ab3e4"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat",
+      "score": 6,
+      "rationale": "Mixed styles implied, but mostly an Ivy or duckbill cap which differs in panel construction from the reference.",
+      "map_id": "map_d556a7be8fd34d59b9ace453e7e34f66"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Flannel Plaid Flat Cap Hat",
+      "score": 7,
+      "rationale": "Flat cap shape in plaid material similar to the reference, though no mention of 8-panels or leatherette brim.",
+      "map_id": "map_1f1927baf234426e8a38aeeb9dcd36fa"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Big Red Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hat style unrelated in shape and construction to Peaky scally cap.",
+      "map_id": "map_023901112561480f8bb222da473c9457"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap closely matches the Peaky style in 8-panel rounded crown design, making it very relevant.",
+      "map_id": "map_3376b2d476cc44368fc647ca436fad73"
+    },
+    {
+      "competitor_product_name": "Brixton Dayton Convertabrim Rancher Hat",
+      "score": 3,
+      "rationale": "Rancher hats have a distinct wide brim and crown shape, very different from the scally flat/Peaky style.",
+      "map_id": "map_3a11f1d1db7b4640a4b74a0f1747578e"
+    },
+    {
+      "competitor_product_name": "Brixton Kenmore Snap Cap",
+      "score": 6,
+      "rationale": "Snap cap, potentially similar in casual style but not necessarily 8-panel or leatherette brim, reducing direct similarity.",
+      "map_id": "map_03a0a6187bcf44099a0cccb2c0a08610"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Reserve Suede Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap with suede material shares similar 8-panel construction and shape as Peaky, highly relevant.",
+      "map_id": "map_50bb61b074ad4d05a535cdcbd0872c7b"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Brood Linen Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap style with 8-panel rounded crown aligns well with the reference product's construction and style.",
+      "map_id": "map_68ed0471013b4dafac9ba2f98eaa4bb3"
+    }
+  ]
+}

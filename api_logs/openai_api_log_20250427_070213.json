@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250427_070213",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Custom Logo Men's Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt'\n  - Name='Big & Tall Jetsetter Stretch Dress Shirt Extended Sizes Standard for Men by Bonobos'\n  - Name='Indochino Men's Hawthorn Custom Cotton Shirt'\n  - Name='Bonobos Men's Everyday Linen Long Sleeve Shirt'\n  - Name='The Tie Bar Men's French Cuff Wrinkle-Free Dress Shirt'\n  - Name='Perry Ellis Men's Gold Tie Bar'\n  - Name='Perry Ellis Men's Strip Tie Bar'\n  - Name='Society of Threads Men's Glasses Tie Bar'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Custom Logo Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a men's long sleeve button-down shirt like the reference shirt, likely similar in function and form though 'custom logo' suggests branding and it may or may not be dress shirt material or non-iron treated.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a dress shirt, no iron, similar fabric style (Supima pinpoint), and intended for tall men, very close to the reference non-iron dress shirt in key features.\"\n    },\n    {\n      \"competitor_product_name\": \"Big & Tall Jetsetter Stretch Dress Shirt Extended Sizes Standard for Men by Bonobos\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's dress shirt with stretch, extended sizes, and standard fit; it shares core features with the reference shirt though possibly a different fabric treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Hawthorn Custom Cotton Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A custom cotton shirt by Indochino suggests a dress shirt with tailored fit options, similar in silhouette and purpose to the reference shirt, though no mention of non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Linen Long Sleeve Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A linen long sleeve shirt differs in fabric and care (linen is generally more casual and wrinkles easily), so less similar despite being a men's long sleeve shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's French Cuff Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"From same brand, a wrinkle-free dress shirt with French cuffs; close in function and treatment though collar style and cuff style differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Perry Ellis Men's Gold Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a tie bar accessory, not a shirt, so no relevancy beyond brand product category.\"\n    },\n    {\n      \"competitor_product_name\": \"Perry Ellis Men's Strip Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a tie bar accessory, unrelated to dress shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Society of Threads Men's Glasses Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Again a tie bar accessory, not a dress shirt, no product relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Custom Logo Men's Long Sleeve Buttondown Shirt",
+      "score": 7,
+      "rationale": "This is a men's long sleeve button-down shirt like the reference shirt, likely similar in function and form though 'custom logo' suggests branding and it may or may not be dress shirt material or non-iron treated.",
+      "map_id": "map_1d8ea62ef72742449b8e8868270d33df"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall No Iron Supima Pinpoint Dress Shirt",
+      "score": 9,
+      "rationale": "This is a dress shirt, no iron, similar fabric style (Supima pinpoint), and intended for tall men, very close to the reference non-iron dress shirt in key features.",
+      "map_id": "map_1ff54447f6e8434fa1739952faf82dcc"
+    },
+    {
+      "competitor_product_name": "Big & Tall Jetsetter Stretch Dress Shirt Extended Sizes Standard for Men by Bonobos",
+      "score": 8,
+      "rationale": "This is a men's dress shirt with stretch, extended sizes, and standard fit; it shares core features with the reference shirt though possibly a different fabric treatment.",
+      "map_id": "map_379cacd811bf4d10b3904bf8f5df96d0"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Hawthorn Custom Cotton Shirt",
+      "score": 8,
+      "rationale": "A custom cotton shirt by Indochino suggests a dress shirt with tailored fit options, similar in silhouette and purpose to the reference shirt, though no mention of non-iron treatment.",
+      "map_id": "map_bbc3d24e9f5444b7864510192d1c2da0"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Linen Long Sleeve Shirt",
+      "score": 5,
+      "rationale": "A linen long sleeve shirt differs in fabric and care (linen is generally more casual and wrinkles easily), so less similar despite being a men's long sleeve shirt.",
+      "map_id": "map_b3f6230a4c594d6ea8e933ca4ccb23a1"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's French Cuff Wrinkle-Free Dress Shirt",
+      "score": 9,
+      "rationale": "From same brand, a wrinkle-free dress shirt with French cuffs; close in function and treatment though collar style and cuff style differ slightly.",
+      "map_id": "map_8432af6d50744298b24d8f9eea9007b2"
+    },
+    {
+      "competitor_product_name": "Perry Ellis Men's Gold Tie Bar",
+      "score": 1,
+      "rationale": "This is a tie bar accessory, not a shirt, so no relevancy beyond brand product category.",
+      "map_id": "map_374233d1e0ca4a71a691fe3677753b27"
+    },
+    {
+      "competitor_product_name": "Perry Ellis Men's Strip Tie Bar",
+      "score": 1,
+      "rationale": "This is a tie bar accessory, unrelated to dress shirts.",
+      "map_id": "map_9ded4b86e30146228344ad0be8b0d2e7"
+    },
+    {
+      "competitor_product_name": "Society of Threads Men's Glasses Tie Bar",
+      "score": 1,
+      "rationale": "Again a tie bar accessory, not a dress shirt, no product relevancy.",
+      "map_id": "map_97134fd24c494bcea72210890c6a0b7a"
+    }
+  ]
+}

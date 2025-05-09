@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250508_091312",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Slim Tech Button Down Shirt'\n  - Name='Bonobos Stretch Jetsetter Tailored Fit Dress Shirt'\n  - Name='Lands' End Little Girl Long Sleeve Oxford Dress Shirt'\n  - Name='Lands' End Plaid Button Down Shirt'\n  - Name='Lands' End Boys' Oxford Short Sleeve Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Bonobos Men's Everyday Oxford Casual Shirt'\n  - Name='Bonobos Jetsetter Stretch Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Standard Fit Non-Iron Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Tech Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a men's slim fit dress shirt with tech fabric, similar in use to the reference dress shirt but likely more casual due to button down collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Stretch Jetsetter Tailored Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A tailored fit dress shirt with stretch, closely matching the reference product's focus on fit and non-iron properties, but collar style is unknown.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Little Girl Long Sleeve Oxford Dress Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A girl's dress shirt rather than men's; different target customer and likely different construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Plaid Button Down Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Plaid button down shirt likely casual and not non-iron dress shirt; different style and pattern focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Boys' Oxford Short Sleeve Dress Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Boys' short sleeve shirt differs significantly in target market and sleeve style compared to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's stretch dress shirt similar in style, fit, and functionality (likely non-iron or wrinkle resistant), closely aligned with reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Oxford Casual Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Oxford casual shirt differs from dress shirt in formality and likely collar construction, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as previous Jetsetter Stretch shirt, a close match in fabric technology and dress shirt purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and very similar shirt with wrinkle-free fabric and trim fit, almost identical except for specific fabric finish terminology.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Standard Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand, same fabric care (non-iron), same standard fit, and same product category as the reference. Identical product line.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Slim Tech Button Down Shirt",
+      "score": 7,
+      "rationale": "This is a men's slim fit dress shirt with tech fabric, similar in use to the reference dress shirt but likely more casual due to button down collar style.",
+      "map_id": "map_20625583986f4335b1437d84da5e0345"
+    },
+    {
+      "competitor_product_name": "Bonobos Stretch Jetsetter Tailored Fit Dress Shirt",
+      "score": 8,
+      "rationale": "A tailored fit dress shirt with stretch, closely matching the reference product's focus on fit and non-iron properties, but collar style is unknown.",
+      "map_id": "map_a09ff90cae6043958912983937b0cd4a"
+    },
+    {
+      "competitor_product_name": "Lands' End Little Girl Long Sleeve Oxford Dress Shirt",
+      "score": 2,
+      "rationale": "A girl's dress shirt rather than men's; different target customer and likely different construction and silhouette.",
+      "map_id": "map_6db95f1eb6424df49113df71f1e4e816"
+    },
+    {
+      "competitor_product_name": "Lands' End Plaid Button Down Shirt",
+      "score": 3,
+      "rationale": "Plaid button down shirt likely casual and not non-iron dress shirt; different style and pattern focus.",
+      "map_id": "map_ed9c95cc395f418eaadf414452a08994"
+    },
+    {
+      "competitor_product_name": "Lands' End Boys' Oxford Short Sleeve Dress Shirt",
+      "score": 2,
+      "rationale": "Boys' short sleeve shirt differs significantly in target market and sleeve style compared to the reference.",
+      "map_id": "map_52586d5365d24a598934b69e92573445"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Men's stretch dress shirt similar in style, fit, and functionality (likely non-iron or wrinkle resistant), closely aligned with reference product.",
+      "map_id": "map_3f054f01135d43a8953d96cc4f1a44e4"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Oxford Casual Shirt",
+      "score": 5,
+      "rationale": "Oxford casual shirt differs from dress shirt in formality and likely collar construction, less relevant.",
+      "map_id": "map_30c4e1e30b244800b4e00d08e34bc1be"
+    },
+    {
+      "competitor_product_name": "Bonobos Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Same as previous Jetsetter Stretch shirt, a close match in fabric technology and dress shirt purpose.",
+      "map_id": "map_cdabbbc59bf446e78f56de57ef337d7c"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Same brand and very similar shirt with wrinkle-free fabric and trim fit, almost identical except for specific fabric finish terminology.",
+      "map_id": "map_c5047c7f10654845bed3280f526278d2"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Standard Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Same brand, same fabric care (non-iron), same standard fit, and same product category as the reference. Identical product line.",
+      "map_id": "map_063faa2702fa4052b093ec323d67e3e8"
+    }
+  ]
+}

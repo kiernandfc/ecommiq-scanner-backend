@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250503_112331",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Barbour Ladies International Wax Jacket'\n  - Name='Barbour Chore Jackets'\n  - Name='Barbour Ashby Wax Men's Jacket MWX0339GY51'\n  - Name='Filson Mackinaw Wool Work Jacket'\n  - Name='Barbour Unisex Jacket'\n  - Name='Barbour Men's Light Jacket'\n  - Name='Barbour International Jacket'\n  - Name='Filson Short Lined Cruiser Jacket'\n  - Name='Filson Men's Tin Cloth Jacket'\n  - Name='Barbour Bedale Wax Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Barbour Ladies International Wax Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are jackets with a heritage style and utility features, but the Barbour is a waxed jacket aimed at ladies and uses different fabric and gender focus, reducing direct relevancy to a French chore coat style cotton jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Chore Jackets\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Barbour chore jackets share the classic chore coat silhouette and utility workwear focus, similar to The Ojai Jacket's description, making them highly relevant despite differences in brand and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Ashby Wax Men's Jacket MWX0339GY51\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a men's waxed jacket with a casual silhouette and durability, close in use and style but differs from the organic cotton twill chore coat style, so moderately high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Mackinaw Wool Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Filson's wool work jacket shares workwear durability and utility focus but is made from heavy wool versus cotton twill and has a different material feel and possibly silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Unisex Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A unisex jacket from Barbour with likely durable materials and workwear inspiration, moderately relevant though specifics on style and fabric differ from The Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Light Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A light jacket suited for men with workwear roots, but likely less structured and less chore coat specific than The Ojai, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A classic, durable motorcycling inspired Barbour jacket with utility features; different intended use but similar rugged aesthetic and jacket type with utility, giving moderate-high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Short Lined Cruiser Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A short, lined jacket designed for durability and utility, similar workwear ethos but differs in fabric and exact silhouette from chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Tin Cloth jacket is a rugged workwear garment similar in durability and construction ethos to The Ojai, shares utility focus, making it highly relevant though fabric differs from organic cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Bedale Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Bedale is a waxed outdoor jacket with a classic silhouette and utility focus, similar in durability purpose though wax fabric differs from cotton twill chore coat, giving moderate-high relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Barbour Ladies International Wax Jacket",
+      "score": 6,
+      "rationale": "Both are jackets with a heritage style and utility features, but the Barbour is a waxed jacket aimed at ladies and uses different fabric and gender focus, reducing direct relevancy to a French chore coat style cotton jacket.",
+      "map_id": "map_d4700bb3b4354638b245f10cc33bfb94"
+    },
+    {
+      "competitor_product_name": "Barbour Chore Jackets",
+      "score": 9,
+      "rationale": "Barbour chore jackets share the classic chore coat silhouette and utility workwear focus, similar to The Ojai Jacket's description, making them highly relevant despite differences in brand and fabric.",
+      "map_id": "map_156b4d6d43814f74a12c3e9da95f7616"
+    },
+    {
+      "competitor_product_name": "Barbour Ashby Wax Men's Jacket MWX0339GY51",
+      "score": 7,
+      "rationale": "This is a men's waxed jacket with a casual silhouette and durability, close in use and style but differs from the organic cotton twill chore coat style, so moderately high relevancy.",
+      "map_id": "map_6271882d0a0f4e948253c3d2d846dd89"
+    },
+    {
+      "competitor_product_name": "Filson Mackinaw Wool Work Jacket",
+      "score": 6,
+      "rationale": "Filson's wool work jacket shares workwear durability and utility focus but is made from heavy wool versus cotton twill and has a different material feel and possibly silhouette.",
+      "map_id": "map_420c34f65ad94fc694efbcd55515d4cd"
+    },
+    {
+      "competitor_product_name": "Barbour Unisex Jacket",
+      "score": 7,
+      "rationale": "A unisex jacket from Barbour with likely durable materials and workwear inspiration, moderately relevant though specifics on style and fabric differ from The Ojai chore coat.",
+      "map_id": "map_fd3709589cc446edb621c9a4316d0f38"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Light Jacket",
+      "score": 6,
+      "rationale": "A light jacket suited for men with workwear roots, but likely less structured and less chore coat specific than The Ojai, so moderate relevancy.",
+      "map_id": "map_02cda8fce6124a8dbd4112938d45c746"
+    },
+    {
+      "competitor_product_name": "Barbour International Jacket",
+      "score": 7,
+      "rationale": "A classic, durable motorcycling inspired Barbour jacket with utility features; different intended use but similar rugged aesthetic and jacket type with utility, giving moderate-high relevancy.",
+      "map_id": "map_b29b2c455d5544bb958af89b944ad1bd"
+    },
+    {
+      "competitor_product_name": "Filson Short Lined Cruiser Jacket",
+      "score": 7,
+      "rationale": "A short, lined jacket designed for durability and utility, similar workwear ethos but differs in fabric and exact silhouette from chore coat style.",
+      "map_id": "map_d434e61add6d4a8da833bb9287804056"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Jacket",
+      "score": 8,
+      "rationale": "Tin Cloth jacket is a rugged workwear garment similar in durability and construction ethos to The Ojai, shares utility focus, making it highly relevant though fabric differs from organic cotton twill.",
+      "map_id": "map_9abdade21bbc4f28bf1531bf2962d7ab"
+    },
+    {
+      "competitor_product_name": "Barbour Bedale Wax Jacket",
+      "score": 7,
+      "rationale": "Bedale is a waxed outdoor jacket with a classic silhouette and utility focus, similar in durability purpose though wax fabric differs from cotton twill chore coat, giving moderate-high relevancy.",
+      "map_id": "map_a442772905484a5e9f622e229e4b0793"
+    }
+  ]
+}

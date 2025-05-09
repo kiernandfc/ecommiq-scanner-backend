@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250505_093337",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt'\n  - Name='Bonobos Men's Tech Check Slim Fit Button-Up Shirt'\n  - Name='Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Women's Long Sleeve Straight Collar No Iron Shirt'\n  - Name='Bonobos Men's Everyday Casual Shirt'\n  - Name='Indochino Men's London Floral Vine Print Cotton Shirt'\n  - Name='Indochino Men's London Bloom Floral Print Italian Cotton Shirt'\n  - Name='Washed Button-Down Casual Shirt Tailored for Men by Bonobos'\n  - Name='Lands' End Women's Long Sleeve No Iron Pinpoint Shirt'\n  - Name='Indochino Luxury Hyde Dress Shirt'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Indochino Men's Kenley Stripe Shirt'\n  - Name='Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt'\n  - Name='Bonobos Men's Everyday Oxford Casual Shirt'\n  - Name='Indochino Men's Kenley Wide Stripe Shirt'\n  - Name='Custom Logo Men's Long Sleeve Buttondown Shirt'\n  - Name='Indochino Men's Custom Made Spreed Collar Dress Shirt'\n  - Name='Bonobos Men's Washed Button Down Shirt'\n  - Name='Indochino Men's London Daisy Print Italian Cotton Shirt'\n  - Name='Indochino Men's London Geometric Print Italian Cotton Shirt'\n  - Name='Indochino Men's Neyland Soft Striped Cotton Shirt'\n  - Name='Indochino Men's Fairwood Corduroy Casual Shirt'\n  - Name='Indochino Men's Lambston Micro Suede Casual Shirt'\n  - Name='Indochino Men's Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a long-sleeve shirt with technical fabric (BeanFlex) but likely more casual twill material, not specifically a no-iron dress shirt, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Check Slim Fit Button-Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit button-up shirt with technical fabric likely aimed at dress or business casual use; close to dress shirt but pattern and fabric tech focus reduce exact match.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Traditional fit, no iron, Oxford dress shirt closely matches reference product in function and construction except possibly different collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Long Sleeve Straight Collar No Iron Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"No iron shirt but women's fit and style differ significantly from men's dress shirt in reference; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Casual shirt implies less formal construction and features than a dress shirt; less relevant despite similar garment type.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's London Floral Vine Print Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt made of cotton but floral print deviates from classic solid textured dress shirt and may not be no-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's London Bloom Floral Print Italian Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similarly a dress shirt with cotton fabric and floral pattern; fairly close but pattern and probable lack of no-iron finish lower relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Washed Button-Down Casual Shirt Tailored for Men by Bonobos\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Washed and button-down casual implies informal shirt with casual styling, less formal and thus less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Long Sleeve No Iron Pinpoint Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"No iron and pinpoint fabric relate to dress shirt features, but women's cut and styling reduce relevancy to the men's dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Luxury Hyde Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A luxury dress shirt likely shares features with the reference product in terms of fit, fabric and construction though possibly differing in collar style and no-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's dress shirt designed for everyday use, likely similar fit, function, and possibly fabric technology, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt with stretch fabric indicates performance dressing, close to reference product in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Kenley Stripe Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Striped dress shirt, similar function and styling but pattern differs from solid textured reference; likely similar construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Traditional fit, travel shirt implies wrinkle resistance similar to no-iron; relevant but likely intended for travel not formal dress.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Oxford Casual Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Oxford casual shirt suggests less formal and less likely no-iron, reducing relevancy despite similar base shirt type.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Kenley Wide Stripe Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wide stripe dress shirt shares features with reference shirt except for patterned fabric which lowers perfect match score.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom Logo Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Buttondown with custom logo likely casual or promotional shirt, deviating from dress shirt styling and no-iron features.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom Made Spreed Collar Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Custom made dress shirt with spread collar style closely aligns with reference product features and intended use—very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Washed Button Down Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Washed button-down implies casual styling and fabric treatment, less formal and no indication of no-iron finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's London Daisy Print Italian Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton dress shirt with floral print, similar construction but pattern and no mention of no-iron lowers relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's London Geometric Print Italian Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to other patterned dress shirts; cotton fabric and dress shirt form relevant but pattern and unknown no-iron lower score.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Neyland Soft Striped Cotton Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Striped cotton dress shirt close in category and use to reference product but pattern reduces full overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Fairwood Corduroy Casual Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Corduroy fabric and casual labeling differ significantly from textured solid no-iron dress shirt, making it less related.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Lambston Micro Suede Casual Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Micro suede and casual focus differs strongly from classic no-iron dress shirt fabric and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Generic men's dress shirt from same brand likely very close in features such as fit, fabric, and styling to the reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt",
+      "score": 5,
+      "rationale": "This is a long-sleeve shirt with technical fabric (BeanFlex) but likely more casual twill material, not specifically a no-iron dress shirt, so moderately relevant.",
+      "map_id": "map_bf7fa5ca09414f5cb83a98158d70c23d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Check Slim Fit Button-Up Shirt",
+      "score": 7,
+      "rationale": "Slim fit button-up shirt with technical fabric likely aimed at dress or business casual use; close to dress shirt but pattern and fabric tech focus reduce exact match.",
+      "map_id": "map_4d6dabaf52ce497685dc1b5a608d48ef"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Traditional Fit No Iron Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Traditional fit, no iron, Oxford dress shirt closely matches reference product in function and construction except possibly different collar style.",
+      "map_id": "map_d990a57dd13d47f48999265f4931c3e8"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Long Sleeve Straight Collar No Iron Shirt",
+      "score": 4,
+      "rationale": "No iron shirt but women's fit and style differ significantly from men's dress shirt in reference; less relevant.",
+      "map_id": "map_daccb847e6ce483bb020a0818c3a761c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Shirt",
+      "score": 4,
+      "rationale": "Casual shirt implies less formal construction and features than a dress shirt; less relevant despite similar garment type.",
+      "map_id": "map_0b77db87e354441aaa91bb71ca8cd61d"
+    },
+    {
+      "competitor_product_name": "Indochino Men's London Floral Vine Print Cotton Shirt",
+      "score": 6,
+      "rationale": "Dress shirt made of cotton but floral print deviates from classic solid textured dress shirt and may not be no-iron.",
+      "map_id": "map_42d106f124ef49fba736e3442f7044b2"
+    },
+    {
+      "competitor_product_name": "Indochino Men's London Bloom Floral Print Italian Cotton Shirt",
+      "score": 6,
+      "rationale": "Similarly a dress shirt with cotton fabric and floral pattern; fairly close but pattern and probable lack of no-iron finish lower relevance.",
+      "map_id": "map_5eb3e29d2f5345a6a23644efdbadd7a5"
+    },
+    {
+      "competitor_product_name": "Washed Button-Down Casual Shirt Tailored for Men by Bonobos",
+      "score": 4,
+      "rationale": "Washed and button-down casual implies informal shirt with casual styling, less formal and thus less relevant.",
+      "map_id": "map_24e36d4d6e954f76985d2d6d6d521e3b"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Long Sleeve No Iron Pinpoint Shirt",
+      "score": 4,
+      "rationale": "No iron and pinpoint fabric relate to dress shirt features, but women's cut and styling reduce relevancy to the men's dress shirt reference.",
+      "map_id": "map_1b6d688c30ac46539c97d3d3076f8bcd"
+    },
+    {
+      "competitor_product_name": "Indochino Luxury Hyde Dress Shirt",
+      "score": 8,
+      "rationale": "A luxury dress shirt likely shares features with the reference product in terms of fit, fabric and construction though possibly differing in collar style and no-iron treatment.",
+      "map_id": "map_0869c48ac2de4f81abc72614a89cf248"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 8,
+      "rationale": "Men's dress shirt designed for everyday use, likely similar fit, function, and possibly fabric technology, fairly relevant.",
+      "map_id": "map_b6e116ba7dd24a51af9380fbdedf24f0"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt with stretch fabric indicates performance dressing, close to reference product in function and silhouette.",
+      "map_id": "map_49229cf06a2549869ade354ea907b8ec"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Kenley Stripe Shirt",
+      "score": 7,
+      "rationale": "Striped dress shirt, similar function and styling but pattern differs from solid textured reference; likely similar construction.",
+      "map_id": "map_4a331c68357c41bf9d3bb090d090a174"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt",
+      "score": 7,
+      "rationale": "Traditional fit, travel shirt implies wrinkle resistance similar to no-iron; relevant but likely intended for travel not formal dress.",
+      "map_id": "map_7bbbef5c59cd4b90b85a12f535763469"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Oxford Casual Shirt",
+      "score": 5,
+      "rationale": "Oxford casual shirt suggests less formal and less likely no-iron, reducing relevancy despite similar base shirt type.",
+      "map_id": "map_cc35bf936741457a9b18a581ee6f8829"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Kenley Wide Stripe Shirt",
+      "score": 7,
+      "rationale": "Wide stripe dress shirt shares features with reference shirt except for patterned fabric which lowers perfect match score.",
+      "map_id": "map_f6f66d5bda694257a88b916942b7a5bf"
+    },
+    {
+      "competitor_product_name": "Custom Logo Men's Long Sleeve Buttondown Shirt",
+      "score": 4,
+      "rationale": "Buttondown with custom logo likely casual or promotional shirt, deviating from dress shirt styling and no-iron features.",
+      "map_id": "map_a19f77a6cba24833a27c87c913bdf90d"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom Made Spreed Collar Dress Shirt",
+      "score": 9,
+      "rationale": "Custom made dress shirt with spread collar style closely aligns with reference product features and intended use—very relevant.",
+      "map_id": "map_6d4cf015d5284610858636aa8d6a8d6c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Washed Button Down Shirt",
+      "score": 4,
+      "rationale": "Washed button-down implies casual styling and fabric treatment, less formal and no indication of no-iron finish.",
+      "map_id": "map_2f5e34babd344ff9ab345ee6f0530556"
+    },
+    {
+      "competitor_product_name": "Indochino Men's London Daisy Print Italian Cotton Shirt",
+      "score": 6,
+      "rationale": "Cotton dress shirt with floral print, similar construction but pattern and no mention of no-iron lowers relevance.",
+      "map_id": "map_b55ec93f316748bc9b43fb29363d970d"
+    },
+    {
+      "competitor_product_name": "Indochino Men's London Geometric Print Italian Cotton Shirt",
+      "score": 6,
+      "rationale": "Similar to other patterned dress shirts; cotton fabric and dress shirt form relevant but pattern and unknown no-iron lower score.",
+      "map_id": "map_d3efa808fc59451db6d2f4c0e9364100"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Neyland Soft Striped Cotton Shirt",
+      "score": 7,
+      "rationale": "Striped cotton dress shirt close in category and use to reference product but pattern reduces full overlap.",
+      "map_id": "map_dd18821f0d1a46ab8a6bc5108e8153f9"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Fairwood Corduroy Casual Shirt",
+      "score": 3,
+      "rationale": "Corduroy fabric and casual labeling differ significantly from textured solid no-iron dress shirt, making it less related.",
+      "map_id": "map_9b9936f61e104895868ab5e342b6babc"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Lambston Micro Suede Casual Shirt",
+      "score": 3,
+      "rationale": "Micro suede and casual focus differs strongly from classic no-iron dress shirt fabric and style.",
+      "map_id": "map_f01170d1757b4b8494fbe2df8b5da87e"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Dress Shirt",
+      "score": 9,
+      "rationale": "Generic men's dress shirt from same brand likely very close in features such as fit, fabric, and styling to the reference product.",
+      "map_id": "map_f1b92faefc55421f82cffd06aa32d5d6"
+    }
+  ]
+}

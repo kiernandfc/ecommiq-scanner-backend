@@ -1,0 +1,95 @@
+{
+  "timestamp": "20250430_084944",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Champion Men's Weekender Moisture Wicking Hoodie'\n  - Name='Nike Men's Tech Fleece Full-Zip Hoodie'\n  - Name='Nike Club Pullover Hoodie'\n  - Name='American Apparel F498W Unisex Flex Fleece Drop Shoulder Pullover Hoodie'\n  - Name='American Apparel Unisex Flex Fleece Zip Hoodie Sweatshirt'\n  - Name='NIKE Men's Air Fleece Pullover Hoodie'\n  - Name='Boston Scally The Shamrock Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Champion Men's Weekender Moisture Wicking Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's hoodie likely similar in function and style (hooded sweatshirt) but features moisture-wicking fabric which is a performance feature not mentioned in the reference; likely similar softness and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Tech Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a hoodie designed for comfort and mobility with fleece fabric but it's a full-zip style while the reference is a pullover hoodie; similar in purpose but different zipper construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Club Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie similar in function to the reference Boston Scally pullover hoodie, likely soft and comfortable for casual wear; aligns closely in product type and usage.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel F498W Unisex Flex Fleece Drop Shoulder Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie similar to reference, with flexible fleece fabric and unisex sizing; slightly different drop shoulder style but overall matches core product characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Unisex Flex Fleece Zip Hoodie Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip hoodie rather than pullover, but made of similar flex fleece material and unisex fit, close but different hoodie closure style.\"\n    },\n    {\n      \"competitor_product_name\": \"NIKE Men's Air Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie with fleece fabric similar to reference; likely soft, comfortable, and casual wear oriented, matching the reference closely in core product features.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Shamrock Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"From the same brand and similar naming indicating it's a hoodie, highly likely essentially the same product line or very close variant of the reference Boston Scally Hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Champion Men's Weekender Moisture Wicking Hoodie",
+      "score": 8,
+      "rationale": "This is a men's hoodie likely similar in function and style (hooded sweatshirt) but features moisture-wicking fabric which is a performance feature not mentioned in the reference; likely similar softness and casual use.",
+      "map_id": "map_6c91b593f7774a03972a37b76d79a7c3"
+    },
+    {
+      "competitor_product_name": "Nike Men's Tech Fleece Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "Also a hoodie designed for comfort and mobility with fleece fabric but it's a full-zip style while the reference is a pullover hoodie; similar in purpose but different zipper construction.",
+      "map_id": "map_a53dd2daa4b74baf8e316011589f559a"
+    },
+    {
+      "competitor_product_name": "Nike Club Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie similar in function to the reference Boston Scally pullover hoodie, likely soft and comfortable for casual wear; aligns closely in product type and usage.",
+      "map_id": "map_2ea57fc5b3e74bada5e25a7e15085d82"
+    },
+    {
+      "competitor_product_name": "American Apparel F498W Unisex Flex Fleece Drop Shoulder Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie similar to reference, with flexible fleece fabric and unisex sizing; slightly different drop shoulder style but overall matches core product characteristics.",
+      "map_id": "map_b5a2c2fefff343cb9c3bc6cf3d4b8312"
+    },
+    {
+      "competitor_product_name": "American Apparel Unisex Flex Fleece Zip Hoodie Sweatshirt",
+      "score": 7,
+      "rationale": "Zip hoodie rather than pullover, but made of similar flex fleece material and unisex fit, close but different hoodie closure style.",
+      "map_id": "map_36f181d5849d4a82825bf191bd2ee665"
+    },
+    {
+      "competitor_product_name": "NIKE Men's Air Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie with fleece fabric similar to reference; likely soft, comfortable, and casual wear oriented, matching the reference closely in core product features.",
+      "map_id": "map_08d6f2ad94094dffa2700924800ecaa1"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Shamrock Hoodie",
+      "score": 10,
+      "rationale": "From the same brand and similar naming indicating it's a hoodie, highly likely essentially the same product line or very close variant of the reference Boston Scally Hoodie.",
+      "map_id": "map_346dfa694c51414494a49d7b2e8e2968"
+    }
+  ]
+}

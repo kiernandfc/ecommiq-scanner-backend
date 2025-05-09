@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250430_084008",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Warehouse NWT Men's Wearhouse Pronto Uomo Extra Long Tie'\n  - Name='Brooks Brothers Makers Men's Necktie'\n  - Name='Brooks Brothers Silk Necktie'\n  - Name='Brooks Brothers 100% Silk Neck Tie'\n  - Name='Brooks Brothers Men's Classic Floral Silk Tie'\n  - Name='Brooks Brothers Silk Tie Necktie'\n  - Name='Merino Wool Grosgrain Bound Notch Lapel Tuxedo'\n  - Name='Brooks Brothers Stain Resistant Silk TIE1'\n  - Name='Brooks Brothers Men's Striped Silk Tie'\n  - Name='Brooks Brothers 346 Neck Tie1'\n  - Name='Brooks Brothers Irregular Solid Gray Tie'\n  - Name='Shawl Collar Merino Wool Tuxedo'\n  - Name='Monterey County by The Sea Men's Wearhouse Tie'\n  - Name='Brooks Brothers Makers Men's Silk Standard Wide Neck Tie'\n  - Name='Brooks Brothers Men's Windwheel Solid Dot Tie'\n  - Name='Brooks Brothers Silk Ties (Set of 2)'\n  - Name='Brooks Brothers Makers All Silk Tie'\n  - Name='Brooks Brothers Men's Square Florette Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Warehouse NWT Men's Wearhouse Pronto Uomo Extra Long Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's necktie similar in use and silhouette to a solid satin tie but 'extra long' length and specific brand model may differ slightly in style or fabric finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Makers Men's Necktie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A men's necktie from a reputable maker; likely similar function and style though fabric or pattern is unspecified, reducing certainty of exact satin-material match.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Silk Necktie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Silk necktie is highly relevant as the reference product is a satin tie, which is a type of silk weave, matching both material category and purpose closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers 100% Silk Neck Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly 100% silk necktie aligns closely in material and function with a satin silk tie, thus highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Classic Floral Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie is relevant but the floral pattern contrasts with the solid finish of the reference, so less aligned in style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Silk Tie Necktie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Silk tie similar in material and intended use, very relevant though exact weave or finish isn't specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Merino Wool Grosgrain Bound Notch Lapel Tuxedo\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a tuxedo jacket with wool fabric, not a necktie product, thus no relevancy to a satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Stain Resistant Silk TIE1\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Silk tie with stain resistant feature is close to satin tie in material and function, solid style likely, thus highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Striped Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie relevant in material and purpose but striped pattern contrasts with solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers 346 Neck Tie1\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Specific model necktie but no details on material or finish reduces relevancy certainty; likely a necktie but uncertain satin or silk.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Irregular Solid Gray Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Solid tie aligns with reference in silhouette and style; gray color and 'irregular' texture might slightly differentiate but quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Shawl Collar Merino Wool Tuxedo\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Clothing item different from neckties; no relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Monterey County by The Sea Men's Wearhouse Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic men's tie; material and finish not specified, so moderate relevancy assumed.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Makers Men's Silk Standard Wide Neck Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's silk wide necktie aligns very well with the reference solid satin tie in material and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Windwheel Solid Dot Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid tie is relevant in style and shape; dot texture slightly diverges from smooth satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Silk Ties (Set of 2)\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Silk ties matching material and purpose; set implies variety but overall close to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Makers All Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"All silk tie is very similar in function and material to a solid satin silk tie, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Square Florette Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a patterned tie rather than solid satin; shape and material may align but pattern reduces relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Warehouse NWT Men's Wearhouse Pronto Uomo Extra Long Tie",
+      "score": 8,
+      "rationale": "This is a men's necktie similar in use and silhouette to a solid satin tie but 'extra long' length and specific brand model may differ slightly in style or fabric finish.",
+      "map_id": "map_d4b37e0a81094bf2ad058becc3ed2e77"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Makers Men's Necktie",
+      "score": 7,
+      "rationale": "A men's necktie from a reputable maker; likely similar function and style though fabric or pattern is unspecified, reducing certainty of exact satin-material match.",
+      "map_id": "map_9bdf965ca4054041bea7a56922c9e82b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Silk Necktie",
+      "score": 9,
+      "rationale": "Silk necktie is highly relevant as the reference product is a satin tie, which is a type of silk weave, matching both material category and purpose closely.",
+      "map_id": "map_1e24a35a111e444fbd9788abdfdc6521"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers 100% Silk Neck Tie",
+      "score": 9,
+      "rationale": "Explicitly 100% silk necktie aligns closely in material and function with a satin silk tie, thus highly relevant.",
+      "map_id": "map_b27edce01b0448c6bc6faf9b3ad1b191"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Classic Floral Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie is relevant but the floral pattern contrasts with the solid finish of the reference, so less aligned in style.",
+      "map_id": "map_fb3dea582ab4402ab70f4f5e2a883216"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Silk Tie Necktie",
+      "score": 9,
+      "rationale": "Silk tie similar in material and intended use, very relevant though exact weave or finish isn't specified.",
+      "map_id": "map_a32db67d34284a4d8f55545fd9c7d72f"
+    },
+    {
+      "competitor_product_name": "Merino Wool Grosgrain Bound Notch Lapel Tuxedo",
+      "score": 1,
+      "rationale": "This is a tuxedo jacket with wool fabric, not a necktie product, thus no relevancy to a satin tie.",
+      "map_id": "map_39146ecf6b284c16945a007376b23f99"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Stain Resistant Silk TIE1",
+      "score": 9,
+      "rationale": "Silk tie with stain resistant feature is close to satin tie in material and function, solid style likely, thus highly relevant.",
+      "map_id": "map_fa47a575e8c747779a0e457107a9d8a9"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Striped Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie relevant in material and purpose but striped pattern contrasts with solid satin tie.",
+      "map_id": "map_700893461ef140288baaa7baaa12baf1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers 346 Neck Tie1",
+      "score": 6,
+      "rationale": "Specific model necktie but no details on material or finish reduces relevancy certainty; likely a necktie but uncertain satin or silk.",
+      "map_id": "map_ac71bd9aa12f40bc9885c9493c955388"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Irregular Solid Gray Tie",
+      "score": 8,
+      "rationale": "Solid tie aligns with reference in silhouette and style; gray color and 'irregular' texture might slightly differentiate but quite relevant.",
+      "map_id": "map_ed50e38191c741f3a9d4e70ffce80600"
+    },
+    {
+      "competitor_product_name": "Shawl Collar Merino Wool Tuxedo",
+      "score": 1,
+      "rationale": "Clothing item different from neckties; no relevancy.",
+      "map_id": "map_79f171d4c636494da0ca02ba66b8be8d"
+    },
+    {
+      "competitor_product_name": "Monterey County by The Sea Men's Wearhouse Tie",
+      "score": 6,
+      "rationale": "Generic men's tie; material and finish not specified, so moderate relevancy assumed.",
+      "map_id": "map_f5ec79be8c1749059e7451be02c4420f"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Makers Men's Silk Standard Wide Neck Tie",
+      "score": 9,
+      "rationale": "Men's silk wide necktie aligns very well with the reference solid satin tie in material and use.",
+      "map_id": "map_9779ee0ee4c54a81bb126ff7c6767982"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Windwheel Solid Dot Tie",
+      "score": 7,
+      "rationale": "Solid tie is relevant in style and shape; dot texture slightly diverges from smooth satin.",
+      "map_id": "map_6de24770d78248668e65b7446635465f"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Silk Ties (Set of 2)",
+      "score": 9,
+      "rationale": "Silk ties matching material and purpose; set implies variety but overall close to reference.",
+      "map_id": "map_80e004367d7b4e5c984e69d48bc93254"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Makers All Silk Tie",
+      "score": 9,
+      "rationale": "All silk tie is very similar in function and material to a solid satin silk tie, highly relevant.",
+      "map_id": "map_69e214231dba4724a222d3a8ddb8feae"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Square Florette Tie",
+      "score": 7,
+      "rationale": "Likely a patterned tie rather than solid satin; shape and material may align but pattern reduces relevancy.",
+      "map_id": "map_e56ff51f86944808a98cebbc0c34e2e8"
+    }
+  ]
+}

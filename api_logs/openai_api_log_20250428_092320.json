@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250428_092320",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='American Apparel Men's Hoodie'\n  - Name='Nike Women's Phoenix Fleece Over-Oversized Hoodie'\n  - Name='American Apparel Reflex Fleece Crewneck Sweatshirt'\n  - Name='UNIQLO Men's Sweat Hoodie Pullover'\n  - Name='Uniqlo Sweat Pullover Hoodie'\n  - Name='Boston Scally The Irish Rose 1/4 Zip Up Pullover'\n  - Name='Boston Scally The Bruin Dubliner Limited Edition Triblend Hoodie'\n  - Name='Boston Scally The Good Egg Cotton Hoodie'\n  - Name='Boston Scally 1/4 Zip Up Pullover'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hoodie very similar in function and construction to the reference Boston Scally Hoodie, closely matching the core product type and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Women's Phoenix Fleece Over-Oversized Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a fleece pullover hoodie similar in style and function, though oversized and women's specific which slightly differentiates it from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Reflex Fleece Crewneck Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a crewneck sweatshirt, lacking a hood, which makes it notably different from the reference hoodie in silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Sweat Hoodie Pullover\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's sweat hoodie pullover closely matches the reference product's type, function, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Sweat Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Similar to the above, this is a pullover hoodie matching the key features and function of the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Irish Rose 1/4 Zip Up Pullover\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A pullover with quarter zip and no mention of hood, so less similar in silhouette and function than a full hoodie, but still closely related apparel from the same brand.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Bruin Dubliner Limited Edition Triblend Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a Boston Scally hoodie closely matching the reference product in core features, silhouette, and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Good Egg Cotton Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A cotton hoodie from Boston Scally matches the reference hoodie exactly in product type, material focus likely similar, and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally 1/4 Zip Up Pullover\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Quarter zip pullover differs from hooded sweatshirt silhouette but is still a similar type of casual pullover from the same brand.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "This is a men's hoodie very similar in function and construction to the reference Boston Scally Hoodie, closely matching the core product type and intended use.",
+      "map_id": "map_13c81b8670244f46a8617ceaefeff181"
+    },
+    {
+      "competitor_product_name": "Nike Women's Phoenix Fleece Over-Oversized Hoodie",
+      "score": 8,
+      "rationale": "This is a fleece pullover hoodie similar in style and function, though oversized and women's specific which slightly differentiates it from the reference.",
+      "map_id": "map_353ffaf55b8c424fbef5900ff56cddd2"
+    },
+    {
+      "competitor_product_name": "American Apparel Reflex Fleece Crewneck Sweatshirt",
+      "score": 4,
+      "rationale": "This is a crewneck sweatshirt, lacking a hood, which makes it notably different from the reference hoodie in silhouette and construction.",
+      "map_id": "map_33352bd100c445ce83deabf831a6bb30"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Sweat Hoodie Pullover",
+      "score": 9,
+      "rationale": "A men's sweat hoodie pullover closely matches the reference product's type, function, and construction.",
+      "map_id": "map_4c4cba55136b4655ace0afc0f2f6ed4c"
+    },
+    {
+      "competitor_product_name": "Uniqlo Sweat Pullover Hoodie",
+      "score": 9,
+      "rationale": "Similar to the above, this is a pullover hoodie matching the key features and function of the reference hoodie.",
+      "map_id": "map_9bc81353adc74efda19dfe7d8c1dcf4d"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Irish Rose 1/4 Zip Up Pullover",
+      "score": 6,
+      "rationale": "A pullover with quarter zip and no mention of hood, so less similar in silhouette and function than a full hoodie, but still closely related apparel from the same brand.",
+      "map_id": "map_c2af3c72a8ae465ab05fd13cd08a005e"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Bruin Dubliner Limited Edition Triblend Hoodie",
+      "score": 10,
+      "rationale": "This is a Boston Scally hoodie closely matching the reference product in core features, silhouette, and function.",
+      "map_id": "map_cba7ac8370f34c5bb7f1ba9f78a69fd3"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Good Egg Cotton Hoodie",
+      "score": 10,
+      "rationale": "A cotton hoodie from Boston Scally matches the reference hoodie exactly in product type, material focus likely similar, and intended use.",
+      "map_id": "map_d532c918299b42d59bc1f0ab2d280c12"
+    },
+    {
+      "competitor_product_name": "Boston Scally 1/4 Zip Up Pullover",
+      "score": 5,
+      "rationale": "Quarter zip pullover differs from hooded sweatshirt silhouette but is still a similar type of casual pullover from the same brand.",
+      "map_id": "map_b8219019bdeb4519937ac2d91b96bdbf"
+    }
+  ]
+}

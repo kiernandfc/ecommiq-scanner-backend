@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250427_070834",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Uniqlo Sweat Full-zip Long-sleeve Hoodie S-4xl Hooded Cotton Men'\n  - Name='Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark'\n  - Name='UNIQLO : C Sweat Oversize Pull Hoodie Unisex 6Colors XS-4XL'\n  - Name='UNIQLO C Sweat Oversize Pull Hood Unisex 5'\n  - Name='Uniqlo U Wide Fit Sweat Pullover Hoodie Natural Men L 423235'\n  - Name='Boston Scally The Fighting Rock Hoodie'\n  - Name='Boston Scally The Cheevers Zip Up Jacket'\n  - Name='Boston Scally The Blacktop Zip Up Hoodie'\n  - Name='Boston Scally The Shamrock Hoodie'\n  - Name='Boston Scally The Eire Crewneck Sweatshirt'\n  - Name='Boston Scally The Irish Rose 1/4 Zip Up Pullover'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Uniqlo Sweat Full-zip Long-sleeve Hoodie S-4xl Hooded Cotton Men\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a hooded sweatshirt similar in function and style (hoodie), differing in zipper style (full-zip) but still highly relevant as a soft, casual sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized pullover hoodie which shares core features with the reference product: pullover style, hoodie design, and casual comfort; very closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO : C Sweat Oversize Pull Hoodie Unisex 6Colors XS-4XL\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Essentially the same style as the previous oversized pullover hoodie with unisex sizing, highly matching the Boston Scally Hoodie in silhouette and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO C Sweat Oversize Pull Hood Unisex 5\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Appears to be an oversized pullover hooded sweatshirt serving the same casual, comfortable function although details are limited; still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo U Wide Fit Sweat Pullover Hoodie Natural Men L 423235\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wide fit pullover hoodie matches the reference product in construction (pullover hoodie) and intent (comfortable casual wear).\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Fighting Rock Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally branded hoodie, likely very similar in construction and function with only design/name differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Cheevers Zip Up Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Zip up jacket differs from pullover hoodie in construction although probably similar in material and casual use, less relevant due to zipper and jacket style.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Blacktop Zip Up Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Zip up hoodie is a close variant of hoodie style, differing primarily by zipper; still highly relevant for intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Shamrock Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and product type (hoodie) as the reference, indicating high similarity in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Eire Crewneck Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Crewneck sweatshirt shares material and casual use but lacks hood, reducing relevancy compared to hoodies.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Irish Rose 1/4 Zip Up Pullover\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"1/4 zip pullover is somewhat different in style and construction from a full pullover hoodie, less directly comparable but still casual sweatshirt category.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Uniqlo Sweat Full-zip Long-sleeve Hoodie S-4xl Hooded Cotton Men",
+      "score": 8,
+      "rationale": "This is a hooded sweatshirt similar in function and style (hoodie), differing in zipper style (full-zip) but still highly relevant as a soft, casual sweatshirt.",
+      "map_id": "map_6ce488afd29a4314b0dd38ab28fe6ad6"
+    },
+    {
+      "competitor_product_name": "Uniqlo : C Sweat Oversized Pullover Hoodie Gray/black/dark",
+      "score": 9,
+      "rationale": "An oversized pullover hoodie which shares core features with the reference product: pullover style, hoodie design, and casual comfort; very closely related.",
+      "map_id": "map_cc46dc82df87495187fcceaa70d07ffa"
+    },
+    {
+      "competitor_product_name": "UNIQLO : C Sweat Oversize Pull Hoodie Unisex 6Colors XS-4XL",
+      "score": 9,
+      "rationale": "Essentially the same style as the previous oversized pullover hoodie with unisex sizing, highly matching the Boston Scally Hoodie in silhouette and purpose.",
+      "map_id": "map_b18aac6c3ed74e07ad1c5830f8505dba"
+    },
+    {
+      "competitor_product_name": "UNIQLO C Sweat Oversize Pull Hood Unisex 5",
+      "score": 8,
+      "rationale": "Appears to be an oversized pullover hooded sweatshirt serving the same casual, comfortable function although details are limited; still highly relevant.",
+      "map_id": "map_d870465fec434ea6babdd4bf515722c6"
+    },
+    {
+      "competitor_product_name": "Uniqlo U Wide Fit Sweat Pullover Hoodie Natural Men L 423235",
+      "score": 9,
+      "rationale": "Wide fit pullover hoodie matches the reference product in construction (pullover hoodie) and intent (comfortable casual wear).",
+      "map_id": "map_7dd16555193040679c7abe660f12c36d"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Fighting Rock Hoodie",
+      "score": 9,
+      "rationale": "Another Boston Scally branded hoodie, likely very similar in construction and function with only design/name differences.",
+      "map_id": "map_9c484a366e254f3aadf2a20834378e29"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Cheevers Zip Up Jacket",
+      "score": 6,
+      "rationale": "Zip up jacket differs from pullover hoodie in construction although probably similar in material and casual use, less relevant due to zipper and jacket style.",
+      "map_id": "map_f6654f99e53a4b8197928083cc7ba464"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Blacktop Zip Up Hoodie",
+      "score": 8,
+      "rationale": "Zip up hoodie is a close variant of hoodie style, differing primarily by zipper; still highly relevant for intended use.",
+      "map_id": "map_5cc4e4c1585f471ea11a96c02a7cbd54"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Shamrock Hoodie",
+      "score": 9,
+      "rationale": "Same brand and product type (hoodie) as the reference, indicating high similarity in function and style.",
+      "map_id": "map_5752979e5bcb4ea39f614533fb713da8"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Eire Crewneck Sweatshirt",
+      "score": 5,
+      "rationale": "Crewneck sweatshirt shares material and casual use but lacks hood, reducing relevancy compared to hoodies.",
+      "map_id": "map_90678ffab5ff48cd97ae441a3aae6021"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Irish Rose 1/4 Zip Up Pullover",
+      "score": 6,
+      "rationale": "1/4 zip pullover is somewhat different in style and construction from a full pullover hoodie, less directly comparable but still casual sweatshirt category.",
+      "map_id": "map_96e60943dd42454f8255920f0098b7ab"
+    }
+  ]
+}

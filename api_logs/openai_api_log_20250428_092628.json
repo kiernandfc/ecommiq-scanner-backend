@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250428_092628",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Long Haul Jacket'\n  - Name='Alex Mill Wide Corduroy Work Jacket'\n  - Name='Barbour Men's Classic Beaufort Wax Jacket'\n  - Name='Barbour Men's Heritage Liddesdale Quilted Jacket'\n  - Name='Barbour Men's Bristol Wax Jacket'\n  - Name='Taylor Stitch Men's The Ojai Chore Coat in Charcoal, Size L, Organic'\n  - Name='Norse Projects Standard Twill Overshirt'\n  - Name='Carhartt WIP Michigan Coat'\n  - Name='Carhartt WIP OG Detroit Jacket Men'\n  - Name='Men Carhartt WIP Module Script Jacket'\n  - Name='Men Carhartt Wip Crawford Shirt Jacket'\n  - Name='Carhartt WIP Seaton Blazer Men'\n  - Name='Norse Projects Korso Travel Light Harrington Jacket'\n  - Name='Korso Travel Light Insulated Harrington Jacket'\n  - Name='Norse Projects Emil Travel Light'\n  - Name='Norse Projects Men's Bleached-effect Nylon Shirt Jacket'\n  - Name='Faherty Women's Epic Quilted Fleece Shirt Jacket'\n  - Name='Barbour Men's Rokig Waterproof Jacket'\n  - Name='Faherty Men's Shorelite Packable Anorak Jacket'\n  - Name='Barbour International Original Wax Jacket Mens'\n  - Name='Barbour Fatigue Casual Jacket'\n  - Name='Barbour International Workers Wax Jacket'\n  - Name='Barbour Men's Os Peached Bedale Casual Jacket'\n  - Name='Filson Men's Ranger Lightweight Anorak'\n  - Name='Barbour Heritage Men's Vital Wax Jacket - Black - L'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Long Haul Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Both are organic cotton jackets from Taylor Stitch with utility focus; likely similar fabric and construction, though Long Haul may differ in silhouette or features from the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Wide Corduroy Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A work jacket with a similar functional intent but made from corduroy, differing in material and possibly silhouette compared to the cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Classic Beaufort Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Classic wax jacket by Barbour with a different fabric and likely heavier waterproof construction; both outerwear with utility but distinct styles and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Heritage Liddesdale Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted jacket differs significantly in construction and purpose (more insulated); less similar silhouette and fabric compared to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Bristol Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wax jacket with casual outdoor use, somewhat similar in function but wax fabric and style differ from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Ojai Chore Coat in Charcoal, Size L, Organic\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product, same name, brand, material, and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Standard Twill Overshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Overshirt in twill fabric shares material type and a casual jacket function; overshirt silhouette may be lighter or less structured than chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Coat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt WIP's Michigan Coat is a rugged, chore-like jacket suitable for workwear with durable materials; similar function and construction but, likely silhouette differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Detroit Jacket Men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Workwear jacket by Carhartt made from durable materials but often denim or duck fabric, differs in silhouette and fabric from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP Module Script Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a casual workwear jacket but less explicitly similar in fabric or silhouette; probably lighter or different style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt Wip Crawford Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt jacket style is close to chore coat silhouette with similar utility focus; fabric and branding differ but functionally similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Seaton Blazer Men\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Blazer implies more formal construction and silhouette, different from chore coat workwear jacket style.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Korso Travel Light Harrington Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Harrington jacket is lighter and more minimal in design, less utility and different silhouette from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Korso Travel Light Insulated Harrington Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Heavier with insulation but still a harrington jacket, different silhouette and usage compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Emil Travel Light\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a lightweight travel jacket with different fabric and construction; less similar silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Bleached-effect Nylon Shirt Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Shirt jacket style closer but nylon fabric and bleached effect differ significantly from organic cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Women's Epic Quilted Fleece Shirt Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's fleece quilted shirt jacket differs notably in construction, insulation, material, and target gender, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Rokig Waterproof Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Waterproof jacket with different fabric and likely a different silhouette, less similar to chore coat's cotton twill workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Shorelite Packable Anorak Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Anorak style and packable design differ strongly in silhouette and purpose from chore coat's workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International Original Wax Jacket Mens\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wax jacket with heritage motorcycle styling, similar in rugged outerwear category but differs in silhouette and fabric from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Fatigue Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Fatigue style shares some military inspiration and casual use but differs in silhouette and construction from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International Workers Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Waxed workers jacket with utilitarian design, somewhat similar function but distinct fabric and style from cotton chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Os Peached Bedale Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Bedale style casual jacket with waxed fabric, similar casual workwear use but different construction and fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Lightweight Anorak\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Anorak style different in silhouette and function; Filson's rugged outdoor approach is related but less aligned in construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Heritage Men's Vital Wax Jacket - Black - L\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heritage wax jacket with classic styling and utility; similar rugged jacket category but different fabric and silhouette from chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Long Haul Jacket",
+      "score": 8,
+      "rationale": "Both are organic cotton jackets from Taylor Stitch with utility focus; likely similar fabric and construction, though Long Haul may differ in silhouette or features from the chore coat.",
+      "map_id": "map_58e71109e3a24d4ebc58968375f4d63c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Wide Corduroy Work Jacket",
+      "score": 6,
+      "rationale": "A work jacket with a similar functional intent but made from corduroy, differing in material and possibly silhouette compared to the cotton twill chore coat.",
+      "map_id": "map_7f3afc666ecd4460b13457f4b6974101"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Classic Beaufort Wax Jacket",
+      "score": 5,
+      "rationale": "Classic wax jacket by Barbour with a different fabric and likely heavier waterproof construction; both outerwear with utility but distinct styles and materials.",
+      "map_id": "map_1b1c129077bf47bfbdd93a1e5119c1d7"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Heritage Liddesdale Quilted Jacket",
+      "score": 4,
+      "rationale": "Quilted jacket differs significantly in construction and purpose (more insulated); less similar silhouette and fabric compared to a chore coat.",
+      "map_id": "map_d920ec69b51b494fa16fee473e975b4e"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Bristol Wax Jacket",
+      "score": 5,
+      "rationale": "Wax jacket with casual outdoor use, somewhat similar in function but wax fabric and style differ from cotton twill chore coat.",
+      "map_id": "map_e0596f100cad4b408eab226bac22769b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat in Charcoal, Size L, Organic",
+      "score": 10,
+      "rationale": "Identical product, same name, brand, material, and silhouette.",
+      "map_id": "map_12bf42add0db4d09a88269a81d56256b"
+    },
+    {
+      "competitor_product_name": "Norse Projects Standard Twill Overshirt",
+      "score": 7,
+      "rationale": "Overshirt in twill fabric shares material type and a casual jacket function; overshirt silhouette may be lighter or less structured than chore coat.",
+      "map_id": "map_32092e3e1dfe4af5a627988e9b1d53a9"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Coat",
+      "score": 7,
+      "rationale": "Carhartt WIP's Michigan Coat is a rugged, chore-like jacket suitable for workwear with durable materials; similar function and construction but, likely silhouette differences.",
+      "map_id": "map_a622fd8f398f4cab9778baceee1bf26e"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Detroit Jacket Men",
+      "score": 6,
+      "rationale": "Workwear jacket by Carhartt made from durable materials but often denim or duck fabric, differs in silhouette and fabric from cotton twill chore coat.",
+      "map_id": "map_460a613f57ff4ca6bb7d84e7bcd25ecd"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP Module Script Jacket",
+      "score": 5,
+      "rationale": "Likely a casual workwear jacket but less explicitly similar in fabric or silhouette; probably lighter or different style.",
+      "map_id": "map_029080491af34028950433764b437835"
+    },
+    {
+      "competitor_product_name": "Men Carhartt Wip Crawford Shirt Jacket",
+      "score": 6,
+      "rationale": "Shirt jacket style is close to chore coat silhouette with similar utility focus; fabric and branding differ but functionally similar.",
+      "map_id": "map_8e315725f6744bbca2ae7b0a0f7060ce"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Seaton Blazer Men",
+      "score": 3,
+      "rationale": "Blazer implies more formal construction and silhouette, different from chore coat workwear jacket style.",
+      "map_id": "map_859435d8c53440d29c10a22fc15fcd4b"
+    },
+    {
+      "competitor_product_name": "Norse Projects Korso Travel Light Harrington Jacket",
+      "score": 4,
+      "rationale": "Harrington jacket is lighter and more minimal in design, less utility and different silhouette from chore coat.",
+      "map_id": "map_1cc7a797a010409091a9632ab42446f1"
+    },
+    {
+      "competitor_product_name": "Korso Travel Light Insulated Harrington Jacket",
+      "score": 3,
+      "rationale": "Heavier with insulation but still a harrington jacket, different silhouette and usage compared to chore coat.",
+      "map_id": "map_9c8c96a3428646eabebd727bbf5d0e8e"
+    },
+    {
+      "competitor_product_name": "Norse Projects Emil Travel Light",
+      "score": 3,
+      "rationale": "Likely a lightweight travel jacket with different fabric and construction; less similar silhouette and function.",
+      "map_id": "map_faef78f7a4904f709986fd4e5ec8f07b"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Bleached-effect Nylon Shirt Jacket",
+      "score": 4,
+      "rationale": "Shirt jacket style closer but nylon fabric and bleached effect differ significantly from organic cotton twill chore coat.",
+      "map_id": "map_4ed98d7369e54b358cc5fa188f9ca9d7"
+    },
+    {
+      "competitor_product_name": "Faherty Women's Epic Quilted Fleece Shirt Jacket",
+      "score": 2,
+      "rationale": "Women's fleece quilted shirt jacket differs notably in construction, insulation, material, and target gender, lowering relevancy.",
+      "map_id": "map_cf25a9255d184823b3c33d33e7fcaa6c"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Rokig Waterproof Jacket",
+      "score": 4,
+      "rationale": "Waterproof jacket with different fabric and likely a different silhouette, less similar to chore coat's cotton twill workwear style.",
+      "map_id": "map_4971d3e24042470d876523472044438f"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Shorelite Packable Anorak Jacket",
+      "score": 3,
+      "rationale": "Anorak style and packable design differ strongly in silhouette and purpose from chore coat's workwear style.",
+      "map_id": "map_dad4a915f2fa4cf082177628150800c7"
+    },
+    {
+      "competitor_product_name": "Barbour International Original Wax Jacket Mens",
+      "score": 5,
+      "rationale": "Wax jacket with heritage motorcycle styling, similar in rugged outerwear category but differs in silhouette and fabric from chore coat.",
+      "map_id": "map_c2a03176429647bca41ee6364669cf6b"
+    },
+    {
+      "competitor_product_name": "Barbour Fatigue Casual Jacket",
+      "score": 5,
+      "rationale": "Fatigue style shares some military inspiration and casual use but differs in silhouette and construction from chore coat.",
+      "map_id": "map_e3e5c1070d7e483b9bcb2ee2b8d3b648"
+    },
+    {
+      "competitor_product_name": "Barbour International Workers Wax Jacket",
+      "score": 5,
+      "rationale": "Waxed workers jacket with utilitarian design, somewhat similar function but distinct fabric and style from cotton chore coat.",
+      "map_id": "map_a52d6e5a26334bf8918e4e8ff79d8d60"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Os Peached Bedale Casual Jacket",
+      "score": 5,
+      "rationale": "Bedale style casual jacket with waxed fabric, similar casual workwear use but different construction and fabric type.",
+      "map_id": "map_1c93406f63c04b07883c5777d3ec88aa"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Lightweight Anorak",
+      "score": 4,
+      "rationale": "Anorak style different in silhouette and function; Filson's rugged outdoor approach is related but less aligned in construction.",
+      "map_id": "map_499ee2d8cace44448ead94e9649e141a"
+    },
+    {
+      "competitor_product_name": "Barbour Heritage Men's Vital Wax Jacket - Black - L",
+      "score": 5,
+      "rationale": "Heritage wax jacket with classic styling and utility; similar rugged jacket category but different fabric and silhouette from chore coat.",
+      "map_id": "map_e3b097fee5a842d6b468ccc03bc9d864"
+    }
+  ]
+}

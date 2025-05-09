@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250507_101155",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='American Apparel Hoodie'\n  - Name='Everlane Men's The Track Sweatshirt Pullover Uniform'\n  - Name='H&M Men's Loose Fit Ribbed Hoodie'\n  - Name='H&m Essentials Men's Long Sleeve Drawstring Hoodie'\n  - Name='Champion Reverse Weave Hoodie'\n  - Name='Champion Men's Big & Tall Fleece Hoodie'\n  - Name='American Apparel Rock & Roll Beaded Graphic Zip Up Hoodie'\n  - Name='American Apparel Full Send Logo Hoodie'\n  - Name='Gap Vintagesoft Plaid Arch Logo Hoodie'\n  - Name='American Apparel Reflex Fleece Full Zip Hoodie'\n  - Name='American Apparel Men's Full-Zip Hoodie'\n  - Name='Nike Men's Solo Swoosh Fleece Pullover Hoodie'\n  - Name='mens Champion Reverse Weave PO Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"American Apparel Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a hoodie similar in type and function to the Boston Scally Hoodie, focused on comfort and a pullover hooded sweatshirt silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Track Sweatshirt Pullover Uniform\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A pullover sweatshirt which is similar in silhouette and function but may not have a hood, making it slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Ribbed Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hoodie with a loose fit and ribbed texture; it shares the hooded sweatshirt style though the ribbed material could differentiate it somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"H&m Essentials Men's Long Sleeve Drawstring Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A classic hooded sweatshirt with drawstrings, matching closely the Boston Scally Hoodie in style, purpose, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Reverse Weave Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A widely recognized classic hoodie that matches the Boston Scally Hoodie in core style, material focus on comfort, and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Big & Tall Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie similar in construction and comfort focus, tailored for a specific fit but functionally very close.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Rock & Roll Beaded Graphic Zip Up Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Though a hoodie, it includes zip-up construction and decorative graphics beading, differing somewhat in silhouette and likely purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Full Send Logo Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hoodie that aligns well in terms of general style and function, despite logo branding which doesn't affect core relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Plaid Arch Logo Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A classic hoodie, designed for comfort and casual use; plaid pattern doesn't alter structural similarity to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Reflex Fleece Full Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A fleece hoodie with a full zip design, which is a different closure style than the pullover Boston Scally Hoodie, reducing relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full zip hoodies differ from pullovers in style and function, making it slightly less relevant despite being a hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover fleece hoodie focused on comfort and casual wear, very similar to the Boston Scally Hoodie in function and design.\"\n    },\n    {\n      \"competitor_product_name\": \"mens Champion Reverse Weave PO Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Pullover (PO) hoodie with Champion's classic construction, very close to Boston Scally Hoodie in design, comfort, and purpose.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "American Apparel Hoodie",
+      "score": 9,
+      "rationale": "This is a hoodie similar in type and function to the Boston Scally Hoodie, focused on comfort and a pullover hooded sweatshirt silhouette.",
+      "map_id": "map_f0ac583d792b4621bf02616860b25b9e"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Track Sweatshirt Pullover Uniform",
+      "score": 7,
+      "rationale": "A pullover sweatshirt which is similar in silhouette and function but may not have a hood, making it slightly less relevant.",
+      "map_id": "map_347a15834e044b2e9fb7392c1e6dd2ec"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Ribbed Hoodie",
+      "score": 8,
+      "rationale": "A hoodie with a loose fit and ribbed texture; it shares the hooded sweatshirt style though the ribbed material could differentiate it somewhat.",
+      "map_id": "map_1a9a436f613b459ebb56b110f24787dc"
+    },
+    {
+      "competitor_product_name": "H&m Essentials Men's Long Sleeve Drawstring Hoodie",
+      "score": 9,
+      "rationale": "A classic hooded sweatshirt with drawstrings, matching closely the Boston Scally Hoodie in style, purpose, and construction.",
+      "map_id": "map_421f224eac21480fae687c5f904e7d11"
+    },
+    {
+      "competitor_product_name": "Champion Reverse Weave Hoodie",
+      "score": 10,
+      "rationale": "A widely recognized classic hoodie that matches the Boston Scally Hoodie in core style, material focus on comfort, and casual use.",
+      "map_id": "map_e12e1eb421424b9698f97d895da45229"
+    },
+    {
+      "competitor_product_name": "Champion Men's Big & Tall Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie similar in construction and comfort focus, tailored for a specific fit but functionally very close.",
+      "map_id": "map_9f663f73ded645409de18c04f4abd444"
+    },
+    {
+      "competitor_product_name": "American Apparel Rock & Roll Beaded Graphic Zip Up Hoodie",
+      "score": 7,
+      "rationale": "Though a hoodie, it includes zip-up construction and decorative graphics beading, differing somewhat in silhouette and likely purpose.",
+      "map_id": "map_72cc694c6e99496080f304d55e70d3ce"
+    },
+    {
+      "competitor_product_name": "American Apparel Full Send Logo Hoodie",
+      "score": 8,
+      "rationale": "A hoodie that aligns well in terms of general style and function, despite logo branding which doesn't affect core relevance.",
+      "map_id": "map_eb88f155ea894fc1a05014bd05b9c746"
+    },
+    {
+      "competitor_product_name": "Gap Vintagesoft Plaid Arch Logo Hoodie",
+      "score": 8,
+      "rationale": "A classic hoodie, designed for comfort and casual use; plaid pattern doesn't alter structural similarity to the reference.",
+      "map_id": "map_58122073fd2b4104a2aaa94e06f70e3a"
+    },
+    {
+      "competitor_product_name": "American Apparel Reflex Fleece Full Zip Hoodie",
+      "score": 7,
+      "rationale": "A fleece hoodie with a full zip design, which is a different closure style than the pullover Boston Scally Hoodie, reducing relevancy slightly.",
+      "map_id": "map_527760b1da0b4cb490f747eb08739dbb"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "Full zip hoodies differ from pullovers in style and function, making it slightly less relevant despite being a hooded sweatshirt.",
+      "map_id": "map_a9076f18d45c48b9b5074503a30153e5"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover fleece hoodie focused on comfort and casual wear, very similar to the Boston Scally Hoodie in function and design.",
+      "map_id": "map_7c33c50e9e984a608f876a246a77c321"
+    },
+    {
+      "competitor_product_name": "mens Champion Reverse Weave PO Hoodie",
+      "score": 10,
+      "rationale": "Pullover (PO) hoodie with Champion's classic construction, very close to Boston Scally Hoodie in design, comfort, and purpose.",
+      "map_id": "map_e943dcb8e2e84d708380239859ace284"
+    }
+  ]
+}

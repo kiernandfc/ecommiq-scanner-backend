@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250503_111726",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='American Apparel Men's Cal Pullover'\n  - Name='American Apparel Men's Fleece Hoodie'\n  - Name='Gap Men's Logo Corp Hoodie'\n  - Name='Gap Men's Hoodie'\n  - Name='adidas Men's Z.N.E. Hoodie'\n  - Name='Supreme Men's Logo-Print Zip-Up Hoodie'\n  - Name='Supreme x The North Face Men's Lenticular Mountains Hooded Sweatshirt'\n  - Name='Supreme x Nike Hooded Sweatshirt 'Heather Grey' | Men's Size M'\n  - Name='Supreme Men's S Logo Zip Up Hooded Sweatshirt'\n  - Name='Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac'\n  - Name='Men's adidas 2025-26 LAFC Travel Hoodie'\n  - Name='Supreme x Duck Down Records Hooded Sweatshirt'\n  - Name='Supreme x Jordan Hooded Sweatshirt'\n  - Name='adidas Men's All Szn Fleece Graphic Hoodie'\n  - Name='Supreme Men's Stronger Than Fear Hooded Sweatshirt'\n  - Name='Supreme Men's Reflective Cutout Hooded Sweatshirt'\n  - Name='Supreme Windstopper Zip Up Hooded Sweatshirt'\n  - Name='Nike ACG Therma-Fit Fleece Pullover Hoodie Mens'\n  - Name='Supreme x Jordan Men's Cotton Hoodie'\n  - Name='Supreme x Burberry Box Logo Hooded Sweatshirt'\n  - Name='Carhartt Men's Force Sun Defender Lightweight Logo Graphic Hooded Long Sleeve T-Shirt'\n  - Name='American Apparel Reflex Pullover Hoodie'\n  - Name='UNIQLO Sweat Full-Zip Hoodie'\n  - Name='Kaws x Uniqlo Longsleeve Sweatshirt'\n  - Name='Men's UNIQLO US PUFFTECH Parka with Water-Repellent'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"American Apparel Men's Cal Pullover\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a pullover sweatshirt likely similar in silhouette and function to the Boston Scally Hoodie, though 'Cal Pullover' suggests no hood, slightly less relevant but still a sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie closely matches the Boston Scally Hoodie in terms of being a soft, comfortable hooded sweatshirt intended for casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Corp Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's hoodie from a casual apparel brand directly matches the core product type and intended use of a soft, comfortable hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Simply a men's hoodie, which aligns perfectly with the Boston Scally Hoodie as a basic, comfortable hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Z.N.E. Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's hoodie designed for comfort and mobility; although performance branding slightly differs, it's still a hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Logo-Print Zip-Up Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A zip-up hoodie variant, still a hooded sweatshirt with similar functionality and silhouette, just different closure style.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x The North Face Men's Lenticular Mountains Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt with likely outdoor appeal; same category though potentially heavier or specialized construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Nike Hooded Sweatshirt 'Heather Grey' | Men's Size M\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's hooded sweatshirt, exactly matching the product type and intended casual use of the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's S Logo Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A zip-up hooded sweatshirt quite similar in silhouette and use; a close variant to the pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A hooded shirt jacket heavier and more rugged than a typical hoodie; differs in function and construction but still related as a hooded upper garment.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's adidas 2025-26 LAFC Travel Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's travel hoodie represents a casual, comfortable hooded sweatshirt similar in style and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Duck Down Records Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A hooded sweatshirt exactly matching the Boston Scally Hoodie in product type and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Jordan Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A hooded sweatshirt directly matching the core product of a soft, comfortable hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's All Szn Fleece Graphic Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie with graphic design; very similar in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Stronger Than Fear Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's hooded sweatshirt offering the same fundamental product type and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Reflective Cutout Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt with stylistic features; still the same product category with minor differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Windstopper Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zip-up hooded sweatshirt with windproof fabric, slightly more technical but still very similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike ACG Therma-Fit Fleece Pullover Hoodie Mens\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover fleece hoodie focusing on warmth and comfort, aligning well with the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Jordan Men's Cotton Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A cotton men's hoodie exactly matching the Boston Scally Hoodie in silhouette and comfort focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Burberry Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A hooded sweatshirt with branding; identical product type and expected comfort level.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Sun Defender Lightweight Logo Graphic Hooded Long Sleeve T-Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A lightweight hooded long sleeve T-shirt differs significantly in thickness, warmth, and construction from a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Reflex Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie emphasizing comfort and fit, closely matching the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweat Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A full-zip hoodie very similar in function and silhouette to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Kaws x Uniqlo Longsleeve Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A longsleeve sweatshirt without a hood, related but less relevant as it lacks the hoodie feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's UNIQLO US PUFFTECH Parka with Water-Repellent\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A parka is a different category of outerwear, heavier and structured differently than a casual hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "American Apparel Men's Cal Pullover",
+      "score": 8,
+      "rationale": "This is a pullover sweatshirt likely similar in silhouette and function to the Boston Scally Hoodie, though 'Cal Pullover' suggests no hood, slightly less relevant but still a sweatshirt.",
+      "map_id": "map_22cb1f3ae4c0412f89f2bfab9c3268bf"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie closely matches the Boston Scally Hoodie in terms of being a soft, comfortable hooded sweatshirt intended for casual wear.",
+      "map_id": "map_bc84a1f793734c23873d1ff165b256c5"
+    },
+    {
+      "competitor_product_name": "Gap Men's Logo Corp Hoodie",
+      "score": 10,
+      "rationale": "A men's hoodie from a casual apparel brand directly matches the core product type and intended use of a soft, comfortable hooded sweatshirt.",
+      "map_id": "map_e96aa2a33b8844ff86d6f188d0a6b79d"
+    },
+    {
+      "competitor_product_name": "Gap Men's Hoodie",
+      "score": 10,
+      "rationale": "Simply a men's hoodie, which aligns perfectly with the Boston Scally Hoodie as a basic, comfortable hooded sweatshirt.",
+      "map_id": "map_cf82fa6da914428cb3aee9988eab7f09"
+    },
+    {
+      "competitor_product_name": "adidas Men's Z.N.E. Hoodie",
+      "score": 9,
+      "rationale": "A men's hoodie designed for comfort and mobility; although performance branding slightly differs, it's still a hooded sweatshirt.",
+      "map_id": "map_2dace2273f314f42bdd7bad34864996a"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Logo-Print Zip-Up Hoodie",
+      "score": 9,
+      "rationale": "A zip-up hoodie variant, still a hooded sweatshirt with similar functionality and silhouette, just different closure style.",
+      "map_id": "map_d9b40272917447c8a19b13ace7c33b8f"
+    },
+    {
+      "competitor_product_name": "Supreme x The North Face Men's Lenticular Mountains Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A hooded sweatshirt with likely outdoor appeal; same category though potentially heavier or specialized construction.",
+      "map_id": "map_291c0a83a4924fa78fe41be8ef1cfdfc"
+    },
+    {
+      "competitor_product_name": "Supreme x Nike Hooded Sweatshirt 'Heather Grey' | Men's Size M",
+      "score": 10,
+      "rationale": "A men's hooded sweatshirt, exactly matching the product type and intended casual use of the Boston Scally Hoodie.",
+      "map_id": "map_c5a1eba660cf4b539fbe3e913e245d3c"
+    },
+    {
+      "competitor_product_name": "Supreme Men's S Logo Zip Up Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A zip-up hooded sweatshirt quite similar in silhouette and use; a close variant to the pullover hoodie.",
+      "map_id": "map_bf007d32014b4db6881c238e11af8fbc"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rugged Flex Relaxed Fit Flannel Fleece Lined Hooded Shirt Jac",
+      "score": 6,
+      "rationale": "A hooded shirt jacket heavier and more rugged than a typical hoodie; differs in function and construction but still related as a hooded upper garment.",
+      "map_id": "map_9a732ef8315044be8b4c19ab24950610"
+    },
+    {
+      "competitor_product_name": "Men's adidas 2025-26 LAFC Travel Hoodie",
+      "score": 10,
+      "rationale": "A men's travel hoodie represents a casual, comfortable hooded sweatshirt similar in style and intended use.",
+      "map_id": "map_db42c2e5e808424fa24b588a4bd877e9"
+    },
+    {
+      "competitor_product_name": "Supreme x Duck Down Records Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A hooded sweatshirt exactly matching the Boston Scally Hoodie in product type and function.",
+      "map_id": "map_de863ae1b64e4978ae65d3fc73c2c7d7"
+    },
+    {
+      "competitor_product_name": "Supreme x Jordan Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A hooded sweatshirt directly matching the core product of a soft, comfortable hoodie.",
+      "map_id": "map_c0df29f96c46486ba31cbc0571beacf7"
+    },
+    {
+      "competitor_product_name": "adidas Men's All Szn Fleece Graphic Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie with graphic design; very similar in function and silhouette.",
+      "map_id": "map_ad99f5518ad740699f77cebee8d9d8c9"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Stronger Than Fear Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A men's hooded sweatshirt offering the same fundamental product type and casual use.",
+      "map_id": "map_81568e9ed159468689483ad3f678a979"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Reflective Cutout Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A hooded sweatshirt with stylistic features; still the same product category with minor differences.",
+      "map_id": "map_ab4eb27b0fc141ca8d9f68ca33fd96b1"
+    },
+    {
+      "competitor_product_name": "Supreme Windstopper Zip Up Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "A zip-up hooded sweatshirt with windproof fabric, slightly more technical but still very similar.",
+      "map_id": "map_aef9622b771c4f84ac5dd5bd909f4cc6"
+    },
+    {
+      "competitor_product_name": "Nike ACG Therma-Fit Fleece Pullover Hoodie Mens",
+      "score": 9,
+      "rationale": "A pullover fleece hoodie focusing on warmth and comfort, aligning well with the Boston Scally Hoodie.",
+      "map_id": "map_c52fd04a9c3849069c75fa6e678a1cb9"
+    },
+    {
+      "competitor_product_name": "Supreme x Jordan Men's Cotton Hoodie",
+      "score": 10,
+      "rationale": "A cotton men's hoodie exactly matching the Boston Scally Hoodie in silhouette and comfort focus.",
+      "map_id": "map_795e1de746b04ad3a3c38599f003aa0d"
+    },
+    {
+      "competitor_product_name": "Supreme x Burberry Box Logo Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A hooded sweatshirt with branding; identical product type and expected comfort level.",
+      "map_id": "map_af6daf4a808449d89087562eec8be6b0"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Sun Defender Lightweight Logo Graphic Hooded Long Sleeve T-Shirt",
+      "score": 4,
+      "rationale": "A lightweight hooded long sleeve T-shirt differs significantly in thickness, warmth, and construction from a hoodie.",
+      "map_id": "map_0f728eb5470b4cd4b84ed54326d91247"
+    },
+    {
+      "competitor_product_name": "American Apparel Reflex Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie emphasizing comfort and fit, closely matching the Boston Scally Hoodie.",
+      "map_id": "map_9d30360ec2174fb79326c32231f89f0d"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweat Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "A full-zip hoodie very similar in function and silhouette to the Boston Scally Hoodie.",
+      "map_id": "map_46d07fda0d69413c82ea783e95d05948"
+    },
+    {
+      "competitor_product_name": "Kaws x Uniqlo Longsleeve Sweatshirt",
+      "score": 6,
+      "rationale": "A longsleeve sweatshirt without a hood, related but less relevant as it lacks the hoodie feature.",
+      "map_id": "map_b7ad947ef7e24c2c8a43b37cbe9b3fbc"
+    },
+    {
+      "competitor_product_name": "Men's UNIQLO US PUFFTECH Parka with Water-Repellent",
+      "score": 2,
+      "rationale": "A parka is a different category of outerwear, heavier and structured differently than a casual hoodie.",
+      "map_id": "map_0f6983256f134a06815d2ec3168f56de"
+    }
+  ]
+}

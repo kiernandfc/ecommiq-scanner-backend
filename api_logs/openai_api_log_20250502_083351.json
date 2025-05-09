@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250502_083351",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Men's Silk Basketweave Bow Tie'\n  - Name='Brooks Brothers Men's Silk Striped Tie'\n  - Name='Brooks Brothers Men's Linen Geometric Pocket Square Tie'\n  - Name='Brooks Brothers Men's Dot Tie'\n  - Name='Brooks Brothers Men's Silk Seersucker Striped Tie'\n  - Name='Brooks Brothers Men's Silk Stripe Tie'\n  - Name='Brooks Brothers Men's Silk Stripe Bow Tie'\n  - Name='Brooks Brothers Men's Butterfly Bow Tie'\n  - Name='Merino Wool Shawl Jacket Tuxedo'\n  - Name='Brooks Brothers BB#3 Rep Tie'\n  - Name='Brooks Brothers BB#5 Rep Tie'\n  - Name='Brooks Brothers Men's Silk-Cotton Mogador Bow Tie'\n  - Name='Brooks Brothers Men's Donkey-Patterned Bow Tie'\n  - Name='Merino Wool Double-Breasted Tuxedo'\n  - Name='Brooks Brothers Men's Silk Tie'\n  - Name='Brooks Brothers Men's Paisley Linen Pocket Square Tie'\n  - Name='Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie'\n  - Name='Brooks Brothers Men's Gingham Dot To-Tie Bow Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Basketweave Bow Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a silk bow tie versus a solid satin long tie; both are neckwear but differ in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Striped Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar silk necktie but striped pattern differs from solid satin; still closely related in material and form.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Linen Geometric Pocket Square Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A linen necktie with geometric design differs in material and pattern; likely different texture and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Dot Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A tie similar in function but with dot pattern rather than solid satin; material unspecified but likely silk or similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Seersucker Striped Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie with seersucker texture and stripes differs in fabric finish and pattern from smooth satin solid tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Stripe Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Closely related silk tie with stripes; similar in silhouette and material but differs in pattern from solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Stripe Bow Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk bow tie rather than a long tie; differs in shape and use despite similar material.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Butterfly Bow Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"General bow tie in butterfly style differs in silhouette and function from a satin long tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Merino Wool Shawl Jacket Tuxedo\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Apparel outerwear item completely different from neckwear tie products.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers BB#3 Rep Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a silk necktie with a patterned design; similar product category but pattern differs from solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers BB#5 Rep Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to BB#3 Rep Tie in likely silk necktie form; related product category but not solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk-Cotton Mogador Bow Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk-cotton blend in bow tie form differs from smooth satin long tie; similar material family but different style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Donkey-Patterned Bow Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned bow tie differs in both silhouette and decorative style from solid satin long tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Merino Wool Double-Breasted Tuxedo\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Outer garment, unrelated product category to ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A silk tie closely matches the reference solid satin tie in material and silhouette; likely the most similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Paisley Linen Pocket Square Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a pocket square or a necktie with linen material and paisley pattern; material and function less aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A blend silk-linen tie with stripes differs in fabric finish from solid satin but similar in silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Gingham Dot To-Tie Bow Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bow tie style and gingham dot pattern differ significantly from solid satin long tie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Basketweave Bow Tie",
+      "score": 5,
+      "rationale": "This is a silk bow tie versus a solid satin long tie; both are neckwear but differ in style and construction.",
+      "map_id": "map_d2d19507251743ce899fea9891ec1db4"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Striped Tie",
+      "score": 8,
+      "rationale": "Similar silk necktie but striped pattern differs from solid satin; still closely related in material and form.",
+      "map_id": "map_62556226f4694a9ab9f2b60ff0f877fd"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Linen Geometric Pocket Square Tie",
+      "score": 3,
+      "rationale": "A linen necktie with geometric design differs in material and pattern; likely different texture and finish.",
+      "map_id": "map_c3ff06f19e1d4063a85e2fd1a74e4781"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Dot Tie",
+      "score": 7,
+      "rationale": "A tie similar in function but with dot pattern rather than solid satin; material unspecified but likely silk or similar.",
+      "map_id": "map_afd028ad422645999df2897835547719"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Seersucker Striped Tie",
+      "score": 6,
+      "rationale": "Silk tie with seersucker texture and stripes differs in fabric finish and pattern from smooth satin solid tie.",
+      "map_id": "map_8ed4a9c802734c8da0b4675bd410c372"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Stripe Tie",
+      "score": 8,
+      "rationale": "Closely related silk tie with stripes; similar in silhouette and material but differs in pattern from solid satin.",
+      "map_id": "map_a60129a76f1244b6b85b04f6aeff9dbf"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Stripe Bow Tie",
+      "score": 4,
+      "rationale": "Silk bow tie rather than a long tie; differs in shape and use despite similar material.",
+      "map_id": "map_3552c51d617e4e9cbc1c39967c5c8c7a"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Butterfly Bow Tie",
+      "score": 4,
+      "rationale": "General bow tie in butterfly style differs in silhouette and function from a satin long tie.",
+      "map_id": "map_39459385cfc6407dbf00e80dab1c1b7b"
+    },
+    {
+      "competitor_product_name": "Merino Wool Shawl Jacket Tuxedo",
+      "score": 1,
+      "rationale": "Apparel outerwear item completely different from neckwear tie products.",
+      "map_id": "map_e636f924258c4e76a9e778b9de5387ab"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers BB#3 Rep Tie",
+      "score": 7,
+      "rationale": "Likely a silk necktie with a patterned design; similar product category but pattern differs from solid satin.",
+      "map_id": "map_d29ed8bf7b1a4192a505190d169f9eea"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers BB#5 Rep Tie",
+      "score": 7,
+      "rationale": "Similar to BB#3 Rep Tie in likely silk necktie form; related product category but not solid satin.",
+      "map_id": "map_3d6e4d8201a24f248860868046c2f61c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk-Cotton Mogador Bow Tie",
+      "score": 5,
+      "rationale": "Silk-cotton blend in bow tie form differs from smooth satin long tie; similar material family but different style.",
+      "map_id": "map_7793146ae2f54358ada6b45d08914d89"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Donkey-Patterned Bow Tie",
+      "score": 3,
+      "rationale": "Patterned bow tie differs in both silhouette and decorative style from solid satin long tie.",
+      "map_id": "map_2d5b691c581a4efcb163d6f3d06f6975"
+    },
+    {
+      "competitor_product_name": "Merino Wool Double-Breasted Tuxedo",
+      "score": 1,
+      "rationale": "Outer garment, unrelated product category to ties.",
+      "map_id": "map_197b5fc8dfd0412f8e90e87e36d35980"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Tie",
+      "score": 9,
+      "rationale": "A silk tie closely matches the reference solid satin tie in material and silhouette; likely the most similar.",
+      "map_id": "map_b39bc21c63fc4e039a9ebbf1e8a1cd68"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Paisley Linen Pocket Square Tie",
+      "score": 2,
+      "rationale": "Likely a pocket square or a necktie with linen material and paisley pattern; material and function less aligned.",
+      "map_id": "map_e7cb927ac2eb4f6c9ebab3a3b4e81748"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie",
+      "score": 6,
+      "rationale": "A blend silk-linen tie with stripes differs in fabric finish from solid satin but similar in silhouette.",
+      "map_id": "map_b21ffef40f7c499da8d4447eedf837c0"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Gingham Dot To-Tie Bow Tie",
+      "score": 3,
+      "rationale": "Bow tie style and gingham dot pattern differ significantly from solid satin long tie.",
+      "map_id": "map_c4a3838ff43e4cfca6f38beeebd9bb4a"
+    }
+  ]
+}

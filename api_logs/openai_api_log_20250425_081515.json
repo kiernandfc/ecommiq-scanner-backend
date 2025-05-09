@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250425_081515",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Supreme Men's Cross Box Logo-Print Hoodie'\n  - Name='Nike Men's Club Fleece Pullover Hoodie'\n  - Name='American Apparel Reflex Fleece Hoodie'\n  - Name='adidas Kareem Accolades Cotton Hoodie'\n  - Name='UNIQLO Men's Sweat Full-Zip Hoodie'\n  - Name='Uniqlo C Sweat Oversized Pullover Hoodie'\n  - Name='Uniqlo Men's Oversized Sweat Pullover Hoodie'\n  - Name='Uniqlo Dry Stretch Sweat Full Zip Hoodie'\n  - Name='Peanuts Graphic Sweatshirt'\n  - Name='Boston Scally The Punk Cotton Hoodie'\n  - Name='Boston Scally 1/4 Zip Up Pullover'\n  - Name='Boston Scally Sleeveless Hoodie'\n  - Name='Boston Scally The Marathon Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Supreme Men's Cross Box Logo-Print Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hoodie similar in type and function to the Boston Scally Hoodie, likely soft and comfortable with a classic pullover silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie made from fleece similar in style and purpose, providing comfort and mobility like the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Reflex Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A fleece pullover hoodie similar in construction; American Apparel is known for soft sweatshirts, matching the comfort aspect though brand and specifics may vary.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Kareem Accolades Cotton Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A cotton pullover hoodie serving the same function and similar style; adidas quality and fit align well but branding and possibly fit may differ.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Sweat Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A hoodie with a zip-up front as opposed to pullover, differing in silhouette but still a sweatshirt hooded garment providing softness and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo C Sweat Oversized Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized pullover hoodie similar in function and design, emphasizing softness and comfort, matching closely the reference product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Oversized Sweat Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product type: an oversized pullover hoodie designed for comfort and mobility, aligning well with the reference description.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Dry Stretch Sweat Full Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While a full zip hoodie differs in closure style, the dry stretch fabric may add performance features differing from the typical soft sweatshirt feel of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Peanuts Graphic Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A sweatshirt but likely without a hood, indicated by the name, making it less relevant though similar as a casual soft top garment.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Punk Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and product category (cotton pullover hoodie) very close in purpose, comfort, and styling to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally 1/4 Zip Up Pullover\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A pullover with a quarter zip differs in silhouette and function slightly, less relevant than a full pullover hoodie but from same brand.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Sleeveless Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While it is a hoodie, the sleeveless design differs significantly in construction and use case compared to a full hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Marathon Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Likely a pullover hoodie similar in material and purpose to the reference, same brand and name suggest high relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Supreme Men's Cross Box Logo-Print Hoodie",
+      "score": 9,
+      "rationale": "This is a men's hoodie similar in type and function to the Boston Scally Hoodie, likely soft and comfortable with a classic pullover silhouette.",
+      "map_id": "map_d5bc86ab8319449bbdf53ada78a558ae"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie made from fleece similar in style and purpose, providing comfort and mobility like the reference hoodie.",
+      "map_id": "map_b7fae40040ad490ab42d50b67ace7f59"
+    },
+    {
+      "competitor_product_name": "American Apparel Reflex Fleece Hoodie",
+      "score": 8,
+      "rationale": "A fleece pullover hoodie similar in construction; American Apparel is known for soft sweatshirts, matching the comfort aspect though brand and specifics may vary.",
+      "map_id": "map_60e1d94addbf429cb66f417d00cace8d"
+    },
+    {
+      "competitor_product_name": "adidas Kareem Accolades Cotton Hoodie",
+      "score": 8,
+      "rationale": "A cotton pullover hoodie serving the same function and similar style; adidas quality and fit align well but branding and possibly fit may differ.",
+      "map_id": "map_070d2402a7e944e5815db2203d8eb508"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Sweat Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "A hoodie with a zip-up front as opposed to pullover, differing in silhouette but still a sweatshirt hooded garment providing softness and comfort.",
+      "map_id": "map_46093bb5604b4adb8f73e5c116c36985"
+    },
+    {
+      "competitor_product_name": "Uniqlo C Sweat Oversized Pullover Hoodie",
+      "score": 9,
+      "rationale": "An oversized pullover hoodie similar in function and design, emphasizing softness and comfort, matching closely the reference product type.",
+      "map_id": "map_42e2cd1389ff4c0b8cc941508647b8c9"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Oversized Sweat Pullover Hoodie",
+      "score": 9,
+      "rationale": "Very similar product type: an oversized pullover hoodie designed for comfort and mobility, aligning well with the reference description.",
+      "map_id": "map_f2c90011addc46cd8aaabf41302c238d"
+    },
+    {
+      "competitor_product_name": "Uniqlo Dry Stretch Sweat Full Zip Hoodie",
+      "score": 7,
+      "rationale": "While a full zip hoodie differs in closure style, the dry stretch fabric may add performance features differing from the typical soft sweatshirt feel of the reference.",
+      "map_id": "map_7a36915b28df4661becae6e21cac8a45"
+    },
+    {
+      "competitor_product_name": "Peanuts Graphic Sweatshirt",
+      "score": 5,
+      "rationale": "A sweatshirt but likely without a hood, indicated by the name, making it less relevant though similar as a casual soft top garment.",
+      "map_id": "map_5f85d55981504cba89a249386c0d68fd"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Punk Cotton Hoodie",
+      "score": 9,
+      "rationale": "Same brand and product category (cotton pullover hoodie) very close in purpose, comfort, and styling to the reference hoodie.",
+      "map_id": "map_c9213b26e786452589e5c7e7c47802e4"
+    },
+    {
+      "competitor_product_name": "Boston Scally 1/4 Zip Up Pullover",
+      "score": 6,
+      "rationale": "A pullover with a quarter zip differs in silhouette and function slightly, less relevant than a full pullover hoodie but from same brand.",
+      "map_id": "map_b50b1b97acd9404e9bc84d74b10fee61"
+    },
+    {
+      "competitor_product_name": "Boston Scally Sleeveless Hoodie",
+      "score": 6,
+      "rationale": "While it is a hoodie, the sleeveless design differs significantly in construction and use case compared to a full hooded sweatshirt.",
+      "map_id": "map_e46e134cc1ca4a52ba6d9d00e15ce8d5"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Marathon Hoodie",
+      "score": 9,
+      "rationale": "Likely a pullover hoodie similar in material and purpose to the reference, same brand and name suggest high relevancy.",
+      "map_id": "map_9499d5dbec0a4b739c72f17edd7b6288"
+    }
+  ]
+}

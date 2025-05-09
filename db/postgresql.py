@@ -9,6 +9,7 @@ from typing import List, Optional, Dict, Any
 import uuid
 import time
 from botocore.exceptions import ClientError
+import psycopg2
 
 from .models import CompetitorBrand, CatalogProduct, PriceHistory
 from utils.helpers import utc_now
@@ -91,6 +92,14 @@ class PostgreSQLDatabase:
         db_user = os.getenv('POSTGRESQL_USER')
         db_password = os.getenv('POSTGRESQL_PASSWORD')
         use_iam_auth = os.getenv('USE_IAM_AUTH', 'false').lower() == 'true'
+        
+        # Store connection parameters for later use in get_connection method
+        self.db_host = db_host
+        self.db_port = db_port
+        self.db_name = db_name
+        self.db_user = db_user
+        self.db_password = db_password
+        self.use_iam_auth = use_iam_auth
         
         # Validate required connection parameters
         connection_errors = []
@@ -799,6 +808,34 @@ class PostgreSQLDatabase:
             return session.query(CompetitorBrandDB.search_query).distinct().count()
         finally:
             session.close()
+
+    def get_connection(self):
+        """
+        Return a raw psycopg2 connection for direct SQL operations.
+        This is primarily used for the relevancy calculation process.
+        
+        Returns:
+            A psycopg2 connection object.
+        """
+        try:
+            # If IAM authentication is enabled, get a fresh token
+            if self.use_iam_auth:
+                password = self._get_iam_auth_token(self.db_host, self.db_port, self.db_user)
+            else:
+                password = self.db_password
+                
+            # Create and return a new psycopg2 connection
+            conn = psycopg2.connect(
+                host=self.db_host,
+                port=self.db_port,
+                dbname=self.db_name,
+                user=self.db_user,
+                password=password
+            )
+            return conn
+        except Exception as e:
+            self.logger.error(f"Error creating psycopg2 connection: {e}")
+            raise
 
     # Implement other methods similar to DynamoDB class but using SQLAlchemy ORM
     # For example: add_or_update_catalog_product, get_price_history, etc. 

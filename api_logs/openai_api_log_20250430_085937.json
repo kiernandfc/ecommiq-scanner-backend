@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250430_085937",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Filson Women's Lined Wool Packer Coat'\n  - Name='Norse Projects Men's Sten Gore-Tex Windstopper Shirt Jacket'\n  - Name='Filson Jacquard Wool Cruiser Jacket'\n  - Name='J.Crew Men's Barbour Burghley Wax Jacket'\n  - Name='Filson Ranger Short Cruiser Jacket'\n  - Name='Filson Wool Jacket Liner'\n  - Name='Filson Women's Jacquard Wool Cruiser Jacket'\n  - Name='Filson Women's Waxed Down Barn Coat'\n  - Name='Levi's broadway engineer coat Men's'\n  - Name='Levi's Men's Jacket'\n  - Name='Levi's Men's Lined Hooded Jacket'\n  - Name='Levi's Chore Jacket'\n  - Name='Filson Men's Caped Mackinaw Wool Jacket'\n  - Name='Barbour Bedale Casual Jacket - Navy at Nordstrom Rack'\n  - Name='Faherty Men's Inlet Knit Blazer'\n  - Name='Engineered Garments Trucker Jacket'\n  - Name='Universal Works Kyoto Work Jacket Charcoal Stripe'\n  - Name='Universal Works - Bakers Corduroy Overshirt - Male - M'\n  - Name='Universal Works Men's Bakers Jacket'\n  - Name='Filson Men's Seattle Wool Jac Shirt'\n  - Name='Filson Men's Ultralight Hooded Jacket'\n  - Name='Levi's Men's Cotton Canvas Corduroy Collar Trucker Jacket'\n  - Name='Engineered Garments Casual Worker 5-Pocket Jacket'\n  - Name='Levi's Men's Type III Jacket'\n  - Name='Alex Mill Men's Garment Dyed Work Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Filson Women's Lined Wool Packer Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a coat with utility and outerwear features but made of wool with lining, likely heavier and warmer than the unlined chore coat; both serve as durable outerwear but differ in material and insulation.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Sten Gore-Tex Windstopper Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A shirt jacket similar in layering style and utility, with technical Gore-Tex fabric making it functional outerwear; shares chore coat style elements and utility focus, but uses different material and more technical weatherproofing.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Jacquard Wool Cruiser Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A cruiser jacket often similar to chore coats in silhouette and function, but wool fabric and jacquard texture differ from the cotton twill of Ojai; utility is present but the style and material vary.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Barbour Burghley Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A waxed cotton jacket with a classic workwear heritage similar to chore coats, functional and durable; waxed cotton has different texture but similar utility and purpose, making it quite close.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Ranger Short Cruiser Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Short cruiser jacket often shares workwear and chore coat utility and shape, but Filson's traditional rugged styling and construction might differ; materials likely heavier than cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Wool Jacket Liner\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A jacket liner is more of layering innerwear rather than standalone chore-style outerwear, wool material also differs; related to layering but less directly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Jacquard Wool Cruiser Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to the men's jacquard wool cruiser above, this is a wool cruiser with utility elements; shape and function partly align, but material and gender targeting reduce direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Waxed Down Barn Coat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A waxed cotton coat like the Barbour jacket, combining waxed fabric and down insulation for warmth, with workwear heritage; differs by being insulated and longer, but shares rugged outerwear roots.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's broadway engineer coat Men's\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Engineer coats tend to be longer and more structurally specific, sometimes heavier; less close to chore coat silhouette and fabric than others.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Generic jacket name lacks detail, but Levi's typical offerings are denim or casual jackets less focused on chore style utility outerwear; probably moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lined Hooded Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Hooded, lined jacket diverges from classic chore coat silhouette and construction; functional outerwear but less aligned in style and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Directly identified as chore jacket, likely cotton or denim fabric, matching the Ojai in silhouette, function, and purpose; very close match in product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Caped Mackinaw Wool Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Mackinaw wool jackets are heavier and more insulating with cape features, differing from lightweight chore coat cotton twill; still rugged outerwear with utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Bedale Casual Jacket - Navy at Nordstrom Rack\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic Barbour Bedale is a waxed cotton jacket with chore coat/workwear heritage, practical features, and similar silhouette; aligns well with Ojai's utility and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Inlet Knit Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A knit blazer is tailored, less workwear or chore coat style, and lacks the utility and rugged fabric; more fashion-oriented than functional outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Trucker Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Trucker jackets share some silhouette features with chore coats (structured, button front) and are often workwear-inspired; material likely different but moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Kyoto Work Jacket Charcoal Stripe\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Named 'work jacket' indicating chore coat style inspiration; Universal Works tends to make utilitarian, durable cotton jackets, close in style and function to Ojai.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works - Bakers Corduroy Overshirt - Male - M\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An overshirt in corduroy fabric shares workwear layering and utility purposes but differs materially and may be lighter weighting; related but less directly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Bakers Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Bakers jacket is a traditional chore coat style with multiple pockets and cotton construction; very similar in silhouette and function to Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Seattle Wool Jac Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wool shirt jacket combines shirt and jacket functions but differs in material; while targeting layering and utility, less similar in construction and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ultralight Hooded Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ultralight jacket suggests a lighter, possibly synthetic design with hood, differing from rugged cotton chore coat similarly in silhouette and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Canvas Corduroy Collar Trucker Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A cotton canvas trucker jacket with corduroy collar shares workwear ruggedness and silhouette elements similar to chore coat style; reasonably relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Casual Worker 5-Pocket Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A casual worker style jacket with multiple pockets and durable construction closely mirrors chore coat design, sharing function, silhouette, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Type III Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Type III jacket is a denim trucker style with similar silhouette and casual utility, but denim fabric differs from cotton twill; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Garment Dyed Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A garment dyed work jacket closely aligns with chore coat style, utility, and material emphasis; strong relevancy in construction and use.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Filson Women's Lined Wool Packer Coat",
+      "score": 5,
+      "rationale": "This is a coat with utility and outerwear features but made of wool with lining, likely heavier and warmer than the unlined chore coat; both serve as durable outerwear but differ in material and insulation.",
+      "map_id": "map_c88af329a0294bf2a6b62966f8e1364a"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Sten Gore-Tex Windstopper Shirt Jacket",
+      "score": 6,
+      "rationale": "A shirt jacket similar in layering style and utility, with technical Gore-Tex fabric making it functional outerwear; shares chore coat style elements and utility focus, but uses different material and more technical weatherproofing.",
+      "map_id": "map_63ab1ec3c6584b778ff119d80bf4232e"
+    },
+    {
+      "competitor_product_name": "Filson Jacquard Wool Cruiser Jacket",
+      "score": 5,
+      "rationale": "A cruiser jacket often similar to chore coats in silhouette and function, but wool fabric and jacquard texture differ from the cotton twill of Ojai; utility is present but the style and material vary.",
+      "map_id": "map_3c38ab141c274727bcdb0913b32cecd6"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Barbour Burghley Wax Jacket",
+      "score": 7,
+      "rationale": "A waxed cotton jacket with a classic workwear heritage similar to chore coats, functional and durable; waxed cotton has different texture but similar utility and purpose, making it quite close.",
+      "map_id": "map_0071bf66124448bfabca54b807825dc7"
+    },
+    {
+      "competitor_product_name": "Filson Ranger Short Cruiser Jacket",
+      "score": 6,
+      "rationale": "Short cruiser jacket often shares workwear and chore coat utility and shape, but Filson's traditional rugged styling and construction might differ; materials likely heavier than cotton twill.",
+      "map_id": "map_7d345e73106f45c895ab5b9f9e93836b"
+    },
+    {
+      "competitor_product_name": "Filson Wool Jacket Liner",
+      "score": 3,
+      "rationale": "A jacket liner is more of layering innerwear rather than standalone chore-style outerwear, wool material also differs; related to layering but less directly relevant.",
+      "map_id": "map_85fb22086b27403d83ed82945c99dfbd"
+    },
+    {
+      "competitor_product_name": "Filson Women's Jacquard Wool Cruiser Jacket",
+      "score": 5,
+      "rationale": "Similar to the men's jacquard wool cruiser above, this is a wool cruiser with utility elements; shape and function partly align, but material and gender targeting reduce direct relevancy.",
+      "map_id": "map_e8852a51011d4188a45f87c5f504b91f"
+    },
+    {
+      "competitor_product_name": "Filson Women's Waxed Down Barn Coat",
+      "score": 6,
+      "rationale": "A waxed cotton coat like the Barbour jacket, combining waxed fabric and down insulation for warmth, with workwear heritage; differs by being insulated and longer, but shares rugged outerwear roots.",
+      "map_id": "map_5cab6db16c71446c9969b60a48d89b2b"
+    },
+    {
+      "competitor_product_name": "Levi's broadway engineer coat Men's",
+      "score": 4,
+      "rationale": "Engineer coats tend to be longer and more structurally specific, sometimes heavier; less close to chore coat silhouette and fabric than others.",
+      "map_id": "map_cbb54c660b57454289d8566c55c12247"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Jacket",
+      "score": 4,
+      "rationale": "Generic jacket name lacks detail, but Levi's typical offerings are denim or casual jackets less focused on chore style utility outerwear; probably moderately relevant.",
+      "map_id": "map_520d36306c1946b797a025be643082f2"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lined Hooded Jacket",
+      "score": 3,
+      "rationale": "Hooded, lined jacket diverges from classic chore coat silhouette and construction; functional outerwear but less aligned in style and material.",
+      "map_id": "map_dd213e4d291d457895bf4a6a4da32edc"
+    },
+    {
+      "competitor_product_name": "Levi's Chore Jacket",
+      "score": 9,
+      "rationale": "Directly identified as chore jacket, likely cotton or denim fabric, matching the Ojai in silhouette, function, and purpose; very close match in product type.",
+      "map_id": "map_1ef06cfa25084b5689fe6dd17051cc1e"
+    },
+    {
+      "competitor_product_name": "Filson Men's Caped Mackinaw Wool Jacket",
+      "score": 5,
+      "rationale": "Mackinaw wool jackets are heavier and more insulating with cape features, differing from lightweight chore coat cotton twill; still rugged outerwear with utility.",
+      "map_id": "map_35eda39b57cf4d6fbfa523d26c1d1f37"
+    },
+    {
+      "competitor_product_name": "Barbour Bedale Casual Jacket - Navy at Nordstrom Rack",
+      "score": 7,
+      "rationale": "Classic Barbour Bedale is a waxed cotton jacket with chore coat/workwear heritage, practical features, and similar silhouette; aligns well with Ojai's utility and style.",
+      "map_id": "map_a429b423b5044dc1b2df12bd278dd86f"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Inlet Knit Blazer",
+      "score": 2,
+      "rationale": "A knit blazer is tailored, less workwear or chore coat style, and lacks the utility and rugged fabric; more fashion-oriented than functional outerwear.",
+      "map_id": "map_4f21c2489d484fcfa9947e269ae48fb8"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Trucker Jacket",
+      "score": 6,
+      "rationale": "Trucker jackets share some silhouette features with chore coats (structured, button front) and are often workwear-inspired; material likely different but moderately relevant.",
+      "map_id": "map_b8f90b39f94c4804b8dd46ed02dcb556"
+    },
+    {
+      "competitor_product_name": "Universal Works Kyoto Work Jacket Charcoal Stripe",
+      "score": 7,
+      "rationale": "Named 'work jacket' indicating chore coat style inspiration; Universal Works tends to make utilitarian, durable cotton jackets, close in style and function to Ojai.",
+      "map_id": "map_58d442c04e824d8ba281667a46e787ee"
+    },
+    {
+      "competitor_product_name": "Universal Works - Bakers Corduroy Overshirt - Male - M",
+      "score": 5,
+      "rationale": "An overshirt in corduroy fabric shares workwear layering and utility purposes but differs materially and may be lighter weighting; related but less directly relevant.",
+      "map_id": "map_07280f442549499dbe4b6485794c5935"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Bakers Jacket",
+      "score": 7,
+      "rationale": "Bakers jacket is a traditional chore coat style with multiple pockets and cotton construction; very similar in silhouette and function to Ojai Jacket.",
+      "map_id": "map_60306a3f66f540dab706f831a178da39"
+    },
+    {
+      "competitor_product_name": "Filson Men's Seattle Wool Jac Shirt",
+      "score": 5,
+      "rationale": "Wool shirt jacket combines shirt and jacket functions but differs in material; while targeting layering and utility, less similar in construction and durability.",
+      "map_id": "map_16a7ef5d782743118c285b1c18bd4a4c"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ultralight Hooded Jacket",
+      "score": 4,
+      "rationale": "Ultralight jacket suggests a lighter, possibly synthetic design with hood, differing from rugged cotton chore coat similarly in silhouette and purpose.",
+      "map_id": "map_1e646b2186034e37b8c4a4adde88c1a2"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Canvas Corduroy Collar Trucker Jacket",
+      "score": 7,
+      "rationale": "A cotton canvas trucker jacket with corduroy collar shares workwear ruggedness and silhouette elements similar to chore coat style; reasonably relevant.",
+      "map_id": "map_16fc038491774e29b47f88e87b7d3db7"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Casual Worker 5-Pocket Jacket",
+      "score": 8,
+      "rationale": "A casual worker style jacket with multiple pockets and durable construction closely mirrors chore coat design, sharing function, silhouette, and construction.",
+      "map_id": "map_4fa9e870c7dc4e19892633a07d35a3f1"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Type III Jacket",
+      "score": 6,
+      "rationale": "Type III jacket is a denim trucker style with similar silhouette and casual utility, but denim fabric differs from cotton twill; moderately relevant.",
+      "map_id": "map_eee298d2d79e4286a7aa9ad8b3fd468e"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Garment Dyed Work Jacket",
+      "score": 8,
+      "rationale": "A garment dyed work jacket closely aligns with chore coat style, utility, and material emphasis; strong relevancy in construction and use.",
+      "map_id": "map_90f4456d0a4f41c3b061af9f76ed6409"
+    }
+  ]
+}

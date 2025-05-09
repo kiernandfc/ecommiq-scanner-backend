@@ -49,8 +49,8 @@ BACKOFF_FACTOR = 2.0
 JITTER_FACTOR = 0.1
 
 # Date intervals for price change analysis
-CURRENT_PERIOD_DAYS = 2  # Number of days for current period (last N days)
-PREVIOUS_PERIOD_DAYS = 2  # Number of days for previous period (N days before current period)
+CURRENT_PERIOD_DAYS = 7  # Number of days for current period (last N days)
+PREVIOUS_PERIOD_DAYS = 7  # Number of days for previous period (N days before current period)
 TOTAL_ANALYSIS_DAYS = CURRENT_PERIOD_DAYS + PREVIOUS_PERIOD_DAYS  # Total days to analyze
 
 # Schema for price change rationale
@@ -166,7 +166,7 @@ class PriceChangeReportGenerator:
                 # Use review count as weight for calculating weighted average
                 # Handle null/zero review counts
                 brand_df = brand_df.copy()
-                brand_df['weight'] = brand_df['avg_review_count_last_7_days'].fillna(0)
+                brand_df['weight'] = brand_df['avg_review_count_last_7_days'].fillna(0).replace(0, 1)
                 
                 # Skip brands with no valid review data
                 if brand_df['weight'].sum() == 0:
@@ -329,7 +329,7 @@ class PriceChangeReportGenerator:
         system_prompt = """You are an AI assistant analyzing product price changes.
 Your goal is to provide a brief, single-sentence explanation for what might be driving 
 the price change for each product based on the provided information and URLs.
-Focus on near term price drivers such as promotions implemented or expiring, or normal price volatility in the google shopping feed.
+Attempt to distinguish between temporary changes (more likely) e.g. promotions implemented or expiring or normal price volatility in the google shopping feed, or indicate if the price change is potentially a permanent one.
 
 YOU HAVE ACCESS TO A WEB SEARCH TOOL. Use it to visit the provided URLs and gather information
 about current prices, promotions, and other factors that might explain the price changes.
@@ -338,7 +338,7 @@ IMPORTANT NOTES ON GOOGLE SHOPPING LINKS:
 1. The provided URLs are Google Shopping links which may redirect to merchant sites
 2. When using the web search tool, focus on finding current price, regular price, and any discounts/promotions
 3. Compare the current price you find online with the "Current Price" and "Previous Price" in the product details
-4. Look for signs of sales events, promotions, or merchant-specific price changes
+4. Look for signs of sales events, promotions, or merchant-specific price changes; google shopping may indicate if a price is above or below the normal price.
 5. IMPORTANT: If the current price you find on Google Shopping differs from the "Current Price" in the product details, 
    include this different price in the "confirmed_price" field in your response. This should be a numeric value only, 
    without currency symbols.
@@ -430,6 +430,7 @@ Product Details:
                                     
                                     # Calculate new price change percentage based on confirmed price
                                     if prior_price > 0:  # Avoid division by zero
+                                        original_change_pct = product.get('price_change_percentage')
                                         new_change_pct = ((confirmed_price - prior_price) / prior_price) * 100
                                         product['price_change_percentage'] = new_change_pct
                                     
@@ -440,7 +441,7 @@ Product Details:
                                                    f"API reports ${current_price}, Google Shopping shows ${confirmed_price} "
                                                    f"(Diff: ${price_diff:.2f})")
                                     if prior_price > 0:
-                                        self.logger.info(f"  Updated price change: {new_change_pct:.2f}% (was: {product.get('price_change_percentage'):.2f}%)")
+                                        self.logger.info(f"  Updated price change: {new_change_pct:.2f}% (was: {original_change_pct:.2f}%)")
                             else:
                                 product['possible_rationale'] = "No rationale provided by AI analysis."
                         
@@ -544,13 +545,13 @@ Product Details:
                 continue
                 
             # Handle nulls for sorting by review count (replace NaN with -1 for sorting)
-            brand_df['sort_review_count'] = brand_df['avg_review_count_last_7_days'].fillna(-1)
+            brand_df['sort_review_count'] = brand_df['avg_review_count_last_7_days'].fillna(0).replace(0, 1)
             
             # Sort by review count descending (with nulls last)
             sorted_df = brand_df.sort_values('sort_review_count', ascending=False)
             
-            # Take top 3 products by review count
-            top_products = sorted_df.head(3)
+            # Take top 10 products by review count
+            top_products = sorted_df.head(5)
             
             # Determine columns to include in output
             output_columns = ['product_name', 'price_change_percentage', 
@@ -750,7 +751,10 @@ def generate_html_report(json_report: Dict, output_file_path: str) -> str:
         brand_sections = []
         processed_brands = set()  # Track brands we've already processed to avoid duplicates
         
-        for brand in all_brands:
+        # Convert to sorted list to process brands alphabetically
+        sorted_brands = sorted(list(all_brands))
+        
+        for brand in sorted_brands:
             # Skip if we've already processed this brand
             if brand in processed_brands:
                 logger.info(f"Skipping already processed brand: {brand}")
@@ -903,7 +907,7 @@ Make sure to:
                             {"role": "user", "content": user_prompt}
                         ],
                         temperature=0.5,
-                        max_tokens=4000
+                        max_tokens=20000
                     )
                     
                     # Extract the HTML content from the response

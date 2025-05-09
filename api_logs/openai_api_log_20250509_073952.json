@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250509_073952",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros Mens MV Howler Trucker Hat'\n  - Name='Brixton Men's Crest C Mp Snapback Hat'\n  - Name='Brixton Men's Ashland Gingham Plaid Cotton Fiddler Cap'\n  - Name='Brixton Gomez Cap'\n  - Name='Brixton Hawkins Wthr Guard Cowboy Hat'\n  - Name='Brixton Blackout Baseball Crossover Cap'\n  - Name='Goorin Bros. Men's All American Rooster Cock Trucker Hat'\n  - Name='The Youk Collectors Edition Boston Scally Cap'\n  - Name='The Neighborhood Boston Scally Cap'\n  - Name='Slainte Boston Scally Cap'\n  - Name='Kangol Gadget 504 Multi'\n  - Name='Kangol 507 Tropic'\n  - Name='Boston Scally Co. Men's 6-Panel Cotton Flat Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros Mens MV Howler Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a trucker hat, typically with a mesh back and snapback closure, which differs significantly in silhouette and fabric from a breathable, micro-poly 8-panel scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Crest C Mp Snapback Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A snapback hat shares some sporty casual use, but snapbacks have a different structured design and fabric from the form-fitting 8-panel micro-poly scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Ashland Gingham Plaid Cotton Fiddler Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A fiddler cap closely resembles a scally cap in silhouette and construction; cotton fabric is a common base though less technical than micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Gomez Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely similar in style to scally or flat caps, but fabric and sport technology differences lower relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hawkins Wthr Guard Cowboy Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Cowboy hats have a very different silhouette, construction, and functional purpose compared to a scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Blackout Baseball Crossover Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Baseball caps differ significantly in shape and construction from 8-panel fitted scally caps, though both are casual headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's All American Rooster Cock Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Another trucker hat with mesh back and structured snapback design, quite different from the form-fitting breathable scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"The Youk Collectors Edition Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a Boston Scally branded scally cap likely very similar in design and fabric technology to 'The Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"The Neighborhood Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap, presumably in the same family of 8-panel scally caps, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Slainte Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a Boston Scally cap, highly relevant due to brand and cap style alignment.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Gadget 504 Multi\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The Kangol 504 is a classic flat/scally-type cap with similar form-fitting shape, though fabric might differ from micro-poly sport fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 507 Tropic\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cap similar in type and style to scally caps, often made with breathable fabric, but slightly different shape than 8-panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Co. Men's 6-Panel Cotton Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another Boston Scally product, similar in style, though 6-panel vs 8-panel and cotton vs micro-poly fabric are differences.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros Mens MV Howler Trucker Hat",
+      "score": 3,
+      "rationale": "This is a trucker hat, typically with a mesh back and snapback closure, which differs significantly in silhouette and fabric from a breathable, micro-poly 8-panel scally cap.",
+      "map_id": "map_7125811d52ce46dc9d14d50d0e63ae30"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Crest C Mp Snapback Hat",
+      "score": 4,
+      "rationale": "A snapback hat shares some sporty casual use, but snapbacks have a different structured design and fabric from the form-fitting 8-panel micro-poly scally cap.",
+      "map_id": "map_d261ae69fbfb4da095fb4d383d097b91"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Ashland Gingham Plaid Cotton Fiddler Cap",
+      "score": 7,
+      "rationale": "A fiddler cap closely resembles a scally cap in silhouette and construction; cotton fabric is a common base though less technical than micro-poly.",
+      "map_id": "map_e8903976e75e41a1984e3f8738d156ff"
+    },
+    {
+      "competitor_product_name": "Brixton Gomez Cap",
+      "score": 6,
+      "rationale": "Likely similar in style to scally or flat caps, but fabric and sport technology differences lower relevancy slightly.",
+      "map_id": "map_526c8a8781c0463885bdf98baa5906d1"
+    },
+    {
+      "competitor_product_name": "Brixton Hawkins Wthr Guard Cowboy Hat",
+      "score": 1,
+      "rationale": "Cowboy hats have a very different silhouette, construction, and functional purpose compared to a scally cap.",
+      "map_id": "map_227416cb38a942d78582908ebe7889e4"
+    },
+    {
+      "competitor_product_name": "Brixton Blackout Baseball Crossover Cap",
+      "score": 4,
+      "rationale": "Baseball caps differ significantly in shape and construction from 8-panel fitted scally caps, though both are casual headwear.",
+      "map_id": "map_11875a312b9b428eb2ca254e1cbd3f40"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's All American Rooster Cock Trucker Hat",
+      "score": 3,
+      "rationale": "Another trucker hat with mesh back and structured snapback design, quite different from the form-fitting breathable scally cap.",
+      "map_id": "map_0cdb5c702074475a8047b28bc16e6590"
+    },
+    {
+      "competitor_product_name": "The Youk Collectors Edition Boston Scally Cap",
+      "score": 9,
+      "rationale": "This is a Boston Scally branded scally cap likely very similar in design and fabric technology to 'The Driver'.",
+      "map_id": "map_6f0f285908534295934904253ab49d62"
+    },
+    {
+      "competitor_product_name": "The Neighborhood Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap, presumably in the same family of 8-panel scally caps, making it highly relevant.",
+      "map_id": "map_76ca905fc043417692108962e8a7f336"
+    },
+    {
+      "competitor_product_name": "Slainte Boston Scally Cap",
+      "score": 9,
+      "rationale": "Also a Boston Scally cap, highly relevant due to brand and cap style alignment.",
+      "map_id": "map_d6e8f8f6e77c4f3f9e4d8e878c42bab5"
+    },
+    {
+      "competitor_product_name": "Kangol Gadget 504 Multi",
+      "score": 8,
+      "rationale": "The Kangol 504 is a classic flat/scally-type cap with similar form-fitting shape, though fabric might differ from micro-poly sport fabric.",
+      "map_id": "map_c0663ede0b1641b7977fcc828d518772"
+    },
+    {
+      "competitor_product_name": "Kangol 507 Tropic",
+      "score": 7,
+      "rationale": "Cap similar in type and style to scally caps, often made with breathable fabric, but slightly different shape than 8-panel design.",
+      "map_id": "map_5e2d93713e4b4a70b382db69698713d9"
+    },
+    {
+      "competitor_product_name": "Boston Scally Co. Men's 6-Panel Cotton Flat Cap",
+      "score": 8,
+      "rationale": "Another Boston Scally product, similar in style, though 6-panel vs 8-panel and cotton vs micro-poly fabric are differences.",
+      "map_id": "map_8e24ff4dfe5d4cc8b4bb8dd39cac1060"
+    }
+  ]
+}

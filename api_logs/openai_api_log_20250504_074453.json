@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250504_074453",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='NOCTA NOCTA Fleece Hoodie'\n  - Name='Supreme Men's Box Logo Hooded Sweatshirt Hoodie'\n  - Name='Nike Men's Club Winterized Pullover Hoodie'\n  - Name='Supreme Men's Sport Zip Up Hooded Sweater'\n  - Name='Supreme x Dickies Quilted Lined Zip Up Hooded Sweatshirt'\n  - Name='Uniqlo Unisex Sweat Pullover Hoodie'\n  - Name='Everlane Rec Quarter-Zip'\n  - Name='EVERLANE Off-duty Terry Hoodie - Heathered Grey'\n  - Name='H&M Men's Loose Fit Sweatshirt'\n  - Name='Men's Logo Hoodie by Gap'\n  - Name='H&M Men's Loose Fit Cotton Sweatshirt'\n  - Name='Carhartt Men's Midweight Hooded Sweatshirt'\n  - Name='Supreme x Mitchell & Ness Men's NCAA Hooded Sweatshirt'\n  - Name='Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt'\n  - Name='Nike Men's Sportswear Tech Fleece Pullover Hoodie'\n  - Name='Carhartt Men's Sweatshirt'\n  - Name='Men's Supreme Box Logo Hooded Sweatshirt'\n  - Name='Supreme Commes des Garçons Logo-Print Hoodie'\n  - Name='Carhartt Men's Gilliam Jacket'\n  - Name='EVERLANE Off-duty Terry Hoodie - Black'\n  - Name='Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt'\n  - Name='Supreme Men's Micro Logo Hooded Sweatshirt'\n  - Name='Nike Men's Club Fleece Hoodie'\n  - Name='Champion Men's Game Day Hoodie'\n  - Name='Nike Men's Club Fleece Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"NOCTA NOCTA Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product is a fleece hoodie, matching the reference in being a soft, comfortable hooded sweatshirt, similar use and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Box Logo Hooded Sweatshirt Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a hooded sweatshirt essentially identical in type and purpose to the reference 'hoodie,' matching both function and silhouette fully.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Winterized Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie designed for warmth aligns well with the reference's soft sweatshirt, maintaining similar features and intended casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Sport Zip Up Hooded Sweater\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While a hooded garment, its zip-up sweater style differs somewhat in construction and silhouette from the pullover hoodie reference, yet still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Dickies Quilted Lined Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a hooded sweatshirt but with quilted lining and zip-up style, making it a bit more feature-heavy and different in structure compared to the simple hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Unisex Sweat Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A unisex pullover hoodie is essentially the same core product type as the reference and shares similar comfort and design attributes.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Rec Quarter-Zip\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a quarter-zip style sweatshirt, differing notably in closure style and silhouette from a pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Off-duty Terry Hoodie - Heathered Grey\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A terry hoodie matches the reference product in softness and construction, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a sweatshirt, it lacks a hood which is a key feature of the reference product, reducing relevancy moderately.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Logo Hoodie by Gap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A standard hooded sweatshirt matches the reference perfectly in type and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Cotton Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to the other H&M sweatshirt, it lacks a hood but shares material and casual comfort traits.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A midweight hooded sweatshirt aligns closely with the soft, comfortable hoodie described in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Mitchell & Ness Men's NCAA Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Another hooded sweatshirt, very similar product type and intended use as the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While hooded, this is described as a long-sleeve T-shirt style, likely lighter and different construction than a sweatshirt hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Tech Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A tech fleece pullover hoodie is very similar in function and design, with a focus on warmth and comfort like the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A sweatshirt without mention of a hood, less relevant than a true hoodie but still related.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Supreme Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product type and function as the reference, a standard hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Commes des Garçons Logo-Print Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A hooded sweatshirt with branding, fundamentally the same product class as the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Gilliam Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A jacket differs significantly in construction and intended use compared to a soft pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Off-duty Terry Hoodie - Black\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same style and material category as the reference, a terry fabric hoodie, fully relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A sweatshirt without a hood is moderately less relevant despite similar comfort materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Micro Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A hooded sweatshirt closely matches the reference in both function and form.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie aligns well with the softness and casual use described for the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Game Day Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A standard hoodie matching the essential characteristics of the reference product perfectly.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a pullover fleece hoodie closely matching the function and construction of the reference hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "NOCTA NOCTA Fleece Hoodie",
+      "score": 9,
+      "rationale": "This product is a fleece hoodie, matching the reference in being a soft, comfortable hooded sweatshirt, similar use and construction.",
+      "map_id": "map_84b3a8d9f1e344818e7e61b214de8f04"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Box Logo Hooded Sweatshirt Hoodie",
+      "score": 10,
+      "rationale": "This is a hooded sweatshirt essentially identical in type and purpose to the reference 'hoodie,' matching both function and silhouette fully.",
+      "map_id": "map_85924f8c3f5f408487d9157cbf3c725c"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Winterized Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie designed for warmth aligns well with the reference's soft sweatshirt, maintaining similar features and intended casual use.",
+      "map_id": "map_05581101f66d46a7b0b9ac3051877593"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Sport Zip Up Hooded Sweater",
+      "score": 7,
+      "rationale": "While a hooded garment, its zip-up sweater style differs somewhat in construction and silhouette from the pullover hoodie reference, yet still quite relevant.",
+      "map_id": "map_8fb2592de82744599209706080027983"
+    },
+    {
+      "competitor_product_name": "Supreme x Dickies Quilted Lined Zip Up Hooded Sweatshirt",
+      "score": 7,
+      "rationale": "This is a hooded sweatshirt but with quilted lining and zip-up style, making it a bit more feature-heavy and different in structure compared to the simple hoodie.",
+      "map_id": "map_aef2c953e01b4df6ac626ca747083289"
+    },
+    {
+      "competitor_product_name": "Uniqlo Unisex Sweat Pullover Hoodie",
+      "score": 10,
+      "rationale": "A unisex pullover hoodie is essentially the same core product type as the reference and shares similar comfort and design attributes.",
+      "map_id": "map_ede7955ab3574839a6fd233904e29e39"
+    },
+    {
+      "competitor_product_name": "Everlane Rec Quarter-Zip",
+      "score": 4,
+      "rationale": "This is a quarter-zip style sweatshirt, differing notably in closure style and silhouette from a pullover hoodie.",
+      "map_id": "map_83ed0e44cc40423b9eb8f66b9ba69703"
+    },
+    {
+      "competitor_product_name": "EVERLANE Off-duty Terry Hoodie - Heathered Grey",
+      "score": 10,
+      "rationale": "A terry hoodie matches the reference product in softness and construction, making it highly relevant.",
+      "map_id": "map_f0df2e0e24b8423aa79835fadf7f3175"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Sweatshirt",
+      "score": 5,
+      "rationale": "While a sweatshirt, it lacks a hood which is a key feature of the reference product, reducing relevancy moderately.",
+      "map_id": "map_2411da99b01b4b0cbe7b01a3a118074f"
+    },
+    {
+      "competitor_product_name": "Men's Logo Hoodie by Gap",
+      "score": 10,
+      "rationale": "A standard hooded sweatshirt matches the reference perfectly in type and purpose.",
+      "map_id": "map_5589111a12cb451fb4401e911da52604"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Cotton Sweatshirt",
+      "score": 5,
+      "rationale": "Similar to the other H&M sweatshirt, it lacks a hood but shares material and casual comfort traits.",
+      "map_id": "map_8950ea93ef0740b38706e59bdc2dd50a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A midweight hooded sweatshirt aligns closely with the soft, comfortable hoodie described in the reference.",
+      "map_id": "map_8b420a16b5044190a3551aedc95de09f"
+    },
+    {
+      "competitor_product_name": "Supreme x Mitchell & Ness Men's NCAA Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "Another hooded sweatshirt, very similar product type and intended use as the reference.",
+      "map_id": "map_5d7aa1e13748419194069b28a9451f7f"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt",
+      "score": 6,
+      "rationale": "While hooded, this is described as a long-sleeve T-shirt style, likely lighter and different construction than a sweatshirt hoodie.",
+      "map_id": "map_524fb72a4f76404983d496cf23a6d199"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Tech Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A tech fleece pullover hoodie is very similar in function and design, with a focus on warmth and comfort like the reference.",
+      "map_id": "map_f44c9cdcca9640bbb072263adc2451b1"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Sweatshirt",
+      "score": 6,
+      "rationale": "A sweatshirt without mention of a hood, less relevant than a true hoodie but still related.",
+      "map_id": "map_6e51179088914d5b8ed01a87ca50b558"
+    },
+    {
+      "competitor_product_name": "Men's Supreme Box Logo Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "Identical product type and function as the reference, a standard hooded sweatshirt.",
+      "map_id": "map_7f9cdc655ede42a59dba8a6c8b47085b"
+    },
+    {
+      "competitor_product_name": "Supreme Commes des Garçons Logo-Print Hoodie",
+      "score": 10,
+      "rationale": "A hooded sweatshirt with branding, fundamentally the same product class as the reference hoodie.",
+      "map_id": "map_8773a4355f54437fa5b9b1eed3045a09"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Gilliam Jacket",
+      "score": 3,
+      "rationale": "A jacket differs significantly in construction and intended use compared to a soft pullover hoodie.",
+      "map_id": "map_ae0ae74f528e4fffa9e88faa20f3c0c1"
+    },
+    {
+      "competitor_product_name": "EVERLANE Off-duty Terry Hoodie - Black",
+      "score": 10,
+      "rationale": "Same style and material category as the reference, a terry fabric hoodie, fully relevant.",
+      "map_id": "map_93a376f68d77487e850ff76b9a822237"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt",
+      "score": 6,
+      "rationale": "A sweatshirt without a hood is moderately less relevant despite similar comfort materials.",
+      "map_id": "map_d202f47581564bbb952618ed4dc9c0dc"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Micro Logo Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "A hooded sweatshirt closely matches the reference in both function and form.",
+      "map_id": "map_17e6a1a9f6d24a5fbc9318685b97c310"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie aligns well with the softness and casual use described for the reference hoodie.",
+      "map_id": "map_dd68b398638642d2803b9fcfb229393f"
+    },
+    {
+      "competitor_product_name": "Champion Men's Game Day Hoodie",
+      "score": 10,
+      "rationale": "A standard hoodie matching the essential characteristics of the reference product perfectly.",
+      "map_id": "map_bd26db7a7c704909b2b20c75697be877"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Pullover Hoodie",
+      "score": 10,
+      "rationale": "This is a pullover fleece hoodie closely matching the function and construction of the reference hoodie.",
+      "map_id": "map_7de1ce9e59704f25bcecce85e0755e72"
+    }
+  ]
+}

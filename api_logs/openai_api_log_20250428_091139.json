@@ -1,0 +1,65 @@
+{
+  "timestamp": "20250428_091139",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Men's Polo Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Men's Polo Shirt\"\nReference Product Description:\nDiscover the perfect blend of comfort, quality, and style with our men's knit polos collection.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Perry Ellis Men's Gold Tie Bar'\n  - Name='Original Penguin Men's Medallion Tie Bar'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Perry Ellis Men's Gold Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This competitor product is a tie bar, an accessory for securing a tie, which is fundamentally different from a men's knit polo shirt in function, silhouette, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Original Penguin Men's Medallion Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This product is also a tie bar accessory, serving a completely different purpose and having a very different form and construction compared to a men's knit polo shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Perry Ellis Men's Gold Tie Bar",
+      "score": 1,
+      "rationale": "This competitor product is a tie bar, an accessory for securing a tie, which is fundamentally different from a men's knit polo shirt in function, silhouette, and construction.",
+      "map_id": "map_bec0b204abca4e148c5e812a74564278"
+    },
+    {
+      "competitor_product_name": "Original Penguin Men's Medallion Tie Bar",
+      "score": 1,
+      "rationale": "This product is also a tie bar accessory, serving a completely different purpose and having a very different form and construction compared to a men's knit polo shirt.",
+      "map_id": "map_f11692a0222b46e69f67856326ba05b7"
+    }
+  ]
+}

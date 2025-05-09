@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250509_072514",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='OTAA Men's Bengal Wolf Tie'\n  - Name='OTAA Men's Soft Crisp Satin Bow Tie'\n  - Name='OTAA Men's Satin Bow Tie'\n  - Name='Jos. A. Bank Reserve Collection Vine Floral Tie'\n  - Name='KissTies Extra Long Satin Tie'\n  - Name='Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie'\n  - Name='Jos. A. Bank Reserve Collection Chevron Stripe Tie'\n  - Name='Eton Silk Tie'\n  - Name='Jos. A. Bank Men's Tie'\n  - Name='Elite Solid Silk Tie'\n  - Name='Jos. A. Bank Fortune Floral Tie'\n  - Name='Reserve Collection Men's Paisley Tie'\n  - Name='Jos A. Bank Micro Neat Tie'\n  - Name='Jos. A. Bank Reserve Collection Botanical Paisley Tie'\n  - Name='Jos. A. Bank Men's Satin Bow Tie'\n  - Name='Eton Jacquard Silk Tie'\n  - Name='Reserve Collection Men's Speckled Neat Tie'\n  - Name='Charles Tyrwhitt Men's French Cuff Evening Dress Shirt'\n  - Name='Charles Tyrwhitt Stripe Silk Tie'\n  - Name='Charles Tyrwhitt Silk Textured Square Tie'\n  - Name='Charles Tyrwhitt Stain Resistant Silk Tie'\n  - Name='Charles Tyrwhitt Men's Tie'\n  - Name='Charles Tyrwhitt Men's Luxury Designer Necktie'\n  - Name='Charles Tyrwhitt Gold Background Flower Silk Tie'\n  - Name='Charles Tyrwhitt Men's Silk Linen Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"OTAA Men's Bengal Wolf Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a necktie but likely features a graphic or pattern (Bengal Wolf), so it differs from a solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Soft Crisp Satin Bow Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Material satin matches reference, but silhouette is a bow tie instead of a traditional necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Bow Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Satin material aligns well but bow tie shape differs from necktie shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Vine Floral Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a necktie but with a floral pattern, differing from solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"KissTies Extra Long Satin Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Satin necktie aligns closely except length is extra long; very similar product type and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned tie differing from solid satin tie despite likely similar materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Chevron Stripe Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Striped patterned tie, differing from solid satin in appearance though still a necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk material necktie likely similar in construction but no mention of satin or solid, so only moderately close.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"General men's tie with no detail; could be close but uncertain without satin solid detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Elite Solid Silk Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Solid silk tie is very close to solid satin tie; smooth finish likely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Fortune Floral Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Floral patterned tie detracts from solid satin similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Reserve Collection Men's Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Paisley pattern makes it less relevant to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos A. Bank Micro Neat Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Probably a men's necktie with subtle pattern; less relevant than solid satin but still a tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Botanical Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Patterned paisley botanical tie differs from solid satin tie style.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Satin Bow Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Satin material aligned but bow tie silhouette differs from necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Jacquard Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Jacquard is a patterned weave, so less similar to solid satin despite both being silk ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Reserve Collection Men's Speckled Neat Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Speckled pattern makes it less similar to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's French Cuff Evening Dress Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Not a tie, completely different product category.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Stripe Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped silk tie differs from solid satin due to pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Silk Textured Square Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk textured square tie likely smaller and different form factor than standard necktie; less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Stain Resistant Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk necktie with a functional feature; likely similar silhouette and material though no mention of satin or solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"General men's tie with no details; potentially satin and solid but unclear, moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Luxury Designer Necktie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Luxury necktie likely similar purpose and silhouette; unknown if satin or solid though.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Gold Background Flower Silk Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Floral pattern on silk tie diverges from solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Silk Linen Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk linen blend likely different texture and finish than smooth satin; moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "OTAA Men's Bengal Wolf Tie",
+      "score": 4,
+      "rationale": "This is a necktie but likely features a graphic or pattern (Bengal Wolf), so it differs from a solid satin tie.",
+      "map_id": "map_2b395a1298d54099bf2ada27cdeb5867"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Soft Crisp Satin Bow Tie",
+      "score": 6,
+      "rationale": "Material satin matches reference, but silhouette is a bow tie instead of a traditional necktie.",
+      "map_id": "map_983589d8274d4c518dad0670cfef8c90"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Bow Tie",
+      "score": 6,
+      "rationale": "Satin material aligns well but bow tie shape differs from necktie shape.",
+      "map_id": "map_c6689e26ccb94f829ec4258a9ec48ba5"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Vine Floral Tie",
+      "score": 3,
+      "rationale": "This is a necktie but with a floral pattern, differing from solid satin style.",
+      "map_id": "map_bca1f5c713d44dfa84a1024d42c67d3a"
+    },
+    {
+      "competitor_product_name": "KissTies Extra Long Satin Tie",
+      "score": 9,
+      "rationale": "Satin necktie aligns closely except length is extra long; very similar product type and material.",
+      "map_id": "map_61c8e13430224a1d9d48b09a9f915f25"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie",
+      "score": 3,
+      "rationale": "Patterned tie differing from solid satin tie despite likely similar materials.",
+      "map_id": "map_d0b35d67e4c94ec9a1729b54b8b3c83b"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Chevron Stripe Tie",
+      "score": 3,
+      "rationale": "Striped patterned tie, differing from solid satin in appearance though still a necktie.",
+      "map_id": "map_9e5dec0320ce4909bc8c0ba49fb91ce2"
+    },
+    {
+      "competitor_product_name": "Eton Silk Tie",
+      "score": 7,
+      "rationale": "Silk material necktie likely similar in construction but no mention of satin or solid, so only moderately close.",
+      "map_id": "map_cc583ea6a4b141f895cd09e5fb78eb04"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Tie",
+      "score": 6,
+      "rationale": "General men's tie with no detail; could be close but uncertain without satin solid detail.",
+      "map_id": "map_723add71bdf441d3be8f87749ccd4c84"
+    },
+    {
+      "competitor_product_name": "Elite Solid Silk Tie",
+      "score": 8,
+      "rationale": "Solid silk tie is very close to solid satin tie; smooth finish likely similar.",
+      "map_id": "map_f60bf2be9e67467ba0df5a644dc786a8"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Fortune Floral Tie",
+      "score": 3,
+      "rationale": "Floral patterned tie detracts from solid satin similarity.",
+      "map_id": "map_ad8fb391d97c4db1b197f094b370c2c1"
+    },
+    {
+      "competitor_product_name": "Reserve Collection Men's Paisley Tie",
+      "score": 3,
+      "rationale": "Paisley pattern makes it less relevant to solid satin tie.",
+      "map_id": "map_66de9ba6341649afaaf948d80e37d0d3"
+    },
+    {
+      "competitor_product_name": "Jos A. Bank Micro Neat Tie",
+      "score": 5,
+      "rationale": "Probably a men's necktie with subtle pattern; less relevant than solid satin but still a tie.",
+      "map_id": "map_bc901bc803a143fb895388aeb39dfd75"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Botanical Paisley Tie",
+      "score": 3,
+      "rationale": "Patterned paisley botanical tie differs from solid satin tie style.",
+      "map_id": "map_4ad28221e6f74614bc01d9fe5f283a14"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Satin Bow Tie",
+      "score": 6,
+      "rationale": "Satin material aligned but bow tie silhouette differs from necktie.",
+      "map_id": "map_3c0171be039f4cbabe63ac53a0f0acd3"
+    },
+    {
+      "competitor_product_name": "Eton Jacquard Silk Tie",
+      "score": 5,
+      "rationale": "Jacquard is a patterned weave, so less similar to solid satin despite both being silk ties.",
+      "map_id": "map_116ca81691ef441785f5a233067486cb"
+    },
+    {
+      "competitor_product_name": "Reserve Collection Men's Speckled Neat Tie",
+      "score": 4,
+      "rationale": "Speckled pattern makes it less similar to solid satin tie.",
+      "map_id": "map_182905f1c7024c5eb3842c9b2cca29e4"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's French Cuff Evening Dress Shirt",
+      "score": 1,
+      "rationale": "Not a tie, completely different product category.",
+      "map_id": "map_702fc30f28d643fba28b98be702089ea"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Stripe Silk Tie",
+      "score": 4,
+      "rationale": "Striped silk tie differs from solid satin due to pattern.",
+      "map_id": "map_2cc601430fa54b5fabc236cbef3186af"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Silk Textured Square Tie",
+      "score": 5,
+      "rationale": "Silk textured square tie likely smaller and different form factor than standard necktie; less similar.",
+      "map_id": "map_2cac9ea2a7b540609a22c34cd2312b0f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Stain Resistant Silk Tie",
+      "score": 7,
+      "rationale": "Silk necktie with a functional feature; likely similar silhouette and material though no mention of satin or solid.",
+      "map_id": "map_92d560b79cef4020bd449e108ac1a920"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Tie",
+      "score": 6,
+      "rationale": "General men's tie with no details; potentially satin and solid but unclear, moderate relevance.",
+      "map_id": "map_887fdf75c83f47f6b0aa3ec369af1ad7"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Luxury Designer Necktie",
+      "score": 6,
+      "rationale": "Luxury necktie likely similar purpose and silhouette; unknown if satin or solid though.",
+      "map_id": "map_4c246d7ec2da4833941a4d25f559b16c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Gold Background Flower Silk Tie",
+      "score": 3,
+      "rationale": "Floral pattern on silk tie diverges from solid satin tie.",
+      "map_id": "map_f7bea19b942c4f2691238cb59eadfb7f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Silk Linen Tie",
+      "score": 5,
+      "rationale": "Silk linen blend likely different texture and finish than smooth satin; moderately relevant.",
+      "map_id": "map_6ff6f3501e2c4b43bf8a32ca1b164339"
+    }
+  ]
+}

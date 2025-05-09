@@ -70,7 +70,7 @@ def add_missing_competitors():
                 comp.competitor_brand.strip()
             )
             existing_combinations.add(combination)
-
+        logger.info(f"existing_combinations: {existing_combinations}")
         # Process the CSV file
         # Try opening with cp1252 encoding first, fall back to utf-8
         logger.info("Reading competitor_map.csv...")

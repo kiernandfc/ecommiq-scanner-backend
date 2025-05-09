@@ -1,0 +1,335 @@
+{
+  "timestamp": "20250427_070601",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Flint and Tinder Men's 365 Pants'\n  - Name='Flint and Tinder Men's 365 Pant HB Athletic Tapered'\n  - Name='Alex Mill Alek Relaxed Wide Leg Jeans'\n  - Name='Alex Mill Standard Pleated Chino Dark Khaki Sweatpants Men's Size 30 MILWORKS'\n  - Name='Alex Mill Bedford Pleated Cotton-corduroy Suit Trousers'\n  - Name='Dickies Men's Cooling Hybrid Utility Pants'\n  - Name='Dickies Men's Loose Fit Double Knee Work Pants'\n  - Name='Dickies Men's 874 Pro Series Work Pants'\n  - Name='Alex Mill Vintage Og107 Trousers'\n  - Name='Levi's Men's 541 Athletic Taper Jeans'\n  - Name='Flint and Tinder Men's 365 HB Straight Pant'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Flint and Tinder Men's 365 Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 HB Slim Pant'\n  - Name='Flint and Tinder Men's 365 HB Slim Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Dickies Men's Slim Fit Cargo Pants'\n  - Name='Alex Mill Straight Leg Vintage Wash Chino Pant'\n  - Name='Flint and Tinder Men's 365 Pant'\n  - Name='Levi's Men's 541 Athletic Fit Jeans'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"These pants are known for durable, everyday wear similar to chore pants; likely made from robust cotton fabric with functional design, making them highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant HB Athletic Tapered\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to the 365 Pants but with an athletic tapered fit which is slightly different in silhouette than the more relaxed chore pant style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Alek Relaxed Wide Leg Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Although relaxed fit, these are jeans rather than chore pants, and made from denim, differing in fabric and typical use.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Standard Pleated Chino Dark Khaki Sweatpants Men's Size 30 MILWORKS\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Chinos and sweatpants are less durable utility wear than chore pants, and pleated chinos have a more formal silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Bedford Pleated Cotton-corduroy Suit Trousers\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Suit trousers made of cotton-corduroy with pleats focus on dressier occasions, not workwear utility like chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Cooling Hybrid Utility Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Utility pants intended for work use with performance fabric features, similar in purpose and durability to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Loose Fit Double Knee Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee reinforced durable work pants very close in construction, function, and silhouette to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's 874 Pro Series Work Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic work pants with sturdy construction but lack double knee reinforcement; still relevant for utility wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Vintage Og107 Trousers\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Vintage style trousers with likely lighter construction and more formal cut, less functional workwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 541 Athletic Taper Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Athletic taper jeans differ in fabric (denim) and silhouette; less utility focus than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Straight Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same 365 line with straight fit, maintaining durable cotton construction and workwear design close to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Athletic tapered fit differs somewhat from traditional chore pant silhouette but otherwise similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; same rationale as above for athletic tapered fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; same rationale as above for athletic tapered fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Standard 365 pants with durable cotton fabric and functional design closely matching chore pant qualities.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Chino fabric is lighter and less rugged than canvas chore pants but still a casual pant; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; same rationale as above for chino in 365 line.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Slim Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slimmer silhouette departs from the relaxed utility fit of chore pants though fabric and durability likely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Slim Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Repeated entry; same rationale as above for slimmer fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; chino fabric less rugged but still casual and functional, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; same rationale as above.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Slim Fit Cargo Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Cargo pants with slim fit, sturdy construction and utility pockets align closely with chore pant functionality though slimmer silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Straight Leg Vintage Wash Chino Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Chino pants with vintage wash offer casual style but less rugged and functional than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Repeated entry; durable everyday cotton pants very comparable to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 541 Athletic Fit Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Denim jeans with athletic fit differ in material and intended style from workwear chore pants.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pants",
+      "score": 8,
+      "rationale": "These pants are known for durable, everyday wear similar to chore pants; likely made from robust cotton fabric with functional design, making them highly relevant.",
+      "map_id": "map_e0ad018d13904b5a9c77a6b285825bcf"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant HB Athletic Tapered",
+      "score": 7,
+      "rationale": "Similar to the 365 Pants but with an athletic tapered fit which is slightly different in silhouette than the more relaxed chore pant style.",
+      "map_id": "map_6d20d283e82a420b920fc3e652052019"
+    },
+    {
+      "competitor_product_name": "Alex Mill Alek Relaxed Wide Leg Jeans",
+      "score": 5,
+      "rationale": "Although relaxed fit, these are jeans rather than chore pants, and made from denim, differing in fabric and typical use.",
+      "map_id": "map_203b59efa3964549b1f4f0e4d7c7c07b"
+    },
+    {
+      "competitor_product_name": "Alex Mill Standard Pleated Chino Dark Khaki Sweatpants Men's Size 30 MILWORKS",
+      "score": 4,
+      "rationale": "Chinos and sweatpants are less durable utility wear than chore pants, and pleated chinos have a more formal silhouette.",
+      "map_id": "map_640160c7914b417a968ddb70ff3fb72d"
+    },
+    {
+      "competitor_product_name": "Alex Mill Bedford Pleated Cotton-corduroy Suit Trousers",
+      "score": 3,
+      "rationale": "Suit trousers made of cotton-corduroy with pleats focus on dressier occasions, not workwear utility like chore pants.",
+      "map_id": "map_4e42fc288cd94e3aa5c5ddaa1f2ca598"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Cooling Hybrid Utility Pants",
+      "score": 8,
+      "rationale": "Utility pants intended for work use with performance fabric features, similar in purpose and durability to chore pants.",
+      "map_id": "map_d99b538a05e444539fc4463ae3a8b8eb"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Loose Fit Double Knee Work Pants",
+      "score": 9,
+      "rationale": "Double knee reinforced durable work pants very close in construction, function, and silhouette to chore pants.",
+      "map_id": "map_631861f5d0be41a895978ed9d8f270d0"
+    },
+    {
+      "competitor_product_name": "Dickies Men's 874 Pro Series Work Pants",
+      "score": 7,
+      "rationale": "Classic work pants with sturdy construction but lack double knee reinforcement; still relevant for utility wear.",
+      "map_id": "map_f5ed970b2b4e46208deb16870a97bb61"
+    },
+    {
+      "competitor_product_name": "Alex Mill Vintage Og107 Trousers",
+      "score": 5,
+      "rationale": "Vintage style trousers with likely lighter construction and more formal cut, less functional workwear.",
+      "map_id": "map_bf0be570641648909d516d064611e46b"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 541 Athletic Taper Jeans",
+      "score": 4,
+      "rationale": "Athletic taper jeans differ in fabric (denim) and silhouette; less utility focus than chore pants.",
+      "map_id": "map_512d1f2a709c49c98158f27f9d6b72a0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 8,
+      "rationale": "Same 365 line with straight fit, maintaining durable cotton construction and workwear design close to chore pants.",
+      "map_id": "map_9f60b23b218945b7a70ef926796e0a51"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Athletic tapered fit differs somewhat from traditional chore pant silhouette but otherwise similar.",
+      "map_id": "map_d14f81144b014791a39291cec52d3a77"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Athletic tapered fit differs somewhat from traditional chore pant silhouette but otherwise similar.",
+      "map_id": "map_9f221d31c48a4e67991f26f6e8f74e0e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Athletic tapered fit differs somewhat from traditional chore pant silhouette but otherwise similar.",
+      "map_id": "map_10b532f3aeee41b2862f1162343d3c13"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_d14f81144b014791a39291cec52d3a77"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_9f221d31c48a4e67991f26f6e8f74e0e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_10b532f3aeee41b2862f1162343d3c13"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_d14f81144b014791a39291cec52d3a77"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_9f221d31c48a4e67991f26f6e8f74e0e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for athletic tapered fit.",
+      "map_id": "map_10b532f3aeee41b2862f1162343d3c13"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Standard 365 pants with durable cotton fabric and functional design closely matching chore pant qualities.",
+      "map_id": "map_1e0efbc67e1048009c5a9ade7c0b2ae4"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Standard 365 pants with durable cotton fabric and functional design closely matching chore pant qualities.",
+      "map_id": "map_059d0c0acb3d43d485fb0cf5118eb028"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Chino fabric is lighter and less rugged than canvas chore pants but still a casual pant; moderately relevant.",
+      "map_id": "map_ac967192ac594e11ae152016a7c3e151"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Chino fabric is lighter and less rugged than canvas chore pants but still a casual pant; moderately relevant.",
+      "map_id": "map_d1801cbd00d645b2bb5546ca316d107e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Chino fabric is lighter and less rugged than canvas chore pants but still a casual pant; moderately relevant.",
+      "map_id": "map_425dd5e6384545b7abf7ff99a4f2c2e6"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Chino fabric is lighter and less rugged than canvas chore pants but still a casual pant; moderately relevant.",
+      "map_id": "map_b8924304a6c44397998d5424f0265424"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for chino in 365 line.",
+      "map_id": "map_ac967192ac594e11ae152016a7c3e151"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for chino in 365 line.",
+      "map_id": "map_d1801cbd00d645b2bb5546ca316d107e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for chino in 365 line.",
+      "map_id": "map_425dd5e6384545b7abf7ff99a4f2c2e6"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above for chino in 365 line.",
+      "map_id": "map_b8924304a6c44397998d5424f0265424"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Slim Pant",
+      "score": 6,
+      "rationale": "Slimmer silhouette departs from the relaxed utility fit of chore pants though fabric and durability likely similar.",
+      "map_id": "map_6e8a95a91eae489bb5962fb9b2657735"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Slim Pant",
+      "score": 6,
+      "rationale": "Slimmer silhouette departs from the relaxed utility fit of chore pants though fabric and durability likely similar.",
+      "map_id": "map_55f90f243f744d9b99024b1d9df33ff2"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Slim Pant",
+      "score": 6,
+      "rationale": "Repeated entry; same rationale as above for slimmer fit.",
+      "map_id": "map_6e8a95a91eae489bb5962fb9b2657735"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Slim Pant",
+      "score": 6,
+      "rationale": "Repeated entry; same rationale as above for slimmer fit.",
+      "map_id": "map_55f90f243f744d9b99024b1d9df33ff2"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; chino fabric less rugged but still casual and functional, moderately relevant.",
+      "map_id": "map_ac967192ac594e11ae152016a7c3e151"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; chino fabric less rugged but still casual and functional, moderately relevant.",
+      "map_id": "map_d1801cbd00d645b2bb5546ca316d107e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; chino fabric less rugged but still casual and functional, moderately relevant.",
+      "map_id": "map_425dd5e6384545b7abf7ff99a4f2c2e6"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; chino fabric less rugged but still casual and functional, moderately relevant.",
+      "map_id": "map_b8924304a6c44397998d5424f0265424"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above.",
+      "map_id": "map_ac967192ac594e11ae152016a7c3e151"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above.",
+      "map_id": "map_d1801cbd00d645b2bb5546ca316d107e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above.",
+      "map_id": "map_425dd5e6384545b7abf7ff99a4f2c2e6"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above.",
+      "map_id": "map_b8924304a6c44397998d5424f0265424"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Slim Fit Cargo Pants",
+      "score": 8,
+      "rationale": "Cargo pants with slim fit, sturdy construction and utility pockets align closely with chore pant functionality though slimmer silhouette.",
+      "map_id": "map_6139009b644b457596e14f354e29f7bd"
+    },
+    {
+      "competitor_product_name": "Alex Mill Straight Leg Vintage Wash Chino Pant",
+      "score": 6,
+      "rationale": "Chino pants with vintage wash offer casual style but less rugged and functional than chore pants.",
+      "map_id": "map_5c8cf0ddff8c4eafa797c597bde9f3ca"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Repeated entry; durable everyday cotton pants very comparable to chore pants.",
+      "map_id": "map_1e0efbc67e1048009c5a9ade7c0b2ae4"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Repeated entry; durable everyday cotton pants very comparable to chore pants.",
+      "map_id": "map_059d0c0acb3d43d485fb0cf5118eb028"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 541 Athletic Fit Jeans",
+      "score": 4,
+      "rationale": "Denim jeans with athletic fit differ in material and intended style from workwear chore pants.",
+      "map_id": "map_f7cad35250a74d6c871d3fdda222ed74"
+    }
+  ]
+}

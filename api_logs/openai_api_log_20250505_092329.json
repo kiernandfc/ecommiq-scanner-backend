@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250505_092329",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='OTAA Men's Satin Skinny Tie'\n  - Name='OTAA Men's Cotton Bow Tie'\n  - Name='OTAA Men's Satin Bow Tie'\n  - Name='OTAA Men's Striped Skinny Tie'\n  - Name='Charles Tyrwhitt Grenadine Italian Silk Tie'\n  - Name='OTAA Men's Cotton Necktie'\n  - Name='Suitsupply Wool Tie'\n  - Name='Jos. A. Bank Men's Triple Stripe Tie'\n  - Name='Joseph Abboud Brown And Blue Tie'\n  - Name='Jos. A. Bank Reserve Collection Paisley Tie'\n  - Name='Eton Men's Geometric Silk Tie'\n  - Name='Jos. A. Bank Flowing Paisley Tie'\n  - Name='OTAA Men's Anemone Floral Skinny Tie'\n  - Name='OTAA Men's Bucharest Blossom Floral Cotton Skinny Tie'\n  - Name='Jos. A. Bank Marguerite Neat Tie'\n  - Name='OTAA Skinny Tie & Pocket Square'\n  - Name='Jos. A. Bank Men's Geo Squares Tie'\n  - Name='OTAA Men's Octopus Tie'\n  - Name='Jos. A. Bank Mini Floral Tie'\n  - Name='Charles Tyrwhitt Men's Geometric Silk Necktie Tie'\n  - Name='Charles Tyrwhitt Men's 100%silk Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Flower Box Tie'\n  - Name='Eton Men's Grenadine Silk Tie'\n  - Name='ETON Geometric Silk Tie'\n  - Name='ETON Men's Geometric-Weave Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Skinny Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a satin tie like the reference, but is skinny rather than standard width, so similar material and style with slight silhouette difference.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Cotton Bow Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bow tie shape is quite different from necktie; also made of cotton rather than satin, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Bow Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same satin material but bow tie silhouette differs significantly from standard necktie in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Striped Skinny Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Skinny tie silhouette matches; however, the striped pattern and possibly different material reduce similarity to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Grenadine Italian Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie with a grenadine weave has a textured finish differing from smooth satin, but similar function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Cotton Necktie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Necktie shape matches but cotton material differs from satin, making it less similar in feel and sheen.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Wool Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Different material (wool) and texture, so low relevancy despite being a tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Triple Stripe Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped pattern differs from solid; assumed silk material but not satin specifically, moderate similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Brown And Blue Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"No material specified; presumed silk but possibly patterned and differs from solid satin in sheen and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Paisley Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned paisley and likely silk but satin finish uncertain; less similar due to pattern and potential fabric finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Geometric Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with geometric pattern; not satin though functionally similar; the pattern and finish differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Flowing Paisley Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned paisley shape and probable silk make it less relevant to solid satin tie due to visual and texture differences.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Anemone Floral Skinny Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Skinny tie silhouette is similar but cotton material and floral pattern reduce relevancy to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Bucharest Blossom Floral Cotton Skinny Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Cotton material, floral pattern, and skinny shape differ significantly from solid satin standard tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Marguerite Neat Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely patterned silk tie; no satin finish mentioned; pattern and possible texture reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Skinny Tie & Pocket Square\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Includes skinny tie, material unspecified but possibly satin; combination product reduces direct relevancy but still similar silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Geo Squares Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Patterned silk tie, possibly similar use but different pattern and finish than solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Octopus Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely patterned novelty tie, probably cotton or silk but not satin; silhouette similar but overall less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Mini Floral Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned silk tie, less relevant due to pattern and probable texture differences from satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Geometric Silk Necktie Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk necktie with pattern, different from solid satin finish, moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's 100%silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie without pattern specified; likely similar smoothness but satin finish unspecified, relatively close.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Flower Box Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned floral tie, probably silk but satin finish unlikely; patterned and texture differences decrease relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Grenadine Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie with grenadine weave is textured, differing from smooth satin but similar functionally and construction-wise.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Geometric Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Patterned silk tie with geometric design; no satin finish, so moderate similarity due to shape and material.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Men's Geometric-Weave Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with textured weave and pattern, different from solid satin but similar in function and material base.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "OTAA Men's Satin Skinny Tie",
+      "score": 8,
+      "rationale": "Also a satin tie like the reference, but is skinny rather than standard width, so similar material and style with slight silhouette difference.",
+      "map_id": "map_777cdd84456544c9a32fe0596ed93700"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Cotton Bow Tie",
+      "score": 2,
+      "rationale": "Bow tie shape is quite different from necktie; also made of cotton rather than satin, making it less relevant.",
+      "map_id": "map_71394829a02c49c5a4d0740c5a4a0450"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Bow Tie",
+      "score": 3,
+      "rationale": "Same satin material but bow tie silhouette differs significantly from standard necktie in the reference.",
+      "map_id": "map_070a167570444e2d960bfdacd3f79e1f"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Striped Skinny Tie",
+      "score": 5,
+      "rationale": "Skinny tie silhouette matches; however, the striped pattern and possibly different material reduce similarity to solid satin tie.",
+      "map_id": "map_6fc2a30390df4728adc770b9dab1fd56"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Grenadine Italian Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie with a grenadine weave has a textured finish differing from smooth satin, but similar function and construction.",
+      "map_id": "map_5350b9cc91b84215aa3788c2bbe06e7e"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Cotton Necktie",
+      "score": 3,
+      "rationale": "Necktie shape matches but cotton material differs from satin, making it less similar in feel and sheen.",
+      "map_id": "map_37070f59f5134178a45db6cd92aed8ca"
+    },
+    {
+      "competitor_product_name": "Suitsupply Wool Tie",
+      "score": 2,
+      "rationale": "Different material (wool) and texture, so low relevancy despite being a tie.",
+      "map_id": "map_d4ab2e2f7a2342cbaf2bffde63d551ad"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Triple Stripe Tie",
+      "score": 4,
+      "rationale": "Striped pattern differs from solid; assumed silk material but not satin specifically, moderate similarity.",
+      "map_id": "map_58edc64b0f3c40d6bd5090c980b99483"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Brown And Blue Tie",
+      "score": 4,
+      "rationale": "No material specified; presumed silk but possibly patterned and differs from solid satin in sheen and finish.",
+      "map_id": "map_74591fbbced243a1a09a187f2b8891e4"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Paisley Tie",
+      "score": 4,
+      "rationale": "Patterned paisley and likely silk but satin finish uncertain; less similar due to pattern and potential fabric finish.",
+      "map_id": "map_0bba6688de634b8b836730b454566280"
+    },
+    {
+      "competitor_product_name": "Eton Men's Geometric Silk Tie",
+      "score": 5,
+      "rationale": "Silk tie with geometric pattern; not satin though functionally similar; the pattern and finish differ.",
+      "map_id": "map_88e4e4583dbd4aa9bdf462c2bcd4b062"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Flowing Paisley Tie",
+      "score": 4,
+      "rationale": "Patterned paisley shape and probable silk make it less relevant to solid satin tie due to visual and texture differences.",
+      "map_id": "map_a7db674ad6124289844a90e7b91839e8"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Anemone Floral Skinny Tie",
+      "score": 3,
+      "rationale": "Skinny tie silhouette is similar but cotton material and floral pattern reduce relevancy to solid satin tie.",
+      "map_id": "map_558d8c9ae750487eaccf11aadeb94e76"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Bucharest Blossom Floral Cotton Skinny Tie",
+      "score": 2,
+      "rationale": "Cotton material, floral pattern, and skinny shape differ significantly from solid satin standard tie.",
+      "map_id": "map_9f7fdee39a514afa843ff074c828b100"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Marguerite Neat Tie",
+      "score": 4,
+      "rationale": "Likely patterned silk tie; no satin finish mentioned; pattern and possible texture reduce relevancy.",
+      "map_id": "map_bc27ff7a48aa427d9bd6f7615e15ceb2"
+    },
+    {
+      "competitor_product_name": "OTAA Skinny Tie & Pocket Square",
+      "score": 6,
+      "rationale": "Includes skinny tie, material unspecified but possibly satin; combination product reduces direct relevancy but still similar silhouette.",
+      "map_id": "map_06e8e027fe3b41b69dfc75896b68b35c"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Geo Squares Tie",
+      "score": 5,
+      "rationale": "Patterned silk tie, possibly similar use but different pattern and finish than solid satin.",
+      "map_id": "map_137ec36ab8044a4d91e7849733ee10dc"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Octopus Tie",
+      "score": 3,
+      "rationale": "Likely patterned novelty tie, probably cotton or silk but not satin; silhouette similar but overall less relevant.",
+      "map_id": "map_bc63bde2999a409cadb6d996165e5209"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Mini Floral Tie",
+      "score": 4,
+      "rationale": "Patterned silk tie, less relevant due to pattern and probable texture differences from satin.",
+      "map_id": "map_6e4f80e0d5e3401086ad92ba46e3ab7a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Geometric Silk Necktie Tie",
+      "score": 5,
+      "rationale": "Silk necktie with pattern, different from solid satin finish, moderate relevancy.",
+      "map_id": "map_2181cf798d2340acbbc9f322b2913626"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's 100%silk Tie",
+      "score": 7,
+      "rationale": "Silk tie without pattern specified; likely similar smoothness but satin finish unspecified, relatively close.",
+      "map_id": "map_293dfe3fa73e40fcba57bd0a1cd70fcd"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Flower Box Tie",
+      "score": 4,
+      "rationale": "Patterned floral tie, probably silk but satin finish unlikely; patterned and texture differences decrease relevancy.",
+      "map_id": "map_e11897b7b169466eac4538eb3da2dbe1"
+    },
+    {
+      "competitor_product_name": "Eton Men's Grenadine Silk Tie",
+      "score": 6,
+      "rationale": "Silk tie with grenadine weave is textured, differing from smooth satin but similar functionally and construction-wise.",
+      "map_id": "map_cc2b0674a0764a769efb263e015ddc3d"
+    },
+    {
+      "competitor_product_name": "ETON Geometric Silk Tie",
+      "score": 5,
+      "rationale": "Patterned silk tie with geometric design; no satin finish, so moderate similarity due to shape and material.",
+      "map_id": "map_7e2248f6f7914c6f83936c36c49cfe58"
+    },
+    {
+      "competitor_product_name": "ETON Men's Geometric-Weave Silk Tie",
+      "score": 5,
+      "rationale": "Silk tie with textured weave and pattern, different from solid satin but similar in function and material base.",
+      "map_id": "map_e309b4aae8914676ad63f056b6e6d83e"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250507_101144",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Off-Duty Terry Quarter-Zip'\n  - Name='EVERLANE Waffle-knit Hoodie'\n  - Name='Gap Men's Logo Hoodie'\n  - Name='Gap Vintagesoft Arch Logo Hoodie'\n  - Name='H&M Men's Loose Fit Hoodie'\n  - Name='Men's Loose Fit Cotton Blend Hoodie'\n  - Name='H&M Men's Oversized Printed Hoodie'\n  - Name='Everlane Men's The Track Hoodie'\n  - Name='Gap Men's Vintage Soft Oversized Hoodie'\n  - Name='Gap Arch Logo Hoodie'\n  - Name='Nike Men's Sportswear Club Fleece Full-Zip Hoodie'\n  - Name='NIKE Men's Solo Swoosh French Terry Pullover Hoodie'\n  - Name='Nike Men's Air Full-Zip Fleece Hoodie'\n  - Name='Nike Men's Academy Therma-FIT Soccer Hoodie'\n  - Name='American Apparel Men's Los Angeles Contemporary Museum of Art Full Zip Hoodie'\n  - Name='Men's Heavyweight Oversized Hoodie by Gap'\n  - Name='Gap Men's Fleece Athletic Hoodie'\n  - Name='H&M Men's Regular Fit Midweight Cotton Hoodie'\n  - Name='Carhartt Men's Textured Full-Zip Fleece Jacket'\n  - Name='Nike Men's Tech Fleece Full-Zip Hoodie'\n  - Name='Men's UNIQLO US PUFFTECH Parka with Water-Repellent'\n  - Name='Uniqlo C Sweat Oversized Pullover Hoodie'\n  - Name='Everlane Men's Organic Cotton Track Hoodie'\n  - Name='Carhartt WIP Mens Chase Hoodie'\n  - Name='Nike Men's Club Fleece Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Off-Duty Terry Quarter-Zip\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a sweatshirt with a quarter-zip, not a pullover hoodie. It provides some similar comfort but differs notably in zipper style and possibly fit; only moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Waffle-knit Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a hoodie similar in style and function to the reference product, with likely comfortable knit fabric, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's hoodie, likely pullover with hood, similar basic construction and purpose as the Boston Scally Hoodie; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Arch Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another hoodie variant from Gap with a similar purpose and construction; vintage-soft likely implies comfortable material akin to Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's loose fit hoodie closely matches the type, fit, and comfort goals of the reference hoodie; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Loose Fit Cotton Blend Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A cotton blend loose fit hoodie aligns well with reference product's described soft, comfortable sweatshirt qualities.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Printed Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An oversized hoodie with print, similar core construction and comfort features though potentially larger fit; still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Track Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's hoodie designed for comfort and mobility, very similar in function and style to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Oversized Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized vintage-soft hoodie matches well with the qualities of soft comfort and casual wear described.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Arch Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another pullover hoodie from Gap with similar core features and intended use; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Although a hoodie, it is full-zip which differs from pullover style; similar warmth and function but less relevance due to zipper.\"\n    },\n    {\n      \"competitor_product_name\": \"NIKE Men's Solo Swoosh French Terry Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie made from french terry material, very close in style and comfort to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Air Full-Zip Fleece Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full-zip fleece hoodie differs somewhat in silhouette but shares warmth and casual use; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Academy Therma-FIT Soccer Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Sports-specific hoodie likely has performance features different from casual soft hoodie; some relevance but specialized use reduces score.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Los Angeles Contemporary Museum of Art Full Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full zip hoodie similar in general function but silhouette differs from pullover hoodies; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Heavyweight Oversized Hoodie by Gap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Heavyweight oversized hoodie closely aligns with soft, comfortable, casual wear qualities described.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Fleece Athletic Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An athletic fleece hoodie may have a sportier cut but shares key features like hood, fleece, and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular Fit Midweight Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Regular fit cotton hoodie aligns well with the soft, comfortable sweatshirt described; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Textured Full-Zip Fleece Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Full-zip fleece jacket with textured material differs in style and possibly construction; less relevant to soft casual hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Tech Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tech fleece full-zip differs from pullover hoodie but shares warmth and hood feature; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's UNIQLO US PUFFTECH Parka with Water-Repellent\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A water-repellent parka is a different category from a soft pullover hoodie; not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo C Sweat Oversized Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized pullover hoodie from Uniqlo very similar in core features and purpose to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Cotton Track Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Organic cotton pullover hoodie aligns well with the Boston Scally Hoodie in comfort and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Chase Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt hoodie generally known for durable, comfortable sweatshirts; likely relevant though maybe heavier or workwear styled.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover fleece hoodie from Nike closely matches the reference product's construction and casual wear purpose.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Off-Duty Terry Quarter-Zip",
+      "score": 5,
+      "rationale": "This is a sweatshirt with a quarter-zip, not a pullover hoodie. It provides some similar comfort but differs notably in zipper style and possibly fit; only moderately relevant.",
+      "map_id": "map_a34ae2cf55cf49ef80ec1c24f8598d70"
+    },
+    {
+      "competitor_product_name": "EVERLANE Waffle-knit Hoodie",
+      "score": 8,
+      "rationale": "This is a hoodie similar in style and function to the reference product, with likely comfortable knit fabric, making it quite relevant.",
+      "map_id": "map_a803ed2acbd64519891c43bdea877854"
+    },
+    {
+      "competitor_product_name": "Gap Men's Logo Hoodie",
+      "score": 9,
+      "rationale": "A men's hoodie, likely pullover with hood, similar basic construction and purpose as the Boston Scally Hoodie; very relevant.",
+      "map_id": "map_96221adc03aa4b339ba7f3786427fd09"
+    },
+    {
+      "competitor_product_name": "Gap Vintagesoft Arch Logo Hoodie",
+      "score": 9,
+      "rationale": "Another hoodie variant from Gap with a similar purpose and construction; vintage-soft likely implies comfortable material akin to Boston Scally Hoodie.",
+      "map_id": "map_4baacda6c11a4109ba1570b4c463c90d"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Hoodie",
+      "score": 9,
+      "rationale": "Men's loose fit hoodie closely matches the type, fit, and comfort goals of the reference hoodie; highly relevant.",
+      "map_id": "map_6d9b4ab8364041e6a4d451b3629c4b37"
+    },
+    {
+      "competitor_product_name": "Men's Loose Fit Cotton Blend Hoodie",
+      "score": 9,
+      "rationale": "A cotton blend loose fit hoodie aligns well with reference product's described soft, comfortable sweatshirt qualities.",
+      "map_id": "map_d25cd5cdbaab4980a712f3ad88e3a825"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Printed Hoodie",
+      "score": 8,
+      "rationale": "An oversized hoodie with print, similar core construction and comfort features though potentially larger fit; still quite relevant.",
+      "map_id": "map_0ab3301b31b2478897ad6319eacbd2a3"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Track Hoodie",
+      "score": 9,
+      "rationale": "A men's hoodie designed for comfort and mobility, very similar in function and style to the reference hoodie.",
+      "map_id": "map_ba2c67ffff004e72aa76538567ff0aea"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Oversized Hoodie",
+      "score": 9,
+      "rationale": "An oversized vintage-soft hoodie matches well with the qualities of soft comfort and casual wear described.",
+      "map_id": "map_1178ae0e44ed40b4901f7cfa10224a08"
+    },
+    {
+      "competitor_product_name": "Gap Arch Logo Hoodie",
+      "score": 9,
+      "rationale": "Another pullover hoodie from Gap with similar core features and intended use; highly relevant.",
+      "map_id": "map_06a5bad4b2b148a6a649ba8f20a4489f"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Fleece Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "Although a hoodie, it is full-zip which differs from pullover style; similar warmth and function but less relevance due to zipper.",
+      "map_id": "map_697ae662e3be4144ac56c84563dc3ab2"
+    },
+    {
+      "competitor_product_name": "NIKE Men's Solo Swoosh French Terry Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie made from french terry material, very close in style and comfort to the reference hoodie.",
+      "map_id": "map_771b1ff2e0b447138d50dce150e527b4"
+    },
+    {
+      "competitor_product_name": "Nike Men's Air Full-Zip Fleece Hoodie",
+      "score": 7,
+      "rationale": "Full-zip fleece hoodie differs somewhat in silhouette but shares warmth and casual use; moderately relevant.",
+      "map_id": "map_204efc0f626a41318a4c2833f4b73190"
+    },
+    {
+      "competitor_product_name": "Nike Men's Academy Therma-FIT Soccer Hoodie",
+      "score": 6,
+      "rationale": "Sports-specific hoodie likely has performance features different from casual soft hoodie; some relevance but specialized use reduces score.",
+      "map_id": "map_c54e096290704044834a393597581594"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Los Angeles Contemporary Museum of Art Full Zip Hoodie",
+      "score": 7,
+      "rationale": "Full zip hoodie similar in general function but silhouette differs from pullover hoodies; moderately relevant.",
+      "map_id": "map_086fda322c064346bd20470ab3a778cf"
+    },
+    {
+      "competitor_product_name": "Men's Heavyweight Oversized Hoodie by Gap",
+      "score": 9,
+      "rationale": "Heavyweight oversized hoodie closely aligns with soft, comfortable, casual wear qualities described.",
+      "map_id": "map_ea07c247b5434ba89306a37cc7922b1f"
+    },
+    {
+      "competitor_product_name": "Gap Men's Fleece Athletic Hoodie",
+      "score": 8,
+      "rationale": "An athletic fleece hoodie may have a sportier cut but shares key features like hood, fleece, and comfort.",
+      "map_id": "map_696a5f92726e457994f96989122431e9"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular Fit Midweight Cotton Hoodie",
+      "score": 9,
+      "rationale": "Regular fit cotton hoodie aligns well with the soft, comfortable sweatshirt described; very relevant.",
+      "map_id": "map_4b990396f3474970a9ac070014ac948a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Textured Full-Zip Fleece Jacket",
+      "score": 5,
+      "rationale": "Full-zip fleece jacket with textured material differs in style and possibly construction; less relevant to soft casual hoodie.",
+      "map_id": "map_818a6772fa964be094b766f7f0827db2"
+    },
+    {
+      "competitor_product_name": "Nike Men's Tech Fleece Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "Tech fleece full-zip differs from pullover hoodie but shares warmth and hood feature; moderately relevant.",
+      "map_id": "map_0ef8cb9f8f3e4c7a8397994d9589b28f"
+    },
+    {
+      "competitor_product_name": "Men's UNIQLO US PUFFTECH Parka with Water-Repellent",
+      "score": 2,
+      "rationale": "A water-repellent parka is a different category from a soft pullover hoodie; not relevant.",
+      "map_id": "map_611287f0ddf148e7a0ddc3c8f91fced9"
+    },
+    {
+      "competitor_product_name": "Uniqlo C Sweat Oversized Pullover Hoodie",
+      "score": 9,
+      "rationale": "An oversized pullover hoodie from Uniqlo very similar in core features and purpose to the reference hoodie.",
+      "map_id": "map_33be457937344699b5e32d2f2c87e606"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Cotton Track Hoodie",
+      "score": 9,
+      "rationale": "Organic cotton pullover hoodie aligns well with the Boston Scally Hoodie in comfort and style.",
+      "map_id": "map_b8c72e905c364681afc0d7243b754e4d"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens Chase Hoodie",
+      "score": 8,
+      "rationale": "Carhartt hoodie generally known for durable, comfortable sweatshirts; likely relevant though maybe heavier or workwear styled.",
+      "map_id": "map_d78ea4a7400945ab939d603d2649063a"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover fleece hoodie from Nike closely matches the reference product's construction and casual wear purpose.",
+      "map_id": "map_6d65a3faa97443f48ce3b2c811f82733"
+    }
+  ]
+}

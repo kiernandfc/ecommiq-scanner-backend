@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250509_074147",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros Vintage Linen Blend Newsboy Cap'\n  - Name='Goorin Bros. Alfonso D' Este Plaid Tweed Wool Newsboy Cap'\n  - Name='Kangol Wool 504 Hat'\n  - Name='Kangol Men's Newsboy Cap Hat'\n  - Name='Kangol Tropic Ventair 504 Ivy Cap'\n  - Name='Stetson Hatteras Donegal Tweed Cap'\n  - Name='Goorin Bros Flat Cabbie Hat Newsboy Cap'\n  - Name='Bailey Men's Liam Linen Cotton Ivy Cap'\n  - Name='Brixton Fender Factory Brood Newsboy Cotton Cap'\n  - Name='Barbour Men's Bransdale Trilby Straw Hat'\n  - Name='Barbour Tartan Classic Flat Cap'\n  - Name='Kangol Men's Bermuda Hawker Newsboy Cap'\n  - Name='Kangol Wool Spitfire'\n  - Name='Kangol Men's Square K 507 Wool Flat Cap'\n  - Name='Kangol Tropic 507 Ventair Flat Cap'\n  - Name='Vintage 90s Streetwear Kangol Blank Wool Cabbie Newsboy Cap'\n  - Name='Kangol Seamless Wool 507 Flat Cap'\n  - Name='BRIXTON Montreal Cap GREY/BLACK'\n  - Name='Goorin Bros Accessories Men's Large Fitted Plaid Flat Cap Driver Hat'\n  - Name='Goorin Bros. Men's Ari Cotton Ivy Cap'\n  - Name='Kangol Vintage Men's Polyester Flat Cap'\n  - Name='Goorin Bros. Men's Large Fitted Corduroy Cap with Earflaps'\n  - Name='Kangol Men's Patriot Tropic 504 Ivy Caps'\n  - Name='Kangol Corduroy Newsboy Hat'\n  - Name='Barbour Men's Classic Plaid Tweed Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros Vintage Linen Blend Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a newsboy cap, likely an 8-panel or similar construction like the Peaky; the material blend differs but overall similar style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Alfonso D' Este Plaid Tweed Wool Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Newsboy cap with plaid tweed fabric, matching the 8-panel style and classic newsboy silhouette of the reference; very close in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool 504 Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The 504 is a flat cap (ivy cap), differing silhouette from the 8-panel Newsboy style; wool material is similar but shape is less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Newsboy Cap Hat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a newsboy cap which suggests an 8-panel or similar construction closely matching the Peaky style; likely similar in silhouette and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Ventair 504 Ivy Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A 504 Ivy cap, which is a flat cap style differing from the 8-panel newsboy cap silhouette; lighter fabric but shape is quite different.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Donegal Tweed Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a flat cap given the 'Donegal Tweed Cap' name, which is a similar casual hat style; tweed fabric aligns with traditional newsboy materials but silhouette may differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Flat Cabbie Hat Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Named as both flat cabbie and newsboy cap, suggesting a mix or close silhouette to the Peaky; very relevant due to naming and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Liam Linen Cotton Ivy Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"An ivy cap, distinct flat cap silhouette different from the 8-panel Peaky newsboy style; linen fabric differs but less relevant due to shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fender Factory Brood Newsboy Cotton Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Named as a newsboy cap with cotton; newsboy construction aligns well with Peaky's 8-panel style though fabric differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Bransdale Trilby Straw Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A trilby hat made from straw, very different silhouette and materials from the Peaky newsboy cap; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Tartan Classic Flat Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A flat cap differing from the Peaky's newsboy silhouette but shares heritage style and similar fabric pattern; moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Bermuda Hawker Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a newsboy cap, matching the 8-panel Peaky style, likely very similar silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Spitfire\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Spitfire is a different hat style - a cap often with a narrower crown and different shape; wool material is common but silhouette is less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Square K 507 Wool Flat Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A 507 flat cap, distinctly different type from an 8-panel newsboy cap; shape difference impacts relevancy negatively.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic 507 Ventair Flat Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Another flat cap with tropical fabric, differing from the Peaky newsboy style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Vintage 90s Streetwear Kangol Blank Wool Cabbie Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap style similar to Peaky, wool fabric aligns well; less detail on panel construction but likely close design.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Seamless Wool 507 Flat Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Flat cap style, seamless construction differs from 8-panel newsboy silhouette; low relevancy despite material similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"BRIXTON Montreal Cap GREY/BLACK\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Brixton Montreal is typically a newsboy or flat cap style; grey/black colors align but exact construction unclear, giving moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Accessories Men's Large Fitted Plaid Flat Cap Driver Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Flat cap design indicated, differing from 8-panel newsboy silhouette; plaid fabric is a point of similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Ari Cotton Ivy Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Ivy cap style differs in silhouette; cotton fabric is lightweight but shape impacts relevancy negatively.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Vintage Men's Polyester Flat Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Flat cap shape differs from newsboy; polyester material unlike leatherette brim in reference reduces similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Large Fitted Corduroy Cap with Earflaps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"While a cap, earflaps imply a different utilitarian style; corduroy fabric and shape differ from Peaky newsboy cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Patriot Tropic 504 Ivy Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"504 Ivy caps are flat caps differing from 8-panel newsboy silhouette; tropical materials less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Corduroy Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy hat style aligns with Peaky; corduroy fabric is different but shape and construction very similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Classic Plaid Tweed Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat cap with tweed fabric; plaid is similar but shape differs from Peaky newsboy style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros Vintage Linen Blend Newsboy Cap",
+      "score": 8,
+      "rationale": "Also a newsboy cap, likely an 8-panel or similar construction like the Peaky; the material blend differs but overall similar style and function.",
+      "map_id": "map_f5150bcfacf24667ad1c5dd66a2f5ede"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Alfonso D' Este Plaid Tweed Wool Newsboy Cap",
+      "score": 9,
+      "rationale": "Newsboy cap with plaid tweed fabric, matching the 8-panel style and classic newsboy silhouette of the reference; very close in style and construction.",
+      "map_id": "map_9da95ca1a0494a55a46dce48ac81c1ea"
+    },
+    {
+      "competitor_product_name": "Kangol Wool 504 Hat",
+      "score": 4,
+      "rationale": "The 504 is a flat cap (ivy cap), differing silhouette from the 8-panel Newsboy style; wool material is similar but shape is less similar.",
+      "map_id": "map_641477b1691244aab75e726678cf8016"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Newsboy Cap Hat",
+      "score": 9,
+      "rationale": "Explicitly a newsboy cap which suggests an 8-panel or similar construction closely matching the Peaky style; likely similar in silhouette and intended use.",
+      "map_id": "map_28b431bc079d45fcbfb8331cde912e04"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Ventair 504 Ivy Cap",
+      "score": 3,
+      "rationale": "A 504 Ivy cap, which is a flat cap style differing from the 8-panel newsboy cap silhouette; lighter fabric but shape is quite different.",
+      "map_id": "map_57872c2e7638430aac0528b450a5c0f1"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Donegal Tweed Cap",
+      "score": 7,
+      "rationale": "Likely a flat cap given the 'Donegal Tweed Cap' name, which is a similar casual hat style; tweed fabric aligns with traditional newsboy materials but silhouette may differ slightly.",
+      "map_id": "map_33a0e66f7a7d4cf0b05d726879f72b50"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Flat Cabbie Hat Newsboy Cap",
+      "score": 8,
+      "rationale": "Named as both flat cabbie and newsboy cap, suggesting a mix or close silhouette to the Peaky; very relevant due to naming and style.",
+      "map_id": "map_4214e138a3cb4cfcaad246f3acbc1ab2"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Liam Linen Cotton Ivy Cap",
+      "score": 3,
+      "rationale": "An ivy cap, distinct flat cap silhouette different from the 8-panel Peaky newsboy style; linen fabric differs but less relevant due to shape.",
+      "map_id": "map_1cb0fd234aa046ada5d8848473f32604"
+    },
+    {
+      "competitor_product_name": "Brixton Fender Factory Brood Newsboy Cotton Cap",
+      "score": 8,
+      "rationale": "Named as a newsboy cap with cotton; newsboy construction aligns well with Peaky's 8-panel style though fabric differs slightly.",
+      "map_id": "map_b9a10d02420148939061645acb752226"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Bransdale Trilby Straw Hat",
+      "score": 2,
+      "rationale": "A trilby hat made from straw, very different silhouette and materials from the Peaky newsboy cap; low relevancy.",
+      "map_id": "map_4612a1f11bd14451a705a8e0b6a04e94"
+    },
+    {
+      "competitor_product_name": "Barbour Tartan Classic Flat Cap",
+      "score": 5,
+      "rationale": "A flat cap differing from the Peaky's newsboy silhouette but shares heritage style and similar fabric pattern; moderate relevancy.",
+      "map_id": "map_64778027773447e8857e4ffdfa6dcb3c"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Bermuda Hawker Newsboy Cap",
+      "score": 9,
+      "rationale": "Explicitly a newsboy cap, matching the 8-panel Peaky style, likely very similar silhouette and construction.",
+      "map_id": "map_6caa726347b14a7c8ada6bebe603af33"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Spitfire",
+      "score": 2,
+      "rationale": "Spitfire is a different hat style - a cap often with a narrower crown and different shape; wool material is common but silhouette is less similar.",
+      "map_id": "map_a3f145bf8d0946c38416021c188aaf56"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Square K 507 Wool Flat Cap",
+      "score": 3,
+      "rationale": "A 507 flat cap, distinctly different type from an 8-panel newsboy cap; shape difference impacts relevancy negatively.",
+      "map_id": "map_de9b1b16cfa74dc6a26db519d7e4f5fa"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic 507 Ventair Flat Cap",
+      "score": 3,
+      "rationale": "Another flat cap with tropical fabric, differing from the Peaky newsboy style and construction.",
+      "map_id": "map_841538dceed743379bc793d74c4b9ebf"
+    },
+    {
+      "competitor_product_name": "Vintage 90s Streetwear Kangol Blank Wool Cabbie Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap style similar to Peaky, wool fabric aligns well; less detail on panel construction but likely close design.",
+      "map_id": "map_d6099c6776834079b13a65a78e0df0fe"
+    },
+    {
+      "competitor_product_name": "Kangol Seamless Wool 507 Flat Cap",
+      "score": 2,
+      "rationale": "Flat cap style, seamless construction differs from 8-panel newsboy silhouette; low relevancy despite material similarity.",
+      "map_id": "map_8d5ee066af6240caacc72fd5862f2ef7"
+    },
+    {
+      "competitor_product_name": "BRIXTON Montreal Cap GREY/BLACK",
+      "score": 6,
+      "rationale": "Brixton Montreal is typically a newsboy or flat cap style; grey/black colors align but exact construction unclear, giving moderate relevancy.",
+      "map_id": "map_43ce112868804e0e8aa1735a0c06f2ae"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Accessories Men's Large Fitted Plaid Flat Cap Driver Hat",
+      "score": 4,
+      "rationale": "Flat cap design indicated, differing from 8-panel newsboy silhouette; plaid fabric is a point of similarity.",
+      "map_id": "map_dcc3ca5bcc61420097ee71859dcbfd9a"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Ari Cotton Ivy Cap",
+      "score": 3,
+      "rationale": "Ivy cap style differs in silhouette; cotton fabric is lightweight but shape impacts relevancy negatively.",
+      "map_id": "map_230a6e07b0194de6a0f4ac17df2bdabe"
+    },
+    {
+      "competitor_product_name": "Kangol Vintage Men's Polyester Flat Cap",
+      "score": 2,
+      "rationale": "Flat cap shape differs from newsboy; polyester material unlike leatherette brim in reference reduces similarity.",
+      "map_id": "map_c02d4866ebd14cc19c7ec2fc60abf601"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Large Fitted Corduroy Cap with Earflaps",
+      "score": 3,
+      "rationale": "While a cap, earflaps imply a different utilitarian style; corduroy fabric and shape differ from Peaky newsboy cap.",
+      "map_id": "map_335203da5d5149cdaea1e438b71777e3"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Patriot Tropic 504 Ivy Caps",
+      "score": 3,
+      "rationale": "504 Ivy caps are flat caps differing from 8-panel newsboy silhouette; tropical materials less similar.",
+      "map_id": "map_f8ed77bda25045ef8e477778f6597f0d"
+    },
+    {
+      "competitor_product_name": "Kangol Corduroy Newsboy Hat",
+      "score": 8,
+      "rationale": "Newsboy hat style aligns with Peaky; corduroy fabric is different but shape and construction very similar.",
+      "map_id": "map_f8476003ede745979f45b85520caec31"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Classic Plaid Tweed Cap",
+      "score": 6,
+      "rationale": "Likely a flat cap with tweed fabric; plaid is similar but shape differs from Peaky newsboy style.",
+      "map_id": "map_df8baa133dd7496a8b6b5aeb77dffadb"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250504_074308",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros. Letter Opener Patchwork Trucker Cap'\n  - Name='Carhartt Men's WIP Seaton Cap'\n  - Name='Barbour Ashford Flat Cap'\n  - Name='Kangol Wool Clery Cap'\n  - Name='Brixton Brood Sherpa Snap Cap'\n  - Name='Carhartt Men's Canvas Mesh Back Logo Cap'\n  - Name='Goorin Bros. Moon Rooster Trucker Hat'\n  - Name='Goorin Bros. Wulbul Corduroy Trucker Hat'\n  - Name='Brixton Brood Lightweight Cotton Chambray Newsboy Cap'\n  - Name='Goorin Bros. Plaid Wool Newsboy Cap'\n  - Name='Goorin River Wide Brim Merino Wool Felt Fedora'\n  - Name='Women Brixton Fiddler Cap Dusk/black Vega Cap'\n  - Name='The Fighting Rock Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros. Letter Opener Patchwork Trucker Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a trucker cap, typically structured with a mesh back, different silhouette and materials compared to a traditional 8-panel Peaky/scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's WIP Seaton Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Seaton Cap is a soft hat similar in style to a newsboy or flat cap, closer to scally caps than trucker hats but may differ in panel structure or brim style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Ashford Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A flat cap is very similar to a scally or Peaky cap in style and construction, often featuring a soft dome and a small brim, making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Clery Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Clery caps resemble flat or Peaky caps with soft construction and small brims, often wool, making it quite relevant though brand style may slightly differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Sherpa Snap Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A snap cap implies a structured cap with a snap brim, differing in construction from a soft 8-panel Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mesh Back Logo Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Canvas mesh back caps are trucker style, very different in silhouette and construction from Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Moon Rooster Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat design with mesh likely, very different construction and silhouette than a Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Wulbul Corduroy Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat structure differs significantly from 8-panel Peaky caps despite being corduroy material.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Lightweight Cotton Chambray Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy cap is a close relative of Peaky caps in style and panel construction, making this fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Plaid Wool Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Plaid wool newsboy cap shares similar fabric, panel style, and brim as Peaky/Scally caps, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin River Wide Brim Merino Wool Felt Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora style with wide brim and felt construction is stylistically and structurally different from scally/Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Women Brixton Fiddler Cap Dusk/black Vega Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Fiddler caps have a flat crown and small brim similar to Peaky caps, making it reasonably relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Fighting Rock Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A scally cap from a brand named Boston Scally is almost identical in type, construction, and silhouette to the reference product, hence very high relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros. Letter Opener Patchwork Trucker Cap",
+      "score": 3,
+      "rationale": "This is a trucker cap, typically structured with a mesh back, different silhouette and materials compared to a traditional 8-panel Peaky/scally cap.",
+      "map_id": "map_9745b4b52a83426ead2527524bc85b2d"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's WIP Seaton Cap",
+      "score": 5,
+      "rationale": "Seaton Cap is a soft hat similar in style to a newsboy or flat cap, closer to scally caps than trucker hats but may differ in panel structure or brim style.",
+      "map_id": "map_202d6dcad3d04a04b285a0d233af6f7f"
+    },
+    {
+      "competitor_product_name": "Barbour Ashford Flat Cap",
+      "score": 8,
+      "rationale": "A flat cap is very similar to a scally or Peaky cap in style and construction, often featuring a soft dome and a small brim, making this highly relevant.",
+      "map_id": "map_926dbd8731124ee6b5520ddcdb3ade65"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Clery Cap",
+      "score": 7,
+      "rationale": "Clery caps resemble flat or Peaky caps with soft construction and small brims, often wool, making it quite relevant though brand style may slightly differ.",
+      "map_id": "map_17a2af1cffd048288bb429d66989aa55"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Sherpa Snap Cap",
+      "score": 4,
+      "rationale": "A snap cap implies a structured cap with a snap brim, differing in construction from a soft 8-panel Peaky cap.",
+      "map_id": "map_4ffd75e5e45f4341a8c4bebe7877ab77"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mesh Back Logo Cap",
+      "score": 2,
+      "rationale": "Canvas mesh back caps are trucker style, very different in silhouette and construction from Peaky caps.",
+      "map_id": "map_e66f291df6124a1b97fa9d3837ac50bd"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Moon Rooster Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat design with mesh likely, very different construction and silhouette than a Peaky cap.",
+      "map_id": "map_b0edbb7de73542abad23fa2dd84d3195"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Wulbul Corduroy Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat structure differs significantly from 8-panel Peaky caps despite being corduroy material.",
+      "map_id": "map_b5db17f2aacb47e1b70154bc20035fa9"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Lightweight Cotton Chambray Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy cap is a close relative of Peaky caps in style and panel construction, making this fairly relevant.",
+      "map_id": "map_54e0b233f1d740f089bef502ee10cd3d"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Plaid Wool Newsboy Cap",
+      "score": 8,
+      "rationale": "Plaid wool newsboy cap shares similar fabric, panel style, and brim as Peaky/Scally caps, making it very relevant.",
+      "map_id": "map_cbc80bf69a1544d6bf5da0ce9e5932fa"
+    },
+    {
+      "competitor_product_name": "Goorin River Wide Brim Merino Wool Felt Fedora",
+      "score": 2,
+      "rationale": "Fedora style with wide brim and felt construction is stylistically and structurally different from scally/Peaky caps.",
+      "map_id": "map_44886270de3c4258b01688170b0e72d9"
+    },
+    {
+      "competitor_product_name": "Women Brixton Fiddler Cap Dusk/black Vega Cap",
+      "score": 7,
+      "rationale": "Fiddler caps have a flat crown and small brim similar to Peaky caps, making it reasonably relevant.",
+      "map_id": "map_796a64cc8efa4ad8888f273555dd34c4"
+    },
+    {
+      "competitor_product_name": "The Fighting Rock Boston Scally Cap",
+      "score": 9,
+      "rationale": "A scally cap from a brand named Boston Scally is almost identical in type, construction, and silhouette to the reference product, hence very high relevancy.",
+      "map_id": "map_4c3faa02a27b46999f116def23f3b43d"
+    }
+  ]
+}
