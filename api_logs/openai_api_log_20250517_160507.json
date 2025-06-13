@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250517_160507",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Patagonia Men's Terrebonne Joggers'\n  - Name='Patagonia Men's Iron Forge Hemp Canvas Double Knee Pants'\n  - Name='Patagonia Men's Powder Town Pants'\n  - Name='Outerknown The Dunes Straight Jean'\n  - Name='Everlane Men's Transit Chino'\n  - Name='UNIQLO Relaxed Linen Blend Pants'\n  - Name='Everlane Men's Relaxed 4-Way Stretch Organic Jean'\n  - Name='Everlane Men's Selvedge Straight Fit Jeans'\n  - Name='UNIQLO US Relaxed Linen Blend Pants'\n  - Name='Men's Taylor Stitch Democratic Foundation Pant'\n  - Name='Taylor Stitch The Easy Pant'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Patagonia Men's Terrebonne Joggers\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Joggers differ significantly in silhouette and purpose from chore pants; likely more casual and less rugged construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Iron Forge Hemp Canvas Double Knee Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee construction and heavy canvas material closely match the chore pant's rugged design, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Powder Town Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely casual or workwear pants, but without specific canvas or double-knee features mentioned, relevance to chore pant is moderate.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Dunes Straight Jean\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Straight jeans share some durability and casual styling, but construction and fabric differ from canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Transit Chino\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chinos are lighter and more formal than chore pants, differing in fabric and construction although in pant category.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen blend and relaxed style indicate lightweight and casual wear, unlike heavy-duty chore pant canvas.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Relaxed 4-Way Stretch Organic Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Jeans with stretch differ in fabric and construction, but casual pant category raises moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Selvedge Straight Fit Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Selvedge denim denotes durable jeans, closer in workwear category though different fabric and fit than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO US Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same as above linen relaxed pants, low durability and different fabric reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch Democratic Foundation Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"From same brand, likely similar quality and construction but name suggests foundation pant, possibly less rugged than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch The Easy Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Same brand and pant category but 'easy' indicates a more casual or relaxed style, less rugged and structurally different than chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Patagonia Men's Terrebonne Joggers",
+      "score": 4,
+      "rationale": "Joggers differ significantly in silhouette and purpose from chore pants; likely more casual and less rugged construction.",
+      "map_id": "map_2a6e876413f74e98842d715cc8e33e66"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Iron Forge Hemp Canvas Double Knee Pants",
+      "score": 9,
+      "rationale": "Double knee construction and heavy canvas material closely match the chore pant's rugged design, making it highly relevant.",
+      "map_id": "map_1289381e70fa451ab6afcb70f805b5cc"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Powder Town Pants",
+      "score": 5,
+      "rationale": "Likely casual or workwear pants, but without specific canvas or double-knee features mentioned, relevance to chore pant is moderate.",
+      "map_id": "map_95591328c6fe48e79ef983def25c829a"
+    },
+    {
+      "competitor_product_name": "Outerknown The Dunes Straight Jean",
+      "score": 6,
+      "rationale": "Straight jeans share some durability and casual styling, but construction and fabric differ from canvas chore pants.",
+      "map_id": "map_2e0c9addeb84473097975591da298c05"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Transit Chino",
+      "score": 5,
+      "rationale": "Chinos are lighter and more formal than chore pants, differing in fabric and construction although in pant category.",
+      "map_id": "map_581d66bbc30347a3a70ef7ffb2f81e0e"
+    },
+    {
+      "competitor_product_name": "UNIQLO Relaxed Linen Blend Pants",
+      "score": 3,
+      "rationale": "Linen blend and relaxed style indicate lightweight and casual wear, unlike heavy-duty chore pant canvas.",
+      "map_id": "map_4a87c479cd7e409ca6850e0475bb36ea"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Relaxed 4-Way Stretch Organic Jean",
+      "score": 5,
+      "rationale": "Jeans with stretch differ in fabric and construction, but casual pant category raises moderate relevancy.",
+      "map_id": "map_0534870c4ce849b5826cac8f877f094a"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Selvedge Straight Fit Jeans",
+      "score": 6,
+      "rationale": "Selvedge denim denotes durable jeans, closer in workwear category though different fabric and fit than chore pant.",
+      "map_id": "map_f193e44ec13f4d6693e4dc3097b23d63"
+    },
+    {
+      "competitor_product_name": "UNIQLO US Relaxed Linen Blend Pants",
+      "score": 3,
+      "rationale": "Same as above linen relaxed pants, low durability and different fabric reduces relevancy.",
+      "map_id": "map_e697e9c053354969b97c0a74b8b2d384"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch Democratic Foundation Pant",
+      "score": 7,
+      "rationale": "From same brand, likely similar quality and construction but name suggests foundation pant, possibly less rugged than chore pant.",
+      "map_id": "map_1cc3f533942f47669530562818ac53ef"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch The Easy Pant",
+      "score": 6,
+      "rationale": "Same brand and pant category but 'easy' indicates a more casual or relaxed style, less rugged and structurally different than chore pant.",
+      "map_id": "map_349125ddb99543a1ad6c7bde288c3a11"
+    }
+  ]
+}

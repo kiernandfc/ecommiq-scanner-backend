@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250601_144534",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Champion Big & Tall Men's Powerblend Fleece Crew Sweatshirt'\n  - Name='Champion Men's Harvard Basic Arch Fleece Hoodie'\n  - Name='CHP180 Champion Sport Hooded Sweatshirt'\n  - Name='Supreme Box Logo Cotton Hoodie'\n  - Name='Nike Men's Club Oversized French Terry Hoodie'\n  - Name='Nike Men's Solo Swoosh Full-Zip Hoodie'\n  - Name='Carhartt Men's Loose Fit Camo Hoodie'\n  - Name='Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Heavyweight Quarter Zip Sweatshirt'\n  - Name='Carhartt Men's Midweight Logo Work Hoodie'\n  - Name='adidas Men's Essentials Fleece 3-Stripes Hoodie'\n  - Name='American Apparel RF498 ReFlex Fleece Hoodie'\n  - Name='Champion Women's Powerblend Hoodie'\n  - Name='Champion Men's Cotton Max Pullover Hoodie'\n  - Name='Supreme Bandana Box Logo Hooded Sweatshirt'\n  - Name='Supreme Box Logo Hooded Sweatshirt'\n  - Name='Adidas Originals Men's Trefoil Hoodie'\n  - Name='Carhartt Men's Loose Fit Midweight Hooded Detroit Sweatshirt'\n  - Name='Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt'\n  - Name='Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt'\n  - Name='Carhartt Men's 107240 Loose Fit Midweight Hooded Shamrock Back Graphic Sweatshirt'\n  - Name='adidas Men's Z.N.E. Hoodie'\n  - Name='Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Sweatshirt'\n  - Name='Carhartt Men's K288 Big and Tall Loose Fit Midweight Logo Graphic Hoodie'\n  - Name='Carhartt Men's Loose Fit Midweight Camo Sweatshirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Champion Big & Tall Men's Powerblend Fleece Crew Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a crew sweatshirt without a hood, so it serves a similar sweatshirt function but lacks the hooded feature central to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Harvard Basic Arch Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a fleece hoodie similar in function and silhouette, likely soft and comfortable like the reference hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"CHP180 Champion Sport Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt by Champion, similar in construction and purpose to the reference hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Box Logo Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A cotton hoodie, similar basic structure and purpose as the reference product, likely soft and comfortable.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Oversized French Terry Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A French terry hoodie that is oversized; it shares the hooded sweatshirt type, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zip-up hoodie rather than a pullover, but still a soft, hooded sweatshirt, so relevant but slightly different style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Camo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A loose fit hoodie from Carhartt, similar in construction and intended use as a hooded sweatshirt, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full-zip and thermal-lined work sweatshirt; hood presence not explicit but likely similar fabric and purpose. Less straightforward as a casual hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Heavyweight Quarter Zip Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quarter zip sweatshirt without a hood, heavier and more workwear oriented, so less relevant to a classic soft hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Logo Work Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Midweight work hoodie with hood, closely matching the reference product's category and likely softness & mobility focus.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Essentials Fleece 3-Stripes Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie, similar soft fabric and construction, serving the same casual and comfortable use case.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel RF498 ReFlex Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another fleece hoodie, similar construction and fabric, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Women's Powerblend Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hoodie but targeted at women; functionally and structurally similar, just a variant in fit and target demographic.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Cotton Max Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's cotton pullover hoodie by Champion, extremely close to the reference product in function, fabric, and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Bandana Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another branded cotton hoodie similar in silhouette and construction to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Identical product type (hooded sweatshirt), same category and use, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Adidas Originals Men's Trefoil Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hoodie by Adidas, similar soft fabric and pullover hooded design, comparable in function.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Hooded Detroit Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Midweight hooded sweatshirt with loose fit; very relevant in construction and likely comfort level.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though hooded, this is a hooded T-shirt, much lighter construction and different product category, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A sweatshirt but no explicit hood mentioned; midweight and garment dyed may be similar fabrics but missing hood reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's 107240 Loose Fit Midweight Hooded Shamrock Back Graphic Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Loose fit midweight hooded sweatshirt, structurally very similar to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Z.N.E. Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A technical style hoodie designed for comfort and mobility, very much a hooded sweatshirt similar to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Midweight sweatshirt, hood presence unclear; likely less relevant if no hood, but otherwise similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's K288 Big and Tall Loose Fit Midweight Logo Graphic Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Big and tall midweight hooded sweatshirt, very close in style and function to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Camo Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Midweight sweatshirt with camouflage print but no explicit hood, which reduces relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Champion Big & Tall Men's Powerblend Fleece Crew Sweatshirt",
+      "score": 5,
+      "rationale": "This is a crew sweatshirt without a hood, so it serves a similar sweatshirt function but lacks the hooded feature central to the reference product.",
+      "map_id": "map_8a3d1cf02db846d4975fd1a84449611a"
+    },
+    {
+      "competitor_product_name": "Champion Men's Harvard Basic Arch Fleece Hoodie",
+      "score": 9,
+      "rationale": "This is a fleece hoodie similar in function and silhouette, likely soft and comfortable like the reference hoodie, making it highly relevant.",
+      "map_id": "map_ce77566816634f7a8a1a6e7df8aa6040"
+    },
+    {
+      "competitor_product_name": "CHP180 Champion Sport Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A hooded sweatshirt by Champion, similar in construction and purpose to the reference hoodie, making it highly relevant.",
+      "map_id": "map_55909e16a0dd4744b824850b83d930cb"
+    },
+    {
+      "competitor_product_name": "Supreme Box Logo Cotton Hoodie",
+      "score": 9,
+      "rationale": "A cotton hoodie, similar basic structure and purpose as the reference product, likely soft and comfortable.",
+      "map_id": "map_55d2be0a392d40fcaf9a7b2bbc51c9b7"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Oversized French Terry Hoodie",
+      "score": 9,
+      "rationale": "A French terry hoodie that is oversized; it shares the hooded sweatshirt type, making it very relevant.",
+      "map_id": "map_38a3cdbb832c4f16b431e99f9574e645"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "A zip-up hoodie rather than a pullover, but still a soft, hooded sweatshirt, so relevant but slightly different style.",
+      "map_id": "map_80bc1391d96843138398fc714860cc7f"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Camo Hoodie",
+      "score": 9,
+      "rationale": "A loose fit hoodie from Carhartt, similar in construction and intended use as a hooded sweatshirt, highly relevant.",
+      "map_id": "map_66fefaea9ca845b59dfe0bf6e6a8d0af"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt",
+      "score": 7,
+      "rationale": "Full-zip and thermal-lined work sweatshirt; hood presence not explicit but likely similar fabric and purpose. Less straightforward as a casual hoodie.",
+      "map_id": "map_7e6c77b8ad4643438d2a5f8d8f0200c9"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Heavyweight Quarter Zip Sweatshirt",
+      "score": 4,
+      "rationale": "Quarter zip sweatshirt without a hood, heavier and more workwear oriented, so less relevant to a classic soft hoodie.",
+      "map_id": "map_0ff7bbbecbc7415ea22835b78faa7809"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Logo Work Hoodie",
+      "score": 9,
+      "rationale": "Midweight work hoodie with hood, closely matching the reference product's category and likely softness & mobility focus.",
+      "map_id": "map_1da675a4afb2490d8a00c6a57f6676bb"
+    },
+    {
+      "competitor_product_name": "adidas Men's Essentials Fleece 3-Stripes Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie, similar soft fabric and construction, serving the same casual and comfortable use case.",
+      "map_id": "map_c2e996c182584bb1ac77799690bc1bdc"
+    },
+    {
+      "competitor_product_name": "American Apparel RF498 ReFlex Fleece Hoodie",
+      "score": 9,
+      "rationale": "Another fleece hoodie, similar construction and fabric, highly relevant.",
+      "map_id": "map_5eab2da4601e4047a3629eb0aaa0f132"
+    },
+    {
+      "competitor_product_name": "Champion Women's Powerblend Hoodie",
+      "score": 8,
+      "rationale": "A hoodie but targeted at women; functionally and structurally similar, just a variant in fit and target demographic.",
+      "map_id": "map_d6ced3d66ef64f55a8d40ca9355087d4"
+    },
+    {
+      "competitor_product_name": "Champion Men's Cotton Max Pullover Hoodie",
+      "score": 10,
+      "rationale": "A men's cotton pullover hoodie by Champion, extremely close to the reference product in function, fabric, and style.",
+      "map_id": "map_9cc407a8aa9b4ca4a2ceab1f7bcc21ca"
+    },
+    {
+      "competitor_product_name": "Supreme Bandana Box Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Another branded cotton hoodie similar in silhouette and construction to the reference.",
+      "map_id": "map_4ff4c350959c4859a631cbb1b69161f3"
+    },
+    {
+      "competitor_product_name": "Supreme Box Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Identical product type (hooded sweatshirt), same category and use, very relevant.",
+      "map_id": "map_c5b0deb160c444b9a719be13ac1ee9bd"
+    },
+    {
+      "competitor_product_name": "Adidas Originals Men's Trefoil Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie by Adidas, similar soft fabric and pullover hooded design, comparable in function.",
+      "map_id": "map_fba2ed4460aa44bb97c2b6a99b26de7f"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Hooded Detroit Sweatshirt",
+      "score": 9,
+      "rationale": "Midweight hooded sweatshirt with loose fit; very relevant in construction and likely comfort level.",
+      "map_id": "map_c197764a56d04ca19fe7ce4ae5a5896d"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt",
+      "score": 4,
+      "rationale": "Though hooded, this is a hooded T-shirt, much lighter construction and different product category, less relevant.",
+      "map_id": "map_a763ccfdb7d348cebcaa7f95892260c0"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Relaxed Fit Midweight Garment Dyed French Terry Graphic Sweatshirt",
+      "score": 7,
+      "rationale": "A sweatshirt but no explicit hood mentioned; midweight and garment dyed may be similar fabrics but missing hood reduces relevancy.",
+      "map_id": "map_5fbb173cc7ce4123bab03e71cdf4c1d5"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's 107240 Loose Fit Midweight Hooded Shamrock Back Graphic Sweatshirt",
+      "score": 9,
+      "rationale": "Loose fit midweight hooded sweatshirt, structurally very similar to the reference hoodie.",
+      "map_id": "map_b8e2c8de2af24989a85313a34e91fe74"
+    },
+    {
+      "competitor_product_name": "adidas Men's Z.N.E. Hoodie",
+      "score": 9,
+      "rationale": "A technical style hoodie designed for comfort and mobility, very much a hooded sweatshirt similar to the reference.",
+      "map_id": "map_04e6bb9973b240309acecf836bd788fa"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Sweatshirt",
+      "score": 7,
+      "rationale": "Midweight sweatshirt, hood presence unclear; likely less relevant if no hood, but otherwise similar.",
+      "map_id": "map_54defc58d1754481b67f01044f238f65"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's K288 Big and Tall Loose Fit Midweight Logo Graphic Hoodie",
+      "score": 9,
+      "rationale": "Big and tall midweight hooded sweatshirt, very close in style and function to the reference hoodie.",
+      "map_id": "map_60c25ebc6fd34a50a1ee379aa6296531"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Camo Sweatshirt",
+      "score": 7,
+      "rationale": "Midweight sweatshirt with camouflage print but no explicit hood, which reduces relevancy.",
+      "map_id": "map_e87f252d85314461a4133a578ab6cb78"
+    }
+  ]
+}

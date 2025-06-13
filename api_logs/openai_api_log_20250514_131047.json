@@ -1,0 +1,197 @@
+{
+  "timestamp": "20250514_131047",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Men's 504 Flannel Flat Cap'\n  - Name='Kangol Heritage Men's Herringbone Newsboy Cap'\n  - Name='Carhartt Men's Canvas Mesh Back Logo Graphic Cap'\n  - Name='Carhartt Unisex Plaid Hat/cap'\n  - Name='Carhartt Men's Hat'\n  - Name='Carhartt Hat1'\n  - Name='Kangol Plaid 504 Flexfit Ivy Cap'\n  - Name='Kangol Men's COTLY English Plaid Newsboy Wool Hat'\n  - Name='Kangol Heritage Paperboy Plaid Cap'\n  - Name='Carhartt Men's Cotton Canvas Mountain Patch Cap'\n  - Name='Kangol Men's Gatsby Newsboy Cap'\n  - Name='Kangol Spitfire Wool Blend Newsboy Cap'\n  - Name='Kangol Spitfire Wool Blend Newsboy Cap'\n  - Name='Contour Wave 507'\n  - Name='Goorin Bros Newsboy Schoolboy Hat'\n  - Name='Goorin Bros Houndstooth Flat Cap Hat'\n  - Name='Kangol Accessories Gatsby Newsboy Cap'\n  - Name='Kangol Design Men's Houndstooth Check Wool Tweed Flat Cap'\n  - Name='Kangol Tropic Player'\n  - Name='Kangol Men's Caps'\n  - Name='Kangol Men's Coniston Check Newsboy Hat Cap'\n  - Name='Brixton Brood Cord Brown Snap Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Men's 504 Flannel Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap like the reference Peaky cap, likely with a similar 8-panel or close construction and flannel fabric, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Heritage Men's Herringbone Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A newsboy cap closely matches the Peaky's 8-panel style and heritage look, so it shares core silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mesh Back Logo Graphic Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a mesh back graphic cap, which differs significantly from the Peaky's solid 8-panel style and leatherette brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Unisex Plaid Hat/cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Plaid matches the pattern, but without specific style details, it may not share the Peaky's construction; possibly somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"No style details suggest a flat or newsboy cap; likely a generic or different type, so low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Hat1\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Name provides no clear indication of similarity to an 8-panel Peaky cap, so minimal relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Plaid 504 Flexfit Ivy Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A 504 Ivy cap is a close-style flat cap but usually with fewer panels than a newsboy, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's COTLY English Plaid Newsboy Wool Hat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An English plaid newsboy hat closely matches the Peaky in silhouette, material emphasis, and pattern, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Heritage Paperboy Plaid Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Paperboy caps are synonymous with 8-panel newsboy styles; with plaid fabric this is quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Cotton Canvas Mountain Patch Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A mountain patch cap suggests a different style, likely a baseball or trucker cap, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Gatsby Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The Gatsby newsboy style shares the same overall shape and probable panel construction, relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Spitfire Wool Blend Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap in wool blend likely shares silhouette and construction, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Spitfire Wool Blend Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Duplicate of previous; same rationale applies.\"\n    },\n    {\n      \"competitor_product_name\": \"Contour Wave 507\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The 507 is typically a flat cap and flatter silhouette than a newsboy; less panelled, so moderate-low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Newsboy Schoolboy Hat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Newsboy style directly matches the Peaky's classic 8-panel design and function, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Houndstooth Flat Cap Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style is similar but typically fewer panels than a Peaky; houndstooth pattern differs but pattern ignored.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Gatsby Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Gatsby newsboy is close in style and shape to the Peaky, making it relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Design Men's Houndstooth Check Wool Tweed Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat caps have a simpler panel structure compared to newsboy Peaky caps, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Player\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The Tropic Player is usually a lightweight, casual cap, very different from an 8-panel Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Generic name with no indication of style; likely low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Coniston Check Newsboy Hat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A newsboy cap with check pattern is very similar in style and silhouette to the Peaky, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Cord Brown Snap Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A snap cap differs from an 8-panel newsboy/Peaky style in structure, but the brand and name imply some related vintage inspiration.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Men's 504 Flannel Flat Cap",
+      "score": 7,
+      "rationale": "This is a flat cap like the reference Peaky cap, likely with a similar 8-panel or close construction and flannel fabric, making it fairly relevant.",
+      "map_id": "map_7df9e38138fb4432b7bc2095123962ff"
+    },
+    {
+      "competitor_product_name": "Kangol Heritage Men's Herringbone Newsboy Cap",
+      "score": 8,
+      "rationale": "A newsboy cap closely matches the Peaky's 8-panel style and heritage look, so it shares core silhouette and function.",
+      "map_id": "map_7833cab0ba9747dc82f9dbeace7b18f2"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mesh Back Logo Graphic Cap",
+      "score": 3,
+      "rationale": "This is a mesh back graphic cap, which differs significantly from the Peaky's solid 8-panel style and leatherette brim.",
+      "map_id": "map_78b78eed5e98450da36be3adb1926e7e"
+    },
+    {
+      "competitor_product_name": "Carhartt Unisex Plaid Hat/cap",
+      "score": 5,
+      "rationale": "Plaid matches the pattern, but without specific style details, it may not share the Peaky's construction; possibly somewhat relevant.",
+      "map_id": "map_83709ed5d9204630be1a30a455e55c25"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Hat",
+      "score": 2,
+      "rationale": "No style details suggest a flat or newsboy cap; likely a generic or different type, so low relevance.",
+      "map_id": "map_290173d479164b55b233f997e801086b"
+    },
+    {
+      "competitor_product_name": "Carhartt Hat1",
+      "score": 1,
+      "rationale": "Name provides no clear indication of similarity to an 8-panel Peaky cap, so minimal relevance.",
+      "map_id": "map_fb12f10765154d2f9a6f865b0ad41fb8"
+    },
+    {
+      "competitor_product_name": "Kangol Plaid 504 Flexfit Ivy Cap",
+      "score": 6,
+      "rationale": "A 504 Ivy cap is a close-style flat cap but usually with fewer panels than a newsboy, so moderately relevant.",
+      "map_id": "map_4eb39bf05b5d45b4b01445d2f3253914"
+    },
+    {
+      "competitor_product_name": "Kangol Men's COTLY English Plaid Newsboy Wool Hat",
+      "score": 9,
+      "rationale": "An English plaid newsboy hat closely matches the Peaky in silhouette, material emphasis, and pattern, very relevant.",
+      "map_id": "map_f3ef7e16899545b2ab68b9eda51db6f5"
+    },
+    {
+      "competitor_product_name": "Kangol Heritage Paperboy Plaid Cap",
+      "score": 8,
+      "rationale": "Paperboy caps are synonymous with 8-panel newsboy styles; with plaid fabric this is quite relevant.",
+      "map_id": "map_e53300698cfb49cea648f3c2e94eeaa1"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Cotton Canvas Mountain Patch Cap",
+      "score": 3,
+      "rationale": "A mountain patch cap suggests a different style, likely a baseball or trucker cap, less relevant.",
+      "map_id": "map_79664eedaa384caea131974db67a7c80"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Gatsby Newsboy Cap",
+      "score": 8,
+      "rationale": "The Gatsby newsboy style shares the same overall shape and probable panel construction, relevant.",
+      "map_id": "map_ba57e75501fa4ec6bed42f2e7a2c89a6"
+    },
+    {
+      "competitor_product_name": "Kangol Spitfire Wool Blend Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap in wool blend likely shares silhouette and construction, making it quite relevant.",
+      "map_id": "map_cdda58c05b0d4aa2807082bc79429300"
+    },
+    {
+      "competitor_product_name": "Kangol Spitfire Wool Blend Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap in wool blend likely shares silhouette and construction, making it quite relevant.",
+      "map_id": "map_c0c186eb0dc541e9bf2fb91adcc73e02"
+    },
+    {
+      "competitor_product_name": "Kangol Spitfire Wool Blend Newsboy Cap",
+      "score": 8,
+      "rationale": "Duplicate of previous; same rationale applies.",
+      "map_id": "map_cdda58c05b0d4aa2807082bc79429300"
+    },
+    {
+      "competitor_product_name": "Kangol Spitfire Wool Blend Newsboy Cap",
+      "score": 8,
+      "rationale": "Duplicate of previous; same rationale applies.",
+      "map_id": "map_c0c186eb0dc541e9bf2fb91adcc73e02"
+    },
+    {
+      "competitor_product_name": "Contour Wave 507",
+      "score": 4,
+      "rationale": "The 507 is typically a flat cap and flatter silhouette than a newsboy; less panelled, so moderate-low relevance.",
+      "map_id": "map_baea250c2d3b48ae8e64dfbd519ca1c1"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Newsboy Schoolboy Hat",
+      "score": 9,
+      "rationale": "Newsboy style directly matches the Peaky's classic 8-panel design and function, highly relevant.",
+      "map_id": "map_027b1a0ea91a4f7eac310279e3cd76d4"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Houndstooth Flat Cap Hat",
+      "score": 6,
+      "rationale": "Flat cap style is similar but typically fewer panels than a Peaky; houndstooth pattern differs but pattern ignored.",
+      "map_id": "map_2c5878e9ecaa4516904eb3f06cf3d73f"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Gatsby Newsboy Cap",
+      "score": 8,
+      "rationale": "Gatsby newsboy is close in style and shape to the Peaky, making it relevant.",
+      "map_id": "map_2c0a8d408dee428ba4a5899db141a52e"
+    },
+    {
+      "competitor_product_name": "Kangol Design Men's Houndstooth Check Wool Tweed Flat Cap",
+      "score": 6,
+      "rationale": "Flat caps have a simpler panel structure compared to newsboy Peaky caps, moderately relevant.",
+      "map_id": "map_4febce770ce6464c9a44d5df78bb4163"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Player",
+      "score": 3,
+      "rationale": "The Tropic Player is usually a lightweight, casual cap, very different from an 8-panel Peaky cap.",
+      "map_id": "map_c2a51f8ede6545a58c408657b2dc2b66"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Caps",
+      "score": 3,
+      "rationale": "Generic name with no indication of style; likely low relevance.",
+      "map_id": "map_3a597f3c37db453bbced89ad14af0fa3"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Coniston Check Newsboy Hat Cap",
+      "score": 9,
+      "rationale": "A newsboy cap with check pattern is very similar in style and silhouette to the Peaky, highly relevant.",
+      "map_id": "map_4b1699240ce8485aab3dcc0e55ae523c"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Cord Brown Snap Cap",
+      "score": 5,
+      "rationale": "A snap cap differs from an 8-panel newsboy/Peaky style in structure, but the brand and name imply some related vintage inspiration.",
+      "map_id": "map_2138c694cb2441078f52011c32b41b11"
+    }
+  ]
+}

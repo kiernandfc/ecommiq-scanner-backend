@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250527_074332",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim Untucked Organic Cotton Poplin Shirt'\n  - Name='J.Crew Men's Brushed Twill Shirt'\n  - Name='Frank & Oak Unisex Jasper Oxford Shirt'\n  - Name='Buck Mason Men's Flannel Workshirt'\n  - Name='Buck Mason Men's Wornwell Cotton Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Everyday Oxford Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Oxford Shirt'\n  - Name='Men's Taylor Stitch The Short Sleeve California in Morel Hemp'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are men's cotton shirts with a focus on comfortable fabric and everyday wear, but the J.Crew shirt uses poplin rather than the heavier oxford weave and lacks emphasis on organic materials or rugged construction.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Organic Cotton Poplin Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar slim fit and organic cotton fabric like The Jack, with an untucked length mentioned, but it is a poplin weave rather than burly oxford, meaning less robust construction.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Brushed Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Also a cotton shirt, but brushed twill is a different fabric weight and finish; less similar in sturdiness and tailoring compared to The Jack's oxford construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Frank & Oak Unisex Jasper Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oxford shirt like The Jack, likely targeting similar durability and style; unisex may differ in cut but fabric and construction are closely aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Flannel Workshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Flannel workshirt differs substantially in fabric type (brushed wool or cotton) and purpose (workshirt vs button-down oxford), likely heavier and less tailored.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Wornwell Cotton Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton shirt with possibly a worn-in look; similar casual style but fabric details and construction specs differ from The Jack's organic oxford and double-needle felled seams.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product to the reference with matching brand, fabric, construction, and style details.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Everyday Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also an organic cotton oxford shirt from the same brand, likely similar fabric and construction but different style name and possibly cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Effectively the same product as the reference, matching name, fabric, and all key features.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch The Short Sleeve California in Morel Hemp\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve shirt made with hemp fabric, differing in sleeve length, fabric type, and likely silhouette, making it less relevant to the long-sleeve oxford Jack Shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Both are men's cotton shirts with a focus on comfortable fabric and everyday wear, but the J.Crew shirt uses poplin rather than the heavier oxford weave and lacks emphasis on organic materials or rugged construction.",
+      "map_id": "map_c21121409a164de4bbebef0d88d00fe9"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Organic Cotton Poplin Shirt",
+      "score": 8,
+      "rationale": "Similar slim fit and organic cotton fabric like The Jack, with an untucked length mentioned, but it is a poplin weave rather than burly oxford, meaning less robust construction.",
+      "map_id": "map_15226dc514ca4793a6050c13a24873ad"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Brushed Twill Shirt",
+      "score": 5,
+      "rationale": "Also a cotton shirt, but brushed twill is a different fabric weight and finish; less similar in sturdiness and tailoring compared to The Jack's oxford construction.",
+      "map_id": "map_675e9eb34dfc4cef8acb02dffee0d91a"
+    },
+    {
+      "competitor_product_name": "Frank & Oak Unisex Jasper Oxford Shirt",
+      "score": 9,
+      "rationale": "An oxford shirt like The Jack, likely targeting similar durability and style; unisex may differ in cut but fabric and construction are closely aligned.",
+      "map_id": "map_3165a15c871649c3ab6ab690b1eff861"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Flannel Workshirt",
+      "score": 4,
+      "rationale": "Flannel workshirt differs substantially in fabric type (brushed wool or cotton) and purpose (workshirt vs button-down oxford), likely heavier and less tailored.",
+      "map_id": "map_1dfc4c67563846c6a001d404bc919268"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Wornwell Cotton Shirt",
+      "score": 7,
+      "rationale": "Cotton shirt with possibly a worn-in look; similar casual style but fabric details and construction specs differ from The Jack's organic oxford and double-needle felled seams.",
+      "map_id": "map_d51f5c53713f4cdeaaf69f18311ebd3c"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Shirt",
+      "score": 10,
+      "rationale": "Identical product to the reference with matching brand, fabric, construction, and style details.",
+      "map_id": "map_70c9cd42319348aaafbc70d1436f382e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Everyday Oxford Shirt",
+      "score": 8,
+      "rationale": "Also an organic cotton oxford shirt from the same brand, likely similar fabric and construction but different style name and possibly cut.",
+      "map_id": "map_8c996755813542a591bcb73590d6a814"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Effectively the same product as the reference, matching name, fabric, and all key features.",
+      "map_id": "map_0954092d62394b8cbc1156d2660ed092"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch The Short Sleeve California in Morel Hemp",
+      "score": 3,
+      "rationale": "Short sleeve shirt made with hemp fabric, differing in sleeve length, fabric type, and likely silhouette, making it less relevant to the long-sleeve oxford Jack Shirt.",
+      "map_id": "map_b975a67868a84a518c61647e4e6d7f44"
+    }
+  ]
+}

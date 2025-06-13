@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250518_160404",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Long Haul Jacket'\n  - Name='Taylor Stitch Men's Ryder Organic Cotton Chipped Canvas Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton Crew Jacket'\n  - Name='Taylor Stitch Men's Able Quilted Nylon Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton Terry Primer Jacket'\n  - Name='Carhartt WIP Awake NY Michigan Chore Coat'\n  - Name='Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket'\n  - Name='Men's Taylor Stitch The Stevens Sportcoat in Coffee Linen Herringbone'\n  - Name='Taylor Stitch Men's Maritime Plaid Wool Shirt Jacket'\n  - Name='Alex Mill Sam Cotton Linen Jacket'\n  - Name='Alex Mill Zip Work Jacket'\n  - Name='Alex Mill Alex Crane Canvas Kite Jacket'\n  - Name='Alex Mill Linen Work Jacket'\n  - Name='Alex Mill Men's Garment Dyed Work Jacket'\n  - Name='Faherty Men's Reserve Birdseye Knit Blazer'\n  - Name='Barbour Royston Casual Jacket Mens'\n  - Name='Carhartt WIP OG Chore Coat'\n  - Name='Alex Mill Aaron Recycled Denim Utility Jacket'\n  - Name='Universal Works Bakers Jacket Twill'\n  - Name='Women Alex Mill Britt Work Jacket'\n  - Name='Omnigod x Alex Mill Miller Denim Jacket'\n  - Name='Alex Mill Men's Lightweight Chore Jacket'\n  - Name='Alex Mill George Waxed Canvas Coat Jacket'\n  - Name='Barbour Men's Rokig Waterproof Jacket'\n  - Name='Engineered Garments Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Long Haul Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This jacket is also from Taylor Stitch and made of organic cotton, likely similar in weight and use to the Ojai Jacket, sharing core materials and casual utility style.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Ryder Organic Cotton Chipped Canvas Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another organic cotton jacket from Taylor Stitch with a sturdy canvas fabric, probably offering similar durability and utility focus but possibly different silhouette or fabric texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Crew Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same brand and cotton material but the 'Crew' suggests a different, possibly less traditional chore coat silhouette, slightly lowering direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Able Quilted Nylon Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Different material (nylon quilted), likely different purpose (insulation over utility chore coat style), less silhouette similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Terry Primer Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton use fits, but terry cloth texture implies a softer, lighter jacket rather than tough twill chore coat, reducing overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Awake NY Michigan Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore coat from Carhartt WIP, known for durable workwear similar in silhouette and utility, very relevant despite different brand.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Same brand and organic cotton but corduroy fabric introduces a different texture and possibly different use and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch The Stevens Sportcoat in Coffee Linen Herringbone\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A sportcoat is more tailored and dressy compared to a chore coat, linen herringbone fabric is lighter and less utility-focused.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Maritime Plaid Wool Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Though a jacket, wool shirt jacket silhouette and fabric materially differ from heavy cotton chore coat, so only moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Sam Cotton Linen Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A cotton linen jacket may be lightweight and less workwear-inspired; brand differs, but material and casual utility give some relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Zip Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A work jacket with zipper suggests functional workwear piece with utility focus like the Ojai, enhancing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Alex Crane Canvas Kite Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Canvas fabric and workwear influences align well with Ojai's utility focus, providing relevant similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Work Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Linen fabric is lighter and less durable than twill cotton; still a work jacket but less directly comparable in construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Garment Dyed Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work jacket with garment dyed cotton fabric aligns closely with the utilitarian and durable focus of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Reserve Birdseye Knit Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Blazer style and knit fabric significantly diverge from chore coat silhouette and cotton twill construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Royston Casual Jacket Mens\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Barbour is known for durable outerwear with utility style; casual jacket likely shares similar uses though with different brand heritage.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Classic chore coat from a respected workwear brand, nearly identical in function, silhouette, and construction to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Aaron Recycled Denim Utility Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Denim utility jacket shares utilitarian function and durability despite different fabric, aligning well with Ojai's purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Bakers Jacket Twill\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Twilled cotton bakers jacket shares fabrication and utility silhouette similar to chore coat, offering strong relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Women Alex Mill Britt Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A work jacket with utility focus is relevant, but women’s sizing and possible silhouette differences reduce relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Omnigod x Alex Mill Miller Denim Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim jacket with utility aspects is somewhat relevant, though denim and likely different cut distinguish it from Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Lightweight Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Chore jacket silhouette with lightweight construction aligns very closely with the Ojai Jacket’s style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill George Waxed Canvas Coat Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Waxed canvas coat offers water resistance with utility style, similar use but different material than cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Rokig Waterproof Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Waterproof jacket made for utility use, but technical fabric and possibly different silhouette lower direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Typically utility-inspired with unique design elements; similar inspiration but potentially less traditional chore coat styling.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Long Haul Jacket",
+      "score": 8,
+      "rationale": "This jacket is also from Taylor Stitch and made of organic cotton, likely similar in weight and use to the Ojai Jacket, sharing core materials and casual utility style.",
+      "map_id": "map_772b8704c3854414b86603551b825bd3"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Ryder Organic Cotton Chipped Canvas Jacket",
+      "score": 7,
+      "rationale": "Another organic cotton jacket from Taylor Stitch with a sturdy canvas fabric, probably offering similar durability and utility focus but possibly different silhouette or fabric texture.",
+      "map_id": "map_472ef3cf95724172a7ef0b9483fd843b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Crew Jacket",
+      "score": 7,
+      "rationale": "Same brand and cotton material but the 'Crew' suggests a different, possibly less traditional chore coat silhouette, slightly lowering direct relevancy.",
+      "map_id": "map_f22c66035b9140c093e94b4a0909a951"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Able Quilted Nylon Jacket",
+      "score": 4,
+      "rationale": "Different material (nylon quilted), likely different purpose (insulation over utility chore coat style), less silhouette similarity.",
+      "map_id": "map_ce520cc07e2748d39e8007a06e971b19"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Terry Primer Jacket",
+      "score": 6,
+      "rationale": "Organic cotton use fits, but terry cloth texture implies a softer, lighter jacket rather than tough twill chore coat, reducing overlap.",
+      "map_id": "map_95e26b73c62940b9b630c69cdce62547"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Awake NY Michigan Chore Coat",
+      "score": 9,
+      "rationale": "A chore coat from Carhartt WIP, known for durable workwear similar in silhouette and utility, very relevant despite different brand.",
+      "map_id": "map_5f40e4296bbf480cbe2b24840df316ea"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Corduroy Piston Jacket",
+      "score": 6,
+      "rationale": "Same brand and organic cotton but corduroy fabric introduces a different texture and possibly different use and silhouette.",
+      "map_id": "map_4a2630deb7b940e78c710f35c085ee12"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch The Stevens Sportcoat in Coffee Linen Herringbone",
+      "score": 3,
+      "rationale": "A sportcoat is more tailored and dressy compared to a chore coat, linen herringbone fabric is lighter and less utility-focused.",
+      "map_id": "map_0fdbc252a6654ca0ae0eee6b26e5f7a8"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Maritime Plaid Wool Shirt Jacket",
+      "score": 5,
+      "rationale": "Though a jacket, wool shirt jacket silhouette and fabric materially differ from heavy cotton chore coat, so only moderate relevancy.",
+      "map_id": "map_7ee8f393d88e462cb93782a8871a777c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Sam Cotton Linen Jacket",
+      "score": 5,
+      "rationale": "A cotton linen jacket may be lightweight and less workwear-inspired; brand differs, but material and casual utility give some relevancy.",
+      "map_id": "map_d14f60619f0240a69774a0232a091244"
+    },
+    {
+      "competitor_product_name": "Alex Mill Zip Work Jacket",
+      "score": 7,
+      "rationale": "A work jacket with zipper suggests functional workwear piece with utility focus like the Ojai, enhancing relevancy.",
+      "map_id": "map_769fa47c972c47c581ef7e8a6f3b3660"
+    },
+    {
+      "competitor_product_name": "Alex Mill Alex Crane Canvas Kite Jacket",
+      "score": 7,
+      "rationale": "Canvas fabric and workwear influences align well with Ojai's utility focus, providing relevant similarity.",
+      "map_id": "map_76cce147bf0f4765a333ac6d0b03cdb1"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Work Jacket",
+      "score": 5,
+      "rationale": "Linen fabric is lighter and less durable than twill cotton; still a work jacket but less directly comparable in construction.",
+      "map_id": "map_4a0ddd2cf68c41228724b03da8c1a0cd"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Garment Dyed Work Jacket",
+      "score": 8,
+      "rationale": "Work jacket with garment dyed cotton fabric aligns closely with the utilitarian and durable focus of the Ojai Jacket.",
+      "map_id": "map_996e296f7c564b1eb453e9d035eb92d7"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Reserve Birdseye Knit Blazer",
+      "score": 2,
+      "rationale": "Blazer style and knit fabric significantly diverge from chore coat silhouette and cotton twill construction.",
+      "map_id": "map_69ceff75868b422a80c1012fabc82d8d"
+    },
+    {
+      "competitor_product_name": "Barbour Royston Casual Jacket Mens",
+      "score": 7,
+      "rationale": "Barbour is known for durable outerwear with utility style; casual jacket likely shares similar uses though with different brand heritage.",
+      "map_id": "map_370edf54b9384185b8bc1b6f35e02256"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 10,
+      "rationale": "Classic chore coat from a respected workwear brand, nearly identical in function, silhouette, and construction to the Ojai Jacket.",
+      "map_id": "map_ef896adc956343bd96c4a2eea1275a95"
+    },
+    {
+      "competitor_product_name": "Alex Mill Aaron Recycled Denim Utility Jacket",
+      "score": 7,
+      "rationale": "Denim utility jacket shares utilitarian function and durability despite different fabric, aligning well with Ojai's purpose.",
+      "map_id": "map_3b33e5408ca041349cc4791167b1b4c9"
+    },
+    {
+      "competitor_product_name": "Universal Works Bakers Jacket Twill",
+      "score": 8,
+      "rationale": "Twilled cotton bakers jacket shares fabrication and utility silhouette similar to chore coat, offering strong relevancy.",
+      "map_id": "map_bdc5ac451d0a48c5aa1cb6da5ff92311"
+    },
+    {
+      "competitor_product_name": "Women Alex Mill Britt Work Jacket",
+      "score": 6,
+      "rationale": "A work jacket with utility focus is relevant, but women’s sizing and possible silhouette differences reduce relevancy slightly.",
+      "map_id": "map_761502898d9d4b5e8ff378ca747ed98a"
+    },
+    {
+      "competitor_product_name": "Omnigod x Alex Mill Miller Denim Jacket",
+      "score": 6,
+      "rationale": "Denim jacket with utility aspects is somewhat relevant, though denim and likely different cut distinguish it from Ojai Jacket.",
+      "map_id": "map_0c0a0e4354674795a5f04814ea9e6018"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Lightweight Chore Jacket",
+      "score": 9,
+      "rationale": "Chore jacket silhouette with lightweight construction aligns very closely with the Ojai Jacket’s style and function.",
+      "map_id": "map_cf12db45b40f4904b9cfda0efead1893"
+    },
+    {
+      "competitor_product_name": "Alex Mill George Waxed Canvas Coat Jacket",
+      "score": 7,
+      "rationale": "Waxed canvas coat offers water resistance with utility style, similar use but different material than cotton twill.",
+      "map_id": "map_a4b25dd6a30a478191fee3c3fd79c5b0"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Rokig Waterproof Jacket",
+      "score": 6,
+      "rationale": "Waterproof jacket made for utility use, but technical fabric and possibly different silhouette lower direct relevancy.",
+      "map_id": "map_904d4c3801c94343afc117df00137413"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Jacket",
+      "score": 6,
+      "rationale": "Typically utility-inspired with unique design elements; similar inspiration but potentially less traditional chore coat styling.",
+      "map_id": "map_896cb7b916874c4f8cc3910a10d971d9"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250603_151333",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Lands' End Men's Pattern No Iron Dress Shirt'\n  - Name='Lands' End Men's Tall Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit No Iron Dress Shirt'\n  - Name='Lands' End Men's Tall Short Sleeve No Iron Twill Shirt'\n  - Name='Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt'\n  - Name='Lands' End Long Sleeve No Iron Pinpoint Dress Shirt'\n  - Name='Indochino Men's Oakington Seersucker Shirt'\n  - Name='Bonobos Men's Weekday Warrior Plaid Dress Shirt'\n  - Name='Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's no-iron dress shirt similar in function and type to the reference product, with the main difference being the pattern versus solid texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a tall buttondown shirt but does not specify 'no iron' or dress shirt status; may be less formal and functional than the reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A tall, tailored fit, no iron dress shirt closely matches the reference product in fit, fabric technology, and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Short Sleeve No Iron Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shares no-iron fabric feature and dress shirt type but is short sleeve and twill fabric, potentially less formal and different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While a long sleeve shirt from same brand, it is traditional fit and travel kit likely implies different fabric and function from a no-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Long Sleeve No Iron Pinpoint Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A long sleeve, no iron, dress shirt closely matches the reference in core features and intended uses.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Oakington Seersucker Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Seersucker shirt differs in fabric and likely casual styling, reducing relevancy to a no-iron textured solid dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Plaid Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A dress shirt from a competitor with wrinkle-resistant implied by name, but plaid pattern and possibly different fabric reduce direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"From the same brand, a premium wrinkle-free textured solid dress shirt matches almost exactly in product type, features, and styling.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "This is a men's no-iron dress shirt similar in function and type to the reference product, with the main difference being the pattern versus solid texture.",
+      "map_id": "map_4df3a6bd265f48619f3b4e793a43d484"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Long Sleeve Buttondown Shirt",
+      "score": 5,
+      "rationale": "This is a tall buttondown shirt but does not specify 'no iron' or dress shirt status; may be less formal and functional than the reference shirt.",
+      "map_id": "map_4e318f6eec7a4d808385e06a123414f2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "A tall, tailored fit, no iron dress shirt closely matches the reference product in fit, fabric technology, and intended use.",
+      "map_id": "map_7191c691cfc846668ecd754ed4c21732"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Short Sleeve No Iron Twill Shirt",
+      "score": 6,
+      "rationale": "Shares no-iron fabric feature and dress shirt type but is short sleeve and twill fabric, potentially less formal and different silhouette.",
+      "map_id": "map_d118360b0d0d433297a267079911a737"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt",
+      "score": 4,
+      "rationale": "While a long sleeve shirt from same brand, it is traditional fit and travel kit likely implies different fabric and function from a no-iron dress shirt.",
+      "map_id": "map_5458c3ce7fc149ba93f911db4faac687"
+    },
+    {
+      "competitor_product_name": "Lands' End Long Sleeve No Iron Pinpoint Dress Shirt",
+      "score": 9,
+      "rationale": "A long sleeve, no iron, dress shirt closely matches the reference in core features and intended uses.",
+      "map_id": "map_238662972e39429b9292f4ab2076a9ec"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Oakington Seersucker Shirt",
+      "score": 5,
+      "rationale": "Seersucker shirt differs in fabric and likely casual styling, reducing relevancy to a no-iron textured solid dress shirt.",
+      "map_id": "map_21bb7d7fae0b4ff09c7311c7ec4234a6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Plaid Dress Shirt",
+      "score": 7,
+      "rationale": "A dress shirt from a competitor with wrinkle-resistant implied by name, but plaid pattern and possibly different fabric reduce direct relevancy.",
+      "map_id": "map_3da5e486af0d45faaf86feda80fccdbd"
+    },
+    {
+      "competitor_product_name": "Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid",
+      "score": 10,
+      "rationale": "From the same brand, a premium wrinkle-free textured solid dress shirt matches almost exactly in product type, features, and styling.",
+      "map_id": "map_e7d5683426a24cd8a70f6e136addccd0"
+    }
+  ]
+}

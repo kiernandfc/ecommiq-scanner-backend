@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250523_084527",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Seaboard Soft-knit Plaid Shirt'\n  - Name='J.Crew Men's Seaboard Soft-knit Plaid Shirt'\n  - Name='J.Crew Men's All-Day Performance Shirt'\n  - Name='Buck Mason Men's Vintage Thermal Surplus Tee'\n  - Name='Buck Mason Men's Wornwell Stripe Shirt'\n  - Name='Buck Mason Men's Nep Point Rider Western Shirt'\n  - Name='Buck Mason Ink Curved Hem Tee'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt'\n  - Name='Buck Mason Men's Curved Hem Short Sleeve T Shirt'\n  - Name='Buck Mason Men's Slub Curved Hem Tee'\n  - Name='BUCK MASON Men's Sawtooth Classic Fit Button Down Western Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are cotton button-down shirts with a focus on comfortable fabric; however, the reference product is a burly organic cotton oxford with heavy construction, while this is a poplin fabric likely lighter and smoother, making it somewhat less durable and structured.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Seaboard Soft-knit Plaid Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a soft-knit plaid shirt, likely a casual knit shirt rather than woven oxford. The fabric and style differ significantly from structured oxford button-down, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Seaboard Soft-knit Plaid Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Duplicate entry, same reasoning as above.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's All-Day Performance Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While likely a button-down shirt with a focus on performance fabric, the construction and purpose might differ from the rugged organic oxford of the reference, moderately relevant but less focus on durability and organic materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Vintage Thermal Surplus Tee\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a thermal tee shirt, fundamentally different in silhouette and construction from an oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Wornwell Stripe Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a casual button-down shirt with patterned fabric; though button-down shirts share similar silhouette, the reference emphasizes heavy oxford organic cotton, so only moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Nep Point Rider Western Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A western-style button-down shirt which likely shares the button-down collar and sturdy construction qualities although possibly different fabric; relevant due to construction and shirt type.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Ink Curved Hem Tee\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A tee shirt, completely different product type and construction from the reference oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand, organic cotton, same Jack model extended to short sleeve; identical product line, only sleeve length differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Curved Hem Short Sleeve T Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Short sleeve tee shirt, different silhouette and construction from oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Slub Curved Hem Tee\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Tee shirt, different category and construction than button-down oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"BUCK MASON Men's Sawtooth Classic Fit Button Down Western Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Western style button-down shirt, likely heavier construction and durable fabric but not specified as oxford or organic cotton; similar silhouette but different design details.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Both are cotton button-down shirts with a focus on comfortable fabric; however, the reference product is a burly organic cotton oxford with heavy construction, while this is a poplin fabric likely lighter and smoother, making it somewhat less durable and structured.",
+      "map_id": "map_882012343d2d47cb9409a83bea946a0c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Seaboard Soft-knit Plaid Shirt",
+      "score": 4,
+      "rationale": "This is a soft-knit plaid shirt, likely a casual knit shirt rather than woven oxford. The fabric and style differ significantly from structured oxford button-down, lowering relevancy.",
+      "map_id": "map_d177b80fd74f45acb2994d73f99786f2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Seaboard Soft-knit Plaid Shirt",
+      "score": 4,
+      "rationale": "This is a soft-knit plaid shirt, likely a casual knit shirt rather than woven oxford. The fabric and style differ significantly from structured oxford button-down, lowering relevancy.",
+      "map_id": "map_3b785178a7ae48ec84d1d72327d9a416"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Seaboard Soft-knit Plaid Shirt",
+      "score": 4,
+      "rationale": "Duplicate entry, same reasoning as above.",
+      "map_id": "map_d177b80fd74f45acb2994d73f99786f2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Seaboard Soft-knit Plaid Shirt",
+      "score": 4,
+      "rationale": "Duplicate entry, same reasoning as above.",
+      "map_id": "map_3b785178a7ae48ec84d1d72327d9a416"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's All-Day Performance Shirt",
+      "score": 6,
+      "rationale": "While likely a button-down shirt with a focus on performance fabric, the construction and purpose might differ from the rugged organic oxford of the reference, moderately relevant but less focus on durability and organic materials.",
+      "map_id": "map_b2bbb407e958432f91b2dc957e941c06"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Vintage Thermal Surplus Tee",
+      "score": 1,
+      "rationale": "This is a thermal tee shirt, fundamentally different in silhouette and construction from an oxford button-down shirt.",
+      "map_id": "map_4d3ece7c2e004c948ac26b76336a26e1"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Wornwell Stripe Shirt",
+      "score": 6,
+      "rationale": "Likely a casual button-down shirt with patterned fabric; though button-down shirts share similar silhouette, the reference emphasizes heavy oxford organic cotton, so only moderately relevant.",
+      "map_id": "map_addfa6789f07442aa929fc6affaeaa74"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Nep Point Rider Western Shirt",
+      "score": 7,
+      "rationale": "A western-style button-down shirt which likely shares the button-down collar and sturdy construction qualities although possibly different fabric; relevant due to construction and shirt type.",
+      "map_id": "map_f9dcd39600c945b1aac02c5e09fb6e52"
+    },
+    {
+      "competitor_product_name": "Buck Mason Ink Curved Hem Tee",
+      "score": 1,
+      "rationale": "A tee shirt, completely different product type and construction from the reference oxford button-down shirt.",
+      "map_id": "map_cd1c0f0cafa34b4689156a5c98ea167e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt",
+      "score": 10,
+      "rationale": "Same brand, organic cotton, same Jack model extended to short sleeve; identical product line, only sleeve length differs.",
+      "map_id": "map_dfcfc90380d14222b53f6755cde12039"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Curved Hem Short Sleeve T Shirt",
+      "score": 1,
+      "rationale": "Short sleeve tee shirt, different silhouette and construction from oxford button-down shirt.",
+      "map_id": "map_a02d3c100c7e4f8eb3db6cdc2b1c594d"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Slub Curved Hem Tee",
+      "score": 1,
+      "rationale": "Tee shirt, different category and construction than button-down oxford shirt.",
+      "map_id": "map_a76cccbd2614423bb57835f094c37b96"
+    },
+    {
+      "competitor_product_name": "BUCK MASON Men's Sawtooth Classic Fit Button Down Western Shirt",
+      "score": 7,
+      "rationale": "Western style button-down shirt, likely heavier construction and durable fabric but not specified as oxford or organic cotton; similar silhouette but different design details.",
+      "map_id": "map_7a72f90986fc4f20a9fe70af47952a5f"
+    }
+  ]
+}

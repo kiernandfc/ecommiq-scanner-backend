@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250526_075608",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brixton Assembly Fiddler Fisherman Cap'\n  - Name='Goorin Bros. Gorilla The Boss Trucker Hat'\n  - Name='Barbour Hats'\n  - Name='Goorin Bros. Firefly Lit The Farm Trucker Hat'\n  - Name='Kangol Accessories Men's Mangold Driving Cap'\n  - Name='The Responder Classic Boston Scally Cap'\n  - Name='The Harvestland Boston Scally Cap'\n  - Name='Cotton Scally Cap'\n  - Name='The Plaid Trainer Boston Scally Cap'\n  - Name='The Captain Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brixton Assembly Fiddler Fisherman Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Also a traditional flat cap style, likely similar silhouette, but probably made with different materials and lacking sport technology micro-poly fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Gorilla The Boss Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A trucker hat has a fundamentally different silhouette and construction; not similar to an 8-panel scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Hats\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Barbour hats come in various styles but generally are not focused specifically on breathable micro-poly sport fabric scally caps; relevancy is low due to lack of detailed matching style information.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Firefly Lit The Farm Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Another trucker hat, differing in silhouette and intended use from the scally cap reference; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Men's Mangold Driving Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A driving cap closely matches the silhouette and intended use of the reference product; Kangol is known for similar flat cap styles which likely have similar construction and appeal.\"\n    },\n    {\n      \"competitor_product_name\": \"The Responder Classic Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"From the same brand and likely a scally cap with similar silhouette and construction; 'classic' suggests less emphasis on sport tech micro-poly fabric, slightly less aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"The Harvestland Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also from the same brand and a scally cap; exact fabric and sport features unclear but likely similar in style and intended wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Cotton Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A scally cap in cotton matches the silhouette but lacks the breathable micro-poly sport fabric and technical features of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Plaid Trainer Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"From the same brand, a trainer cap suggests similar lining and possibly fabric technology; highly relevant though possibly different design details.\"\n    },\n    {\n      \"competitor_product_name\": \"The Captain Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Boston Scally cap with a likely similar style and construction, but may differ in fabric and specific features from The Driver.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brixton Assembly Fiddler Fisherman Cap",
+      "score": 6,
+      "rationale": "Also a traditional flat cap style, likely similar silhouette, but probably made with different materials and lacking sport technology micro-poly fabric.",
+      "map_id": "map_069acf26cd0a462b8c548319dee5b04e"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Gorilla The Boss Trucker Hat",
+      "score": 2,
+      "rationale": "A trucker hat has a fundamentally different silhouette and construction; not similar to an 8-panel scally cap.",
+      "map_id": "map_d54ed15f20034a7c95d3a74859c6f02c"
+    },
+    {
+      "competitor_product_name": "Barbour Hats",
+      "score": 3,
+      "rationale": "Barbour hats come in various styles but generally are not focused specifically on breathable micro-poly sport fabric scally caps; relevancy is low due to lack of detailed matching style information.",
+      "map_id": "map_f69424e09505444ba45a44d496621533"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Firefly Lit The Farm Trucker Hat",
+      "score": 2,
+      "rationale": "Another trucker hat, differing in silhouette and intended use from the scally cap reference; low relevancy.",
+      "map_id": "map_541e8a19e1ec434db696b7e924cfdc09"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Men's Mangold Driving Cap",
+      "score": 9,
+      "rationale": "A driving cap closely matches the silhouette and intended use of the reference product; Kangol is known for similar flat cap styles which likely have similar construction and appeal.",
+      "map_id": "map_2ed43906da724238b365248653ca1897"
+    },
+    {
+      "competitor_product_name": "The Responder Classic Boston Scally Cap",
+      "score": 8,
+      "rationale": "From the same brand and likely a scally cap with similar silhouette and construction; 'classic' suggests less emphasis on sport tech micro-poly fabric, slightly less aligned.",
+      "map_id": "map_7a0d2b482b8b4600898290370ec14872"
+    },
+    {
+      "competitor_product_name": "The Harvestland Boston Scally Cap",
+      "score": 7,
+      "rationale": "Also from the same brand and a scally cap; exact fabric and sport features unclear but likely similar in style and intended wear.",
+      "map_id": "map_4bc1f6378eb04b9dbe9f262363894a41"
+    },
+    {
+      "competitor_product_name": "Cotton Scally Cap",
+      "score": 6,
+      "rationale": "A scally cap in cotton matches the silhouette but lacks the breathable micro-poly sport fabric and technical features of the reference product.",
+      "map_id": "map_c681e2c524f046e8ba48a7bcb49892f8"
+    },
+    {
+      "competitor_product_name": "The Plaid Trainer Boston Scally Cap",
+      "score": 8,
+      "rationale": "From the same brand, a trainer cap suggests similar lining and possibly fabric technology; highly relevant though possibly different design details.",
+      "map_id": "map_12881eef7fb944efb42cb27081586670"
+    },
+    {
+      "competitor_product_name": "The Captain Boston Scally Cap",
+      "score": 7,
+      "rationale": "Another Boston Scally cap with a likely similar style and construction, but may differ in fabric and specific features from The Driver.",
+      "map_id": "map_858af410598b4c9bbbf9c10b7575aa90"
+    }
+  ]
+}

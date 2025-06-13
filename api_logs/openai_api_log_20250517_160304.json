@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250517_160304",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Men's Hatteras Patchwork Wool Flat Cap'\n  - Name='Stetson 8 Panel Houndstooth Flat Cap'\n  - Name='NEW Stetson All American Ivy Cap Brown Wool Blend Driving Flat Cap Size Large'\n  - Name='Stetson Men's Belfast Wool Blend Flat Cap'\n  - Name='Stetson Tonal Script Embroidered Cotton Trucker Cap'\n  - Name='Stetson Peabody Cap'\n  - Name='STETSON Men's Peyton Oily Timber Leather Baseball Cap'\n  - Name='Stetson Hatteras Denim Flat Cap'\n  - Name='Stetson The Legend Continues Cotton Baseball Cap'\n  - Name='Stetson Men's Chinos Wool Blend Ivy Cap'\n  - Name='Stetson Men's Zermatt Wool Baseball Cap'\n  - Name='Stetson Men's Weathered Leather Newsboy Cap'\n  - Name='Curtis Bailey Fedora'\n  - Name='Men Bailey 1922 Kenon Flat Cap'\n  - Name='Christys' Crown Big Bill Longshoreman Cap'\n  - Name='Christys' Men's Tailored Linen Driver Flat Cap'\n  - Name='Goorin Bros. Flip Side Trucker Hat'\n  - Name='Brixton Hooligan Baggy Reserve Snap Flat Cap'\n  - Name='Brixton Fenway Newsboy Driver Snap Cap'\n  - Name='Goorin Bros. Men's Stealth Explorer Snapback Cap'\n  - Name='Goorin Bros. Handsome Truckin Maroon Trucker'\n  - Name='Kangol Cord Spitfire'\n  - Name='Kangol Men's Cord Hawker Cap'\n  - Name='Kangol Tropic 507 Ventair'\n  - Name='Kangol 507 Tropic'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Patchwork Wool Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are flat cap styles but Stetson's is wool patchwork, heavier and less technical compared to the breathable micro-poly Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson 8 Panel Houndstooth Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Shares the 8-panel construction and flat cap style, but made from wool blend rather than performance fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"NEW Stetson All American Ivy Cap Brown Wool Blend Driving Flat Cap Size Large\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driving flat cap style and similar silhouette, but wool blend material makes it less breathable and performance oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Belfast Wool Blend Flat Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flat cap style but wool blend and no indication of performance or breathable fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Tonal Script Embroidered Cotton Trucker Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker cap is a different silhouette and style, lacking the flat or 8-panel driver cap design.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Peabody Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a flat or driver style cap but material and construction details unclear; assumed wool or cotton rather than micro-poly sports fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"STETSON Men's Peyton Oily Timber Leather Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Leather baseball cap, distinct silhouette and heavier material, quite different from the lightweight breathable Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Denim Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap silhouette but made of denim fabric, heavier and less breathable than micro-poly fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson The Legend Continues Cotton Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baseball cap style different from flat/driver cap; cotton fabric but lacks 8-panel or driver design.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Chinos Wool Blend Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap style close but wool blend material reduces breathability and performance aspect.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Zermatt Wool Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baseball cap with wool material, different silhouette and lacking the flat cap driver style.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Weathered Leather Newsboy Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Newsboy cap style closer than baseball or trucker hats but leather material is heavier and less breathable.\"\n    },\n    {\n      \"competitor_product_name\": \"Curtis Bailey Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora silhouette distinct from flat/driver cap, different style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bailey 1922 Kenon Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style similar but likely wool or cotton rather than sports breathable micro-poly fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Crown Big Bill Longshoreman Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Longshoreman cap shape is less form-fitting 8-panel and heavier material, less breathable than Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Men's Tailored Linen Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Driver style flat cap similar in silhouette and tailoring; linen fabric offers some breathability but less technical than micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Flip Side Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hat style differs greatly from driver flat cap both in silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Baggy Reserve Snap Flat Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flat cap style but baggy fit and snap back closure differ from fitted 8-panel driver cap, likely cotton or wool not micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fenway Newsboy Driver Snap Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Newsboy driver hybrid with a snap closure, differing fit and construction but related in terms of function and style category.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Stealth Explorer Snapback Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Snapback baseball-style cap differs from fitted flat/driver cap design.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Handsome Truckin Maroon Trucker\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hat silhouette different from flat/driver cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Cord Spitfire\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Spitfire cap is a close relative to flat caps; corduroy fabric differs in breathability but shape and fit are similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Cord Hawker Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hawker cap style is very similar in silhouette and construction to driver cap, but corduroy fabric less breathable than micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic 507 Ventair\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"507 is a classic flat cap style with Ventair fabric designed for breathability, very close in function and construction to the Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 507 Tropic\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic 507 flat cap without explicit ventair fabric, close in shape but less confirmed technical fabric features than Driver.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Patchwork Wool Flat Cap",
+      "score": 6,
+      "rationale": "Both are flat cap styles but Stetson's is wool patchwork, heavier and less technical compared to the breathable micro-poly Driver.",
+      "map_id": "map_55f9213ef8834fab9061426d6b087ab9"
+    },
+    {
+      "competitor_product_name": "Stetson 8 Panel Houndstooth Flat Cap",
+      "score": 7,
+      "rationale": "Shares the 8-panel construction and flat cap style, but made from wool blend rather than performance fabric.",
+      "map_id": "map_0ef91a042ee342eda762875fb577a727"
+    },
+    {
+      "competitor_product_name": "NEW Stetson All American Ivy Cap Brown Wool Blend Driving Flat Cap Size Large",
+      "score": 7,
+      "rationale": "Driving flat cap style and similar silhouette, but wool blend material makes it less breathable and performance oriented.",
+      "map_id": "map_64f12013a92e44f1b9e35c5dae7bfea7"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Belfast Wool Blend Flat Cap",
+      "score": 5,
+      "rationale": "Flat cap style but wool blend and no indication of performance or breathable fabric.",
+      "map_id": "map_621827439d4a4d6ca58ab464e9f67ab2"
+    },
+    {
+      "competitor_product_name": "Stetson Tonal Script Embroidered Cotton Trucker Cap",
+      "score": 3,
+      "rationale": "Trucker cap is a different silhouette and style, lacking the flat or 8-panel driver cap design.",
+      "map_id": "map_2f1a1047b2314e07b2a1a60304195f4a"
+    },
+    {
+      "competitor_product_name": "Stetson Peabody Cap",
+      "score": 5,
+      "rationale": "Likely a flat or driver style cap but material and construction details unclear; assumed wool or cotton rather than micro-poly sports fabric.",
+      "map_id": "map_298816f82edb4071aec683c446a5b460"
+    },
+    {
+      "competitor_product_name": "STETSON Men's Peyton Oily Timber Leather Baseball Cap",
+      "score": 2,
+      "rationale": "Leather baseball cap, distinct silhouette and heavier material, quite different from the lightweight breathable Driver.",
+      "map_id": "map_dfce5f5abbca4bf69ca76e225f8d7593"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Denim Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap silhouette but made of denim fabric, heavier and less breathable than micro-poly fabric.",
+      "map_id": "map_1407e8cc16644e43b7c76c1b8b52ac82"
+    },
+    {
+      "competitor_product_name": "Stetson The Legend Continues Cotton Baseball Cap",
+      "score": 3,
+      "rationale": "Baseball cap style different from flat/driver cap; cotton fabric but lacks 8-panel or driver design.",
+      "map_id": "map_7bd8c2d451e94d23b482324760141ba6"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Chinos Wool Blend Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy cap style close but wool blend material reduces breathability and performance aspect.",
+      "map_id": "map_5a4ef1707d87442896b276be1b2c4c84"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Zermatt Wool Baseball Cap",
+      "score": 3,
+      "rationale": "Baseball cap with wool material, different silhouette and lacking the flat cap driver style.",
+      "map_id": "map_c34ca797b12a432fbe8b2fcc3ffb5cac"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Weathered Leather Newsboy Cap",
+      "score": 4,
+      "rationale": "Newsboy cap style closer than baseball or trucker hats but leather material is heavier and less breathable.",
+      "map_id": "map_8bc653b81d56440cb93bf41378a95a11"
+    },
+    {
+      "competitor_product_name": "Curtis Bailey Fedora",
+      "score": 2,
+      "rationale": "Fedora silhouette distinct from flat/driver cap, different style and construction.",
+      "map_id": "map_62e735018c9d48a8a43429331523d51c"
+    },
+    {
+      "competitor_product_name": "Men Bailey 1922 Kenon Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap style similar but likely wool or cotton rather than sports breathable micro-poly fabric.",
+      "map_id": "map_1eaf0c8275e746d4a3bfce61db522698"
+    },
+    {
+      "competitor_product_name": "Christys' Crown Big Bill Longshoreman Cap",
+      "score": 5,
+      "rationale": "Longshoreman cap shape is less form-fitting 8-panel and heavier material, less breathable than Driver.",
+      "map_id": "map_b1af12a8776646d589226c565baf7493"
+    },
+    {
+      "competitor_product_name": "Christys' Men's Tailored Linen Driver Flat Cap",
+      "score": 8,
+      "rationale": "Driver style flat cap similar in silhouette and tailoring; linen fabric offers some breathability but less technical than micro-poly.",
+      "map_id": "map_143051bc39dc46e7af835617f6e83a3d"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Flip Side Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hat style differs greatly from driver flat cap both in silhouette and construction.",
+      "map_id": "map_1f437bee1c454a20b55bc39f6cd3c358"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Baggy Reserve Snap Flat Cap",
+      "score": 5,
+      "rationale": "Flat cap style but baggy fit and snap back closure differ from fitted 8-panel driver cap, likely cotton or wool not micro-poly.",
+      "map_id": "map_53503a16f0644e76b6c463f28a5d37a4"
+    },
+    {
+      "competitor_product_name": "Brixton Fenway Newsboy Driver Snap Cap",
+      "score": 6,
+      "rationale": "Newsboy driver hybrid with a snap closure, differing fit and construction but related in terms of function and style category.",
+      "map_id": "map_6123d6122eb44d45ab9dc64dccc02c07"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Stealth Explorer Snapback Cap",
+      "score": 3,
+      "rationale": "Snapback baseball-style cap differs from fitted flat/driver cap design.",
+      "map_id": "map_187d7d8dffa44863af11cf10de4c037c"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Handsome Truckin Maroon Trucker",
+      "score": 2,
+      "rationale": "Trucker hat silhouette different from flat/driver cap style.",
+      "map_id": "map_e4dd62fa2a16402ca6129cdc957e8eae"
+    },
+    {
+      "competitor_product_name": "Kangol Cord Spitfire",
+      "score": 7,
+      "rationale": "Spitfire cap is a close relative to flat caps; corduroy fabric differs in breathability but shape and fit are similar.",
+      "map_id": "map_4ee1b64c9d824a7799efcf50f4e0392f"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Cord Hawker Cap",
+      "score": 7,
+      "rationale": "Hawker cap style is very similar in silhouette and construction to driver cap, but corduroy fabric less breathable than micro-poly.",
+      "map_id": "map_9d67e127044641d2aece78f1edc8b2ad"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic 507 Ventair",
+      "score": 8,
+      "rationale": "507 is a classic flat cap style with Ventair fabric designed for breathability, very close in function and construction to the Driver.",
+      "map_id": "map_0504780f559242dbb4fe50b6cb421e91"
+    },
+    {
+      "competitor_product_name": "Kangol 507 Tropic",
+      "score": 7,
+      "rationale": "Classic 507 flat cap without explicit ventair fabric, close in shape but less confirmed technical fabric features than Driver.",
+      "map_id": "map_fbda2b817ff0499f85b85784851c0c7b"
+    }
+  ]
+}

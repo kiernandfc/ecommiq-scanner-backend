@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250510_101641",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Barbour Men's Waxed Cotton Hood'\n  - Name='Barbour Men's Lipton Cap'\n  - Name='Brixton Kayla Leather Suede Fiddler Cap'\n  - Name='Kangol Wavy Pane 507 Ivy Cap'\n  - Name='Heavy Washed Cap'\n  - Name='Kangol Bamboo Hawker'\n  - Name='Kangol Men's Heathered Tie Dye 504 Ivy Caps'\n  - Name='Kangol Furgora New Wave 504'\n  - Name='Kangol Design Gatsby Cap'\n  - Name='Kangol Digital Stripes 507 Flat Cap'\n  - Name='Kangol Prep Plaid 507'\n  - Name='Kangol Accessories Kangol 2 Dart Knit Driving Cap'\n  - Name='Kangol 504 Tropic'\n  - Name='The Repel 8 Panel Boston Scally Cap'\n  - Name='The Black Rose Peaky Boston Scally Cap'\n  - Name='The Responder Classic Boston Scally Cap'\n  - Name='Coolidge Wool Scally Cap'\n  - Name='Blacktop Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Cotton Hood\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a hood, not a cap; completely different function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Lipton Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A cap, likely traditional, but no mention of sport fabric or 8-panel design; less technologically advanced.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Kayla Leather Suede Fiddler Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Fiddler cap style differs in shape and material (leather suede) but still a form of flat cap; moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wavy Pane 507 Ivy Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Ivy cap has a different shape than 8-panel scally; no indication of sport fabric or breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Heavy Washed Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Generic name, probably a basic cap without specific sport technology or 8-panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Bamboo Hawker\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hawker caps are similar in shape to 8-panel caps; bamboo fabric suggests breathability, close to sport features.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Heathered Tie Dye 504 Ivy Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"504 Ivy cap style differs significantly from 8-panel design and sports fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Furgora New Wave 504\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a 504 cap with fur-like material; unlike lightweight sport fabric and different shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Design Gatsby Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Gatsby cap has related flat cap style but different silhouette than 8-panel scally design.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Digital Stripes 507 Flat Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"507 flat cap differs from 8-panel scally cap in both shape and intended performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Prep Plaid 507\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar flat cap shape but lacks sport fabric or breathable features and 8-panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Kangol 2 Dart Knit Driving Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A driving cap is very close in function and style to a scally cap; likely similar use and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 504 Tropic\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"504 style cap with tropical fabric, but lacks 8-panel design key to The Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"The Repel 8 Panel Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and 8-panel scally cap design; likely very similar performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"The Black Rose Peaky Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and scally cap style; 'peaky' variant may have slight silhouette difference but close.\"\n    },\n    {\n      \"competitor_product_name\": \"The Responder Classic Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and scally cap style; classic version likely similar but not identical tech fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Coolidge Wool Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wool scally caps share silhouette but differ in fabric and performance features from micro-poly sport fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Blacktop Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and scally cap style; likely very close in design and purpose to The Driver.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Barbour Men's Waxed Cotton Hood",
+      "score": 1,
+      "rationale": "This is a hood, not a cap; completely different function and silhouette.",
+      "map_id": "map_78d11dc1f1d84d42bda18e14a77c2572"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Lipton Cap",
+      "score": 4,
+      "rationale": "A cap, likely traditional, but no mention of sport fabric or 8-panel design; less technologically advanced.",
+      "map_id": "map_d5b42e27691e409fb39cdc8042d998ff"
+    },
+    {
+      "competitor_product_name": "Brixton Kayla Leather Suede Fiddler Cap",
+      "score": 5,
+      "rationale": "Fiddler cap style differs in shape and material (leather suede) but still a form of flat cap; moderate relevance.",
+      "map_id": "map_5bd623a5553049f28bd0b0bdcd368d8d"
+    },
+    {
+      "competitor_product_name": "Kangol Wavy Pane 507 Ivy Cap",
+      "score": 3,
+      "rationale": "Ivy cap has a different shape than 8-panel scally; no indication of sport fabric or breathability.",
+      "map_id": "map_5a1bb604539e48f69d4ca46623743abe"
+    },
+    {
+      "competitor_product_name": "Heavy Washed Cap",
+      "score": 2,
+      "rationale": "Generic name, probably a basic cap without specific sport technology or 8-panel design.",
+      "map_id": "map_5829e1b81fce4dfd836d6d3db3eaec42"
+    },
+    {
+      "competitor_product_name": "Kangol Bamboo Hawker",
+      "score": 6,
+      "rationale": "Hawker caps are similar in shape to 8-panel caps; bamboo fabric suggests breathability, close to sport features.",
+      "map_id": "map_ae0a1384899a4185852ff585ec075b51"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Heathered Tie Dye 504 Ivy Caps",
+      "score": 3,
+      "rationale": "504 Ivy cap style differs significantly from 8-panel design and sports fabric.",
+      "map_id": "map_dc1130a36a4c426eb50fff1c5964a5eb"
+    },
+    {
+      "competitor_product_name": "Kangol Furgora New Wave 504",
+      "score": 2,
+      "rationale": "Likely a 504 cap with fur-like material; unlike lightweight sport fabric and different shape.",
+      "map_id": "map_ff72afc1a1ed48e486ba57eb3c817668"
+    },
+    {
+      "competitor_product_name": "Kangol Design Gatsby Cap",
+      "score": 5,
+      "rationale": "Gatsby cap has related flat cap style but different silhouette than 8-panel scally design.",
+      "map_id": "map_188edf1b6a23476ba7a1ef8098a3eb36"
+    },
+    {
+      "competitor_product_name": "Kangol Digital Stripes 507 Flat Cap",
+      "score": 3,
+      "rationale": "507 flat cap differs from 8-panel scally cap in both shape and intended performance features.",
+      "map_id": "map_2507e4c250d342e081f0d6ac5faf015f"
+    },
+    {
+      "competitor_product_name": "Kangol Prep Plaid 507",
+      "score": 3,
+      "rationale": "Similar flat cap shape but lacks sport fabric or breathable features and 8-panel construction.",
+      "map_id": "map_bfc86f757c2b4a50953a49b4375cba60"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Kangol 2 Dart Knit Driving Cap",
+      "score": 7,
+      "rationale": "A driving cap is very close in function and style to a scally cap; likely similar use and fit.",
+      "map_id": "map_6c833e6adae8412f96de46181dba1662"
+    },
+    {
+      "competitor_product_name": "Kangol 504 Tropic",
+      "score": 3,
+      "rationale": "504 style cap with tropical fabric, but lacks 8-panel design key to The Driver.",
+      "map_id": "map_18f5e2b723c246a5ad666bf3b1d3ced7"
+    },
+    {
+      "competitor_product_name": "The Repel 8 Panel Boston Scally Cap",
+      "score": 9,
+      "rationale": "Same brand and 8-panel scally cap design; likely very similar performance features.",
+      "map_id": "map_cbcad8c5f57640f7bb72657462d4858c"
+    },
+    {
+      "competitor_product_name": "The Black Rose Peaky Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and scally cap style; 'peaky' variant may have slight silhouette difference but close.",
+      "map_id": "map_61d5ab3ed1f842a3bc08254e30804d96"
+    },
+    {
+      "competitor_product_name": "The Responder Classic Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and scally cap style; classic version likely similar but not identical tech fabric.",
+      "map_id": "map_80527970a36c46f8a3b22a4edbcd7303"
+    },
+    {
+      "competitor_product_name": "Coolidge Wool Scally Cap",
+      "score": 7,
+      "rationale": "Wool scally caps share silhouette but differ in fabric and performance features from micro-poly sport fabric.",
+      "map_id": "map_d347b983ba30466ebd4cf1951b1f94ed"
+    },
+    {
+      "competitor_product_name": "Blacktop Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and scally cap style; likely very close in design and purpose to The Driver.",
+      "map_id": "map_c09df3acd17d473dba4ee963590736a7"
+    }
+  ]
+}

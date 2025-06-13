@@ -1,0 +1,143 @@
+{
+  "timestamp": "20250526_080020",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Norse Arktisk Expedition Parka Gore-Tex Jackets'\n  - Name='Faherty Inlet Knit CPO'\n  - Name='Barbour Heritage Liddesdale Quilted Jacket Mens'\n  - Name='Barbour Men's Newbury Waxed Cotton Jacket'\n  - Name='Barbour Men's Elmstone Quilted Jacket'\n  - Name='Barbour Men's Oiled Waxed Bedale Jacket'\n  - Name='Barbour - modern waxed cotton jacket'\n  - Name='Levi's Men's Cotton Linen Trucker Jacket'\n  - Name='Filson Men's Lined Denim Cruiser Jacket'\n  - Name='Barbour Men's Quay Showerproof Jacket'\n  - Name='Levi's Engineer Coat with Japanese Hand-Stitching'\n  - Name='Barbour Ashby Wax Jacket'\n  - Name='Barbour Men's Powell Quilted Jacket'\n  - Name='Filson Men's Safari Cloth Jacket'\n  - Name='Barbour Women's Sonnie Casual Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Norse Arktisk Expedition Parka Gore-Tex Jackets\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a parka made with Gore-Tex, focusing on waterproof protection and expedition use, differing substantially from a chore coat style cotton twill utility jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Inlet Knit CPO\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A CPO jacket is somewhat similar in casual styling and utility but typically made from wool blend fabrics and has a different silhouette compared to a chore coat; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Heritage Liddesdale Quilted Jacket Mens\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted jackets are more insulated, targeting warmth rather than the chore coat's utility and classic twill styling, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Newbury Waxed Cotton Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Waxed cotton jacket with outdoor utility and classic styling is quite close conceptually to the chore jacket, but waxed finish and silhouette differ somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Elmstone Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar to other quilted jackets, designed for insulation more than the chore coat's straightforward utility with twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Oiled Waxed Bedale Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Bedale jacket is a classic waxed cotton riding jacket with outdoor utility, close in core function and fabric type to the chore coat but differs in coating and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour - modern waxed cotton jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Modern waxed cotton jackets share some utility and material background but may depart from the chore coat silhouette and lighter twill fabric base.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Linen Trucker Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trucker jackets share the casual cotton construction and versatile layering function with chore coats, making them highly relevant despite slightly different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Lined Denim Cruiser Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim cruiser jackets provide casual utility and durable material but use denim rather than cotton twill and differ in silhouette from chore coats.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Quay Showerproof Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Showerproof jackets are functional outerwear for weather protection, but may lack the chore coat's classic silhouette and fabric style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Engineer Coat with Japanese Hand-Stitching\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Engineer coat shares a utility heritage and cotton construction and has a durable workwear appeal similar to chore coats despite a longer silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Ashby Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wax jacket with classic styling and outdoor utility is close to a chore coat in concept though differing in fabric treatment and some silhouette features.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Powell Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Another quilted jacket aimed at warmth, less relevant due to insulation focus and different exterior texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Safari Cloth Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Durable cotton fabric jacket designed for outdoor utility is quite similar in concept to the chore coat despite some stylistic differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Women's Sonnie Casual Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual jacket from Barbour shares some utility and fabric similarities but as a women's specific and style-focused piece, relevance is moderate.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Norse Arktisk Expedition Parka Gore-Tex Jackets",
+      "score": 3,
+      "rationale": "This is a parka made with Gore-Tex, focusing on waterproof protection and expedition use, differing substantially from a chore coat style cotton twill utility jacket.",
+      "map_id": "map_bf028ae9c51648c7a945038d080a1f3c"
+    },
+    {
+      "competitor_product_name": "Faherty Inlet Knit CPO",
+      "score": 5,
+      "rationale": "A CPO jacket is somewhat similar in casual styling and utility but typically made from wool blend fabrics and has a different silhouette compared to a chore coat; moderately relevant.",
+      "map_id": "map_ae8979ebabc84f8ba16e3b6ff6b752ca"
+    },
+    {
+      "competitor_product_name": "Barbour Heritage Liddesdale Quilted Jacket Mens",
+      "score": 4,
+      "rationale": "Quilted jackets are more insulated, targeting warmth rather than the chore coat's utility and classic twill styling, reducing relevancy.",
+      "map_id": "map_db9f01f8d4ae48c7b167eef8d6de23f7"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Newbury Waxed Cotton Jacket",
+      "score": 7,
+      "rationale": "Waxed cotton jacket with outdoor utility and classic styling is quite close conceptually to the chore jacket, but waxed finish and silhouette differ somewhat.",
+      "map_id": "map_3a08d4b9fcdf48bfb6324999a8135076"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Elmstone Quilted Jacket",
+      "score": 4,
+      "rationale": "Similar to other quilted jackets, designed for insulation more than the chore coat's straightforward utility with twill.",
+      "map_id": "map_bfd8df2fa0ed44e8aaa25d4ad9b26f23"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Oiled Waxed Bedale Jacket",
+      "score": 7,
+      "rationale": "Bedale jacket is a classic waxed cotton riding jacket with outdoor utility, close in core function and fabric type to the chore coat but differs in coating and silhouette.",
+      "map_id": "map_d2c8393d8e6b4d5cabddb580fa73a9e1"
+    },
+    {
+      "competitor_product_name": "Barbour - modern waxed cotton jacket",
+      "score": 6,
+      "rationale": "Modern waxed cotton jackets share some utility and material background but may depart from the chore coat silhouette and lighter twill fabric base.",
+      "map_id": "map_4694e400a4cc4f0aadae3f3d8af01551"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Linen Trucker Jacket",
+      "score": 8,
+      "rationale": "Trucker jackets share the casual cotton construction and versatile layering function with chore coats, making them highly relevant despite slightly different silhouette.",
+      "map_id": "map_7460b6e7f9464dd3b6df1b1ee7fdd82e"
+    },
+    {
+      "competitor_product_name": "Filson Men's Lined Denim Cruiser Jacket",
+      "score": 6,
+      "rationale": "Denim cruiser jackets provide casual utility and durable material but use denim rather than cotton twill and differ in silhouette from chore coats.",
+      "map_id": "map_1dce946d25bc471e8ddd7e1f85ae3dd1"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Quay Showerproof Jacket",
+      "score": 5,
+      "rationale": "Showerproof jackets are functional outerwear for weather protection, but may lack the chore coat's classic silhouette and fabric style.",
+      "map_id": "map_d0f09806eff448be8c705f440f3d3b5e"
+    },
+    {
+      "competitor_product_name": "Levi's Engineer Coat with Japanese Hand-Stitching",
+      "score": 7,
+      "rationale": "Engineer coat shares a utility heritage and cotton construction and has a durable workwear appeal similar to chore coats despite a longer silhouette.",
+      "map_id": "map_dfef005486744646b969a4c51a802cd2"
+    },
+    {
+      "competitor_product_name": "Barbour Ashby Wax Jacket",
+      "score": 7,
+      "rationale": "Wax jacket with classic styling and outdoor utility is close to a chore coat in concept though differing in fabric treatment and some silhouette features.",
+      "map_id": "map_938facbd1f9e45ac8a93b147662fb589"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Powell Quilted Jacket",
+      "score": 4,
+      "rationale": "Another quilted jacket aimed at warmth, less relevant due to insulation focus and different exterior texture.",
+      "map_id": "map_9cfac3cbe7fa4712be49ad5b1062cfeb"
+    },
+    {
+      "competitor_product_name": "Filson Men's Safari Cloth Jacket",
+      "score": 7,
+      "rationale": "Durable cotton fabric jacket designed for outdoor utility is quite similar in concept to the chore coat despite some stylistic differences.",
+      "map_id": "map_4be85692c4c94c8c906a5948790d06b3"
+    },
+    {
+      "competitor_product_name": "Barbour Women's Sonnie Casual Jacket",
+      "score": 6,
+      "rationale": "Casual jacket from Barbour shares some utility and fabric similarities but as a women's specific and style-focused piece, relevance is moderate.",
+      "map_id": "map_80b090f6cf574bb78d01978bf083c38d"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250517_155709",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Joseph Abboud Men's Striped Formal Necktie'\n  - Name='Joseph Abboud Men's Floral Executive Geometric Neck Tie'\n  - Name='Joseph Abboud Men's Narrow Simple Floral Tie'\n  - Name='Joseph Abboud Men's Narrow Paisley Silk Tie'\n  - Name='Joseph Abboud Men's Check Floral Tie'\n  - Name='Joseph Abboud Men's Paisley Silk Jacquard Tie'\n  - Name='Brooks Brothers Men's Mini Rep Tie'\n  - Name='Brooks Brothers Men's Silk Textured Sidewheeler Stripe Tie'\n  - Name='Brooks Brothers Men's Cotton-Silk Oxford Tie'\n  - Name='Brooks Brothers Men's Silk Alternating Pine Paisley Tie'\n  - Name='Brooks Brothers Men's Stripe Tie'\n  - Name='Brooks Brothers Men's Classic Circle & Square Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Striped Formal Necktie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a formal necktie similar in function and likely in material to the solid satin tie, though it features stripes instead of solid color.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Floral Executive Geometric Neck Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another formal necktie likely made of similar materials, but with floral and geometric patterns, differing from the solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Simple Floral Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A narrower tie with floral design; similar necktie category but narrower width and patterned which deviates from the solid satin reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Paisley Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A silk narrow tie with paisley pattern; similar materials and product type but differs in width and patterned design.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Check Floral Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A necktie with check and floral patterns; same general product category but likely different texture and pattern complexity from a solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Paisley Silk Jacquard Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk jacquard ties share the premium silk construction but have textured jacquard patterns, differing from smooth satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Mini Rep Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A mini rep tie typically has a ribbed texture, but is a formal necktie similar in type and use to the satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Textured Sidewheeler Stripe Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie with texturing and stripes, differing from solid smooth satin but similar in material and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Cotton-Silk Oxford Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Blend material and oxford weave suggest a more casual texture and appearance, less similar to smooth satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Alternating Pine Paisley Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk material and formal use align well, but paisley patterned and possibly textured differs from solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stripe Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A stripe tie made of similar material and construction is quite relevant, differing only in pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Classic Circle & Square Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie with patterned design; similar construction but diverges from the solid smooth satin construction due to pattern.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Joseph Abboud Men's Striped Formal Necktie",
+      "score": 8,
+      "rationale": "This is a formal necktie similar in function and likely in material to the solid satin tie, though it features stripes instead of solid color.",
+      "map_id": "map_da2b7d38bee44fa4891c9eb153b3ac5b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Floral Executive Geometric Neck Tie",
+      "score": 7,
+      "rationale": "Another formal necktie likely made of similar materials, but with floral and geometric patterns, differing from the solid satin style.",
+      "map_id": "map_b51a06980d1a4eb68df962c6799bdb31"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Simple Floral Tie",
+      "score": 6,
+      "rationale": "A narrower tie with floral design; similar necktie category but narrower width and patterned which deviates from the solid satin reference.",
+      "map_id": "map_af4ee8b57a9a41d7a58e94187841c19d"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Paisley Silk Tie",
+      "score": 7,
+      "rationale": "A silk narrow tie with paisley pattern; similar materials and product type but differs in width and patterned design.",
+      "map_id": "map_0b716aad63dd4bbf83294450abce922b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Check Floral Tie",
+      "score": 6,
+      "rationale": "A necktie with check and floral patterns; same general product category but likely different texture and pattern complexity from a solid satin tie.",
+      "map_id": "map_abe5d2a80e434522821f9ebbc07142b4"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Paisley Silk Jacquard Tie",
+      "score": 7,
+      "rationale": "Silk jacquard ties share the premium silk construction but have textured jacquard patterns, differing from smooth satin.",
+      "map_id": "map_5ecb60d5583f494ca158c956d41d4a61"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Mini Rep Tie",
+      "score": 8,
+      "rationale": "A mini rep tie typically has a ribbed texture, but is a formal necktie similar in type and use to the satin tie.",
+      "map_id": "map_c56a51a724974b0db2bf8015915d70b4"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Textured Sidewheeler Stripe Tie",
+      "score": 7,
+      "rationale": "Silk tie with texturing and stripes, differing from solid smooth satin but similar in material and purpose.",
+      "map_id": "map_09026d9bb7e14cd0a5dbea87c2236114"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Cotton-Silk Oxford Tie",
+      "score": 5,
+      "rationale": "Blend material and oxford weave suggest a more casual texture and appearance, less similar to smooth satin ties.",
+      "map_id": "map_ffb315d2726145f887249ecdc98b985c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Alternating Pine Paisley Tie",
+      "score": 7,
+      "rationale": "Silk material and formal use align well, but paisley patterned and possibly textured differs from solid satin.",
+      "map_id": "map_e22cfd241aab4ef9971669f9e172afec"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stripe Tie",
+      "score": 8,
+      "rationale": "A stripe tie made of similar material and construction is quite relevant, differing only in pattern.",
+      "map_id": "map_1b6400e18eb74003b5c00d5511a8c746"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Classic Circle & Square Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie with patterned design; similar construction but diverges from the solid smooth satin construction due to pattern.",
+      "map_id": "map_78b9b7217a0445beaaa117af1b55a8f0"
+    }
+  ]
+}

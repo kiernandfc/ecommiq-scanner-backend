@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250517_160135",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Men's Polo Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Men's Polo Shirt\"\nReference Product Description:\nDiscover the perfect blend of comfort, quality, and style with our men's knit polos collection.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Flamingo Print Performance Golf Polo Shirt'\n  - Name='Bonobos Men's Floral Short Sleeve Polo Shirt'\n  - Name='UNIQLO Men's Open Collar Short Sleeve Shirt'\n  - Name='Patagonia Men's Squeaky Clean Polo-Spurs'\n  - Name='Banana Republic Men's Luxury-Touch Polo Shirt'\n  - Name='Banana Republic Men's Luxe Touch Performance Polo Shirt'\n  - Name='Banana Republic Men's Luxe Touch Performance Polo Shirts'\n  - Name='Banana Republic Men's Slim Fit Monogram Pique Polo Shirt'\n  - Name='Lululemon Men's Evolution Polo Oxford'\n  - Name='Lululemon Athletica Evolution Short-Sleeve Polo Shirt'\n  - Name='Milford Stainless Steel Tie Bar'\n  - Name='The Tie Bar Men's Textured Jersey Basil Polo'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Flamingo Print Performance Golf Polo Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's polo shirt designed for golf, sharing core features and intended use similar to the reference men's knit polos.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Floral Short Sleeve Polo Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's short sleeve polo shirt, very relevant due to closeness in product type and likely knit construction.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Open Collar Short Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While a men's short sleeve shirt, the open collar and possible non-polo construction reduce relevancy; not clearly a polo shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Squeaky Clean Polo-Spurs\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Named as a polo, likely knit, and men's style; very relevant though possibly performance or sport specific.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Luxury-Touch Polo Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's polo shirt with luxury fabric detail closely matching the reference focus on quality knit polos.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Luxe Touch Performance Polo Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another men's polo shirt with performance fabric, clearly relevant to the reference knit polo category.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Luxe Touch Performance Polo Shirts\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Identical to the previous product with plural form; same high relevancy as a men's performance polo shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Monogram Pique Polo Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Men's polo shirt with pique knit fabric and tailored fit, very relevant to the reference product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Lululemon Men's Evolution Polo Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's polo shirt with Oxford fabric, relevant though fabric type differs from knit, still a polo silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Lululemon Athletica Evolution Short-Sleeve Polo Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's short sleeve polo shirt, suitable for athletic use but relevant to the core men's polo shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"Milford Stainless Steel Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is an accessory (tie bar), unrelated in product function or category to men's polo shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Textured Jersey Basil Polo\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"From the same brand and explicitly a men's textured jersey knit polo shirt, identical category and construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Flamingo Print Performance Golf Polo Shirt",
+      "score": 9,
+      "rationale": "This is a men's polo shirt designed for golf, sharing core features and intended use similar to the reference men's knit polos.",
+      "map_id": "map_e8da4273c2264a78a9cc02891aefb331"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Floral Short Sleeve Polo Shirt",
+      "score": 9,
+      "rationale": "A men's short sleeve polo shirt, very relevant due to closeness in product type and likely knit construction.",
+      "map_id": "map_d578031567164c85a366abb498a8752a"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Open Collar Short Sleeve Shirt",
+      "score": 4,
+      "rationale": "While a men's short sleeve shirt, the open collar and possible non-polo construction reduce relevancy; not clearly a polo shirt.",
+      "map_id": "map_a6f15ddbb347496c8d2276c35f24da74"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Squeaky Clean Polo-Spurs",
+      "score": 8,
+      "rationale": "Named as a polo, likely knit, and men's style; very relevant though possibly performance or sport specific.",
+      "map_id": "map_0ebc06ce4cda49f180cab83f457abf44"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Luxury-Touch Polo Shirt",
+      "score": 10,
+      "rationale": "A men's polo shirt with luxury fabric detail closely matching the reference focus on quality knit polos.",
+      "map_id": "map_02ad25e252ba4a2c9303728e39d59971"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Luxe Touch Performance Polo Shirt",
+      "score": 9,
+      "rationale": "Another men's polo shirt with performance fabric, clearly relevant to the reference knit polo category.",
+      "map_id": "map_42b5cdfbb96f4a418e64fecb92865dae"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Luxe Touch Performance Polo Shirts",
+      "score": 9,
+      "rationale": "Identical to the previous product with plural form; same high relevancy as a men's performance polo shirt.",
+      "map_id": "map_60dbda70b18c4874902824e8a0adf3f8"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Monogram Pique Polo Shirt",
+      "score": 10,
+      "rationale": "Men's polo shirt with pique knit fabric and tailored fit, very relevant to the reference product type.",
+      "map_id": "map_8244e0be3c204a11ba68cb45272417b4"
+    },
+    {
+      "competitor_product_name": "Lululemon Men's Evolution Polo Oxford",
+      "score": 8,
+      "rationale": "Men's polo shirt with Oxford fabric, relevant though fabric type differs from knit, still a polo silhouette and function.",
+      "map_id": "map_6fe2572acdd848e2aca5ef1e4c7fe0e6"
+    },
+    {
+      "competitor_product_name": "Lululemon Athletica Evolution Short-Sleeve Polo Shirt",
+      "score": 8,
+      "rationale": "Men's short sleeve polo shirt, suitable for athletic use but relevant to the core men's polo shirt category.",
+      "map_id": "map_1d87fede29324a179dcdedacb9796f38"
+    },
+    {
+      "competitor_product_name": "Milford Stainless Steel Tie Bar",
+      "score": 1,
+      "rationale": "This is an accessory (tie bar), unrelated in product function or category to men's polo shirts.",
+      "map_id": "map_7b09c34eb83e407d9ed5772cd2cf239d"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Textured Jersey Basil Polo",
+      "score": 10,
+      "rationale": "From the same brand and explicitly a men's textured jersey knit polo shirt, identical category and construction.",
+      "map_id": "map_d0efa46b467240169c6a77a7c278f912"
+    }
+  ]
+}

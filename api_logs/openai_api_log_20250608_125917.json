@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250608_125917",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Limited-Edition Wallace & Barnes Italian Suede Work Jacket'\n  - Name='Wallace & Barnes By J. Crew Chore Jacket'\n  - Name='Filson Men's Ranger Insulated Anorak Jacket'\n  - Name='Women Carhartt WIP OG Michigan Coat'\n  - Name='Filson Chore Jacket'\n  - Name='Filson Men's Deer Island Ranch Coat'\n  - Name='Norse Projects Erik Donegal Diamond Jacket'\n  - Name='Norse Projects Standard Twill Overshirt'\n  - Name='Levi's Men's Cotton Trucker Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Limited-Edition Wallace & Barnes Italian Suede Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a work jacket with a utility focus, similar in purpose to a chore coat, but made from suede and likely a different silhouette and fabric weight compared to the cotton twill Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes By J. Crew Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Directly described as a chore jacket, which matches the Ojai's classic chore coat silhouette and utility focus, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Insulated Anorak Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"An insulated anorak differs significantly in silhouette and function (more like a pullover with insulation) compared to a chore coat, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Women Carhartt WIP OG Michigan Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a coat with possible utility elements, the women's cut and potentially different style and materials make it moderately relevant but not very close to the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket from a well-known brand matches the reference in silhouette, construction, and purpose very closely, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Deer Island Ranch Coat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a heavier coat with ranch or outdoor function, the silhouette and utility may overlap partially with a chore coat but may be bulkier or designed for different uses.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Erik Donegal Diamond Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This sounds like a patterned or textured casual jacket rather than a chore coat; while a jacket, it probably differs in silhouette and core function from the Ojai.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Standard Twill Overshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An overshirt in twill shares fabric type and casual utility characteristics, similar to a lightweight chore coat but generally thinner and less structured.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Trucker Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A cotton trucker jacket shares the casual cotton fabric and jacket category, but has a different silhouette and construction compared to a chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Limited-Edition Wallace & Barnes Italian Suede Work Jacket",
+      "score": 6,
+      "rationale": "This is a work jacket with a utility focus, similar in purpose to a chore coat, but made from suede and likely a different silhouette and fabric weight compared to the cotton twill Ojai Jacket.",
+      "map_id": "map_1e3d1476877d4106a04d303d80a3c557"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes By J. Crew Chore Jacket",
+      "score": 9,
+      "rationale": "Directly described as a chore jacket, which matches the Ojai's classic chore coat silhouette and utility focus, making it highly relevant.",
+      "map_id": "map_5d209fee2e2b46c5a7ac4920d084fb65"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Insulated Anorak Jacket",
+      "score": 4,
+      "rationale": "An insulated anorak differs significantly in silhouette and function (more like a pullover with insulation) compared to a chore coat, making it less relevant.",
+      "map_id": "map_0b0ccf7453324600ad0b62db442f873e"
+    },
+    {
+      "competitor_product_name": "Women Carhartt WIP OG Michigan Coat",
+      "score": 5,
+      "rationale": "While a coat with possible utility elements, the women's cut and potentially different style and materials make it moderately relevant but not very close to the Ojai chore coat.",
+      "map_id": "map_d2acfda69fd34212a34b81b315749f00"
+    },
+    {
+      "competitor_product_name": "Filson Chore Jacket",
+      "score": 9,
+      "rationale": "A chore jacket from a well-known brand matches the reference in silhouette, construction, and purpose very closely, making it highly relevant.",
+      "map_id": "map_c113957e223c4630a28499ec37ad86c4"
+    },
+    {
+      "competitor_product_name": "Filson Men's Deer Island Ranch Coat",
+      "score": 6,
+      "rationale": "Likely a heavier coat with ranch or outdoor function, the silhouette and utility may overlap partially with a chore coat but may be bulkier or designed for different uses.",
+      "map_id": "map_d9b9cc82c4d54707aa41f842fa79d344"
+    },
+    {
+      "competitor_product_name": "Norse Projects Erik Donegal Diamond Jacket",
+      "score": 5,
+      "rationale": "This sounds like a patterned or textured casual jacket rather than a chore coat; while a jacket, it probably differs in silhouette and core function from the Ojai.",
+      "map_id": "map_342a5584dd96443f933387ef50c47b0d"
+    },
+    {
+      "competitor_product_name": "Norse Projects Standard Twill Overshirt",
+      "score": 7,
+      "rationale": "An overshirt in twill shares fabric type and casual utility characteristics, similar to a lightweight chore coat but generally thinner and less structured.",
+      "map_id": "map_3ab6b38753124e21903e974bee2ef609"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Trucker Jacket",
+      "score": 7,
+      "rationale": "A cotton trucker jacket shares the casual cotton fabric and jacket category, but has a different silhouette and construction compared to a chore coat.",
+      "map_id": "map_83658bbac7c04b22851906beffa0c6c9"
+    }
+  ]
+}

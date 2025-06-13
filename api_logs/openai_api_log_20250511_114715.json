@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250511_114715",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Ojai Herringbone Wool Jacket'\n  - Name='Carhartt WIP Harttbreaker Coach Jacket'\n  - Name='Jake and Jones Engineered Garments Andover Jacket'\n  - Name='Engineered Garments Andover Jacket Dk. Navy High Count Twill'\n  - Name='Engineered Garments Shawl Collar Utility Jacket in 8oz Denim'\n  - Name='Carhartt WIP Women's OG Detroit Jacket'\n  - Name='Engineered Garments Bedford Lightweight Jacket'\n  - Name='Carhartt WIP Duke Jacket'\n  - Name='Faherty Jersey Shirt Jacket'\n  - Name='Levi's Men's Menlo Military Jacket'\n  - Name='Norse Projects Hagen Wool Jacket men'\n  - Name='Levi's Men's Relaxed Fit Sherpa Trucker Jacket'\n  - Name='Carhartt WIP Liam Jacket'\n  - Name='Engineered Garments Field Parka'\n  - Name='Filson Ranger Insulated Field Jacket'\n  - Name='Filson Men's Sherpa Fleece Jacket'\n  - Name='Engineered Garments Loiter Jacket'\n  - Name='Engineered Garments Beige Cagoule Jacket'\n  - Name='Engineered Garments Workaday Sea Bees Jacket'\n  - Name='Faherty Men's Range High Pile Fleece Lined CPO Jacket'\n  - Name='Alex Mill Linen Work Jacket'\n  - Name='Filson Mackinaw Cruiser'\n  - Name='Barbour Men's Tracker Casual Jacket'\n  - Name='Filson Men's Caped Mackinaw Wool Jacket'\n  - Name='Barbour Men's Ashby Casual Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Ojai Herringbone Wool Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Nearly identical core product by the same brand with a similar silhouette and purpose, differing mainly in material (wool vs organic cotton twill).\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Harttbreaker Coach Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar casual workwear vibe but coach jacket silhouette differs significantly from a chore coat; less utility-focused features.\"\n    },\n    {\n      \"competitor_product_name\": \"Jake and Jones Engineered Garments Andover Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Engineered Garments chore coat style jacket similar in silhouette and purpose though specific fabric details differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Andover Jacket Dk. Navy High Count Twill\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same model as above but specifically made from high-count twill fabric, closer to the Ojai’s utilitarian twill construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Shawl Collar Utility Jacket in 8oz Denim\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Utility jacket with functional focus overlaps, but shawl collar and denim fabric diverge from the chore coat style and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Women's OG Detroit Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar rugged workwear style but Detroit jacket silhouette and women’s specific cut lessen direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Bedford Lightweight Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Lightweight utility jacket from a similar brand with some functional overlap but likely less structured chore coat design.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Duke Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another rugged workwear-style jacket but differing silhouette and construction reduce relevancy to chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Jersey Shirt Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Shirt jacket silhouette and jersey material are lighter and less structured than the chore coat; limited utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Menlo Military Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Military-inspired jacket with utilitarian focus somewhat similar to chore coat purpose and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Hagen Wool Jacket men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wool jacket with workwear aesthetics but different material and likely less chore coat utility and silhouette features.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Relaxed Fit Sherpa Trucker Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Trucker jacket silhouette and sherpa lining differ materially and stylistically from the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Liam Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual workwear jacket with some functional overlap but no clear chore coat silhouette or fabric match.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Field Parka\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Parka style deviates notably from the chore coat; heavier and longer garment with different use case.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Ranger Insulated Field Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Heavier, insulated field jacket with different construction and intended for colder weather; diverges from chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Sherpa Fleece Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Fleece jacket with casual styling, materially and functionally different from a structured chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Loiter Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Utility jacket from similar brand; some overlap in function and style though likely differing silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Beige Cagoule Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cagoule (pullover rain jacket) differs greatly in silhouette and intended use compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Workaday Sea Bees Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Workaday line chore coat style jacket, similar silhouette and utilitarian features making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Range High Pile Fleece Lined CPO Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"CPO style shares workwear heritage but fleece lining and fabric change function and seasonality.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work jacket in lighter fabric with similar workwear inspiration, though linen is lighter and less rugged.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Mackinaw Cruiser\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Heavier cruiser jacket made from wool, differing notably in material and somewhat in silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Tracker Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual jacket with heritage workwear role but waxed and casual style rather than chore coat tweed.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Caped Mackinaw Wool Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Wool caped jacket is quite distinct in silhouette and materials from a chore coat style cotton twill jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual and heritage-inspired jacket with some overlap in customer profile but differing in material and structure from chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Ojai Herringbone Wool Jacket",
+      "score": 9,
+      "rationale": "Nearly identical core product by the same brand with a similar silhouette and purpose, differing mainly in material (wool vs organic cotton twill).",
+      "map_id": "map_75cd0685b78742d7b74382688ac2a39b"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Harttbreaker Coach Jacket",
+      "score": 5,
+      "rationale": "Similar casual workwear vibe but coach jacket silhouette differs significantly from a chore coat; less utility-focused features.",
+      "map_id": "map_3acf3820f5eb4c91a296822f16887a51"
+    },
+    {
+      "competitor_product_name": "Jake and Jones Engineered Garments Andover Jacket",
+      "score": 7,
+      "rationale": "Engineered Garments chore coat style jacket similar in silhouette and purpose though specific fabric details differ.",
+      "map_id": "map_e4cb978337194bb890b50b5cd71f7ad6"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Andover Jacket Dk. Navy High Count Twill",
+      "score": 8,
+      "rationale": "Same model as above but specifically made from high-count twill fabric, closer to the Ojai’s utilitarian twill construction.",
+      "map_id": "map_3afc4874f48f42e591c28716dac146ab"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Shawl Collar Utility Jacket in 8oz Denim",
+      "score": 6,
+      "rationale": "Utility jacket with functional focus overlaps, but shawl collar and denim fabric diverge from the chore coat style and material.",
+      "map_id": "map_9decb88695fc401ab7925f23b5dfde09"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Women's OG Detroit Jacket",
+      "score": 4,
+      "rationale": "Similar rugged workwear style but Detroit jacket silhouette and women’s specific cut lessen direct relevancy.",
+      "map_id": "map_8ab25ace36514550b988cc6e72d0e374"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Bedford Lightweight Jacket",
+      "score": 5,
+      "rationale": "Lightweight utility jacket from a similar brand with some functional overlap but likely less structured chore coat design.",
+      "map_id": "map_e19cb8cda6c74c06b71c14f3cff1d592"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Duke Jacket",
+      "score": 5,
+      "rationale": "Another rugged workwear-style jacket but differing silhouette and construction reduce relevancy to chore coat style.",
+      "map_id": "map_beba23d62f8f40c0887fcbf7da277695"
+    },
+    {
+      "competitor_product_name": "Faherty Jersey Shirt Jacket",
+      "score": 4,
+      "rationale": "Shirt jacket silhouette and jersey material are lighter and less structured than the chore coat; limited utility features.",
+      "map_id": "map_c5d2e5f9501443d1b5a642d4e2b9d1b1"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Menlo Military Jacket",
+      "score": 7,
+      "rationale": "Military-inspired jacket with utilitarian focus somewhat similar to chore coat purpose and durability.",
+      "map_id": "map_7b7889fe129243b09cdb59040a31286c"
+    },
+    {
+      "competitor_product_name": "Norse Projects Hagen Wool Jacket men",
+      "score": 6,
+      "rationale": "Wool jacket with workwear aesthetics but different material and likely less chore coat utility and silhouette features.",
+      "map_id": "map_56a3d997c58942c49d4287825740bd54"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Relaxed Fit Sherpa Trucker Jacket",
+      "score": 5,
+      "rationale": "Trucker jacket silhouette and sherpa lining differ materially and stylistically from the chore coat.",
+      "map_id": "map_3e6f533751a2430caa8e869bf07f7a52"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Liam Jacket",
+      "score": 5,
+      "rationale": "Casual workwear jacket with some functional overlap but no clear chore coat silhouette or fabric match.",
+      "map_id": "map_f579f069aa6b46a8b14d80d67fcdd7a5"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Field Parka",
+      "score": 4,
+      "rationale": "Parka style deviates notably from the chore coat; heavier and longer garment with different use case.",
+      "map_id": "map_ab306e166ffd4dee99280de689836cb5"
+    },
+    {
+      "competitor_product_name": "Filson Ranger Insulated Field Jacket",
+      "score": 4,
+      "rationale": "Heavier, insulated field jacket with different construction and intended for colder weather; diverges from chore coat style.",
+      "map_id": "map_dee0f614240940aa9554b845c7cf051d"
+    },
+    {
+      "competitor_product_name": "Filson Men's Sherpa Fleece Jacket",
+      "score": 3,
+      "rationale": "Fleece jacket with casual styling, materially and functionally different from a structured chore coat.",
+      "map_id": "map_dd112347195c47d797bdb81d1ff52e78"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Loiter Jacket",
+      "score": 6,
+      "rationale": "Utility jacket from similar brand; some overlap in function and style though likely differing silhouette.",
+      "map_id": "map_76340c3791fd484ba32f7633136774af"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Beige Cagoule Jacket",
+      "score": 4,
+      "rationale": "Cagoule (pullover rain jacket) differs greatly in silhouette and intended use compared to chore coat.",
+      "map_id": "map_5d2af5a335874dd8a5963fc81f8e0b82"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Workaday Sea Bees Jacket",
+      "score": 7,
+      "rationale": "Workaday line chore coat style jacket, similar silhouette and utilitarian features making it quite relevant.",
+      "map_id": "map_6788eb0a5fd4439ba861e2c6244549a5"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Range High Pile Fleece Lined CPO Jacket",
+      "score": 5,
+      "rationale": "CPO style shares workwear heritage but fleece lining and fabric change function and seasonality.",
+      "map_id": "map_2ddf107f0bca4f44a0250ede7dc1d594"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Work Jacket",
+      "score": 6,
+      "rationale": "Work jacket in lighter fabric with similar workwear inspiration, though linen is lighter and less rugged.",
+      "map_id": "map_71e019db31d64d668ed941ead1d17ec8"
+    },
+    {
+      "competitor_product_name": "Filson Mackinaw Cruiser",
+      "score": 4,
+      "rationale": "Heavier cruiser jacket made from wool, differing notably in material and somewhat in silhouette.",
+      "map_id": "map_9e5eb0383c354ad488a44220a7c4a148"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Tracker Casual Jacket",
+      "score": 5,
+      "rationale": "Casual jacket with heritage workwear role but waxed and casual style rather than chore coat tweed.",
+      "map_id": "map_44686843fcb14792a4643f6867deb9ed"
+    },
+    {
+      "competitor_product_name": "Filson Men's Caped Mackinaw Wool Jacket",
+      "score": 3,
+      "rationale": "Wool caped jacket is quite distinct in silhouette and materials from a chore coat style cotton twill jacket.",
+      "map_id": "map_231bfe6cbf4744f7a609b5541d75fd9b"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Casual Jacket",
+      "score": 5,
+      "rationale": "Casual and heritage-inspired jacket with some overlap in customer profile but differing in material and structure from chore coat.",
+      "map_id": "map_723394c89451408fadfd9a31dbbd9015"
+    }
+  ]
+}

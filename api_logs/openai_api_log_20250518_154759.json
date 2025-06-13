@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250518_154759",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie'\n  - Name='Jos. A. Bank Reserve Collection Octagonal Medallion Tie'\n  - Name='Suitsupply Men's Knitted Pure Silk Tie'\n  - Name='Suitsupply Men's Check Pink Adjustable Bow Tie'\n  - Name='Suitsupply Men's Plaid Print Silk Wool Blend Tie'\n  - Name='Eton Men's Diamond Silk Tie'\n  - Name='Eton Men's Striped Silk Tie'\n  - Name='Suitsupply Men's Knitted Square Wool Tie'\n  - Name='Suitsupply Men's Plaid Pattern Formal Tied Tie'\n  - Name='Suitsupply Men's Pure Silk Grenadine Tie'\n  - Name='Joseph Abboud Charcoal Paisley Neck Tie'\n  - Name='Eton Solid Twill Tie'\n  - Name='Joseph Abboud Men's Classic Neck Tie'\n  - Name='Eton Silk Linen Tie'\n  - Name='Suitsupply Men's Square Dot Pattern Formal Knitted Tie'\n  - Name='Suitsupply Men's Striped Pointed Tie'\n  - Name='Brooks Brothers Classic Floral Silk Tie'\n  - Name='Van Heusen Men's Skinny Tie'\n  - Name='Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a classic tie but features a floral paisley pattern, differing from the solid satin focus of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Reserve Collection Octagonal Medallion Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While it appears to be a traditional tie, the patterned medallion design makes it less similar to a solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Knitted Pure Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Made of silk and similar use, but the knitted construction differs from the smooth satin finish of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Check Pink Adjustable Bow Tie\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a bow tie and patterned, differing significantly in shape and style from a traditional satin necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Plaid Print Silk Wool Blend Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Material blend and plaid pattern contrast with solid satin; somewhat similar in use and shape but distinct texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Diamond Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie likely has a smooth finish; diamond pattern reduces relevancy slightly compared to solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Striped Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk material aligns but striped pattern diverges from solid satin look.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Knitted Square Wool Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Knitted wool construction and texture differ significantly from smooth satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Plaid Pattern Formal Tied Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Plaid pattern and unknown fabric diverge from solid satin tie; formal use aligns.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Pure Silk Grenadine Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pure silk material with likely smooth finish is close to satin in feel, though grenadine weave adds texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Charcoal Paisley Neck Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Classic necktie but paisley pattern differentiates it from a solid satin design.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Solid Twill Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid color like reference but twill weave texture differs from satin finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Classic Neck Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Classic necktie likely similar silhouette but material and finish not specified; presumed standard fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Silk Linen Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk-linen blend differs in texture from pure satin silk; solid or pattern not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Square Dot Pattern Formal Knitted Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Knitted construction and pattern reduce similarity to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Suitsupply Men's Striped Pointed Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Striped pattern and unspecified fabric decrease relevance compared to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Classic Floral Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Classic silk tie with floral pattern differs from solid satin, though material aligns.\"\n    },\n    {\n      \"competitor_product_name\": \"Van Heusen Men's Skinny Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Skinny tie silhouette differs from traditional width but material and finish likely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk-linen blend and striped pattern differ from smooth satin and solid design.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Floral Leaf Paisley Tie",
+      "score": 5,
+      "rationale": "This is a classic tie but features a floral paisley pattern, differing from the solid satin focus of the reference product.",
+      "map_id": "map_62ad40bde5cb4aa3a838f092f5c19016"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Reserve Collection Octagonal Medallion Tie",
+      "score": 5,
+      "rationale": "While it appears to be a traditional tie, the patterned medallion design makes it less similar to a solid satin tie.",
+      "map_id": "map_c08692e176494d6187719ec3a3bc1e89"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Knitted Pure Silk Tie",
+      "score": 6,
+      "rationale": "Made of silk and similar use, but the knitted construction differs from the smooth satin finish of the reference.",
+      "map_id": "map_b7e4c4ec213f430b8b08ae9e3c98f769"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Check Pink Adjustable Bow Tie",
+      "score": 2,
+      "rationale": "This is a bow tie and patterned, differing significantly in shape and style from a traditional satin necktie.",
+      "map_id": "map_169637be767e4f79888dbd4d56f86f2e"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Plaid Print Silk Wool Blend Tie",
+      "score": 4,
+      "rationale": "Material blend and plaid pattern contrast with solid satin; somewhat similar in use and shape but distinct texture.",
+      "map_id": "map_3735d9c8cb294946b7b62742ef1632a3"
+    },
+    {
+      "competitor_product_name": "Eton Men's Diamond Silk Tie",
+      "score": 7,
+      "rationale": "Silk tie likely has a smooth finish; diamond pattern reduces relevancy slightly compared to solid satin.",
+      "map_id": "map_26a94694dd5e416b8afacbd05c4ac008"
+    },
+    {
+      "competitor_product_name": "Eton Men's Striped Silk Tie",
+      "score": 6,
+      "rationale": "Silk material aligns but striped pattern diverges from solid satin look.",
+      "map_id": "map_74b7c60294fb4fc89999d258f04f4fd0"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Knitted Square Wool Tie",
+      "score": 3,
+      "rationale": "Knitted wool construction and texture differ significantly from smooth satin ties.",
+      "map_id": "map_dd12b9a46916424585f4dd9334e04b21"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Plaid Pattern Formal Tied Tie",
+      "score": 4,
+      "rationale": "Plaid pattern and unknown fabric diverge from solid satin tie; formal use aligns.",
+      "map_id": "map_450ec52a272540e596d3a9967d1359e0"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Pure Silk Grenadine Tie",
+      "score": 8,
+      "rationale": "Pure silk material with likely smooth finish is close to satin in feel, though grenadine weave adds texture.",
+      "map_id": "map_8934e8db1ead42b78ffdcd88b7838365"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Charcoal Paisley Neck Tie",
+      "score": 5,
+      "rationale": "Classic necktie but paisley pattern differentiates it from a solid satin design.",
+      "map_id": "map_814ee81c7b78492ca0b9cba00432ee20"
+    },
+    {
+      "competitor_product_name": "Eton Solid Twill Tie",
+      "score": 7,
+      "rationale": "Solid color like reference but twill weave texture differs from satin finish.",
+      "map_id": "map_0b5dd12319154f3e8475998a1315d796"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Classic Neck Tie",
+      "score": 6,
+      "rationale": "Classic necktie likely similar silhouette but material and finish not specified; presumed standard fabric.",
+      "map_id": "map_ee1a805bfbe3406283035069dcd9692e"
+    },
+    {
+      "competitor_product_name": "Eton Silk Linen Tie",
+      "score": 6,
+      "rationale": "Silk-linen blend differs in texture from pure satin silk; solid or pattern not specified.",
+      "map_id": "map_a40f5cba1f3c437b82b136bf590923c3"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Square Dot Pattern Formal Knitted Tie",
+      "score": 4,
+      "rationale": "Knitted construction and pattern reduce similarity to solid satin tie.",
+      "map_id": "map_7b22aac66cc1479e977e9007f82ec791"
+    },
+    {
+      "competitor_product_name": "Suitsupply Men's Striped Pointed Tie",
+      "score": 5,
+      "rationale": "Striped pattern and unspecified fabric decrease relevance compared to solid satin tie.",
+      "map_id": "map_8c08e0a279af44f0955f2a21925fa008"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Classic Floral Silk Tie",
+      "score": 5,
+      "rationale": "Classic silk tie with floral pattern differs from solid satin, though material aligns.",
+      "map_id": "map_ccfa7ecfa18e479d877f44cb52b8bb72"
+    },
+    {
+      "competitor_product_name": "Van Heusen Men's Skinny Tie",
+      "score": 6,
+      "rationale": "Skinny tie silhouette differs from traditional width but material and finish likely similar.",
+      "map_id": "map_11a1ea9ee5b8458a8942ea3508fe6fff"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk-Linen Mini BB#2 Striped Tie",
+      "score": 5,
+      "rationale": "Silk-linen blend and striped pattern differ from smooth satin and solid design.",
+      "map_id": "map_721d38cb8774403d92c4dad37ddac7e2"
+    }
+  ]
+}

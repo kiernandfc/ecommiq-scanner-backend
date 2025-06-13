@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250602_093511",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Boondock Collectors Edition",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Boondock Collectors Edition\"\nReference Product Description:\nVeritas meaning ‘truth’ and Aequitas meaning ‘justice’ is what we as a community feel is an important aspect of our culture. It’s a deep rooted city that is built upon loyalty. The black shamrock is a subtle yet strong touch to this six panel scally cap.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Bamboo 507'\n  - Name='Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap'\n  - Name='Men Stetson Lancott Ivy Wool Flat Cap'\n  - Name='Kangol Wavy Pane 507 Ivy Cap'\n  - Name='Kangol Camo Rib 504 Ivy Cap'\n  - Name='Barbour Men's Fawdon Bakerboy Hat'\n  - Name='Barbour Men's Waxed-Cotton Flat Cap'\n  - Name='Barbour Men's Wax Cotton Flat Cap'\n  - Name='Barbour Wilkin Flat Cap'\n  - Name='Academy Sports & Outdoors Carhartt Men's Buffalo Cap'\n  - Name='Brixton Fiddler Fisherman Cap'\n  - Name='Carhartt WIP Reynold Corduroy Bucket Hat'\n  - Name='Goorin Bros. Corduroy Snapback Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Bamboo 507\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Kangol Bamboo 507 is a flat cap similar in silhouette to a scally cap but may differ slightly in construction and style, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A newsboy cap shares a related vintage hat style with the scally but typically has a fuller crown with a button on top, making it somewhat relevant but less direct.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Lancott Ivy Wool Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Ivy flat cap is very close in style and construction to a scally cap, often worn in similar ways, making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wavy Pane 507 Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is another variation of the 507 series flat/ivy cap, sharing strong similarities in shape and style, thus fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Camo Rib 504 Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A 504 Ivy cap resembles the style of the scally cap closely; the ribbed texture and camo pattern are secondary factors, so relevancy remains high.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Fawdon Bakerboy Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Bakerboy (newsboy) hats differ from scally caps with a rounder, fuller crown; this makes it moderately relevant but less so than flat caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed-Cotton Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A waxed-cotton flat cap aligns very closely with the scally cap in terms of shape, style, and use, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Wax Cotton Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as above; the wax cotton flat cap is nearly identical in silhouette and usage to the reference scally, so very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wilkin Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"The Wilkin Flat Cap is a classic flat-cap style very similar to the scally, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Academy Sports & Outdoors Carhartt Men's Buffalo Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The term 'buffalo cap' may suggest a flat cap style but could differ in fabric and style; it's moderately relevant but less so than traditional flat caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fiddler Fisherman Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Fisherman caps differ notably in shape and crown structure from scally caps, making this less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Reynold Corduroy Bucket Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bucket hats have a distinct silhouette very different from scally caps, so this is minimally relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Corduroy Snapback Cap\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Snapback caps have a very different structure and function than scally caps, making this not relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Bamboo 507",
+      "score": 7,
+      "rationale": "The Kangol Bamboo 507 is a flat cap similar in silhouette to a scally cap but may differ slightly in construction and style, making it fairly relevant.",
+      "map_id": "map_334902c38af24f988942c39a3a9bf976"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap",
+      "score": 6,
+      "rationale": "A newsboy cap shares a related vintage hat style with the scally but typically has a fuller crown with a button on top, making it somewhat relevant but less direct.",
+      "map_id": "map_1563019af57f468d88a128b169b56943"
+    },
+    {
+      "competitor_product_name": "Men Stetson Lancott Ivy Wool Flat Cap",
+      "score": 8,
+      "rationale": "An Ivy flat cap is very close in style and construction to a scally cap, often worn in similar ways, making this highly relevant.",
+      "map_id": "map_b4c2f7e7a5e34e9db88ece26854813b9"
+    },
+    {
+      "competitor_product_name": "Kangol Wavy Pane 507 Ivy Cap",
+      "score": 7,
+      "rationale": "This is another variation of the 507 series flat/ivy cap, sharing strong similarities in shape and style, thus fairly relevant.",
+      "map_id": "map_54a0374c3dc6496fb53cdc7ea1a97976"
+    },
+    {
+      "competitor_product_name": "Kangol Camo Rib 504 Ivy Cap",
+      "score": 7,
+      "rationale": "A 504 Ivy cap resembles the style of the scally cap closely; the ribbed texture and camo pattern are secondary factors, so relevancy remains high.",
+      "map_id": "map_05d31e7dfc504927958afc912da37b91"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Fawdon Bakerboy Hat",
+      "score": 5,
+      "rationale": "Bakerboy (newsboy) hats differ from scally caps with a rounder, fuller crown; this makes it moderately relevant but less so than flat caps.",
+      "map_id": "map_f834a0ba925b4eb9ad7e7b6b4b0b77be"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed-Cotton Flat Cap",
+      "score": 9,
+      "rationale": "A waxed-cotton flat cap aligns very closely with the scally cap in terms of shape, style, and use, making it highly relevant.",
+      "map_id": "map_230ee22a7bdd48ea83cfcf844a12a0db"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Wax Cotton Flat Cap",
+      "score": 9,
+      "rationale": "Same as above; the wax cotton flat cap is nearly identical in silhouette and usage to the reference scally, so very relevant.",
+      "map_id": "map_8c4f37d0e3484f3aa788355d3e52c34c"
+    },
+    {
+      "competitor_product_name": "Barbour Wilkin Flat Cap",
+      "score": 9,
+      "rationale": "The Wilkin Flat Cap is a classic flat-cap style very similar to the scally, making it highly relevant.",
+      "map_id": "map_31f19270d556470baa091fa0a45dadc1"
+    },
+    {
+      "competitor_product_name": "Academy Sports & Outdoors Carhartt Men's Buffalo Cap",
+      "score": 6,
+      "rationale": "The term 'buffalo cap' may suggest a flat cap style but could differ in fabric and style; it's moderately relevant but less so than traditional flat caps.",
+      "map_id": "map_dd88b0b0917e4c8ab62bf741f1141618"
+    },
+    {
+      "competitor_product_name": "Brixton Fiddler Fisherman Cap",
+      "score": 4,
+      "rationale": "Fisherman caps differ notably in shape and crown structure from scally caps, making this less relevant.",
+      "map_id": "map_c12d74dbb6c64ce8a522b2e1e7e91453"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Reynold Corduroy Bucket Hat",
+      "score": 2,
+      "rationale": "Bucket hats have a distinct silhouette very different from scally caps, so this is minimally relevant.",
+      "map_id": "map_da09a8505ac14289832c9997591c6461"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Corduroy Snapback Cap",
+      "score": 1,
+      "rationale": "Snapback caps have a very different structure and function than scally caps, making this not relevant.",
+      "map_id": "map_34420ceb8d5942e9970a38794f5463ca"
+    }
+  ]
+}

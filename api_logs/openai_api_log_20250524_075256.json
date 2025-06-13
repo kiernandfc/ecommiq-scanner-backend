@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250524_075256",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Gap Men's Logo Corp Hoodie'\n  - Name='Men's Heavyweight Oversized Hoodie by Gap'\n  - Name='Gap Men's Fleece Arch Logo Pullover Hoodie'\n  - Name='Gap Men's Vintagesoft Logo Zip Hoodie'\n  - Name='Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt'\n  - Name='Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt'\n  - Name='Supreme Box Logo Hooded Sweatshirt'\n  - Name='Supreme x Frank Frazetta Zip Up Hooded Sweatshirt'\n  - Name='Women's adidas Designed 4 Training Full Zip sweatshirt'\n  - Name='Nike Men's Solo Swoosh French Terry Pullover Hoodie'\n  - Name='Carhartt Men's Rain Defender Relaxed Fit Sherpa-Lined Full-Zip Sweatshirt'\n  - Name='Nike Men's Club Oversized French Terry Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Corp Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hoodie from a well-known brand, similar in function, material, and silhouette to the Boston Scally Hoodie. Likely soft and comfortable with a pullover design.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Heavyweight Oversized Hoodie by Gap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Although it is a hoodie, the heavyweight and oversized qualities may differ in feel and fit from the Boston Scally Hoodie, which emphasizes comfort and mobility rather than heaviness or oversized fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Fleece Arch Logo Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece pullover men's hoodie shares core characteristics such as soft material, pullover style, and casual use making it very relevant to Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintagesoft Logo Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While it is a hoodie, this one features a zip-up style rather than pullover and a vintage soft fabric, which suggests some differences in construction and fit compared to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A midweight hooded sweatshirt with logo from Carhartt is quite similar in construction and use case, although Carhartt products generally cater to more rugged wear which might differ slightly from Boston Scally's comfort focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a lightweight sweatshirt with graphic and relaxed fit, making it somewhat less similar due to potentially less warmth and different fit compared to a standard pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hooded sweatshirt from Supreme with box logo shares the hoodie form and similar casual use; however, potential differences in fabric softness and streetwear style may affect relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Frank Frazetta Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Zip-up construction and collaboration graphic likely differentiate this product from the Boston Scally Hoodie, which is described as a soft pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Women's adidas Designed 4 Training Full Zip sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a women's full-zip sweatshirt designed for training, diverging significantly in target gender, zip-up style, and likely fabric/fit compared to the Boston Scally pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh French Terry Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's pullover hoodie made with French terry, a soft fabric similar in comfort focus, making it highly relevant to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Relaxed Fit Sherpa-Lined Full-Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Features like full zip, sherpa lining, and rain protection indicate a different construction and use case than the soft pullover Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Oversized French Terry Pullover Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While it is a pullover hoodie similar in material, the oversized fit may alter the silhouette significantly from the Boston Scally Hoodie, impacting relevancy slightly.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Gap Men's Logo Corp Hoodie",
+      "score": 9,
+      "rationale": "This is a men's hoodie from a well-known brand, similar in function, material, and silhouette to the Boston Scally Hoodie. Likely soft and comfortable with a pullover design.",
+      "map_id": "map_0bbf3e587deb45d5971b05223c9c82f1"
+    },
+    {
+      "competitor_product_name": "Men's Heavyweight Oversized Hoodie by Gap",
+      "score": 7,
+      "rationale": "Although it is a hoodie, the heavyweight and oversized qualities may differ in feel and fit from the Boston Scally Hoodie, which emphasizes comfort and mobility rather than heaviness or oversized fit.",
+      "map_id": "map_4ff05a2c1b054e08b8fd781770e320b5"
+    },
+    {
+      "competitor_product_name": "Gap Men's Fleece Arch Logo Pullover Hoodie",
+      "score": 9,
+      "rationale": "A fleece pullover men's hoodie shares core characteristics such as soft material, pullover style, and casual use making it very relevant to Boston Scally Hoodie.",
+      "map_id": "map_a0fbcd7d9ccf4d9cace176b1f627416c"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintagesoft Logo Zip Hoodie",
+      "score": 7,
+      "rationale": "While it is a hoodie, this one features a zip-up style rather than pullover and a vintage soft fabric, which suggests some differences in construction and fit compared to the reference hoodie.",
+      "map_id": "map_2c7d61c664b24e47a00678d891a3bd93"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "A midweight hooded sweatshirt with logo from Carhartt is quite similar in construction and use case, although Carhartt products generally cater to more rugged wear which might differ slightly from Boston Scally's comfort focus.",
+      "map_id": "map_40798f531ff84de4b1f5614b79a432c8"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt",
+      "score": 6,
+      "rationale": "This is a lightweight sweatshirt with graphic and relaxed fit, making it somewhat less similar due to potentially less warmth and different fit compared to a standard pullover hoodie.",
+      "map_id": "map_18fd98285ee04f8f844ab65bda8deaa6"
+    },
+    {
+      "competitor_product_name": "Supreme Box Logo Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "A hooded sweatshirt from Supreme with box logo shares the hoodie form and similar casual use; however, potential differences in fabric softness and streetwear style may affect relevancy slightly.",
+      "map_id": "map_822575ac813e406c935a9f081dd927a8"
+    },
+    {
+      "competitor_product_name": "Supreme x Frank Frazetta Zip Up Hooded Sweatshirt",
+      "score": 6,
+      "rationale": "Zip-up construction and collaboration graphic likely differentiate this product from the Boston Scally Hoodie, which is described as a soft pullover hoodie.",
+      "map_id": "map_296859ba1d6844c98c2fb273344e0c0f"
+    },
+    {
+      "competitor_product_name": "Women's adidas Designed 4 Training Full Zip sweatshirt",
+      "score": 4,
+      "rationale": "This is a women's full-zip sweatshirt designed for training, diverging significantly in target gender, zip-up style, and likely fabric/fit compared to the Boston Scally pullover hoodie.",
+      "map_id": "map_d398638faa3a4a98bceccac58b647acd"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh French Terry Pullover Hoodie",
+      "score": 9,
+      "rationale": "This is a men's pullover hoodie made with French terry, a soft fabric similar in comfort focus, making it highly relevant to the Boston Scally Hoodie.",
+      "map_id": "map_ff71b92d1a204f5cbe02add9fa37f649"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Relaxed Fit Sherpa-Lined Full-Zip Sweatshirt",
+      "score": 6,
+      "rationale": "Features like full zip, sherpa lining, and rain protection indicate a different construction and use case than the soft pullover Boston Scally Hoodie.",
+      "map_id": "map_59cbc04822c54e6596ad2e9e925c7920"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Oversized French Terry Pullover Hoodie",
+      "score": 7,
+      "rationale": "While it is a pullover hoodie similar in material, the oversized fit may alter the silhouette significantly from the Boston Scally Hoodie, impacting relevancy slightly.",
+      "map_id": "map_546246d980934378be0021bd461fbb1c"
+    }
+  ]
+}

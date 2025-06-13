@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250605_091617",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Wool Cashmere Driver Cap'\n  - Name='Stetson Men's Melaco Driver Linen Cap'\n  - Name='Men Stetson Dennaco Wool Driver Flat Cap'\n  - Name='Stetson Men's Colour Spots Driver Flat Cap'\n  - Name='Goorin Cold Snap Flatcaps with Sweatband'\n  - Name='Brixton Hooligan Snap Cap'\n  - Name='Goorin Bros The Panther Trucker Hat'\n  - Name='Goorin Bros. Men's Dale Trucker Hat'\n  - Name='Goorin Chopping Block Flatcaps'\n  - Name='Brixton Hooligan Cap'\n  - Name='Brixton Men's Houndstooth Tweed Fiddler Cap'\n  - Name='BARBOUR INC. deveron tweed flat cap'\n  - Name='Barbour Men's Fawdon Bakerboy Hat'\n  - Name='Kenmore Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Wool Cashmere Driver Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a driver cap like the reference, similar silhouette but made from wool cashmere instead of sport micro-poly fabric, so less focused on breathability and sport performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Melaco Driver Linen Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a driver cap with similar construction and function, uses linen fabric rather than micro-poly but retains the classic driver cap silhouette and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Dennaco Wool Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A driver flat cap with wool fabric; similar style and shape but the flat cap design may differ slightly from the 8-panel sport driver cap in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Colour Spots Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver flat cap variant with fabric and pattern difference; similar use and silhouette but possibly less sport-focused.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Cold Snap Flatcaps with Sweatband\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flatcaps with sweatband share some functional overlap but likely differ in sport fabric tech and exact 8-panel driver design.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Snap Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A snap cap, which is a baseball-style hat, distinct silhouette and construction from the driver cap; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros The Panther Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A trucker hat with mesh back is quite different in style, construction, and intended use from the driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Dale Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Another trucker hat distinct from driver cap in design and performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Chopping Block Flatcaps\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flatcaps related in silhouette but likely differ in fabric technology and specific 8-panel driver shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a baseball-style cap, very different silhouette and less relevant to the driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Houndstooth Tweed Fiddler Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Fiddler cap similar in some shape aspects but less sport-focused and different construction from the micro-poly driver.\"\n    },\n    {\n      \"competitor_product_name\": \"BARBOUR INC. deveron tweed flat cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Traditional flat cap with tweed fabric, somewhat similar silhouette but less breathable sport tech and different construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Fawdon Bakerboy Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Bakerboy is close to driver cap in shape and style but often uses tweed or wool fabrics, less sport fabric usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenmore Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally product; likely very similar in design and fabric tech, almost identical in style and performance features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Wool Cashmere Driver Cap",
+      "score": 8,
+      "rationale": "This is a driver cap like the reference, similar silhouette but made from wool cashmere instead of sport micro-poly fabric, so less focused on breathability and sport performance.",
+      "map_id": "map_3aeff095470341ac804a6813629bc1b1"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Melaco Driver Linen Cap",
+      "score": 8,
+      "rationale": "Also a driver cap with similar construction and function, uses linen fabric rather than micro-poly but retains the classic driver cap silhouette and purpose.",
+      "map_id": "map_42104a8204e84e7ca4306ca216dc764c"
+    },
+    {
+      "competitor_product_name": "Men Stetson Dennaco Wool Driver Flat Cap",
+      "score": 7,
+      "rationale": "A driver flat cap with wool fabric; similar style and shape but the flat cap design may differ slightly from the 8-panel sport driver cap in the reference.",
+      "map_id": "map_2002f12a3de44d8e9e8c669191536c15"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Colour Spots Driver Flat Cap",
+      "score": 7,
+      "rationale": "Driver flat cap variant with fabric and pattern difference; similar use and silhouette but possibly less sport-focused.",
+      "map_id": "map_ff7c6e84ba46404aaffb54b036b62ad9"
+    },
+    {
+      "competitor_product_name": "Goorin Cold Snap Flatcaps with Sweatband",
+      "score": 6,
+      "rationale": "Flatcaps with sweatband share some functional overlap but likely differ in sport fabric tech and exact 8-panel driver design.",
+      "map_id": "map_8b7c8786b4c544669e59a1ea73e69ee7"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Snap Cap",
+      "score": 3,
+      "rationale": "A snap cap, which is a baseball-style hat, distinct silhouette and construction from the driver cap; less relevant.",
+      "map_id": "map_42947e87937d44b4a3ddf6d09b20902b"
+    },
+    {
+      "competitor_product_name": "Goorin Bros The Panther Trucker Hat",
+      "score": 2,
+      "rationale": "A trucker hat with mesh back is quite different in style, construction, and intended use from the driver cap.",
+      "map_id": "map_c46dc044b696477e80a12a26f606ea25"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Dale Trucker Hat",
+      "score": 2,
+      "rationale": "Another trucker hat distinct from driver cap in design and performance features.",
+      "map_id": "map_5f365841f56e44299da7e297471cd0ac"
+    },
+    {
+      "competitor_product_name": "Goorin Chopping Block Flatcaps",
+      "score": 6,
+      "rationale": "Flatcaps related in silhouette but likely differ in fabric technology and specific 8-panel driver shape.",
+      "map_id": "map_ba932ab2621c41c0b4c1b3bc170d7200"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Cap",
+      "score": 3,
+      "rationale": "Likely a baseball-style cap, very different silhouette and less relevant to the driver cap.",
+      "map_id": "map_58067e87b89d4644afa05fe1efaba625"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Houndstooth Tweed Fiddler Cap",
+      "score": 5,
+      "rationale": "Fiddler cap similar in some shape aspects but less sport-focused and different construction from the micro-poly driver.",
+      "map_id": "map_a96c077bb4a948688b611b2e41018cc8"
+    },
+    {
+      "competitor_product_name": "BARBOUR INC. deveron tweed flat cap",
+      "score": 5,
+      "rationale": "Traditional flat cap with tweed fabric, somewhat similar silhouette but less breathable sport tech and different construction.",
+      "map_id": "map_a154ef1e3a1d4b13926a209f37d5a578"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Fawdon Bakerboy Hat",
+      "score": 6,
+      "rationale": "Bakerboy is close to driver cap in shape and style but often uses tweed or wool fabrics, less sport fabric usage.",
+      "map_id": "map_5ca61c83362d4a459d95365ab2fe9a52"
+    },
+    {
+      "competitor_product_name": "Kenmore Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally product; likely very similar in design and fabric tech, almost identical in style and performance features.",
+      "map_id": "map_1a5931a95b89465cb7ba18b880101223"
+    }
+  ]
+}

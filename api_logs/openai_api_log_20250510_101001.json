@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250510_101001",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nordstrom Trim Fit Non-Iron Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n  - Name='David Donahue Men's Trim-Fit Non-Iron Dress Shirt'\n  - Name='Nordstrom Trim Fit Check Dress Shirt'\n  - Name='Nordstrom Trim Fit Gingham Check Dress Shirt'\n  - Name='Nordstrom Trim Fit Easy Care Check Cotton Dress Shirt'\n  - Name='Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt'\n  - Name='Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt'\n  - Name='Lands' End Women's Petite Wrinkle Free No Iron Shirt'\n  - Name='Lands' End Men's Oxford Long Sleeve Dress Shirt'\n  - Name='Custom Logo Men's Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Women's Oxford Long Sleeve Dress Shirt'\n  - Name='Custom Logo Men's Tailored Fit Long Sleeve Buttondown Pinpoint'\n  - Name='Lands' End Boys' School Uniform Short Sleeve No Iron Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Oxford Dress Shirt'\n  - Name='Lands' End Women's Petite No Iron Button Front Shirt'\n  - Name='Lands' End Men's Stretch Coolmax Long Sleeve Shirt'\n  - Name='Indochino Men's Custom Hailey Cotton Stretch'\n  - Name='Indochino Men's Harrow Stripe Cotton Shirt'\n  - Name='Lands' End Women's Wrinkle Free No Iron Shirt'\n  - Name='Indochino Men's Hyde Cotton Shirt'\n  - Name='Indochino Men's Helston Plain-Front Cotton Tuxedo Shirt'\n  - Name='Bonobos Men's Weekday Warrior Slim Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product is a trim fit non-iron dress shirt, matching exactly the core features of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a premium non-iron dress shirt with a different pattern (windowpane check) but similar construction and features, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"David Donahue Men's Trim-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A trim-fit, non-iron dress shirt that aligns closely with the reference product's fit and core features.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit dress shirt similar in fit and construction, but mentions check pattern; no detail on non-iron, so slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Gingham Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit dress shirt with check pattern; no explicit non-iron mention, so relevance slightly lower than direct non-iron shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Easy Care Check Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit dress shirt described as easy care indicates some wrinkle resistance but not explicitly non-iron; still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron solid shirt with a specific collar style different from the reference, but otherwise highly relevant in fit and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron dress shirt with tailored fit; very close in core characteristics, just differing slightly in fit terminology.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron plus pattern and pinpoint fabric with button down collar; similar but button down collar differs from semi-spread collar in reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Short sleeve and non-iron match the core features, but dress shirts typically are long sleeve and the reference is long sleeve.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Petite Wrinkle Free No Iron Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While no iron and wrinkle free, this is a women's petite shirt, differing in gender target and likely fit and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Oxford Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Long sleeve dress shirt for men, but no mention of non-iron or special fabric treatment reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom Logo Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Long sleeve button down shirt for men; no indication of being dress shirt style or non-iron fabric, and button down collars differ from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Oxford Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's shirt differs significantly in gender target and potentially fit, reducing relevancy despite similar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom Logo Men's Tailored Fit Long Sleeve Buttondown Pinpoint\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tailored fit and pinpoint fabric are similar but buttondown collar and lack of non-iron claim reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Boys' School Uniform Short Sleeve No Iron Dress Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Boys' uniform shirt differs significantly in target demographic and sleeve length, although non-iron and dress shirt features are present.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's pattern no iron dress shirt matches many features though pattern and fabric style differ from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Petite No Iron Button Front Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's petite fit differs from reference in gender and sizing target, reducing relevancy despite no iron property.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Stretch Coolmax Long Sleeve Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Long sleeve men's shirt with stretch fabric; however, no mention of dress shirt or non-iron treatment reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom Hailey Cotton Stretch\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's cotton stretch shirt with custom fit likely close in silhouette but no explicit non-iron feature mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Harrow Stripe Cotton Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton dress shirt with stripe pattern; no mention of non-iron but otherwise similar in construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Wrinkle Free No Iron Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's wrinkle free no iron shirt differs in gender and possibly styling, reducing relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Hyde Cotton Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's cotton dress shirt similar in style but does not specify non-iron treatment, slightly lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Helston Plain-Front Cotton Tuxedo Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Formal tuxedo shirt differs in styling and construction from standard dress shirt, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Slim Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's slim dress shirt with similar fit and purpose; likely non-iron or performance fabric implied, very relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "This product is a trim fit non-iron dress shirt, matching exactly the core features of the reference product.",
+      "map_id": "map_979af237376547fb831c2e5cc0c1424b"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 9,
+      "rationale": "This is a premium non-iron dress shirt with a different pattern (windowpane check) but similar construction and features, making it highly relevant.",
+      "map_id": "map_0c82c4038cd6477abb3500cafefb7599"
+    },
+    {
+      "competitor_product_name": "David Donahue Men's Trim-Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "A trim-fit, non-iron dress shirt that aligns closely with the reference product's fit and core features.",
+      "map_id": "map_f5f878a5a0364ae793156a901fe664bd"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Check Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit dress shirt similar in fit and construction, but mentions check pattern; no detail on non-iron, so slightly less relevant.",
+      "map_id": "map_15ce8f42262349f08687bcd874b68201"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Gingham Check Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit dress shirt with check pattern; no explicit non-iron mention, so relevance slightly lower than direct non-iron shirts.",
+      "map_id": "map_b1a31a0f1cec42b2bcc3fb49ab2ca688"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Easy Care Check Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit dress shirt described as easy care indicates some wrinkle resistance but not explicitly non-iron; still quite relevant.",
+      "map_id": "map_9dfb3a58c325465d8bb8c5fcbaaf0483"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Solid No Iron Supima Pinpoint Straight Collar Dress Shirt",
+      "score": 9,
+      "rationale": "No iron solid shirt with a specific collar style different from the reference, but otherwise highly relevant in fit and function.",
+      "map_id": "map_0ab361fad3604b3691a7678a1658b791"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "No iron dress shirt with tailored fit; very close in core characteristics, just differing slightly in fit terminology.",
+      "map_id": "map_bb398e48027d40ea9e2a670cca0cba74"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Supima Pinpoint Button Down Collar Dress Shirt",
+      "score": 8,
+      "rationale": "No iron plus pattern and pinpoint fabric with button down collar; similar but button down collar differs from semi-spread collar in reference.",
+      "map_id": "map_70ba387164324c68817293aa6021f5f7"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Short Sleeve No Iron Pinpoint Dress Shirt",
+      "score": 6,
+      "rationale": "Short sleeve and non-iron match the core features, but dress shirts typically are long sleeve and the reference is long sleeve.",
+      "map_id": "map_8c4680d063ea48a5bd264883e377fca3"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Petite Wrinkle Free No Iron Shirt",
+      "score": 4,
+      "rationale": "While no iron and wrinkle free, this is a women's petite shirt, differing in gender target and likely fit and silhouette.",
+      "map_id": "map_03f495ebad7f4eb79fa8a18f102e9b42"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Oxford Long Sleeve Dress Shirt",
+      "score": 7,
+      "rationale": "Long sleeve dress shirt for men, but no mention of non-iron or special fabric treatment reduces relevancy slightly.",
+      "map_id": "map_5b61421a7359443fb49e2f3c5adf781b"
+    },
+    {
+      "competitor_product_name": "Custom Logo Men's Long Sleeve Buttondown Shirt",
+      "score": 5,
+      "rationale": "Long sleeve button down shirt for men; no indication of being dress shirt style or non-iron fabric, and button down collars differ from reference.",
+      "map_id": "map_ac60d795035d48e9aeb1515a5854aba7"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Oxford Long Sleeve Dress Shirt",
+      "score": 4,
+      "rationale": "Women's shirt differs significantly in gender target and potentially fit, reducing relevancy despite similar style.",
+      "map_id": "map_067c51a8b73d43e689effb8362ff6262"
+    },
+    {
+      "competitor_product_name": "Custom Logo Men's Tailored Fit Long Sleeve Buttondown Pinpoint",
+      "score": 6,
+      "rationale": "Tailored fit and pinpoint fabric are similar but buttondown collar and lack of non-iron claim reduce relevancy.",
+      "map_id": "map_ed7583f848ca4cb3a296b1faa2f235a3"
+    },
+    {
+      "competitor_product_name": "Lands' End Boys' School Uniform Short Sleeve No Iron Dress Shirt",
+      "score": 3,
+      "rationale": "Boys' uniform shirt differs significantly in target demographic and sleeve length, although non-iron and dress shirt features are present.",
+      "map_id": "map_4a0172f4672946cea6b33b22234da327"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "Men's pattern no iron dress shirt matches many features though pattern and fabric style differ from reference.",
+      "map_id": "map_d6d33a9cf2a14549915fa014bcce9bb1"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Petite No Iron Button Front Shirt",
+      "score": 4,
+      "rationale": "Women's petite fit differs from reference in gender and sizing target, reducing relevancy despite no iron property.",
+      "map_id": "map_1702becdf6a24b0a9b70ec97b5b61734"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Stretch Coolmax Long Sleeve Shirt",
+      "score": 5,
+      "rationale": "Long sleeve men's shirt with stretch fabric; however, no mention of dress shirt or non-iron treatment reduces relevancy.",
+      "map_id": "map_7262bf381ad14115b3eb3ed59e5c729e"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom Hailey Cotton Stretch",
+      "score": 7,
+      "rationale": "Men's cotton stretch shirt with custom fit likely close in silhouette but no explicit non-iron feature mentioned.",
+      "map_id": "map_2af76efbb65d4c5b8fe018a4e9437800"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Harrow Stripe Cotton Shirt",
+      "score": 7,
+      "rationale": "Cotton dress shirt with stripe pattern; no mention of non-iron but otherwise similar in construction and purpose.",
+      "map_id": "map_6c09acc51c1f4b28880348481eb49edd"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Wrinkle Free No Iron Shirt",
+      "score": 4,
+      "rationale": "Women's wrinkle free no iron shirt differs in gender and possibly styling, reducing relevance.",
+      "map_id": "map_8945d9241ee74a84aa132ad706e2dd03"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Hyde Cotton Shirt",
+      "score": 7,
+      "rationale": "Men's cotton dress shirt similar in style but does not specify non-iron treatment, slightly lowering relevancy.",
+      "map_id": "map_005b191922ce4881af6fee115686f3ec"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Helston Plain-Front Cotton Tuxedo Shirt",
+      "score": 6,
+      "rationale": "Formal tuxedo shirt differs in styling and construction from standard dress shirt, reducing relevancy.",
+      "map_id": "map_a0215bd924a7459cbb93e6ae9d8ba949"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Slim Dress Shirt",
+      "score": 9,
+      "rationale": "Men's slim dress shirt with similar fit and purpose; likely non-iron or performance fabric implied, very relevant.",
+      "map_id": "map_9efb3d42980042ae95c214eb28ef41c9"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250526_075120",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Haggar Men's Premium Comfort Slim Fit Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Dress Shirt'\n  - Name='Brooks Brothers Men's Big & Tall Non-Iron Check Dress Shirt'\n  - Name='Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Tattersall Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt'\n  - Name='J.Crew Men's Slim Organic Cotton Chambray Shirt'\n  - Name='L.L.Bean Men's Signature Stretch Poplin Shirt'\n  - Name='L.L.Bean Men's Ultrasoft Wrinkle-Free Brushed Cotton Long-Sleeve'\n  - Name='L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt'\n  - Name='Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dobby Dress Shirt at Men's Wearhouse'\n  - Name='Michael Kors Men's Slim-Fit Non-Iron Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Plaid Dress Shirt'\n  - Name='Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Grid Dress Shirt at Men's Wearhouse'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt'\n  - Name='Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Textured Check Dress Shirt , Rust / Red - Size: 17 34/35'\n  - Name='Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt'\n  - Name='Kenneth Cole Men's Regular Fit Non-Iron Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Mini Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Non-Iron Dress Shirt'\n  - Name='&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt'\n  - Name='Pronto Uomo Men's Modern Fit Check Spread Collar Dress Shirt'\n  - Name='Eton of Sweden Men's Contemporary-Fit Floral Cotton Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Short-Sleeve Sunwashed Canvas Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Haggar Men's Premium Comfort Slim Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt similar in style and intended use, but no mention of non-iron treatment or collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with stretch; similar silhouette but no explicit non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Non-Iron Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt closely matching reference product's key feature; different fit (big & tall) and pattern irrelevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic fit dress shirt with spread collar similar to semi-spread but no non-iron mentioned, and different fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt similar in use and silhouette but no non-iron or collar style specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Tattersall Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with tattersall pattern; lacks non-iron mention but similar product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit with performance stretch likely similar in function and silhouette, possibly non-iron though not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Organic Cotton Chambray Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim shirt but chambray fabric generally more casual and not typically dress shirt; no collar or non-iron info.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Stretch Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Poplin fabric dress shirt with stretch likely similar dress shirt but no explicit non-iron or collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Ultrasoft Wrinkle-Free Brushed Cotton Long-Sleeve\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wrinkle-free suggests some similarity to non-iron, but brushed cotton and lack of dress shirt designation lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Hemp fabric likely casual style shirt, not typical dress shirt silhouette or construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dobby Dress Shirt at Men's Wearhouse\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit, performance stretch, and dress shirt designation align closely; dobby texture is a fabric detail not affecting main relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Slim-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches closely on non-iron feature, slim fit, and dress shirt type, highly relevant to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Plaid Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with performance stretch but plaid pattern and no stated non-iron reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Grid Dress Shirt at Men's Wearhouse\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit, performance stretch dress shirt similar to reference; grid pattern and no non-iron mention reduce score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar slim fit, performance stretch dress shirt, micro check pattern less relevant, non-iron not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Textured Check Dress Shirt , Rust / Red - Size: 17 34/35\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit, performance stretch dress shirt similar in construction; textured check pattern and no non-iron noted.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic fit dress shirt with spread collar similar but no non-iron feature mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Regular Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt shares the key feature, but regular fit differs from some trim of reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Mini Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit with performance stretch dress shirt type but 'mini' style unclear and non-iron not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches reference in key non-iron feature, slim fit, and dress shirt designation.\"\n    },\n    {\n      \"competitor_product_name\": \"&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with stain-repellent feature offers functional similarity, but athletic fit and big & tall sizing differ from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Modern Fit Check Spread Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Modern fit dress shirt with spread collar is similar in construction and use; check pattern and no non-iron feature mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton of Sweden Men's Contemporary-Fit Floral Cotton Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Contemporary fit dress shirt similar but floral pattern and no non-iron mention lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Short-Sleeve Sunwashed Canvas Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve, canvas fabric and traditional fit differs significantly from non-iron long sleeve dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Haggar Men's Premium Comfort Slim Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt similar in style and intended use, but no mention of non-iron treatment or collar style.",
+      "map_id": "map_1e6c8b4f72f845d18c7d124696b043a1"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with stretch; similar silhouette but no explicit non-iron feature.",
+      "map_id": "map_992028083dfb416b89732e0650d6b374"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Non-Iron Check Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt closely matching reference product's key feature; different fit (big & tall) and pattern irrelevant.",
+      "map_id": "map_61a044a5b1f547318ca47885b775f685"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt",
+      "score": 7,
+      "rationale": "Classic fit dress shirt with spread collar similar to semi-spread but no non-iron mentioned, and different fit.",
+      "map_id": "map_05a3b0e257ac4c93a03dd7004958703a"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt similar in use and silhouette but no non-iron or collar style specifics.",
+      "map_id": "map_99521ed992e74f31bf4d4ce015fb450e"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Tattersall Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with tattersall pattern; lacks non-iron mention but similar product type.",
+      "map_id": "map_2f5f90dfc13e4691bd114dff469b041c"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit with performance stretch likely similar in function and silhouette, possibly non-iron though not specified.",
+      "map_id": "map_af6b9f915fef4ba8875ec5e1d4ba0bd2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Organic Cotton Chambray Shirt",
+      "score": 5,
+      "rationale": "Slim shirt but chambray fabric generally more casual and not typically dress shirt; no collar or non-iron info.",
+      "map_id": "map_b6b81e3d7f1a40d6858b28543a9c6425"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Stretch Poplin Shirt",
+      "score": 7,
+      "rationale": "Poplin fabric dress shirt with stretch likely similar dress shirt but no explicit non-iron or collar style.",
+      "map_id": "map_7da3f4ea35d44141802087edf7766489"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Ultrasoft Wrinkle-Free Brushed Cotton Long-Sleeve",
+      "score": 6,
+      "rationale": "Wrinkle-free suggests some similarity to non-iron, but brushed cotton and lack of dress shirt designation lowers relevancy.",
+      "map_id": "map_4df11011ad364f839e5821b378898b90"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Hemp fabric likely casual style shirt, not typical dress shirt silhouette or construction.",
+      "map_id": "map_e89d3b5ee9a7443bb693ab0a68f1f605"
+    },
+    {
+      "competitor_product_name": "Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dobby Dress Shirt at Men's Wearhouse",
+      "score": 8,
+      "rationale": "Slim fit, performance stretch, and dress shirt designation align closely; dobby texture is a fabric detail not affecting main relevancy.",
+      "map_id": "map_3e513599ac934b8da9eb7fb270f6148b"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Slim-Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Matches closely on non-iron feature, slim fit, and dress shirt type, highly relevant to reference product.",
+      "map_id": "map_42e9f6bcba6d4716b363f7dce95152f8"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Plaid Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with performance stretch but plaid pattern and no stated non-iron reduces relevancy slightly.",
+      "map_id": "map_bbb903170acc42afaf40983e833511ff"
+    },
+    {
+      "competitor_product_name": "Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Grid Dress Shirt at Men's Wearhouse",
+      "score": 8,
+      "rationale": "Slim fit, performance stretch dress shirt similar to reference; grid pattern and no non-iron mention reduce score slightly.",
+      "map_id": "map_7acd5ea44d2a4e96be732601cf902ed6"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt",
+      "score": 7,
+      "rationale": "Similar slim fit, performance stretch dress shirt, micro check pattern less relevant, non-iron not specified.",
+      "map_id": "map_1afda5ac766b4ee78c14ad17ca28d1ca"
+    },
+    {
+      "competitor_product_name": "Awearness Kenneth Cole Men's Slim Fit Ultra Performance Stretch Textured Check Dress Shirt , Rust / Red - Size: 17 34/35",
+      "score": 7,
+      "rationale": "Slim fit, performance stretch dress shirt similar in construction; textured check pattern and no non-iron noted.",
+      "map_id": "map_a901fb6920de4b6c832571621676b06e"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Classic Fit Gingham Spread Collar Dress Shirt",
+      "score": 7,
+      "rationale": "Classic fit dress shirt with spread collar similar but no non-iron feature mentioned.",
+      "map_id": "map_b459f4f9a5304e1f84e36c0e8470b29a"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Regular Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt shares the key feature, but regular fit differs from some trim of reference product.",
+      "map_id": "map_223eebf148fd4c2d9b8be8b7e05578e0"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Mini Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit with performance stretch dress shirt type but 'mini' style unclear and non-iron not specified.",
+      "map_id": "map_3c0f38f597bd4a65a3fd1512988772d0"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Matches reference in key non-iron feature, slim fit, and dress shirt designation.",
+      "map_id": "map_92128efda0b44d899d766e638c84e0e9"
+    },
+    {
+      "competitor_product_name": "&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with stain-repellent feature offers functional similarity, but athletic fit and big & tall sizing differ from reference.",
+      "map_id": "map_a4c4fdc1b9ff4eec91b81b4938c15ceb"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Modern Fit Check Spread Collar Dress Shirt",
+      "score": 7,
+      "rationale": "Modern fit dress shirt with spread collar is similar in construction and use; check pattern and no non-iron feature mentioned.",
+      "map_id": "map_ffbb91ed6698480d95f2001b2d4a444d"
+    },
+    {
+      "competitor_product_name": "Eton of Sweden Men's Contemporary-Fit Floral Cotton Dress Shirt",
+      "score": 6,
+      "rationale": "Contemporary fit dress shirt similar but floral pattern and no non-iron mention lower relevancy.",
+      "map_id": "map_960eceb9158e4969a7b3fac5bdadba8e"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Short-Sleeve Sunwashed Canvas Shirt",
+      "score": 3,
+      "rationale": "Short-sleeve, canvas fabric and traditional fit differs significantly from non-iron long sleeve dress shirt.",
+      "map_id": "map_d12fe43399fb4b5aa244329d9e61a0af"
+    }
+  ]
+}

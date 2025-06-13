@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250520_080759",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nike Men's Solo Swoosh Full-Zip Hoodie'\n  - Name='NIKE Swoosh Club Fleece Football Pullover Hoodie'\n  - Name='Nike Men's Trail Magic Hour Dri-FIT Running Hoodie'\n  - Name='adidas Women's Primeknit Zip Hoodie'\n  - Name='H&M Hoodie'\n  - Name='H&M Men's Loose-Fit Printed Hoodie'\n  - Name='H&M Ribbed Hoodie'\n  - Name='Supreme x Windstopper Zip Up Hooded Sweatshirt'\n  - Name='Carhartt Men's Flame-Resistant Force Loose Fit Midweight Mock Neck Sweatshirt'\n  - Name='American APPAREL Zip Hoodie Flex Fleece Hooded Sweatshirt XS-2XL'\n  - Name='American Apparel Y2k Distressed Scott's Hoodie'\n  - Name='H&M Men's Regular Fit Half-Zip Sweatshirt'\n  - Name='H&M Men's New York Graphic Hoodie'\n  - Name='Uniqlo CPFM Spongebob Squarepants Hoodie'\n  - Name='Men H&M Black Regular Fit Hoodie'\n  - Name='H&M Men's Regular Fit Knit Hooded Jacket'\n  - Name='H&M Men's Loose-Fit DryMove Sports Hoodie'\n  - Name='H&M Motif Hoodie'\n  - Name='Gap Men's Fleece Arch Logo Pullover Hoodie'\n  - Name='Supreme x The North Face Convertible Hooded Sweatshirt'\n  - Name='Nike Men's Solo Swoosh French Terry Pullover Hoodie'\n  - Name='Nike Men's Club Oversized French Terry Pullover Hoodie'\n  - Name='adidas Men's All Szn Fleece Full-Zip Hoodie'\n  - Name='Gap Men's Original Logo Hoodie'\n  - Name='H&M Men's Oversized Printed Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hoodie with similar core features (hood, sweatshirt style, designed for comfort and casual wear). Full-zip instead of pullover is a minor difference but still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"NIKE Swoosh Club Fleece Football Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A pullover hoodie very similar in function and construction, soft fleece material implied, aligns well with the referenced Boston Scally Hoodie description.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Trail Magic Hour Dri-FIT Running Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"It's a hooded sweatshirt but specialized for running (Dri-FIT fabric and trail reference) which might differ in softness and casual use, reducing relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Women's Primeknit Zip Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A zip-up hoodie designed for women and likely with a knit construction and sporty style, somewhat different from the casual, soft pullover hoodie described.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"General hoodie with likely pullover style and comfortable wear, matching the basic silhouette and function well even without detailed features.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose-Fit Printed Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's loose-fit pullover hoodie with print, similar overall silhouette and comfort focus, prints are not weighted heavily.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Ribbed Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Pullover hoodie but ribbed texture may indicate a different material feel and construction, still similar function and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x Windstopper Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip-up style and specialized windstopper fabric makes it less similar to a soft pullover fleece hoodie but still generally a hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flame-Resistant Force Loose Fit Midweight Mock Neck Sweatshirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Though sweatshirt style, it is mock neck (no hoodie) and flame resistant, so functionally quite different from a casual soft hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American APPAREL Zip Hoodie Flex Fleece Hooded Sweatshirt XS-2XL\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Zip-up hoodie made of soft fleece, very close in style and materials, highly relevant though zip differs from pullover.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Y2k Distressed Scott's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie likely soft and casual like Boston Scally Hoodie, with stylistic distressed details, functionally close.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular Fit Half-Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Half-zip construction changes silhouette; still a sweatshirt with some hoodie elements possibly but less traditional pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's New York Graphic Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Regular pullover hoodie with graphic print, similar softness and casual use despite prints.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo CPFM Spongebob Squarepants Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Pullover style hoodie with licensed graphic print; similar core structure but with a focus on graphic novelty.\"\n    },\n    {\n      \"competitor_product_name\": \"Men H&M Black Regular Fit Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Basic men's pullover hoodie with regular fit, very similar in silhouette and intended casual wear and softness.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular Fit Knit Hooded Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Described as knit hooded jacket, so likely constructed differently than a soft fleece hoodie and more jacket-like.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose-Fit DryMove Sports Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Sports hoodie likely made of performance fabric different from soft fleece and designed for active use, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Motif Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar pullover hoodie with motifs; basically same silhouette and casual use, prints not heavily weighted.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Fleece Arch Logo Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Men's fleece pullover hoodie very closely aligned with the Boston Scally Hoodie in material, construction, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x The North Face Convertible Hooded Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Specialized convertible design likely adds different functionality but still a hooded sweatshirt, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh French Terry Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie made of French Terry fabric, similar softness and style to Boston Scally Hoodie, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Oversized French Terry Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oversized fit but same pullover French Terry hoodie style, very close in function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's All Szn Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Full-zip fleece hoodie designed for all seasons, similar material and style, just zip-up instead of pullover.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Original Logo Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Classic men's pullover fleece hoodie with logo, very closely matches the Boston Scally Hoodie description.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Printed Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oversized pullover hoodie with print, similar function and silhouette to the reference despite print and size variation.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "This is a men's hoodie with similar core features (hood, sweatshirt style, designed for comfort and casual wear). Full-zip instead of pullover is a minor difference but still highly relevant.",
+      "map_id": "map_9d1ef54fe7f541e4abf2fdbc9a514bf7"
+    },
+    {
+      "competitor_product_name": "NIKE Swoosh Club Fleece Football Pullover Hoodie",
+      "score": 10,
+      "rationale": "A pullover hoodie very similar in function and construction, soft fleece material implied, aligns well with the referenced Boston Scally Hoodie description.",
+      "map_id": "map_16cbd3376dd4436082ca2d007e0d0d96"
+    },
+    {
+      "competitor_product_name": "Nike Men's Trail Magic Hour Dri-FIT Running Hoodie",
+      "score": 7,
+      "rationale": "It's a hooded sweatshirt but specialized for running (Dri-FIT fabric and trail reference) which might differ in softness and casual use, reducing relevancy slightly.",
+      "map_id": "map_4ec5ff7a3a9f4153a0de25b2e9db74ae"
+    },
+    {
+      "competitor_product_name": "adidas Women's Primeknit Zip Hoodie",
+      "score": 6,
+      "rationale": "A zip-up hoodie designed for women and likely with a knit construction and sporty style, somewhat different from the casual, soft pullover hoodie described.",
+      "map_id": "map_7bcd6cd10a1445239c5ccb213112a1c0"
+    },
+    {
+      "competitor_product_name": "H&M Hoodie",
+      "score": 8,
+      "rationale": "General hoodie with likely pullover style and comfortable wear, matching the basic silhouette and function well even without detailed features.",
+      "map_id": "map_034ca4e6e4064968a5bd790398d78acc"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose-Fit Printed Hoodie",
+      "score": 8,
+      "rationale": "Men's loose-fit pullover hoodie with print, similar overall silhouette and comfort focus, prints are not weighted heavily.",
+      "map_id": "map_e4b4fa8c465e435ba844f22ede04968b"
+    },
+    {
+      "competitor_product_name": "H&M Ribbed Hoodie",
+      "score": 7,
+      "rationale": "Pullover hoodie but ribbed texture may indicate a different material feel and construction, still similar function and casual wear.",
+      "map_id": "map_d294500f375343d18a8d8d5166e9c918"
+    },
+    {
+      "competitor_product_name": "Supreme x Windstopper Zip Up Hooded Sweatshirt",
+      "score": 7,
+      "rationale": "Zip-up style and specialized windstopper fabric makes it less similar to a soft pullover fleece hoodie but still generally a hooded sweatshirt.",
+      "map_id": "map_1bebf4bf5762418c8f113ba83605dcab"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flame-Resistant Force Loose Fit Midweight Mock Neck Sweatshirt",
+      "score": 3,
+      "rationale": "Though sweatshirt style, it is mock neck (no hoodie) and flame resistant, so functionally quite different from a casual soft hoodie.",
+      "map_id": "map_fe21463cfa9a4877a7358c3381d78951"
+    },
+    {
+      "competitor_product_name": "American APPAREL Zip Hoodie Flex Fleece Hooded Sweatshirt XS-2XL",
+      "score": 9,
+      "rationale": "Zip-up hoodie made of soft fleece, very close in style and materials, highly relevant though zip differs from pullover.",
+      "map_id": "map_0d29f5390a914cdbbb7eee1580eae8be"
+    },
+    {
+      "competitor_product_name": "American Apparel Y2k Distressed Scott's Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie likely soft and casual like Boston Scally Hoodie, with stylistic distressed details, functionally close.",
+      "map_id": "map_525ce55e35e54637a3b3b34ef1ce78bb"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular Fit Half-Zip Sweatshirt",
+      "score": 6,
+      "rationale": "Half-zip construction changes silhouette; still a sweatshirt with some hoodie elements possibly but less traditional pullover hoodie.",
+      "map_id": "map_e0fc2dcb4df74b0e9b7ec01ff694f5d0"
+    },
+    {
+      "competitor_product_name": "H&M Men's New York Graphic Hoodie",
+      "score": 8,
+      "rationale": "Regular pullover hoodie with graphic print, similar softness and casual use despite prints.",
+      "map_id": "map_6027d0eafd824080a3ddd4e7d0be8c6c"
+    },
+    {
+      "competitor_product_name": "Uniqlo CPFM Spongebob Squarepants Hoodie",
+      "score": 7,
+      "rationale": "Pullover style hoodie with licensed graphic print; similar core structure but with a focus on graphic novelty.",
+      "map_id": "map_96f40fe845d34745b76f489fb006ed02"
+    },
+    {
+      "competitor_product_name": "Men H&M Black Regular Fit Hoodie",
+      "score": 9,
+      "rationale": "Basic men's pullover hoodie with regular fit, very similar in silhouette and intended casual wear and softness.",
+      "map_id": "map_03432fac1f9c4343a1196bc250a21755"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular Fit Knit Hooded Jacket",
+      "score": 5,
+      "rationale": "Described as knit hooded jacket, so likely constructed differently than a soft fleece hoodie and more jacket-like.",
+      "map_id": "map_1edcbfdd359f4bc8b838bafdd3270d13"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose-Fit DryMove Sports Hoodie",
+      "score": 6,
+      "rationale": "Sports hoodie likely made of performance fabric different from soft fleece and designed for active use, lowering relevancy.",
+      "map_id": "map_e8aaf8f01cd94d7f924205ad43a8d72b"
+    },
+    {
+      "competitor_product_name": "H&M Motif Hoodie",
+      "score": 8,
+      "rationale": "Similar pullover hoodie with motifs; basically same silhouette and casual use, prints not heavily weighted.",
+      "map_id": "map_712b797647aa47849dd4931f72caf646"
+    },
+    {
+      "competitor_product_name": "Gap Men's Fleece Arch Logo Pullover Hoodie",
+      "score": 10,
+      "rationale": "Men's fleece pullover hoodie very closely aligned with the Boston Scally Hoodie in material, construction, and use.",
+      "map_id": "map_bb1cb56cea6d4bfb9c8d81f7f54b781a"
+    },
+    {
+      "competitor_product_name": "Supreme x The North Face Convertible Hooded Sweatshirt",
+      "score": 7,
+      "rationale": "Specialized convertible design likely adds different functionality but still a hooded sweatshirt, moderately relevant.",
+      "map_id": "map_1a52fdabf43b4544907943cb249e98e4"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh French Terry Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie made of French Terry fabric, similar softness and style to Boston Scally Hoodie, highly relevant.",
+      "map_id": "map_0befbf779f614d4e8ba827257d57e9a4"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Oversized French Terry Pullover Hoodie",
+      "score": 9,
+      "rationale": "Oversized fit but same pullover French Terry hoodie style, very close in function and construction.",
+      "map_id": "map_f748f72ec89842a4ae95c1ee0a6bc8e5"
+    },
+    {
+      "competitor_product_name": "adidas Men's All Szn Fleece Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "Full-zip fleece hoodie designed for all seasons, similar material and style, just zip-up instead of pullover.",
+      "map_id": "map_1be85caa5cb1470eb4c804756abb3c3f"
+    },
+    {
+      "competitor_product_name": "Gap Men's Original Logo Hoodie",
+      "score": 10,
+      "rationale": "Classic men's pullover fleece hoodie with logo, very closely matches the Boston Scally Hoodie description.",
+      "map_id": "map_414c3d5c88fc4452948d856b12c39e57"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Printed Hoodie",
+      "score": 8,
+      "rationale": "Oversized pullover hoodie with print, similar function and silhouette to the reference despite print and size variation.",
+      "map_id": "map_273f235eab6e489787bc29f7e33b2510"
+    }
+  ]
+}

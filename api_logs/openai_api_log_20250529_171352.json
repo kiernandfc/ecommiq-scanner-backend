@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250529_171352",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Faherty Men's High Pile Fleece Corduroy Trucker Jacket'\n  - Name='Norse Projects Hjalmer Solotex Twill Overshirt men'\n  - Name='Levi's Men's Soft Shell Bomber Jacket'\n  - Name='Levi's Men's Hybrid Hoodie Trucker Jacket'\n  - Name='Levi's 1936 Type I Jacket Men's'\n  - Name='Levi's Men's Canvas Bomber Chore Barn Jacket'\n  - Name='Levi's Western Bomber Jacket'\n  - Name='Norse Projects Bjorn Relaxed Organic Loopback Track Jacket'\n  - Name='Norse Projects ARKTISK Stand Collar Down Jacket men'\n  - Name='Norse Projects ARKTISK Gore-Tex 3L Stand Collar Jacket'\n  - Name='Norse Projects Men's Tromso GORE-TEX INFINIUM Jacket'\n  - Name='J.Crew Men's Barbour Sylkoil Ashby jacket'\n  - Name='Levi's Men's Chore Corduroy Collar Jacket'\n  - Name='Levi's Men's Military Chore Canvas Trucker Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Faherty Men's High Pile Fleece Corduroy Trucker Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it is an outerwear jacket, the fleece corduroy material and trucker jacket style differ significantly from the chore coat silhouette and organic cotton twill fabric of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Hjalmer Solotex Twill Overshirt men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a twill overshirt, which shares some material and layering function similarities to a chore coat, but as an overshirt it may be lighter and less utility-focused than the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Soft Shell Bomber Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bomber jackets differ markedly in silhouette and purpose from chore coats; also, soft shell material is distinct from the heavy cotton twill of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Hybrid Hoodie Trucker Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker jackets share some outerwear function and casual style but the hybrid hoodie element and typical trucker silhouette differ from a chore coat's structure and utility focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's 1936 Type I Jacket Men's\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a historically inspired type I jacket (similar to early denim jackets), which has some heritage outerwear relevance but a different silhouette and fabric compared to the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Canvas Bomber Chore Barn Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This jacket combines bomber and chore elements, built with canvas which is closer to cotton twill; it aligns well in utility and durability focus and is likely similar in construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Western Bomber Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The bomber style and western flair differ substantially in silhouette and likely material from the chore coat reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Bjorn Relaxed Organic Loopback Track Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A track jacket is a lightweight sportswear piece unlike a heavy chore coat, thus very low relevancy despite organic materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects ARKTISK Stand Collar Down Jacket men\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Down insulation and stand collar design aimed at winter wear does not match the chore coat’s fabric or styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects ARKTISK Gore-Tex 3L Stand Collar Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Technical Gore-Tex outerwear with a stand collar is quite different in material and use from a cotton chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Tromso GORE-TEX INFINIUM Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"High-performance technical jacket differs greatly from organic cotton utility chore coat in function and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Barbour Sylkoil Ashby jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Barbour jackets share heritage and utility outerwear appeal, though the waxed cotton and waxed finish contrast with uncoated organic twill; silhouette may be more traditional field/jacket than chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Chore Corduroy Collar Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a chore jacket style with a cotton fabric and a corduroy collar, very close in form and function to the reference chore coat, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Military Chore Canvas Trucker Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Combining chore and trucker jacket elements with a military canvas fabric aligns well with the reference’s aesthetic and durable utility focus.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Faherty Men's High Pile Fleece Corduroy Trucker Jacket",
+      "score": 4,
+      "rationale": "While it is an outerwear jacket, the fleece corduroy material and trucker jacket style differ significantly from the chore coat silhouette and organic cotton twill fabric of the reference product.",
+      "map_id": "map_c6b1bf6d21ff4a7b92dbed34e6175cf9"
+    },
+    {
+      "competitor_product_name": "Norse Projects Hjalmer Solotex Twill Overshirt men",
+      "score": 6,
+      "rationale": "This is a twill overshirt, which shares some material and layering function similarities to a chore coat, but as an overshirt it may be lighter and less utility-focused than the Ojai Jacket.",
+      "map_id": "map_df4f7b3de6c34548915277d76a37b505"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Soft Shell Bomber Jacket",
+      "score": 3,
+      "rationale": "Bomber jackets differ markedly in silhouette and purpose from chore coats; also, soft shell material is distinct from the heavy cotton twill of the reference.",
+      "map_id": "map_04665ff301794436a9a9e0abb065deb9"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Hybrid Hoodie Trucker Jacket",
+      "score": 4,
+      "rationale": "Trucker jackets share some outerwear function and casual style but the hybrid hoodie element and typical trucker silhouette differ from a chore coat's structure and utility focus.",
+      "map_id": "map_02895d4a53ac4dc5adacbe23ed0dfa67"
+    },
+    {
+      "competitor_product_name": "Levi's 1936 Type I Jacket Men's",
+      "score": 5,
+      "rationale": "This is a historically inspired type I jacket (similar to early denim jackets), which has some heritage outerwear relevance but a different silhouette and fabric compared to the chore coat.",
+      "map_id": "map_bd598dad7c8946a5b6430286341bd511"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Canvas Bomber Chore Barn Jacket",
+      "score": 7,
+      "rationale": "This jacket combines bomber and chore elements, built with canvas which is closer to cotton twill; it aligns well in utility and durability focus and is likely similar in construction.",
+      "map_id": "map_c6982eaa2adc4ccc840e00ec2b1de29c"
+    },
+    {
+      "competitor_product_name": "Levi's Western Bomber Jacket",
+      "score": 3,
+      "rationale": "The bomber style and western flair differ substantially in silhouette and likely material from the chore coat reference.",
+      "map_id": "map_5e653ef852b74c06a36f4b4d95d78ca3"
+    },
+    {
+      "competitor_product_name": "Norse Projects Bjorn Relaxed Organic Loopback Track Jacket",
+      "score": 2,
+      "rationale": "A track jacket is a lightweight sportswear piece unlike a heavy chore coat, thus very low relevancy despite organic materials.",
+      "map_id": "map_998594cc0b5d4dfe81323288c9469461"
+    },
+    {
+      "competitor_product_name": "Norse Projects ARKTISK Stand Collar Down Jacket men",
+      "score": 2,
+      "rationale": "Down insulation and stand collar design aimed at winter wear does not match the chore coat’s fabric or styling.",
+      "map_id": "map_1b902289e50c416580c343ef90f00c96"
+    },
+    {
+      "competitor_product_name": "Norse Projects ARKTISK Gore-Tex 3L Stand Collar Jacket",
+      "score": 2,
+      "rationale": "Technical Gore-Tex outerwear with a stand collar is quite different in material and use from a cotton chore coat.",
+      "map_id": "map_ec0bdaea7d354107a0f2450e4dca4a08"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Tromso GORE-TEX INFINIUM Jacket",
+      "score": 2,
+      "rationale": "High-performance technical jacket differs greatly from organic cotton utility chore coat in function and materials.",
+      "map_id": "map_180f95d629924a559a49208ef34c3087"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Barbour Sylkoil Ashby jacket",
+      "score": 6,
+      "rationale": "Barbour jackets share heritage and utility outerwear appeal, though the waxed cotton and waxed finish contrast with uncoated organic twill; silhouette may be more traditional field/jacket than chore coat.",
+      "map_id": "map_af774f6a5f9842438df7f177437802fe"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Chore Corduroy Collar Jacket",
+      "score": 8,
+      "rationale": "This is a chore jacket style with a cotton fabric and a corduroy collar, very close in form and function to the reference chore coat, making it highly relevant.",
+      "map_id": "map_e4bfb444178e48f1a3463370a852b83f"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Military Chore Canvas Trucker Jacket",
+      "score": 7,
+      "rationale": "Combining chore and trucker jacket elements with a military canvas fabric aligns well with the reference’s aesthetic and durable utility focus.",
+      "map_id": "map_c6df2dbb021a48ce8c053a532d092606"
+    }
+  ]
+}

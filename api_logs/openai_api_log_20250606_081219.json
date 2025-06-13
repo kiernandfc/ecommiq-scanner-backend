@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250606_081219",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Clapton Jacket Men'\n  - Name='Carhartt WIP OG Chore Coat in Organic Cotton Canvas'\n  - Name='Alex Mill Cropped Linen Work Jacket'\n  - Name='Norse Projects Khaki Vargo Coat'\n  - Name='Alex Mill Marfa Work Jacket in Herringbone'\n  - Name='Alex Mill Double Breasted Linen Blazer'\n  - Name='Faherty Men's Teton Valley Jacket'\n  - Name='Universal Works Men's Five Pocket Jacket'\n  - Name='Alex Mill Cooper Linen Blazer'\n  - Name='Faherty Men's Sunwashed CPO'\n  - Name='Barbour x Crocs Oversized Bedale Waxed Jacket'\n  - Name='Barbour Corbridge Wax Jacket'\n  - Name='J.Crew Men's Wallace & Barnes Canvas Work Jacket'\n  - Name='Carhartt WIP Mens OG Double Front Jacket'\n  - Name='Carhartt WIP Michigan Coat Wax/Wax Stone Washed'\n  - Name='Norse Projects Mads Travel Light Overshirt'\n  - Name='Carhartt WIP OG Arcan Graphic Jacket'\n  - Name='Carhartt WIP Men's Michigan Corduroy-Trimmed Organic Cotton-Canvas Chore'\n  - Name='Faherty Men's Movement Linen Blazer'\n  - Name='J. Crew Wallace & Barnes Lightweight Twill Heritage Chore Jacket'\n  - Name='Carhartt WIP OG Chore Coat'\n  - Name='Universal Works Light Jackets male Gray'\n  - Name='Carhartt WIP Drewe Chore Coat'\n  - Name='Carhartt WIP Mens Detroit Jacket'\n  - Name='Levi's Men's Cotton Trucker Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Clapton Jacket Men\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt WIP Clapton Jacket is likely a chore coat or workwear jacket with functional design similar to the Ojai Jacket, though material specifics are unknown, so it is quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat in Organic Cotton Canvas\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This Carhartt chore coat has an organic cotton canvas fabric and a classic chore coat silhouette, closely matching the Ojai Jacket's style and fabric focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cropped Linen Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A work jacket with a slightly different fabric (linen) and cropped silhouette, still in the utility jacket category but less rugged or heavyweight compared to Ojai.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Khaki Vargo Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The Vargo Coat is likely a midweight coat with some workwear influence but may have different styling and fabric not quite matching the chore coat aesthetic exactly.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Marfa Work Jacket in Herringbone\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with herringbone fabric and utility style, relatively close in function and aesthetic to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Double Breasted Linen Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A double breasted linen blazer is much more formal and different in silhouette and construction, making it less relevant to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Teton Valley Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it might be a casual jacket, it probably lacks the chore coat structure and utility features, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Five Pocket Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Utility inspired jacket with multiple pockets likely akin to a chore coat but possibly with a different cut or fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cooper Linen Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A linen blazer is dressier and less utilitarian than the chore coat style of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Sunwashed CPO\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"CPO shirts or jackets often resemble chore coats in function and silhouette, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour x Crocs Oversized Bedale Waxed Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Bedale from Barbour is a classic waxed jacket with some workwear roots but different fabric and more of an outdoors focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Corbridge Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to above, a waxed jacket with a different surface material and slightly different styling from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Wallace & Barnes Canvas Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A canvas work jacket with utility and workwear styling is very close in concept and likely materials to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens OG Double Front Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Double front jacket is workwear inspired with durable materials; similar utility and construction cues as a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Coat Wax/Wax Stone Washed\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A waxed coat with workwear roots but different fabric (waxed canvas) and coat style varies slightly from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Mads Travel Light Overshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An overshirt is lighter and less structured than a chore coat, making it somewhat less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Arcan Graphic Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A graphic jacket is probably more casual and less utility/workwear focused like the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men's Michigan Corduroy-Trimmed Organic Cotton-Canvas Chore\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A corduroy-trimmed organic cotton canvas chore coat closely aligns with the Ojai Jacket's fabric, silhouette, and utilitarian nature.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Linen Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A linen blazer is a more formal, less rugged jacket unlike the chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"J. Crew Wallace & Barnes Lightweight Twill Heritage Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Lightweight twill chore jacket is very similar in fabric type, silhouette, and classic chore coat styling to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A classic Carhartt chore coat is directly comparable in silhouette and function to the Ojai Jacket, making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Light Jackets male Gray\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Light jackets may lack the heavy-duty construction and silhouette of a chore coat, so relevance is moderate to low.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Drewe Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A chore coat variant from Carhartt with strong workwear roots and similar utility appears quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Detroit Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Detroit jacket often a durable workwear jacket with similar function and construction to chore coats, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Trucker Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Cotton trucker jacket shares ruggedness but differs silhouette and utility focus from chore coat style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Clapton Jacket Men",
+      "score": 7,
+      "rationale": "Carhartt WIP Clapton Jacket is likely a chore coat or workwear jacket with functional design similar to the Ojai Jacket, though material specifics are unknown, so it is quite relevant.",
+      "map_id": "map_7d5cf998926d405186e3dd9041c17fc5"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat in Organic Cotton Canvas",
+      "score": 9,
+      "rationale": "This Carhartt chore coat has an organic cotton canvas fabric and a classic chore coat silhouette, closely matching the Ojai Jacket's style and fabric focus.",
+      "map_id": "map_350cab2f794a493c9d932ee845097153"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cropped Linen Work Jacket",
+      "score": 6,
+      "rationale": "A work jacket with a slightly different fabric (linen) and cropped silhouette, still in the utility jacket category but less rugged or heavyweight compared to Ojai.",
+      "map_id": "map_6e660e0b0bc245d3927e61064e197fcf"
+    },
+    {
+      "competitor_product_name": "Norse Projects Khaki Vargo Coat",
+      "score": 5,
+      "rationale": "The Vargo Coat is likely a midweight coat with some workwear influence but may have different styling and fabric not quite matching the chore coat aesthetic exactly.",
+      "map_id": "map_bfc23c2c0c4741b7aa0c9d82ae090ac7"
+    },
+    {
+      "competitor_product_name": "Alex Mill Marfa Work Jacket in Herringbone",
+      "score": 7,
+      "rationale": "Work jacket with herringbone fabric and utility style, relatively close in function and aesthetic to the Ojai Jacket.",
+      "map_id": "map_cab0b76b403c4c6d99bed26ebc048813"
+    },
+    {
+      "competitor_product_name": "Alex Mill Double Breasted Linen Blazer",
+      "score": 2,
+      "rationale": "A double breasted linen blazer is much more formal and different in silhouette and construction, making it less relevant to a chore coat.",
+      "map_id": "map_ab5b458c591740dbb0a860b7f28c7933"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Teton Valley Jacket",
+      "score": 4,
+      "rationale": "While it might be a casual jacket, it probably lacks the chore coat structure and utility features, making it less relevant.",
+      "map_id": "map_3ffd6e175bf04314b31823e055e33a55"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Five Pocket Jacket",
+      "score": 6,
+      "rationale": "Utility inspired jacket with multiple pockets likely akin to a chore coat but possibly with a different cut or fabric.",
+      "map_id": "map_5cec489b1e4d40ce98840aaa12256337"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cooper Linen Blazer",
+      "score": 2,
+      "rationale": "A linen blazer is dressier and less utilitarian than the chore coat style of the Ojai Jacket.",
+      "map_id": "map_6ace2e4e6bb5417b871c9622ccb555b7"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Sunwashed CPO",
+      "score": 7,
+      "rationale": "CPO shirts or jackets often resemble chore coats in function and silhouette, making it moderately relevant.",
+      "map_id": "map_b091d6906dad47858e10055c604c9b20"
+    },
+    {
+      "competitor_product_name": "Barbour x Crocs Oversized Bedale Waxed Jacket",
+      "score": 5,
+      "rationale": "Bedale from Barbour is a classic waxed jacket with some workwear roots but different fabric and more of an outdoors focus.",
+      "map_id": "map_5a503c85e934442fb8dadcc5a9313a91"
+    },
+    {
+      "competitor_product_name": "Barbour Corbridge Wax Jacket",
+      "score": 5,
+      "rationale": "Similar to above, a waxed jacket with a different surface material and slightly different styling from a chore coat.",
+      "map_id": "map_e770a80b263f434180b106b611ba30ca"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Wallace & Barnes Canvas Work Jacket",
+      "score": 8,
+      "rationale": "A canvas work jacket with utility and workwear styling is very close in concept and likely materials to the Ojai Jacket.",
+      "map_id": "map_699665b6bf0940f6943e2df278d49d4e"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens OG Double Front Jacket",
+      "score": 7,
+      "rationale": "Double front jacket is workwear inspired with durable materials; similar utility and construction cues as a chore coat.",
+      "map_id": "map_f3b9a6555c274f12b7b7e1b7c4277172"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Coat Wax/Wax Stone Washed",
+      "score": 6,
+      "rationale": "A waxed coat with workwear roots but different fabric (waxed canvas) and coat style varies slightly from chore coat.",
+      "map_id": "map_8ae680060d8c4226aafea811007d97ba"
+    },
+    {
+      "competitor_product_name": "Norse Projects Mads Travel Light Overshirt",
+      "score": 5,
+      "rationale": "An overshirt is lighter and less structured than a chore coat, making it somewhat less relevant.",
+      "map_id": "map_dc3e8fdef2064a4b91a7cc45c69b0227"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Arcan Graphic Jacket",
+      "score": 4,
+      "rationale": "A graphic jacket is probably more casual and less utility/workwear focused like the Ojai Jacket.",
+      "map_id": "map_f90f77849ede444db00c05d5fe92d90c"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men's Michigan Corduroy-Trimmed Organic Cotton-Canvas Chore",
+      "score": 9,
+      "rationale": "A corduroy-trimmed organic cotton canvas chore coat closely aligns with the Ojai Jacket's fabric, silhouette, and utilitarian nature.",
+      "map_id": "map_8c50cd2727654d14a65163f8ef9cf728"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Movement Linen Blazer",
+      "score": 2,
+      "rationale": "A linen blazer is a more formal, less rugged jacket unlike the chore coat style.",
+      "map_id": "map_af32f35ddfa44b8b9a66a6264fdce6d8"
+    },
+    {
+      "competitor_product_name": "J. Crew Wallace & Barnes Lightweight Twill Heritage Chore Jacket",
+      "score": 9,
+      "rationale": "Lightweight twill chore jacket is very similar in fabric type, silhouette, and classic chore coat styling to the Ojai Jacket.",
+      "map_id": "map_20da79ea7bae41ab9c01e7077d1be8a9"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "A classic Carhartt chore coat is directly comparable in silhouette and function to the Ojai Jacket, making this highly relevant.",
+      "map_id": "map_5f2e1e8fc8a745fd9b694c805714602b"
+    },
+    {
+      "competitor_product_name": "Universal Works Light Jackets male Gray",
+      "score": 4,
+      "rationale": "Light jackets may lack the heavy-duty construction and silhouette of a chore coat, so relevance is moderate to low.",
+      "map_id": "map_6caa8684c6244e3fa42f97a0e145ddd1"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Drewe Chore Coat",
+      "score": 8,
+      "rationale": "A chore coat variant from Carhartt with strong workwear roots and similar utility appears quite relevant.",
+      "map_id": "map_e548bf46b6de4cdc9f4c5379b0b3666a"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens Detroit Jacket",
+      "score": 7,
+      "rationale": "Detroit jacket often a durable workwear jacket with similar function and construction to chore coats, making it moderately relevant.",
+      "map_id": "map_540553594c0b40c5950ff7856172710f"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Trucker Jacket",
+      "score": 5,
+      "rationale": "Cotton trucker jacket shares ruggedness but differs silhouette and utility focus from chore coat style.",
+      "map_id": "map_33a060ca70bf4ce696001375590090cb"
+    }
+  ]
+}

@@ -69,6 +69,8 @@ class OxylabsClient:
         
         payload = {
             'source': 'google_shopping_product',
+            'domain': 'com',
+            'geo_location': 'United States',
             'url': url,
             'parse': True
         }

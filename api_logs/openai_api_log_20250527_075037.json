@@ -1,0 +1,419 @@
+{
+  "timestamp": "20250527_075037",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='American Apparel Men's Hoodie'\n  - Name='American Apparel Men's Hooded Sweatshirt'\n  - Name='Champion Powerblend Fleece Full-Zip Hoodie'\n  - Name='adidas Men's Worldwide Hoops Basketball Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='UNIQLO Men's Hoodie'\n  - Name='Uniqlo Men's JW Anderson Contrast Stitch Sweat Pullover Hoodie'\n  - Name='o.r.e Uniqlo Men's Hoodie'\n  - Name='Champion Arena Hoodie - Heather Gray - XX-Large'\n  - Name='adidas Men's Essentials 3-Stripes Fleece Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='American Apparel Men's Classic Sweats Hoodie'\n  - Name='Supreme Men's Box Logo Hooded Sweatshirt'\n  - Name='American Apparel Men's Hoodie'\n  - Name='Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt'\n  - Name='Champion Reverse Weave Garment-Dyed Hooded Sweatshirt'\n  - Name='Men's adidas Essentials 3-Stripes Fleece Hoodie'\n  - Name='Supreme Men's Shoulder Script Hooded Sweatshirt'\n  - Name='Carhartt Men's Force Midweight Micro-grid Base Layer Hoodie'\n  - Name='Carhartt Men's Quilted-Flannel-Lined Duck Active Jacket'\n  - Name='American Apparel Men's Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='UNIQLO Men's Hoodie'\n  - Name='UNIQLO Men's Hoodie'\n  - Name='Uniqlo Men's Zip-Up Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact match of product type (hooded sweatshirt) and brand, directly comparable to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Powerblend Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hoodie made of fleece, likely comfortable and soft, but full-zip differs slightly from pullover style suggested in reference.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Worldwide Hoops Basketball Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's hoodie designed for basketball, probably soft and comfortable with hood, matches core product type but with a sports focus.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as first, men's hoodie from same brand, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hoodie that generally is a soft sweatshirt with hood, fitting the core product type closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's JW Anderson Contrast Stitch Sweat Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's pullover hoodie designed as a sweatshirt with hood, aligning well with reference product features.\"\n    },\n    {\n      \"competitor_product_name\": \"o.r.e Uniqlo Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's hoodie from Uniqlo, relevant though 'o.r.e' may indicate a sub-brand or style difference, but core product type remains same.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Arena Hoodie - Heather Gray - XX-Large\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's pullover hoodie typical for casual wear, likely soft fleece, very similar function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Essentials 3-Stripes Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's fleece hoodie, matching core features of comfort, warmth, and hooded sweatshirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated product, very relevant for the same reasons as before.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Classic Sweats Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Classic sweats hoodie directly matches the soft, comfortable hooded sweatshirt description of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Box Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Hooded sweatshirt of same product type, likely similar construction and intended for casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated American Apparel men's hoodie, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hooded full zip sweatshirt with sherpa lining, more rugged and insulated, less soft and casual than reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Reverse Weave Garment-Dyed Hooded Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Classic hooded sweatshirt, soft and comfortable, nearly identical in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's adidas Essentials 3-Stripes Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Soft fleece hoodie matching core reference product characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Shoulder Script Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hooded sweatshirt with typical construction and casual use, close to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Midweight Micro-grid Base Layer Hoodie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Base layer hoodie designed for performance, likely thinner, less casual softness compared to reference sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Quilted-Flannel-Lined Duck Active Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a jacket, heavier outerwear, not a hoodie or sweatshirt style, quite different product category.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as other American Apparel men's hoodies, fits reference product profile well.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated entry, very relevant hoodie product.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated UNIQLO men's hoodie, strong match to soft comfortable sweatshirt with hood.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated item, highly similar in product type and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Zip-Up Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Zip-up hoodie variant from Uniqlo, close but differs in closure style compared to reference pullover style hoodies.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Essentially the same product type (hoodie) designed for men, likely similar fabric and use as a comfortable sweatshirt with a hood.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "Exact match of product type (hooded sweatshirt) and brand, directly comparable to the reference hoodie.",
+      "map_id": "map_eab3acf141ce4bc7a8d943f62231dbd1"
+    },
+    {
+      "competitor_product_name": "Champion Powerblend Fleece Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "Hoodie made of fleece, likely comfortable and soft, but full-zip differs slightly from pullover style suggested in reference.",
+      "map_id": "map_b08061cb210744aca6a0781b88babcf4"
+    },
+    {
+      "competitor_product_name": "adidas Men's Worldwide Hoops Basketball Hoodie",
+      "score": 8,
+      "rationale": "Men's hoodie designed for basketball, probably soft and comfortable with hood, matches core product type but with a sports focus.",
+      "map_id": "map_3703f579408a4cb5abd3b584c4008856"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as first, men's hoodie from same brand, very relevant.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie that generally is a soft sweatshirt with hood, fitting the core product type closely.",
+      "map_id": "map_02a132c421e84053b61bb74cb1995e87"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie that generally is a soft sweatshirt with hood, fitting the core product type closely.",
+      "map_id": "map_89164494163643db8627a15237633986"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie that generally is a soft sweatshirt with hood, fitting the core product type closely.",
+      "map_id": "map_591007bb356742ec96ab41339f158813"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's JW Anderson Contrast Stitch Sweat Pullover Hoodie",
+      "score": 9,
+      "rationale": "Men's pullover hoodie designed as a sweatshirt with hood, aligning well with reference product features.",
+      "map_id": "map_9c2ba9fa229c4126bc517a3ca616edf7"
+    },
+    {
+      "competitor_product_name": "o.r.e Uniqlo Men's Hoodie",
+      "score": 8,
+      "rationale": "Men's hoodie from Uniqlo, relevant though 'o.r.e' may indicate a sub-brand or style difference, but core product type remains same.",
+      "map_id": "map_90ba33efdf7140e19b9159674ac90f89"
+    },
+    {
+      "competitor_product_name": "Champion Arena Hoodie - Heather Gray - XX-Large",
+      "score": 9,
+      "rationale": "Men's pullover hoodie typical for casual wear, likely soft fleece, very similar function and construction.",
+      "map_id": "map_c4ef76fe06f941639f603d001d3fd077"
+    },
+    {
+      "competitor_product_name": "adidas Men's Essentials 3-Stripes Fleece Hoodie",
+      "score": 9,
+      "rationale": "Men's fleece hoodie, matching core features of comfort, warmth, and hooded sweatshirt style.",
+      "map_id": "map_ea8ce9bee94444b08c02760d85e06dfc"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated product, very relevant for the same reasons as before.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Classic Sweats Hoodie",
+      "score": 10,
+      "rationale": "Classic sweats hoodie directly matches the soft, comfortable hooded sweatshirt description of the reference.",
+      "map_id": "map_31c0a264509541e5b53d2f7fa98b49a0"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Box Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Hooded sweatshirt of same product type, likely similar construction and intended for casual wear.",
+      "map_id": "map_51113a9311a44ac886fe4db2ecaf022a"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated American Apparel men's hoodie, highly relevant.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt",
+      "score": 6,
+      "rationale": "Hooded full zip sweatshirt with sherpa lining, more rugged and insulated, less soft and casual than reference hoodie.",
+      "map_id": "map_e9b41f6e22d446e4a8c2c04439264fa0"
+    },
+    {
+      "competitor_product_name": "Champion Reverse Weave Garment-Dyed Hooded Sweatshirt",
+      "score": 10,
+      "rationale": "Classic hooded sweatshirt, soft and comfortable, nearly identical in function and style.",
+      "map_id": "map_44525798a1e843c0b2406bb7a951b310"
+    },
+    {
+      "competitor_product_name": "Men's adidas Essentials 3-Stripes Fleece Hoodie",
+      "score": 9,
+      "rationale": "Soft fleece hoodie matching core reference product characteristics.",
+      "map_id": "map_05cf15fb11b84edaa50d8eebaedaca72"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Shoulder Script Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Men's hooded sweatshirt with typical construction and casual use, close to reference product.",
+      "map_id": "map_5f5b43e94bab44b8bcbaba16cb522c94"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Midweight Micro-grid Base Layer Hoodie",
+      "score": 5,
+      "rationale": "Base layer hoodie designed for performance, likely thinner, less casual softness compared to reference sweatshirt.",
+      "map_id": "map_a36cf03130cd4d4ca767d9aa99b42cb6"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Quilted-Flannel-Lined Duck Active Jacket",
+      "score": 2,
+      "rationale": "This is a jacket, heavier outerwear, not a hoodie or sweatshirt style, quite different product category.",
+      "map_id": "map_cfa48f11dae540d28aad32373860a237"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Same as other American Apparel men's hoodies, fits reference product profile well.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_bd0172e3e7ab4feca41f06809d41cf9e"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_e823a51f4f2a4c17a56912a6331bdafe"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_9762e030a9684c55a4bc5dc5971b3e87"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_30c255ac173b488ea2e57f62b925af42"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_657277bf49104d8fa3456825568cb928"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated entry, very relevant hoodie product.",
+      "map_id": "map_d048b86c77284e39beefb45a9952fc21"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated UNIQLO men's hoodie, strong match to soft comfortable sweatshirt with hood.",
+      "map_id": "map_02a132c421e84053b61bb74cb1995e87"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated UNIQLO men's hoodie, strong match to soft comfortable sweatshirt with hood.",
+      "map_id": "map_89164494163643db8627a15237633986"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated UNIQLO men's hoodie, strong match to soft comfortable sweatshirt with hood.",
+      "map_id": "map_591007bb356742ec96ab41339f158813"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated item, highly similar in product type and purpose.",
+      "map_id": "map_02a132c421e84053b61bb74cb1995e87"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated item, highly similar in product type and purpose.",
+      "map_id": "map_89164494163643db8627a15237633986"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Repeated item, highly similar in product type and purpose.",
+      "map_id": "map_591007bb356742ec96ab41339f158813"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Zip-Up Hoodie",
+      "score": 8,
+      "rationale": "Zip-up hoodie variant from Uniqlo, close but differs in closure style compared to reference pullover style hoodies.",
+      "map_id": "map_329ee127479a4214886cfd9779ee0092"
+    }
+  ]
+}

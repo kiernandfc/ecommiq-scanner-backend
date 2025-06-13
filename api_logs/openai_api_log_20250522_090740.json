@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250522_090740",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\n  - Name='Purple Leaf 9' X 12' Double Top Deluxe Wood Pattern Rectangle Patio Umbrella'\n  - Name='Purple Leaf Outdoor Garden Umbrella with Base'\n  - Name='Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella'\n  - Name='Purple Leaf 10 ft 360 Degree Rotation Patio Umbrella with Base'\n  - Name='Frontgate 9' Round Outdoor Market Umbrella'\n  - Name='Ledge Lounger Autograph Umbrella Stand Ice Bin'\n  - Name='Purple Leaf 8' x 8' Patio Umbrella with Base'\n  - Name='Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella'\n  - Name='Purple Leaf 10 ft Patio Umbrella'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are outdoor umbrellas with aluminum components, but this competitor is a cantilever style and square shaped, while the reference is a center pole umbrella for pool/on-deck use, making it similar but different design and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 9' X 12' Double Top Deluxe Wood Pattern Rectangle Patio Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is an outdoor patio umbrella with a double top design and wood pattern pole, differing from the aluminum center pole and multifunctional pool/on-deck use of the reference, but still serves a similar outdoor shading purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Outdoor Garden Umbrella with Base\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General outdoor garden umbrella with base, likely a center pole design but lacking detail on materials and features; moderately relevant as an outdoor umbrella but less technical detail provided.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever offset style differs notably from the center pole multi-operational design of the reference. Both outdoor umbrellas but differing form and use cases.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 ft 360 Degree Rotation Patio Umbrella with Base\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Outdoor patio umbrella with rotation feature suggests versatility like the reference; likely center pole design but no mention of materials or pool use, so somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Frontgate 9' Round Outdoor Market Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are round, center pole outdoor umbrellas presumably intended for patio use; Frontgate is a market umbrella style, functionally close to the Essential Umbrella though material details are unknown.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Autograph Umbrella Stand Ice Bin\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is an accessory (umbrella stand and ice bin) not an umbrella, so low relevancy as it does not fulfill the same product function.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 8' x 8' Patio Umbrella with Base\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Outdoor patio umbrella with base, likely similar in function and form to the reference, but no mention of materials or specialized features; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cantilever style with rectangular shape differs from reference center pole round umbrella; less relevant due to differing structure and possible use case.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 ft Patio Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"General patio umbrella likely center pole style, similar size and function to reference, but details on materials and specialized multi-operational use lacking; moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Purple Leaf 9' X 12' Double Top Deluxe Wood Pattern Rectangle Patio Umbrella",
+      "score": 6,
+      "rationale": "This is an outdoor patio umbrella with a double top design and wood pattern pole, differing from the aluminum center pole and multifunctional pool/on-deck use of the reference, but still serves a similar outdoor shading purpose.",
+      "map_id": "map_9f0dae4de7f54e5390a8e35f70a98966"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Outdoor Garden Umbrella with Base",
+      "score": 5,
+      "rationale": "General outdoor garden umbrella with base, likely a center pole design but lacking detail on materials and features; moderately relevant as an outdoor umbrella but less technical detail provided.",
+      "map_id": "map_645a2f1024c94e1580369b831d730178"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella",
+      "score": 4,
+      "rationale": "Cantilever offset style differs notably from the center pole multi-operational design of the reference. Both outdoor umbrellas but differing form and use cases.",
+      "map_id": "map_f4702919cc3e4eeaad4711cc515b18cb"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10 ft 360 Degree Rotation Patio Umbrella with Base",
+      "score": 6,
+      "rationale": "Outdoor patio umbrella with rotation feature suggests versatility like the reference; likely center pole design but no mention of materials or pool use, so somewhat relevant.",
+      "map_id": "map_9290050d9d2443bebdebef9aa87e9309"
+    },
+    {
+      "competitor_product_name": "Frontgate 9' Round Outdoor Market Umbrella",
+      "score": 7,
+      "rationale": "Both are round, center pole outdoor umbrellas presumably intended for patio use; Frontgate is a market umbrella style, functionally close to the Essential Umbrella though material details are unknown.",
+      "map_id": "map_93aa75777be34292b5eedfc3716638ab"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Autograph Umbrella Stand Ice Bin",
+      "score": 2,
+      "rationale": "This is an accessory (umbrella stand and ice bin) not an umbrella, so low relevancy as it does not fulfill the same product function.",
+      "map_id": "map_bc39ee707a1944d5933354de8cceaf43"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 8' x 8' Patio Umbrella with Base",
+      "score": 6,
+      "rationale": "Outdoor patio umbrella with base, likely similar in function and form to the reference, but no mention of materials or specialized features; moderately relevant.",
+      "map_id": "map_1f059b6ff4c14ce6a20b8e11cfbd7b43"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10 x Outdoor Rectangle Large Cantilever Umbrella",
+      "score": 4,
+      "rationale": "Cantilever style with rectangular shape differs from reference center pole round umbrella; less relevant due to differing structure and possible use case.",
+      "map_id": "map_b055d451bffc4eb39badb3275b918a28"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10 ft Patio Umbrella",
+      "score": 6,
+      "rationale": "General patio umbrella likely center pole style, similar size and function to reference, but details on materials and specialized multi-operational use lacking; moderately relevant.",
+      "map_id": "map_1ccd2af78d1546fcb22d79735d773a3d"
+    }
+  ]
+}

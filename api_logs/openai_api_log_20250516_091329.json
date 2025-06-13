@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250516_091329",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's'\n  - Name='Faherty Men's Teton Valley Quilted Blazer'\n  - Name='Faherty Men's Movement Knit Blazer'\n  - Name='Faherty Men's Legend Sweater Shirt'\n  - Name='Faherty Brand Men's Felted Wool Bland Chore Coat'\n  - Name='Levi's Men's Chore Canvas Jacket'\n  - Name='Filson Men's Tin Cloth Primaloft Jacket'\n  - Name='Norse Projects Thor Rain Coat'\n  - Name='Faherty Men's Whitewater Full Zip Hoodie'\n  - Name='Filson Men's Lined Mackinaw Wool Cape Coat'\n  - Name='Barbour Women's Flyweight Quilted Jacket'\n  - Name='Barbour Men's Lorden Waterproof Mac Jacket'\n  - Name='Barbour Flyweight Cavalry Quilted Jacket Womens Olive Size: 18'\n  - Name='Barbour Corbridge Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it's a jacket/shacket with cotton material, the sherpa lining and plaid pattern suggest a different insulation style and casual, cozy use compared to the chore coat's structured utility and durable workwear silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Teton Valley Quilted Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Though a blazer and jacket both are outerwear, a quilted blazer is a more formal, insulated garment differing significantly from a rugged chore coat in silhouette, fabric, and usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Knit Blazer\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A knit blazer is distinctly different in material (knit vs. twill), purpose (more formal/dressy), and construction compared to a durable chore coat designed for utility and outdoor wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Legend Sweater Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A sweater shirt is a mid-layer or top, not an outerwear jacket. Fabric and use differ substantially from the chore coat's structured construction and heavy-duty fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Brand Men's Felted Wool Bland Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a chore coat like the reference product, sharing silhouette, construction, and purpose, though made of wool rather than cotton twill, making it highly relevant but not identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Chore Canvas Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket made of canvas like the reference organic cotton twill, with similar silhouette and utility-focused use, very closely matching the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Primaloft Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A rugged workwear style jacket with durable fabric and technical insulation; shares utility and durability focus but uses synthetic insulation and different fabric than the chore coat's cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Thor Rain Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A raincoat with a likely different silhouette and waterproof focus contrasts with the cotton utility chore coat; both are outerwear but differ in construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Whitewater Full Zip Hoodie\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A hoodie is a casual layer and lightweight outerwear fundamentally different in construction, materials, and purpose from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Lined Mackinaw Wool Cape Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A cape coat is a different silhouette and made of wool for warmth; it differs in styling and structure from a chore coat designed for utility and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Women's Flyweight Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A lightweight quilted jacket targets casual outerwear with insulation; differs in silhouette, construction, and gender focus from the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Lorden Waterproof Mac Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A waterproof mac coat offers a different protection aspect and silhouette but is also a utility outerwear piece; medium relevance due to differing materials and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Flyweight Cavalry Quilted Jacket Womens Olive Size: 18\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A women's quilted jacket with a different silhouette and insulation focus is less relevant to a cotton chore coat despite both being outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Corbridge Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A jacket by Barbour likely with a country/utility style which shares some overlap with chore coat use and aesthetics but may differ in fabric and styling details.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's",
+      "score": 4,
+      "rationale": "While it's a jacket/shacket with cotton material, the sherpa lining and plaid pattern suggest a different insulation style and casual, cozy use compared to the chore coat's structured utility and durable workwear silhouette.",
+      "map_id": "map_4266df02f48b4626b5dae4ee10a73dd5"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Teton Valley Quilted Blazer",
+      "score": 3,
+      "rationale": "Though a blazer and jacket both are outerwear, a quilted blazer is a more formal, insulated garment differing significantly from a rugged chore coat in silhouette, fabric, and usage.",
+      "map_id": "map_5081e799a5e34e0780919ec5073d1163"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Movement Knit Blazer",
+      "score": 2,
+      "rationale": "A knit blazer is distinctly different in material (knit vs. twill), purpose (more formal/dressy), and construction compared to a durable chore coat designed for utility and outdoor wear.",
+      "map_id": "map_c6889fe09d654a2aab31a9c968b63c5a"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Legend Sweater Shirt",
+      "score": 2,
+      "rationale": "A sweater shirt is a mid-layer or top, not an outerwear jacket. Fabric and use differ substantially from the chore coat's structured construction and heavy-duty fabric.",
+      "map_id": "map_25abb73da9a24d1d9d98a6150828ed7e"
+    },
+    {
+      "competitor_product_name": "Faherty Brand Men's Felted Wool Bland Chore Coat",
+      "score": 8,
+      "rationale": "This is a chore coat like the reference product, sharing silhouette, construction, and purpose, though made of wool rather than cotton twill, making it highly relevant but not identical.",
+      "map_id": "map_34606e56ddc0460bbc54164162c842d2"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Chore Canvas Jacket",
+      "score": 9,
+      "rationale": "A chore jacket made of canvas like the reference organic cotton twill, with similar silhouette and utility-focused use, very closely matching the reference product.",
+      "map_id": "map_aa83c465269f48e98a581236ae6da77f"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Primaloft Jacket",
+      "score": 7,
+      "rationale": "A rugged workwear style jacket with durable fabric and technical insulation; shares utility and durability focus but uses synthetic insulation and different fabric than the chore coat's cotton twill.",
+      "map_id": "map_837fd45d3bed4adc99e3fac9727b8465"
+    },
+    {
+      "competitor_product_name": "Norse Projects Thor Rain Coat",
+      "score": 5,
+      "rationale": "A raincoat with a likely different silhouette and waterproof focus contrasts with the cotton utility chore coat; both are outerwear but differ in construction and intended use.",
+      "map_id": "map_224f3d3ff33a47268fa52a9ff824386e"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Whitewater Full Zip Hoodie",
+      "score": 1,
+      "rationale": "A hoodie is a casual layer and lightweight outerwear fundamentally different in construction, materials, and purpose from a chore coat.",
+      "map_id": "map_a5e3a150b10648b5b5a8404c15bb7047"
+    },
+    {
+      "competitor_product_name": "Filson Men's Lined Mackinaw Wool Cape Coat",
+      "score": 4,
+      "rationale": "A cape coat is a different silhouette and made of wool for warmth; it differs in styling and structure from a chore coat designed for utility and durability.",
+      "map_id": "map_817cff872e134f9b82aeb3144029da25"
+    },
+    {
+      "competitor_product_name": "Barbour Women's Flyweight Quilted Jacket",
+      "score": 4,
+      "rationale": "A lightweight quilted jacket targets casual outerwear with insulation; differs in silhouette, construction, and gender focus from the chore coat.",
+      "map_id": "map_f76ce961dc534816b6ff3292148a8978"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Lorden Waterproof Mac Jacket",
+      "score": 5,
+      "rationale": "A waterproof mac coat offers a different protection aspect and silhouette but is also a utility outerwear piece; medium relevance due to differing materials and purpose.",
+      "map_id": "map_af269141b32648e0bac32cdbe49d43f6"
+    },
+    {
+      "competitor_product_name": "Barbour Flyweight Cavalry Quilted Jacket Womens Olive Size: 18",
+      "score": 3,
+      "rationale": "A women's quilted jacket with a different silhouette and insulation focus is less relevant to a cotton chore coat despite both being outerwear.",
+      "map_id": "map_be1584675139474a9272f2eeb7b65a21"
+    },
+    {
+      "competitor_product_name": "Barbour Corbridge Jacket",
+      "score": 6,
+      "rationale": "A jacket by Barbour likely with a country/utility style which shares some overlap with chore coat use and aesthetics but may differ in fabric and styling details.",
+      "map_id": "map_ddad6685071a44cf96c5e58552e0f25b"
+    }
+  ]
+}

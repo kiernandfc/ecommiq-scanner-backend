@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250608_125130",
+  "reference_brand": "PicturesOnGold",
+  "reference_name": "Cross Pendant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"PicturesOnGold\"\nReference Product Name: \"Cross Pendant\"\nReference Product Description:\n*This Cross is Solid Sterling Silver *Approximately 2/3 inch x 1 Inch The Approximate Weight is 1.27 GM *** ALL SIZES ARE APPROXIMATE***\nAvailable in Sterling Silver\nMetal: Sterling Silver\nIs a Chain Included? You can choose which chain to add to your order when checking out\nPendant Bail - fits up to 4mm chain. We can make bail larger, just let us know in the special instructions upon ordering\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Handmade Catholic Jewelry Flat Chain'\n  - Name='#1 Catholic Jewelry Ball & Chain'\n  - Name='Catholic Jewelry 18\" Flat Chain'\n  - Name='Miraculous Medal & Pearl Necklace in 16” Flat Chain'\n  - Name='Dainty Miraculous Medal Necklace'\n  - Name='Land-Sea-Air Enameled Sterling Silver 4-Way Medal'\n  - Name='Floral Cross Necklace Gold Filled'\n  - Name='Petite SS Crucifix Necklace'\n  - Name='SS Crfx Pend'\n  - Name='14kt Yellow Gold Childs Crucifix Pendant'\n  - Name='Infant's Cross with 13\" Chain'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Handmade Catholic Jewelry Flat Chain\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a chain only, without a cross pendant, so it is related as a possible accessory but not the same type of product.\"\n    },\n    {\n      \"competitor_product_name\": \"#1 Catholic Jewelry Ball & Chain\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Also a chain without a pendant, relevant only as a necklace component, not similar to a cross pendant product.\"\n    },\n    {\n      \"competitor_product_name\": \"Catholic Jewelry 18\\\" Flat Chain\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A chain product intended for wearing pendants, but does not include a cross pendant itself.\"\n    },\n    {\n      \"competitor_product_name\": \"Miraculous Medal & Pearl Necklace in 16” Flat Chain\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Includes a religious medal (not a cross) with necklace; religious jewelry but different pendant type and additional elements compared to the simple cross pendant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dainty Miraculous Medal Necklace\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Religious pendant necklace but medal not a cross; less relevant to the cross pendant reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Land-Sea-Air Enameled Sterling Silver 4-Way Medal\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Sterling silver religious medal, somewhat similar in material and religious purpose but different pendant style and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Floral Cross Necklace Gold Filled\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a cross necklace, similar in silhouette and core product idea. It differs in metal type (gold filled) and floral design but still closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Petite SS Crucifix Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A sterling silver crucifix necklace is highly similar to the reference solid sterling silver cross pendant, with chain included and similar purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"SS Crfx Pend\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Abbreviation for sterling silver crucifix pendant; very similar product type, material, and purpose as the reference cross pendant.\"\n    },\n    {\n      \"competitor_product_name\": \"14kt Yellow Gold Childs Crucifix Pendant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Crucifix pendant but in different gold metal and specifically a child's size; similar product function and form but differs in material and target.\"\n    },\n    {\n      \"competitor_product_name\": \"Infant's Cross with 13\\\" Chain\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A cross pendant with a chain, similar overall product type and purpose, differing mainly by intended child/infant use and size.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Handmade Catholic Jewelry Flat Chain",
+      "score": 2,
+      "rationale": "This is a chain only, without a cross pendant, so it is related as a possible accessory but not the same type of product.",
+      "map_id": "map_182ee23b15f74a658f1d8065664ae382"
+    },
+    {
+      "competitor_product_name": "#1 Catholic Jewelry Ball & Chain",
+      "score": 2,
+      "rationale": "Also a chain without a pendant, relevant only as a necklace component, not similar to a cross pendant product.",
+      "map_id": "map_bf19af87bd5f41298df5817d46a5cf61"
+    },
+    {
+      "competitor_product_name": "Catholic Jewelry 18\" Flat Chain",
+      "score": 2,
+      "rationale": "A chain product intended for wearing pendants, but does not include a cross pendant itself.",
+      "map_id": "map_6860467c4bdb4830a3dec43c8395c7d5"
+    },
+    {
+      "competitor_product_name": "Miraculous Medal & Pearl Necklace in 16” Flat Chain",
+      "score": 4,
+      "rationale": "Includes a religious medal (not a cross) with necklace; religious jewelry but different pendant type and additional elements compared to the simple cross pendant.",
+      "map_id": "map_7bd9d0001b434bfe8e43222a90a8f233"
+    },
+    {
+      "competitor_product_name": "Dainty Miraculous Medal Necklace",
+      "score": 3,
+      "rationale": "Religious pendant necklace but medal not a cross; less relevant to the cross pendant reference product.",
+      "map_id": "map_23379cf66bb147f9bdf148fe884cfc73"
+    },
+    {
+      "competitor_product_name": "Land-Sea-Air Enameled Sterling Silver 4-Way Medal",
+      "score": 4,
+      "rationale": "Sterling silver religious medal, somewhat similar in material and religious purpose but different pendant style and shape.",
+      "map_id": "map_5a06e838896d4eb9bb554920c40311ea"
+    },
+    {
+      "competitor_product_name": "Floral Cross Necklace Gold Filled",
+      "score": 8,
+      "rationale": "This is a cross necklace, similar in silhouette and core product idea. It differs in metal type (gold filled) and floral design but still closely related.",
+      "map_id": "map_856b969f2aaa46e4b8491eb5e28894ee"
+    },
+    {
+      "competitor_product_name": "Petite SS Crucifix Necklace",
+      "score": 9,
+      "rationale": "A sterling silver crucifix necklace is highly similar to the reference solid sterling silver cross pendant, with chain included and similar purpose.",
+      "map_id": "map_9fc32f347bc34e5d83aaf2a8f15e3a51"
+    },
+    {
+      "competitor_product_name": "SS Crfx Pend",
+      "score": 9,
+      "rationale": "Abbreviation for sterling silver crucifix pendant; very similar product type, material, and purpose as the reference cross pendant.",
+      "map_id": "map_bcc15dd4530e4919939a8bd868f2a78e"
+    },
+    {
+      "competitor_product_name": "14kt Yellow Gold Childs Crucifix Pendant",
+      "score": 7,
+      "rationale": "Crucifix pendant but in different gold metal and specifically a child's size; similar product function and form but differs in material and target.",
+      "map_id": "map_549c6def6fc14bc282007dba26d3d2a8"
+    },
+    {
+      "competitor_product_name": "Infant's Cross with 13\" Chain",
+      "score": 8,
+      "rationale": "A cross pendant with a chain, similar overall product type and purpose, differing mainly by intended child/infant use and size.",
+      "map_id": "map_5844f4dad7ac45afbe18327f02a8a80a"
+    }
+  ]
+}

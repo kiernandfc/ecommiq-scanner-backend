@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250613_080306",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Eton Geometric Print Dress Shirt, Size 15.5 in Navy at Nordstrom'\n  - Name='Men's Wearhouse Esquire Slim Fit Non Iron Ls Blue Multi Sz 18 1/2'\n  - Name='Men's Wearhouse Kenneth Cole Purple Dress Shirt Size 18\" 32/33 With'\n  - Name='Brooks Brothers | Cotton Poplin Shirt'\n  - Name='Brooks Brothers Slim Fit Non Iron Men's One-pocket Dress Shirt Long'\n  - Name='Brooks Brothers Mens Regent Fit Non Iron 100% Cotton Pocket Dress Shirt'\n  - Name='Brooks Brothers Mens Regent Ls Button Collar Shirt Cotton No Iron Size'\n  - Name='Brooks Brothers Men's Regular Fit Check Stretch Cotton Button-Down Oxford Shirt'\n  - Name='Brooks Brothers Men's Big Non-Iron Long Sleeve Button Down Sport Shirt'\n  - Name='Brooks Brothers Slim Fit Non Iron Blue Orange Cotton Dress Shirt 17.5'\n  - Name='Brooks Brothers | Supima Cotton Check Shirt'\n  - Name='Brooks Brothers Regent Non Iron Blue Brown Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Cotton Non Iron Oxford Polo Button Down Collar Shirt, Navy Blue, Large, Check Pattern'\n  - Name='Brooks Brothers Dress Shirt Button Down Blue Slim Fit Non Iron Pocket'\n  - Name='Brooks Brothers Solid Cream Yellow Non Iron Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers | BD Slim Fit Check Shirt'\n  - Name='Brooks Brothers 346 Slim Fit Non-iron 18x37 Blue Check'\n  - Name='Brooks Brothers Traditional Fit Non-iron Blue Long Sleeve Dress Shirt'\n  - Name='Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Pinpoint Dress Shirt'\n  - Name='Brooks Brothers Non-Iron Regent Fit Dress Shirt - Stpwhtltblue'\n  - Name='Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Oxford Sport Shirt'\n  - Name='Brooks Brothers Slim Fit Non-iron Dress Shirt Men's 16-34 Long Sleeve'\n  - Name='Brooks Brothers Men's Non-Iron Long Sleeve Button Down Sport Shirt'\n  - Name='Brooks Brothers Classic Fit Blue Stripe Lng Sleeve Non-iron Dress'\n  - Name='Brain Dead x Brooks Brothers Half Placket Oxford Button Up Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Eton Geometric Print Dress Shirt, Size 15.5 in Navy at Nordstrom\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a dress shirt like the reference, but the geometric print and lack of 'non-iron' specification reduce exact functional similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Wearhouse Esquire Slim Fit Non Iron Ls Blue Multi Sz 18 1/2\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron slim fit dress shirt, closely matching the reference product in function and fit; slight deduction for lack of collar style details.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Wearhouse Kenneth Cole Purple Dress Shirt Size 18\\\" 32/33 With\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt likely similar in purpose, but no mention of non-iron feature or fit type, which lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers | Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton poplin dress shirt shares material type but no mention of non-iron finish or specific fit, less relevant to the reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Slim Fit Non Iron Men's One-pocket Dress Shirt Long\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit non-iron dress shirt closely aligns with the reference shirt’s key features, with minor difference being presence of a pocket.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Mens Regent Fit Non Iron 100% Cotton Pocket Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt with specific fit, similar to reference except for pocket detail and possibly collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Mens Regent Ls Button Collar Shirt Cotton No Iron Size\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron cotton dress shirt with presumably button collar differs slightly from semi-spread collar in reference, moderately high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regular Fit Check Stretch Cotton Button-Down Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Button-down collar shirt with stretch cotton differs in collar style and finish (no explicit non-iron), so less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big Non-Iron Long Sleeve Button Down Sport Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Non-iron but described as sport shirt and button-down collar, less similar to dress shirt with semi-spread collar in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Slim Fit Non Iron Blue Orange Cotton Dress Shirt 17.5\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit non-iron cotton dress shirt closely matches the reference product’s main features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers | Supima Cotton Check Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton check shirt with no mention of non-iron finish or fit, reducing its relevancy to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Regent Non Iron Blue Brown Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Regent fit non-iron cotton dress shirt is quite similar in function and fabric, only slightly less certain about collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non Iron Oxford Polo Button Down Collar Shirt, Navy Blue, Large, Check Pattern\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Stretch cotton non-iron shirt with polo and button-down collar differs in silhouette and style considerably from the reference dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Dress Shirt Button Down Blue Slim Fit Non Iron Pocket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit non-iron dress shirt with button-down collar and pocket, similar in fabric and finish but collar style differs from semi-spread.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Solid Cream Yellow Non Iron Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron cotton dress shirt with solid color very similar in primary features to the reference, likely trim or standard fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers | BD Slim Fit Check Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit check shirt likely dress shirt but no mention of non-iron finish, less aligned to reference functional feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers 346 Slim Fit Non-iron 18x37 Blue Check\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit non-iron dress shirt closely aligned with the key characteristics of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Traditional Fit Non-iron Blue Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Traditional fit non-iron long sleeve dress shirt shares core features and function with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Pinpoint Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron dress shirt but button-down collar and stretch fabric differ from the semi-spread collar textured solid dress shirt in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Non-Iron Regent Fit Dress Shirt - Stpwhtltblue\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron Regent fit dress shirt likely similar fabrication and finish; collar style unknown but presumably close in style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Oxford Sport Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Described as sport shirt with button-down collar and stretch fabric, less matched to dress shirt style of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Slim Fit Non-iron Dress Shirt Men's 16-34 Long Sleeve\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact match on slim fit, non-iron dress shirt criteria matching the reference product almost identically.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Non-Iron Long Sleeve Button Down Sport Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Sport shirt with button-down collar differs in style and intended use compared to the semi-spread collar dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Classic Fit Blue Stripe Lng Sleeve Non-iron Dress\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit non-iron long sleeve dress shirt similar to reference except classic fit differs slightly from trim/standard fit options.\"\n    },\n    {\n      \"competitor_product_name\": \"Brain Dead x Brooks Brothers Half Placket Oxford Button Up Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Half placket Oxford button-up shirt with a distinct style variation and no mention of non-iron finish, less relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Eton Geometric Print Dress Shirt, Size 15.5 in Navy at Nordstrom",
+      "score": 7,
+      "rationale": "This is a dress shirt like the reference, but the geometric print and lack of 'non-iron' specification reduce exact functional similarity.",
+      "map_id": "map_2fd80d0a3e4e437ab38f2b896bf1f546"
+    },
+    {
+      "competitor_product_name": "Men's Wearhouse Esquire Slim Fit Non Iron Ls Blue Multi Sz 18 1/2",
+      "score": 9,
+      "rationale": "Non-iron slim fit dress shirt, closely matching the reference product in function and fit; slight deduction for lack of collar style details.",
+      "map_id": "map_aab912238db04e6eb781fa0e79af7c56"
+    },
+    {
+      "competitor_product_name": "Men's Wearhouse Kenneth Cole Purple Dress Shirt Size 18\" 32/33 With",
+      "score": 7,
+      "rationale": "Dress shirt likely similar in purpose, but no mention of non-iron feature or fit type, which lowers relevancy.",
+      "map_id": "map_040f04e3718f4a65b61c6c29822184fa"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers | Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "Cotton poplin dress shirt shares material type but no mention of non-iron finish or specific fit, less relevant to the reference non-iron dress shirt.",
+      "map_id": "map_0ededf13f4dc4650aecf89b88dfd2810"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Slim Fit Non Iron Men's One-pocket Dress Shirt Long",
+      "score": 9,
+      "rationale": "Slim fit non-iron dress shirt closely aligns with the reference shirt’s key features, with minor difference being presence of a pocket.",
+      "map_id": "map_1ebf3515f4fb4d4c95cebc503e0c91f5"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Mens Regent Fit Non Iron 100% Cotton Pocket Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt with specific fit, similar to reference except for pocket detail and possibly collar style.",
+      "map_id": "map_176da601ce94408bbf6355caf25fb568"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Mens Regent Ls Button Collar Shirt Cotton No Iron Size",
+      "score": 8,
+      "rationale": "Non-iron cotton dress shirt with presumably button collar differs slightly from semi-spread collar in reference, moderately high relevancy.",
+      "map_id": "map_ff6daee7985a4cf18d7e93365f866b6d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regular Fit Check Stretch Cotton Button-Down Oxford Shirt",
+      "score": 6,
+      "rationale": "Button-down collar shirt with stretch cotton differs in collar style and finish (no explicit non-iron), so less relevant.",
+      "map_id": "map_0fbaea58f06044e9ab142e8403ba402d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big Non-Iron Long Sleeve Button Down Sport Shirt",
+      "score": 6,
+      "rationale": "Non-iron but described as sport shirt and button-down collar, less similar to dress shirt with semi-spread collar in the reference.",
+      "map_id": "map_2618a0e0c9934f8bb56b4c713dba0186"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Slim Fit Non Iron Blue Orange Cotton Dress Shirt 17.5",
+      "score": 9,
+      "rationale": "Slim fit non-iron cotton dress shirt closely matches the reference product’s main features and intended use.",
+      "map_id": "map_b316e5876c814a11b3a23265a39db96b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers | Supima Cotton Check Shirt",
+      "score": 6,
+      "rationale": "Cotton check shirt with no mention of non-iron finish or fit, reducing its relevancy to the reference product.",
+      "map_id": "map_a4a40a8eb9f84197b4f471e4eeab371d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Regent Non Iron Blue Brown Supima Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Regent fit non-iron cotton dress shirt is quite similar in function and fabric, only slightly less certain about collar style.",
+      "map_id": "map_2d86f4a7a8034b9fb14682678f71182b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non Iron Oxford Polo Button Down Collar Shirt, Navy Blue, Large, Check Pattern",
+      "score": 5,
+      "rationale": "Stretch cotton non-iron shirt with polo and button-down collar differs in silhouette and style considerably from the reference dress shirt.",
+      "map_id": "map_41debba89919422897aa59c5c6d4827b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Dress Shirt Button Down Blue Slim Fit Non Iron Pocket",
+      "score": 8,
+      "rationale": "Slim fit non-iron dress shirt with button-down collar and pocket, similar in fabric and finish but collar style differs from semi-spread.",
+      "map_id": "map_481ed8d76dbd4dfd97f1d0f1929f355f"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Solid Cream Yellow Non Iron Supima Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron cotton dress shirt with solid color very similar in primary features to the reference, likely trim or standard fit.",
+      "map_id": "map_2a1462792adb49b7a6f5a89eb8f22a97"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers | BD Slim Fit Check Shirt",
+      "score": 6,
+      "rationale": "Slim fit check shirt likely dress shirt but no mention of non-iron finish, less aligned to reference functional feature.",
+      "map_id": "map_349645c55a9f4b678e4d069123078b81"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers 346 Slim Fit Non-iron 18x37 Blue Check",
+      "score": 9,
+      "rationale": "Slim fit non-iron dress shirt closely aligned with the key characteristics of the reference product.",
+      "map_id": "map_ff709654be99497d86800f61350e3629"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Traditional Fit Non-iron Blue Long Sleeve Dress Shirt",
+      "score": 9,
+      "rationale": "Traditional fit non-iron long sleeve dress shirt shares core features and function with the reference product.",
+      "map_id": "map_dd44803e51ad421f9507884ee9884e04"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Pinpoint Dress Shirt",
+      "score": 7,
+      "rationale": "Non-iron dress shirt but button-down collar and stretch fabric differ from the semi-spread collar textured solid dress shirt in the reference.",
+      "map_id": "map_cfe9c1e9cc46416eaa0e34368b8b2682"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Non-Iron Regent Fit Dress Shirt - Stpwhtltblue",
+      "score": 8,
+      "rationale": "Non-iron Regent fit dress shirt likely similar fabrication and finish; collar style unknown but presumably close in style.",
+      "map_id": "map_c5bbb4348f5f42f18328d5f8be44a422"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Non-Iron Long Sleeve Button Down Stretch Oxford Sport Shirt",
+      "score": 6,
+      "rationale": "Described as sport shirt with button-down collar and stretch fabric, less matched to dress shirt style of reference.",
+      "map_id": "map_4142e04a30004035bb59069cffd237d7"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Slim Fit Non-iron Dress Shirt Men's 16-34 Long Sleeve",
+      "score": 10,
+      "rationale": "Exact match on slim fit, non-iron dress shirt criteria matching the reference product almost identically.",
+      "map_id": "map_a4e19e2d526c432083dc386b68b07bb8"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Non-Iron Long Sleeve Button Down Sport Shirt",
+      "score": 6,
+      "rationale": "Sport shirt with button-down collar differs in style and intended use compared to the semi-spread collar dress shirt reference.",
+      "map_id": "map_673630bb893249c8936e5e8b6a4a670a"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Classic Fit Blue Stripe Lng Sleeve Non-iron Dress",
+      "score": 8,
+      "rationale": "Classic fit non-iron long sleeve dress shirt similar to reference except classic fit differs slightly from trim/standard fit options.",
+      "map_id": "map_ddc75a94e42c4857893394ab4eb97124"
+    },
+    {
+      "competitor_product_name": "Brain Dead x Brooks Brothers Half Placket Oxford Button Up Shirt",
+      "score": 5,
+      "rationale": "Half placket Oxford button-up shirt with a distinct style variation and no mention of non-iron finish, less relevant.",
+      "map_id": "map_8d16683fd0dd4e88b3038424367080c6"
+    }
+  ]
+}

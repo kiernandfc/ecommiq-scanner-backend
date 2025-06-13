@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250525_154812",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Hatteras Laughlin Patchwork Denim Flat Cap'\n  - Name='Goorin Bros. Teddy Spaghets Fedora'\n  - Name='Goorin Bros. Men's Rooster 100 Snapback Hat'\n  - Name='Brixton Brood Snap Plaid Cap'\n  - Name='Christys' of London Linen Blend Ivy Cap'\n  - Name='Stetson Men's Dark Hatteras Harris Tweed Flat Cap'\n  - Name='Goorin Bros Mulberry Street Flatcap'\n  - Name='Brixton 20th Anniversary Brood Newsboy Cap'\n  - Name='Stetson Men's Hatteras Tweed Herringbone Flat Cap'\n  - Name='Stetson Kent Houndstooth Golf Flat Cap'\n  - Name='Goorin Cold Snap Flatcaps with Sweatband'\n  - Name='Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat'\n  - Name='Brixton Reserve Assembly Brood Newsboy Cap'\n  - Name='Kangol Men's Bermuda Hawker Newsboy Cap'\n  - Name='Stetson Men's Karlsen Wool Check Flat Cap'\n  - Name='Stetson Highland Plaid Wool Hat'\n  - Name='Stetson Men's Glencheck Wool Flat Cap'\n  - Name='Stetson Bornestead Driver Flat Cap'\n  - Name='Stetson Men's Mandeo Driver Patchwork Wool Flat Cap'\n  - Name='Stetson Hastings Virgin Wool Flat Cap'\n  - Name='Stetson Hatteras Cap'\n  - Name='Stetson Texas Wool Check Flat Cap'\n  - Name='Stetson Men's Texas Wool Flat Cap'\n  - Name='Men Stetson Texas Wool Herringbone Cap'\n  - Name='Stetson Hatteras Knitted Wool Newsboy Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Laughlin Patchwork Denim Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a flat cap (similar to peaky) with patchwork fabric, but different material (denim) and lacks mention of panel style or leatherette brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Teddy Spaghets Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora is a distinctly different hat style and silhouette compared to the Peaky/flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Rooster 100 Snapback Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Snapback is a baseball-style cap, very different silhouette and construction from a Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Snap Plaid Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy style is very similar to Peaky cap style with panel construction and similar silhouette, closely related product.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' of London Linen Blend Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Ivy cap shares a similar flat cap style, but typically uses fewer panels than a Peaky. Close but slightly different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Dark Hatteras Harris Tweed Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style with similar fabric focus, though tweed is different from plaid and no mention of panel count or leatherette brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Mulberry Street Flatcap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Named as flatcap, similar silhouette, but no details on panel style or trim to confirm closer similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton 20th Anniversary Brood Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy/Peaky caps share similar 8-panel styles and silhouette, strong similarity with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Tweed Herringbone Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap similar style with tweed fabric and likely 8 panels, but differs in fabric type and possibly trim.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Kent Houndstooth Golf Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style but with golf cap designation and different fabric pattern; less typical peaky style elements.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Cold Snap Flatcaps with Sweatband\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat caps likely similar silhouette and construction, but no details on panel count or decorative elements.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Mixture of duckbill, ivy, and newsboy elements; close to peaky in style but less certain exact panel style or brim details.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Reserve Assembly Brood Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap with similar construction and silhouette to Peaky cap, close relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Bermuda Hawker Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy (Hawker) caps are very similar style to Peaky with 8-panel construction, strong relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Karlsen Wool Check Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap with check pattern, likely similar silhouette, but different fabric and no mention of panel count or trim.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Highland Plaid Wool Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Plaid wool hat could be a flat cap or another style, less specific so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Glencheck Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap in wool with glencheck pattern, all consistent with flat cap style but no mention of panel count or special brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Bornestead Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver flat cap style shares similar silhouette, but unspecified panel count and fabric differ from Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Mandeo Driver Patchwork Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Patchwork wool flat cap similar style to Peaky, but denim or leatherette brim not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hastings Virgin Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap with virgin wool fabric, similar silhouette but lacking panel style or trim details.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Known flat cap style, strong silhouette similarity though lacking fabric and panel count details.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Texas Wool Check Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style with wool check fabric, similar construction but no details on panel count or brim.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Texas Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap in wool with similar overall style but not exact specifics as Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Texas Wool Herringbone Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style with herringbone pattern, fits similar category but no mention of panel style or brim detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Knitted Wool Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap shares 8-panel construction and silhouette akin to Peaky; knitted wool is a fabric variation but closely related.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Hatteras Laughlin Patchwork Denim Flat Cap",
+      "score": 7,
+      "rationale": "Also a flat cap (similar to peaky) with patchwork fabric, but different material (denim) and lacks mention of panel style or leatherette brim.",
+      "map_id": "map_70297d2dcc4f4f9085c624307dbd7f91"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Teddy Spaghets Fedora",
+      "score": 2,
+      "rationale": "Fedora is a distinctly different hat style and silhouette compared to the Peaky/flat cap.",
+      "map_id": "map_ec9d3748fb134eeba4e24dff83baf911"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Rooster 100 Snapback Hat",
+      "score": 1,
+      "rationale": "Snapback is a baseball-style cap, very different silhouette and construction from a Peaky cap.",
+      "map_id": "map_e973d14cfc1b47f5aa9e2900d8e91e99"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Snap Plaid Cap",
+      "score": 8,
+      "rationale": "Newsboy style is very similar to Peaky cap style with panel construction and similar silhouette, closely related product.",
+      "map_id": "map_2326feb85bf64208bea85a4a3b79a3e8"
+    },
+    {
+      "competitor_product_name": "Christys' of London Linen Blend Ivy Cap",
+      "score": 7,
+      "rationale": "Ivy cap shares a similar flat cap style, but typically uses fewer panels than a Peaky. Close but slightly different silhouette.",
+      "map_id": "map_cd06d4c63a8247f4afb58fd0908967cb"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Dark Hatteras Harris Tweed Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style with similar fabric focus, though tweed is different from plaid and no mention of panel count or leatherette brim.",
+      "map_id": "map_d4ccbb7d85d6447f8eb9abe7ba226946"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Mulberry Street Flatcap",
+      "score": 7,
+      "rationale": "Named as flatcap, similar silhouette, but no details on panel style or trim to confirm closer similarity.",
+      "map_id": "map_a0c41f36b524431690cea48f1ae97d2d"
+    },
+    {
+      "competitor_product_name": "Brixton 20th Anniversary Brood Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy/Peaky caps share similar 8-panel styles and silhouette, strong similarity with the reference product.",
+      "map_id": "map_96c805f8f95c4a148a946592b650fe0d"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Tweed Herringbone Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap similar style with tweed fabric and likely 8 panels, but differs in fabric type and possibly trim.",
+      "map_id": "map_e4618cb8678d479981970b1498b0c0bb"
+    },
+    {
+      "competitor_product_name": "Stetson Kent Houndstooth Golf Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap style but with golf cap designation and different fabric pattern; less typical peaky style elements.",
+      "map_id": "map_bb4c112040f0446b9ab8369756f96cc5"
+    },
+    {
+      "competitor_product_name": "Goorin Cold Snap Flatcaps with Sweatband",
+      "score": 7,
+      "rationale": "Flat caps likely similar silhouette and construction, but no details on panel count or decorative elements.",
+      "map_id": "map_22c37aae2f924eccb76278fdcee504d3"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat",
+      "score": 7,
+      "rationale": "Mixture of duckbill, ivy, and newsboy elements; close to peaky in style but less certain exact panel style or brim details.",
+      "map_id": "map_3b8d7347840145e782a4f3139e8f3af5"
+    },
+    {
+      "competitor_product_name": "Brixton Reserve Assembly Brood Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap with similar construction and silhouette to Peaky cap, close relevance.",
+      "map_id": "map_6cdf264d7a8946448db4ad94d4b87d61"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Bermuda Hawker Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy (Hawker) caps are very similar style to Peaky with 8-panel construction, strong relevancy.",
+      "map_id": "map_351f4771c34040aeb83f956ab4176675"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Karlsen Wool Check Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap with check pattern, likely similar silhouette, but different fabric and no mention of panel count or trim.",
+      "map_id": "map_97947ab55dac46e2b944df98633ab0b8"
+    },
+    {
+      "competitor_product_name": "Stetson Highland Plaid Wool Hat",
+      "score": 6,
+      "rationale": "Plaid wool hat could be a flat cap or another style, less specific so moderate relevancy.",
+      "map_id": "map_0cbb1e25470e41938486b4e01c19f0c0"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Glencheck Wool Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap in wool with glencheck pattern, all consistent with flat cap style but no mention of panel count or special brim.",
+      "map_id": "map_e6a3d00a00bf455d9b686eeb124df381"
+    },
+    {
+      "competitor_product_name": "Stetson Bornestead Driver Flat Cap",
+      "score": 7,
+      "rationale": "Driver flat cap style shares similar silhouette, but unspecified panel count and fabric differ from Peaky.",
+      "map_id": "map_cb3786d3f72c427a8e5e38e677ce6308"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Mandeo Driver Patchwork Wool Flat Cap",
+      "score": 7,
+      "rationale": "Patchwork wool flat cap similar style to Peaky, but denim or leatherette brim not specified.",
+      "map_id": "map_77d8743d32e44b3d8b1f845707521328"
+    },
+    {
+      "competitor_product_name": "Stetson Hastings Virgin Wool Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap with virgin wool fabric, similar silhouette but lacking panel style or trim details.",
+      "map_id": "map_691e8119f47c448d90a34fa5d4c6a096"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Cap",
+      "score": 7,
+      "rationale": "Known flat cap style, strong silhouette similarity though lacking fabric and panel count details.",
+      "map_id": "map_91418b2f49f042e69d37f8222db0ef2e"
+    },
+    {
+      "competitor_product_name": "Stetson Texas Wool Check Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style with wool check fabric, similar construction but no details on panel count or brim.",
+      "map_id": "map_21aafc0cb92742d6ba23329458f5f380"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Texas Wool Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap in wool with similar overall style but not exact specifics as Peaky cap.",
+      "map_id": "map_56233d21a80944c8b5738a3cfe600c54"
+    },
+    {
+      "competitor_product_name": "Men Stetson Texas Wool Herringbone Cap",
+      "score": 7,
+      "rationale": "Flat cap style with herringbone pattern, fits similar category but no mention of panel style or brim detail.",
+      "map_id": "map_46e18ec397274f4b86edc05c2bd7edb7"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Knitted Wool Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap shares 8-panel construction and silhouette akin to Peaky; knitted wool is a fabric variation but closely related.",
+      "map_id": "map_358c767d974b492f9f93d3d60677960f"
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "timestamp": "20250528_105502",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Jetsetter Stretch Dress Shirt'\n  - Name='J.Crew Men's Classic Flex Shirt'\n  - Name='Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Pinpoint Solid'\n  - Name='Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Herringbone Convertible Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt'\n  - Name='J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt'\n  - Name='Thomas Mason for J.Crew Men's Washed Poplin Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dress Shirt'\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Men's Slim Core Temp Dress Shirt'\n  - Name='J.Crew Men's Classic Flex Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt'\n  - Name='J.Crew Women's Garçon Classic Cotton Voile Shirt'\n  - Name='Banana Republic White Non-Iron Cotton Stretch Dress Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a dress shirt with stretch fabric, likely wrinkle-resistant and intended for similar occasions, making it quite relevant though not necessarily non-iron or matching exact fit.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Classic Flex Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A classic dress shirt with flexible fabric, similar use and fit focus, somewhat relevant but lacks explicit non-iron claim.\"\n    },\n    {\n      \"competitor_product_name\": \"Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Pinpoint Solid\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand, wrinkle-free dress shirt with fit focus and solid fabric; very close to reference product but different fabric texture (pinpoint vs textured).\"\n    },\n    {\n      \"competitor_product_name\": \"Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical in brand, wrinkle-free treatment, fabric texture, fit type, and product category.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and wrinkle-free dress shirt in trim fit, very relevant though fabric texture details are unspecified.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand, wrinkle-free cotton dress shirt in trim fit; highly relevant though not directly stating textured solid.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Herringbone Convertible Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand, wrinkle-free cotton dress shirt in trim fit with herringbone texture and convertible collar, slightly differs in texture and collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and wrinkle-free cotton dress shirt but standard fit instead of trim fit; still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt by same brand with a tuxedo style and herringbone fabric; more formal and specialized use, less relevant to general non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Specialized tuxedo dress shirt with pleating; different silhouette and purpose, moderately low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with stretch fabric targeted at big & tall sizes, very relevant although targeted fit differs.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle-free dress shirt in tall sizing, similar purpose and fabric treatment to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Thomas Mason for J.Crew Men's Washed Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt using premium fabric but no wrinkle-free or non-iron claim; different fabric treatment lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with performance fabric, strong match in function and category.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle-free dress shirt similar to reference product; likely similar fit and function.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton poplin shirt but lacks wrinkle-free or non-iron treatment, lowering relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron Oxford dress shirt, closely aligned with reference product's non-iron functionality and category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with athletic fit, possibly non-iron but unspecified; relevant but fit and features differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Core Temp Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt designed for temperature control; similar use but no mention of non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Classic Flex Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated product; scored previously high due to similar flexible, classic dress shirt characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron stretch Oxford shirt with checkered pattern; relevant in function but different pattern and slight fabric variation.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Garçon Classic Cotton Voile Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's cotton voile shirt, different gender target, lighter fabric, and silhouette; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic White Non-Iron Cotton Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron cotton stretch dress shirt similar in key characteristics though brand differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated product; consistent relevance due to similar athletic fit dress shirt characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Premium non-iron dress shirt from Nordstrom with windowpane pattern; functionally similar with different pattern and brand.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Also a dress shirt with stretch fabric, likely wrinkle-resistant and intended for similar occasions, making it quite relevant though not necessarily non-iron or matching exact fit.",
+      "map_id": "map_d76315611b1d41af901c825f6913c8c2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic Flex Shirt",
+      "score": 7,
+      "rationale": "A classic dress shirt with flexible fabric, similar use and fit focus, somewhat relevant but lacks explicit non-iron claim.",
+      "map_id": "map_58ae20bd256b4fd785597d403ba558a2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic Flex Shirt",
+      "score": 7,
+      "rationale": "A classic dress shirt with flexible fabric, similar use and fit focus, somewhat relevant but lacks explicit non-iron claim.",
+      "map_id": "map_680eb38164494443a01a7830d03fb79b"
+    },
+    {
+      "competitor_product_name": "Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Pinpoint Solid",
+      "score": 9,
+      "rationale": "Same brand, wrinkle-free dress shirt with fit focus and solid fabric; very close to reference product but different fabric texture (pinpoint vs textured).",
+      "map_id": "map_f8993f2e7ba8450c9781c4b4eb6357c0"
+    },
+    {
+      "competitor_product_name": "Tie Bar Premium Men's Wrinkle-Free Dress Shirt Fit Textured Solid",
+      "score": 10,
+      "rationale": "Identical in brand, wrinkle-free treatment, fabric texture, fit type, and product category.",
+      "map_id": "map_ce647890f0cb4b488930f0c0cb462bc8"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 9,
+      "rationale": "Same brand and wrinkle-free dress shirt in trim fit, very relevant though fabric texture details are unspecified.",
+      "map_id": "map_4b2c2d789a344f04a26886057a3526bc"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Same brand, wrinkle-free cotton dress shirt in trim fit; highly relevant though not directly stating textured solid.",
+      "map_id": "map_5e8d7a5269a441dab8a0e273c966db22"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Herringbone Convertible Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Same brand, wrinkle-free cotton dress shirt in trim fit with herringbone texture and convertible collar, slightly differs in texture and collar style.",
+      "map_id": "map_ea1dc78763644ffe8ece3b3847e78ab6"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Same brand and wrinkle-free cotton dress shirt but standard fit instead of trim fit; still highly relevant.",
+      "map_id": "map_140cba073bff44bf92b55b8bba7a326a"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt by same brand with a tuxedo style and herringbone fabric; more formal and specialized use, less relevant to general non-iron dress shirt.",
+      "map_id": "map_ada614bdd688417c8a3c0b21cd2a3486"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt",
+      "score": 5,
+      "rationale": "Specialized tuxedo dress shirt with pleating; different silhouette and purpose, moderately low relevance.",
+      "map_id": "map_9bb56098bb7444dfa8a56833ce0ec262"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with stretch fabric targeted at big & tall sizes, very relevant although targeted fit differs.",
+      "map_id": "map_aa9833862ea644268888cf70c92cad08"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle-free dress shirt in tall sizing, similar purpose and fabric treatment to reference product.",
+      "map_id": "map_f342bca6071c487d9f2db221a47ca6ab"
+    },
+    {
+      "competitor_product_name": "Thomas Mason for J.Crew Men's Washed Poplin Shirt",
+      "score": 6,
+      "rationale": "Dress shirt using premium fabric but no wrinkle-free or non-iron claim; different fabric treatment lowers relevancy.",
+      "map_id": "map_0653dd22986e45bf8c7b6a53f49a909f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with performance fabric, strong match in function and category.",
+      "map_id": "map_b3a473ed28574681bf9be2426d93c323"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle-free dress shirt similar to reference product; likely similar fit and function.",
+      "map_id": "map_9aadd7fe558c4affbac0aa9d9d767b5a"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "Cotton poplin shirt but lacks wrinkle-free or non-iron treatment, lowering relevance.",
+      "map_id": "map_73d31584a695468d901fad156377b74c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron Oxford dress shirt, closely aligned with reference product's non-iron functionality and category.",
+      "map_id": "map_285ac6c1908b4e4c8521d4895e5b155c"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with athletic fit, possibly non-iron but unspecified; relevant but fit and features differ.",
+      "map_id": "map_6634a37f2dfa4ed7965e3210e6cdeec9"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with athletic fit, possibly non-iron but unspecified; relevant but fit and features differ.",
+      "map_id": "map_0ffdb73ee8fb43ef99f56a288728e708"
+    },
+    {
+      "competitor_product_name": "Men's Slim Core Temp Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt designed for temperature control; similar use but no mention of non-iron.",
+      "map_id": "map_d0bb8b330fad43a3b8b1fea9b0f71d3c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic Flex Shirt",
+      "score": 7,
+      "rationale": "Repeated product; scored previously high due to similar flexible, classic dress shirt characteristics.",
+      "map_id": "map_58ae20bd256b4fd785597d403ba558a2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic Flex Shirt",
+      "score": 7,
+      "rationale": "Repeated product; scored previously high due to similar flexible, classic dress shirt characteristics.",
+      "map_id": "map_680eb38164494443a01a7830d03fb79b"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron stretch Oxford shirt with checkered pattern; relevant in function but different pattern and slight fabric variation.",
+      "map_id": "map_a8a356702d9f48a5aa7563b1849a9360"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Garçon Classic Cotton Voile Shirt",
+      "score": 2,
+      "rationale": "Women's cotton voile shirt, different gender target, lighter fabric, and silhouette; low relevance.",
+      "map_id": "map_09e1207c9aa44019886d5d7b4bd377b2"
+    },
+    {
+      "competitor_product_name": "Banana Republic White Non-Iron Cotton Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron cotton stretch dress shirt similar in key characteristics though brand differs.",
+      "map_id": "map_e6394aae1e0e42dda7e06faeb1036106"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Repeated product; consistent relevance due to similar athletic fit dress shirt characteristics.",
+      "map_id": "map_6634a37f2dfa4ed7965e3210e6cdeec9"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Repeated product; consistent relevance due to similar athletic fit dress shirt characteristics.",
+      "map_id": "map_0ffdb73ee8fb43ef99f56a288728e708"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 8,
+      "rationale": "Premium non-iron dress shirt from Nordstrom with windowpane pattern; functionally similar with different pattern and brand.",
+      "map_id": "map_3299664352ae4a6f85e50cbb771d83bd"
+    }
+  ]
+}

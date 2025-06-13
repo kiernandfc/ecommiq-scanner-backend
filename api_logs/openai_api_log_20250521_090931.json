@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250521_090931",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Women's Fitted Non-Iron Scallop Shirt'\n  - Name='Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Oxford Polo'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Cotton Broadcloth Dress Shirt'\n  - Name='Calvin Klein Men's Regular-Fit Non-Iron Dress Shirt'\n  - Name='Haggar Men's Classic-Fit Smart Wash Dress Shirt'\n  - Name='Men's L.L.Bean Carefree Non-Shrink Tee Traditional Fit Long-Sleeve'\n  - Name='L.L.Bean Men's Slightly Fitted Plaid Flannel Shirt'\n  - Name='L.L.Bean Men's Organic Cotton Seersucker Short-Sleeve Shirt'\n  - Name='Nordstrom Premium Non-Iron Trim Fit Dress Shirt'\n  - Name='Michael Kors Men's Regular Fit Airsoft Non Iron Dress Shirt'\n  - Name='Michael Kors Men's Solid Non-Iron Stretch Dress Shirt'\n  - Name='Boss Men's Hank Kent Slim Fit Performance Stretch Dress Shirt'\n  - Name='Men's Mizzen+Main Leeward Dress Shirt White'\n  - Name='Banana Republic Mens 889942 Slim Fit Cotton Blend Non Iron Button Down Dress Shirt,, White/Grey Geometric'\n  - Name='J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt'\n  - Name='Women's Tailored Easy-Care Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt'\n  - Name='Calvin Klein Men's Slim-Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt'\n  - Name='Calvin Klein Men's Classic Fit Herringbone Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Fitted Non-Iron Scallop Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"It's a non-iron dress shirt, but women's fitted style and scallop detail make it slightly less aligned with the reference men's standard/trim fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's slim-fit non-iron dress shirt closely matches the reference product in function, fit, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron stretch dress shirt is very similar in key features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a men's non-iron dress shirt but Oxford weave differs slightly from a textured solid, though function remains similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"It's a polo shirt, differing in construction and casual style from a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual polo shirt differs substantially from the structured dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Cotton Broadcloth Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's non-iron dress shirt similar in purpose; big & tall sizing differs but not core function.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Regular-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's regular fit non-iron dress shirt aligns closely with reference product in style and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Haggar Men's Classic-Fit Smart Wash Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic-fit dress shirt with smart wash treatment; not specified as non-iron, so slightly less aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Carefree Non-Shrink Tee Traditional Fit Long-Sleeve\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A long sleeve tee differs fundamentally from a structured dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Slightly Fitted Plaid Flannel Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Casual plaid flannel shirt is stylistically and functionally dissimilar to a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Organic Cotton Seersucker Short-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve casual shirt differs from long-sleeve formal dress shirt though some fabric overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Trim Fit Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron, trim fit dress shirt matches the reference product almost exactly in features and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Regular Fit Airsoft Non Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with regular fit aligns closely in intended use and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Solid Non-Iron Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Solid non-iron stretch dress shirt is very similar in key features to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Boss Men's Hank Kent Slim Fit Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit non-iron stretch dress shirt aligns well with reference style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Leeward Dress Shirt White\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt but Mizzen+Main focus on performance fabric may differ slightly from classic non-iron cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Mens 889942 Slim Fit Cotton Blend Non Iron Button Down Dress Shirt,, White/Grey Geometric\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit non-iron dress shirt with button down collar aligns closely, except for potential collar style variation.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Women's classic fit cotton shirt similar in fabric but differs by gender and likely collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Women's Tailored Easy-Care Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Women's tailored easy-care shirt shares dress shirt characteristics but differs in gender target and likely collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's non-iron stretch dress shirt but leaf print design may reduce formal versatility compared to solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim-Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim-fit non-iron dress shirt matches reference well in style, fit, and function.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Casual twill shirt differs in fabric weight and likely style from a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit stretch dress shirt similar in fit/function, though check pattern is less formal than solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Classic Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit dress shirt with textured herringbone fabric relates well to textured solid reference shirt though fit differs.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Women's Fitted Non-Iron Scallop Shirt",
+      "score": 7,
+      "rationale": "It's a non-iron dress shirt, but women's fitted style and scallop detail make it slightly less aligned with the reference men's standard/trim fit dress shirt.",
+      "map_id": "map_f8ace0cda4b443f983d54c3e949cb1a1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Stretch Milano Slim-Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's slim-fit non-iron dress shirt closely matches the reference product in function, fit, and construction.",
+      "map_id": "map_5e690302cedf4cae9fcfab0894b89036"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron stretch dress shirt is very similar in key features and intended use.",
+      "map_id": "map_02f466a31157473e858d2ec3bffb991c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "Also a men's non-iron dress shirt but Oxford weave differs slightly from a textured solid, though function remains similar.",
+      "map_id": "map_36837f0b569040e6b1af35ae0786fb1e"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Oxford Polo",
+      "score": 3,
+      "rationale": "It's a polo shirt, differing in construction and casual style from a dress shirt.",
+      "map_id": "map_281b77fd63b7462289fb0b33344aaae1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 3,
+      "rationale": "Casual polo shirt differs substantially from the structured dress shirt reference.",
+      "map_id": "map_f53af4100a1a43b698dc3ff9f2912d81"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Cotton Broadcloth Dress Shirt",
+      "score": 8,
+      "rationale": "Men's non-iron dress shirt similar in purpose; big & tall sizing differs but not core function.",
+      "map_id": "map_dfaf0e4884394ce0a57919fd3f5f8c96"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Regular-Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Men's regular fit non-iron dress shirt aligns closely with reference product in style and purpose.",
+      "map_id": "map_be3b18bbd66d473590bc323b686bc1b1"
+    },
+    {
+      "competitor_product_name": "Haggar Men's Classic-Fit Smart Wash Dress Shirt",
+      "score": 7,
+      "rationale": "Classic-fit dress shirt with smart wash treatment; not specified as non-iron, so slightly less aligned.",
+      "map_id": "map_0a9cd26bea044bff99e706d1f4d3557e"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Carefree Non-Shrink Tee Traditional Fit Long-Sleeve",
+      "score": 2,
+      "rationale": "A long sleeve tee differs fundamentally from a structured dress shirt.",
+      "map_id": "map_10cd9dcf7e8b4f4fa05f84757cc459e0"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Slightly Fitted Plaid Flannel Shirt",
+      "score": 2,
+      "rationale": "Casual plaid flannel shirt is stylistically and functionally dissimilar to a dress shirt.",
+      "map_id": "map_a44284053c34406b923b1aec4a1c9f17"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Organic Cotton Seersucker Short-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short-sleeve casual shirt differs from long-sleeve formal dress shirt though some fabric overlap.",
+      "map_id": "map_d2905cd7f9f8431d9aec0749b22668b6"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "Non-iron, trim fit dress shirt matches the reference product almost exactly in features and fit.",
+      "map_id": "map_017682569c614df89784851265bcf126"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Regular Fit Airsoft Non Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with regular fit aligns closely in intended use and construction.",
+      "map_id": "map_89eb84321bbf44e79a2dab04752a6501"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Solid Non-Iron Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Solid non-iron stretch dress shirt is very similar in key features to the reference product.",
+      "map_id": "map_07818a0c053243aa8c0787a36e81d657"
+    },
+    {
+      "competitor_product_name": "Boss Men's Hank Kent Slim Fit Performance Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit non-iron stretch dress shirt aligns well with reference style and function.",
+      "map_id": "map_993413fd7c9a41d38d1c2dd0cdebce66"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Leeward Dress Shirt White",
+      "score": 8,
+      "rationale": "Dress shirt but Mizzen+Main focus on performance fabric may differ slightly from classic non-iron cotton.",
+      "map_id": "map_06cc25105132496889b5ec339fd42838"
+    },
+    {
+      "competitor_product_name": "Banana Republic Mens 889942 Slim Fit Cotton Blend Non Iron Button Down Dress Shirt,, White/Grey Geometric",
+      "score": 9,
+      "rationale": "Slim fit non-iron dress shirt with button down collar aligns closely, except for potential collar style variation.",
+      "map_id": "map_0ec932d3067e46019206981234896b2d"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "Women's classic fit cotton shirt similar in fabric but differs by gender and likely collar style.",
+      "map_id": "map_839410583791409ba3319a8a019d1a20"
+    },
+    {
+      "competitor_product_name": "Women's Tailored Easy-Care Shirt",
+      "score": 6,
+      "rationale": "Women's tailored easy-care shirt shares dress shirt characteristics but differs in gender target and likely collar.",
+      "map_id": "map_798efad31e7c49d6ae66c364e2585c0c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Leaf Print Dress Shirt",
+      "score": 8,
+      "rationale": "Men's non-iron stretch dress shirt but leaf print design may reduce formal versatility compared to solid.",
+      "map_id": "map_ac2febeb772f4068af79020dfb07ab5a"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim-Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Slim-fit non-iron dress shirt matches reference well in style, fit, and function.",
+      "map_id": "map_26677818fc064f819df733b4e8cba5d7"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt",
+      "score": 4,
+      "rationale": "Casual twill shirt differs in fabric weight and likely style from a dress shirt.",
+      "map_id": "map_c6fd459b4e6d4193b0482637cf7d8f42"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit stretch dress shirt similar in fit/function, though check pattern is less formal than solid.",
+      "map_id": "map_01d737bf91524cf28d4f971c3d171638"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Classic Fit Herringbone Dress Shirt",
+      "score": 8,
+      "rationale": "Classic fit dress shirt with textured herringbone fabric relates well to textured solid reference shirt though fit differs.",
+      "map_id": "map_808ce1589ba14941bafdb6219f7ad913"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250518_160421",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Mens Harvey Shirt Jacket'\n  - Name='Faherty Men's Commander Shirt Jacket'\n  - Name='Norse Projects Hooded Jacket'\n  - Name='Norse Projects 3l Waterproof Stand Collar Jacket'\n  - Name='Alex Mill Men's Garment Dyed Denim Work Jacket'\n  - Name='Alex Mill Women's Britt Cotton Work Jacket'\n  - Name='Owen Barry x Alex Mill Suede Work Jacket'\n  - Name='Levi's Type I Trucker Jacket Men's'\n  - Name='Alex Mill Garment Dyed Denim Work Jacket'\n  - Name='Alex Mill Men's Denim Jacket'\n  - Name='Levi's Men's Washed Cotton Military Jacket'\n  - Name='Filson Men's Chore Jacket'\n  - Name='Barbour Tracker Casual Jacket Men's'\n  - Name='L J Crew Wallace & Barnes Men's Boiled Merino Wool Chore Jacket'\n  - Name='Barbour Men's Ashby Wax Jacket'\n  - Name='Wallace & Barnes Men's Chore Coat'\n  - Name='Wallace & Barnes Men's J Crew Chore Jacket'\n  - Name='Wallace & Barnes Slim-Fit Chore Blazer'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Harvey Shirt Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar shirt jacket style with utility features and durable fabric, though likely less tailored than a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Commander Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt jacket category overlaps with casual layering utility garments, but less chore coat silhouette and workwear construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Hooded Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Hooded jacket diverges from chore coat silhouette and workwear function, implying different style and utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects 3l Waterproof Stand Collar Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Waterproof technical jacket with stand collar differs significantly from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Garment Dyed Denim Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work jacket with denim fabric shares utilitarian workwear style and construction similar to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Women's Britt Cotton Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton work jacket aligns with utilitarian style and function; gender difference noted but silhouette and fabric similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Owen Barry x Alex Mill Suede Work Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Work jacket silhouette similar but suede fabric differs significantly from cotton twill chore coat in durability and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Type I Trucker Jacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Classic trucker jacket shares workwear heritage but differs in cut and construction from chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Garment Dyed Denim Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as previous Alex Mill denim work jacket; strong relevancy due to fabric and utilitarian design.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Denim Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim jacket is casual workwear but less specialized chore coat silhouette and utility than reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Washed Cotton Military Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Military jacket with cotton fabric close in function and durability; military origin aligns with reference fabric inspiration.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Direct chore jacket with similar construction, silhouette, and utility; very close to reference product purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Tracker Casual Jacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual jacket with workwear elements but Barbour’s typical waxed and country style differs from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"L J Crew Wallace & Barnes Men's Boiled Merino Wool Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jacket silhouette and utility closely aligned, though wool fabric deviates from cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Waxed cotton jacket has different styling and heavier finish, less chore coat-like in silhouette and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Almost identical category and silhouette; likely highly comparable in design and function to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's J Crew Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Named chore jacket sharing silhouette and utilitarian features consistent with reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Slim-Fit Chore Blazer\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim-fit chore blazer combines features of chore coat and blazer; slightly different style but related product type.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Mens Harvey Shirt Jacket",
+      "score": 7,
+      "rationale": "Similar shirt jacket style with utility features and durable fabric, though likely less tailored than a chore coat.",
+      "map_id": "map_1ac36cf54d1146659ca1fcbe83e1476e"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Commander Shirt Jacket",
+      "score": 6,
+      "rationale": "Shirt jacket category overlaps with casual layering utility garments, but less chore coat silhouette and workwear construction.",
+      "map_id": "map_767a80e4846748e59e4c6f3ee4739cf8"
+    },
+    {
+      "competitor_product_name": "Norse Projects Hooded Jacket",
+      "score": 4,
+      "rationale": "Hooded jacket diverges from chore coat silhouette and workwear function, implying different style and utility.",
+      "map_id": "map_7b97bf9a576a48e7bf25b52341dec8bc"
+    },
+    {
+      "competitor_product_name": "Norse Projects 3l Waterproof Stand Collar Jacket",
+      "score": 3,
+      "rationale": "Waterproof technical jacket with stand collar differs significantly from cotton twill chore coat.",
+      "map_id": "map_28bae7d072e04441962387ec76657fff"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Garment Dyed Denim Work Jacket",
+      "score": 8,
+      "rationale": "Work jacket with denim fabric shares utilitarian workwear style and construction similar to chore coat.",
+      "map_id": "map_33faf86fbdcb433b9b46e0244ef5f1a0"
+    },
+    {
+      "competitor_product_name": "Alex Mill Women's Britt Cotton Work Jacket",
+      "score": 7,
+      "rationale": "Cotton work jacket aligns with utilitarian style and function; gender difference noted but silhouette and fabric similar.",
+      "map_id": "map_3fbe4547c30941bd89ae0466af2407ff"
+    },
+    {
+      "competitor_product_name": "Owen Barry x Alex Mill Suede Work Jacket",
+      "score": 5,
+      "rationale": "Work jacket silhouette similar but suede fabric differs significantly from cotton twill chore coat in durability and style.",
+      "map_id": "map_3f45dea382fe466ca272bd03564e8d59"
+    },
+    {
+      "competitor_product_name": "Levi's Type I Trucker Jacket Men's",
+      "score": 6,
+      "rationale": "Classic trucker jacket shares workwear heritage but differs in cut and construction from chore coat style.",
+      "map_id": "map_9b15d678d06c44a581a9879b71f1a63e"
+    },
+    {
+      "competitor_product_name": "Alex Mill Garment Dyed Denim Work Jacket",
+      "score": 8,
+      "rationale": "Same as previous Alex Mill denim work jacket; strong relevancy due to fabric and utilitarian design.",
+      "map_id": "map_f6656798c8854382a510058dc4292aa5"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Denim Jacket",
+      "score": 6,
+      "rationale": "Denim jacket is casual workwear but less specialized chore coat silhouette and utility than reference.",
+      "map_id": "map_b14c2950fd044d67bf0b886081b08d5d"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Washed Cotton Military Jacket",
+      "score": 7,
+      "rationale": "Military jacket with cotton fabric close in function and durability; military origin aligns with reference fabric inspiration.",
+      "map_id": "map_50df05948ae842d89a9ddc2eb7017e8d"
+    },
+    {
+      "competitor_product_name": "Filson Men's Chore Jacket",
+      "score": 9,
+      "rationale": "Direct chore jacket with similar construction, silhouette, and utility; very close to reference product purpose.",
+      "map_id": "map_e3a3b4b40ac942689ad98bbab9685cb2"
+    },
+    {
+      "competitor_product_name": "Barbour Tracker Casual Jacket Men's",
+      "score": 6,
+      "rationale": "Casual jacket with workwear elements but Barbour’s typical waxed and country style differs from cotton twill chore coat.",
+      "map_id": "map_89fbae9a1a204e98b322178cb8460bbc"
+    },
+    {
+      "competitor_product_name": "L J Crew Wallace & Barnes Men's Boiled Merino Wool Chore Jacket",
+      "score": 8,
+      "rationale": "Chore jacket silhouette and utility closely aligned, though wool fabric deviates from cotton twill.",
+      "map_id": "map_5fc12ca4e45b4070b8bbce5b70d4cf45"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Wax Jacket",
+      "score": 5,
+      "rationale": "Waxed cotton jacket has different styling and heavier finish, less chore coat-like in silhouette and fabric.",
+      "map_id": "map_bed4f2c059d445f48ed53df330419b52"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's Chore Coat",
+      "score": 9,
+      "rationale": "Almost identical category and silhouette; likely highly comparable in design and function to reference.",
+      "map_id": "map_669262013dc845b6b3b9880d2334fa37"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's J Crew Chore Jacket",
+      "score": 9,
+      "rationale": "Named chore jacket sharing silhouette and utilitarian features consistent with reference product.",
+      "map_id": "map_bf8b8d5b24a047d98ad297385d357f50"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Slim-Fit Chore Blazer",
+      "score": 7,
+      "rationale": "Slim-fit chore blazer combines features of chore coat and blazer; slightly different style but related product type.",
+      "map_id": "map_56e844a84cab403d8f2fc8acaa341c7a"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250612_085600",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Men's Organic Cotton Station Jacket'\n  - Name='Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket'\n  - Name='Carhartt wip Denim Chore Coat'\n  - Name='Norse Projects Men's Links Jacket'\n  - Name='Engineered Garments Wool Nylon Coat'\n  - Name='Engineered Garments Atlantic Parka'\n  - Name='Engineered Garments Jacket'\n  - Name='Filson Men's Lined Denim Short Cruiser Jacket'\n  - Name='Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S'\n  - Name='Carhartt WIP Michigan Coat'\n  - Name='Carhartt WIP Michigan Chore Coat'\n  - Name='NORSE PROJECTS Men's Lars Packable Work Jacket'\n  - Name='J. CREW Wallace & Barnes Men's Canvas Chore Jacket Coat'\n  - Name='Filson Men's Field Cruiser Jacket'\n  - Name='Barbour Utility Chore Jacket'\n  - Name='Barbour Men's Fernport Casual Jacket'\n  - Name='Wallace & Barnes Men's Duck Canvas Utility Chore Jacket'\n  - Name='Engineered Garments Men's Long Winter Jacket'\n  - Name='Faherty Blanket Lined Shirt Jacket'\n  - Name='.Faherty Sunwashed CPO Jacket'\n  - Name='Faherty Men's Stretch Terry Tanker Jacket'\n  - Name='Filson Men's Jungle Cloth Work Jacket'\n  - Name='Barbour Men's Rework Waxed Cotton Jacket'\n  - Name='Carhartt wip rigid Hot Sale Chore Coat'\n  - Name='Norse Projects Standard Twill Overshirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Station Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a utility jacket from Taylor Stitch in organic cotton; likely similar in construction and usage, but name differs so may not have same chore coat silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand, similar specific product name indicating it is an Ojai jacket iteration with organic cotton and work jacket features; very close or same product with slight fabric variant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt wip Denim Chore Coat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Chore coat silhouette and utility focus like Ojai jacket, but denim fabric differs from organic cotton twill; still relevant due to similar style and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Links Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a casual jacket, but no indication of chore coat silhouette or utility features; less relevant without more detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Wool Nylon Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Different fabric (wool nylon) and coat type, probably heavier and less utility-chore coat oriented; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Atlantic Parka\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Parka style is quite different from chore coat silhouette; less relevant though still an outer jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic jacket name, brand known for utility styles; moderate relevancy due to likely similar product category but unclear silhouette or fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Lined Denim Short Cruiser Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Denim cruiser jacket differs in silhouette and fabric weight but shares utility heritage; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jacket silhouette and cotton fabric aligns well with Ojai style; collaboration may add stylistic differences but relevant for function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Coat style with unknown silhouette and fabric; less specific than chore coat but possible utility jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Chore Coat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Chore coat style directly indicated, matches well with Ojai jacket's silhouette and workwear focus.\"\n    },\n    {\n      \"competitor_product_name\": \"NORSE PROJECTS Men's Lars Packable Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work jacket with packing feature; somewhat relevant in utility category but unclear if chore coat silhouette applies.\"\n    },\n    {\n      \"competitor_product_name\": \"J. CREW Wallace & Barnes Men's Canvas Chore Jacket Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Canvas chore jacket very close in style and construction; high relevancy due to same casual workwear category and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Field Cruiser Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cruiser jackets are similar utility style but may differ in silhouette and fabric; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Utility Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Utility chore jacket with similar purpose and silhouette, very relevant to the Ojai jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Fernport Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual jacket but not clearly a chore coat or utility style; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's Duck Canvas Utility Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Utility chore jacket in canvas fabric closely aligns with Ojai jacket's silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Men's Long Winter Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Long winter jacket likely heavier and different silhouette; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Blanket Lined Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Shirt jacket style differs somewhat, though sharing casual layered outerwear category; moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \".Faherty Sunwashed CPO Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"CPO jacket similar in casual outerwear silhouette but less utility chore coat style; somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Stretch Terry Tanker Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tanker jacket style is different from chore coat silhouette; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Jungle Cloth Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with durable fabric aligns with utility function; moderately to highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Rework Waxed Cotton Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Waxed cotton jackets align well in fabric durability and utility though waxed finish differs; relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt wip rigid Hot Sale Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore coat silhouette and workwear focus very relevant; fabric may differ but closely aligned product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Standard Twill Overshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Twill overshirt shares fabric type and casual outerwear category; overshirt silhouette may be less structured than chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Station Jacket",
+      "score": 8,
+      "rationale": "Also a utility jacket from Taylor Stitch in organic cotton; likely similar in construction and usage, but name differs so may not have same chore coat silhouette.",
+      "map_id": "map_e0fdea7bfedf4153acd4d507e050812a"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket",
+      "score": 10,
+      "rationale": "Same brand, similar specific product name indicating it is an Ojai jacket iteration with organic cotton and work jacket features; very close or same product with slight fabric variant.",
+      "map_id": "map_e68fb601316547c7a18df53cf96f6e19"
+    },
+    {
+      "competitor_product_name": "Carhartt wip Denim Chore Coat",
+      "score": 7,
+      "rationale": "Chore coat silhouette and utility focus like Ojai jacket, but denim fabric differs from organic cotton twill; still relevant due to similar style and purpose.",
+      "map_id": "map_9a25cee9a5f743bbbca798b0f11e1f78"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Links Jacket",
+      "score": 5,
+      "rationale": "Likely a casual jacket, but no indication of chore coat silhouette or utility features; less relevant without more detail.",
+      "map_id": "map_d208945dc4ca46c892f1f587cfaa6288"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Wool Nylon Coat",
+      "score": 4,
+      "rationale": "Different fabric (wool nylon) and coat type, probably heavier and less utility-chore coat oriented; lower relevancy.",
+      "map_id": "map_240d83ae25ce4615a018d309e419feb0"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Atlantic Parka",
+      "score": 3,
+      "rationale": "Parka style is quite different from chore coat silhouette; less relevant though still an outer jacket.",
+      "map_id": "map_c470f2b333e04789b5facddc8be47f60"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Jacket",
+      "score": 6,
+      "rationale": "Generic jacket name, brand known for utility styles; moderate relevancy due to likely similar product category but unclear silhouette or fabric.",
+      "map_id": "map_38665fb4eef4417c864bffde230bcc22"
+    },
+    {
+      "competitor_product_name": "Filson Men's Lined Denim Short Cruiser Jacket",
+      "score": 5,
+      "rationale": "Denim cruiser jacket differs in silhouette and fabric weight but shares utility heritage; moderately relevant.",
+      "map_id": "map_507c4c1b9bf441bbacce47a513c28d7c"
+    },
+    {
+      "competitor_product_name": "Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S",
+      "score": 8,
+      "rationale": "Chore jacket silhouette and cotton fabric aligns well with Ojai style; collaboration may add stylistic differences but relevant for function and style.",
+      "map_id": "map_4362972b246b45beb4ab9c3f2b21101b"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Coat",
+      "score": 5,
+      "rationale": "Coat style with unknown silhouette and fabric; less specific than chore coat but possible utility jacket.",
+      "map_id": "map_a19e26d71c5b4282bb4d4edeca3e3e9c"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Chore Coat",
+      "score": 7,
+      "rationale": "Chore coat style directly indicated, matches well with Ojai jacket's silhouette and workwear focus.",
+      "map_id": "map_0ca13a8a76f64e1797269d2a38b1236f"
+    },
+    {
+      "competitor_product_name": "NORSE PROJECTS Men's Lars Packable Work Jacket",
+      "score": 6,
+      "rationale": "Work jacket with packing feature; somewhat relevant in utility category but unclear if chore coat silhouette applies.",
+      "map_id": "map_e4ce4162d33b41ff8fb765b81e94d71a"
+    },
+    {
+      "competitor_product_name": "J. CREW Wallace & Barnes Men's Canvas Chore Jacket Coat",
+      "score": 9,
+      "rationale": "Canvas chore jacket very close in style and construction; high relevancy due to same casual workwear category and silhouette.",
+      "map_id": "map_4a1d46cf3600438d9955b9be5ba437ae"
+    },
+    {
+      "competitor_product_name": "Filson Men's Field Cruiser Jacket",
+      "score": 6,
+      "rationale": "Cruiser jackets are similar utility style but may differ in silhouette and fabric; moderately relevant.",
+      "map_id": "map_e50dba4f8722480bbb4093ea6eece349"
+    },
+    {
+      "competitor_product_name": "Barbour Utility Chore Jacket",
+      "score": 9,
+      "rationale": "Utility chore jacket with similar purpose and silhouette, very relevant to the Ojai jacket.",
+      "map_id": "map_b84aa94622174dbebc4aa24adba44c25"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Fernport Casual Jacket",
+      "score": 5,
+      "rationale": "Casual jacket but not clearly a chore coat or utility style; less relevant.",
+      "map_id": "map_a5cdea5bd84441979875af63b25a8344"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's Duck Canvas Utility Chore Jacket",
+      "score": 9,
+      "rationale": "Utility chore jacket in canvas fabric closely aligns with Ojai jacket's silhouette and function.",
+      "map_id": "map_c741d0e562864ad3a22349614726ccd6"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Men's Long Winter Jacket",
+      "score": 4,
+      "rationale": "Long winter jacket likely heavier and different silhouette; less relevant.",
+      "map_id": "map_daf769a3a1e946a2ba0d9fdd35fd1e83"
+    },
+    {
+      "competitor_product_name": "Faherty Blanket Lined Shirt Jacket",
+      "score": 5,
+      "rationale": "Shirt jacket style differs somewhat, though sharing casual layered outerwear category; moderate relevancy.",
+      "map_id": "map_9f1eed183e6f4bdb8e6ef3f577abe8b2"
+    },
+    {
+      "competitor_product_name": ".Faherty Sunwashed CPO Jacket",
+      "score": 6,
+      "rationale": "CPO jacket similar in casual outerwear silhouette but less utility chore coat style; somewhat relevant.",
+      "map_id": "map_e03441e3c6fc4a49a9439c3e62f8a1f5"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Stretch Terry Tanker Jacket",
+      "score": 4,
+      "rationale": "Tanker jacket style is different from chore coat silhouette; lower relevancy.",
+      "map_id": "map_ac4ddf1ec3974f048b89d3786c6fe54b"
+    },
+    {
+      "competitor_product_name": "Filson Men's Jungle Cloth Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket with durable fabric aligns with utility function; moderately to highly relevant.",
+      "map_id": "map_0feb029b7ff4414faedc364ec2717ee8"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Rework Waxed Cotton Jacket",
+      "score": 7,
+      "rationale": "Waxed cotton jackets align well in fabric durability and utility though waxed finish differs; relevant.",
+      "map_id": "map_eb94626f816c4a47ad8742620aff62d0"
+    },
+    {
+      "competitor_product_name": "Carhartt wip rigid Hot Sale Chore Coat",
+      "score": 8,
+      "rationale": "Chore coat silhouette and workwear focus very relevant; fabric may differ but closely aligned product type.",
+      "map_id": "map_0712c1b2a4d848078e7dba286051554e"
+    },
+    {
+      "competitor_product_name": "Norse Projects Standard Twill Overshirt",
+      "score": 6,
+      "rationale": "Twill overshirt shares fabric type and casual outerwear category; overshirt silhouette may be less structured than chore coat.",
+      "map_id": "map_4d81c8f5a35541d9829925dd0208948f"
+    }
+  ]
+}

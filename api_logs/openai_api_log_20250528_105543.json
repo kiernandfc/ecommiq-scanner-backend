@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250528_105543",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Jetsetter Stretch Chambray Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Royal Oxford Cotton Formal Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Bonobos Men's Tech Button Down Shirt'\n  - Name='Bonobos Men's Jetsetter Premium Slim Dress Shirt'\n  - Name='Bonobos Men's Everyday Oxford Shirt'\n  - Name='Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Jetsetter Slim Fit Check Stretch Dress Shirt'\n  - Name='Bonobos Men's Everyday Casual Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt'\n  - Name='Bonobos Men's Plaid Wrinkle Free Slim Fit Dress'\n  - Name='Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Men's Riviera Short Sleeve Stretch Cotton Button-Up Shirt'\n  - Name='Bonobos Men's Riviera Slim Fit Short Sleeve Stretch Button-Up Shirt'\n  - Name='Lands' End Men's Tall Traditonal Fit Solid No Iron Supima Oxford Dress Shirt'\n  - Name='Bonobos Men's Washed Button Down Shirt'\n  - Name='Lands' End Men's Traditional Fit No Iron Dress Shirt'\n  - Name='Bonobos Tech Button Down Shirt'\n  - Name='Bonobos Men's Slim Fit Stretch Button-Up Shirt'\n  - Name='Lands' End Men's Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Men's Pattern No Iron Oxford Dress Shirt'\n  - Name='Egara Men's Skinny Fit Spread Collar Medallion Dress Shirt'\n  - Name='Bonobos Men's Riviera Slim Fit Stretch Print Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Daily Grind Wrinkle Free Dress Shirt'\n  - Name='Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Chambray Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a dress shirt similar in type, fit is likely comparable, stretch fabric is a modern feature; chambray fabric differs from classic non-iron cotton but still a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Royal Oxford Cotton Formal Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron dress shirt made from Oxford cotton, directly matches the key features of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt with stretch, likely similar cut and usage though material specifics aren't given, close to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Button Down Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Button down collar style differs from the reference semi-spread collar; tech fabric implies performance features but may be less formal.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Premium Slim Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit premium dress shirt aligns closely with reference non-iron dress shirt in use and construction; likely similar collar styles.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford fabric dress shirt, everyday style suggests slightly less formal but still relevant as a dress shirt alternative.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve and performance fabric reduces formal dress shirt relevancy and intended use differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Jetsetter Slim Fit Check Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar slim fit dress shirt with stretch, but check pattern and possible fabric differences reduce relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual shirt differs significantly in formality and intended use from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron, stretch cotton dress shirt matches reference features almost exactly.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Plaid Wrinkle Free Slim Fit Dress\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle free dress shirt similar in cut and feature, pattern difference noted but still very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve, print and tech fabric make this less aligned with formal non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Short Sleeve Stretch Cotton Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve and possibly more casual styling reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Slim Fit Short Sleeve Stretch Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Same reasoning as above, short sleeve dress shirt less formal and thus less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Traditonal Fit Solid No Iron Supima Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron Oxford dress shirt with traditional fit is very similar to reference product, slightly different fit style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Washed Button Down Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Button down collar and washed finish imply more casual styling compared to semi-spread collar non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Traditional fit no iron dress shirt very similar in function and features to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Tech Button Down Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Button down collar and tech fabric reduce formal overlap with reference semi-spread non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Fit Stretch Button-Up Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit stretch dress shirt generally aligns with reference product though collar style unspecified.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve buttondown shirt is less formal than semi-spread collar non-iron dress shirt; still dress shirt but differing collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"No iron Oxford dress shirt aligns well except pattern diverges from solid textured reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Spread Collar Medallion Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Skinny fit dress shirt with spread collar is similar but medallion pattern and likely more formal styling shift relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Slim Fit Stretch Print Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve print shirt less formal and functional overlap with long sleeve non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Daily Grind Wrinkle Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle free dress shirt with likely similar fit and function to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Merino wool fabric differs from cotton but this is a premium slim fit dress shirt, so still fairly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Chambray Dress Shirt",
+      "score": 7,
+      "rationale": "This is a dress shirt similar in type, fit is likely comparable, stretch fabric is a modern feature; chambray fabric differs from classic non-iron cotton but still a dress shirt.",
+      "map_id": "map_4114e66111404569bce322618e7a4d8d"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Royal Oxford Cotton Formal Shirt",
+      "score": 10,
+      "rationale": "Non-iron dress shirt made from Oxford cotton, directly matches the key features of the reference product.",
+      "map_id": "map_a473b0a388bd4dc8ace144acaa606982"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt with stretch, likely similar cut and usage though material specifics aren't given, close to reference product.",
+      "map_id": "map_93d94b308a94466a9954eacef0fb87e1"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Button Down Shirt",
+      "score": 5,
+      "rationale": "Button down collar style differs from the reference semi-spread collar; tech fabric implies performance features but may be less formal.",
+      "map_id": "map_ae587eb43d8a4bbabc17f73360619dac"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Premium Slim Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit premium dress shirt aligns closely with reference non-iron dress shirt in use and construction; likely similar collar styles.",
+      "map_id": "map_4992a23df2aa42a9b78f4f4b6890ee96"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Oxford Shirt",
+      "score": 7,
+      "rationale": "Oxford fabric dress shirt, everyday style suggests slightly less formal but still relevant as a dress shirt alternative.",
+      "map_id": "map_4dea285177e54cda94199c245e94171c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Tech Performance Short Sleeve Button-Up Shirt",
+      "score": 4,
+      "rationale": "Short sleeve and performance fabric reduces formal dress shirt relevancy and intended use differs.",
+      "map_id": "map_cf4a92bcad6244938965ca7ab466efee"
+    },
+    {
+      "competitor_product_name": "Bonobos Jetsetter Slim Fit Check Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Similar slim fit dress shirt with stretch, but check pattern and possible fabric differences reduce relevancy slightly.",
+      "map_id": "map_0e030bfea9034be3ab0747c7715f299d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Shirt",
+      "score": 3,
+      "rationale": "Casual shirt differs significantly in formality and intended use from dress shirt.",
+      "map_id": "map_701500851cab4b20a9ab3c4c30a009dc"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "Non-iron, stretch cotton dress shirt matches reference features almost exactly.",
+      "map_id": "map_7bcc36417c5943518f354a539b8bde3c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Plaid Wrinkle Free Slim Fit Dress",
+      "score": 8,
+      "rationale": "Wrinkle free dress shirt similar in cut and feature, pattern difference noted but still very relevant.",
+      "map_id": "map_968276b6f1ff4acd97e7f731ec4f73af"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt",
+      "score": 3,
+      "rationale": "Short sleeve, print and tech fabric make this less aligned with formal non-iron dress shirt.",
+      "map_id": "map_f78734678e4841e2836193ff8090830f"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Stretch Cotton Button-Up Shirt",
+      "score": 4,
+      "rationale": "Short sleeve and possibly more casual styling reduces relevancy.",
+      "map_id": "map_6532cd8d85354a739e615fd3ed778a24"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Slim Fit Short Sleeve Stretch Button-Up Shirt",
+      "score": 4,
+      "rationale": "Same reasoning as above, short sleeve dress shirt less formal and thus less relevant.",
+      "map_id": "map_ca6c6874d023458fbe73fc51e54e826d"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Traditonal Fit Solid No Iron Supima Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "No iron Oxford dress shirt with traditional fit is very similar to reference product, slightly different fit style.",
+      "map_id": "map_2f5bc9038619483a800f59b2afd20814"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Washed Button Down Shirt",
+      "score": 5,
+      "rationale": "Button down collar and washed finish imply more casual styling compared to semi-spread collar non-iron dress shirt.",
+      "map_id": "map_372b4cf877e844888bc02f9cdccc9864"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit No Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Traditional fit no iron dress shirt very similar in function and features to reference product.",
+      "map_id": "map_ab1117b05e6e471fb96846b5f80e0fd1"
+    },
+    {
+      "competitor_product_name": "Bonobos Tech Button Down Shirt",
+      "score": 5,
+      "rationale": "Button down collar and tech fabric reduce formal overlap with reference semi-spread non-iron dress shirt.",
+      "map_id": "map_3e179d2da485459ba0e34727c5e85b0c"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Fit Stretch Button-Up Shirt",
+      "score": 8,
+      "rationale": "Slim fit stretch dress shirt generally aligns with reference product though collar style unspecified.",
+      "map_id": "map_6a6e501597734001bdd394b5485f8542"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Long sleeve buttondown shirt is less formal than semi-spread collar non-iron dress shirt; still dress shirt but differing collar style.",
+      "map_id": "map_f4470d06ea9842de8906412b08c304de"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "No iron Oxford dress shirt aligns well except pattern diverges from solid textured reference.",
+      "map_id": "map_65e644c5c5cd4dcf95bd1f509ca4b323"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Spread Collar Medallion Dress Shirt",
+      "score": 7,
+      "rationale": "Skinny fit dress shirt with spread collar is similar but medallion pattern and likely more formal styling shift relevancy slightly.",
+      "map_id": "map_3d611b043f7c436288ff5feebf71714a"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Slim Fit Stretch Print Short Sleeve Button-Up Shirt",
+      "score": 4,
+      "rationale": "Short sleeve print shirt less formal and functional overlap with long sleeve non-iron dress shirt.",
+      "map_id": "map_21a438444a2b408eafa52dd6380c9dfd"
+    },
+    {
+      "competitor_product_name": "Bonobos Daily Grind Wrinkle Free Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle free dress shirt with likely similar fit and function to reference product.",
+      "map_id": "map_daa07dae9d0b4e0f989740bc0c4b7250"
+    },
+    {
+      "competitor_product_name": "Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos",
+      "score": 7,
+      "rationale": "Merino wool fabric differs from cotton but this is a premium slim fit dress shirt, so still fairly relevant.",
+      "map_id": "map_d32dad13d93549cab0d661f6891fb87a"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250603_152120",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Elbin Plaid'\n  - Name='Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap'\n  - Name='Brixton Brood Lightweight RipStop Newsboy Cap'\n  - Name='Stetson Men's Harris Tweed Check Wool Cap'\n  - Name='Stetson Men's Hatteras Tweed Houndstooth Flat Cap'\n  - Name='Vintage Christys' London Sussex Wool Plaid Newsboy Cap'\n  - Name='Barbour Wilkin Flat Cap Olive Check'\n  - Name='Carhartt Women's Flannel Plaid Flat Cap Hat'\n  - Name='Goorin Bros. Goat Truckin Adjustable Mesh Trucker Hat'\n  - Name='Brixton Hooligan Lightweight Ripstop Cotton Cap'\n  - Name='Arts & Crafts 504'\n  - Name='Brixton Ashland Stripe Newsboy Cabbie Baker Boy Hat Cap'\n  - Name='Brixton Mens Hooligan Snap Cap'\n  - Name='Kangol Wool Enfield'\n  - Name='Kangol Men's Flag Tropic 504 Ventair Ivy Caps'\n  - Name='Kangol British Peebles Cap Blue Stripe'\n  - Name='Kangol Wool Mowbray Hat'\n  - Name='Lunar New Year Wool 504'\n  - Name='Kangol Cord Spitfire'\n  - Name='Kangol Clubhouse Stripe 507 Flat Cap'\n  - Name='The Homage Boston Scally Cap'\n  - Name='The Sunday Boston Wool Scally Cap'\n  - Name='Galway Boston Scally Cap'\n  - Name='The Lunchbox Boston Scally Cap'\n  - Name='Brogue Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Elbin Plaid\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Name suggests a plaid cap but lacks clear indication of style; possibly somewhat relevant if it's a similar 8-panel or newsboy style, but uncertain.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A newsboy cap with plaid fabric aligns well with the Peaky 8-panel style, making it quite relevant though lighter weight may differ in construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Lightweight RipStop Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy style matches, but lightweight ripstop fabric differs from traditional plaid and leatherette brim; still relevant due to shape and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Harris Tweed Check Wool Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style likely similar, with wool tweed check fabric; less specific about multiple panels and leatherette brim, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Tweed Houndstooth Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap with tweed and houndstooth pattern is similar in silhouette; lacks mention of 8-panel style but still comparable.\"\n    },\n    {\n      \"competitor_product_name\": \"Vintage Christys' London Sussex Wool Plaid Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Plaid newsboy cap closely matches in fabric and style to Peaky's 8-panel newsboy structure, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wilkin Flat Cap Olive Check\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flat cap with check pattern is related but flat caps typically have fewer panels and different silhouette than newsboy/scally caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Flannel Plaid Flat Cap Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Plaid flat cap is somewhat similar, but differs in traditional 8-panel newsboy construction and likely shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Goat Truckin Adjustable Mesh Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Mesh trucker hat is completely different in shape, construction, and style from the Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Lightweight Ripstop Cotton Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cap likely shorter profile without 8 panels or newsboy style; ripstop material differs from traditional fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Arts & Crafts 504\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"504 usually refers to ivy cap style, which differ from the 8-panel newsboy Peaky cap; less relevant though similar as headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Ashland Stripe Newsboy Cabbie Baker Boy Hat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Newsboy/cabbie style closely matches Peaky's 8-panel shape; stripes differ from plaid but silhouette and construction highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Mens Hooligan Snap Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Snap cap likely more fitted and less paneling; different silhouette than classic Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Enfield\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Enfield style cap possibly a flat or ivy style, less similar to the 8-panel Peaky design though similar fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Flag Tropic 504 Ventair Ivy Caps\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"504 ivy cap style quite different silhouette and paneling from 8-panel newsboy Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol British Peebles Cap Blue Stripe\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Peebles cap likely a flat or ivy style, striped fabric less relevant, shape differs from Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool Mowbray Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Mowbray likely a flat or ivy style cap not matching the 8-panel newsboy silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Lunar New Year Wool 504\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"504 indicates ivy cap style, less relevant to an 8-panel newsboy like Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Cord Spitfire\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Spitfire style cap differs in shape and paneling from an 8-panel newsboy cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Clubhouse Stripe 507 Flat Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"507 is a flat cap style, differing silhouette and construction but still a flat hat type.\"\n    },\n    {\n      \"competitor_product_name\": \"The Homage Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same Boston Scally brand and specifically labeled as a Scally cap, almost certainly identical style to The Easter Rose Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"The Sunday Boston Wool Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and product category (Boston Wool Scally Cap) strongly indicates highly similar or identical style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Galway Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Another Boston Scally Cap, likely different pattern but identical style, shape, and construction as reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Lunchbox Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Boston Scally Cap with specific name suggests it's from the same line, very relevant and similar in design.\"\n    },\n    {\n      \"competitor_product_name\": \"Brogue Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and style category (Boston Scally Cap), likely to be highly similar or identical in construction and silhouette.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Elbin Plaid",
+      "score": 5,
+      "rationale": "Name suggests a plaid cap but lacks clear indication of style; possibly somewhat relevant if it's a similar 8-panel or newsboy style, but uncertain.",
+      "map_id": "map_c76a152ffeb346e5a15b0762f0550c63"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Lightweight Houndstooth Plaid Newsboy Cap",
+      "score": 8,
+      "rationale": "A newsboy cap with plaid fabric aligns well with the Peaky 8-panel style, making it quite relevant though lighter weight may differ in construction.",
+      "map_id": "map_6d71f7449a204cb49defc417bf691872"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Lightweight RipStop Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy style matches, but lightweight ripstop fabric differs from traditional plaid and leatherette brim; still relevant due to shape and style.",
+      "map_id": "map_9ed399798e024da69dd6301defe28cd5"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Harris Tweed Check Wool Cap",
+      "score": 6,
+      "rationale": "Flat cap style likely similar, with wool tweed check fabric; less specific about multiple panels and leatherette brim, moderately relevant.",
+      "map_id": "map_39f061e04edd4dc1b684956d38683905"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Tweed Houndstooth Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap with tweed and houndstooth pattern is similar in silhouette; lacks mention of 8-panel style but still comparable.",
+      "map_id": "map_f4ad5f690fa241f4addca8bf0b3bc1bb"
+    },
+    {
+      "competitor_product_name": "Vintage Christys' London Sussex Wool Plaid Newsboy Cap",
+      "score": 8,
+      "rationale": "Plaid newsboy cap closely matches in fabric and style to Peaky's 8-panel newsboy structure, making it highly relevant.",
+      "map_id": "map_fb817e3df22344f3a6463d2eb940e964"
+    },
+    {
+      "competitor_product_name": "Barbour Wilkin Flat Cap Olive Check",
+      "score": 5,
+      "rationale": "Flat cap with check pattern is related but flat caps typically have fewer panels and different silhouette than newsboy/scally caps.",
+      "map_id": "map_22527b863f1d44ceb18aec3c8e7f3160"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Flannel Plaid Flat Cap Hat",
+      "score": 5,
+      "rationale": "Plaid flat cap is somewhat similar, but differs in traditional 8-panel newsboy construction and likely shape.",
+      "map_id": "map_971353d3e924466ea40578c2eb2ae223"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Goat Truckin Adjustable Mesh Trucker Hat",
+      "score": 1,
+      "rationale": "Mesh trucker hat is completely different in shape, construction, and style from the Peaky cap.",
+      "map_id": "map_6eba1a8fb3bb47d6bd9daa830bc96f76"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Lightweight Ripstop Cotton Cap",
+      "score": 4,
+      "rationale": "Cap likely shorter profile without 8 panels or newsboy style; ripstop material differs from traditional fabric.",
+      "map_id": "map_8f9c87d9b9884ac9a308f64378c720f6"
+    },
+    {
+      "competitor_product_name": "Arts & Crafts 504",
+      "score": 4,
+      "rationale": "504 usually refers to ivy cap style, which differ from the 8-panel newsboy Peaky cap; less relevant though similar as headwear.",
+      "map_id": "map_3bb425557ad3400f8891ecdcde9c944d"
+    },
+    {
+      "competitor_product_name": "Brixton Ashland Stripe Newsboy Cabbie Baker Boy Hat Cap",
+      "score": 9,
+      "rationale": "Newsboy/cabbie style closely matches Peaky's 8-panel shape; stripes differ from plaid but silhouette and construction highly relevant.",
+      "map_id": "map_6bf58e0b73774ecab4f893f95ef790d5"
+    },
+    {
+      "competitor_product_name": "Brixton Mens Hooligan Snap Cap",
+      "score": 3,
+      "rationale": "Snap cap likely more fitted and less paneling; different silhouette than classic Peaky cap.",
+      "map_id": "map_8d35a6b50b8e4d26868f86481b05c971"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Enfield",
+      "score": 4,
+      "rationale": "Enfield style cap possibly a flat or ivy style, less similar to the 8-panel Peaky design though similar fabric.",
+      "map_id": "map_5b904f13bae848aaa1a27bb9e2524442"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Flag Tropic 504 Ventair Ivy Caps",
+      "score": 2,
+      "rationale": "504 ivy cap style quite different silhouette and paneling from 8-panel newsboy Peaky cap.",
+      "map_id": "map_80c3704a6b174f7d9678bc9675b3b70b"
+    },
+    {
+      "competitor_product_name": "Kangol British Peebles Cap Blue Stripe",
+      "score": 4,
+      "rationale": "Peebles cap likely a flat or ivy style, striped fabric less relevant, shape differs from Peaky.",
+      "map_id": "map_02bf86b546cb470fad3531025ad2c857"
+    },
+    {
+      "competitor_product_name": "Kangol Wool Mowbray Hat",
+      "score": 3,
+      "rationale": "Mowbray likely a flat or ivy style cap not matching the 8-panel newsboy silhouette.",
+      "map_id": "map_d2b9ba0ae00b4a32a702ebe1f3996223"
+    },
+    {
+      "competitor_product_name": "Lunar New Year Wool 504",
+      "score": 2,
+      "rationale": "504 indicates ivy cap style, less relevant to an 8-panel newsboy like Peaky.",
+      "map_id": "map_81debc3c9377466aac4d0954903fe1bc"
+    },
+    {
+      "competitor_product_name": "Kangol Cord Spitfire",
+      "score": 3,
+      "rationale": "Spitfire style cap differs in shape and paneling from an 8-panel newsboy cap.",
+      "map_id": "map_d9d9223454a84cc3937a823dda4844c6"
+    },
+    {
+      "competitor_product_name": "Kangol Clubhouse Stripe 507 Flat Cap",
+      "score": 4,
+      "rationale": "507 is a flat cap style, differing silhouette and construction but still a flat hat type.",
+      "map_id": "map_b2c46990f75749439083fbf6b7d47e74"
+    },
+    {
+      "competitor_product_name": "The Homage Boston Scally Cap",
+      "score": 10,
+      "rationale": "Same Boston Scally brand and specifically labeled as a Scally cap, almost certainly identical style to The Easter Rose Peaky.",
+      "map_id": "map_556086cb22704de6a608aff3f94bb51d"
+    },
+    {
+      "competitor_product_name": "The Sunday Boston Wool Scally Cap",
+      "score": 10,
+      "rationale": "Same brand and product category (Boston Wool Scally Cap) strongly indicates highly similar or identical style and construction.",
+      "map_id": "map_426522ad7c84463996af8d0822f69c68"
+    },
+    {
+      "competitor_product_name": "Galway Boston Scally Cap",
+      "score": 10,
+      "rationale": "Another Boston Scally Cap, likely different pattern but identical style, shape, and construction as reference product.",
+      "map_id": "map_8e10070b10294d8d887bb5b11d84a5d5"
+    },
+    {
+      "competitor_product_name": "The Lunchbox Boston Scally Cap",
+      "score": 10,
+      "rationale": "Boston Scally Cap with specific name suggests it's from the same line, very relevant and similar in design.",
+      "map_id": "map_92e278a13d0749b19e4117511b44e48c"
+    },
+    {
+      "competitor_product_name": "Brogue Boston Scally Cap",
+      "score": 10,
+      "rationale": "Same brand and style category (Boston Scally Cap), likely to be highly similar or identical in construction and silhouette.",
+      "map_id": "map_9b128f5f10f048b593b1ad2bd38100dc"
+    }
+  ]
+}

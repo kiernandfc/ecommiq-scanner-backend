@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250523_082313",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Pinpoint Oxford Polo'\n  - Name='Brooks Brothers Men's Regular Fit Cotton Non Iron Dress Shirt with French Cuffs'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Regent Fit Non Iron Dress Shirt'\n  - Name='Brooks Brothers Stretch Regent Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Regular Fit Stretch Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Shirts | Brooks Brothers Button Down Shirt 18 Blue Madison Cotton Non-Iron New | Color: Blue | Size: 18 | Fabandglitz's Closet'\n  - Name='Brooks Brothers Regent Fit Dress Shirt Non Iron White/blue , M'\n  - Name='Brooks Brothers Men's Big & Tall Non-Iron Check Sport Shirt'\n  - Name='Brooks Brothers Men's Non-Iron Stretch Twill Ainsley Dress Shirt'\n  - Name='Brooks Brothers Regent Fit Dress Shirt'\n  - Name='Brooks Brothers Men's American-Made Oxford Cloth Button-Down Dress Shirt'\n  - Name='Brooks Brothers Dress Shirt Men 18 - 4/5 Point Slim Fit Non-iron'\n  - Name='Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Mens 17-36 French Cuff Non Iron Blue Ls Button Down'\n  - Name='Brooks Brothers Shirts | Brooks Brothers Shirt 16 33 Regent Regular-Fit Dress Shirt Non-Iron Tab Collar | Color: Blue | Size: 16 | Pm-94041628's'\n  - Name='Brooks Brothers Men Traditional Fit Long Sleeve Non-iron Dress Shirt'\n  - Name='Brooks Brothers Men's Big & Tall Non-Iron Tattersall Check Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='J.crew Men's Slim Button Down Bowery Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt'\n  - Name='Banana Republic Oxford Shirt'\n  - Name='J.Crew Women's Garçon Classic Cotton Poplin Shirt'\n  - Name='J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Pinpoint Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a polo shirt, whereas the reference is a dress shirt; different collar styles and formality levels, though both are non-iron cotton shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regular Fit Cotton Non Iron Dress Shirt with French Cuffs\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a regular fit, non-iron dress shirt very similar in function and construction to the reference product, just with French cuffs which is a minor variation.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a non-iron dress shirt similar in features and use, differing mainly in size range and stretch fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regent Fit Non Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A non-iron dress shirt very closely matching the reference product in type, fit, and function, essentially identical in core features.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Stretch Regent Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same as above but with stretch fabric; fully aligns with product type and function of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regular Fit Stretch Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Regular fit dress shirt with stretch and Supima cotton; non-iron status not mentioned, reducing score slightly but still very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt from a specific collection, matching core attributes and use similar to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Shirts | Brooks Brothers Button Down Shirt 18 Blue Madison Cotton Non-Iron New | Color: Blue | Size: 18 | Fabandglitz's Closet\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron cotton button-down shirt; button-down collar slightly differs from semi-spread reference collar, but still a dress shirt type.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Regent Fit Dress Shirt Non Iron White/blue , M\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron, Regent fit dress shirt closely matching the reference product in function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Non-Iron Check Sport Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Sport shirt is generally less formal and different in design and collar style compared to a dress shirt; check pattern but mainly functionally distinct.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Non-Iron Stretch Twill Ainsley Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with stretch fabric and twill texture, very similar to the reference in core aspects.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Regent Fit Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Regent fit dress shirt, likely non-iron though not stated; strong relevance mostly matching reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's American-Made Oxford Cloth Button-Down Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt but button-down collar and Oxford cloth differ somewhat from semi-spread non-iron dress shirt; relevant but less so.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Dress Shirt Men 18 - 4/5 Point Slim Fit Non-iron\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron slim fit dress shirt aligning closely in function though fit differs slightly from trim/standard fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Fully aligns with reference product as a regular fit non-iron dress shirt matching core features.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Mens 17-36 French Cuff Non Iron Blue Ls Button Down\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron dress shirt with French cuffs and button-down collar; less relevant due to collar and cuff differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Shirts | Brooks Brothers Shirt 16 33 Regent Regular-Fit Dress Shirt Non-Iron Tab Collar | Color: Blue | Size: 16 | Pm-94041628's\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron regular fit dress shirt but with tab collar which differs from semi-spread collar in reference, still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men Traditional Fit Long Sleeve Non-iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Traditional fit non-iron dress shirt matching the reference product in core aspects except fit which is slightly different.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Non-Iron Tattersall Check Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt and non-iron but with Tattersall check pattern; pattern less relevant, fit less standard, so moderate score.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Polo shirt type differs significantly from dress shirt reference despite both being stretch, cotton, non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"J.crew Men's Slim Button Down Bowery Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt but button-down collar and slim fit differ from trim/standard fit semi-spread referenced; still relevant in category.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt with twill fabric like reference, but checkered pattern and differing collar style reduce score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Oxford shirt likely not non-iron and typically button-down collar; related to dress shirts but less relevant due to finish and collar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Garçon Classic Cotton Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Women's cotton poplin shirt differs in gender market and probably collar and fit style; somewhat related but less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar rationale as above; women's classic-fit cotton shirt differs from men's non-iron dress shirt target and construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Pinpoint Oxford Polo",
+      "score": 3,
+      "rationale": "This is a polo shirt, whereas the reference is a dress shirt; different collar styles and formality levels, though both are non-iron cotton shirts.",
+      "map_id": "map_622748bfe71a44299ea6ac07ee8f4cdf"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regular Fit Cotton Non Iron Dress Shirt with French Cuffs",
+      "score": 9,
+      "rationale": "This is a regular fit, non-iron dress shirt very similar in function and construction to the reference product, just with French cuffs which is a minor variation.",
+      "map_id": "map_1864e4b1c6f94e0d95fcca413a7db67c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Also a non-iron dress shirt similar in features and use, differing mainly in size range and stretch fabric.",
+      "map_id": "map_e5ddd10605aa4f9caba506300b1c1fbf"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regent Fit Non Iron Dress Shirt",
+      "score": 10,
+      "rationale": "A non-iron dress shirt very closely matching the reference product in type, fit, and function, essentially identical in core features.",
+      "map_id": "map_705d39d4b0c148caa02d8cc0f9dea517"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Stretch Regent Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Same as above but with stretch fabric; fully aligns with product type and function of the reference.",
+      "map_id": "map_8c14e813e7484d1f998241d056d1c288"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regular Fit Stretch Supima Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Regular fit dress shirt with stretch and Supima cotton; non-iron status not mentioned, reducing score slightly but still very relevant.",
+      "map_id": "map_f8a34ee2d980416487752fe424db9a17"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Explorer Collection Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt from a specific collection, matching core attributes and use similar to the reference.",
+      "map_id": "map_dd2432b451744657883e867706812a57"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Shirts | Brooks Brothers Button Down Shirt 18 Blue Madison Cotton Non-Iron New | Color: Blue | Size: 18 | Fabandglitz's Closet",
+      "score": 7,
+      "rationale": "Non-iron cotton button-down shirt; button-down collar slightly differs from semi-spread reference collar, but still a dress shirt type.",
+      "map_id": "map_802d322ee7554258b5511068c97e3080"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Regent Fit Dress Shirt Non Iron White/blue , M",
+      "score": 10,
+      "rationale": "Non-iron, Regent fit dress shirt closely matching the reference product in function and construction.",
+      "map_id": "map_0e75cdf75b574603b540bbbaf3880272"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Non-Iron Check Sport Shirt",
+      "score": 4,
+      "rationale": "Sport shirt is generally less formal and different in design and collar style compared to a dress shirt; check pattern but mainly functionally distinct.",
+      "map_id": "map_1aa81a5fe9534caa9237c1f9d33b5af2"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Non-Iron Stretch Twill Ainsley Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with stretch fabric and twill texture, very similar to the reference in core aspects.",
+      "map_id": "map_8bc7880a6a57473e93a4990cb36db2ec"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Regent Fit Dress Shirt",
+      "score": 9,
+      "rationale": "Regent fit dress shirt, likely non-iron though not stated; strong relevance mostly matching reference product.",
+      "map_id": "map_2da5817ddda741639cb9aaeadf55b3f3"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's American-Made Oxford Cloth Button-Down Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt but button-down collar and Oxford cloth differ somewhat from semi-spread non-iron dress shirt; relevant but less so.",
+      "map_id": "map_d85396c889384620af240bb1550998f2"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Dress Shirt Men 18 - 4/5 Point Slim Fit Non-iron",
+      "score": 8,
+      "rationale": "Non-iron slim fit dress shirt aligning closely in function though fit differs slightly from trim/standard fit.",
+      "map_id": "map_e5ed65da17324247ad42e50698e2e742"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Fully aligns with reference product as a regular fit non-iron dress shirt matching core features.",
+      "map_id": "map_5f043b10e9e84715af26bca9ea896ebd"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Mens 17-36 French Cuff Non Iron Blue Ls Button Down",
+      "score": 7,
+      "rationale": "Non-iron dress shirt with French cuffs and button-down collar; less relevant due to collar and cuff differences.",
+      "map_id": "map_3a83a8c93cf041daad85a83c411414ea"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Shirts | Brooks Brothers Shirt 16 33 Regent Regular-Fit Dress Shirt Non-Iron Tab Collar | Color: Blue | Size: 16 | Pm-94041628's",
+      "score": 8,
+      "rationale": "Non-iron regular fit dress shirt but with tab collar which differs from semi-spread collar in reference, still quite relevant.",
+      "map_id": "map_2aa5f1cfea494e498fa60f2bc6f6395d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men Traditional Fit Long Sleeve Non-iron Dress Shirt",
+      "score": 9,
+      "rationale": "Traditional fit non-iron dress shirt matching the reference product in core aspects except fit which is slightly different.",
+      "map_id": "map_040510caae2b45cbaecb48bb8106ecf2"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Non-Iron Tattersall Check Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt and non-iron but with Tattersall check pattern; pattern less relevant, fit less standard, so moderate score.",
+      "map_id": "map_1ee3898d3194401983588f17624cf420"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 3,
+      "rationale": "Polo shirt type differs significantly from dress shirt reference despite both being stretch, cotton, non-iron.",
+      "map_id": "map_2328c527b45945fc961924b23f615557"
+    },
+    {
+      "competitor_product_name": "J.crew Men's Slim Button Down Bowery Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt but button-down collar and slim fit differ from trim/standard fit semi-spread referenced; still relevant in category.",
+      "map_id": "map_5c59a0872886424b9f3b00f78ba39c5f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt with twill fabric like reference, but checkered pattern and differing collar style reduce score slightly.",
+      "map_id": "map_50475d31357f497b8a4dd897f3cc14b4"
+    },
+    {
+      "competitor_product_name": "Banana Republic Oxford Shirt",
+      "score": 6,
+      "rationale": "Oxford shirt likely not non-iron and typically button-down collar; related to dress shirts but less relevant due to finish and collar.",
+      "map_id": "map_78c8cb7df54043dbbb39a79d725006fa"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Garçon Classic Cotton Poplin Shirt",
+      "score": 5,
+      "rationale": "Women's cotton poplin shirt differs in gender market and probably collar and fit style; somewhat related but less relevant.",
+      "map_id": "map_97b9c47e0cdc4b70a2f9f17069d2da64"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Jules Classic-Fit Cotton Poplin Shirt",
+      "score": 5,
+      "rationale": "Similar rationale as above; women's classic-fit cotton shirt differs from men's non-iron dress shirt target and construction.",
+      "map_id": "map_e581130badf34c509b0f89681161baed"
+    }
+  ]
+}

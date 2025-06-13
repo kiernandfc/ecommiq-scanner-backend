@@ -1,0 +1,149 @@
+{
+  "timestamp": "20250512_073333",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP OG Chore Coat'\n  - Name='Carhartt Wip Michigan Chore Coat'\n  - Name='Carhartt WIP Michigan Chore Coat'\n  - Name='Carhartt Wip Michigan Chore Coat'\n  - Name='Alex Mill Denim Work Jacket'\n  - Name='Engineered Garments Chore Jacket'\n  - Name='Barbour Men's Keld Water Repellent Jacket'\n  - Name='Levi's Men's Set The Scene Embroidered Denim Trucker Jacket'\n  - Name='Carhartt WIP OG Chore Coat'\n  - Name='Barbour Men's Ashby Medium Weight Wax Cotton Jacket'\n  - Name='Barbour Men's Transport Wax Jacket'\n  - Name='Levi's Men's Lightweight Cotton Shacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a chore coat similar in silhouette and function to The Ojai Jacket, likely made for durability and utility, aligning closely with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Michigan Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a chore coat with similar workwear styling and utility features, making it highly relevant to The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Michigan Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as above; the Michigan Chore Coat closely matches the silhouette, construction, and purpose of the reference chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Michigan Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated entry but still very relevant as a chore coat similar in styling and function to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While a work jacket, it’s denim rather than twill chore coat fabric and may have a trucker jacket silhouette, making it somewhat less similar but still relevant in workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Chore Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A chore jacket very closely aligned with the French chore coat silhouette and utilitarian function, making it almost identical in purpose and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Keld Water Repellent Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is more of a waxed outdoor jacket with a different construction and intended use than a chore coat, less relevant though both are utility outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Set The Scene Embroidered Denim Trucker Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Denim trucker jackets differ greatly in silhouette, construction, and purpose from chore coats, with a more casual style and fewer utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as the earlier Carhartt WIP OG Chore Coat — strongly relevant due to similar silhouette and functionality.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Medium Weight Wax Cotton Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Wax cotton utility jacket suited for rain protection; different style and fabric from chore coat, somewhat relevant as durable outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Transport Wax Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to the Ashby and Keld, a waxed cotton jacket aimed at weather resistance, less relevant in chore coat styling but related as durable outerwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Cotton Shacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A shacket is a lightweight shirt-jacket hybrid; generally less tailored and less utility-focused than a chore coat, so only marginally relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "This is a chore coat similar in silhouette and function to The Ojai Jacket, likely made for durability and utility, aligning closely with the reference product.",
+      "map_id": "map_4370871ba667475fabccf30d41d94285"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "This is a chore coat similar in silhouette and function to The Ojai Jacket, likely made for durability and utility, aligning closely with the reference product.",
+      "map_id": "map_d876a3c1379d4546b2e3594c4d7a09c9"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Michigan Chore Coat",
+      "score": 9,
+      "rationale": "Also a chore coat with similar workwear styling and utility features, making it highly relevant to The Ojai Jacket.",
+      "map_id": "map_0ddc6f1cb6c0411595716636a30d7dc9"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Michigan Chore Coat",
+      "score": 9,
+      "rationale": "Also a chore coat with similar workwear styling and utility features, making it highly relevant to The Ojai Jacket.",
+      "map_id": "map_405889aa66fb4ad988980990baef8737"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Michigan Chore Coat",
+      "score": 9,
+      "rationale": "Same as above; the Michigan Chore Coat closely matches the silhouette, construction, and purpose of the reference chore coat.",
+      "map_id": "map_e4ba5898511646e2a0e9a9ee53dba0f9"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Michigan Chore Coat",
+      "score": 9,
+      "rationale": "Repeated entry but still very relevant as a chore coat similar in styling and function to the reference product.",
+      "map_id": "map_0ddc6f1cb6c0411595716636a30d7dc9"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Michigan Chore Coat",
+      "score": 9,
+      "rationale": "Repeated entry but still very relevant as a chore coat similar in styling and function to the reference product.",
+      "map_id": "map_405889aa66fb4ad988980990baef8737"
+    },
+    {
+      "competitor_product_name": "Alex Mill Denim Work Jacket",
+      "score": 7,
+      "rationale": "While a work jacket, it’s denim rather than twill chore coat fabric and may have a trucker jacket silhouette, making it somewhat less similar but still relevant in workwear style.",
+      "map_id": "map_116bcaf5fad0460eabfcf4d93da69bd7"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Chore Jacket",
+      "score": 10,
+      "rationale": "A chore jacket very closely aligned with the French chore coat silhouette and utilitarian function, making it almost identical in purpose and style.",
+      "map_id": "map_caa954093458483c8db2608c4dd67b83"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Keld Water Repellent Jacket",
+      "score": 5,
+      "rationale": "This is more of a waxed outdoor jacket with a different construction and intended use than a chore coat, less relevant though both are utility outerwear.",
+      "map_id": "map_b63faf3fcb5f4c9e868c797f3b9f9f9b"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Set The Scene Embroidered Denim Trucker Jacket",
+      "score": 3,
+      "rationale": "Denim trucker jackets differ greatly in silhouette, construction, and purpose from chore coats, with a more casual style and fewer utility features.",
+      "map_id": "map_2a7e1e49b2944769b8267915ce1177bb"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "Same as the earlier Carhartt WIP OG Chore Coat — strongly relevant due to similar silhouette and functionality.",
+      "map_id": "map_4370871ba667475fabccf30d41d94285"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Chore Coat",
+      "score": 9,
+      "rationale": "Same as the earlier Carhartt WIP OG Chore Coat — strongly relevant due to similar silhouette and functionality.",
+      "map_id": "map_d876a3c1379d4546b2e3594c4d7a09c9"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Medium Weight Wax Cotton Jacket",
+      "score": 5,
+      "rationale": "Wax cotton utility jacket suited for rain protection; different style and fabric from chore coat, somewhat relevant as durable outerwear.",
+      "map_id": "map_33cb712638114ab5a07fd37012b34ab5"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Transport Wax Jacket",
+      "score": 5,
+      "rationale": "Similar to the Ashby and Keld, a waxed cotton jacket aimed at weather resistance, less relevant in chore coat styling but related as durable outerwear.",
+      "map_id": "map_4785997c8ec14116a2b4e8d9ad6f7487"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Cotton Shacket",
+      "score": 4,
+      "rationale": "A shacket is a lightweight shirt-jacket hybrid; generally less tailored and less utility-focused than a chore coat, so only marginally relevant.",
+      "map_id": "map_567212bf1cfb4168bb63d76c577365e2"
+    }
+  ]
+}

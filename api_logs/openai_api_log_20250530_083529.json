@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250530_083529",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Weekday Warrior Slim Dress Shirt'\n  - Name='Marine Layer Women's Cali Poplin Shirt'\n  - Name='Marine Layer Men's Boxy Resort Shirt'\n  - Name='Men's Todd Snyder Pocket T-Shirt'\n  - Name='Hamilton + Todd Snyder Men's Twill Western Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Alex Mill Val Poplin Shirt'\n  - Name='Alex Mill Easy Shirt'\n  - Name='Todd Snyder Short Sleeve Linen Button Down Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt'\n  - Name='Oxford Todd Snyder Gingham Favorite Button Down Shirt'\n  - Name='Vintage Heavy Slub Button Down'\n  - Name='Marine Layer Men's Wyatt Sweater Button Down'\n  - Name='Marine Layer Men's Tahoe Plaid Flannel Shirt'\n  - Name='Everlane Men's Heavyweight Overshirt'\n  - Name='Men's Charles Tyrwhitt Pure Linen Shirt'\n  - Name='Todd Snyder Men's Slim Fit Point Collar Shirt'\n  - Name='Mizzen + Main Halyard Men's Performance Short Sleeve Button Down Moisture Wicking'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Bonobos Men's Stretch Everyday Casual Shirt'\n  - Name='Men Alex Mill Easy Shirt Poplin'\n  - Name='Alex Mill Mason Cotton Linen Shirt'\n  - Name='Charles Tyrwhitt Men's Pure Linen Shirt'\n  - Name='Alex Mill Linen Camp Shirt'\n  - Name='Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Slim Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are tailored dress shirts with functional use for work and style, likely similar fits and construction but the Bonobos model likely uses standard cotton and less heavy construction compared to the organic oxford fabric of The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Women's Cali Poplin Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a women's poplin shirt, differing in intended wearer and likely fabric weight and construction from a men's heavy Oxford shirt; less relevant due to gender-specific style and fabric differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Boxy Resort Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A boxy resort shirt suggests a casual, loose fit and lightweight fabric, less structured and formal than the tailored heavy Oxford jack shirt; limited overlap in function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Todd Snyder Pocket T-Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A T-shirt is fundamentally different in fabric, silhouette, and construction from a button-down Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Hamilton + Todd Snyder Men's Twill Western Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A twill western shirt is a button-down but uses a different fabric and typically has western styling; moderately relevant but less refined tailoring and different fabric than the Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A stretch dress shirt is similar in intended use and fit; possibly lighter fabric than the Jack Shirt but similar dress shirt construction and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Val Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A poplin shirt is lighter weight and less textured than Oxford, making it less sturdy and structured than the Jack; moderately relevant as a button-down shirt option.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Easy Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a casual button-down with a more relaxed fit but overall serving a similar purpose as a men's shirt; less formal and possibly lighter fabric but still somewhat related.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Short Sleeve Linen Button Down Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve linen button down differs in fabric, breathability, and formality, less structured and substantial than a long sleeve Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A non-iron Oxford dress shirt using similar fabric though with stripes instead of plain; very close in construction and function, differing mainly in styling detail and fabric finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Oxford Todd Snyder Gingham Favorite Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An Oxford button-down shirt but with a gingham pattern; similarly constructed and styled as the Jack Shirt, but likely not organic cotton and possibly less heavy fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Vintage Heavy Slub Button Down\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Heavy slub fabric indicates thicker texture similar to Oxford but possibly less polished tailoring; relevant as a heavier casual shirt option but differing fabric feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Wyatt Sweater Button Down\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A sweater button down suggests a knit or heavier knit fabric, differing greatly from woven Oxford fabric and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Tahoe Plaid Flannel Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A flannel shirt is heavier and casual but made from different fabric and generally used for casual or outdoors rather than a versatile Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Heavyweight Overshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An overshirt is a heavier outer layer compared to a shirt meant for direct wear; similar weight fabric but different intended use and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Pure Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A pure linen shirt is lighter and more breathable but less sturdy and structured than an Oxford; relevant only as a men’s button shirt but distinctly different fabric and dress level.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Slim Fit Point Collar Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit button shirt with point collar aligns well with the Jack Shirt’s tailored style though fabric specifics unclear; medium to high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Halyard Men's Performance Short Sleeve Button Down Moisture Wicking\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve, performance fabric, and moisture-wicking properties diverge substantially from the Jack Shirt’s focus on heavyweight organic cotton Oxford fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to other Bonobos weekday warrior slim dress shirt; tailored dress shirt likely with comparable function and fit but probably lighter or different fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Everyday Casual Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual stretch shirt suggests more relaxed casual use than the Jack’s dress/casual balance but still a button shirt serving similar category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Alex Mill Easy Shirt Poplin\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Poplin fabric is lighter and less rugged than Oxford; a casual button-down shirt but less heavy duty and structured than The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Mason Cotton Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cotton-linen blends are lighter and more breathable with a different texture from a heavy Oxford basket weave; moderate relevance as a casual button shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Pure Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Pure linen is lightweight and breathable but less structured and durable than Oxford, less direct overlap with The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Camp Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Camp shirts tend to have a relaxed, boxy silhouette and linen fabric is lightweight; far less structured and formal than The Jack.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A stretch washed Oxford striped shirt closely matches the reference product in fabric type and construction, differing mainly in striping and stretch material.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Slim Dress Shirt",
+      "score": 7,
+      "rationale": "Both are tailored dress shirts with functional use for work and style, likely similar fits and construction but the Bonobos model likely uses standard cotton and less heavy construction compared to the organic oxford fabric of The Jack Shirt.",
+      "map_id": "map_0f76b5d9665b4c519706a03f0ace3686"
+    },
+    {
+      "competitor_product_name": "Marine Layer Women's Cali Poplin Shirt",
+      "score": 4,
+      "rationale": "This is a women's poplin shirt, differing in intended wearer and likely fabric weight and construction from a men's heavy Oxford shirt; less relevant due to gender-specific style and fabric differences.",
+      "map_id": "map_f0cefe8451b64329bad675f7a1e857e8"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Boxy Resort Shirt",
+      "score": 3,
+      "rationale": "A boxy resort shirt suggests a casual, loose fit and lightweight fabric, less structured and formal than the tailored heavy Oxford jack shirt; limited overlap in function and construction.",
+      "map_id": "map_de6d91b496ff49048f31c5486419295c"
+    },
+    {
+      "competitor_product_name": "Men's Todd Snyder Pocket T-Shirt",
+      "score": 2,
+      "rationale": "A T-shirt is fundamentally different in fabric, silhouette, and construction from a button-down Oxford shirt.",
+      "map_id": "map_835fba507e89449d9ab88579b6caec04"
+    },
+    {
+      "competitor_product_name": "Hamilton + Todd Snyder Men's Twill Western Shirt",
+      "score": 6,
+      "rationale": "A twill western shirt is a button-down but uses a different fabric and typically has western styling; moderately relevant but less refined tailoring and different fabric than the Jack Shirt.",
+      "map_id": "map_3f2da513bca949f18a2bed8d00d19584"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "A stretch dress shirt is similar in intended use and fit; possibly lighter fabric than the Jack Shirt but similar dress shirt construction and style.",
+      "map_id": "map_329178fcb8ce4874bf53bba4ab3c64df"
+    },
+    {
+      "competitor_product_name": "Alex Mill Val Poplin Shirt",
+      "score": 5,
+      "rationale": "A poplin shirt is lighter weight and less textured than Oxford, making it less sturdy and structured than the Jack; moderately relevant as a button-down shirt option.",
+      "map_id": "map_8bce62313eb444a0befce61ca4044147"
+    },
+    {
+      "competitor_product_name": "Alex Mill Easy Shirt",
+      "score": 6,
+      "rationale": "Likely a casual button-down with a more relaxed fit but overall serving a similar purpose as a men's shirt; less formal and possibly lighter fabric but still somewhat related.",
+      "map_id": "map_aed14c8d9ef649da8b3619f553a64e3c"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Short Sleeve Linen Button Down Shirt",
+      "score": 4,
+      "rationale": "Short sleeve linen button down differs in fabric, breathability, and formality, less structured and substantial than a long sleeve Oxford shirt.",
+      "map_id": "map_d23a1720b0194388bf7dabe07e18ae15"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt",
+      "score": 8,
+      "rationale": "A non-iron Oxford dress shirt using similar fabric though with stripes instead of plain; very close in construction and function, differing mainly in styling detail and fabric finish.",
+      "map_id": "map_36f9f87a9f534a0a99d758a3acf1573f"
+    },
+    {
+      "competitor_product_name": "Oxford Todd Snyder Gingham Favorite Button Down Shirt",
+      "score": 7,
+      "rationale": "An Oxford button-down shirt but with a gingham pattern; similarly constructed and styled as the Jack Shirt, but likely not organic cotton and possibly less heavy fabric.",
+      "map_id": "map_01d1497d7690485892256c748d001c06"
+    },
+    {
+      "competitor_product_name": "Vintage Heavy Slub Button Down",
+      "score": 6,
+      "rationale": "Heavy slub fabric indicates thicker texture similar to Oxford but possibly less polished tailoring; relevant as a heavier casual shirt option but differing fabric feel.",
+      "map_id": "map_e2b0509d77f641ae9cfe8609b43eefa6"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Wyatt Sweater Button Down",
+      "score": 3,
+      "rationale": "A sweater button down suggests a knit or heavier knit fabric, differing greatly from woven Oxford fabric and style.",
+      "map_id": "map_bd5e0200df6c4fac9aac79301143f734"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Tahoe Plaid Flannel Shirt",
+      "score": 5,
+      "rationale": "A flannel shirt is heavier and casual but made from different fabric and generally used for casual or outdoors rather than a versatile Oxford shirt.",
+      "map_id": "map_e785c5f6a1dc44529eebd246e60e14b4"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Heavyweight Overshirt",
+      "score": 5,
+      "rationale": "An overshirt is a heavier outer layer compared to a shirt meant for direct wear; similar weight fabric but different intended use and construction.",
+      "map_id": "map_f6c05a4aaa9a477cadb75a87575578c6"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Pure Linen Shirt",
+      "score": 4,
+      "rationale": "A pure linen shirt is lighter and more breathable but less sturdy and structured than an Oxford; relevant only as a men’s button shirt but distinctly different fabric and dress level.",
+      "map_id": "map_74cab7cde7a14f95b588ce3b8902be83"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Slim Fit Point Collar Shirt",
+      "score": 7,
+      "rationale": "Slim fit button shirt with point collar aligns well with the Jack Shirt’s tailored style though fabric specifics unclear; medium to high relevancy.",
+      "map_id": "map_a3ece9ea5ea04c66bff24add151e5d20"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Halyard Men's Performance Short Sleeve Button Down Moisture Wicking",
+      "score": 3,
+      "rationale": "Short sleeve, performance fabric, and moisture-wicking properties diverge substantially from the Jack Shirt’s focus on heavyweight organic cotton Oxford fabric.",
+      "map_id": "map_255eca883cce42fb89bde41f37364cd6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 7,
+      "rationale": "Similar to other Bonobos weekday warrior slim dress shirt; tailored dress shirt likely with comparable function and fit but probably lighter or different fabric.",
+      "map_id": "map_955b3e240aca426eb1ebf1581e776633"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Everyday Casual Shirt",
+      "score": 6,
+      "rationale": "Casual stretch shirt suggests more relaxed casual use than the Jack’s dress/casual balance but still a button shirt serving similar category.",
+      "map_id": "map_3abab5cd201e42f4be699f0435b035fb"
+    },
+    {
+      "competitor_product_name": "Men Alex Mill Easy Shirt Poplin",
+      "score": 5,
+      "rationale": "Poplin fabric is lighter and less rugged than Oxford; a casual button-down shirt but less heavy duty and structured than The Jack Shirt.",
+      "map_id": "map_78b12f7d46f14c518a30d5117650f4eb"
+    },
+    {
+      "competitor_product_name": "Alex Mill Mason Cotton Linen Shirt",
+      "score": 4,
+      "rationale": "Cotton-linen blends are lighter and more breathable with a different texture from a heavy Oxford basket weave; moderate relevance as a casual button shirt.",
+      "map_id": "map_c0f595f7b037424bba3d19a5a6256909"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Pure Linen Shirt",
+      "score": 4,
+      "rationale": "Pure linen is lightweight and breathable but less structured and durable than Oxford, less direct overlap with The Jack Shirt.",
+      "map_id": "map_ff6213e1b38944cc8ab0d0b6433d4752"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Camp Shirt",
+      "score": 3,
+      "rationale": "Camp shirts tend to have a relaxed, boxy silhouette and linen fabric is lightweight; far less structured and formal than The Jack.",
+      "map_id": "map_88e82398f1044dbfbaca02627f30351a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Oxford Stripe Shirt",
+      "score": 8,
+      "rationale": "A stretch washed Oxford striped shirt closely matches the reference product in fabric type and construction, differing mainly in striping and stretch material.",
+      "map_id": "map_3cc24fcb746e41b0830542e5918f96bf"
+    }
+  ]
+}

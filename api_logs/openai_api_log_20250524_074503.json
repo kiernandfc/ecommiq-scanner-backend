@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250524_074503",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt'\n  - Name='Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt'\n  - Name='Banana Republic Slim-Fit Linen-Cotton Dress Shirt with Cutaway Collar'\n  - Name='Banana Republic Women's Riley II Tailored Shirt'\n  - Name='Nordstrom Non-Iron Trim Fit Cotton Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n  - Name='Nordstrom Traditional Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt'\n  - Name='Nordstrom Traditional Fit Non-Iron Tuxedo Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt'\n  - Name='Johnston & Murphy Non-Iron Cotton Dobby Dress Shirt'\n  - Name='Nordstrom Traditional Fit Herringbone Dress Shirt'\n  - Name='L.L.Bean Men's Signature Stretch Poplin Shirt'\n  - Name='Nordstrom Trim Fit Gingham Check Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt'\n  - Name='Nordstrom Trim Fit Oxford Dress Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Oxford Short-Sleeve Plaid'\n  - Name='Nordstrom Trim Fit Grid Dress Shirt'\n  - Name='L.L.Bean Men's Slightly Fitted Untucked Fit Moleskin Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt'\n  - Name='Calvin Klein Men's Slim Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's Stonecoast Hemp Short-Sleeve Shirt'\n  - Name='Van Heusen Men's Classic Fit Ultra Wrinkle-Free Stretch Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Oxford Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's cotton dress shirt with stretch, similar in style and material focus but no mention of non-iron feature, slightly lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A men's slim-fit dress shirt made from a linen-cotton blend, likely more casual and breathable but lacks non-iron feature and specific collar style, making it less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Slim-Fit Linen-Cotton Dress Shirt with Cutaway Collar\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to prior Banana Republic product but with cutaway collar, differing from semi-spread collar; non-iron feature not mentioned, moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Women's Riley II Tailored Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A women's tailored shirt, different gender market and potentially different construction; likely less similar despite shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Non-Iron Trim Fit Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A non-iron cotton dress shirt with trim fit, matching core qualities of the reference product perfectly.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron men's dress shirt with specific collar style (semi-cutaway), close to semi-spread but different; highly relevant but not identical collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt similar in function and material; difference in pattern (windowpane check) but color/pattern not emphasized; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with traditional fit, similar performance and features; difference in fit from trim/standard, but overall highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wrinkle-free oxford cloth shirt is similar but traditional fit and button-down collar likely differs from semi-spread; less relevant but still related.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Non-Iron Tuxedo Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Non-iron tuxedo shirt is a more specialized formal shirt differing in intended use, less similar to a general dress shirt but still related.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Long-sleeve twill shirt likely more casual and lacks non-iron or dress shirt classification; relatively low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Johnston & Murphy Non-Iron Cotton Dobby Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron cotton dress shirt, dobby weave adds texture but functionally very similar to reference; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Traditional fit dress shirt with herringbone texture, likely similar materials but no mention of non-iron; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Stretch Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Stretch poplin shirt implies dress shirt category but unspecified non-iron feature and collar style reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Gingham Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit dress shirt with pattern, presumably similar in fit and function though non-iron not specified; fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slightly fitted twill shirt, probably casual and no non-iron treatment, lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Trim fit oxford dress shirt, closely matches style and fit though no explicit non-iron mention; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Oxford Short-Sleeve Plaid\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve plaid oxford is casual and without dress shirt characteristics like collar or non-iron; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Grid Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit dress shirt with grid pattern, similar fit and likely fabric type, no explicit non-iron noted; fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Slightly Fitted Untucked Fit Moleskin Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Untucked moleskin shirt generally more casual and different construction; low similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Canvas material and sunwashed finish suggest casual shirt rather than dress shirt, low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Slim fit non-iron men's dress shirt matches core features precisely, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Stonecoast Hemp Short-Sleeve Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Short-sleeve hemp shirt is casual and material/style differs greatly from dress shirt; very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Van Heusen Men's Classic Fit Ultra Wrinkle-Free Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic fit wrinkle-free stretch dress shirt shares many qualities (wrinkle-free feature akin to non-iron); very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron oxford dress shirt with pattern, closely matching reference product characteristics; highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt",
+      "score": 8,
+      "rationale": "This is a men's cotton dress shirt with stretch, similar in style and material focus but no mention of non-iron feature, slightly lowering relevancy.",
+      "map_id": "map_6ea3db6b6fcb49808451c59f85e0c9c3"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt",
+      "score": 6,
+      "rationale": "A men's slim-fit dress shirt made from a linen-cotton blend, likely more casual and breathable but lacks non-iron feature and specific collar style, making it less similar.",
+      "map_id": "map_1919c289a7064912b4891cd51f2cfe62"
+    },
+    {
+      "competitor_product_name": "Banana Republic Slim-Fit Linen-Cotton Dress Shirt with Cutaway Collar",
+      "score": 6,
+      "rationale": "Similar to prior Banana Republic product but with cutaway collar, differing from semi-spread collar; non-iron feature not mentioned, moderate relevancy.",
+      "map_id": "map_1d0cc602c68b44cfaf4a9dcb174e6386"
+    },
+    {
+      "competitor_product_name": "Banana Republic Women's Riley II Tailored Shirt",
+      "score": 3,
+      "rationale": "A women's tailored shirt, different gender market and potentially different construction; likely less similar despite shirt category.",
+      "map_id": "map_d1545aef28e440158f94e4dc6d758a2b"
+    },
+    {
+      "competitor_product_name": "Nordstrom Non-Iron Trim Fit Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "A non-iron cotton dress shirt with trim fit, matching core qualities of the reference product perfectly.",
+      "map_id": "map_f9a61ff75cb542ceb6ba87b512484a45"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron men's dress shirt with specific collar style (semi-cutaway), close to semi-spread but different; highly relevant but not identical collar style.",
+      "map_id": "map_dfec5b428c4547c7866940c13802fcc8"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt similar in function and material; difference in pattern (windowpane check) but color/pattern not emphasized; very relevant.",
+      "map_id": "map_f4a01cb5d4774829a8d6cf2c4ce24ad9"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with traditional fit, similar performance and features; difference in fit from trim/standard, but overall highly relevant.",
+      "map_id": "map_c4808d76787b42ab8f2c5eb26390733a"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt",
+      "score": 7,
+      "rationale": "Wrinkle-free oxford cloth shirt is similar but traditional fit and button-down collar likely differs from semi-spread; less relevant but still related.",
+      "map_id": "map_842fff4f4848427e8aaa590472b7165e"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Non-Iron Tuxedo Shirt",
+      "score": 6,
+      "rationale": "Non-iron tuxedo shirt is a more specialized formal shirt differing in intended use, less similar to a general dress shirt but still related.",
+      "map_id": "map_a2358ba049c64eb1bb90cd385ec2f050"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Long-Sleeve Shirt",
+      "score": 4,
+      "rationale": "Long-sleeve twill shirt likely more casual and lacks non-iron or dress shirt classification; relatively low relevancy.",
+      "map_id": "map_cbbfe0ec851e448780733e424040c93a"
+    },
+    {
+      "competitor_product_name": "Johnston & Murphy Non-Iron Cotton Dobby Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron cotton dress shirt, dobby weave adds texture but functionally very similar to reference; highly relevant.",
+      "map_id": "map_1bbed60c442649cb8cb62108f6447e6a"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Herringbone Dress Shirt",
+      "score": 7,
+      "rationale": "Traditional fit dress shirt with herringbone texture, likely similar materials but no mention of non-iron; moderately relevant.",
+      "map_id": "map_ce35aa19fdeb44e4bc1d4731c96d0d6d"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Stretch Poplin Shirt",
+      "score": 6,
+      "rationale": "Stretch poplin shirt implies dress shirt category but unspecified non-iron feature and collar style reduces relevancy.",
+      "map_id": "map_974789165ba6485aa62de9336ac324da"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Gingham Check Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit dress shirt with pattern, presumably similar in fit and function though non-iron not specified; fairly relevant.",
+      "map_id": "map_c4f9dacd527a499dbbc045f04f7fc669"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt",
+      "score": 5,
+      "rationale": "Slightly fitted twill shirt, probably casual and no non-iron treatment, lower relevancy.",
+      "map_id": "map_ae70adde312348a884149b428eaf4f41"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Trim fit oxford dress shirt, closely matches style and fit though no explicit non-iron mention; highly relevant.",
+      "map_id": "map_1eeee6eaf312403088b35275c883c7fa"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Oxford Short-Sleeve Plaid",
+      "score": 3,
+      "rationale": "Short-sleeve plaid oxford is casual and without dress shirt characteristics like collar or non-iron; low relevancy.",
+      "map_id": "map_97a152d002d1437585000405439197c2"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Grid Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit dress shirt with grid pattern, similar fit and likely fabric type, no explicit non-iron noted; fairly relevant.",
+      "map_id": "map_a00b5c23dbcd4ba78316d7a753dce556"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Slightly Fitted Untucked Fit Moleskin Shirt",
+      "score": 3,
+      "rationale": "Untucked moleskin shirt generally more casual and different construction; low similarity.",
+      "map_id": "map_f188600599c84d49b28e3fbabd30a917"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt",
+      "score": 3,
+      "rationale": "Canvas material and sunwashed finish suggest casual shirt rather than dress shirt, low relevancy.",
+      "map_id": "map_81be35ce5d4749e79b7ba86badbd8581"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Slim fit non-iron men's dress shirt matches core features precisely, highly relevant.",
+      "map_id": "map_847874f60ccc477a82fe071b67dfa5b7"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Stonecoast Hemp Short-Sleeve Shirt",
+      "score": 2,
+      "rationale": "Short-sleeve hemp shirt is casual and material/style differs greatly from dress shirt; very low relevancy.",
+      "map_id": "map_d8613f3167824d5d813115b29e20707c"
+    },
+    {
+      "competitor_product_name": "Van Heusen Men's Classic Fit Ultra Wrinkle-Free Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Classic fit wrinkle-free stretch dress shirt shares many qualities (wrinkle-free feature akin to non-iron); very relevant.",
+      "map_id": "map_6a3c4f59a70e491d8a9f4388205a5ee2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "No iron oxford dress shirt with pattern, closely matching reference product characteristics; highly relevant.",
+      "map_id": "map_51df99216f7148b9a14c0d2d02f5e22f"
+    }
+  ]
+}

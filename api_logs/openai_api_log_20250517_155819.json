@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250517_155819",
+  "reference_brand": "PicturesOnGold",
+  "reference_name": "Cross Pendant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"PicturesOnGold\"\nReference Product Name: \"Cross Pendant\"\nReference Product Description:\n*This Cross is Solid Sterling Silver *Approximately 2/3 inch x 1 Inch The Approximate Weight is 1.27 GM *** ALL SIZES ARE APPROXIMATE***\nAvailable in Sterling Silver\nMetal: Sterling Silver\nIs a Chain Included? You can choose which chain to add to your order when checking out\nPendant Bail - fits up to 4mm chain. We can make bail larger, just let us know in the special instructions upon ordering\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Catholic Jewelry 16” Flat Chain'\n  - Name='Dainty Catholic Jewelry Ball & Chain'\n  - Name='925 Sterling Silver Scapular Necklace'\n  - Name='Sterling Silver Holy Communion Cross Pendant Necklace'\n  - Name='Sterling Silver Patron Saint Anthony Cross Pendant Necklace'\n  - Name='18\" Gold Plated Sterling Silver Crucifix Pendant with Chain'\n  - Name='Gold Over Sterling Two Tone Crucifix Pendant'\n  - Name='14kt Yellow Gold Four Way Cross Medal'\n  - Name='Bliss Sterling Silver Crucifix Pendant with Chain'\n  - Name='Bliss Sterling Silver Cross Pendant Necklace'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Catholic Jewelry 16” Flat Chain\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This product is a chain only, without a cross pendant, so it has low relevancy to a cross pendant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dainty Catholic Jewelry Ball & Chain\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is also a chain product without a pendant, making it less relevant to a cross pendant.\"\n    },\n    {\n      \"competitor_product_name\": \"925 Sterling Silver Scapular Necklace\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While this is a sterling silver religious necklace, it features a scapular rather than a cross pendant, making it somewhat related but not directly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Sterling Silver Holy Communion Cross Pendant Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a sterling silver cross pendant necklace like the reference product, closely matching in material, form, and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Sterling Silver Patron Saint Anthony Cross Pendant Necklace\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a sterling silver cross pendant necklace with a specific saint association, similar in material and shape though with additional iconography.\"\n    },\n    {\n      \"competitor_product_name\": \"18\\\" Gold Plated Sterling Silver Crucifix Pendant with Chain\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Although it is a crucifix pendant in sterling silver, it is gold plated and includes a chain; crucifix detail differs from a simple cross but still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gold Over Sterling Two Tone Crucifix Pendant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a crucifix pendant made of gold over sterling silver, differing in tone and featuring a crucifix; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"14kt Yellow Gold Four Way Cross Medal\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a gold cross medal with a different design ('four way'), differing from a pendant cross, but still a related type of religious jewelry.\"\n    },\n    {\n      \"competitor_product_name\": \"Bliss Sterling Silver Crucifix Pendant with Chain\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a sterling silver crucifix pendant similar in size and material, including a chain; close but the crucifix detail differs from a plain cross pendant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bliss Sterling Silver Cross Pendant Necklace\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product is a sterling silver cross pendant necklace, nearly identical in core product type, material, and use to the reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Catholic Jewelry 16” Flat Chain",
+      "score": 2,
+      "rationale": "This product is a chain only, without a cross pendant, so it has low relevancy to a cross pendant.",
+      "map_id": "map_fc6235fb5afc497ca0d87e4974dc0257"
+    },
+    {
+      "competitor_product_name": "Dainty Catholic Jewelry Ball & Chain",
+      "score": 2,
+      "rationale": "This is also a chain product without a pendant, making it less relevant to a cross pendant.",
+      "map_id": "map_0c09ead1b0824620b6f743c37be8a733"
+    },
+    {
+      "competitor_product_name": "925 Sterling Silver Scapular Necklace",
+      "score": 4,
+      "rationale": "While this is a sterling silver religious necklace, it features a scapular rather than a cross pendant, making it somewhat related but not directly relevant.",
+      "map_id": "map_e044c866147b45009a77a908bf85e997"
+    },
+    {
+      "competitor_product_name": "Sterling Silver Holy Communion Cross Pendant Necklace",
+      "score": 9,
+      "rationale": "This is a sterling silver cross pendant necklace like the reference product, closely matching in material, form, and function.",
+      "map_id": "map_aa4eb012d8ff41278d09c01d1be8e0d4"
+    },
+    {
+      "competitor_product_name": "Sterling Silver Patron Saint Anthony Cross Pendant Necklace",
+      "score": 8,
+      "rationale": "This is a sterling silver cross pendant necklace with a specific saint association, similar in material and shape though with additional iconography.",
+      "map_id": "map_bc6ddd16dd8f47a7ae628f6f8c44c4d8"
+    },
+    {
+      "competitor_product_name": "18\" Gold Plated Sterling Silver Crucifix Pendant with Chain",
+      "score": 7,
+      "rationale": "Although it is a crucifix pendant in sterling silver, it is gold plated and includes a chain; crucifix detail differs from a simple cross but still highly relevant.",
+      "map_id": "map_bfa65b23f9fe48f9897dac7a90b1919e"
+    },
+    {
+      "competitor_product_name": "Gold Over Sterling Two Tone Crucifix Pendant",
+      "score": 6,
+      "rationale": "This is a crucifix pendant made of gold over sterling silver, differing in tone and featuring a crucifix; moderately relevant.",
+      "map_id": "map_f70eccf41b9f4f7bbb10e2d7d84841ba"
+    },
+    {
+      "competitor_product_name": "14kt Yellow Gold Four Way Cross Medal",
+      "score": 5,
+      "rationale": "This is a gold cross medal with a different design ('four way'), differing from a pendant cross, but still a related type of religious jewelry.",
+      "map_id": "map_cd7193d3ea8342cfa7c82c1ae53cdc32"
+    },
+    {
+      "competitor_product_name": "Bliss Sterling Silver Crucifix Pendant with Chain",
+      "score": 8,
+      "rationale": "This is a sterling silver crucifix pendant similar in size and material, including a chain; close but the crucifix detail differs from a plain cross pendant.",
+      "map_id": "map_80214beebaf94a3191ac53b72b8856b8"
+    },
+    {
+      "competitor_product_name": "Bliss Sterling Silver Cross Pendant Necklace",
+      "score": 10,
+      "rationale": "This product is a sterling silver cross pendant necklace, nearly identical in core product type, material, and use to the reference product.",
+      "map_id": "map_54808addbe2f4f3a96b0f929da88588b"
+    }
+  ]
+}

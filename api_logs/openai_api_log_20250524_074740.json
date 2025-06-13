@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250524_074740",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Patagonia Women's Caliza Rock Pants'\n  - Name='Patagonia Men's Triolet Pants'\n  - Name='Patagonia Women's All Seasons Canvas Double Knee Work Pants'\n  - Name='Carhartt WIP Men Single Knee'\n  - Name='Carhartt WIP Calder Pants Men'\n  - Name='Carhartt WIP Single Knee Pant Men'\n  - Name='Taylor Stitch Men's Stevens Herringbone Linen Trousers'\n  - Name='Taylor Stitch Men's Organic Cotton Slim Foundation Pants'\n  - Name='Everlane Men's Straight Fit Performance Chino'\n  - Name='Taylor Stitch Men's Organic Cotton Slim All Day Pant'\n  - Name='Taylor Stitch Men's Organic Cotton Double Cloth Pants'\n  - Name='Uniqlo Men's Skinny Fit Chino Pants'\n  - Name='Everlane Off-Duty Tech Jogger'\n  - Name='Everlane Off-Duty Jogger'\n  - Name='Everlane Men's Skinny 4-Way Stretch Organic Jean'\n  - Name='Everlane Men's Organic Taper Jeans'\n  - Name='Everlane Women's Bi-Stretch Work Pant'\n  - Name='Everlane Men's '90s Loose Straight Jean'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Patagonia Women's Caliza Rock Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"These are pants designed for women likely focused on rock climbing, so more technical outdoor use; different silhouette and purpose than the chore pant workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Triolet Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's technical or outdoor pants, potentially durable, but more geared towards hiking than workwear; somewhat relevant in material and ruggedness.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Women's All Seasons Canvas Double Knee Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"These are canvas double knee work pants, closely matching the chore pant's durable workwear construction and material; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Single Knee\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Workwear pants from Carhartt WIP for men with single knee reinforcement, similar utility but less durable double-knee; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Calder Pants Men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Carhartt WIP casual style pants; may have some workwear inspiration but less heavy-duty and likely no knee reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Single Knee Pant Men\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's single knee workwear pants similar in construction and utility, close to chore pant but with fewer reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Stevens Herringbone Linen Trousers\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen trousers are dressier and lighter weight with a different material and function, less durable workwear relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Slim Foundation Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton pants by the same brand, slim fit and presumably simpler construction; less utility and durability than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Straight Fit Performance Chino\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chinos with some performance fabric, less heavy-duty construction and workwear focus than chore pant; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Slim All Day Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton slim fit pant, comfortable and casual but not heavy-duty or reinforced like chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Double Cloth Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Double cloth pants are more substantial construction with same organic cotton material family; more durable than regular pants but likely less rugged than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Skinny Fit Chino Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Skinny fit chinos from a fashion brand with no mention of workwear or durable features; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Off-Duty Tech Jogger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Tech joggers are casual, softer pants with elastic features, not rugged or workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Off-Duty Jogger\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Casual jogger pants with elastic cuffs and relaxed fit, very different in silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Skinny 4-Way Stretch Organic Jean\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Skinny fit stretch jeans have more casual and fashion focus, less workwear durability and utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Taper Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Tapered jeans made of organic cotton more casual and less reinforced than chore pant but shares heavy denim material.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Bi-Stretch Work Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work pants with stretch for women, somewhat in workwear category and durable materials but less detail on reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's '90s Loose Straight Jean\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Loose straight jeans, more casual fashion with denim but lacking heavy utility features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Patagonia Women's Caliza Rock Pants",
+      "score": 4,
+      "rationale": "These are pants designed for women likely focused on rock climbing, so more technical outdoor use; different silhouette and purpose than the chore pant workwear style.",
+      "map_id": "map_9074fc0e83034c25bdb0bc4e7019c613"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Triolet Pants",
+      "score": 5,
+      "rationale": "Men's technical or outdoor pants, potentially durable, but more geared towards hiking than workwear; somewhat relevant in material and ruggedness.",
+      "map_id": "map_ef532263212b4c6688214b53f9776832"
+    },
+    {
+      "competitor_product_name": "Patagonia Women's All Seasons Canvas Double Knee Work Pants",
+      "score": 9,
+      "rationale": "These are canvas double knee work pants, closely matching the chore pant's durable workwear construction and material; highly relevant.",
+      "map_id": "map_52f9b6aef4924aa9a9f0db7a5eef8c46"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Single Knee",
+      "score": 8,
+      "rationale": "Workwear pants from Carhartt WIP for men with single knee reinforcement, similar utility but less durable double-knee; very relevant.",
+      "map_id": "map_c99af41e4b8b40d2854e8bfd5d906258"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Calder Pants Men",
+      "score": 6,
+      "rationale": "Carhartt WIP casual style pants; may have some workwear inspiration but less heavy-duty and likely no knee reinforcement.",
+      "map_id": "map_34a7ce77478c40b6815bea4e444c7a02"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Single Knee Pant Men",
+      "score": 8,
+      "rationale": "Men's single knee workwear pants similar in construction and utility, close to chore pant but with fewer reinforcements.",
+      "map_id": "map_a2ac7bfb76884af0ad425ef68462f278"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Stevens Herringbone Linen Trousers",
+      "score": 3,
+      "rationale": "Linen trousers are dressier and lighter weight with a different material and function, less durable workwear relevance.",
+      "map_id": "map_59da6e40534c4a288107c4953a9321a2"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Slim Foundation Pants",
+      "score": 6,
+      "rationale": "Organic cotton pants by the same brand, slim fit and presumably simpler construction; less utility and durability than chore pants.",
+      "map_id": "map_133496612d47475f875b68d133e7dde9"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Straight Fit Performance Chino",
+      "score": 5,
+      "rationale": "Chinos with some performance fabric, less heavy-duty construction and workwear focus than chore pant; moderately relevant.",
+      "map_id": "map_c92f14c6e36441fc93828d34b46a0531"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Slim All Day Pant",
+      "score": 6,
+      "rationale": "Organic cotton slim fit pant, comfortable and casual but not heavy-duty or reinforced like chore pant.",
+      "map_id": "map_d6e54a27dc3346f3b80478f5fb2ca41d"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Double Cloth Pants",
+      "score": 7,
+      "rationale": "Double cloth pants are more substantial construction with same organic cotton material family; more durable than regular pants but likely less rugged than chore pant.",
+      "map_id": "map_df4643b55c9d4b2992f65d48e492af40"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Skinny Fit Chino Pants",
+      "score": 2,
+      "rationale": "Skinny fit chinos from a fashion brand with no mention of workwear or durable features; low relevance.",
+      "map_id": "map_88ac7d41407e4a6e83b1d52303dc5909"
+    },
+    {
+      "competitor_product_name": "Everlane Off-Duty Tech Jogger",
+      "score": 2,
+      "rationale": "Tech joggers are casual, softer pants with elastic features, not rugged or workwear style.",
+      "map_id": "map_c2422c542d704a73b93d644a5faa156d"
+    },
+    {
+      "competitor_product_name": "Everlane Off-Duty Jogger",
+      "score": 2,
+      "rationale": "Casual jogger pants with elastic cuffs and relaxed fit, very different in silhouette and construction.",
+      "map_id": "map_7eb5c9da6492430ba88c8d1b156df5b7"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Skinny 4-Way Stretch Organic Jean",
+      "score": 4,
+      "rationale": "Skinny fit stretch jeans have more casual and fashion focus, less workwear durability and utility.",
+      "map_id": "map_0c2750ee264e43689d7c72f1af4f9330"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Taper Jeans",
+      "score": 5,
+      "rationale": "Tapered jeans made of organic cotton more casual and less reinforced than chore pant but shares heavy denim material.",
+      "map_id": "map_52f3354d115741be90115c7cbfb96c0c"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Bi-Stretch Work Pant",
+      "score": 6,
+      "rationale": "Work pants with stretch for women, somewhat in workwear category and durable materials but less detail on reinforcements.",
+      "map_id": "map_b2b58bbf19854a72a98bcb51c12133d9"
+    },
+    {
+      "competitor_product_name": "Everlane Men's '90s Loose Straight Jean",
+      "score": 4,
+      "rationale": "Loose straight jeans, more casual fashion with denim but lacking heavy utility features.",
+      "map_id": "map_7cfcc0fc0e294885a87b5a20ef1b3483"
+    }
+  ]
+}

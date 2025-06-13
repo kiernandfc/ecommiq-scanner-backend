@@ -1,0 +1,179 @@
+{
+  "timestamp": "20250606_081125",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat'\n  - Name='Goorin Brothers Ruthy (Black) Caps'\n  - Name='Goorin Bros. Colonel Pierce Wide Brim Fedora'\n  - Name='Stetson Men's STW250 Italian Plaid Wool Newsboy Cap'\n  - Name='Goorin Chopping Block Flatcaps'\n  - Name='Goorin Hartman Wide Brim Toquilla Straw Fedora'\n  - Name='Stetson Men's Plaid Newsboy Cap'\n  - Name='Stetson Men's Kent Cerruti Silk Flat Cap'\n  - Name='Goorin Bros Mulberry Street Flatcap'\n  - Name='Stetson Highland Plaid Hattera'\n  - Name='Bailey Men's Liam Linen Cotton Ivy Cap'\n  - Name='Men Stetson Kent Wool Ivy Cap with Earflaps'\n  - Name='Stetson Hatteras Donegal Newsboy Cap'\n  - Name='Stetson Vintage 70s Plaid Newsboy Hat'\n  - Name='Stetson Highland Plaid Hattera'\n  - Name='Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap'\n  - Name='Stetson Men's Glencheck Brushed Wool Blend Newsboy Cap'\n  - Name='Kangol Bermuda Check Stitch Mau Cap'\n  - Name='American Hat Makers Men's Mikey Boston Scally Newsboy Flat Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap/newsboy style similar to the Peaky 8-panel scally, though it may have a different panel construction (duckbill ivy vs 8-panel). The overlap in hat styles and intended use makes it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Brothers Ruthy (Black) Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Name lacks a clear style descriptor like newsboy, flatcap, or Peaky style. Without more details, it is difficult to confirm similarity; likely different style or shape, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Colonel Pierce Wide Brim Fedora\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a wide brim fedora, a substantially different silhouette from an 8-panel scally cap, thus not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's STW250 Italian Plaid Wool Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a newsboy cap which is stylistically very close to the 8-panel scally Peaky cap. Similar function, construction, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Chopping Block Flatcaps\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flatcap style aligns closely with the Peaky scally cap; similar headwear category and silhouette though flatcap can be a bit simpler in panel construction than 8-panel scally.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Hartman Wide Brim Toquilla Straw Fedora\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Wide brim fedora differs greatly from 8-panel scally in shape and construction; not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Plaid Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic newsboy cap style is very close to the Peaky cap, especially with plaid fabric, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Kent Cerruti Silk Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style similar to Peaky cap but silk material and possibly simpler paneling; still relevant given function and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Mulberry Street Flatcap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flatcap is closely related to the Peaky scally cap; similar silhouette and purpose though possibly differing in panel count/design.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Highland Plaid Hattera\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Hattera hats are generally fedora-like or distinct from flatcaps and scally caps, so limited relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Liam Linen Cotton Ivy Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Ivy cap style is related to flatcap/scally but usually a simpler, single-piece crown without panels; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Kent Wool Ivy Cap with Earflaps\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy style is somewhat relevant, but presence of earflaps changes function and silhouette away from Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Donegal Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap style matches Peaky cap well; construction and use very similar, making it relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Vintage 70s Plaid Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy hat style very similar to Peaky 8-panel scally; vintage styling may differ slightly but relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Highland Plaid Hattera\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Repeated entry, same rationale as previous Highland Plaid Hattera: less relevant due to distinct style.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"6-panel newsboy cap is very close in style and panel construction to 8-panel Peaky cap, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Glencheck Brushed Wool Blend Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic newsboy cap very similar in style, function, and construction to Peaky scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Bermuda Check Stitch Mau Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Lacks clear newsboy or flatcap reference; Kangol style often differs in silhouette, score low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"American Hat Makers Men's Mikey Boston Scally Newsboy Flat Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product is a Boston Scally newsboy flat cap, directly matching the Peaky cap style and brand line; identical category and style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat",
+      "score": 7,
+      "rationale": "This is a flat cap/newsboy style similar to the Peaky 8-panel scally, though it may have a different panel construction (duckbill ivy vs 8-panel). The overlap in hat styles and intended use makes it fairly relevant.",
+      "map_id": "map_0be50ec9e6cc47bbaaf118b57dbad5f4"
+    },
+    {
+      "competitor_product_name": "Goorin Brothers Ruthy (Black) Caps",
+      "score": 3,
+      "rationale": "Name lacks a clear style descriptor like newsboy, flatcap, or Peaky style. Without more details, it is difficult to confirm similarity; likely different style or shape, so low relevancy.",
+      "map_id": "map_309aa23713bd404d9ac1c9f4ce7ddda9"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Colonel Pierce Wide Brim Fedora",
+      "score": 1,
+      "rationale": "This is a wide brim fedora, a substantially different silhouette from an 8-panel scally cap, thus not relevant.",
+      "map_id": "map_b11170c67fb543d0b37641e872782940"
+    },
+    {
+      "competitor_product_name": "Stetson Men's STW250 Italian Plaid Wool Newsboy Cap",
+      "score": 9,
+      "rationale": "This is a newsboy cap which is stylistically very close to the 8-panel scally Peaky cap. Similar function, construction, and use.",
+      "map_id": "map_58e3e0f82a5744dc97f6413330168d97"
+    },
+    {
+      "competitor_product_name": "Goorin Chopping Block Flatcaps",
+      "score": 8,
+      "rationale": "Flatcap style aligns closely with the Peaky scally cap; similar headwear category and silhouette though flatcap can be a bit simpler in panel construction than 8-panel scally.",
+      "map_id": "map_9fecb61540324ed6a4e937a77ff77803"
+    },
+    {
+      "competitor_product_name": "Goorin Hartman Wide Brim Toquilla Straw Fedora",
+      "score": 1,
+      "rationale": "Wide brim fedora differs greatly from 8-panel scally in shape and construction; not relevant.",
+      "map_id": "map_7298835ad6534fb4aa015f45705d357b"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Plaid Newsboy Cap",
+      "score": 9,
+      "rationale": "Classic newsboy cap style is very close to the Peaky cap, especially with plaid fabric, very relevant.",
+      "map_id": "map_a387be42fb11417d9c22086a64528a6d"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Kent Cerruti Silk Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style similar to Peaky cap but silk material and possibly simpler paneling; still relevant given function and shape.",
+      "map_id": "map_57c845080bba4ca889d10d8ae45693de"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Mulberry Street Flatcap",
+      "score": 7,
+      "rationale": "Flatcap is closely related to the Peaky scally cap; similar silhouette and purpose though possibly differing in panel count/design.",
+      "map_id": "map_b478d9e37ffe4f22a000f9224be22f0c"
+    },
+    {
+      "competitor_product_name": "Stetson Highland Plaid Hattera",
+      "score": 4,
+      "rationale": "Hattera hats are generally fedora-like or distinct from flatcaps and scally caps, so limited relevancy.",
+      "map_id": "map_1d2f2a5a6fc7425b8dd7f7fe278722db"
+    },
+    {
+      "competitor_product_name": "Stetson Highland Plaid Hattera",
+      "score": 4,
+      "rationale": "Hattera hats are generally fedora-like or distinct from flatcaps and scally caps, so limited relevancy.",
+      "map_id": "map_567b84ba555e4023be4ce4bc281facb1"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Liam Linen Cotton Ivy Cap",
+      "score": 6,
+      "rationale": "Ivy cap style is related to flatcap/scally but usually a simpler, single-piece crown without panels; moderately relevant.",
+      "map_id": "map_ab7d8f48d6d140a7a17981ff7ee7e9df"
+    },
+    {
+      "competitor_product_name": "Men Stetson Kent Wool Ivy Cap with Earflaps",
+      "score": 5,
+      "rationale": "Ivy style is somewhat relevant, but presence of earflaps changes function and silhouette away from Peaky cap.",
+      "map_id": "map_563dd8c38d3a4fb492505b8251bbceb7"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Donegal Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap style matches Peaky cap well; construction and use very similar, making it relevant.",
+      "map_id": "map_63995811f9844f72a949f70b907a6f2d"
+    },
+    {
+      "competitor_product_name": "Stetson Vintage 70s Plaid Newsboy Hat",
+      "score": 8,
+      "rationale": "Newsboy hat style very similar to Peaky 8-panel scally; vintage styling may differ slightly but relevant.",
+      "map_id": "map_ae478315d73248a9af5cf062bfe784ed"
+    },
+    {
+      "competitor_product_name": "Stetson Highland Plaid Hattera",
+      "score": 4,
+      "rationale": "Repeated entry, same rationale as previous Highland Plaid Hattera: less relevant due to distinct style.",
+      "map_id": "map_1d2f2a5a6fc7425b8dd7f7fe278722db"
+    },
+    {
+      "competitor_product_name": "Stetson Highland Plaid Hattera",
+      "score": 4,
+      "rationale": "Repeated entry, same rationale as previous Highland Plaid Hattera: less relevant due to distinct style.",
+      "map_id": "map_567b84ba555e4023be4ce4bc281facb1"
+    },
+    {
+      "competitor_product_name": "Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap",
+      "score": 9,
+      "rationale": "6-panel newsboy cap is very close in style and panel construction to 8-panel Peaky cap, highly relevant.",
+      "map_id": "map_9d19e0589a9147a0bbd3227b7720d150"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Glencheck Brushed Wool Blend Newsboy Cap",
+      "score": 9,
+      "rationale": "Classic newsboy cap very similar in style, function, and construction to Peaky scally cap.",
+      "map_id": "map_4e3bd76c150042808148dd45f7103c59"
+    },
+    {
+      "competitor_product_name": "Kangol Bermuda Check Stitch Mau Cap",
+      "score": 4,
+      "rationale": "Lacks clear newsboy or flatcap reference; Kangol style often differs in silhouette, score low relevance.",
+      "map_id": "map_49054fb08d04421cb45fb03a912f33dc"
+    },
+    {
+      "competitor_product_name": "American Hat Makers Men's Mikey Boston Scally Newsboy Flat Cap",
+      "score": 10,
+      "rationale": "This product is a Boston Scally newsboy flat cap, directly matching the Peaky cap style and brand line; identical category and style.",
+      "map_id": "map_69c6a300bf6f474d80eda4191a3220f8"
+    }
+  ]
+}

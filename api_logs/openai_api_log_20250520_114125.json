@@ -1,0 +1,185 @@
+{
+  "timestamp": "20250520_114125",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\n  - Name='PURPLE LEAF Outdoor Patio Cantilever Offset Umbrella Cover'\n  - Name='PURPLE LEAF 9x12/10x13ft Rectangular Patio Cantilever Umbrella in Wood'\n  - Name='Purple Leaf Outdoor Garden Umbrella with Base'\n  - Name='Purple Leaf Deluxe Square Patio Cantilever Umbrella'\n  - Name='Purple Leaf 12 ft Double Top Solar Powered LED Round Patio Cantilever Umbrella with Base'\n  - Name='Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella'\n  - Name='PURPLE LEAF 13-ft Aluminum Crank Cantilever Patio Umbrella Polyester LSGLRR'\n  - Name='Purple Leaf Cantilever Patio Umbrella'\n  - Name='Purple Leaf 8x8 ft Cantilever Square Outdoor Patio Umbrella'\n  - Name='PURPLE LEAF 9 White Cantilever Patio Umbrella with 360 Degree Rotation'\n  - Name='Purple Leaf White Square Patio Umbrella'\n  - Name='Purple Leaf 10-ft Aluminum Crank Cantilever Patio Umbrella LSLRR10-BK'\n  - Name='In- Pool Square Sunbed'\n  - Name='Purple Leaf 96'' Square Offset Cantilever Outdoor Umbrella'\n  - Name='Purple Leaf Outdoor White Pole Square Offset Cantilever Umbrella'\n  - Name='PURPLE LEAF 6.5' X 10' Left-right Tilt Patio Umbrella'\n  - Name='Purple Leaf 10 / 11FT Round Outdoor Cantilever Umbrella'\n  - Name='Purple Leaf White Rectangle Cantilever Patio Umbrella with Base'\n  - Name='Purple Leaf 12ft Wood Grain Premium Patio Cantilever Umbrella'\n  - Name='Grand Patio 8.3x 8.3FT Patio Umbrella'\n  - Name='Ledge Lounger Shade In-Pool Sun Shade Accessory'\n  - Name='Ledge Lounger Outdoor Oasis In- Pool Furniture Bundle Deep Chaise'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Grand patio 10'X10' Sunbrella Offset Umbrella with Base Outdoor Square Aluminum Cantilever Umbrella Shade with Easy Tilt Adjustment (Aruba, 10X10'\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a patio umbrella with aluminum construction and square canopy, similar use for outdoor shade; however, it is a cantilever style unlike the reference's center pole design, which lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF Outdoor Patio Cantilever Offset Umbrella Cover\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Product is an umbrella cover, not an umbrella itself, and specifically for cantilever offset umbrellas, making it less relevant to the reference umbrella product.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 9x12/10x13ft Rectangular Patio Cantilever Umbrella in Wood\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar function as a large outdoor umbrella, but uses wood pole and is cantilever style, not center pole and aluminum; thus somewhat relevant but differs in structure and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Outdoor Garden Umbrella with Base\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Outdoor garden umbrella with base sounds similar in use and functionality; lacking detailed info on pole or design, but likely center pole style so fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Deluxe Square Patio Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A square patio cantilever umbrella with outdoor use shares basic function but differs with cantilever design rather than center pole, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 12 ft Double Top Solar Powered LED Round Patio Cantilever Umbrella with Base\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a patio umbrella with base and round canopy, its cantilever style and solar LED features distinguish it from the reference Essential Umbrella’s simpler multi-operational aluminum center pole design.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Heavy-duty patio umbrella with cantilever offset design serves similar shading purpose but differs in structure and pole layout.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 13-ft Aluminum Crank Cantilever Patio Umbrella Polyester LSGLRR\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Aluminum crank cantilever umbrella shares materials (aluminum) and outdoor function but differs by cantilever offset structure without center pole, lowering relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Cantilever Patio Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cantilever patio umbrella shares outdoor shade function but differs structurally from center pole Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 8x8 ft Cantilever Square Outdoor Patio Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cantilever square umbrella for outdoor use is functionally similar but structurally different from center pole Essential Umbrella, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 9 White Cantilever Patio Umbrella with 360 Degree Rotation\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Cantilever patio umbrella with rotation is a different structural style and specialized functionality compared to the reference product, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf White Square Patio Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Square patio umbrella sounds similar to reference in use and likely construction, probably center pole style making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10-ft Aluminum Crank Cantilever Patio Umbrella LSLRR10-BK\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Aluminum crank cantilever umbrella shares material and use but has different design (cantilever instead of center pole), moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"In- Pool Square Sunbed\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a sunbed, not an umbrella or shade product, so no relevancy to the reference umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 96'' Square Offset Cantilever Outdoor Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Square offset cantilever umbrella is similar in function but differs structurally from center pole multi-operational Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Outdoor White Pole Square Offset Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"White pole offset cantilever umbrella with square canopy shares outdoor shading purpose but differs by offset cantilever design instead of center pole.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 6.5' X 10' Left-right Tilt Patio Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Patio umbrella with tilt mechanism is likely center pole style, similar to reference’s multi-operational design; thus quite relevant though tilt feature differs slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 / 11FT Round Outdoor Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Round cantilever umbrella shares outdoor shading role but structure differs from reference center pole umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf White Rectangle Cantilever Patio Umbrella with Base\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Rectangular cantilever patio umbrella with base shares umbrella purpose but offset cantilever styling differs from center pole Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 12ft Wood Grain Premium Patio Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wood grain cantilever patio umbrella is functionally similar but uses wood and cantilever design, differing from aluminum center pole Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Grand Patio 8.3x 8.3FT Patio Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"General patio umbrella similar in size and use to reference Essential Umbrella, likely center pole design, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Shade In-Pool Sun Shade Accessory\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An in-pool sun shade accessory made by same brand, related but an accessory rather than full umbrella product, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Outdoor Oasis In- Pool Furniture Bundle Deep Chaise\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is an outdoor furniture bundle (deep chaise) rather than an umbrella or shading product, so not relevant to the reference umbrella.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "PURPLE LEAF Outdoor Patio Cantilever Offset Umbrella Cover",
+      "score": 3,
+      "rationale": "Product is an umbrella cover, not an umbrella itself, and specifically for cantilever offset umbrellas, making it less relevant to the reference umbrella product.",
+      "map_id": "map_3f913ab0043c499dbcb6a49620750ade"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 9x12/10x13ft Rectangular Patio Cantilever Umbrella in Wood",
+      "score": 6,
+      "rationale": "Similar function as a large outdoor umbrella, but uses wood pole and is cantilever style, not center pole and aluminum; thus somewhat relevant but differs in structure and materials.",
+      "map_id": "map_c611f41b45d0471aaf105d394ddc20f4"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Outdoor Garden Umbrella with Base",
+      "score": 7,
+      "rationale": "Outdoor garden umbrella with base sounds similar in use and functionality; lacking detailed info on pole or design, but likely center pole style so fairly relevant.",
+      "map_id": "map_403a32bb2362426e81083852363afe05"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Deluxe Square Patio Cantilever Umbrella",
+      "score": 6,
+      "rationale": "A square patio cantilever umbrella with outdoor use shares basic function but differs with cantilever design rather than center pole, so moderate relevancy.",
+      "map_id": "map_567f33d186e541a88201f105784e3b0a"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 12 ft Double Top Solar Powered LED Round Patio Cantilever Umbrella with Base",
+      "score": 5,
+      "rationale": "While a patio umbrella with base and round canopy, its cantilever style and solar LED features distinguish it from the reference Essential Umbrella’s simpler multi-operational aluminum center pole design.",
+      "map_id": "map_c1c7315247b94a069b8e8c5bcb0cdcf4"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Sturdy Heavy-Duty Patio Cantilever Offset Umbrella",
+      "score": 6,
+      "rationale": "Heavy-duty patio umbrella with cantilever offset design serves similar shading purpose but differs in structure and pole layout.",
+      "map_id": "map_66dc0aacf306479fb5607961b508b424"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 13-ft Aluminum Crank Cantilever Patio Umbrella Polyester LSGLRR",
+      "score": 6,
+      "rationale": "Aluminum crank cantilever umbrella shares materials (aluminum) and outdoor function but differs by cantilever offset structure without center pole, lowering relevance.",
+      "map_id": "map_0b315abcb99d435585604f50ba5a7164"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Cantilever Patio Umbrella",
+      "score": 6,
+      "rationale": "Cantilever patio umbrella shares outdoor shade function but differs structurally from center pole Essential Umbrella.",
+      "map_id": "map_556abda9cc844271b69a787338cd7b87"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 8x8 ft Cantilever Square Outdoor Patio Umbrella",
+      "score": 6,
+      "rationale": "Cantilever square umbrella for outdoor use is functionally similar but structurally different from center pole Essential Umbrella, so moderate relevancy.",
+      "map_id": "map_0b93d64af41c442fbc4deb4aeb71b93e"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 9 White Cantilever Patio Umbrella with 360 Degree Rotation",
+      "score": 5,
+      "rationale": "Cantilever patio umbrella with rotation is a different structural style and specialized functionality compared to the reference product, lowering relevancy.",
+      "map_id": "map_61bcd2667d0a4ad79d0662951c1c3898"
+    },
+    {
+      "competitor_product_name": "Purple Leaf White Square Patio Umbrella",
+      "score": 7,
+      "rationale": "Square patio umbrella sounds similar to reference in use and likely construction, probably center pole style making it quite relevant.",
+      "map_id": "map_26caab24f8e344eb8dd1a4e410410fa5"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10-ft Aluminum Crank Cantilever Patio Umbrella LSLRR10-BK",
+      "score": 6,
+      "rationale": "Aluminum crank cantilever umbrella shares material and use but has different design (cantilever instead of center pole), moderately relevant.",
+      "map_id": "map_7424de0b600f4de2a9e7bc4cb8b4a447"
+    },
+    {
+      "competitor_product_name": "In- Pool Square Sunbed",
+      "score": 1,
+      "rationale": "This is a sunbed, not an umbrella or shade product, so no relevancy to the reference umbrella.",
+      "map_id": "map_1122d65a72da473a8d0cf508b537f59a"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 96'' Square Offset Cantilever Outdoor Umbrella",
+      "score": 6,
+      "rationale": "Square offset cantilever umbrella is similar in function but differs structurally from center pole multi-operational Essential Umbrella.",
+      "map_id": "map_05b6ccab9ea64d06866a0dd8b905fc9b"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Outdoor White Pole Square Offset Cantilever Umbrella",
+      "score": 6,
+      "rationale": "White pole offset cantilever umbrella with square canopy shares outdoor shading purpose but differs by offset cantilever design instead of center pole.",
+      "map_id": "map_c1b8c0908ef44a34a849b9b22896d87c"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 6.5' X 10' Left-right Tilt Patio Umbrella",
+      "score": 7,
+      "rationale": "Patio umbrella with tilt mechanism is likely center pole style, similar to reference’s multi-operational design; thus quite relevant though tilt feature differs slightly.",
+      "map_id": "map_d956e88a67bd4e23acaa4a8b6bac4391"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10 / 11FT Round Outdoor Cantilever Umbrella",
+      "score": 6,
+      "rationale": "Round cantilever umbrella shares outdoor shading role but structure differs from reference center pole umbrella.",
+      "map_id": "map_68ebe7d94f4c41a1b76a0b82354e00ae"
+    },
+    {
+      "competitor_product_name": "Purple Leaf White Rectangle Cantilever Patio Umbrella with Base",
+      "score": 6,
+      "rationale": "Rectangular cantilever patio umbrella with base shares umbrella purpose but offset cantilever styling differs from center pole Essential Umbrella.",
+      "map_id": "map_fb2127a046a649fda2d020297aff9e8b"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 12ft Wood Grain Premium Patio Cantilever Umbrella",
+      "score": 6,
+      "rationale": "Wood grain cantilever patio umbrella is functionally similar but uses wood and cantilever design, differing from aluminum center pole Essential Umbrella.",
+      "map_id": "map_54a7f34234aa4747b274aef53652ca21"
+    },
+    {
+      "competitor_product_name": "Grand Patio 8.3x 8.3FT Patio Umbrella",
+      "score": 7,
+      "rationale": "General patio umbrella similar in size and use to reference Essential Umbrella, likely center pole design, making it quite relevant.",
+      "map_id": "map_7926a65cfae746cf8e15c2417ad7f302"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Shade In-Pool Sun Shade Accessory",
+      "score": 5,
+      "rationale": "An in-pool sun shade accessory made by same brand, related but an accessory rather than full umbrella product, so moderately relevant.",
+      "map_id": "map_1757b22263304151a66d97ee8e250e68"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Outdoor Oasis In- Pool Furniture Bundle Deep Chaise",
+      "score": 1,
+      "rationale": "This is an outdoor furniture bundle (deep chaise) rather than an umbrella or shading product, so not relevant to the reference umbrella.",
+      "map_id": "map_846cad0356724b62addbf668db67d2fe"
+    }
+  ]
+}

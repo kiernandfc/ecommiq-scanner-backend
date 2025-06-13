@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250514_130925",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men Corduroy 5-Pocket Pants by Bonobos'\n  - Name='Bonobos Men's Jetsetter Italian Cotton Dress Suit Pants'\n  - Name='Bonobos Men's Jetsetter Italian Brushed Cotton Dress Suit Pants'\n  - Name='Fireside Flannel Lined Chinos Slim for Men by Bonobos'\n  - Name='Bonobos Men's Weekday Warrior Dress Pants'\n  - Name='Bonobos Men's Weekday Warrior Slim Fit Flat Front Dress Pants'\n  - Name='Bonobos Men's Slim Travel Jean Pants'\n  - Name='Bonobos Men's Japanese Stretch Selvedge Jean Pants'\n  - Name='Bonobos Straight Fit Travel Jean Pants'\n  - Name='Bonobos Men's Travel Jean Pants'\n  - Name='Bonobos Men's Weekday Warrior Slim Check Dress Pants'\n  - Name='Bonobos Italian Stretch Wool Dress Pants'\n  - Name='Men Premium 4-Way Stretch Jean Pants by Bonobos'\n  - Name='Bonobos Men's Gramercy Premium Jean Pants'\n  - Name='Patagonia Men's 2-Loose Quick-Dry Pants'\n  - Name='Patagonia Men's RPS Rock Pants'\n  - Name='Bonobos Men's Jetsetter Italian Linen Dress Suit Pants'\n  - Name='Bonobos Men's Stretch Lightweight Jean Pants'\n  - Name='Bonobos Men's Coastal Linen Pants'\n  - Name='Bonobos Men's Primo Chino Slim Plaid'\n  - Name='Patagonia Men's Iron Forge Canvas Bib Work Overalls'\n  - Name='Uniqlo Men's Slim Chino Pants'\n  - Name='UNIQLO Men's Wool-Like AirSense Pants'\n  - Name='Carhartt WIP Cole Cargo Pants'\n  - Name='Everlane Women’s Size 10 Blue Side Zip The Work Ankle Dress Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men Corduroy 5-Pocket Pants by Bonobos\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are casual pants designed for durability and utility, though the reference uses organic cotton canvas and the competitor uses corduroy. The 5-pocket style suggests a jean-like structure, somewhat similar in casualness and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Italian Cotton Dress Suit Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"These are dress suit pants made of fine Italian cotton, focusing on formal wear rather than utility or workwear style like the reference chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Italian Brushed Cotton Dress Suit Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Similarly dress-oriented pants with a brushed finish, quite different from the rugged, durable chore pant style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Fireside Flannel Lined Chinos Slim for Men by Bonobos\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chinos are similar casual pants but typically lighter and less heavy-duty than chore pants. The flannel lining adds insulation; overall less rugged but overlapping in casual pant category.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Dress pants designed for professional settings with a more polished look, not focusing on durability or reinforced construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Slim Fit Flat Front Dress Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Slim-fit dress pants lacking the workwear functional features and durability found in chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Travel Jean Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Premium slim travel jeans share the casual and durable nature but stylistically closer to denim jeans than canvas chore pants, still fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Japanese Stretch Selvedge Jean Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Selvedge jeans are durable and casual like chore pants but made from denim; similar target user but different fabric and workwear details.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Straight Fit Travel Jean Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Straight fit travel jeans also overlap in casual, durable pant category, though differ in material and reinforcement details.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Travel Jean Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"General travel jeans have similar utility and casual function, moderately relevant despite fabric differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Slim Check Dress Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Dress pants with a focus on style and office wear, very different in construction and purpose from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Italian Stretch Wool Dress Pants\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Wool dress pants are formal wear, not directly relevant to rugged durable cotton chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Premium 4-Way Stretch Jean Pants by Bonobos\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Stretch jeans offer casual and functional wear like chore pants, but the fabric and intended use differ somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Gramercy Premium Jean Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Premium jeans share casual and durable traits with chore pants, somewhat relevant for similar occasions.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's 2-Loose Quick-Dry Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Outdoor quick-dry pants serve different functions focusing on lightweight quick drying rather than heavy-duty durability and traditional workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's RPS Rock Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Designed for climbing and rugged outdoor use, somewhat overlaps with the chore pant's durability focus but differs in fabric and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Italian Linen Dress Suit Pants\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Lightweight linen dress pants made for warm weather formal use, very different from sturdy chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Lightweight Jean Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Lightweight stretch jeans may share casualness but lack the heavy canvas and reinforced construction of chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Coastal Linen Pants\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Linen pants are casual summer wear with no overlap in ruggedness or reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Primo Chino Slim Plaid\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Slim chinos are casual pants but generally lighter and less rugged than chore pants, with no specialized reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Iron Forge Canvas Bib Work Overalls\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Work overalls made from canvas with heavy-duty construction are very close in fabric, function, and ruggedness, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Slim Chino Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Slim chinos are casual pants but lighter and less rugged, and less reinforced workwear style than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wool-Like AirSense Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Wool-like casual pants focus on style and comfort rather than durability and reinforcement, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Cole Cargo Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Cargo pants from a workwear brand share durability, utilitarian design, and reinforced features making them quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women’s Size 10 Blue Side Zip The Work Ankle Dress Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Work dress pants for women suggest a more formal style focusing on fit and appearance rather than rugged durability and reinforced workwear features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men Corduroy 5-Pocket Pants by Bonobos",
+      "score": 6,
+      "rationale": "Both are casual pants designed for durability and utility, though the reference uses organic cotton canvas and the competitor uses corduroy. The 5-pocket style suggests a jean-like structure, somewhat similar in casualness and function.",
+      "map_id": "map_76d1386be52c494799a9f30259f3717b"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Italian Cotton Dress Suit Pants",
+      "score": 2,
+      "rationale": "These are dress suit pants made of fine Italian cotton, focusing on formal wear rather than utility or workwear style like the reference chore pant.",
+      "map_id": "map_d5471b79afdb419ba137a2947594775e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Italian Brushed Cotton Dress Suit Pants",
+      "score": 2,
+      "rationale": "Similarly dress-oriented pants with a brushed finish, quite different from the rugged, durable chore pant style and construction.",
+      "map_id": "map_60c66d92d1654764a3a57e68f4d5c4de"
+    },
+    {
+      "competitor_product_name": "Fireside Flannel Lined Chinos Slim for Men by Bonobos",
+      "score": 5,
+      "rationale": "Chinos are similar casual pants but typically lighter and less heavy-duty than chore pants. The flannel lining adds insulation; overall less rugged but overlapping in casual pant category.",
+      "map_id": "map_070a56c2255b4a418d3f718ab840e615"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Pants",
+      "score": 2,
+      "rationale": "Dress pants designed for professional settings with a more polished look, not focusing on durability or reinforced construction.",
+      "map_id": "map_b24711ac00a249d99d43d724272f2f7e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Slim Fit Flat Front Dress Pants",
+      "score": 2,
+      "rationale": "Slim-fit dress pants lacking the workwear functional features and durability found in chore pants.",
+      "map_id": "map_f17419ffab844373b0a4776c01960830"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Travel Jean Pants",
+      "score": 7,
+      "rationale": "Premium slim travel jeans share the casual and durable nature but stylistically closer to denim jeans than canvas chore pants, still fairly relevant.",
+      "map_id": "map_d36306be1f204a5b994347ca530066c6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Japanese Stretch Selvedge Jean Pants",
+      "score": 7,
+      "rationale": "Selvedge jeans are durable and casual like chore pants but made from denim; similar target user but different fabric and workwear details.",
+      "map_id": "map_456bb7f15e1b4346ac76e175d8de98f1"
+    },
+    {
+      "competitor_product_name": "Bonobos Straight Fit Travel Jean Pants",
+      "score": 7,
+      "rationale": "Straight fit travel jeans also overlap in casual, durable pant category, though differ in material and reinforcement details.",
+      "map_id": "map_4b690abc6a38424b94a6f07ca0d9fd7e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Travel Jean Pants",
+      "score": 7,
+      "rationale": "General travel jeans have similar utility and casual function, moderately relevant despite fabric differences.",
+      "map_id": "map_23639a7b226f4aeebd2227c0c915ecdd"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Slim Check Dress Pants",
+      "score": 2,
+      "rationale": "Dress pants with a focus on style and office wear, very different in construction and purpose from chore pants.",
+      "map_id": "map_a8c8558a569c404aa01a8064bedf01cc"
+    },
+    {
+      "competitor_product_name": "Bonobos Italian Stretch Wool Dress Pants",
+      "score": 1,
+      "rationale": "Wool dress pants are formal wear, not directly relevant to rugged durable cotton chore pants.",
+      "map_id": "map_aa232624ec3d460a8c4511b8595fdf1e"
+    },
+    {
+      "competitor_product_name": "Men Premium 4-Way Stretch Jean Pants by Bonobos",
+      "score": 6,
+      "rationale": "Stretch jeans offer casual and functional wear like chore pants, but the fabric and intended use differ somewhat.",
+      "map_id": "map_6930cc53dc2842ac88bd8136e49ae1ef"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Gramercy Premium Jean Pants",
+      "score": 7,
+      "rationale": "Premium jeans share casual and durable traits with chore pants, somewhat relevant for similar occasions.",
+      "map_id": "map_5916d4031d5a4eefa66ed776b78fb643"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's 2-Loose Quick-Dry Pants",
+      "score": 4,
+      "rationale": "Outdoor quick-dry pants serve different functions focusing on lightweight quick drying rather than heavy-duty durability and traditional workwear style.",
+      "map_id": "map_33538744aef944f28c4afc4ea2d72c43"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's RPS Rock Pants",
+      "score": 5,
+      "rationale": "Designed for climbing and rugged outdoor use, somewhat overlaps with the chore pant's durability focus but differs in fabric and purpose.",
+      "map_id": "map_365cd1b2f5df4eb088777fced07f528d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Italian Linen Dress Suit Pants",
+      "score": 1,
+      "rationale": "Lightweight linen dress pants made for warm weather formal use, very different from sturdy chore pants.",
+      "map_id": "map_6de690e9e56240478b85563e1d769506"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Lightweight Jean Pants",
+      "score": 6,
+      "rationale": "Lightweight stretch jeans may share casualness but lack the heavy canvas and reinforced construction of chore pants.",
+      "map_id": "map_35b50e682b90464a954ad972d8bedf09"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Coastal Linen Pants",
+      "score": 1,
+      "rationale": "Linen pants are casual summer wear with no overlap in ruggedness or reinforcement.",
+      "map_id": "map_5f0236cde33045cc8d451481208015c2"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Primo Chino Slim Plaid",
+      "score": 4,
+      "rationale": "Slim chinos are casual pants but generally lighter and less rugged than chore pants, with no specialized reinforcement.",
+      "map_id": "map_ffe2ffe99820426a84e93d28f3136313"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Iron Forge Canvas Bib Work Overalls",
+      "score": 9,
+      "rationale": "Work overalls made from canvas with heavy-duty construction are very close in fabric, function, and ruggedness, highly relevant.",
+      "map_id": "map_f2be80cf0e9f49c794e59133f337a554"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Slim Chino Pants",
+      "score": 4,
+      "rationale": "Slim chinos are casual pants but lighter and less rugged, and less reinforced workwear style than chore pants.",
+      "map_id": "map_b1bfa063ff184475bd9af3b9a404479a"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wool-Like AirSense Pants",
+      "score": 2,
+      "rationale": "Wool-like casual pants focus on style and comfort rather than durability and reinforcement, less relevant.",
+      "map_id": "map_1b25c7bbc0e847a5bf29de0800e1fbac"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Cole Cargo Pants",
+      "score": 8,
+      "rationale": "Cargo pants from a workwear brand share durability, utilitarian design, and reinforced features making them quite relevant.",
+      "map_id": "map_69b9c217a0a54973a3cfe6b3b29b9f40"
+    },
+    {
+      "competitor_product_name": "Everlane Women’s Size 10 Blue Side Zip The Work Ankle Dress Pants",
+      "score": 3,
+      "rationale": "Work dress pants for women suggest a more formal style focusing on fit and appearance rather than rugged durability and reinforced workwear features.",
+      "map_id": "map_3772d09c53884223a26b0c5686dfe19f"
+    }
+  ]
+}

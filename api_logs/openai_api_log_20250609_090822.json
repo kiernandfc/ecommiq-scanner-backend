@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250609_090822",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Todd Snyder Men's Pique Hollywood Shirt'\n  - Name='Mizzen+Main Leeward Trim Fit No Tuck Men's Geo Print Performance Button-Up Shirt'\n  - Name='Mizzen + Main Leeward No Tuck Dress Shirt'\n  - Name='Arizona Ellis Oxford'\n  - Name='Purdue Ellis Sky Solid Oxford'\n  - Name='Mizzen + Main Halyard Dress Shirt'\n  - Name='Mizzen + Main Leeward Dress Shirt'\n  - Name='Men's Mizzen+Main Halyard Button Up Shirt'\n  - Name='Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt'\n  - Name='Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt'\n  - Name='Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt'\n  - Name='Charles Tyrwhitt Men's Brushed Twill Cotton Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Puppytooth Cotton Formal Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dress Shirt with Spread Collar'\n  - Name='J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim Secret Wash Cotton Poplin Shirt'\n  - Name='Thomas Mason for J.Crew Men's Washed Poplin Shirt'\n  - Name='Men's Marine Layer Better-Than-Linen Shirt'\n  - Name='Marine Layer Men's Boxy Resort Shirt'\n  - Name='Men's Marine Layer Dobby Resort Shirt'\n  - Name='Everlane Oxford Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Pique Hollywood Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a pique shirt, typically a knit fabric often used in polo shirts, different from Oxford woven fabric and shirting style such as the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Leeward Trim Fit No Tuck Men's Geo Print Performance Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While a button-up shirt like the reference, this is a performance fabric with geo print and meant to be worn untucked. It differs in fabric function and likely construction from the burly organic cotton Oxford of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward No Tuck Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar button-up dress shirt intended untucked, likely functional fabric, but lacks specifics on Oxford cotton or similar construction to reference. Still closer than performance or knit shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Arizona Ellis Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Named 'Oxford' indicating fabric type consistent with the reference shirt. Likely similar in style and function as an Oxford button-down, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purdue Ellis Sky Solid Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also identified as an Oxford shirt with solid color, directly related to the reference's Oxford fabric and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Halyard Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another dress shirt by Mizzen+Main, likely a button-up but without clear mention of Oxford fabric or construction similar to the reference. Moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to previous Mizzen+Main dress shirts, similar usage but does not specify Oxford cotton or robust construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Halyard Button Up Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Same as above, a button-up dress shirt with less detail on material, moderate relevancy due to use and styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford shirt with slim fit and non-iron finish. Very close in fabric and style to the reference but with a non-iron treatment and possibly more formal tailoring.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford fabric shirt but with stripes and non-iron treatment, similar style and construction but slight difference due to pattern and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt with stretch fabric and non-iron finish. Similar base material but different fabric treatment and properties compared to the reference's organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Twill fabric, different weave from Oxford. Non-iron with stripes, less similar in fabric and construction to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Dress shirt with cutaway collar, non-iron finish. Does not specify Oxford fabric and likely more formal and different silhouette, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton Oxford fabric like the reference but striped pattern, which is not relevant per instructions. Otherwise very similar style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Repeat entry, similar to previous Royal Oxford slim fit, very relevant due to fabric and style match.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Brushed Twill Cotton Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Brushed twill fabric differs from Oxford basket weave, typically softer and with a nap, less similar in fabric and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Puppytooth Cotton Formal Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Puppytooth pattern and formal shirt style differ significantly from casual organic Oxford shirt, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dress Shirt with Spread Collar\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt designed wrinkle-free with spread collar, may differ in fabric and construction details from Oxford button-down. Moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Poplin fabric differs from Oxford weave; relaxed cut and secrete wash give a casual shirt but different in fabric and possibly fit.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to above, slim fit but still poplin fabric, thus less similar in material though close in style.\"\n    },\n    {\n      \"competitor_product_name\": \"Thomas Mason for J.Crew Men's Washed Poplin Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Poplin fabric and washed finish, similar casual styling but different fabric type from Oxford cotton shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Better-Than-Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a lightweight, linen-like or linen blend shirt, different weight, weave and intended use than heavy organic Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Boxy Resort Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Boxy resort shirt indicates casual, possibly lighter fabric and loose fit quite different from tailored Oxford button-down.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Dobby Resort Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Dobby weave resort shirt is more casual and lightweight, different fabric style and use than the reference Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford shirt specifically named such and from a brand also focused on durable, responsibly made clothing very similar to the reference in fabric and styling.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Todd Snyder Men's Pique Hollywood Shirt",
+      "score": 3,
+      "rationale": "This is a pique shirt, typically a knit fabric often used in polo shirts, different from Oxford woven fabric and shirting style such as the reference.",
+      "map_id": "map_d4ea4f474068441a845de712ed62affb"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Leeward Trim Fit No Tuck Men's Geo Print Performance Button-Up Shirt",
+      "score": 4,
+      "rationale": "While a button-up shirt like the reference, this is a performance fabric with geo print and meant to be worn untucked. It differs in fabric function and likely construction from the burly organic cotton Oxford of the reference.",
+      "map_id": "map_a4a0fa7c40404d23a6dcaaa01c63cb93"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward No Tuck Dress Shirt",
+      "score": 5,
+      "rationale": "Similar button-up dress shirt intended untucked, likely functional fabric, but lacks specifics on Oxford cotton or similar construction to reference. Still closer than performance or knit shirts.",
+      "map_id": "map_e3e0a63065364e7a885a3c77c920d4b4"
+    },
+    {
+      "competitor_product_name": "Arizona Ellis Oxford",
+      "score": 7,
+      "rationale": "Named 'Oxford' indicating fabric type consistent with the reference shirt. Likely similar in style and function as an Oxford button-down, making it quite relevant.",
+      "map_id": "map_ccefffaf28174053a0135ab5154d8897"
+    },
+    {
+      "competitor_product_name": "Purdue Ellis Sky Solid Oxford",
+      "score": 7,
+      "rationale": "Also identified as an Oxford shirt with solid color, directly related to the reference's Oxford fabric and style.",
+      "map_id": "map_01ff9b7c766242a79b7c42666d653a48"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Halyard Dress Shirt",
+      "score": 5,
+      "rationale": "Another dress shirt by Mizzen+Main, likely a button-up but without clear mention of Oxford fabric or construction similar to the reference. Moderate relevancy.",
+      "map_id": "map_bf379ff7a9644f099a789bd2a76e1325"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward Dress Shirt",
+      "score": 5,
+      "rationale": "Similar to previous Mizzen+Main dress shirts, similar usage but does not specify Oxford cotton or robust construction.",
+      "map_id": "map_abebe9bb7ee84188b64c519b5a09d10f"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Halyard Button Up Shirt",
+      "score": 5,
+      "rationale": "Same as above, a button-up dress shirt with less detail on material, moderate relevancy due to use and styling.",
+      "map_id": "map_6cbb7d833577482aae3ea5271a0c231a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt",
+      "score": 8,
+      "rationale": "An Oxford shirt with slim fit and non-iron finish. Very close in fabric and style to the reference but with a non-iron treatment and possibly more formal tailoring.",
+      "map_id": "map_5d660c09bb024b61a42838a848e0eefa"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt",
+      "score": 8,
+      "rationale": "An Oxford shirt with slim fit and non-iron finish. Very close in fabric and style to the reference but with a non-iron treatment and possibly more formal tailoring.",
+      "map_id": "map_2972d063060a43bc93d2dfc6636f1091"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Stripe Dress Shirt",
+      "score": 7,
+      "rationale": "Oxford fabric shirt but with stripes and non-iron treatment, similar style and construction but slight difference due to pattern and finish.",
+      "map_id": "map_51511a1d6b4349a0b978612caf82435d"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt",
+      "score": 7,
+      "rationale": "Oxford shirt with stretch fabric and non-iron finish. Similar base material but different fabric treatment and properties compared to the reference's organic cotton.",
+      "map_id": "map_67caf9f969ec4ab3b1b90b58ea16cc28"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt",
+      "score": 4,
+      "rationale": "Twill fabric, different weave from Oxford. Non-iron with stripes, less similar in fabric and construction to the reference.",
+      "map_id": "map_450e74d87c6b44a0af95bbf8ac6f9168"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt",
+      "score": 4,
+      "rationale": "Dress shirt with cutaway collar, non-iron finish. Does not specify Oxford fabric and likely more formal and different silhouette, less relevant.",
+      "map_id": "map_92747976677d49e7989c9b4fb2052625"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton Oxford fabric like the reference but striped pattern, which is not relevant per instructions. Otherwise very similar style and construction.",
+      "map_id": "map_a12b1588223a4169ad02096aa6bb7952"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt",
+      "score": 8,
+      "rationale": "Repeat entry, similar to previous Royal Oxford slim fit, very relevant due to fabric and style match.",
+      "map_id": "map_5d660c09bb024b61a42838a848e0eefa"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non-Iron Royal Oxford Slim Fit Shirt",
+      "score": 8,
+      "rationale": "Repeat entry, similar to previous Royal Oxford slim fit, very relevant due to fabric and style match.",
+      "map_id": "map_2972d063060a43bc93d2dfc6636f1091"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Brushed Twill Cotton Shirt",
+      "score": 4,
+      "rationale": "Brushed twill fabric differs from Oxford basket weave, typically softer and with a nap, less similar in fabric and feel.",
+      "map_id": "map_26575007f1834163a83786f4fd802810"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Puppytooth Cotton Formal Shirt",
+      "score": 3,
+      "rationale": "Puppytooth pattern and formal shirt style differ significantly from casual organic Oxford shirt, less relevant.",
+      "map_id": "map_8e7520006f824f6b95e3bdc0f79bdf6a"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dress Shirt with Spread Collar",
+      "score": 5,
+      "rationale": "Dress shirt designed wrinkle-free with spread collar, may differ in fabric and construction details from Oxford button-down. Moderate relevancy.",
+      "map_id": "map_a03f8e53a60d480ea82187ac671bc062"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt",
+      "score": 5,
+      "rationale": "Poplin fabric differs from Oxford weave; relaxed cut and secrete wash give a casual shirt but different in fabric and possibly fit.",
+      "map_id": "map_93f0226190094de98e19ee33717e2279"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Secret Wash Cotton Poplin Shirt",
+      "score": 5,
+      "rationale": "Similar to above, slim fit but still poplin fabric, thus less similar in material though close in style.",
+      "map_id": "map_a51830a7e95c4bb49b45687625b7f920"
+    },
+    {
+      "competitor_product_name": "Thomas Mason for J.Crew Men's Washed Poplin Shirt",
+      "score": 5,
+      "rationale": "Poplin fabric and washed finish, similar casual styling but different fabric type from Oxford cotton shirt.",
+      "map_id": "map_97127ca943cc4e51ac83fdedb095fecf"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Better-Than-Linen Shirt",
+      "score": 4,
+      "rationale": "Likely a lightweight, linen-like or linen blend shirt, different weight, weave and intended use than heavy organic Oxford shirt.",
+      "map_id": "map_f3329c1550d44b79b89a34b55e6b4f2f"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Boxy Resort Shirt",
+      "score": 3,
+      "rationale": "Boxy resort shirt indicates casual, possibly lighter fabric and loose fit quite different from tailored Oxford button-down.",
+      "map_id": "map_0c78663e9d8b46c49d575e44b58ff265"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Dobby Resort Shirt",
+      "score": 4,
+      "rationale": "Dobby weave resort shirt is more casual and lightweight, different fabric style and use than the reference Oxford shirt.",
+      "map_id": "map_4073e602fe0e4fc2b2452bf75927fd2f"
+    },
+    {
+      "competitor_product_name": "Everlane Oxford Shirt",
+      "score": 8,
+      "rationale": "An Oxford shirt specifically named such and from a brand also focused on durable, responsibly made clothing very similar to the reference in fabric and styling.",
+      "map_id": "map_1ff85fc1de514ad9a07b9734317e31d4"
+    }
+  ]
+}

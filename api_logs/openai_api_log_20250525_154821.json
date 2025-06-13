@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250525_154821",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men Stetson Hatteras Wool Melange Flat Cap'\n  - Name='Bailey Of Hollywood Lord Plaid Newsboy Cap'\n  - Name='Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband'\n  - Name='Barbour Women's Tack Fedora'\n  - Name='Barbour Men's Tartan Crest Sports Cap'\n  - Name='Barbour Wax Sports Hat Mens'\n  - Name='Barbour Men's Newsboy Cap'\n  - Name='Men's Barbour Fawdon Bakerboy Hat'\n  - Name='Barbour Lindsday Tartan Sports Cap'\n  - Name='Barbour Gallingale Tartan Flat Cap | Classic Tartan.'\n  - Name='Kangol Men's Hyper Plaid Bucket Hat'\n  - Name='Sweetwater Plaid Trainer Boston Scally Cap'\n  - Name='Peaky Boston Scally Cap'\n  - Name='The Original Peaky Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men Stetson Hatteras Wool Melange Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are men's caps with a flat cap silhouette, though the competitor may have slightly different panel construction; wool melange fabric differs from leatherette brim but overall similar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Of Hollywood Lord Plaid Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap with a plaid pattern and similar rounded, multi-panel style close to the 8-panel Peaky design, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An ivy flat cap with 6 panels differs somewhat in silhouette from an 8-panel Peaky cap, but still in flat cap family and similar use.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Women's Tack Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora is a distinctly different hat shape and construction from a flat or newsboy cap, reducing relevancy despite both being headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Tartan Crest Sports Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sports cap may share some elements with flat cap styles but may differ in paneling and structure; tartan pattern is relevant to traditional caps but details unclear.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wax Sports Hat Mens\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Waxed sports hat suggests a different style and material, less similar in silhouette and paneling to the Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A newsboy cap matches closely with the Peaky's multi-panel style, making this product highly relevant in shape and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Fawdon Bakerboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Bakerboy hats are essentially newsboy caps, sharing panel construction and shape very similar to Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Lindsday Tartan Sports Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sports cap may be less structured than a Peaky cap, but traditional materials and pattern slightly increase relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Gallingale Tartan Flat Cap | Classic Tartan.\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style with classic tartan aligns well with Peaky cap family, though exact panel count and brim materials may differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Hyper Plaid Bucket Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bucket hat shape is very different from flat or newsboy caps; style and silhouette do not align well with Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Sweetwater Plaid Trainer Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Boston Scally cap with a plaid pattern is very close to the reference product in brand and style, indicating very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Peaky Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact name matching the Peaky collection from Boston Scally indicates this is either identical or the same product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Original Peaky Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact or nearly exact product match to the reference Peaky cap by Boston Scally, indicating the highest relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men Stetson Hatteras Wool Melange Flat Cap",
+      "score": 7,
+      "rationale": "Both are men's caps with a flat cap silhouette, though the competitor may have slightly different panel construction; wool melange fabric differs from leatherette brim but overall similar style.",
+      "map_id": "map_f58ec1aa08114e4a858e9aef76e499f1"
+    },
+    {
+      "competitor_product_name": "Bailey Of Hollywood Lord Plaid Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap with a plaid pattern and similar rounded, multi-panel style close to the 8-panel Peaky design, making it quite relevant.",
+      "map_id": "map_f9d3b5c387e24d00996274c5941677a0"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband",
+      "score": 6,
+      "rationale": "An ivy flat cap with 6 panels differs somewhat in silhouette from an 8-panel Peaky cap, but still in flat cap family and similar use.",
+      "map_id": "map_cac03d5d4744480798caab0860c6e799"
+    },
+    {
+      "competitor_product_name": "Barbour Women's Tack Fedora",
+      "score": 2,
+      "rationale": "Fedora is a distinctly different hat shape and construction from a flat or newsboy cap, reducing relevancy despite both being headwear.",
+      "map_id": "map_3813c3422fee44b98593c391e74fa3d6"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Tartan Crest Sports Cap",
+      "score": 5,
+      "rationale": "Sports cap may share some elements with flat cap styles but may differ in paneling and structure; tartan pattern is relevant to traditional caps but details unclear.",
+      "map_id": "map_efbe56ae6d65409bbe8123bd2b064d48"
+    },
+    {
+      "competitor_product_name": "Barbour Wax Sports Hat Mens",
+      "score": 3,
+      "rationale": "Waxed sports hat suggests a different style and material, less similar in silhouette and paneling to the Peaky cap.",
+      "map_id": "map_8993834d0bbe46cfa40c9953ef9794c5"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Newsboy Cap",
+      "score": 8,
+      "rationale": "A newsboy cap matches closely with the Peaky's multi-panel style, making this product highly relevant in shape and style.",
+      "map_id": "map_8c26f25d03644d6aba1e40d9c5ebb083"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Fawdon Bakerboy Hat",
+      "score": 8,
+      "rationale": "Bakerboy hats are essentially newsboy caps, sharing panel construction and shape very similar to Peaky caps.",
+      "map_id": "map_315a3b4056564132ad5b29e7dd6556aa"
+    },
+    {
+      "competitor_product_name": "Barbour Lindsday Tartan Sports Cap",
+      "score": 5,
+      "rationale": "Sports cap may be less structured than a Peaky cap, but traditional materials and pattern slightly increase relevancy.",
+      "map_id": "map_168f5c0998324578866882020588d898"
+    },
+    {
+      "competitor_product_name": "Barbour Gallingale Tartan Flat Cap | Classic Tartan.",
+      "score": 7,
+      "rationale": "Flat cap style with classic tartan aligns well with Peaky cap family, though exact panel count and brim materials may differ.",
+      "map_id": "map_8324176e9722464087a846d92b2278e9"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Hyper Plaid Bucket Hat",
+      "score": 2,
+      "rationale": "Bucket hat shape is very different from flat or newsboy caps; style and silhouette do not align well with Peaky cap.",
+      "map_id": "map_0802928524fc464ca5212d3f3e215f4b"
+    },
+    {
+      "competitor_product_name": "Sweetwater Plaid Trainer Boston Scally Cap",
+      "score": 9,
+      "rationale": "A Boston Scally cap with a plaid pattern is very close to the reference product in brand and style, indicating very high relevancy.",
+      "map_id": "map_f0c1889ed6a6472f955d965caff73fc1"
+    },
+    {
+      "competitor_product_name": "Peaky Boston Scally Cap",
+      "score": 10,
+      "rationale": "Exact name matching the Peaky collection from Boston Scally indicates this is either identical or the same product.",
+      "map_id": "map_71fb671fe3fb4849b512dcb4c05c119c"
+    },
+    {
+      "competitor_product_name": "The Original Peaky Boston Scally Cap",
+      "score": 10,
+      "rationale": "Exact or nearly exact product match to the reference Peaky cap by Boston Scally, indicating the highest relevancy.",
+      "map_id": "map_525f2efc49274dd8a7ab4460be39ee63"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "timestamp": "20250606_080602",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar'\n  - Name='J.Crew Men's Slim Organic Cotton Chambray Shirt'\n  - Name='J.Crew Men's Slim Baird Mcnutt Irish Linen Shirt'\n  - Name='J.Crew Men's Organic Cotton Chambray Shirt'\n  - Name='J.Crew Men's Slim Flex Casual Shirt'\n  - Name='J.Crew Men's Slim Untucked Irish Linen Shirt'\n  - Name='J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt'\n  - Name='J.Crew Men's Two-Pocket Herringbone Workshirt in Tencel Lyocell-'\n  - Name='Buck Mason Men's Indigo-Dipped Yuma Henley T-Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Short Sleeve'\n  - Name='Buck Mason Men's Felted Wool Field Shirt'\n  - Name='Buck Mason Men's Plaid Western Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product closely matches the reference as it is a slim fit, organic cotton Oxford shirt, implying similar fabric, construction, and styling.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar to the Jack Shirt in material (organic cotton Oxford), fit (slim), and style (untucked length).\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a cotton shirt, the poplin fabric differs significantly from the heavier Oxford basket weave; also, it is not organic cotton or described as sturdy workwear.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Organic Cotton Chambray Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Uses organic cotton like the reference but chambray fabric is lighter and different in weave from Oxford, though silhouette likely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Baird Mcnutt Irish Linen Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Different fabric category (linen vs. cotton Oxford), likely lighter and less sturdy, reducing overall relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Organic Cotton Chambray Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Same as the slim chambray but probably less tailored fit; organic cotton fabric focus is shared but chambray fabric differs from Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Flex Casual Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Name suggests a casual shirt with some stretch ('flex'), but no mention of Oxford fabric or organic cotton, less similar in core features and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Irish Linen Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Irish linen is a different fabric construction and feel; less durable and heavier use as in reference likely not comparable.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Poplin fabric and relaxed fit differ from the structured Oxford, tailored fit, and heavier fabric of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Premium cotton dress shirt may share some tailoring aspects but usually dress shirts are lighter fabric and less rugged compared to Oxford shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Two-Pocket Herringbone Workshirt in Tencel Lyocell-\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Workshirt style is closer to rugged wear but different fabric (tencel lyocell) and herringbone weave distinguish it from cotton Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Indigo-Dipped Yuma Henley T-Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Henley T-shirt is a completely different style, fabric, and construction; no button-down or Oxford characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Short Sleeve\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Shares brand and organic cotton fabric but short sleeve differs significantly from long sleeve tailored Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Felted Wool Field Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Field shirt and felted wool fabric are different structurally from cotton Oxford button-down; different use case and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Plaid Western Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Plaid western shirt has a distinct style and likely different fabric from the solid, tailored Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand, same organic cotton Jack style shirt but short sleeve version; very similar construction and styling except sleeve length.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Slim Broken-In Organic Cotton Oxford Shirt",
+      "score": 9,
+      "rationale": "This product closely matches the reference as it is a slim fit, organic cotton Oxford shirt, implying similar fabric, construction, and styling.",
+      "map_id": "map_47c34a8c906446c8be0c7e205812f0f1"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt",
+      "score": 9,
+      "rationale": "Very similar to the Jack Shirt in material (organic cotton Oxford), fit (slim), and style (untucked length).",
+      "map_id": "map_f2c034beeb8a4321a216c5697b7e670a"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar",
+      "score": 5,
+      "rationale": "While a cotton shirt, the poplin fabric differs significantly from the heavier Oxford basket weave; also, it is not organic cotton or described as sturdy workwear.",
+      "map_id": "map_a1ae74806bd84fd48b44866078570642"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Organic Cotton Chambray Shirt",
+      "score": 6,
+      "rationale": "Uses organic cotton like the reference but chambray fabric is lighter and different in weave from Oxford, though silhouette likely similar.",
+      "map_id": "map_153f8f3acbbb454da858593f7af16081"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Baird Mcnutt Irish Linen Shirt",
+      "score": 3,
+      "rationale": "Different fabric category (linen vs. cotton Oxford), likely lighter and less sturdy, reducing overall relevancy.",
+      "map_id": "map_13c0219b1f0645ab928c718971fac941"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Organic Cotton Chambray Shirt",
+      "score": 6,
+      "rationale": "Same as the slim chambray but probably less tailored fit; organic cotton fabric focus is shared but chambray fabric differs from Oxford.",
+      "map_id": "map_362d091a2b174acdb7b3e6f64ef0cd5b"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Flex Casual Shirt",
+      "score": 4,
+      "rationale": "Name suggests a casual shirt with some stretch ('flex'), but no mention of Oxford fabric or organic cotton, less similar in core features and construction.",
+      "map_id": "map_49f1e80c770a48fba610f086f7500e2c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Irish Linen Shirt",
+      "score": 2,
+      "rationale": "Irish linen is a different fabric construction and feel; less durable and heavier use as in reference likely not comparable.",
+      "map_id": "map_1b39dc4325524004937c77187d0b9a10"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Relaxed Secret Wash Cotton Poplin Shirt",
+      "score": 3,
+      "rationale": "Poplin fabric and relaxed fit differ from the structured Oxford, tailored fit, and heavier fabric of the reference.",
+      "map_id": "map_d5976d43873c4fcca38b96122713c703"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt",
+      "score": 5,
+      "rationale": "Premium cotton dress shirt may share some tailoring aspects but usually dress shirts are lighter fabric and less rugged compared to Oxford shirts.",
+      "map_id": "map_d072c45b9f654d42ae5522b7ac57ad65"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Two-Pocket Herringbone Workshirt in Tencel Lyocell-",
+      "score": 4,
+      "rationale": "Workshirt style is closer to rugged wear but different fabric (tencel lyocell) and herringbone weave distinguish it from cotton Oxford shirt.",
+      "map_id": "map_5133646cf5ba454795456c359d0c994e"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Indigo-Dipped Yuma Henley T-Shirt",
+      "score": 1,
+      "rationale": "Henley T-shirt is a completely different style, fabric, and construction; no button-down or Oxford characteristics.",
+      "map_id": "map_2ca306445eb047779d325f4993e2a9e9"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Short Sleeve",
+      "score": 7,
+      "rationale": "Shares brand and organic cotton fabric but short sleeve differs significantly from long sleeve tailored Oxford shirt.",
+      "map_id": "map_2255a57fd9a448f3ab050ca2f01a3ef3"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Felted Wool Field Shirt",
+      "score": 2,
+      "rationale": "Field shirt and felted wool fabric are different structurally from cotton Oxford button-down; different use case and material.",
+      "map_id": "map_4c0874906bc940ba8a7f9ba4f63ebd2d"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Plaid Western Shirt",
+      "score": 3,
+      "rationale": "Plaid western shirt has a distinct style and likely different fabric from the solid, tailored Oxford shirt.",
+      "map_id": "map_50e5fe2496f14c10b8abc80f3508d71b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt",
+      "score": 9,
+      "rationale": "Same brand, same organic cotton Jack style shirt but short sleeve version; very similar construction and styling except sleeve length.",
+      "map_id": "map_a89e16e4146942dea0abb2fa4aa30f29"
+    }
+  ]
+}

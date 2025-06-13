@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250511_114209",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's No-Sweat Ribbed Polo Sweater'\n  - Name='H&M Men's Loose Fit Printed Sweatshirt'\n  - Name='Champion Men's Super Fleece 2.0 Hoodie'\n  - Name='Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt'\n  - Name='Nike Men's Tech Fleece Hoodie'\n  - Name='Nike Men's SB Fleece Front-Zip Skate Hoodie'\n  - Name='Everlane Men's The Waffle Knit Hoodie'\n  - Name='Everlane Men's Long Sleeve Pullover Hoodie'\n  - Name='Everlane Classic Cotton Cardigan'\n  - Name='Everlane Men's Reverse French Terry Cotton Full Zip Hoodie'\n  - Name='Everlane Men's Half-zip Sweatshirt'\n  - Name='Everlane Men's Full Zip Hooded Sweatshirt'\n  - Name='Everlane Men's Hoodie'\n  - Name='Everlane Men's Minimalist Everyday Sweatshirt'\n  - Name='Champion Men's Kentucky Wildcats Stack Logo Volleyball Hoodie'\n  - Name='Champion Men's El Paso Chihuahuas Baseball Hoodie'\n  - Name='Champion Men's Michigan State Spartans Wrestling Icon Long Sleeve Hoodie'\n  - Name='Carhartt Men's Force Delmont Signature Graphic Hooded Sweatshirt'\n  - Name='American Apparel Fleece Zip Hoodie'\n  - Name='Carhartt Men's Midweight Crewneck Sweatshirt'\n  - Name='Custom American Apparel ReFlex Fleece Pullover Hoodie'\n  - Name='EVERLANE Felted Merino Hoodie'\n  - Name='Everlane Men's Pullover Hoodie Sweatshirt'\n  - Name='Everlane Men's The Crew Sweatshirt'\n  - Name='Everlane Women's Oversized Fleece Sweater'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's No-Sweat Ribbed Polo Sweater\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a ribbed polo sweater, which differs significantly from a hoodie in form and function; lacks hood and typical sweatshirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Printed Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A loose fit printed sweatshirt is closer in function and comfort to a hoodie but likely lacks a hood, making it somewhat less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Super Fleece 2.0 Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie designed for warmth and comfort aligns closely with the reference hoodie in both function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hooded, midweight zip front sweatshirt shares the basic hoodie construction and purpose, although flame-resistant feature and zip front differ somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Tech Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A technical fleece hoodie offers similar build, comfort, and function as the reference hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's SB Fleece Front-Zip Skate Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A fleece front-zip skate hoodie has close similarities in silhouette and comfort but features a zip front which slightly differentiates it.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Waffle Knit Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A waffle knit hoodie matches the core features of the reference product with hood, knit fabric, and casual style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Long Sleeve Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A pullover hoodie exactly matches the reference product in basic style, fit, and purpose for comfort and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Classic Cotton Cardigan\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A cardigan differs in silhouette and open front design; lacks a hood and typical sweatshirt construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Reverse French Terry Cotton Full Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A full zip hoodie with cotton fabric is very similar to the reference, differing mainly by having a zip closure.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Half-zip Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Half-zip sweatshirt without specified hood is less similar but still relevant as casual sweatshirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Full Zip Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Full zip hooded sweatshirt is highly similar to the reference hoodie except for zipper closure.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Simply named hoodie implies a product identical in style and function to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Minimalist Everyday Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An everyday sweatshirt likely lacks a hood but offers similar comfort and usage as the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Kentucky Wildcats Stack Logo Volleyball Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A team logo hoodie matches the basic structure and function of the reference hoodie well.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's El Paso Chihuahuas Baseball Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A sports team baseball hoodie is closely related in silhouette and purpose to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Michigan State Spartans Wrestling Icon Long Sleeve Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A long sleeve hoodie with sports logo shares core hoodie features and function with the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Delmont Signature Graphic Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hooded sweatshirt with graphic design is similar in form and purpose but may have heavier workwear influence.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Fleece Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece zip hoodie closely aligns with the reference hoodie in materials and style, aside from zipper.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Crewneck Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Crewneck sweatshirt lacks a hood but shares midweight construction and casual wear aspect.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom American Apparel ReFlex Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece pullover hoodie closely matches the reference in silhouette, construction, and material.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Felted Merino Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A felted merino hoodie matches the basic hoodie style but uses a different, more specialized fabric than typical sweatshirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Pullover Hoodie Sweatshirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Pullover hoodie sweatshirt is essentially identical to the reference product in style, function, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Crew Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Crew sweatshirt lacks a hood but shares sweatshirt features and casual wear intent.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Oversized Fleece Sweater\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Though made for warmth, an oversized fleece sweater differs from a hoodie by shape and lack of hood.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's No-Sweat Ribbed Polo Sweater",
+      "score": 2,
+      "rationale": "This is a ribbed polo sweater, which differs significantly from a hoodie in form and function; lacks hood and typical sweatshirt style.",
+      "map_id": "map_cdf86316b8794257ad5aea6559b10dcb"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Printed Sweatshirt",
+      "score": 6,
+      "rationale": "A loose fit printed sweatshirt is closer in function and comfort to a hoodie but likely lacks a hood, making it somewhat less relevant.",
+      "map_id": "map_adc4e860817f4b37b69de2b405684e8b"
+    },
+    {
+      "competitor_product_name": "Champion Men's Super Fleece 2.0 Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie designed for warmth and comfort aligns closely with the reference hoodie in both function and silhouette.",
+      "map_id": "map_dbbb350159de4c10bf325b5af3b9d1a3"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt",
+      "score": 8,
+      "rationale": "A hooded, midweight zip front sweatshirt shares the basic hoodie construction and purpose, although flame-resistant feature and zip front differ somewhat.",
+      "map_id": "map_0196fcbabefe47eeb895ee2bf5745892"
+    },
+    {
+      "competitor_product_name": "Nike Men's Tech Fleece Hoodie",
+      "score": 9,
+      "rationale": "A technical fleece hoodie offers similar build, comfort, and function as the reference hoodie, making it highly relevant.",
+      "map_id": "map_b8a3b3bb2a7640fe8e89855047dd4ef3"
+    },
+    {
+      "competitor_product_name": "Nike Men's SB Fleece Front-Zip Skate Hoodie",
+      "score": 8,
+      "rationale": "A fleece front-zip skate hoodie has close similarities in silhouette and comfort but features a zip front which slightly differentiates it.",
+      "map_id": "map_15925a34dc5a4a8c875dfba66513ef11"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Waffle Knit Hoodie",
+      "score": 9,
+      "rationale": "A waffle knit hoodie matches the core features of the reference product with hood, knit fabric, and casual style.",
+      "map_id": "map_19b387d7686d49fe8ef1bc5c8ada239d"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Long Sleeve Pullover Hoodie",
+      "score": 10,
+      "rationale": "A pullover hoodie exactly matches the reference product in basic style, fit, and purpose for comfort and casual wear.",
+      "map_id": "map_d3ebdb57d2f545ffbed09737dd46f8dd"
+    },
+    {
+      "competitor_product_name": "Everlane Classic Cotton Cardigan",
+      "score": 3,
+      "rationale": "A cardigan differs in silhouette and open front design; lacks a hood and typical sweatshirt construction.",
+      "map_id": "map_1c7eeaa9fc794f498a5dfb7caf9f61e7"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Reverse French Terry Cotton Full Zip Hoodie",
+      "score": 9,
+      "rationale": "A full zip hoodie with cotton fabric is very similar to the reference, differing mainly by having a zip closure.",
+      "map_id": "map_89cd4327c9724114be1dea58ad2a16c1"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Half-zip Sweatshirt",
+      "score": 7,
+      "rationale": "Half-zip sweatshirt without specified hood is less similar but still relevant as casual sweatshirt style.",
+      "map_id": "map_6828e48da1b348f5a2896ad359f48a3d"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Full Zip Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Full zip hooded sweatshirt is highly similar to the reference hoodie except for zipper closure.",
+      "map_id": "map_01700dd01320472dabbbcfb6d0207bce"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Hoodie",
+      "score": 10,
+      "rationale": "Simply named hoodie implies a product identical in style and function to the reference.",
+      "map_id": "map_e46f6f87a511490ea7bf2e7f1e2f88e8"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Minimalist Everyday Sweatshirt",
+      "score": 7,
+      "rationale": "An everyday sweatshirt likely lacks a hood but offers similar comfort and usage as the reference.",
+      "map_id": "map_fcb9a53d881842bc974b656ad0b4d5d0"
+    },
+    {
+      "competitor_product_name": "Champion Men's Kentucky Wildcats Stack Logo Volleyball Hoodie",
+      "score": 9,
+      "rationale": "A team logo hoodie matches the basic structure and function of the reference hoodie well.",
+      "map_id": "map_fd517dac58374bb69a2b1e85158559d5"
+    },
+    {
+      "competitor_product_name": "Champion Men's El Paso Chihuahuas Baseball Hoodie",
+      "score": 9,
+      "rationale": "A sports team baseball hoodie is closely related in silhouette and purpose to the reference hoodie.",
+      "map_id": "map_8e229d1136ea4a89af504dfb5d1633fb"
+    },
+    {
+      "competitor_product_name": "Champion Men's Michigan State Spartans Wrestling Icon Long Sleeve Hoodie",
+      "score": 9,
+      "rationale": "A long sleeve hoodie with sports logo shares core hoodie features and function with the reference.",
+      "map_id": "map_2832f3c35d14467a92f19f0873d4e8b5"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Delmont Signature Graphic Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "Hooded sweatshirt with graphic design is similar in form and purpose but may have heavier workwear influence.",
+      "map_id": "map_9d05127f095a4433b5017f2b4fef7f50"
+    },
+    {
+      "competitor_product_name": "American Apparel Fleece Zip Hoodie",
+      "score": 9,
+      "rationale": "A fleece zip hoodie closely aligns with the reference hoodie in materials and style, aside from zipper.",
+      "map_id": "map_0cd034a45c934551930f8a8549110de6"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Crewneck Sweatshirt",
+      "score": 6,
+      "rationale": "Crewneck sweatshirt lacks a hood but shares midweight construction and casual wear aspect.",
+      "map_id": "map_5a3c6bf47d1742348ec380459ae2f35d"
+    },
+    {
+      "competitor_product_name": "Custom American Apparel ReFlex Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A fleece pullover hoodie closely matches the reference in silhouette, construction, and material.",
+      "map_id": "map_a0909af2c1c2400a90f592e93aa601e7"
+    },
+    {
+      "competitor_product_name": "EVERLANE Felted Merino Hoodie",
+      "score": 8,
+      "rationale": "A felted merino hoodie matches the basic hoodie style but uses a different, more specialized fabric than typical sweatshirts.",
+      "map_id": "map_c74f6ce39fe040fa871645215117bf77"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Pullover Hoodie Sweatshirt",
+      "score": 10,
+      "rationale": "Pullover hoodie sweatshirt is essentially identical to the reference product in style, function, and construction.",
+      "map_id": "map_7aef0d92e9734470bfd0bdfaa90817a9"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Crew Sweatshirt",
+      "score": 6,
+      "rationale": "Crew sweatshirt lacks a hood but shares sweatshirt features and casual wear intent.",
+      "map_id": "map_d86a758b399e4ca4897030b13cca171a"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Oversized Fleece Sweater",
+      "score": 5,
+      "rationale": "Though made for warmth, an oversized fleece sweater differs from a hoodie by shape and lack of hood.",
+      "map_id": "map_ebfadf01ec134a65b9d61499d39816bc"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250524_075443",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Purple Leaf 8 ft Patio Umbrella'\n  - Name='Purple Leaf Patio Cantilever Offset Umbrella'\n  - Name='Ledge Lounger Autograph Umbrella Stand Ice Bin'\n  - Name='Purple Leaf 10 ft Patio Umbrella'\n  - Name='Frontgate Aruba 9' Replacement Canopy for Round Market Umbrella'\n  - Name='Grand Patio 12 FT Patio Cantilever Umbrella'\n  - Name='Purple Leaf 8' x 8' Patio Umbrella with Base'\n  - Name='Laze Hammock Ledge Lounger'\n  - Name='Ledge Lounger Signature Outdoor Patio Umbrella Cantilever 360° Tilt Fade-Resistant'\n  - Name='AquaBlu Ledge Lounger'\n  - Name='Purple Leaf 9 ft Patio Umbrella'\n  - Name='Frontgate 9' Round Outdoor Market Umbrella'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Purple Leaf 8 ft Patio Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a patio umbrella similar in function and likely construction to the Essential Umbrella, which is also for outdoor use.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is an outdoor umbrella but with a cantilever/offset design, differing from the Essential Umbrella's center pole design.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Autograph Umbrella Stand Ice Bin\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This product is an umbrella stand combined with an ice bin, not an actual umbrella, so it is barely relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 10 ft Patio Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar product type (patio umbrella) suitable for outdoor use, likely comparable construction and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Frontgate Aruba 9' Replacement Canopy for Round Market Umbrella\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is just a replacement canopy, not a full umbrella; partially related but not the same product.\"\n    },\n    {\n      \"competitor_product_name\": \"Grand Patio 12 FT Patio Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another cantilever umbrella, serving similar outdoor shading functions but different in mounting and structure.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 8' x 8' Patio Umbrella with Base\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A similar outdoor umbrella with base, very close in function and likely features to the Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Laze Hammock Ledge Lounger\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Not an umbrella but a hammock-style lounger, unrelated product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Signature Outdoor Patio Umbrella Cantilever 360° Tilt Fade-Resistant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An outdoor umbrella from the same brand, but with cantilever and tilt features differing from the Essential Umbrella's center pole style.\"\n    },\n    {\n      \"competitor_product_name\": \"AquaBlu Ledge Lounger\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Likely a lounger or seating product, not an umbrella, so not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 9 ft Patio Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Standard outdoor patio umbrella, similar in purpose and design to the Essential Umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Frontgate 9' Round Outdoor Market Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Standard outdoor round umbrella similar to the Essential Umbrella in structure and function.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Purple Leaf 8 ft Patio Umbrella",
+      "score": 8,
+      "rationale": "This is a patio umbrella similar in function and likely construction to the Essential Umbrella, which is also for outdoor use.",
+      "map_id": "map_f41af27b10cc4174904280a81c1c256c"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Patio Cantilever Offset Umbrella",
+      "score": 6,
+      "rationale": "This is an outdoor umbrella but with a cantilever/offset design, differing from the Essential Umbrella's center pole design.",
+      "map_id": "map_d0ee99626b53460ea7dbc4e40a3a996c"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Autograph Umbrella Stand Ice Bin",
+      "score": 2,
+      "rationale": "This product is an umbrella stand combined with an ice bin, not an actual umbrella, so it is barely relevant.",
+      "map_id": "map_00989b78beb3416e92766d401f00064e"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 10 ft Patio Umbrella",
+      "score": 8,
+      "rationale": "Similar product type (patio umbrella) suitable for outdoor use, likely comparable construction and function.",
+      "map_id": "map_7456d762ef284c1989a5eae2a3e11303"
+    },
+    {
+      "competitor_product_name": "Frontgate Aruba 9' Replacement Canopy for Round Market Umbrella",
+      "score": 5,
+      "rationale": "This is just a replacement canopy, not a full umbrella; partially related but not the same product.",
+      "map_id": "map_7523aca3d4e64230bad34b8742e6570e"
+    },
+    {
+      "competitor_product_name": "Grand Patio 12 FT Patio Cantilever Umbrella",
+      "score": 6,
+      "rationale": "Another cantilever umbrella, serving similar outdoor shading functions but different in mounting and structure.",
+      "map_id": "map_a6b40467131e46e294293455a74998cb"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 8' x 8' Patio Umbrella with Base",
+      "score": 8,
+      "rationale": "A similar outdoor umbrella with base, very close in function and likely features to the Essential Umbrella.",
+      "map_id": "map_90fed6ab3958463d8bbaf2b8235cd494"
+    },
+    {
+      "competitor_product_name": "Laze Hammock Ledge Lounger",
+      "score": 1,
+      "rationale": "Not an umbrella but a hammock-style lounger, unrelated product type.",
+      "map_id": "map_f43102dffd4545afa02667791f776f47"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Signature Outdoor Patio Umbrella Cantilever 360° Tilt Fade-Resistant",
+      "score": 7,
+      "rationale": "An outdoor umbrella from the same brand, but with cantilever and tilt features differing from the Essential Umbrella's center pole style.",
+      "map_id": "map_6f77ad00450945ea9e3e576d615b6e56"
+    },
+    {
+      "competitor_product_name": "AquaBlu Ledge Lounger",
+      "score": 1,
+      "rationale": "Likely a lounger or seating product, not an umbrella, so not relevant.",
+      "map_id": "map_df83ea3465c240aca68a98bdd78f4dc5"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 9 ft Patio Umbrella",
+      "score": 8,
+      "rationale": "Standard outdoor patio umbrella, similar in purpose and design to the Essential Umbrella.",
+      "map_id": "map_67fd45d4080b422896d79c5334fee18f"
+    },
+    {
+      "competitor_product_name": "Frontgate 9' Round Outdoor Market Umbrella",
+      "score": 8,
+      "rationale": "Standard outdoor round umbrella similar to the Essential Umbrella in structure and function.",
+      "map_id": "map_9521928b6fc54bba883c15078284176f"
+    }
+  ]
+}

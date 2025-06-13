@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250613_083058",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Norse Projects Men's Norse Standard Twill Overshirt'\n  - Name='Herr Carhartt WIP Whitsome Shirt Jac'\n  - Name='Men Norse Projects Hjalmer Solotex Twill Overshirt'\n  - Name='Alex Mill Cotton Herringbone Workers Jacket Natural at Nordstrom Rack'\n  - Name='Uniqlo x Engineered Garments Fleece Tailored Jacke Marineblau'\n  - Name='Engineered Garments, Jackets grün, Herren, Größe, S'\n  - Name='ENGINEERED GARMENTS Button Jacke Größe 1 Japan Stlye Pea Coat Nepenthes New York Oberbekleidung Kurze Jacke'\n  - Name='Engineered Garments Men's Field Parka Ref. 24F1D032-ZT200 Farbe'\n  - Name='Alex Mill | Garment Dyed Utility Jacket Natural / LG'\n  - Name='Alex Mill Cotton and linen-blend suit jacket - Men - Beige Jackets - M'\n  - Name='バブアー ワークジャケット グレー Barbour メンズ 古着 【231230】'\n  - Name='Barbour/STOCKMAN COAT EX LARGE/オイルド/コート/--/コットン/BRW/A1554'\n  - Name='Barbour beaufort'\n  - Name='LEVI'S BIG E Blanket Lined Mens Chore Jacket Brown Canvas S'\n  - Name='バブアー Barbour 英国製 A100 JKT BEDALE オイルドジャケット 2ワラント メンズ C34/86CM'\n  - Name='Barbour Barbour Jackets Green L Blue and green'\n  - Name='バブアー ブルゾン ブラック メンズ Barbour MWX0018 BK91'\n  - Name='Barbour - ワックスジャケット - メンズ - コットン/コットン/ポリエステル - S - ブラック'\n  - Name='BARBOUR (バブアー) RE ENGINEERED DURHAM WAX JACKET - BEECH'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Norse Standard Twill Overshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a twill overshirt similar in material and utility focus as the Ojai chore coat, likely with a comparable silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Herr Carhartt WIP Whitsome Shirt Jac\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt's chore-style shirt jacket likely shares similar workwear aesthetics and durability although it might be more shirt-like than the Ojai jacket's coat silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Norse Projects Hjalmer Solotex Twill Overshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Norse Projects twill overshirt with utility elements; slim fit or styling might differ but generally comparable category and fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cotton Herringbone Workers Jacket Natural at Nordstrom Rack\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A workers jacket in cotton herringbone aligns well with the chore coat style, utility features, and durable fabric focus of the Ojai jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo x Engineered Garments Fleece Tailored Jacke Marineblau\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tailored fleece jacket differs significantly in fabric, construction, and likely silhouette; less utility and chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments, Jackets grün, Herren, Größe, S\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Engineered Garments jacket mention; hard to specify but EG often does workwear-inspired pieces, so some moderate relevancy possible.\"\n    },\n    {\n      \"competitor_product_name\": \"ENGINEERED GARMENTS Button Jacke Größe 1 Japan Stlye Pea Coat Nepenthes New York Oberbekleidung Kurze Jacke\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Pea coat style differs markedly in silhouette and function from chore coat; less utility-focused and different construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Men's Field Parka Ref. 24F1D032-ZT200 Farbe\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Parka style, heavier outerwear with different silhouette and purpose compared to chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill | Garment Dyed Utility Jacket Natural / LG\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility jacket aligns well with the Ojai in intended use and fabric durability, though exact silhouette may differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Cotton and linen-blend suit jacket - Men - Beige Jackets - M\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Suit jacket silhouette and fabric blend differ greatly from an organic cotton twill chore coat focused on utility.\"\n    },\n    {\n      \"competitor_product_name\": \"バブアー ワークジャケット グレー Barbour メンズ 古着 【231230】\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Barbour work jacket is closely aligned in style and function to chore coats like the Ojai jacket, emphasizing durability and utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour/STOCKMAN COAT EX LARGE/オイルド/コート/--/コットン/BRW/A1554\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A Barbour oilcloth coat is a durable utility outerwear piece with some similarity, though waxed fabric shifts material feel and care.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour beaufort\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Classic waxed jacket with utility but pea coat-inspired silhouette; less chore coat similarity than work jackets.\"\n    },\n    {\n      \"competitor_product_name\": \"LEVI'S BIG E Blanket Lined Mens Chore Jacket Brown Canvas S\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Levi's chore jacket closely matches the reference in function, silhouette, and durable cotton canvas fabric; very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"バブアー Barbour 英国製 A100 JKT BEDALE オイルドジャケット 2ワラント メンズ C34/86CM\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Bedale waxed jacket with utility features somewhat similar, but construction and fabric differ from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Barbour Jackets Green L Blue and green\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Barbour jackets listing lacks detail but Barbour typically offers utility outerwear; relevancy moderate without specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"バブアー ブルゾン ブラック メンズ Barbour MWX0018 BK91\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Barbour blouson style jacket likely less chore coat-like, though may share utility elements.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour - ワックスジャケット - メンズ - コットン/コットン/ポリエステル - S - ブラック\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wax jacket with cotton blend materials offers some utility and durability common to chore coats but differs in fabric finish.\"\n    },\n    {\n      \"competitor_product_name\": \"BARBOUR (バブアー) RE ENGINEERED DURHAM WAX JACKET - BEECH\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Re-engineered wax jacket suggests modernized utility wear with some chore coat style cues but waxed fabric differs from twill.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Norse Projects Men's Norse Standard Twill Overshirt",
+      "score": 8,
+      "rationale": "This is a twill overshirt similar in material and utility focus as the Ojai chore coat, likely with a comparable silhouette and function.",
+      "map_id": "map_c37f91d04a74479292eeb0b9c321034e"
+    },
+    {
+      "competitor_product_name": "Herr Carhartt WIP Whitsome Shirt Jac",
+      "score": 7,
+      "rationale": "Carhartt's chore-style shirt jacket likely shares similar workwear aesthetics and durability although it might be more shirt-like than the Ojai jacket's coat silhouette.",
+      "map_id": "map_7f88627f8d774b1b94928d1ca2dbf333"
+    },
+    {
+      "competitor_product_name": "Men Norse Projects Hjalmer Solotex Twill Overshirt",
+      "score": 7,
+      "rationale": "Another Norse Projects twill overshirt with utility elements; slim fit or styling might differ but generally comparable category and fabric type.",
+      "map_id": "map_cf97c47b1cdf407fab4e3365cc3d7865"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cotton Herringbone Workers Jacket Natural at Nordstrom Rack",
+      "score": 8,
+      "rationale": "A workers jacket in cotton herringbone aligns well with the chore coat style, utility features, and durable fabric focus of the Ojai jacket.",
+      "map_id": "map_ec01651fda124937b4551c4f1c95c1b7"
+    },
+    {
+      "competitor_product_name": "Uniqlo x Engineered Garments Fleece Tailored Jacke Marineblau",
+      "score": 4,
+      "rationale": "Tailored fleece jacket differs significantly in fabric, construction, and likely silhouette; less utility and chore coat style.",
+      "map_id": "map_b0c31c69ee4d449a8b0885423afa0f1f"
+    },
+    {
+      "competitor_product_name": "Engineered Garments, Jackets grün, Herren, Größe, S",
+      "score": 5,
+      "rationale": "Generic Engineered Garments jacket mention; hard to specify but EG often does workwear-inspired pieces, so some moderate relevancy possible.",
+      "map_id": "map_5c757ef4144a4c4597f21fe13b8f3159"
+    },
+    {
+      "competitor_product_name": "ENGINEERED GARMENTS Button Jacke Größe 1 Japan Stlye Pea Coat Nepenthes New York Oberbekleidung Kurze Jacke",
+      "score": 4,
+      "rationale": "Pea coat style differs markedly in silhouette and function from chore coat; less utility-focused and different construction.",
+      "map_id": "map_acf4a6fca2f84e23a3aa709f86ff7f89"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Men's Field Parka Ref. 24F1D032-ZT200 Farbe",
+      "score": 3,
+      "rationale": "Parka style, heavier outerwear with different silhouette and purpose compared to chore coat.",
+      "map_id": "map_508d23af7ccb4850af7e11d070a6dce2"
+    },
+    {
+      "competitor_product_name": "Alex Mill | Garment Dyed Utility Jacket Natural / LG",
+      "score": 7,
+      "rationale": "Utility jacket aligns well with the Ojai in intended use and fabric durability, though exact silhouette may differ slightly.",
+      "map_id": "map_a208caf359784498b59f823ee5e3746c"
+    },
+    {
+      "competitor_product_name": "Alex Mill Cotton and linen-blend suit jacket - Men - Beige Jackets - M",
+      "score": 2,
+      "rationale": "Suit jacket silhouette and fabric blend differ greatly from an organic cotton twill chore coat focused on utility.",
+      "map_id": "map_e76bb2cf7253428183b2155590c1f81b"
+    },
+    {
+      "competitor_product_name": "バブアー ワークジャケット グレー Barbour メンズ 古着 【231230】",
+      "score": 8,
+      "rationale": "Barbour work jacket is closely aligned in style and function to chore coats like the Ojai jacket, emphasizing durability and utility.",
+      "map_id": "map_e9a9681a85d247f48ec9ae11939c6364"
+    },
+    {
+      "competitor_product_name": "Barbour/STOCKMAN COAT EX LARGE/オイルド/コート/--/コットン/BRW/A1554",
+      "score": 7,
+      "rationale": "A Barbour oilcloth coat is a durable utility outerwear piece with some similarity, though waxed fabric shifts material feel and care.",
+      "map_id": "map_31997a38ea594631916a3a32921ffff0"
+    },
+    {
+      "competitor_product_name": "Barbour beaufort",
+      "score": 6,
+      "rationale": "Classic waxed jacket with utility but pea coat-inspired silhouette; less chore coat similarity than work jackets.",
+      "map_id": "map_211aca9fe22b4d169b75fe752f6d44d6"
+    },
+    {
+      "competitor_product_name": "LEVI'S BIG E Blanket Lined Mens Chore Jacket Brown Canvas S",
+      "score": 9,
+      "rationale": "A Levi's chore jacket closely matches the reference in function, silhouette, and durable cotton canvas fabric; very high relevancy.",
+      "map_id": "map_99a5356225ac4e1b86d2356aa4823e6a"
+    },
+    {
+      "competitor_product_name": "バブアー Barbour 英国製 A100 JKT BEDALE オイルドジャケット 2ワラント メンズ C34/86CM",
+      "score": 7,
+      "rationale": "Bedale waxed jacket with utility features somewhat similar, but construction and fabric differ from cotton twill chore coat.",
+      "map_id": "map_f6417a8fb03c4a93aef3f4162292203d"
+    },
+    {
+      "competitor_product_name": "Barbour Barbour Jackets Green L Blue and green",
+      "score": 5,
+      "rationale": "Generic Barbour jackets listing lacks detail but Barbour typically offers utility outerwear; relevancy moderate without specifics.",
+      "map_id": "map_150e0b3ae6194acdbb34daea065ea411"
+    },
+    {
+      "competitor_product_name": "バブアー ブルゾン ブラック メンズ Barbour MWX0018 BK91",
+      "score": 5,
+      "rationale": "Barbour blouson style jacket likely less chore coat-like, though may share utility elements.",
+      "map_id": "map_42e997e85b1b4ef39c5e1e0c4f72c9b0"
+    },
+    {
+      "competitor_product_name": "Barbour - ワックスジャケット - メンズ - コットン/コットン/ポリエステル - S - ブラック",
+      "score": 6,
+      "rationale": "Wax jacket with cotton blend materials offers some utility and durability common to chore coats but differs in fabric finish.",
+      "map_id": "map_abf1d10e8941463dbad74da89d3c6c0e"
+    },
+    {
+      "competitor_product_name": "BARBOUR (バブアー) RE ENGINEERED DURHAM WAX JACKET - BEECH",
+      "score": 7,
+      "rationale": "Re-engineered wax jacket suggests modernized utility wear with some chore coat style cues but waxed fabric differs from twill.",
+      "map_id": "map_39cae40dd9e84f50ad13728f3ce10d7a"
+    }
+  ]
+}

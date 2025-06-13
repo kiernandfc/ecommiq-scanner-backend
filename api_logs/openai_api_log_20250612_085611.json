@@ -1,0 +1,149 @@
+{
+  "timestamp": "20250612_085611",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Engineered Garments Wool Utility Jacket'\n  - Name='Wallace & Barnes Men's Shirt Chore Jacket'\n  - Name='Wallace & Barnes By J. Crew Garment-dyed Chore Blazer'\n  - Name='Universal Works Men's Twill Bakers Jacket'\n  - Name='Filson Men's Cover Cloth Woodland Jacket'\n  - Name='Alex Mill Frontier Denim Jacket'\n  - Name='Alex Mill Men's Boiled Wool Work Jacket'\n  - Name='Alex Mill Zip Chore Jacket'\n  - Name='Filson Men's Tin Cloth Short Lined Cruiser Jacket'\n  - Name='Filson Men's Ranger Short Field Jacket'\n  - Name='Wallace & Barnes By J. Crew Garment-dyed Chore Blazer'\n  - Name='Filson Men's Mackinaw Wool Cruiser Jacket'\n  - Name='Barbour Utility Spey Wax'\n  - Name='Universal Works Uniform Cord Seersucker Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Engineered Garments Wool Utility Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are utility-style jackets with durable construction and functional design. The competitor uses wool instead of cotton twill, so less similar in material but similar in overall utility jacket concept.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's Shirt Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close in silhouette and function to the reference chore coat, with likely similar fabric weight and utility focus. Both serve as classic chore jackets.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes By J. Crew Garment-dyed Chore Blazer\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Shares chore jacket style but differs slightly with 'blazer' construction; still utility-inspired and garment-dyed, close in concept but more refined silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Twill Bakers Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility jacket with twill fabric; baker's jacket is similar in workwear roots and fabric choice but different silhouette details, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Cover Cloth Woodland Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Durable workwear jacket with utility focus but likely heavier material and more rugged outdoor orientation versus the chore coat style—some overlap in purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Frontier Denim Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Denim jacket differs significantly in fabric and silhouette from chore coat but shares some casual outerwear utility and workwear inspiration; less directly comparable.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Boiled Wool Work Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work jacket silhouette and utility focus similar, but boiled wool fabric contrasts with cotton twill; somewhat relevant due to function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Zip Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jacket silhouette and utility design align closely; zipper closure instead of buttons is a variant but overall very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Short Lined Cruiser Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Heavy-duty 'cruiser' jacket with durable fabric and utility use; differs in silhouette and heavier construction but shares workwear roots.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Short Field Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Field jacket style, more military oriented and possibly heavier-duty, less chore coat silhouette and casual wear focus; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes By J. Crew Garment-dyed Chore Blazer\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Duplicate entry to earlier chore blazer; same rationale applies for moderate to high relevancy as a chore-inspired blazer.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Mackinaw Wool Cruiser Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heavy, wool cruiser jacket for rugged use distinct from lightweight cotton chore coat style; some functional overlap but less silhouette and fabric similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Utility Spey Wax\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Waxed jacket with utility function but Barbour's style is more traditional British outdoor wear; fabric and finish differ from cotton twill chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Uniform Cord Seersucker Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Seersucker fabric and corduroy use differ significantly from heavy cotton twill; more casual and less utility/function focus than chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Engineered Garments Wool Utility Jacket",
+      "score": 7,
+      "rationale": "Both are utility-style jackets with durable construction and functional design. The competitor uses wool instead of cotton twill, so less similar in material but similar in overall utility jacket concept.",
+      "map_id": "map_08bb403e760447d88c5b77366678c380"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's Shirt Chore Jacket",
+      "score": 9,
+      "rationale": "Very close in silhouette and function to the reference chore coat, with likely similar fabric weight and utility focus. Both serve as classic chore jackets.",
+      "map_id": "map_c8a088de6a054f8997948fdaa3bbaf4b"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes By J. Crew Garment-dyed Chore Blazer",
+      "score": 8,
+      "rationale": "Shares chore jacket style but differs slightly with 'blazer' construction; still utility-inspired and garment-dyed, close in concept but more refined silhouette.",
+      "map_id": "map_bc498f045d91498081951efa8f06ccd2"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes By J. Crew Garment-dyed Chore Blazer",
+      "score": 8,
+      "rationale": "Shares chore jacket style but differs slightly with 'blazer' construction; still utility-inspired and garment-dyed, close in concept but more refined silhouette.",
+      "map_id": "map_cb4af8a6592a428f8470ccff53a34075"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Twill Bakers Jacket",
+      "score": 7,
+      "rationale": "Utility jacket with twill fabric; baker's jacket is similar in workwear roots and fabric choice but different silhouette details, so moderately relevant.",
+      "map_id": "map_54cfe832ba1149ba95998cf225885ef2"
+    },
+    {
+      "competitor_product_name": "Filson Men's Cover Cloth Woodland Jacket",
+      "score": 6,
+      "rationale": "Durable workwear jacket with utility focus but likely heavier material and more rugged outdoor orientation versus the chore coat style—some overlap in purpose.",
+      "map_id": "map_83fea6ef1026483d9a490ba05d156ea9"
+    },
+    {
+      "competitor_product_name": "Alex Mill Frontier Denim Jacket",
+      "score": 5,
+      "rationale": "Denim jacket differs significantly in fabric and silhouette from chore coat but shares some casual outerwear utility and workwear inspiration; less directly comparable.",
+      "map_id": "map_657ce406993f41abb89a1a6aa0244e4d"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Boiled Wool Work Jacket",
+      "score": 6,
+      "rationale": "Work jacket silhouette and utility focus similar, but boiled wool fabric contrasts with cotton twill; somewhat relevant due to function and style.",
+      "map_id": "map_00e48a3cda0f47fd81ec4f8bc617a46f"
+    },
+    {
+      "competitor_product_name": "Alex Mill Zip Chore Jacket",
+      "score": 8,
+      "rationale": "Chore jacket silhouette and utility design align closely; zipper closure instead of buttons is a variant but overall very relevant.",
+      "map_id": "map_0ae4af89d33245bda6760fc142dd6aa1"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Short Lined Cruiser Jacket",
+      "score": 6,
+      "rationale": "Heavy-duty 'cruiser' jacket with durable fabric and utility use; differs in silhouette and heavier construction but shares workwear roots.",
+      "map_id": "map_f1fbc363db6c49aeb7176d7ff129184b"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Short Field Jacket",
+      "score": 5,
+      "rationale": "Field jacket style, more military oriented and possibly heavier-duty, less chore coat silhouette and casual wear focus; lower relevancy.",
+      "map_id": "map_5a498a7b1a89428f9c6918fe0c200e9b"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes By J. Crew Garment-dyed Chore Blazer",
+      "score": 8,
+      "rationale": "Duplicate entry to earlier chore blazer; same rationale applies for moderate to high relevancy as a chore-inspired blazer.",
+      "map_id": "map_bc498f045d91498081951efa8f06ccd2"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes By J. Crew Garment-dyed Chore Blazer",
+      "score": 8,
+      "rationale": "Duplicate entry to earlier chore blazer; same rationale applies for moderate to high relevancy as a chore-inspired blazer.",
+      "map_id": "map_cb4af8a6592a428f8470ccff53a34075"
+    },
+    {
+      "competitor_product_name": "Filson Men's Mackinaw Wool Cruiser Jacket",
+      "score": 5,
+      "rationale": "Heavy, wool cruiser jacket for rugged use distinct from lightweight cotton chore coat style; some functional overlap but less silhouette and fabric similarity.",
+      "map_id": "map_881bdfe3ca374cdda567337db97f484d"
+    },
+    {
+      "competitor_product_name": "Barbour Utility Spey Wax",
+      "score": 6,
+      "rationale": "Waxed jacket with utility function but Barbour's style is more traditional British outdoor wear; fabric and finish differ from cotton twill chore coat.",
+      "map_id": "map_f15f502369aa4a2fafbfae7973f53428"
+    },
+    {
+      "competitor_product_name": "Universal Works Uniform Cord Seersucker Jacket",
+      "score": 4,
+      "rationale": "Seersucker fabric and corduroy use differ significantly from heavy cotton twill; more casual and less utility/function focus than chore coat.",
+      "map_id": "map_df2a0936e56046ffbe21117d909f2095"
+    }
+  ]
+}

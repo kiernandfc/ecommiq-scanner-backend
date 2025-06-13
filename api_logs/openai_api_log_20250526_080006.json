@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250526_080006",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Walter Chore Coat'\n  - Name='Carhartt WIP OG Arcan Graphic Jacket'\n  - Name='Faherty Men's Movement Field Jacket'\n  - Name='Faherty Men's Reserve Twill Knit Blazer'\n  - Name='Faherty Men's Reserve All Season Blazer'\n  - Name='Norse Projects Pelle Fine Broken Twill Overshirt'\n  - Name='Engineered Garments Wool Serge Bedford Jacket'\n  - Name='Levi's Men's Embarcadero Station Denim Trucker Jacket'\n  - Name='Filson Men's Mackinaw Wool Double Coat'\n  - Name='Filson Men's Chore Jacket'\n  - Name='Levi's Men's Lightweight Three-Pocket Chore Jacket'\n  - Name='Barbour Women's Beadnell Waxed Jacket'\n  - Name='Barbour Men's Filey Ultralight Quilted Jacket'\n  - Name='Faherty Women's Inlet Knit Blazer'\n  - Name='Carhartt WIP Men OG Detroit Jacket'\n  - Name='Universal Works Cancun Jacket'\n  - Name='Wallace & Barnes Men's J Crew Chore Coat Jacket'\n  - Name='Faherty Women's Cotswold Shirt Jacket'\n  - Name='Carhartt WIP W OG Michigan Coat women'\n  - Name='Universal Works London Twill Jacket'\n  - Name='Norse Projects Men's Alta 2.0 2L Jacket'\n  - Name='Norse Projects Mads Travel Light Overshirt'\n  - Name='Filson Men's Field Cruiser Jacket'\n  - Name='Engineered Garments Men's SAS Jacket'\n  - Name='Levi's Men's Barn Chore Jacket Coat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Walter Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product is a chore coat similar to The Ojai Jacket, sharing the same classic chore coat silhouette and utilitarian function, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Arcan Graphic Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The term 'Graphic Jacket' suggests a different style focused on graphic design, likely less utilitarian and chore coat-like, leading to low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Field Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A field jacket is somewhat similar in function and utility to a chore coat but typically has a different silhouette and construction, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Reserve Twill Knit Blazer\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"As a blazer, it differs in silhouette and intended use (more formal) compared to the chore coat style of The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Reserve All Season Blazer\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Same reasoning as above; a blazer's cut and purpose differ significantly from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Pelle Fine Broken Twill Overshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An overshirt may share some features of a chore coat such as layering and casual style, with similar material references like twill, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Wool Serge Bedford Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a jacket, the wool serge material and potential dressier style make it less aligned with the rugged chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Embarcadero Station Denim Trucker Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A trucker jacket differs in silhouette and fabric (denim), but as a casual jacket it shares some functional overlap with a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Mackinaw Wool Double Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A double coat made of wool is heavier and designed for warmth rather than a chore coat's utility focus, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Chore Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is explicitly called a chore jacket and likely shares the silhouette, function, and utility features very closely with The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Three-Pocket Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A lightweight chore jacket sharing the utilitarian design and chore coat silhouette, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Women's Beadnell Waxed Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A waxed jacket with a utilitarian heritage, but likely different silhouette and material from a cotton twill chore coat—moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Filey Ultralight Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A quilted jacket generally has different construction and silhouette not matching a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Women's Inlet Knit Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A knit blazer is quite different in material, silhouette, and formality, thus low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men OG Detroit Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Detroit jacket is similar to a chore coat in function and casual style, though slight differences in cut may apply, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Cancun Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"No direct indication of it being a chore coat, but Universal Works often makes utilitarian jackets, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's J Crew Chore Coat Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Explicit chore coat from a reputable brand, very similar style and purpose to The Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Women's Cotswold Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"As a shirt jacket, it blends shirt and jacket elements, different from chore coat construction but somewhat similar in casual layered style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP W OG Michigan Coat women\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A coat, possibly heavier and longer than a chore coat, so somewhat relevant but not very close in style.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works London Twill Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A twill jacket made by a brand known for utilitarian designs could be quite similar in material and function, moderately high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Men's Alta 2.0 2L Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A 2L jacket suggests a two-layer technical jacket, more technical than chore coat, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Mads Travel Light Overshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An overshirt can align somewhat with chore coat layering and casual style, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Field Cruiser Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Field cruiser jackets are utility focused and rugged but often differ somewhat in silhouette from chore coats, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Men's SAS Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Engineered Garments SAS Jacket is known for chore coat inspired design, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Barn Chore Jacket Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Clearly a chore jacket, likely very similar in function and style to The Ojai Jacket, thus highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Walter Chore Coat",
+      "score": 9,
+      "rationale": "This product is a chore coat similar to The Ojai Jacket, sharing the same classic chore coat silhouette and utilitarian function, making it highly relevant.",
+      "map_id": "map_e5b7fc5a041245098403718e6aea1329"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Arcan Graphic Jacket",
+      "score": 3,
+      "rationale": "The term 'Graphic Jacket' suggests a different style focused on graphic design, likely less utilitarian and chore coat-like, leading to low relevancy.",
+      "map_id": "map_6ed8a306c8604f4d941f5be3de3ceda9"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Movement Field Jacket",
+      "score": 6,
+      "rationale": "A field jacket is somewhat similar in function and utility to a chore coat but typically has a different silhouette and construction, moderately relevant.",
+      "map_id": "map_ebe1b4afe2d240708d524d5b6e03fd68"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Reserve Twill Knit Blazer",
+      "score": 4,
+      "rationale": "As a blazer, it differs in silhouette and intended use (more formal) compared to the chore coat style of The Ojai Jacket.",
+      "map_id": "map_2b21775a2b3a41c5a8fe6e903929c6f0"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Reserve All Season Blazer",
+      "score": 4,
+      "rationale": "Same reasoning as above; a blazer's cut and purpose differ significantly from a chore coat.",
+      "map_id": "map_9fc8bfb40c7c46b292b9e95cd674b86d"
+    },
+    {
+      "competitor_product_name": "Norse Projects Pelle Fine Broken Twill Overshirt",
+      "score": 7,
+      "rationale": "An overshirt may share some features of a chore coat such as layering and casual style, with similar material references like twill, making it moderately relevant.",
+      "map_id": "map_98f46438aed0485c85e73801d95d95dc"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Wool Serge Bedford Jacket",
+      "score": 5,
+      "rationale": "While a jacket, the wool serge material and potential dressier style make it less aligned with the rugged chore coat style.",
+      "map_id": "map_861d8632913f48e6a56930d6cdbecf76"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Embarcadero Station Denim Trucker Jacket",
+      "score": 5,
+      "rationale": "A trucker jacket differs in silhouette and fabric (denim), but as a casual jacket it shares some functional overlap with a chore coat.",
+      "map_id": "map_e73cde6941964925b84623a8b3474b88"
+    },
+    {
+      "competitor_product_name": "Filson Men's Mackinaw Wool Double Coat",
+      "score": 4,
+      "rationale": "A double coat made of wool is heavier and designed for warmth rather than a chore coat's utility focus, less relevant.",
+      "map_id": "map_90ba7b99c8224129b6e78dad824ad41c"
+    },
+    {
+      "competitor_product_name": "Filson Men's Chore Jacket",
+      "score": 10,
+      "rationale": "This is explicitly called a chore jacket and likely shares the silhouette, function, and utility features very closely with The Ojai Jacket.",
+      "map_id": "map_1bb04ecbc4634b7080062240988c2f60"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Three-Pocket Chore Jacket",
+      "score": 9,
+      "rationale": "A lightweight chore jacket sharing the utilitarian design and chore coat silhouette, very relevant.",
+      "map_id": "map_7418edbab1df41e0bbb8d20c60b94a53"
+    },
+    {
+      "competitor_product_name": "Barbour Women's Beadnell Waxed Jacket",
+      "score": 6,
+      "rationale": "A waxed jacket with a utilitarian heritage, but likely different silhouette and material from a cotton twill chore coat—moderately relevant.",
+      "map_id": "map_bfa70c5052b647b19d0101be098dd47d"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Filey Ultralight Quilted Jacket",
+      "score": 4,
+      "rationale": "A quilted jacket generally has different construction and silhouette not matching a chore coat.",
+      "map_id": "map_43fd012d6258424b81792083cbf8b7c9"
+    },
+    {
+      "competitor_product_name": "Faherty Women's Inlet Knit Blazer",
+      "score": 3,
+      "rationale": "A knit blazer is quite different in material, silhouette, and formality, thus low relevancy.",
+      "map_id": "map_1a85bce95cec49748e9a7bb426f58ded"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men OG Detroit Jacket",
+      "score": 7,
+      "rationale": "The Detroit jacket is similar to a chore coat in function and casual style, though slight differences in cut may apply, making it fairly relevant.",
+      "map_id": "map_c9a3c05e30ac467084a681221ec0f289"
+    },
+    {
+      "competitor_product_name": "Universal Works Cancun Jacket",
+      "score": 6,
+      "rationale": "No direct indication of it being a chore coat, but Universal Works often makes utilitarian jackets, so moderately relevant.",
+      "map_id": "map_00d513962d0b4656a01cb71b11001b5f"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's J Crew Chore Coat Jacket",
+      "score": 10,
+      "rationale": "Explicit chore coat from a reputable brand, very similar style and purpose to The Ojai Jacket.",
+      "map_id": "map_92adf1812264452198e66fb13464b6e7"
+    },
+    {
+      "competitor_product_name": "Faherty Women's Cotswold Shirt Jacket",
+      "score": 5,
+      "rationale": "As a shirt jacket, it blends shirt and jacket elements, different from chore coat construction but somewhat similar in casual layered style.",
+      "map_id": "map_5b98b9f2b8f841a48802932dbf030ba6"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP W OG Michigan Coat women",
+      "score": 5,
+      "rationale": "A coat, possibly heavier and longer than a chore coat, so somewhat relevant but not very close in style.",
+      "map_id": "map_27a7ee183e5147e681ae36e56d465485"
+    },
+    {
+      "competitor_product_name": "Universal Works London Twill Jacket",
+      "score": 7,
+      "rationale": "A twill jacket made by a brand known for utilitarian designs could be quite similar in material and function, moderately high relevancy.",
+      "map_id": "map_27e5f9a3182947ab8e10892054fe8055"
+    },
+    {
+      "competitor_product_name": "Norse Projects Men's Alta 2.0 2L Jacket",
+      "score": 5,
+      "rationale": "A 2L jacket suggests a two-layer technical jacket, more technical than chore coat, less relevant.",
+      "map_id": "map_91bda94e53224699b817e00344199d07"
+    },
+    {
+      "competitor_product_name": "Norse Projects Mads Travel Light Overshirt",
+      "score": 6,
+      "rationale": "An overshirt can align somewhat with chore coat layering and casual style, moderately relevant.",
+      "map_id": "map_0475d091005f4fd6b3d42b6335a59ede"
+    },
+    {
+      "competitor_product_name": "Filson Men's Field Cruiser Jacket",
+      "score": 6,
+      "rationale": "Field cruiser jackets are utility focused and rugged but often differ somewhat in silhouette from chore coats, moderately relevant.",
+      "map_id": "map_c7d8d8ad983542d4a9b9818a4d7a06c7"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Men's SAS Jacket",
+      "score": 7,
+      "rationale": "Engineered Garments SAS Jacket is known for chore coat inspired design, making it quite relevant.",
+      "map_id": "map_d3a8a2f3174247c685608b293efd9324"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Barn Chore Jacket Coat",
+      "score": 9,
+      "rationale": "Clearly a chore jacket, likely very similar in function and style to The Ojai Jacket, thus highly relevant.",
+      "map_id": "map_03e6e0ade3834d58af3cb238c847b080"
+    }
+  ]
+}

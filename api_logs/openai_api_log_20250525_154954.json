@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250525_154954",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='UNIQLO Men's Wide Fit Tall Chino Pants'\n  - Name='Everlane Men's '90s Loose Straight Jean'\n  - Name='Carhartt WIP Module Pant'\n  - Name='Everlane Men's The Performance 5-Pocket Pant Uniform'\n  - Name='Uniqlo Men's Dry Stretch Flat Front Slim Fit Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Fit Tall Chino Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's pants made from cotton with a casual style, but the UNIQLO pants have a wide fit and chino fabric, differing from the chore pant's canvas material and reinforced workwear construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's '90s Loose Straight Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While both are casual men's pants, the reference is a canvas chore pant with utility features, whereas these are denim jeans in a loose straight style, making the construction and fabric substantially different.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Module Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt WIP Module Pant is likely a workwear-inspired pant with durable construction and functional design, closely matching the chore pant's reinforced canvas build and utilitarian features.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Performance 5-Pocket Pant Uniform\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a casual men's pant designed for performance with 5-pocket styling, which is similar in purpose but may lack the chore pant's heavy canvas material and double-knee reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Dry Stretch Flat Front Slim Fit Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"These pants emphasize a slim, flat-front fit and stretch fabric likely for dress-casual wear, differing in silhouette and construction from the heavier, reinforced chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Fit Tall Chino Pants",
+      "score": 6,
+      "rationale": "Both are men's pants made from cotton with a casual style, but the UNIQLO pants have a wide fit and chino fabric, differing from the chore pant's canvas material and reinforced workwear construction.",
+      "map_id": "map_ca4ae5f29cf846cfb8c6aa4e6b6eecec"
+    },
+    {
+      "competitor_product_name": "Everlane Men's '90s Loose Straight Jean",
+      "score": 5,
+      "rationale": "While both are casual men's pants, the reference is a canvas chore pant with utility features, whereas these are denim jeans in a loose straight style, making the construction and fabric substantially different.",
+      "map_id": "map_0634eefa8e1f4c3ba7cb94f69e957b7c"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Module Pant",
+      "score": 8,
+      "rationale": "Carhartt WIP Module Pant is likely a workwear-inspired pant with durable construction and functional design, closely matching the chore pant's reinforced canvas build and utilitarian features.",
+      "map_id": "map_661db818742e42f8af9627ef5999b541"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Performance 5-Pocket Pant Uniform",
+      "score": 6,
+      "rationale": "This is a casual men's pant designed for performance with 5-pocket styling, which is similar in purpose but may lack the chore pant's heavy canvas material and double-knee reinforcement.",
+      "map_id": "map_625ec7e7684e480c923fef8bde858bc1"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Dry Stretch Flat Front Slim Fit Pants",
+      "score": 4,
+      "rationale": "These pants emphasize a slim, flat-front fit and stretch fabric likely for dress-casual wear, differing in silhouette and construction from the heavier, reinforced chore pant.",
+      "map_id": "map_82c2782359c54f60967be222a0057cc5"
+    }
+  ]
+}

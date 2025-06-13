@@ -1,0 +1,65 @@
+{
+  "timestamp": "20250608_125832",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Apres Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Apres Pant\"\nReference Product Description:\nGetting the best of both worlds is what Taylor Stitch's signature Après Pant is all about. With the cozy comfort of your favorite sweats, the dashing good looks of a trusty set of chinos, and all the hard wearing functionality you’ve come to expect from our expert craftsmen, The Après Pant is built to bring you from the couch, to the trail, to that last minute lunch date all without missing a step. This dimensional Natural Sashiko iteration has been given a heavy garment wash for an ultra soft, broken-in feel right out of the box. 8-oz. 100% organic cotton. Beautiful sashiko slub texture. Washed for a worn in feel. Lightly washed to bring out the amazing texture. Two front slash front pockets. Two back patch button-through pockets. Custom SF map print pocketing, made with 100% organic cotton. Elastic waistband with drawcord. Elastic cuff at hem. Dark horn buttons. Button fly. 30\" inseam. Wash cold and tumble dry low.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nike Men's NOCTA Fleece Sweatpants HM5764'\n  - Name='Jordan Men's Flight Fleece Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nike Men's NOCTA Fleece Sweatpants HM5764\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are casual pants designed for comfort with elastic waistbands and cuffs, similar to sweatpants. However, the reference product combines chino aesthetics with sweatpant comfort and is made from organic cotton with a tailored look and button fly, whereas the Nike product is likely a standard fleece sweatpant focused mainly on comfort and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Jordan Men's Flight Fleece Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"These are fleece pants intended for casual or athletic wear, sharing comfort and casual styling with the reference product but lacking the chino-inspired tailored details, organic materials, and mixed-use functionality of the reference pant. Thus, moderately relevant but less so than a hybrid chino-sweatpant like the Apres Pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nike Men's NOCTA Fleece Sweatpants HM5764",
+      "score": 7,
+      "rationale": "Both are casual pants designed for comfort with elastic waistbands and cuffs, similar to sweatpants. However, the reference product combines chino aesthetics with sweatpant comfort and is made from organic cotton with a tailored look and button fly, whereas the Nike product is likely a standard fleece sweatpant focused mainly on comfort and casual wear.",
+      "map_id": "map_ff180b93a8604ceb968afd268b37a1eb"
+    },
+    {
+      "competitor_product_name": "Jordan Men's Flight Fleece Pants",
+      "score": 6,
+      "rationale": "These are fleece pants intended for casual or athletic wear, sharing comfort and casual styling with the reference product but lacking the chino-inspired tailored details, organic materials, and mixed-use functionality of the reference pant. Thus, moderately relevant but less so than a hybrid chino-sweatpant like the Apres Pant.",
+      "map_id": "map_94c25bd3612249daab6a22df5b98cf48"
+    }
+  ]
+}

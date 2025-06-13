@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250523_081732",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Outerknown Men's Verano Beach Pants'\n  - Name='Outerknown Sea Men's Drifted Tapered Fit Jeans'\n  - Name='Everlane Stretch Twill 5-pocket Pant'\n  - Name='Taylor Stitch Men's Organic Cotton Matlow Pants'\n  - Name='Carhartt WIP Crawford Pant'\n  - Name='Carhartt WIP Double Knee Pant in Chalk Wash'\n  - Name='Carhartt WIP Nash OG Double Knee Pant'\n  - Name='Men Carhartt WIP \"Nolan\" Straight Jeans'\n  - Name='Men Carhartt WIP Module Pant'\n  - Name='Carhartt WIP Cole Cargo Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Outerknown Men's Verano Beach Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are beach pants likely made for casual or warm weather use, differing significantly in material and design focus from the rugged chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Sea Men's Drifted Tapered Fit Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"These are jeans with a tapered fit, potentially offering durability, but denim jeans differ in fabric and construction from organic cotton canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Stretch Twill 5-pocket Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"These pants share a twill fabric and 5-pocket style typical in casual pants; however, stretch twill differs from heavy-duty canvas and lacks mention of reinforced construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Matlow Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and organic cotton material suggest strong relevance, but they are a different pant model and may differ in construction features like knee reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Crawford Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt WIP pants are workwear-oriented and likely built with durability in mind, similar function to the chore pant, though materials and construction specifics are not stated.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Double Knee Pant in Chalk Wash\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee construction is explicitly mentioned matching reference product; workwear focus and reinforced knees indicate very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Nash OG Double Knee Pant\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee construction indicates similar function and ruggedness; likely a direct competitor in the workwear pant category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP \\\"Nolan\\\" Straight Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Straight jeans differ in fabric and possibly durability but still within casual/workwear pant category, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP Module Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Module pants likely designed for utility with features similar to workwear pants, making them fairly relevant despite unspecified details.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Cole Cargo Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cargo pants with workwear reputation indicate functional and durable features akin to chore pants, though cargo style differs from traditional chore pant silhouette.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Outerknown Men's Verano Beach Pants",
+      "score": 3,
+      "rationale": "These are beach pants likely made for casual or warm weather use, differing significantly in material and design focus from the rugged chore pant.",
+      "map_id": "map_b0ea65da46404af493fc18d5e5e9523d"
+    },
+    {
+      "competitor_product_name": "Outerknown Sea Men's Drifted Tapered Fit Jeans",
+      "score": 5,
+      "rationale": "These are jeans with a tapered fit, potentially offering durability, but denim jeans differ in fabric and construction from organic cotton canvas chore pants.",
+      "map_id": "map_ae261475301848888a3e6844a3f15ae5"
+    },
+    {
+      "competitor_product_name": "Everlane Stretch Twill 5-pocket Pant",
+      "score": 6,
+      "rationale": "These pants share a twill fabric and 5-pocket style typical in casual pants; however, stretch twill differs from heavy-duty canvas and lacks mention of reinforced construction.",
+      "map_id": "map_cadbcfabd774453380c3f836b5c9c46f"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Matlow Pants",
+      "score": 8,
+      "rationale": "Same brand and organic cotton material suggest strong relevance, but they are a different pant model and may differ in construction features like knee reinforcements.",
+      "map_id": "map_92185d33eff041d2b3b705bc2a91c3fd"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Crawford Pant",
+      "score": 7,
+      "rationale": "Carhartt WIP pants are workwear-oriented and likely built with durability in mind, similar function to the chore pant, though materials and construction specifics are not stated.",
+      "map_id": "map_abd542d25f724fe0833a77952891cec7"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Double Knee Pant in Chalk Wash",
+      "score": 9,
+      "rationale": "Double knee construction is explicitly mentioned matching reference product; workwear focus and reinforced knees indicate very high relevancy.",
+      "map_id": "map_6ca1fb27290d4b3cabcdf62bdf89ba98"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Nash OG Double Knee Pant",
+      "score": 9,
+      "rationale": "Double knee construction indicates similar function and ruggedness; likely a direct competitor in the workwear pant category.",
+      "map_id": "map_b6172d0364824e8ba03bdf82ec2e50a7"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP \"Nolan\" Straight Jeans",
+      "score": 6,
+      "rationale": "Straight jeans differ in fabric and possibly durability but still within casual/workwear pant category, moderately relevant.",
+      "map_id": "map_8dc9a39a75e64544b053a414e4b788f3"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP Module Pant",
+      "score": 7,
+      "rationale": "Module pants likely designed for utility with features similar to workwear pants, making them fairly relevant despite unspecified details.",
+      "map_id": "map_89b5b094973e450a923773c4b26134eb"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Cole Cargo Pants",
+      "score": 7,
+      "rationale": "Cargo pants with workwear reputation indicate functional and durable features akin to chore pants, though cargo style differs from traditional chore pant silhouette.",
+      "map_id": "map_47dd63a08e574be894a027a48c47a0bb"
+    }
+  ]
+}

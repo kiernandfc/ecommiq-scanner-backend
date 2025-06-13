@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250514_131606",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Wool Scally Cap'\n  - Name='The Boondock Boston Scally Cap'\n  - Name='Bareknuckle Boston Scally Cap'\n  - Name='The King of Hearts Boston Scally Cap'\n  - Name='Men Bailey Hat Company Langham Cap Dark Brown'\n  - Name='Carhartt WIP Icon Cap'\n  - Name='Bailey of Hollywood Men's Lord Wool Twill Flat Cap'\n  - Name='Barbour Men's Hartley Bucket Hat'\n  - Name='Barbour Men's Cascade Bucket Hat'\n  - Name='Barbour Men's Ramsden Check Tweed Cap'\n  - Name='Barbour Tartan Hat Olive/red XL'\n  - Name='Barbour Cap Flat Wool Mens Beige Size7 57cm'\n  - Name='Barbour Wax Sports Cap Mens'\n  - Name='-barbour Wax Olive Baseball Winter Ear Flaps Fleece Lined Cap Hat Size'\n  - Name='Barbour Bucket Hat - Grey'\n  - Name='Barbour Cap Flat Vintage'\n  - Name='Barbour Finnean Cap'\n  - Name='Men's Barbour Waxed Cotton Olive Khaki Cap One Size'\n  - Name='Barbour Men's Herringbone Tweed Baker Boy Hat'\n  - Name='Barbour Norton Drill Sports Cap'\n  - Name='Barbour Hat - Beige'\n  - Name='Goorin Bros. Suited Champ Trucker Cap'\n  - Name='Goorin Bros. Lone Wolf Check Plaid Trucker Cap'\n  - Name='Goorin Bros. Screwball Trucker Hat'\n  - Name='Goorin Bros. The Goat Trucker Hat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Wool Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A scally cap likely similar in shape and style to The Driver, though made from wool rather than micro-poly sporty fabric, so closely related but differing in material and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"The Boondock Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Boston Scally cap with a possibly similar silhouette; the name suggests a scally cap but does not indicate sport fabric; somewhat relevant but likely different material or technology.\"\n    },\n    {\n      \"competitor_product_name\": \"Bareknuckle Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A Boston Scally cap with probable scally design; no clear indication of sport fabric, so moderately relevant due to similar shape but differing construction.\"\n    },\n    {\n      \"competitor_product_name\": \"The King of Hearts Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely same scally cap style but not specified as micro-poly sport fabric; relevant in shape and brand but less so in material and performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bailey Hat Company Langham Cap Dark Brown\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A cap from Bailey Hat Co likely a flat cap or similar, may share silhouette but no indication of sport fabric or tech; moderate relevance due to general cap category.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Icon Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A cap, but Carhartt caps usually are baseball or streetwear style, different shape and function than an 8-panel scally cap; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Lord Wool Twill Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flat cap with wool twill fabric; shape somewhat similar but different fabric and lacks sport tech; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Hartley Bucket Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A bucket hat with different silhouette and construction; unrelated shape and likely no performance fabric; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cascade Bucket Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same reasoning as Hartley bucket hat: different style and use, low relevancy with The Driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ramsden Check Tweed Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A tweed cap likely flat or similar style; relevant as a cap but differing in fabric and performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Tartan Hat Olive/red XL\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic hat with tartan pattern, likely cap shape but no performance fabric indicated; moderately relevant in category only.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Cap Flat Wool Mens Beige Size7 57cm\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat wool cap shares general silhouette but distinctly different from micro-poly sport fabric driver cap; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Wax Sports Cap Mens\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sports cap name suggests some performance, but waxed fabric and possible style difference lower relevance to scally driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"-barbour Wax Olive Baseball Winter Ear Flaps Fleece Lined Cap Hat Size\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A baseball style cap with ear flaps and fleece lining differs greatly in shape, construction, and use; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Bucket Hat - Grey\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bucket hat shape unrelated to driver scally cap; minimal similarity beyond being a hat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Cap Flat Vintage\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat cap with vintage styling; moderate relevancy due to similarity in general cap category and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Finnean Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another likely flat cap from Barbour; related by category and shape but differing fabric and tech.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Waxed Cotton Olive Khaki Cap One Size\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Waxed cotton cap with likely different silhouette and material, some relevance from being a cap but generally different.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Herringbone Tweed Baker Boy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Baker Boy hat is a style very close to the scally cap with similar panel construction; tweed fabric differs but shape and style align closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Norton Drill Sports Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Sports cap indicates performance focus; norton drill fabric differs but related by function, less so by shape if not scally style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Hat - Beige\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Generic barbour hat with no style info; likely low relevance due to lack of specific match.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Suited Champ Trucker Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker cap differs greatly in style and shape from scally driver cap; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Lone Wolf Check Plaid Trucker Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same as above: trucker cap style, not related to 8-panel scally driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Screwball Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat style differs significantly in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Goat Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same reasoning as other Goorin trucker hats: different style and function means low relevance.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Wool Scally Cap",
+      "score": 8,
+      "rationale": "A scally cap likely similar in shape and style to The Driver, though made from wool rather than micro-poly sporty fabric, so closely related but differing in material and breathability.",
+      "map_id": "map_852e11a140d0407b8244aca1cc7639cb"
+    },
+    {
+      "competitor_product_name": "The Boondock Boston Scally Cap",
+      "score": 7,
+      "rationale": "Another Boston Scally cap with a possibly similar silhouette; the name suggests a scally cap but does not indicate sport fabric; somewhat relevant but likely different material or technology.",
+      "map_id": "map_8b8cc9fe46a243b39c2054683588131f"
+    },
+    {
+      "competitor_product_name": "Bareknuckle Boston Scally Cap",
+      "score": 7,
+      "rationale": "A Boston Scally cap with probable scally design; no clear indication of sport fabric, so moderately relevant due to similar shape but differing construction.",
+      "map_id": "map_485db8a392a542dab8fc5e878b8dd42f"
+    },
+    {
+      "competitor_product_name": "The King of Hearts Boston Scally Cap",
+      "score": 7,
+      "rationale": "Likely same scally cap style but not specified as micro-poly sport fabric; relevant in shape and brand but less so in material and performance features.",
+      "map_id": "map_605902a064144b7cbba9690600e36277"
+    },
+    {
+      "competitor_product_name": "Men Bailey Hat Company Langham Cap Dark Brown",
+      "score": 5,
+      "rationale": "A cap from Bailey Hat Co likely a flat cap or similar, may share silhouette but no indication of sport fabric or tech; moderate relevance due to general cap category.",
+      "map_id": "map_fefc9aa607064531ac0931f031a36e04"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Icon Cap",
+      "score": 4,
+      "rationale": "A cap, but Carhartt caps usually are baseball or streetwear style, different shape and function than an 8-panel scally cap; less relevant.",
+      "map_id": "map_8a3ada6061eb4273a84df6516fba952a"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Lord Wool Twill Flat Cap",
+      "score": 6,
+      "rationale": "A flat cap with wool twill fabric; shape somewhat similar but different fabric and lacks sport tech; moderately relevant.",
+      "map_id": "map_143f48f85a264a3faebd767ce733665a"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Hartley Bucket Hat",
+      "score": 3,
+      "rationale": "A bucket hat with different silhouette and construction; unrelated shape and likely no performance fabric; low relevance.",
+      "map_id": "map_c47b9e180648412b86c0bb7cc6e95912"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cascade Bucket Hat",
+      "score": 3,
+      "rationale": "Same reasoning as Hartley bucket hat: different style and use, low relevancy with The Driver scally cap.",
+      "map_id": "map_42c0c07388574ad9b37cd7fb8d1d5881"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ramsden Check Tweed Cap",
+      "score": 6,
+      "rationale": "A tweed cap likely flat or similar style; relevant as a cap but differing in fabric and performance features.",
+      "map_id": "map_2234b503005c4e0d8c61e3385e4d7ebe"
+    },
+    {
+      "competitor_product_name": "Barbour Tartan Hat Olive/red XL",
+      "score": 5,
+      "rationale": "Generic hat with tartan pattern, likely cap shape but no performance fabric indicated; moderately relevant in category only.",
+      "map_id": "map_1d7e8fef911a47e4a80cee0bbb38e560"
+    },
+    {
+      "competitor_product_name": "Barbour Cap Flat Wool Mens Beige Size7 57cm",
+      "score": 6,
+      "rationale": "Flat wool cap shares general silhouette but distinctly different from micro-poly sport fabric driver cap; moderately relevant.",
+      "map_id": "map_d7233080199f4b24a070b9d3687cbcfc"
+    },
+    {
+      "competitor_product_name": "Barbour Wax Sports Cap Mens",
+      "score": 5,
+      "rationale": "Sports cap name suggests some performance, but waxed fabric and possible style difference lower relevance to scally driver cap.",
+      "map_id": "map_b118afa5993340ddb40af4b0ded7840d"
+    },
+    {
+      "competitor_product_name": "-barbour Wax Olive Baseball Winter Ear Flaps Fleece Lined Cap Hat Size",
+      "score": 3,
+      "rationale": "A baseball style cap with ear flaps and fleece lining differs greatly in shape, construction, and use; low relevance.",
+      "map_id": "map_2e85ff53d9df41e0ac0808cf4bf7fed5"
+    },
+    {
+      "competitor_product_name": "Barbour Bucket Hat - Grey",
+      "score": 3,
+      "rationale": "Bucket hat shape unrelated to driver scally cap; minimal similarity beyond being a hat.",
+      "map_id": "map_1caff271a68a4a5f831b72bc9259a8fc"
+    },
+    {
+      "competitor_product_name": "Barbour Cap Flat Vintage",
+      "score": 6,
+      "rationale": "Likely a flat cap with vintage styling; moderate relevancy due to similarity in general cap category and shape.",
+      "map_id": "map_0eee5ac12c164ef09be6210705bc9d7f"
+    },
+    {
+      "competitor_product_name": "Barbour Finnean Cap",
+      "score": 6,
+      "rationale": "Another likely flat cap from Barbour; related by category and shape but differing fabric and tech.",
+      "map_id": "map_36ffafb0fe3543ce8375c92a6932c39b"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Waxed Cotton Olive Khaki Cap One Size",
+      "score": 5,
+      "rationale": "Waxed cotton cap with likely different silhouette and material, some relevance from being a cap but generally different.",
+      "map_id": "map_e51d850fe7ee491780c8e0a148e96f53"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Herringbone Tweed Baker Boy Hat",
+      "score": 7,
+      "rationale": "Baker Boy hat is a style very close to the scally cap with similar panel construction; tweed fabric differs but shape and style align closely.",
+      "map_id": "map_155b3c37256b45e4af048867a93b8d99"
+    },
+    {
+      "competitor_product_name": "Barbour Norton Drill Sports Cap",
+      "score": 6,
+      "rationale": "Sports cap indicates performance focus; norton drill fabric differs but related by function, less so by shape if not scally style.",
+      "map_id": "map_6729d03fd93d41ff87364a6183def62d"
+    },
+    {
+      "competitor_product_name": "Barbour Hat - Beige",
+      "score": 4,
+      "rationale": "Generic barbour hat with no style info; likely low relevance due to lack of specific match.",
+      "map_id": "map_a72841159c5443f782ddbd18004d4614"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Suited Champ Trucker Cap",
+      "score": 3,
+      "rationale": "Trucker cap differs greatly in style and shape from scally driver cap; low relevancy.",
+      "map_id": "map_35cbbbb85809486d992ace0f39f87d3f"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Lone Wolf Check Plaid Trucker Cap",
+      "score": 3,
+      "rationale": "Same as above: trucker cap style, not related to 8-panel scally driver cap.",
+      "map_id": "map_75a5d7a884d04ea1a06c5440d3d160d0"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Screwball Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat style differs significantly in function and silhouette.",
+      "map_id": "map_4c16c625f54244dba97ef0e2263a3cd1"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Goat Trucker Hat",
+      "score": 3,
+      "rationale": "Same reasoning as other Goorin trucker hats: different style and function means low relevance.",
+      "map_id": "map_37dc656d28eb41dabca27030b3cd94fd"
+    }
+  ]
+}

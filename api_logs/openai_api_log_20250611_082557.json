@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250611_082557",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Charles Tyrwhitt Tie Blue 3.5 in'\n  - Name='Charles Tyrwhitt Jermyn Street London Silk Paisley Tie Red Yellow Blue England1'\n  - Name='Joseph Abboud Men's Stripes/Multi-color Tie'\n  - Name='ETON Geometric Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Diagonal-Stripe Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Paisley Tie'\n  - Name='Joseph Abboud Men's Narrow Square Dot Oxford Tie'\n  - Name='Joseph Abboud Men's Narrow Celestial Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Textured Bits & Bites Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Tonal Diagonal Stripe Silk Tie'\n  - Name='Brooks Brothers Tie'\n  - Name='Brooks Brothers Men's Classic Stripe Tie'\n  - Name='Brooks Brothers Men's Micro-Dot Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Tie Blue 3.5 in\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a standard silk tie similar in shape and function; color mentioned but solid assumed plausible. Slight uncertainty as pattern/details not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Jermyn Street London Silk Paisley Tie Red Yellow Blue England1\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Paisley pattern differs from solid satin style; still a silk tie, so relevant but less so due to pattern detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Stripes/Multi-color Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped, multi-color tie differs from solid satin style; similar product type but less aligned in style.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Geometric Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with geometric pattern; similar material and function but patterned, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Diagonal-Stripe Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with diagonal stripes and narrow style; functionally similar but pattern and width narrower than typical satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Paisley Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Paisley patterned silk tie, narrow build; less relevant due to pattern and style difference from solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Square Dot Oxford Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Narrow tie with square dot texture, likely different fabric structure; less relevance given textured and patterned design.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Celestial Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Narrow silk tie with celestial pattern; differs notably in pattern and maybe style from solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Textured Bits & Bites Silk Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Textured, patterned narrow tie deviates more from the smooth, solid satin style of reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Tonal Diagonal Stripe Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with tonal diagonal stripes, narrow cut; somewhat relevant as a silk tie but less so given pattern and width differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic name but likely a classic style tie; assumed solid silk and regular width, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Classic Stripe Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped tie, classic style, but patterned so less relevant than solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Micro-Dot Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Micro-dot patterned tie, differing from solid satin but still silk and classic tie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Charles Tyrwhitt Tie Blue 3.5 in",
+      "score": 7,
+      "rationale": "Likely a standard silk tie similar in shape and function; color mentioned but solid assumed plausible. Slight uncertainty as pattern/details not specified.",
+      "map_id": "map_c053ef8301164ff8997d1943d4815020"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Jermyn Street London Silk Paisley Tie Red Yellow Blue England1",
+      "score": 4,
+      "rationale": "Paisley pattern differs from solid satin style; still a silk tie, so relevant but less so due to pattern detail.",
+      "map_id": "map_2f10455ff5764a25a376267d61ff8119"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Stripes/Multi-color Tie",
+      "score": 4,
+      "rationale": "Striped, multi-color tie differs from solid satin style; similar product type but less aligned in style.",
+      "map_id": "map_fce1ea62f28c434eba4563e9b19af0d4"
+    },
+    {
+      "competitor_product_name": "ETON Geometric Silk Tie",
+      "score": 5,
+      "rationale": "Silk tie with geometric pattern; similar material and function but patterned, so moderately relevant.",
+      "map_id": "map_0d896775c6874048af5e37627ad4ab56"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Diagonal-Stripe Silk Tie",
+      "score": 5,
+      "rationale": "Silk tie with diagonal stripes and narrow style; functionally similar but pattern and width narrower than typical satin tie.",
+      "map_id": "map_1f48e7750f0841bd8b19c58fbcf8f654"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Paisley Tie",
+      "score": 4,
+      "rationale": "Paisley patterned silk tie, narrow build; less relevant due to pattern and style difference from solid satin tie.",
+      "map_id": "map_d220fee9a61c4bb4918812a78451ae93"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Square Dot Oxford Tie",
+      "score": 4,
+      "rationale": "Narrow tie with square dot texture, likely different fabric structure; less relevance given textured and patterned design.",
+      "map_id": "map_6e6d73bdff7a4a778f48f42265b59e5e"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Celestial Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with celestial pattern; differs notably in pattern and maybe style from solid satin.",
+      "map_id": "map_2d48ed3bd7d0484bacc34364e126fee4"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Textured Bits & Bites Silk Tie",
+      "score": 3,
+      "rationale": "Textured, patterned narrow tie deviates more from the smooth, solid satin style of reference product.",
+      "map_id": "map_1584c1b91d934a8cb075e3c12274adb3"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Tonal Diagonal Stripe Silk Tie",
+      "score": 5,
+      "rationale": "Silk tie with tonal diagonal stripes, narrow cut; somewhat relevant as a silk tie but less so given pattern and width differences.",
+      "map_id": "map_87b60ab0cc0e4d91a28ae61fbda21cae"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Tie",
+      "score": 6,
+      "rationale": "Generic name but likely a classic style tie; assumed solid silk and regular width, making it fairly relevant.",
+      "map_id": "map_e04adfb67f344e7185a3398d63caad9b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Classic Stripe Tie",
+      "score": 4,
+      "rationale": "Striped tie, classic style, but patterned so less relevant than solid satin.",
+      "map_id": "map_0646adfde64648c39151d5c4adea9382"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Micro-Dot Tie",
+      "score": 4,
+      "rationale": "Micro-dot patterned tie, differing from solid satin but still silk and classic tie.",
+      "map_id": "map_debb71bd4e6541c79b37e0d990fb7e05"
+    }
+  ]
+}

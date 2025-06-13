@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250520_080339",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol 504 Wool Cap'\n  - Name='Kangol Men's 507 Tropic'\n  - Name='Kangol Men's Wool 504 Earflap Cap'\n  - Name='Kangol Clubhouse Stripe 507 Flat Cap'\n  - Name='The Captain Boston Scally Cap'\n  - Name='Kenmore Boston Scally Cap'\n  - Name='The Harvestland Boston Scally Cap'\n  - Name='Allston Wool Scally Cap'\n  - Name='Boston Scally Cap'\n  - Name='The Bruiser Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol 504 Wool Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are 8-panel caps and likely have a similar flat cap silhouette, but the reference uses lightweight micro-poly sport fabric for breathability versus wool in this competitor.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's 507 Tropic\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The 507 Tropic is a traditional flat cap style with breathable materials, somewhat similar in intended use, but differs in panel design and specific material tech compared to the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Wool 504 Earflap Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While a wool 504 style relates somewhat, the addition of earflaps and heavier wool fabric makes it less similar to the lightweight, sport-fabric 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Clubhouse Stripe 507 Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar flat cap styling and breathable materials make it moderately relevant, though it lacks the sport fabric technology and exact panel construction of the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"The Captain Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and likely very close in design and silhouette, though possibly without the specific micro-poly sport fabric technology of the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenmore Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"As a Boston Scally cap, it shares silhouette and brand quality, but may not have the exact 8-panel sport fabric build unique to the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"The Harvestland Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another Boston Scally cap, presumably similar in shape and construction, though the 'Harvestland' may differ in fabric tech and lining from the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"Allston Wool Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shares the Scally cap silhouette but made of wool, less breathable and heavier than the micro-poly sport fabric of the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic Boston Scally cap likely similar in shape, but without specific mention of the sport fabric and 8-panel technology of the 'Driver'.\"\n    },\n    {\n      \"competitor_product_name\": \"The Bruiser Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and likely similar structured style and fit, though the 'Bruiser' may differ in fabric and lining compared to the 'Driver'.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol 504 Wool Cap",
+      "score": 7,
+      "rationale": "Both are 8-panel caps and likely have a similar flat cap silhouette, but the reference uses lightweight micro-poly sport fabric for breathability versus wool in this competitor.",
+      "map_id": "map_eeda65cb2896463c8dbdbeaf7f2ed627"
+    },
+    {
+      "competitor_product_name": "Kangol Men's 507 Tropic",
+      "score": 6,
+      "rationale": "The 507 Tropic is a traditional flat cap style with breathable materials, somewhat similar in intended use, but differs in panel design and specific material tech compared to the 'Driver'.",
+      "map_id": "map_54a4094eff6b4e6c9b061a7709946388"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Wool 504 Earflap Cap",
+      "score": 4,
+      "rationale": "While a wool 504 style relates somewhat, the addition of earflaps and heavier wool fabric makes it less similar to the lightweight, sport-fabric 'Driver'.",
+      "map_id": "map_62d88387b32449238b48e88d7e56cb9b"
+    },
+    {
+      "competitor_product_name": "Kangol Clubhouse Stripe 507 Flat Cap",
+      "score": 6,
+      "rationale": "Similar flat cap styling and breathable materials make it moderately relevant, though it lacks the sport fabric technology and exact panel construction of the 'Driver'.",
+      "map_id": "map_6037b49434ff4911acce3b2e930081eb"
+    },
+    {
+      "competitor_product_name": "The Captain Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and likely very close in design and silhouette, though possibly without the specific micro-poly sport fabric technology of the 'Driver'.",
+      "map_id": "map_766be153eb3d4ea9ac6170f9760a1313"
+    },
+    {
+      "competitor_product_name": "Kenmore Boston Scally Cap",
+      "score": 8,
+      "rationale": "As a Boston Scally cap, it shares silhouette and brand quality, but may not have the exact 8-panel sport fabric build unique to the 'Driver'.",
+      "map_id": "map_023987bdc93c4c4ba888a1849d1b7f68"
+    },
+    {
+      "competitor_product_name": "The Harvestland Boston Scally Cap",
+      "score": 8,
+      "rationale": "Another Boston Scally cap, presumably similar in shape and construction, though the 'Harvestland' may differ in fabric tech and lining from the 'Driver'.",
+      "map_id": "map_a550bb67465a44ef849228c444f42ae9"
+    },
+    {
+      "competitor_product_name": "Allston Wool Scally Cap",
+      "score": 6,
+      "rationale": "Shares the Scally cap silhouette but made of wool, less breathable and heavier than the micro-poly sport fabric of the 'Driver'.",
+      "map_id": "map_cd7bb63471aa4105ab44b35f7338b292"
+    },
+    {
+      "competitor_product_name": "Boston Scally Cap",
+      "score": 7,
+      "rationale": "Generic Boston Scally cap likely similar in shape, but without specific mention of the sport fabric and 8-panel technology of the 'Driver'.",
+      "map_id": "map_c3853f95794541fa8f156fa5e0ac4033"
+    },
+    {
+      "competitor_product_name": "The Bruiser Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and likely similar structured style and fit, though the 'Bruiser' may differ in fabric and lining compared to the 'Driver'.",
+      "map_id": "map_394f9abc2ae348749e7069520cb0bfa7"
+    }
+  ]
+}

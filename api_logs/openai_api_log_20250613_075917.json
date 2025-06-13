@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250613_075917",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Herren Stetson Poundhill Wool Mix Driver braun'\n  - Name='Herren Stetson Belfast Tweed Flatcap'\n  - Name='Herren Stetson 4-teilige Flatcap Stoffmütze blau Wollcap Wolle Wintermütze'\n  - Name='Herren Stetson Ledford Driver Leinen Flatcap cremeweiß'\n  - Name='STETSON | Herrenmütze Driver Cap aus 100% Leinen'\n  - Name='Herren Stetson Chester Wool Silk Cashmere'\n  - Name='Herren Stetson Belfast Wool Blend Flatcap Schirmmütze Schiebermütze Wollcap Mütze'\n  - Name='STETSON | Driver Cap Jersey'\n  - Name='Herren Stetson 4-teilige Flatcap Stoffmütze bunt Wolle Sommermütze'\n  - Name='Herren Stetson Waxed Organic Cotton Flatcap Schirmmütze Schiebermütze Baumwollcap'\n  - Name='Herren Stetson Harris Tweed Twotone Check schwarz-weiß'\n  - Name='Carhartt WIP Harlem Caps'\n  - Name='Carhartt Canvas Graphic Cap'\n  - Name='Carhartt WIP Brown Ducks Cap Black Menn'\n  - Name='Stetson 3-teilige Flatcap Stoffmütze Seidencap Seide Sommermütze'\n  - Name='STETSON | Herren Flachemütze Driver Cap Wool'\n  - Name='Stetson Taleco Wool Flatcap mit Leinen Schirmmütze Schiebermütze Wollcap'\n  - Name='Herren Stetson 4-teilige Flatcap Stoffmütze Wollcap Wolle Wintermütze'\n  - Name='Driver Cap Wool Donegal Stetson, Schwarz / 62'\n  - Name='Herren Stetson Hastings Virgin Wool Flatcap Schirmmütze Schiebermütze Wollcap'\n  - Name='Carhartt WIP Delray Cap Glassy Pink / Wax Menn'\n  - Name='Carhartt WIP Signature Cap men'\n  - Name='Carhartt Women's Lockout strikket lue'\n  - Name='Carhartt WIP Nash Cap'\n  - Name='Carhartt WIP Blaze Trucker Minimum Unisex Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Herren Stetson Poundhill Wool Mix Driver braun\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a driver cap like the reference, but made of wool mix rather than lightweight micro-poly sport fabric, so similar silhouette but different material and likely less breathable.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Belfast Tweed Flatcap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A flatcap style related to the driver cap family but typically less structured and heavier fabric; moderate relevancy but distinct material and less sport-focused.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson 4-teilige Flatcap Stoffmütze blau Wollcap Wolle Wintermütze\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Flat cap made of wool, heavier winter fabric versus lightweight breathable sport fabric, less relevancy in function and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Ledford Driver Leinen Flatcap cremeweiß\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap similar style to reference product, but made from linen rather than micro-poly sport fabric, so similar silhouette but different material and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"STETSON | Herrenmütze Driver Cap aus 100% Leinen\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap similar in shape and style, same as above with linen material rather than performance micro-poly fabric; good silhouette match but difference in material.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Chester Wool Silk Cashmere\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A cap made from wool, silk and cashmere blends implies luxury fabric and less sport technology; related but significant material and likely function differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Belfast Wool Blend Flatcap Schirmmütze Schiebermütze Wollcap Mütze\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flatcap style with wool blend material, similar shape but heavier traditional fabric compared to lightweight sport fabric of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"STETSON | Driver Cap Jersey\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Driver cap likely using jersey fabric which is lightweight and breathable, more aligned to sport technology and performance fabric; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson 4-teilige Flatcap Stoffmütze bunt Wolle Sommermütze\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Flatcap with wool fabric aimed for summer use, but wool generally less breathable than micro-poly sport fabric; silhouette relevant but less so in fabric and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Waxed Organic Cotton Flatcap Schirmmütze Schiebermütze Baumwollcap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Waxed cotton flatcap has different fabric technology and heavier construction; silhouette related but fabric and breathability differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Harris Tweed Twotone Check schwarz-weiß\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Harris Tweed fabric is a heavy traditional wool fabric; while possibly flatcap style, not aligned with lightweight sport fabric functionality.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Harlem Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Named caps possibly baseball or streetwear caps; likely different silhouette and construction from 8-panel flat or driver cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Canvas Graphic Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Canvas fabric caps with graphics usually imply baseball or casual caps not driver cap shapes, less similar silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Brown Ducks Cap Black Menn\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a duckbill or casual cap style different in silhouette and fabric from driver caps; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson 3-teilige Flatcap Stoffmütze Seidencap Seide Sommermütze\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flatcap but made with silk fabric, lighter fabric but different breathability and performance compared to micro-poly sport fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"STETSON | Herren Flachemütze Driver Cap Wool\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap in wool maintains similar shape but heavier fabric with different breathability characteristics compared to reference micro-poly fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Taleco Wool Flatcap mit Leinen Schirmmütze Schiebermütze Wollcap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Flatcap mixing wool and linen offers somewhat related silhouette but heavier and less performance fabric, moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson 4-teilige Flatcap Stoffmütze Wollcap Wolle Wintermütze\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Winter wool flatcap differs substantially from lightweight, breathable driver cap in both fabric and typical use.\"\n    },\n    {\n      \"competitor_product_name\": \"Driver Cap Wool Donegal Stetson, Schwarz / 62\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap shape matches reference but made in wool Donegal fabric, heavier and less breathable than micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Hastings Virgin Wool Flatcap Schirmmütze Schiebermütze Wollcap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Virgin wool flatcap similar silhouette but heavier fabric and less breathable, moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Delray Cap Glassy Pink / Wax Menn\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a casual baseball style cap with different silhouette and fabric from driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Signature Cap men\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual cap style different from structured driver cap, less relevant in shape and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Lockout strikket lue\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Knitted beanie hat very different in silhouette, fabric, and purpose from driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Nash Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely casual streetwear cap with different silhouette and construction from driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Blaze Trucker Minimum Unisex Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker cap with mesh back and sport construction different from driver cap style and fabric.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Herren Stetson Poundhill Wool Mix Driver braun",
+      "score": 7,
+      "rationale": "This is a driver cap like the reference, but made of wool mix rather than lightweight micro-poly sport fabric, so similar silhouette but different material and likely less breathable.",
+      "map_id": "map_d2388bde871e4b9ea565a4811f543ad7"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Belfast Tweed Flatcap",
+      "score": 5,
+      "rationale": "A flatcap style related to the driver cap family but typically less structured and heavier fabric; moderate relevancy but distinct material and less sport-focused.",
+      "map_id": "map_0414572f3fe2438190350f8059bb2dc4"
+    },
+    {
+      "competitor_product_name": "Herren Stetson 4-teilige Flatcap Stoffmütze blau Wollcap Wolle Wintermütze",
+      "score": 4,
+      "rationale": "Flat cap made of wool, heavier winter fabric versus lightweight breathable sport fabric, less relevancy in function and material.",
+      "map_id": "map_3ec893d1c5aa4d858a21c0d3dbcb0bd6"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Ledford Driver Leinen Flatcap cremeweiß",
+      "score": 7,
+      "rationale": "Driver cap similar style to reference product, but made from linen rather than micro-poly sport fabric, so similar silhouette but different material and breathability.",
+      "map_id": "map_861fff5148bb42eeb6a67a2ec0dd9ac5"
+    },
+    {
+      "competitor_product_name": "STETSON | Herrenmütze Driver Cap aus 100% Leinen",
+      "score": 7,
+      "rationale": "Driver cap similar in shape and style, same as above with linen material rather than performance micro-poly fabric; good silhouette match but difference in material.",
+      "map_id": "map_926793d58e2b42f88c146e2171c71aae"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Chester Wool Silk Cashmere",
+      "score": 5,
+      "rationale": "A cap made from wool, silk and cashmere blends implies luxury fabric and less sport technology; related but significant material and likely function differences.",
+      "map_id": "map_339c120fe21f4be5b902ef6b853ec0f9"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Belfast Wool Blend Flatcap Schirmmütze Schiebermütze Wollcap Mütze",
+      "score": 5,
+      "rationale": "Flatcap style with wool blend material, similar shape but heavier traditional fabric compared to lightweight sport fabric of reference.",
+      "map_id": "map_3040ac36136545a99d6f879363cd7c6d"
+    },
+    {
+      "competitor_product_name": "STETSON | Driver Cap Jersey",
+      "score": 8,
+      "rationale": "Driver cap likely using jersey fabric which is lightweight and breathable, more aligned to sport technology and performance fabric; very relevant.",
+      "map_id": "map_e1b27ff7ae394901b965ec47c446d8e3"
+    },
+    {
+      "competitor_product_name": "Herren Stetson 4-teilige Flatcap Stoffmütze bunt Wolle Sommermütze",
+      "score": 4,
+      "rationale": "Flatcap with wool fabric aimed for summer use, but wool generally less breathable than micro-poly sport fabric; silhouette relevant but less so in fabric and function.",
+      "map_id": "map_cca7287ba50d4e83a3cc330f29566527"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Waxed Organic Cotton Flatcap Schirmmütze Schiebermütze Baumwollcap",
+      "score": 5,
+      "rationale": "Waxed cotton flatcap has different fabric technology and heavier construction; silhouette related but fabric and breathability differ.",
+      "map_id": "map_48497572675541c8a6da1becb05321b5"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Harris Tweed Twotone Check schwarz-weiß",
+      "score": 4,
+      "rationale": "Harris Tweed fabric is a heavy traditional wool fabric; while possibly flatcap style, not aligned with lightweight sport fabric functionality.",
+      "map_id": "map_f558c03a52384a9fb37354d28da0b6a1"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Harlem Caps",
+      "score": 3,
+      "rationale": "Named caps possibly baseball or streetwear caps; likely different silhouette and construction from 8-panel flat or driver cap style.",
+      "map_id": "map_3d7af53a511548979b65bda8191e9e19"
+    },
+    {
+      "competitor_product_name": "Carhartt Canvas Graphic Cap",
+      "score": 3,
+      "rationale": "Canvas fabric caps with graphics usually imply baseball or casual caps not driver cap shapes, less similar silhouette and function.",
+      "map_id": "map_86ae947a8d934304ace7047dd7fee928"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Brown Ducks Cap Black Menn",
+      "score": 3,
+      "rationale": "Likely a duckbill or casual cap style different in silhouette and fabric from driver caps; less relevant.",
+      "map_id": "map_81ac53d75a0e485ab3383b82231c7771"
+    },
+    {
+      "competitor_product_name": "Stetson 3-teilige Flatcap Stoffmütze Seidencap Seide Sommermütze",
+      "score": 5,
+      "rationale": "Flatcap but made with silk fabric, lighter fabric but different breathability and performance compared to micro-poly sport fabric.",
+      "map_id": "map_f13a6a0b165a408b90774c6f5a4cbe23"
+    },
+    {
+      "competitor_product_name": "STETSON | Herren Flachemütze Driver Cap Wool",
+      "score": 7,
+      "rationale": "Driver cap in wool maintains similar shape but heavier fabric with different breathability characteristics compared to reference micro-poly fabric.",
+      "map_id": "map_d494e41ac6794512bb7677d7eee478b6"
+    },
+    {
+      "competitor_product_name": "Stetson Taleco Wool Flatcap mit Leinen Schirmmütze Schiebermütze Wollcap",
+      "score": 5,
+      "rationale": "Flatcap mixing wool and linen offers somewhat related silhouette but heavier and less performance fabric, moderate relevancy.",
+      "map_id": "map_21ff68e4c624473385ba311b6fa6f801"
+    },
+    {
+      "competitor_product_name": "Herren Stetson 4-teilige Flatcap Stoffmütze Wollcap Wolle Wintermütze",
+      "score": 4,
+      "rationale": "Winter wool flatcap differs substantially from lightweight, breathable driver cap in both fabric and typical use.",
+      "map_id": "map_3fa245654da84b848baeedc587dca2f2"
+    },
+    {
+      "competitor_product_name": "Driver Cap Wool Donegal Stetson, Schwarz / 62",
+      "score": 7,
+      "rationale": "Driver cap shape matches reference but made in wool Donegal fabric, heavier and less breathable than micro-poly.",
+      "map_id": "map_4c05e8d076384cc6a840d7eea40cc727"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Hastings Virgin Wool Flatcap Schirmmütze Schiebermütze Wollcap",
+      "score": 5,
+      "rationale": "Virgin wool flatcap similar silhouette but heavier fabric and less breathable, moderate relevancy.",
+      "map_id": "map_f6d249ef41384e829690cf800e144983"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Delray Cap Glassy Pink / Wax Menn",
+      "score": 3,
+      "rationale": "Likely a casual baseball style cap with different silhouette and fabric from driver cap.",
+      "map_id": "map_f3108240767b4f349c78129624092fad"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Signature Cap men",
+      "score": 3,
+      "rationale": "Casual cap style different from structured driver cap, less relevant in shape and purpose.",
+      "map_id": "map_e9bb10344d5d4052bcc7766d1238f5d5"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Lockout strikket lue",
+      "score": 1,
+      "rationale": "Knitted beanie hat very different in silhouette, fabric, and purpose from driver cap.",
+      "map_id": "map_e515e3e45a4942d3afe2e1b48c97ddea"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Nash Cap",
+      "score": 3,
+      "rationale": "Likely casual streetwear cap with different silhouette and construction from driver cap.",
+      "map_id": "map_e71bbc82679f45d7b99477c4192516fa"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Blaze Trucker Minimum Unisex Cap",
+      "score": 3,
+      "rationale": "Trucker cap with mesh back and sport construction different from driver cap style and fabric.",
+      "map_id": "map_23e4326a34724e169674aa38eccfb52b"
+    }
+  ]
+}

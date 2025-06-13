@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250516_090615",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bailey Angora Blend Cowboy Hat'\n  - Name='Men Bailey 1922 Nadel Cap Charcoal'\n  - Name='Carhartt Men's Force Canvas Logo Ball Cap'\n  - Name='Bailey Dalton Safari Hat'\n  - Name='Bailey Tate Braided Fedora'\n  - Name='Bailey Graham'\n  - Name='Carhartt Men's Rugged Flex Canvas Mesh-Back 1889 Patch Cap'\n  - Name='Carhartt Canvas Cap'\n  - Name='Bailey Parson Panama Straw Panama Hat'\n  - Name='Bailey 1922 Mullan Braided Fedora'\n  - Name='Carhartt Men's Canvas Cap'\n  - Name='Carhartt Flexfit 110 Mesh Back Cap'\n  - Name='Men Stetson Brinkley Driver Flat Cap'\n  - Name='Bailey Briar Hat'\n  - Name='Bailey Men's Clave Polyester Driving Cap'\n  - Name='Bailey of Hollywood Men's Roll Up II Panama Fedora Hat'\n  - Name='Carhartt Men's Canvas Mesh Back Cap'\n  - Name='Goorin Cold Snap Flatcaps with Sweatband'\n  - Name='Brixton Hooligan Snap Cap'\n  - Name='Goorin Bros Bandit Trucker'\n  - Name='Goorin Bros. Hammered Shark Snapback Baseball Cap'\n  - Name='Brixton Hooligan Lightweight Plaid Flat Cap'\n  - Name='Brxtn Lp Cap by Brixton'\n  - Name='Barbour Men's Fawdon Bakerboy Hat'\n  - Name='BARBOUR INC. deveron tweed flat cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bailey Angora Blend Cowboy Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a cowboy hat with a different silhouette and heavier material, not a lightweight 8-panel scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bailey 1922 Nadel Cap Charcoal\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A type of cap that is similar in silhouette and function to a flat cap/driver style, relevant but no mention of sport micro-poly fabric or 8-panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Canvas Logo Ball Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ball cap style differs from 8-panel scally/driver cap silhouette and less form-fitting design.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Dalton Safari Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Safari hat silhouette differs significantly from the structured 8-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Tate Braided Fedora\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Fedora style has a different silhouette and brim configuration than the scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Graham\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Without additional details, likely a hat but unclear style; medium relevancy assumed due to brand and likely hat type.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rugged Flex Canvas Mesh-Back 1889 Patch Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ball cap style with mesh back, differing from the 8-panel driver cap silhouette and fabric tech.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Canvas Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Canvas cap likely a ball cap style rather than 8-panel driver cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Parson Panama Straw Panama Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Panama hat with straw material is very different in style and construction from a sport micro-poly driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey 1922 Mullan Braided Fedora\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Fedora silhouette differs notably from an 8-panel driver/scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely ball cap style, not matching the 8-panel driver cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Flexfit 110 Mesh Back Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ball cap style with mesh back, differs from form-fitting 8-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Brinkley Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a driver flat cap, very similar in style and function, though material and tech may differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Briar Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Insufficient details, presumed hat; could be relevant but uncertain without style specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Clave Polyester Driving Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A polyester driving cap is very close in function and materials to the driver cap described, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Roll Up II Panama Fedora Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Style is Panama fedora, quite different from a driver/scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mesh Back Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ball cap style, mesh back, differing from driver cap silhouette and fabric technology.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Cold Snap Flatcaps with Sweatband\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flatcaps with sweatband similar in style to driver cap, reasonably relevant but may lack micro-poly sport fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Snap Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Snapback cap style is different silhouette and construction from 8-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Bandit Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker caps have distinct mesh back and snapback design unlike driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Hammered Shark Snapback Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baseball snapback style is different in silhouette and construction from driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Lightweight Plaid Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Lightweight flat cap style is close in shape and function to driver cap, relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brxtn Lp Cap by Brixton\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a ball or casual cap differing from driver cap silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Fawdon Bakerboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Bakerboy hat is another name for a driver/flat cap style, very similar silhouette and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"BARBOUR INC. deveron tweed flat cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Tweed flat cap style closely matches the driver cap's style and function, though fabric differs.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bailey Angora Blend Cowboy Hat",
+      "score": 2,
+      "rationale": "This is a cowboy hat with a different silhouette and heavier material, not a lightweight 8-panel scally cap.",
+      "map_id": "map_b1da7dfcc7bc40d09b4b4525b2142714"
+    },
+    {
+      "competitor_product_name": "Men Bailey 1922 Nadel Cap Charcoal",
+      "score": 7,
+      "rationale": "A type of cap that is similar in silhouette and function to a flat cap/driver style, relevant but no mention of sport micro-poly fabric or 8-panel construction.",
+      "map_id": "map_01f5336dbd0d44f197f15f8415232b71"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Canvas Logo Ball Cap",
+      "score": 4,
+      "rationale": "Ball cap style differs from 8-panel scally/driver cap silhouette and less form-fitting design.",
+      "map_id": "map_617a9d03109b4fd9b848d286f04bbd78"
+    },
+    {
+      "competitor_product_name": "Bailey Dalton Safari Hat",
+      "score": 3,
+      "rationale": "Safari hat silhouette differs significantly from the structured 8-panel driver cap.",
+      "map_id": "map_7b9f39932a84493493f7c0a35ea2d65b"
+    },
+    {
+      "competitor_product_name": "Bailey Tate Braided Fedora",
+      "score": 3,
+      "rationale": "Fedora style has a different silhouette and brim configuration than the scally cap.",
+      "map_id": "map_b5c4278b9e3b42d59f14802c2463ff6e"
+    },
+    {
+      "competitor_product_name": "Bailey Graham",
+      "score": 5,
+      "rationale": "Without additional details, likely a hat but unclear style; medium relevancy assumed due to brand and likely hat type.",
+      "map_id": "map_569b76c41c0840e78666690fa5c2c0a4"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rugged Flex Canvas Mesh-Back 1889 Patch Cap",
+      "score": 4,
+      "rationale": "Ball cap style with mesh back, differing from the 8-panel driver cap silhouette and fabric tech.",
+      "map_id": "map_35ed483135174e3cb7b823b0f72475cd"
+    },
+    {
+      "competitor_product_name": "Carhartt Canvas Cap",
+      "score": 4,
+      "rationale": "Canvas cap likely a ball cap style rather than 8-panel driver cap style.",
+      "map_id": "map_c356fbc9230945dda28cfeed963516f7"
+    },
+    {
+      "competitor_product_name": "Bailey Parson Panama Straw Panama Hat",
+      "score": 2,
+      "rationale": "Panama hat with straw material is very different in style and construction from a sport micro-poly driver cap.",
+      "map_id": "map_86913ed8f8da4c7eb5f9e23b2200749f"
+    },
+    {
+      "competitor_product_name": "Bailey 1922 Mullan Braided Fedora",
+      "score": 3,
+      "rationale": "Fedora silhouette differs notably from an 8-panel driver/scally cap.",
+      "map_id": "map_1b27314773834b4187452a017872f0fc"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Cap",
+      "score": 4,
+      "rationale": "Likely ball cap style, not matching the 8-panel driver cap style.",
+      "map_id": "map_5ef6ee6064e4486ba59940111fa7fa16"
+    },
+    {
+      "competitor_product_name": "Carhartt Flexfit 110 Mesh Back Cap",
+      "score": 4,
+      "rationale": "Ball cap style with mesh back, differs from form-fitting 8-panel driver cap.",
+      "map_id": "map_2d8d899e432343638a8b4c44a79b2c77"
+    },
+    {
+      "competitor_product_name": "Men Stetson Brinkley Driver Flat Cap",
+      "score": 8,
+      "rationale": "This is a driver flat cap, very similar in style and function, though material and tech may differ slightly.",
+      "map_id": "map_08f86456ceac4216b82923c80b6a1a83"
+    },
+    {
+      "competitor_product_name": "Bailey Briar Hat",
+      "score": 5,
+      "rationale": "Insufficient details, presumed hat; could be relevant but uncertain without style specifics.",
+      "map_id": "map_1b482463b02a4701a2a47c61c6d845d2"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Clave Polyester Driving Cap",
+      "score": 9,
+      "rationale": "A polyester driving cap is very close in function and materials to the driver cap described, highly relevant.",
+      "map_id": "map_32883675ab03490f9252abcebc2ddbab"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Roll Up II Panama Fedora Hat",
+      "score": 2,
+      "rationale": "Style is Panama fedora, quite different from a driver/scally cap.",
+      "map_id": "map_00a84d269bc54d4884c224627fad31d9"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mesh Back Cap",
+      "score": 4,
+      "rationale": "Ball cap style, mesh back, differing from driver cap silhouette and fabric technology.",
+      "map_id": "map_5a62350988114275b77a0396ced94dce"
+    },
+    {
+      "competitor_product_name": "Goorin Cold Snap Flatcaps with Sweatband",
+      "score": 7,
+      "rationale": "Flatcaps with sweatband similar in style to driver cap, reasonably relevant but may lack micro-poly sport fabric.",
+      "map_id": "map_a11fd021b2164548bf1ebc2c13d668ee"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Snap Cap",
+      "score": 4,
+      "rationale": "Snapback cap style is different silhouette and construction from 8-panel driver cap.",
+      "map_id": "map_521690ada2514beb89b9973c58c8b3d6"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Bandit Trucker",
+      "score": 3,
+      "rationale": "Trucker caps have distinct mesh back and snapback design unlike driver cap.",
+      "map_id": "map_c9dd27862d91416e85c3fd02b5a5c846"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Hammered Shark Snapback Baseball Cap",
+      "score": 3,
+      "rationale": "Baseball snapback style is different in silhouette and construction from driver cap.",
+      "map_id": "map_555f95ddecda43ef95affac634d2f06e"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Lightweight Plaid Flat Cap",
+      "score": 7,
+      "rationale": "Lightweight flat cap style is close in shape and function to driver cap, relevant.",
+      "map_id": "map_e06047265400465085bf729057aa47a6"
+    },
+    {
+      "competitor_product_name": "Brxtn Lp Cap by Brixton",
+      "score": 4,
+      "rationale": "Likely a ball or casual cap differing from driver cap silhouette.",
+      "map_id": "map_84bebab14cb64c32a7feb225895dd85b"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Fawdon Bakerboy Hat",
+      "score": 8,
+      "rationale": "Bakerboy hat is another name for a driver/flat cap style, very similar silhouette and purpose.",
+      "map_id": "map_a1d44da0ff8744f9af9ed4e4244dd181"
+    },
+    {
+      "competitor_product_name": "BARBOUR INC. deveron tweed flat cap",
+      "score": 8,
+      "rationale": "Tweed flat cap style closely matches the driver cap's style and function, though fabric differs.",
+      "map_id": "map_85569047babb4626abad6ef6b5fdb956"
+    }
+  ]
+}

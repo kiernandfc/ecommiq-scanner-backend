@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250526_075730",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Men's Milbirdge Wool Ivy Cap'\n  - Name='Stetson Men's Hatteras Forestburg Wool Flat Cap'\n  - Name='Christys' Men's Lyle Baseball Cap'\n  - Name='Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband'\n  - Name='Goorin Bros. The Baddest Boy Trucker Hat'\n  - Name='Stetson Men's Hatteras Color Dots Wool Cap'\n  - Name='Stetson Accessories Vtg Plaid Newsboy Hat'\n  - Name='Carhartt Newsie Plaid Adjustable Wool Hat Cap'\n  - Name='Goorin Bros. Great Escape Collection Trucker Hat'\n  - Name='Stetson Men's STW276 Newsboy Cap'\n  - Name='Kangol Men's Cord Hawker Cap'\n  - Name='Kangol 507 Seamless Wool'\n  - Name='Kangol Men's Don Stripe 507 Knit Ivy Cap'\n  - Name='The Repel Boston Scally Cap'\n  - Name='The Baker Boy Boston Wool Scally Cap'\n  - Name='The Night Before Boston Wool Scally Cap'\n  - Name='The Irish Pub Boston Scally Cap'\n  - Name='Lucky Boston Scally Cap'\n  - Name='Irish Boston Scally Cap'\n  - Name='Boston Scally Company Men's Plaid Flannel Newsboy'\n  - Name='The Jake 2 Boston Scally Cap'\n  - Name='The Pub Boston Scally Cap'\n  - Name='The Trinity Boston Wool Scally Cap'\n  - Name='The Original Boston Scally Cap'\n  - Name='Bareknuckle Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Men's Milbirdge Wool Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is an Ivy cap, not an 8-panel Peaky scally cap, so it differs in silhouette and panel construction though both are men's hats.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Forestburg Wool Flat Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A flat cap differs from the 8-panel Peaky style, but both are men's flat-brimmed caps, somewhat related but not very close.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Men's Lyle Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Baseball cap style is different in construction and silhouette from a Peaky cap; quite unrelated.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A 6-panel Ivy flat cap is closer than baseball hats but still differs from the signature 8-panel Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Baddest Boy Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Trucker hat is a completely different style and construction; not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hatteras Color Dots Wool Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another flat cap similar to Hatteras Forestburg, related but not close to Peaky scally construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Accessories Vtg Plaid Newsboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A newsboy hat is typically an 8-panel style with a bill, very similar in silhouette and construction to the Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Newsie Plaid Adjustable Wool Hat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsie cap is similar in style and panel construction but being adjustable might differ from the traditional Peaky fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Great Escape Collection Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Trucker hats have a very different silhouette and materials; not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's STW276 Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy cap is close in panel and brim style, very relevant to Peaky caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Cord Hawker Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hawker cap shares some resemblance to Peaky caps in silhouette but often fewer panels and different style details.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol 507 Seamless Wool\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The 507 is an Ivy cap style, which differs from the 8-panel Peaky style in panels and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Don Stripe 507 Knit Ivy Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ivy cap style, distinct from Peaky cap silhouette and panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"The Repel Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Boston Scally brand matches, and this is a scally cap, likely similar 8-panel construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"The Baker Boy Boston Wool Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Baker Boy and scally caps are very close styles to the reference Peaky cap in shape and paneling.\"\n    },\n    {\n      \"competitor_product_name\": \"The Night Before Boston Wool Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Wool Scally cap, very similar in style and brand to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Irish Pub Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a Boston Scally, likely same construction and silhouette as the reference Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Lucky Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and scally cap style, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Irish Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Boston Scally caps share the same design approach making this highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Company Men's Plaid Flannel Newsboy\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Plaid flannel newsboy style from the same brand is very aligned with the reference cap.\"\n    },\n    {\n      \"competitor_product_name\": \"The Jake 2 Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Boston Scally cap, likely similar 8-panel Peaky construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"The Pub Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap, very close to the reference in design and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"The Trinity Boston Wool Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Boston Wool Scally cap, closely matching the reference Peaky cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"The Original Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Most likely the exact same or very close product from the same brand with the same scally cap design.\"\n    },\n    {\n      \"competitor_product_name\": \"Bareknuckle Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Boston Scally cap style, very similar in silhouette and construction to the Peaky cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Men's Milbirdge Wool Ivy Cap",
+      "score": 5,
+      "rationale": "This is an Ivy cap, not an 8-panel Peaky scally cap, so it differs in silhouette and panel construction though both are men's hats.",
+      "map_id": "map_75560bf775354e23a20809e09c8118d8"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Forestburg Wool Flat Cap",
+      "score": 5,
+      "rationale": "A flat cap differs from the 8-panel Peaky style, but both are men's flat-brimmed caps, somewhat related but not very close.",
+      "map_id": "map_1bdb35237b55421fb9eca99da523aaca"
+    },
+    {
+      "competitor_product_name": "Christys' Men's Lyle Baseball Cap",
+      "score": 2,
+      "rationale": "Baseball cap style is different in construction and silhouette from a Peaky cap; quite unrelated.",
+      "map_id": "map_eddddf0635d84c40a8c9259eef8a4c95"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband",
+      "score": 6,
+      "rationale": "A 6-panel Ivy flat cap is closer than baseball hats but still differs from the signature 8-panel Peaky style.",
+      "map_id": "map_36cc4152d02246f4be9183e26647dc5e"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Baddest Boy Trucker Hat",
+      "score": 1,
+      "rationale": "Trucker hat is a completely different style and construction; not relevant.",
+      "map_id": "map_e517dd4a54e94992862dbe466bb13774"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hatteras Color Dots Wool Cap",
+      "score": 5,
+      "rationale": "Another flat cap similar to Hatteras Forestburg, related but not close to Peaky scally construction.",
+      "map_id": "map_ea760b54f43f47dd8bdb6f643fcba83f"
+    },
+    {
+      "competitor_product_name": "Stetson Accessories Vtg Plaid Newsboy Hat",
+      "score": 8,
+      "rationale": "A newsboy hat is typically an 8-panel style with a bill, very similar in silhouette and construction to the Peaky cap.",
+      "map_id": "map_7299c2a4c01a4d0ca28f7e8355efce2b"
+    },
+    {
+      "competitor_product_name": "Carhartt Newsie Plaid Adjustable Wool Hat Cap",
+      "score": 7,
+      "rationale": "Newsie cap is similar in style and panel construction but being adjustable might differ from the traditional Peaky fit.",
+      "map_id": "map_fa70460b74254566814817164a0366ee"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Great Escape Collection Trucker Hat",
+      "score": 1,
+      "rationale": "Trucker hats have a very different silhouette and materials; not relevant.",
+      "map_id": "map_035f1e267e9940819806034eb2071394"
+    },
+    {
+      "competitor_product_name": "Stetson Men's STW276 Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy cap is close in panel and brim style, very relevant to Peaky caps.",
+      "map_id": "map_18f0c826ed3c478d9b30f81fa109acf0"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Cord Hawker Cap",
+      "score": 6,
+      "rationale": "Hawker cap shares some resemblance to Peaky caps in silhouette but often fewer panels and different style details.",
+      "map_id": "map_e9a7413a8e29479f81e243a50b35ee2e"
+    },
+    {
+      "competitor_product_name": "Kangol 507 Seamless Wool",
+      "score": 4,
+      "rationale": "The 507 is an Ivy cap style, which differs from the 8-panel Peaky style in panels and shape.",
+      "map_id": "map_ca41b9e3797b48799483a2284215fcc6"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Don Stripe 507 Knit Ivy Cap",
+      "score": 4,
+      "rationale": "Ivy cap style, distinct from Peaky cap silhouette and panel design.",
+      "map_id": "map_9d7036d3b79e4b168e184a760d2fdb4d"
+    },
+    {
+      "competitor_product_name": "The Repel Boston Scally Cap",
+      "score": 9,
+      "rationale": "Boston Scally brand matches, and this is a scally cap, likely similar 8-panel construction and silhouette.",
+      "map_id": "map_d9e3397efd0246f88510d54bfbcd5d7d"
+    },
+    {
+      "competitor_product_name": "The Baker Boy Boston Wool Scally Cap",
+      "score": 9,
+      "rationale": "Baker Boy and scally caps are very close styles to the reference Peaky cap in shape and paneling.",
+      "map_id": "map_63faa9be9a384c03a8df2e1a4a3193b6"
+    },
+    {
+      "competitor_product_name": "The Night Before Boston Wool Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Wool Scally cap, very similar in style and brand to the reference product.",
+      "map_id": "map_47b166c918af4e94aecb93008d34dece"
+    },
+    {
+      "competitor_product_name": "The Irish Pub Boston Scally Cap",
+      "score": 9,
+      "rationale": "Also a Boston Scally, likely same construction and silhouette as the reference Peaky cap.",
+      "map_id": "map_b00caeecf445424e8436cb2ba5f52865"
+    },
+    {
+      "competitor_product_name": "Lucky Boston Scally Cap",
+      "score": 9,
+      "rationale": "Same brand and scally cap style, very relevant.",
+      "map_id": "map_e557d9ea73b44a1ea90a6e57de06ec46"
+    },
+    {
+      "competitor_product_name": "Irish Boston Scally Cap",
+      "score": 9,
+      "rationale": "Boston Scally caps share the same design approach making this highly relevant.",
+      "map_id": "map_57f7eae65cb944329a3150083341de0f"
+    },
+    {
+      "competitor_product_name": "Boston Scally Company Men's Plaid Flannel Newsboy",
+      "score": 9,
+      "rationale": "Plaid flannel newsboy style from the same brand is very aligned with the reference cap.",
+      "map_id": "map_6543e1261a9d4eaa8ca1c35c3214711b"
+    },
+    {
+      "competitor_product_name": "The Jake 2 Boston Scally Cap",
+      "score": 9,
+      "rationale": "Boston Scally cap, likely similar 8-panel Peaky construction and silhouette.",
+      "map_id": "map_30f1b68341554224a143db5a88ee0820"
+    },
+    {
+      "competitor_product_name": "The Pub Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap, very close to the reference in design and construction.",
+      "map_id": "map_a6d1aaf280d9447c99905c0e1606d334"
+    },
+    {
+      "competitor_product_name": "The Trinity Boston Wool Scally Cap",
+      "score": 9,
+      "rationale": "A Boston Wool Scally cap, closely matching the reference Peaky cap style.",
+      "map_id": "map_95dcc7e663904868a48c558d5d1e0d66"
+    },
+    {
+      "competitor_product_name": "The Original Boston Scally Cap",
+      "score": 10,
+      "rationale": "Most likely the exact same or very close product from the same brand with the same scally cap design.",
+      "map_id": "map_92e94bbaba004390959b9de37e70aba9"
+    },
+    {
+      "competitor_product_name": "Bareknuckle Boston Scally Cap",
+      "score": 9,
+      "rationale": "Boston Scally cap style, very similar in silhouette and construction to the Peaky cap.",
+      "map_id": "map_e4c34894ae284d27b135719585c42afe"
+    }
+  ]
+}

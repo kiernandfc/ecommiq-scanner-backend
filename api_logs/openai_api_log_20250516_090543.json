@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250516_090543",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='UNIQLO Men's Wide Fit Tall Chino Pants'\n  - Name='Outerknown Cargo Pants'\n  - Name='Everlane Men's Performance 5-Pocket Pant'\n  - Name='Patagonia Men's Altvia Trail Pants'\n  - Name='UNIQLO Cargo Pants'\n  - Name='Uniqlo Black Japan Streetwear Utility Cargo Pants #5022'\n  - Name='Uniqlo U Dark Green Corduroy Wide Fit Work Pants, Casual, Men/W30'\n  - Name='UNIQLO Women's Pleated Wide Pants'\n  - Name='Outerknown Westbound Utility Pants'\n  - Name='Patagonia Men's Iron Forge 5-Pocket Work Pants'\n  - Name='Patagonia Men's 2-Loose Quick-Dry Pants'\n  - Name='Patagonia Men's Venga Rock Pants'\n  - Name='Patagonia Men's Hampi Rock Climbing Pants'\n  - Name='Patagonia Men's Terravia Alpine Pants'\n  - Name='Carhartt WIP Nash OG Double Knee Pant'\n  - Name='Uniqlo Work Pants Black Xl Jeans Vtg Japan Jeans Jogger Athletic'\n  - Name='J W Anderson Loose Relaxed Wide Fatigue Mid Rise Pant Collabs Uniqlo, Men's (Size 30)'\n  - Name='UNIQLO Men's Wide Straight Tall Jeans'\n  - Name='Everlane Men's Selvedge Straight Fit Jeans'\n  - Name='Everlane Men's '90s Loose Straight Jean'\n  - Name='Uniqlo U Regular Fit Work Pants Olive - Men | Color: Olive | Size: M'\n  - Name='Everlane Men's The Performance Chino Uniform Slim Fit'\n  - Name='Outerknown The Dunes Straight Jean'\n  - Name='(ASK availablity first) UNIQLO Heattech Smart Pants /Glen Check Short Length'\n  - Name='UNIQLO Relaxed Linen Blend Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Fit Tall Chino Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's pants intended for casual or workwear, but the UNIQLO pants are chinos with a wide fit rather than reinforced chore pants. Less emphasis on durability features.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Cargo Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cargo pants similar in utility focus and casual workwear style, likely built for durability though cargo style adds functional pockets. Closer to chore pant function.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance 5-Pocket Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Five-pocket pants intended for performance but not explicitly workwear with reinforcements, so moderately relevant but likely less rugged.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Altvia Trail Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Trail pants designed for outdoor activities differ from chore pants which emphasize reinforced construction for manual labor, making them less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Cargo Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cargo pants offer functional features with multiple pockets like chore pants and are casual workwear oriented, moderate relevancy regarding function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Black Japan Streetwear Utility Cargo Pants #5022\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility cargo pants aligned with workwear and utility focus, similar to chore pants in functional intent but possibly more fashion-oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo U Dark Green Corduroy Wide Fit Work Pants, Casual, Men/W30\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work pants made from corduroy with wide fit share the workwear category but differ in fabric and possibly structure from durable canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Women's Pleated Wide Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's pleated wide pants are primarily fashion-oriented and lack the rugged, durable construction of chore pants, very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Westbound Utility Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Utility pants emphasize durability and functionality, very close to chore pants in purpose and likely construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Iron Forge 5-Pocket Work Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Work pants with 5-pocket design and durable construction align closely with chore pants in use and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's 2-Loose Quick-Dry Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quick-dry pants designed for comfort and activity but less focused on durability and reinforcement typical of chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Venga Rock Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Climbing pants designed for mobility and stretch differ significantly in construction and purpose from rigid chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Hampi Rock Climbing Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar to above, climbing pants prioritize stretch and mobility rather than durability and reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Terravia Alpine Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Alpine pants for outdoor use but likely lighter weight and different features than rugged chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Nash OG Double Knee Pant\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee construction and workwear styling very close to the chore pant design, highly relevant due to reinforced features and utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Work Pants Black Xl Jeans Vtg Japan Jeans Jogger Athletic\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Work pants but with a vintage jeans jogger style, likely less reinforcement and structured construction than chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"J W Anderson Loose Relaxed Wide Fatigue Mid Rise Pant Collabs Uniqlo, Men's (Size 30)\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Loose, wide fatigue style pants are more fashion oriented with less focus on durable workwear features.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Straight Tall Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Jeans share casual and durable aspects but differ in fabric and reinforcement details compared to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Selvedge Straight Fit Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Selvedge jeans focus on durability but do not have the reinforced construction and utility features of chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's '90s Loose Straight Jean\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Looser fit jeans favor style over function; lack chore pant reinforcement and construction details.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo U Regular Fit Work Pants Olive - Men | Color: Olive | Size: M\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Regular fit work pants likely share functional workwear intent and durability but may lack some chore pant specific reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Performance Chino Uniform Slim Fit\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance chinos offer durability and function but differ in fabric and lack of double knee or heavy reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown The Dunes Straight Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Jeans with workwear inspiration but less utility and reinforcement compared to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"(ASK availablity first) UNIQLO Heattech Smart Pants /Glen Check Short Length\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Heattech smart pants are tech-oriented casual pants without workwear durability or reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Linen blend relaxed pants are lightweight and casual, lacking the durability and construction of chore pants.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Fit Tall Chino Pants",
+      "score": 6,
+      "rationale": "Both are men's pants intended for casual or workwear, but the UNIQLO pants are chinos with a wide fit rather than reinforced chore pants. Less emphasis on durability features.",
+      "map_id": "map_bd789664f0f246f4b2060fd2d71a3c73"
+    },
+    {
+      "competitor_product_name": "Outerknown Cargo Pants",
+      "score": 7,
+      "rationale": "Cargo pants similar in utility focus and casual workwear style, likely built for durability though cargo style adds functional pockets. Closer to chore pant function.",
+      "map_id": "map_abd044c75515462caff0b7704150c336"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance 5-Pocket Pant",
+      "score": 6,
+      "rationale": "Five-pocket pants intended for performance but not explicitly workwear with reinforcements, so moderately relevant but likely less rugged.",
+      "map_id": "map_668387008a894561bb839d3c9c9617de"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Altvia Trail Pants",
+      "score": 5,
+      "rationale": "Trail pants designed for outdoor activities differ from chore pants which emphasize reinforced construction for manual labor, making them less relevant.",
+      "map_id": "map_2f1d61d8de6748648192a0bd9ae350bc"
+    },
+    {
+      "competitor_product_name": "UNIQLO Cargo Pants",
+      "score": 7,
+      "rationale": "Cargo pants offer functional features with multiple pockets like chore pants and are casual workwear oriented, moderate relevancy regarding function and style.",
+      "map_id": "map_bf2075715ae941c8abddd87ce84dead3"
+    },
+    {
+      "competitor_product_name": "Uniqlo Black Japan Streetwear Utility Cargo Pants #5022",
+      "score": 7,
+      "rationale": "Utility cargo pants aligned with workwear and utility focus, similar to chore pants in functional intent but possibly more fashion-oriented.",
+      "map_id": "map_9966baca86ee4485a7ebe8c36b42f244"
+    },
+    {
+      "competitor_product_name": "Uniqlo U Dark Green Corduroy Wide Fit Work Pants, Casual, Men/W30",
+      "score": 6,
+      "rationale": "Work pants made from corduroy with wide fit share the workwear category but differ in fabric and possibly structure from durable canvas chore pants.",
+      "map_id": "map_063001f06620417cac364d6f695f99d7"
+    },
+    {
+      "competitor_product_name": "UNIQLO Women's Pleated Wide Pants",
+      "score": 2,
+      "rationale": "Women's pleated wide pants are primarily fashion-oriented and lack the rugged, durable construction of chore pants, very low relevancy.",
+      "map_id": "map_20dc7b75b0834017995ea4014c421d0c"
+    },
+    {
+      "competitor_product_name": "Outerknown Westbound Utility Pants",
+      "score": 8,
+      "rationale": "Utility pants emphasize durability and functionality, very close to chore pants in purpose and likely construction.",
+      "map_id": "map_abf0cdac033841f986fcedb58c337650"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Iron Forge 5-Pocket Work Pants",
+      "score": 8,
+      "rationale": "Work pants with 5-pocket design and durable construction align closely with chore pants in use and durability.",
+      "map_id": "map_6fdb99b4f34e4756a3867e8a59411790"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's 2-Loose Quick-Dry Pants",
+      "score": 4,
+      "rationale": "Quick-dry pants designed for comfort and activity but less focused on durability and reinforcement typical of chore pants.",
+      "map_id": "map_77ac859902524723a21a95b4066ed53d"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Venga Rock Pants",
+      "score": 4,
+      "rationale": "Climbing pants designed for mobility and stretch differ significantly in construction and purpose from rigid chore pants.",
+      "map_id": "map_b812df22e80f4c7ba33d2a53073c67ee"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Hampi Rock Climbing Pants",
+      "score": 4,
+      "rationale": "Similar to above, climbing pants prioritize stretch and mobility rather than durability and reinforcement.",
+      "map_id": "map_2ddd20751c8045b7a9b50ddacd31e87f"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Terravia Alpine Pants",
+      "score": 5,
+      "rationale": "Alpine pants for outdoor use but likely lighter weight and different features than rugged chore pants.",
+      "map_id": "map_b23f6f4e1db54b1a95654343802a8648"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Nash OG Double Knee Pant",
+      "score": 9,
+      "rationale": "Double knee construction and workwear styling very close to the chore pant design, highly relevant due to reinforced features and utility.",
+      "map_id": "map_cfbc0cc4a10c4270939228eb38ebc426"
+    },
+    {
+      "competitor_product_name": "Uniqlo Work Pants Black Xl Jeans Vtg Japan Jeans Jogger Athletic",
+      "score": 5,
+      "rationale": "Work pants but with a vintage jeans jogger style, likely less reinforcement and structured construction than chore pants.",
+      "map_id": "map_83a3970e22334f1bbe14043ef5994506"
+    },
+    {
+      "competitor_product_name": "J W Anderson Loose Relaxed Wide Fatigue Mid Rise Pant Collabs Uniqlo, Men's (Size 30)",
+      "score": 3,
+      "rationale": "Loose, wide fatigue style pants are more fashion oriented with less focus on durable workwear features.",
+      "map_id": "map_257652c8203245dfb57d4bd32e856f31"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Straight Tall Jeans",
+      "score": 5,
+      "rationale": "Jeans share casual and durable aspects but differ in fabric and reinforcement details compared to chore pants.",
+      "map_id": "map_2519f1b63b1f46a1b114a9527e181694"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Selvedge Straight Fit Jeans",
+      "score": 5,
+      "rationale": "Selvedge jeans focus on durability but do not have the reinforced construction and utility features of chore pants.",
+      "map_id": "map_94bbf93b6adc4c20a5ad3c0754e6430a"
+    },
+    {
+      "competitor_product_name": "Everlane Men's '90s Loose Straight Jean",
+      "score": 4,
+      "rationale": "Looser fit jeans favor style over function; lack chore pant reinforcement and construction details.",
+      "map_id": "map_f3c16ed854be4b29b61e115f550a2d2f"
+    },
+    {
+      "competitor_product_name": "Uniqlo U Regular Fit Work Pants Olive - Men | Color: Olive | Size: M",
+      "score": 7,
+      "rationale": "Regular fit work pants likely share functional workwear intent and durability but may lack some chore pant specific reinforcements.",
+      "map_id": "map_965f481da9ae4946be86b0cc5c83c753"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Performance Chino Uniform Slim Fit",
+      "score": 6,
+      "rationale": "Performance chinos offer durability and function but differ in fabric and lack of double knee or heavy reinforcement.",
+      "map_id": "map_1522356166c14b50bd502319ce37167e"
+    },
+    {
+      "competitor_product_name": "Outerknown The Dunes Straight Jean",
+      "score": 5,
+      "rationale": "Jeans with workwear inspiration but less utility and reinforcement compared to chore pants.",
+      "map_id": "map_fda7a6c3bb7745acaf1b488c36d45462"
+    },
+    {
+      "competitor_product_name": "(ASK availablity first) UNIQLO Heattech Smart Pants /Glen Check Short Length",
+      "score": 3,
+      "rationale": "Heattech smart pants are tech-oriented casual pants without workwear durability or reinforcement.",
+      "map_id": "map_7c2a913542a5434789904ebfef025311"
+    },
+    {
+      "competitor_product_name": "UNIQLO Relaxed Linen Blend Pants",
+      "score": 2,
+      "rationale": "Linen blend relaxed pants are lightweight and casual, lacking the durability and construction of chore pants.",
+      "map_id": "map_8d0324f1cc534a768d9e3b90d1f331e5"
+    }
+  ]
+}

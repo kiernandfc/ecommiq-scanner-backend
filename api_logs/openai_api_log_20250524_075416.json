@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250524_075416",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Apres Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Apres Pant\"\nReference Product Description:\nGetting the best of both worlds is what Taylor Stitch's signature Après Pant is all about. With the cozy comfort of your favorite sweats, the dashing good looks of a trusty set of chinos, and all the hard wearing functionality you’ve come to expect from our expert craftsmen, The Après Pant is built to bring you from the couch, to the trail, to that last minute lunch date all without missing a step. This dimensional Natural Sashiko iteration has been given a heavy garment wash for an ultra soft, broken-in feel right out of the box. 8-oz. 100% organic cotton. Beautiful sashiko slub texture. Washed for a worn in feel. Lightly washed to bring out the amazing texture. Two front slash front pockets. Two back patch button-through pockets. Custom SF map print pocketing, made with 100% organic cotton. Elastic waistband with drawcord. Elastic cuff at hem. Dark horn buttons. Button fly. 30\" inseam. Wash cold and tumble dry low.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Outdoor Voices Women's Pants & Jumpsuits Outdoor Voices Cloudknit Wide Leg Pant'\n  - Name='Public Rec Men's Stretch Twill Chino Pants'\n  - Name='Reigning Champ Men's Relaxed Fit Midweight Terry Cuffed Sweatpants'\n  - Name='Taylor Stitch Men's Apres Linen Tweed Pants'\n  - Name='Taylor Stitch Men's Organic Cotton Camp Pants in Coal Chipped Canvas'\n  - Name='Taylor Stitch Men's Organic Cotton Democratic Jean'\n  - Name='Jordan Men's Brooklyn Fleece Pants'\n  - Name='Reigning Champ Midweight Fleece Cuffed Sweatpants'\n  - Name='Nike Men's Sportswear Club Knit Open-Hem Pants'\n  - Name='Nike Men's Sportswear Club Knit Open-Hem Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Outdoor Voices Women's Pants & Jumpsuits Outdoor Voices Cloudknit Wide Leg Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While these are pants, they are wide leg and likely more casual or athletic, differing significantly in silhouette and intended use from the Taylor Stitch Apres Pant's chino-sweatpant hybrid design.\"\n    },\n    {\n      \"competitor_product_name\": \"Public Rec Men's Stretch Twill Chino Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"These stretch twill chinos share a similar chino style and likely a comfortable fit, aligning somewhat with the Apres Pant’s chino look and comfort focus, but lacking the sweatpant and elastic features.\"\n    },\n    {\n      \"competitor_product_name\": \"Reigning Champ Men's Relaxed Fit Midweight Terry Cuffed Sweatpants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"These are cuffed sweatpants with midweight terry fabric and relaxed fit, closely matching the sweatpant comfort, cuffed hem, and casual versatility elements of the Apres Pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Apres Linen Tweed Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same brand and Apres line, just a different fabric (linen tweed vs. organic cotton sashiko). Likely very similar fit, style, and design intent.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Camp Pants in Coal Chipped Canvas\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Same brand and organic cotton basis, but camp pants and canvas fabric differ from the mixed chino-sweatpant style and softer garment washed fabric of the Apres Pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Democratic Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Same brand and organic cotton fiber but jeans have a different construction, silhouette and style compared to the chino-sweat hybrid Apres Pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Jordan Men's Brooklyn Fleece Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Fleece pants with the likely casual, comfortable fit and elastic or cuffed features align with the Apres Pant’s comfort and sweatpant characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Reigning Champ Midweight Fleece Cuffed Sweatpants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Midweight fleece, cuffed sweatpants directly related in material, style, and comfort profile to the sweatpant aspects of the Apres Pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Knit Open-Hem Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Knit open-hem pants are casual and athletic but the open hem differs from the Apres Pant’s elastic cuff and chino features, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Knit Open-Hem Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Duplicate of the above Nike pants with same evaluation: casual knit pants less aligned with the chino-style and elastic cuff design of the Apres Pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Outdoor Voices Women's Pants & Jumpsuits Outdoor Voices Cloudknit Wide Leg Pant",
+      "score": 4,
+      "rationale": "While these are pants, they are wide leg and likely more casual or athletic, differing significantly in silhouette and intended use from the Taylor Stitch Apres Pant's chino-sweatpant hybrid design.",
+      "map_id": "map_bbac76466fe0426abfcf3666e92d15cf"
+    },
+    {
+      "competitor_product_name": "Public Rec Men's Stretch Twill Chino Pants",
+      "score": 7,
+      "rationale": "These stretch twill chinos share a similar chino style and likely a comfortable fit, aligning somewhat with the Apres Pant’s chino look and comfort focus, but lacking the sweatpant and elastic features.",
+      "map_id": "map_d1cf2044a0d448efa598dfa5c0cbf8d7"
+    },
+    {
+      "competitor_product_name": "Reigning Champ Men's Relaxed Fit Midweight Terry Cuffed Sweatpants",
+      "score": 8,
+      "rationale": "These are cuffed sweatpants with midweight terry fabric and relaxed fit, closely matching the sweatpant comfort, cuffed hem, and casual versatility elements of the Apres Pant.",
+      "map_id": "map_060cac29fcdf41a28096b561e7d1a086"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Apres Linen Tweed Pants",
+      "score": 9,
+      "rationale": "Same brand and Apres line, just a different fabric (linen tweed vs. organic cotton sashiko). Likely very similar fit, style, and design intent.",
+      "map_id": "map_5bdab16223d04cbdb835ad8de00d6a00"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Camp Pants in Coal Chipped Canvas",
+      "score": 6,
+      "rationale": "Same brand and organic cotton basis, but camp pants and canvas fabric differ from the mixed chino-sweatpant style and softer garment washed fabric of the Apres Pant.",
+      "map_id": "map_95e48951e0bf4af79465b850995c00db"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Democratic Jean",
+      "score": 5,
+      "rationale": "Same brand and organic cotton fiber but jeans have a different construction, silhouette and style compared to the chino-sweat hybrid Apres Pant.",
+      "map_id": "map_7cef7e59e9b5481ab5bf49e76facdde6"
+    },
+    {
+      "competitor_product_name": "Jordan Men's Brooklyn Fleece Pants",
+      "score": 7,
+      "rationale": "Fleece pants with the likely casual, comfortable fit and elastic or cuffed features align with the Apres Pant’s comfort and sweatpant characteristics.",
+      "map_id": "map_abd12fe6a9534edd87091b056e4bb805"
+    },
+    {
+      "competitor_product_name": "Reigning Champ Midweight Fleece Cuffed Sweatpants",
+      "score": 8,
+      "rationale": "Midweight fleece, cuffed sweatpants directly related in material, style, and comfort profile to the sweatpant aspects of the Apres Pant.",
+      "map_id": "map_e931d8fd034b44639d014203d2dc13cb"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Knit Open-Hem Pants",
+      "score": 6,
+      "rationale": "Knit open-hem pants are casual and athletic but the open hem differs from the Apres Pant’s elastic cuff and chino features, lowering relevancy.",
+      "map_id": "map_c171195d283f4688bd29ec20bdda0806"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Knit Open-Hem Pants",
+      "score": 6,
+      "rationale": "Knit open-hem pants are casual and athletic but the open hem differs from the Apres Pant’s elastic cuff and chino features, lowering relevancy.",
+      "map_id": "map_c9c00781a91d4044ab246efdde4573b1"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Knit Open-Hem Pants",
+      "score": 6,
+      "rationale": "Duplicate of the above Nike pants with same evaluation: casual knit pants less aligned with the chino-style and elastic cuff design of the Apres Pant.",
+      "map_id": "map_c171195d283f4688bd29ec20bdda0806"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Knit Open-Hem Pants",
+      "score": 6,
+      "rationale": "Duplicate of the above Nike pants with same evaluation: casual knit pants less aligned with the chino-style and elastic cuff design of the Apres Pant.",
+      "map_id": "map_c9c00781a91d4044ab246efdde4573b1"
+    }
+  ]
+}

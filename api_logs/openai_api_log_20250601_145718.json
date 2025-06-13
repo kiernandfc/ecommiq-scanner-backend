@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250601_145718",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Everyday Casual Plaid Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Marine Layer Men's California Naturals Short Sleeve Button Front Shirt'\n  - Name='Men's Marine Layer Better-Than-Linen Shirt'\n  - Name='Marine Layer Men's Arthur Stripe Sweater'\n  - Name='Everlane Men's Seersucker Resort Shirt'\n  - Name='Todd Snyder Men's Striped Pocket Cotton Button Front'\n  - Name='Bonobos Men's Daily Grind Wrinkle Free Cotton Dress Shirt'\n  - Name='Bonobos Men's Tech Button-Down Shirt'\n  - Name='Everlane Short-Sleeve Boxy Oxford'\n  - Name='Mizzen+Main Men's Shirt'\n  - Name='Men's Charles Tyrwhitt Button-Down Collar Stretch Washed Oxford Cotton Shirt'\n  - Name='Todd Snyder Men's Oxford Cotton Button Down Shirt'\n  - Name='Todd Snyder Slim-fit Summerweight Shirt'\n  - Name='Todd Snyder Classic Fit Poplin Shirt'\n  - Name='Alex Mill Oxford Shirt'\n  - Name='Charles Tyrwhitt Prince of Wales Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Pure Linen Single Cuff Shirt'\n  - Name='Men's Marine Layer Pacifica Stretch Twill Shirt'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Marine Layer Men's Stretch Selvage Camp Shirt'\n  - Name='Men's Marine Layer Dobby Resort Shirt'\n  - Name='Mizzen+Main Creighton Ellis Oxford'\n  - Name='Mizzen+Main Men's Beckett Shrit'\n  - Name='Mizzen+main Ellis Oxford Solid Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Plaid Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's casual button-down shirts, but the competitor emphasizes plaid pattern and casual style, likely less tailored and not necessarily made from Oxford cloth or organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are button-down shirts with tailoring and dress styling, but the competitor likely has stretch fabric and dress focus rather than rugged Oxford fabric and organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's California Naturals Short Sleeve Button Front Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve casual shirt likely with different fabric; the reference is long sleeve Oxford with durability and organic cotton focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Better-Than-Linen Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a lightweight casual shirt with linen or linen-like fabric, different from heavy Oxford cotton shirt described.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Arthur Stripe Sweater\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Sweater, not a shirt, very different product category, silhouette, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Seersucker Resort Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Button-down shirt but made from seersucker fabric, typically lighter and less structured than Oxford cotton; resort style less rugged.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Striped Pocket Cotton Button Front\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual cotton button-front shirt with striped pattern; it's similar in form but possibly lighter or different fabric and less tailored than the Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Daily Grind Wrinkle Free Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with cotton fabric and wrinkle-free technology; similar formal function but probably less rugged and not organic cotton Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Button-Down Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Technical button-down shirt may include performance fabric, different from durable organic cotton Oxford, but similar purpose and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Short-Sleeve Boxy Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt similar fabric but short-sleeve and boxy fit, less tailored and less rugged but overall close in fabric and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Men's Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Broad name; Mizzen+Main typically features performance dress shirts, likely different fabric and less rugged construction than the Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Button-Down Collar Stretch Washed Oxford Cotton Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar: Oxford cotton fabric, button-down collar, washed for softness, likely similar tailoring and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Oxford Cotton Button Down Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Directly comparable: Oxford cotton fabric, button-down style, likely similar construction and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Slim-fit Summerweight Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shirt likely lighter fabric and slim fit; less rugged than Jack Shirt but similar form factor.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Classic Fit Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Poplin fabric dress shirt different weave and likely lighter weight than Oxford; still similar in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt likely similar fabric and style; possibly less detailed construction but close in essence.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Prince of Wales Non-Iron Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt with non-iron fabric and Prince of Wales pattern, less rugged and different fabric from Oxford cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Pure Linen Single Cuff Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Made of linen, significantly different fabric and heavier preference; less structured and rugged.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Pacifica Stretch Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Stretch twill shirt is different fabric and stretch focus, less rugged than Oxford cotton, but similar shirt form.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with cotton construction and dress focus; less rugged and not Oxford weave but comparable in purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Stretch Selvage Camp Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Camp shirt has a different silhouette and casual style, stretch selvage fabric less structured and rugged than Oxford button-down.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Dobby Resort Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Resort shirt likely lighter and more casual with dobby fabric, differing from rugged Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Creighton Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt from Mizzen+Main likely similar fabric and structure, though Mizzen+Main focuses on performance features unlike the organic cotton in reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Men's Beckett Shrit\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General shirt from Mizzen+Main brand, likely performance focus and less rugged organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+main Ellis Oxford Solid Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford solid shirt very similar to reference in fabric and style, though material may differ in details and performance features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Plaid Shirt",
+      "score": 6,
+      "rationale": "Both are men's casual button-down shirts, but the competitor emphasizes plaid pattern and casual style, likely less tailored and not necessarily made from Oxford cloth or organic cotton.",
+      "map_id": "map_9ce4da25810345719fa3ea112ce6c5db"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Both are button-down shirts with tailoring and dress styling, but the competitor likely has stretch fabric and dress focus rather than rugged Oxford fabric and organic cotton.",
+      "map_id": "map_259391d97a444dabb7e028a97bccb078"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's California Naturals Short Sleeve Button Front Shirt",
+      "score": 4,
+      "rationale": "Short sleeve casual shirt likely with different fabric; the reference is long sleeve Oxford with durability and organic cotton focus.",
+      "map_id": "map_90f386a2da784f3aa55e8986371485d4"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Better-Than-Linen Shirt",
+      "score": 4,
+      "rationale": "Likely a lightweight casual shirt with linen or linen-like fabric, different from heavy Oxford cotton shirt described.",
+      "map_id": "map_0d6a16c26a4d4db9ac521603691c2bfb"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Arthur Stripe Sweater",
+      "score": 1,
+      "rationale": "Sweater, not a shirt, very different product category, silhouette, and construction.",
+      "map_id": "map_2c2bc5c716ae42aba7fce69bf6f3b6db"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Seersucker Resort Shirt",
+      "score": 5,
+      "rationale": "Button-down shirt but made from seersucker fabric, typically lighter and less structured than Oxford cotton; resort style less rugged.",
+      "map_id": "map_6c544d7354734f8fa9133158c4a63414"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Striped Pocket Cotton Button Front",
+      "score": 6,
+      "rationale": "Casual cotton button-front shirt with striped pattern; it's similar in form but possibly lighter or different fabric and less tailored than the Jack Shirt.",
+      "map_id": "map_5cce030b18654fa2908487cca2785be6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Daily Grind Wrinkle Free Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with cotton fabric and wrinkle-free technology; similar formal function but probably less rugged and not organic cotton Oxford.",
+      "map_id": "map_2149d20b0cb9489da416887bd5e11a00"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Button-Down Shirt",
+      "score": 6,
+      "rationale": "Technical button-down shirt may include performance fabric, different from durable organic cotton Oxford, but similar purpose and style.",
+      "map_id": "map_73cb6fb43c374ee5afb8314a6809dd90"
+    },
+    {
+      "competitor_product_name": "Everlane Short-Sleeve Boxy Oxford",
+      "score": 7,
+      "rationale": "Oxford shirt similar fabric but short-sleeve and boxy fit, less tailored and less rugged but overall close in fabric and style.",
+      "map_id": "map_757dae4a153c4519ab4532492360c800"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Men's Shirt",
+      "score": 5,
+      "rationale": "Broad name; Mizzen+Main typically features performance dress shirts, likely different fabric and less rugged construction than the Jack Shirt.",
+      "map_id": "map_b558fc274351435480b29788ef7f44c5"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Button-Down Collar Stretch Washed Oxford Cotton Shirt",
+      "score": 9,
+      "rationale": "Very similar: Oxford cotton fabric, button-down collar, washed for softness, likely similar tailoring and function.",
+      "map_id": "map_c9e25643e7a64e2097f375e3931e2e75"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Oxford Cotton Button Down Shirt",
+      "score": 9,
+      "rationale": "Directly comparable: Oxford cotton fabric, button-down style, likely similar construction and intended use.",
+      "map_id": "map_3112bf1e9ada483fbc6411051c6549ec"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Slim-fit Summerweight Shirt",
+      "score": 6,
+      "rationale": "Shirt likely lighter fabric and slim fit; less rugged than Jack Shirt but similar form factor.",
+      "map_id": "map_429ee6b4eefd4e278cb054ea4fcee86b"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Classic Fit Poplin Shirt",
+      "score": 6,
+      "rationale": "Poplin fabric dress shirt different weave and likely lighter weight than Oxford; still similar in function and silhouette.",
+      "map_id": "map_669506eecbe341fcb6d1e050cc99efc0"
+    },
+    {
+      "competitor_product_name": "Alex Mill Oxford Shirt",
+      "score": 8,
+      "rationale": "Oxford shirt likely similar fabric and style; possibly less detailed construction but close in essence.",
+      "map_id": "map_629874cdf9ec401b8d19b2acf936840c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Prince of Wales Non-Iron Dress Shirt",
+      "score": 5,
+      "rationale": "Dress shirt with non-iron fabric and Prince of Wales pattern, less rugged and different fabric from Oxford cotton.",
+      "map_id": "map_c7e55538ea58486fa0d5ccb74997fd94"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Pure Linen Single Cuff Shirt",
+      "score": 3,
+      "rationale": "Made of linen, significantly different fabric and heavier preference; less structured and rugged.",
+      "map_id": "map_0473a6175b2b49ab88ada7a25316d74f"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Pacifica Stretch Twill Shirt",
+      "score": 5,
+      "rationale": "Stretch twill shirt is different fabric and stretch focus, less rugged than Oxford cotton, but similar shirt form.",
+      "map_id": "map_e49024e20af041c28b25bbd19f69cda6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with cotton construction and dress focus; less rugged and not Oxford weave but comparable in purpose.",
+      "map_id": "map_9f2689e021e44f379126845aa6e12025"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Stretch Selvage Camp Shirt",
+      "score": 3,
+      "rationale": "Camp shirt has a different silhouette and casual style, stretch selvage fabric less structured and rugged than Oxford button-down.",
+      "map_id": "map_367266d1f2204c059e6c9373f01a4aa9"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Dobby Resort Shirt",
+      "score": 4,
+      "rationale": "Resort shirt likely lighter and more casual with dobby fabric, differing from rugged Oxford shirt.",
+      "map_id": "map_91f2927fad074e8bb4a8933c05999612"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Creighton Ellis Oxford",
+      "score": 8,
+      "rationale": "Oxford shirt from Mizzen+Main likely similar fabric and structure, though Mizzen+Main focuses on performance features unlike the organic cotton in reference.",
+      "map_id": "map_1e7415766159418396ce85d5233d3814"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Men's Beckett Shrit",
+      "score": 5,
+      "rationale": "General shirt from Mizzen+Main brand, likely performance focus and less rugged organic cotton.",
+      "map_id": "map_a11530141290415084b7da0c4331dce4"
+    },
+    {
+      "competitor_product_name": "Mizzen+main Ellis Oxford Solid Shirt",
+      "score": 8,
+      "rationale": "Oxford solid shirt very similar to reference in fabric and style, though material may differ in details and performance features.",
+      "map_id": "map_dba6d881e10546d5b023e2e0e2269a3d"
+    }
+  ]
+}

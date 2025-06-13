@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250603_151823",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Linen/Silk Flatcap Driver Cap'\n  - Name='Carhartt WIP embroidered logo baseball cap'\n  - Name='Carhartt WIP Clarton Cap'\n  - Name='Carhartt Men's Acrylic Knit Hat'\n  - Name='Carhartt Men's Beanie'\n  - Name='Bailey Defoe Leather Suede Flat Cap'\n  - Name='Stetson Wool Cashmere Driver Cap'\n  - Name='Stetson Silk/linen/cotton Driver Cap'\n  - Name='Stetson Men's Jacquard Driver Flat Cap'\n  - Name='Carhartt Men's Knit Cuffed Beanie'\n  - Name='Carhartt Adult Strap-back Adjustable Ball Cap Hat'\n  - Name='Carhartt Men's Denim Cap'\n  - Name='Carhartt Men's Odessa Washed Canvas Cap'\n  - Name='Carhartt WIP Ducks Cap'\n  - Name='Carhartt Men's Fleece Hat'\n  - Name='Carhartt Adjustable Embroidered Logo Snapback Hat'\n  - Name='Brixton Brood Lightweight Striped Chambray Newsboy Cap'\n  - Name='Goorin Bros. The Cash Cow Trucker'\n  - Name='Brixton Potrero Cotton Strapback Baseball Cap'\n  - Name='Brixton Newsboy Hat'\n  - Name='Brixton Accessories Oceanside Surf Skate Snapback Hat'\n  - Name='Brixton Kit Medium Profile Snapback Hat'\n  - Name='Brixton Neighbor Snapback Hat'\n  - Name='Brixton Grade Canvas Snapback Baseball Cap'\n  - Name='Brixton Men's Brood Linen Newsboy Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Linen/Silk Flatcap Driver Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a driver-style cap very similar in form and purpose to the reference 'The Driver' cap, differing mainly in fabric type rather than design or function.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP embroidered logo baseball cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A baseball cap differs notably from a driver cap in silhouette and panel construction, making it somewhat relevant but quite distinct.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Clarton Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a baseball or five-panel style cap, which differs from an 8-panel driver cap; moderate relevance due to both being casual headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Acrylic Knit Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A knit hat/beanie is a different product category with different construction and use than a driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Beanie\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Beanies are distinctly different in function and construction from driver caps, very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Defoe Leather Suede Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A flat cap shares similar silhouette to a driver cap and is likely comparable in style and fit, though materials differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Cashmere Driver Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another driver cap very close to the reference product in style and construction, differing mainly in material (wool/cashmere vs micro-poly).\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Silk/linen/cotton Driver Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Driver cap style very close to the reference product, similar shape and likely intended use, with fabric variation only.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Jacquard Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This appears to be a driver style flat cap, closely aligned in silhouette and design to the reference cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Knit Cuffed Beanie\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A knit cuffed beanie is materially and structurally very different from the reference driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Adult Strap-back Adjustable Ball Cap Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A ball cap differs in shape, panel count, and construction from a driver cap, though both are casual hats.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Denim Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a baseball or casual cap made from denim; differs substantially from a driver cap in shape and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Odessa Washed Canvas Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A canvas cap typically is a baseball style or similar, differing from the driver's 8-panel construction and form.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Ducks Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Assuming a low-profile baseball or casual cap, which differs in shape from the driver cap but overlaps in casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Fleece Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A fleece hat is functionally and structurally different from a driver cap, aimed at warmth rather than light breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Adjustable Embroidered Logo Snapback Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Snapback hats differ from driver caps in silhouette and panel structure, though both are casual headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Lightweight Striped Chambray Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy caps share a similar rounded, multi-panel design with driver caps, making this moderately highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Cash Cow Trucker\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A trucker hat has a very different construction and silhouette from a driver cap, lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Potrero Cotton Strapback Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A strapback baseball cap differs in silhouette and panel construction from a driver cap, lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy hats have a rounded, multi-panel design similar to driver caps, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Accessories Oceanside Surf Skate Snapback Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A snapback hat with surf/skate style is quite different in function and shape from a driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Kit Medium Profile Snapback Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A snapback differs in panel design and silhouette from driver caps, but is casual headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Neighbor Snapback Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Snapback hats have different structure and silhouette, moderately low relevancy to driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Grade Canvas Snapback Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Canvas baseball snapback caps differ in construction and silhouette from the driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Brood Linen Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy cap similar in silhouette and design to driver cap, sharing the multi-panel rounded shape.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Linen/Silk Flatcap Driver Cap",
+      "score": 9,
+      "rationale": "This is a driver-style cap very similar in form and purpose to the reference 'The Driver' cap, differing mainly in fabric type rather than design or function.",
+      "map_id": "map_06839deb9cb3483b97c907f8a0bb8f29"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP embroidered logo baseball cap",
+      "score": 3,
+      "rationale": "A baseball cap differs notably from a driver cap in silhouette and panel construction, making it somewhat relevant but quite distinct.",
+      "map_id": "map_412ace85c17c472f90aae14d3899aafc"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Clarton Cap",
+      "score": 3,
+      "rationale": "Likely a baseball or five-panel style cap, which differs from an 8-panel driver cap; moderate relevance due to both being casual headwear.",
+      "map_id": "map_f85e8ba7eac7493eb6971e5117a2db36"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Acrylic Knit Hat",
+      "score": 1,
+      "rationale": "A knit hat/beanie is a different product category with different construction and use than a driver cap.",
+      "map_id": "map_b948c7ef83e44f7c98d17430f791e25e"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Beanie",
+      "score": 1,
+      "rationale": "Beanies are distinctly different in function and construction from driver caps, very low relevancy.",
+      "map_id": "map_570856ff5cc7497698805712a72fabe3"
+    },
+    {
+      "competitor_product_name": "Bailey Defoe Leather Suede Flat Cap",
+      "score": 8,
+      "rationale": "A flat cap shares similar silhouette to a driver cap and is likely comparable in style and fit, though materials differ.",
+      "map_id": "map_79250c7b3b8e45bfad29269fc7617ed3"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Cashmere Driver Cap",
+      "score": 9,
+      "rationale": "Another driver cap very close to the reference product in style and construction, differing mainly in material (wool/cashmere vs micro-poly).",
+      "map_id": "map_525f1d32d1234293a4fc39f3e98ba096"
+    },
+    {
+      "competitor_product_name": "Stetson Silk/linen/cotton Driver Cap",
+      "score": 9,
+      "rationale": "Driver cap style very close to the reference product, similar shape and likely intended use, with fabric variation only.",
+      "map_id": "map_762d99e8ac924a29979a7981c1dab540"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Jacquard Driver Flat Cap",
+      "score": 8,
+      "rationale": "This appears to be a driver style flat cap, closely aligned in silhouette and design to the reference cap.",
+      "map_id": "map_5f7c372938dd4a4f94acd5624aa35e53"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Knit Cuffed Beanie",
+      "score": 1,
+      "rationale": "A knit cuffed beanie is materially and structurally very different from the reference driver cap.",
+      "map_id": "map_253b54306a2d4924bf72132d8e516b66"
+    },
+    {
+      "competitor_product_name": "Carhartt Adult Strap-back Adjustable Ball Cap Hat",
+      "score": 3,
+      "rationale": "A ball cap differs in shape, panel count, and construction from a driver cap, though both are casual hats.",
+      "map_id": "map_de8fad807ec14048bd469db57e835a39"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Denim Cap",
+      "score": 3,
+      "rationale": "Likely a baseball or casual cap made from denim; differs substantially from a driver cap in shape and purpose.",
+      "map_id": "map_11c4a387b11c4505a320015fa9593972"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Odessa Washed Canvas Cap",
+      "score": 3,
+      "rationale": "A canvas cap typically is a baseball style or similar, differing from the driver's 8-panel construction and form.",
+      "map_id": "map_d2fd20de293548968ce30617c8767f84"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Ducks Cap",
+      "score": 3,
+      "rationale": "Assuming a low-profile baseball or casual cap, which differs in shape from the driver cap but overlaps in casual use.",
+      "map_id": "map_eecf2d7e8a8e435583759658b4a38a83"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Fleece Hat",
+      "score": 1,
+      "rationale": "A fleece hat is functionally and structurally different from a driver cap, aimed at warmth rather than light breathability.",
+      "map_id": "map_9ec282f429594e7494a5c65e152d53a9"
+    },
+    {
+      "competitor_product_name": "Carhartt Adjustable Embroidered Logo Snapback Hat",
+      "score": 3,
+      "rationale": "Snapback hats differ from driver caps in silhouette and panel structure, though both are casual headwear.",
+      "map_id": "map_186f2bb573fb45a991a82db4fcb168da"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Lightweight Striped Chambray Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy caps share a similar rounded, multi-panel design with driver caps, making this moderately highly relevant.",
+      "map_id": "map_b78f481aa91b41449f0f40b259cfd08c"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Cash Cow Trucker",
+      "score": 2,
+      "rationale": "A trucker hat has a very different construction and silhouette from a driver cap, lower relevancy.",
+      "map_id": "map_959cabc7b3354f9cb61103e7ccaaa1a4"
+    },
+    {
+      "competitor_product_name": "Brixton Potrero Cotton Strapback Baseball Cap",
+      "score": 3,
+      "rationale": "A strapback baseball cap differs in silhouette and panel construction from a driver cap, lower relevancy.",
+      "map_id": "map_41900134005a46c8970b1015821694ce"
+    },
+    {
+      "competitor_product_name": "Brixton Newsboy Hat",
+      "score": 7,
+      "rationale": "Newsboy hats have a rounded, multi-panel design similar to driver caps, making it moderately relevant.",
+      "map_id": "map_052f9b303ae64ed0bad355f8041c43ed"
+    },
+    {
+      "competitor_product_name": "Brixton Accessories Oceanside Surf Skate Snapback Hat",
+      "score": 2,
+      "rationale": "A snapback hat with surf/skate style is quite different in function and shape from a driver cap.",
+      "map_id": "map_3f8a9b7ce7964b9babda70afc013a5cf"
+    },
+    {
+      "competitor_product_name": "Brixton Kit Medium Profile Snapback Hat",
+      "score": 3,
+      "rationale": "A snapback differs in panel design and silhouette from driver caps, but is casual headwear.",
+      "map_id": "map_596fde50f1de483d82b789d2e305c952"
+    },
+    {
+      "competitor_product_name": "Brixton Neighbor Snapback Hat",
+      "score": 3,
+      "rationale": "Snapback hats have different structure and silhouette, moderately low relevancy to driver cap.",
+      "map_id": "map_a61b4339c173448aae037ad1f0417fac"
+    },
+    {
+      "competitor_product_name": "Brixton Grade Canvas Snapback Baseball Cap",
+      "score": 3,
+      "rationale": "Canvas baseball snapback caps differ in construction and silhouette from the driver cap.",
+      "map_id": "map_2fb234bf2c754dd996126b2fde9c6b60"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Brood Linen Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy cap similar in silhouette and design to driver cap, sharing the multi-panel rounded shape.",
+      "map_id": "map_9e026777484e44318c47559ea82b5faa"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "timestamp": "20250518_160123",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Man Hoodie adidas Essentials French Terry 3-Stripes Full Zip'\n  - Name='Supreme x The North Face Men's Down Filled Zip Up Hooded Sweatshirt'\n  - Name='Supreme Men's Kate Moss Cotton Hoodie'\n  - Name='Supreme Men's Box Logo Hoodie'\n  - Name='adidas Men's Mexico Manga Dorada Fleece Hoodie'\n  - Name='Woman adidas Designed 4 Training Full Zip sweatshirt'\n  - Name='Nike Men's Club Fleece Pullover Hoodie'\n  - Name='Nike Men's Standard Issue Dri-FIT Pullover Basketball Hoodie'\n  - Name='Gap Men's Full Zip Fleece Hoodie'\n  - Name='Nike Men's Standard Issue Dri-FIT Full-Zip Basketball Hoodie FZ0222'\n  - Name='Uniqlo Men's Verby Hoodie'\n  - Name='Uniqlo Men's Ultra Stretch Dry Sweat Full Tech Side Zip Pockets Hoodie'\n  - Name='Uniqlo Sweat Pullover Hoodie'\n  - Name='Everlane Men's No-Sweat Sweater'\n  - Name='Boston Scally The Shamrock Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Man Hoodie adidas Essentials French Terry 3-Stripes Full Zip\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a man's hoodie made of French terry fabric with a full zip, which matches the core function and construction of a comfortable hoodie similar to the reference product, though it has a zip while the reference is likely a pullover.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme x The North Face Men's Down Filled Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though it is a hooded sweatshirt, this product is down filled, which makes it more of an insulated outerwear piece rather than a soft casual sweatshirt like the reference Boston Scally hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Kate Moss Cotton Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a cotton hoodie designed for men, so the core product type and material align with a soft hooded sweatshirt similar to the reference, though details on style and fit are not confirmed.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Box Logo Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another men’s cotton hoodie similar in function and silhouette to the reference hoodie, likely a pullover. The branding differs but functionally comparable.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Mexico Manga Dorada Fleece Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A fleece hoodie for men, indicating similar warmth, softness, and casual use, matching the reference in form and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Woman adidas Designed 4 Training Full Zip sweatshirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This product is a full zip training sweatshirt designed for women, likely sportswear oriented, and less aligned with the casual soft pullover hooded sweatshirt of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's pullover hoodie made of fleece, directly matching the core product type, silhouette, material softness, and casual comfort of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Standard Issue Dri-FIT Pullover Basketball Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A pullover hoodie designed for basketball and made with Dri-FIT material, which is more performance oriented rather than soft casual comfort, reducing relevancy with the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Full Zip Fleece Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's fleece hoodie with a full zip, matching the casual soft sweatshirt type though the zip is a slight silhouette difference from a pullover.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Standard Issue Dri-FIT Full-Zip Basketball Hoodie FZ0222\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Performance basketball hoodie with Dri-FIT and a full zip, less focus on softness and casual comfort compared to the reference Boston Scally hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Verby Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's hoodie which likely focuses on comfort and casual wear, aligning well with the reference product's core attributes of softness and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Ultra Stretch Dry Sweat Full Tech Side Zip Pockets Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A technical hoodie with zipper and pockets focused on performance and utility, less on the soft casual comfort emphasized in the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Sweat Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover sweat hoodie that likely emphasizes softness and casual comfort similar to the Boston Scally hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's No-Sweat Sweater\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though a sweater, this is not explicitly a hoodie or sweatshirt, and likely differs considerably in construction and silhouette from the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Shamrock Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and product type (hoodie), likely the same construction, function, and target customer, making this product identical or nearly so to the reference.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Man Hoodie adidas Essentials French Terry 3-Stripes Full Zip",
+      "score": 8,
+      "rationale": "This is a man's hoodie made of French terry fabric with a full zip, which matches the core function and construction of a comfortable hoodie similar to the reference product, though it has a zip while the reference is likely a pullover.",
+      "map_id": "map_e651fe5aebd04b4b8d09b95c8ea42ba5"
+    },
+    {
+      "competitor_product_name": "Supreme x The North Face Men's Down Filled Zip Up Hooded Sweatshirt",
+      "score": 4,
+      "rationale": "Though it is a hooded sweatshirt, this product is down filled, which makes it more of an insulated outerwear piece rather than a soft casual sweatshirt like the reference Boston Scally hoodie.",
+      "map_id": "map_93a7d3c6e3f844438155f14d0e77815f"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Kate Moss Cotton Hoodie",
+      "score": 7,
+      "rationale": "This is a cotton hoodie designed for men, so the core product type and material align with a soft hooded sweatshirt similar to the reference, though details on style and fit are not confirmed.",
+      "map_id": "map_8b81fd349b5343d1b1b5a82829ef5c9b"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Box Logo Hoodie",
+      "score": 7,
+      "rationale": "Another men’s cotton hoodie similar in function and silhouette to the reference hoodie, likely a pullover. The branding differs but functionally comparable.",
+      "map_id": "map_ba402b689b994a76b0b0590a816b9ed9"
+    },
+    {
+      "competitor_product_name": "adidas Men's Mexico Manga Dorada Fleece Hoodie",
+      "score": 7,
+      "rationale": "A fleece hoodie for men, indicating similar warmth, softness, and casual use, matching the reference in form and function.",
+      "map_id": "map_76089d927eea4ae0ad69282a02ac8e2b"
+    },
+    {
+      "competitor_product_name": "Woman adidas Designed 4 Training Full Zip sweatshirt",
+      "score": 3,
+      "rationale": "This product is a full zip training sweatshirt designed for women, likely sportswear oriented, and less aligned with the casual soft pullover hooded sweatshirt of the reference.",
+      "map_id": "map_bf76ec48e1944e939e252e5f06bde266"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "This is a men's pullover hoodie made of fleece, directly matching the core product type, silhouette, material softness, and casual comfort of the reference product.",
+      "map_id": "map_f60880ad57854c60a880235fc33ec727"
+    },
+    {
+      "competitor_product_name": "Nike Men's Standard Issue Dri-FIT Pullover Basketball Hoodie",
+      "score": 6,
+      "rationale": "A pullover hoodie designed for basketball and made with Dri-FIT material, which is more performance oriented rather than soft casual comfort, reducing relevancy with the reference.",
+      "map_id": "map_90319c7647a042be82c176cc0c42d57e"
+    },
+    {
+      "competitor_product_name": "Gap Men's Full Zip Fleece Hoodie",
+      "score": 7,
+      "rationale": "Men's fleece hoodie with a full zip, matching the casual soft sweatshirt type though the zip is a slight silhouette difference from a pullover.",
+      "map_id": "map_44eb3f0a9e6944f38715e7a4844b4d3d"
+    },
+    {
+      "competitor_product_name": "Nike Men's Standard Issue Dri-FIT Full-Zip Basketball Hoodie FZ0222",
+      "score": 5,
+      "rationale": "Performance basketball hoodie with Dri-FIT and a full zip, less focus on softness and casual comfort compared to the reference Boston Scally hoodie.",
+      "map_id": "map_362cbffc12c941e38ade14382088f4ea"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Verby Hoodie",
+      "score": 8,
+      "rationale": "A men's hoodie which likely focuses on comfort and casual wear, aligning well with the reference product's core attributes of softness and comfort.",
+      "map_id": "map_1f112b347d2d4e299c2d92da02e955d2"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Ultra Stretch Dry Sweat Full Tech Side Zip Pockets Hoodie",
+      "score": 6,
+      "rationale": "A technical hoodie with zipper and pockets focused on performance and utility, less on the soft casual comfort emphasized in the reference product.",
+      "map_id": "map_703f4d4f3baf4daf8614867040022600"
+    },
+    {
+      "competitor_product_name": "Uniqlo Sweat Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover sweat hoodie that likely emphasizes softness and casual comfort similar to the Boston Scally hoodie, making it highly relevant.",
+      "map_id": "map_33536a4d01954e9d87e9cd73437a776e"
+    },
+    {
+      "competitor_product_name": "Everlane Men's No-Sweat Sweater",
+      "score": 4,
+      "rationale": "Though a sweater, this is not explicitly a hoodie or sweatshirt, and likely differs considerably in construction and silhouette from the reference hoodie.",
+      "map_id": "map_92adac7533704671af8c88f9d45836a9"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Shamrock Hoodie",
+      "score": 10,
+      "rationale": "Same brand and product type (hoodie), likely the same construction, function, and target customer, making this product identical or nearly so to the reference.",
+      "map_id": "map_04575843a96743e488d064221205e6a7"
+    }
+  ]
+}

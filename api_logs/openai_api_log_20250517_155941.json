@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250517_155941",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Fitted Non-Iron Stretch Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt'\n  - Name='J.Crew Men's Washed Linen Point Collar Shirt'\n  - Name='Banana Republic Men's Standard-Fit Cotton Poplin Dress Shirt'\n  - Name='Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt'\n  - Name='Banana Republic Mens 801243 Slim Fit All Cotton Non Iron Button Down Dress Shirt,'\n  - Name='Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Egara Men's Skinny Fit Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Trim Fit Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Trim Fit Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Spread Collar Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cutaway Collar Non-Iron Twill Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non Iron Prince of Wales Check Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Wrinkle-Resistant Spread Collar Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Non-Iron French Cuff Dress Shirt'\n  - Name='Lands' End Men's Traditional-Fit No-Iron Shirt'\n  - Name='J.Crew Men's Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Slim Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt'\n  - Name='J.Crew Women's Garçon Classic Cotton Voile Shirt'\n  - Name='Banana Republic Men's Slim-Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Men's Slim Untucked Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Fitted Non-Iron Stretch Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a fitted, non-iron dress shirt made from Supima cotton, closely matching the reference's non-iron, dress shirt function, fit, and fabric quality.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While it's a dress shirt made from similar cotton, it is an Oxford weave and does not specify non-iron, reducing relevancy somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Washed Linen Point Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Made from washed linen and featuring a point collar, this shirt differs significantly in fabric and collar style from the non-iron textured dress shirt with semi-spread collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Standard-Fit Cotton Poplin Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A standard-fit cotton poplin dress shirt is close in silhouette and fabric type; no mention of non-iron lowers the score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The linen-cotton blend and slim fit diverge from the non-iron pure cotton dress shirt with standard or trim fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a polo shirt, a different silhouette and construction from a dress shirt, despite non-iron cotton fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The linen fabric and point collar make it quite different from the reference non-iron textured dress shirt with semi-spread collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Mens 801243 Slim Fit All Cotton Non Iron Button Down Dress Shirt,\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A slim fit, all cotton, non-iron, button down dress shirt strongly matches the key features of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Though wrinkle-resistant not explicitly non-iron, it's a skinny fit dress shirt sharing similar function and fit characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar skinny fit dress shirt but lacks wrinkle-resistant or non-iron specification, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Trim Fit Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A premium non-iron trim fit dress shirt closely matches the reference product in key aspects including fabric treatment and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Trim Fit Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Duplicate of above, so same perfect match relevancy as the reference non-iron trim fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Spread Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Modern fit and spread collar align well with the reference's fit and semi-spread collar, but no mention of non-iron lowers score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cutaway Collar Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron twill fabric and dress shirt status are relevant but cutaway collar differs from semi-spread collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non Iron Prince of Wales Check Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron dress shirt but patterned check fabric and unknown collar style reduce relevancy compared to solid textured shirt with semi-spread collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Wrinkle-Resistant Spread Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wrinkle-resistant rather than non-iron plus spread collar reasonably aligned but less precise match.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit stretch dress shirt is relevant in fit and style though no mention of non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Non-Iron French Cuff Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron slim fit dress shirt with French cuffs is highly relevant, though the French cuff differs from standard cuff style.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional-Fit No-Iron Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Traditional fit no-iron shirt strongly matches function, fabric treatment, and fit styles close to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton Oxford shirt is relevant for fabric and shirt type but no non-iron specification and Oxford weave differ.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit cotton poplin dress shirt is similar in fabric and fit but lacks non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit cotton Oxford dress shirt aligns in form but not mention of non-iron and different weave.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Garçon Classic Cotton Voile Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's classic cotton voile shirt differs significantly in target user and fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim-Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit wrinkle-resistant dress shirt shares many features but missing explicit non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Untucked Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt intended to be untucked is relevant in style but doesn’t specify fabric treatment or collar style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Fitted Non-Iron Stretch Supima Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "This is a fitted, non-iron dress shirt made from Supima cotton, closely matching the reference's non-iron, dress shirt function, fit, and fabric quality.",
+      "map_id": "map_77e66f7514034c71bd4bedfa8e8f4f69"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "While it's a dress shirt made from similar cotton, it is an Oxford weave and does not specify non-iron, reducing relevancy somewhat.",
+      "map_id": "map_6750195b6b0e4f86a47510e097229065"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Washed Linen Point Collar Shirt",
+      "score": 3,
+      "rationale": "Made from washed linen and featuring a point collar, this shirt differs significantly in fabric and collar style from the non-iron textured dress shirt with semi-spread collar.",
+      "map_id": "map_2fee77a152b345cca805be856097bf19"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Standard-Fit Cotton Poplin Dress Shirt",
+      "score": 8,
+      "rationale": "A standard-fit cotton poplin dress shirt is close in silhouette and fabric type; no mention of non-iron lowers the score slightly.",
+      "map_id": "map_f5b65ff4a75744b59a800b48fa95f041"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim-Fit Linen-Cotton Dress Shirt",
+      "score": 4,
+      "rationale": "The linen-cotton blend and slim fit diverge from the non-iron pure cotton dress shirt with standard or trim fit.",
+      "map_id": "map_456e4674124c480e9ce4b511664c499c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 2,
+      "rationale": "This is a polo shirt, a different silhouette and construction from a dress shirt, despite non-iron cotton fabric.",
+      "map_id": "map_294208f7647f42a08f7a563b223cb817"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Baird Mcnutt Irish Linen Point-Collar Shirt",
+      "score": 3,
+      "rationale": "The linen fabric and point collar make it quite different from the reference non-iron textured dress shirt with semi-spread collar.",
+      "map_id": "map_580024478f604b22b4ccd9e2188a5f2b"
+    },
+    {
+      "competitor_product_name": "Banana Republic Mens 801243 Slim Fit All Cotton Non Iron Button Down Dress Shirt,",
+      "score": 9,
+      "rationale": "A slim fit, all cotton, non-iron, button down dress shirt strongly matches the key features of the reference product.",
+      "map_id": "map_fc0204671e5a4443bdb7378282631b2b"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Though wrinkle-resistant not explicitly non-iron, it's a skinny fit dress shirt sharing similar function and fit characteristics.",
+      "map_id": "map_12ec908ede8746adb5446ea039e483d4"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Similar skinny fit dress shirt but lacks wrinkle-resistant or non-iron specification, lowering relevancy.",
+      "map_id": "map_fb3d1fd3eb0b4de192d112d210dbae8a"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "A premium non-iron trim fit dress shirt closely matches the reference product in key aspects including fabric treatment and fit.",
+      "map_id": "map_e4029527ec6d4651979c88fcd9d2c412"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "A premium non-iron trim fit dress shirt closely matches the reference product in key aspects including fabric treatment and fit.",
+      "map_id": "map_9ff9eb46c4c441f6bad3cfc0db046ff7"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "Duplicate of above, so same perfect match relevancy as the reference non-iron trim fit dress shirt.",
+      "map_id": "map_e4029527ec6d4651979c88fcd9d2c412"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Trim Fit Dress Shirt",
+      "score": 10,
+      "rationale": "Duplicate of above, so same perfect match relevancy as the reference non-iron trim fit dress shirt.",
+      "map_id": "map_9ff9eb46c4c441f6bad3cfc0db046ff7"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Spread Collar Dress Shirt",
+      "score": 8,
+      "rationale": "Modern fit and spread collar align well with the reference's fit and semi-spread collar, but no mention of non-iron lowers score slightly.",
+      "map_id": "map_7626779171b8464d96c762b2e07fd376"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cutaway Collar Non-Iron Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron twill fabric and dress shirt status are relevant but cutaway collar differs from semi-spread collar.",
+      "map_id": "map_91673ba68c5846e383980bdffb435bf9"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non Iron Prince of Wales Check Shirt",
+      "score": 7,
+      "rationale": "Non-iron dress shirt but patterned check fabric and unknown collar style reduce relevancy compared to solid textured shirt with semi-spread collar.",
+      "map_id": "map_6b70b13057b442f48f311435e66a575c"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Spread Collar Dress Shirt",
+      "score": 7,
+      "rationale": "Wrinkle-resistant rather than non-iron plus spread collar reasonably aligned but less precise match.",
+      "map_id": "map_6449105eeaa54386adbe18533197ffd5"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit stretch dress shirt is relevant in fit and style though no mention of non-iron treatment.",
+      "map_id": "map_f84ffcd5208b417d829abc842b33af94"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Non-Iron French Cuff Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron slim fit dress shirt with French cuffs is highly relevant, though the French cuff differs from standard cuff style.",
+      "map_id": "map_646e6102b0814f0e8550de4a2f7cf398"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional-Fit No-Iron Shirt",
+      "score": 9,
+      "rationale": "Traditional fit no-iron shirt strongly matches function, fabric treatment, and fit styles close to the reference.",
+      "map_id": "map_35900589bb2a469d89867f86e8d6f1b5"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Organic Cotton Oxford Shirt",
+      "score": 6,
+      "rationale": "Organic cotton Oxford shirt is relevant for fabric and shirt type but no non-iron specification and Oxford weave differ.",
+      "map_id": "map_35ebf3268f494029937b48e1d8635aeb"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Slim fit cotton poplin dress shirt is similar in fabric and fit but lacks non-iron treatment.",
+      "map_id": "map_91c7243a70164b9a92416b6d8d810df2"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Portuguese Cotton Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit cotton Oxford dress shirt aligns in form but not mention of non-iron and different weave.",
+      "map_id": "map_5bba1901c1f5475a98890936e017acd9"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Garçon Classic Cotton Voile Shirt",
+      "score": 2,
+      "rationale": "Women's classic cotton voile shirt differs significantly in target user and fabric type.",
+      "map_id": "map_ea29750b21bd44c0b31a46847aabae35"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim-Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit wrinkle-resistant dress shirt shares many features but missing explicit non-iron treatment.",
+      "map_id": "map_959ccc5bcf0d4a4fa50e8613bf83a9b6"
+    },
+    {
+      "competitor_product_name": "Men's Slim Untucked Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt intended to be untucked is relevant in style but doesn’t specify fabric treatment or collar style.",
+      "map_id": "map_515d7b9b0d25484cadc7864cddf48eab"
+    }
+  ]
+}

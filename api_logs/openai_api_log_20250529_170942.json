@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250529_170942",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nike Men's Club Fleece Oversized French Terry Pullover Hoodie'\n  - Name='Nike Men's Trail Magic Hour Dri-FIT Running Hoodie'\n  - Name='Nike Men's San Francisco Giants Authentic Collection Therma Pullover Hoodie'\n  - Name='Men's Nike New York Yankees Authentic Collection Performance Pullover Hoodie'\n  - Name='Nike Men's Sportswear Tech Fleece Pullover Hoodie'\n  - Name='Nike Men's Detroit Tigers Authentic Collection Dri-FIT Pullover Hoodie'\n  - Name='Nike Wool Classic Hoodie'\n  - Name='Nike Men's Club Full Zip Fleece Hoodie'\n  - Name='Nike Men's Chicago White Sox 2025 City Connect Therma Pullover Hoodie'\n  - Name='Nike Men's San Diego Padres Authentic Collection Tri-Blend Performance Pullover Hoodie'\n  - Name='UNIQLO Sweat Pullover Hoodie'\n  - Name='UNIQLO Oversized Sweat Hoodie'\n  - Name='UNIQLO Sweat Full-Zip Hoodie'\n  - Name='UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection'\n  - Name='UNIQLO Zip-Up Blouson Jacket'\n  - Name='Nike Women's Oversized Phoenix Fleece Hoodie'\n  - Name='Nike Men's Athletics Authentic Collection Dri-FIT MLB Pullover Hoodie'\n  - Name='Men's Nike Toronto Blue Jays Authentic Collection Performance Pullover Hoodie'\n  - Name='UNIQLO Sweatshirt'\n  - Name='UNIQLO Men's Hoodie'\n  - Name='Uniqlo Men's Graphic Balloon Dog Sweatshirt Hoodie'\n  - Name='Uniqlo CPFM Spongebob Squarepants Hoodie'\n  - Name='Uniqlo Men's Zip-Up Hoodie'\n  - Name='Uniqlo Men's Hoodie'\n  - Name='Uniqlo Men's Dry Sweat Half-Zip Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Oversized French Terry Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product type (pullover hoodie), likely soft fleece material and casual comfort, matching the core features of the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Trail Magic Hour Dri-FIT Running Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hoodie but performance running style with Dri-FIT fabric; less focused on softness and casual wear, more on athletic use.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's San Francisco Giants Authentic Collection Therma Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie designed for casual, comfortable wear with soft Therma fabric, similar function and silhouette to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Nike New York Yankees Authentic Collection Performance Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie with performance features; likely comfortable and casual but with some athletic leanings, similar but slightly less focus on softness.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Tech Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie with soft fleece and casual style, similar silhouette and purpose but probably more technical material than basic soft cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Detroit Tigers Authentic Collection Dri-FIT Pullover Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Pullover hoodie with Dri-FIT performance fabric; good match in silhouette but more performance oriented than soft comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Wool Classic Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Classic hoodie but made of wool, a different material affecting softness and casual comfort; still similar silhouette though.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Full Zip Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Full zip version of a fleece hoodie likely soft and comfortable, similar in function and feel but different closure style.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Chicago White Sox 2025 City Connect Therma Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Therma pullover hoodie with casual, breathable, and soft features; similar in shape and use, focused on warmth and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's San Diego Padres Authentic Collection Tri-Blend Performance Pullover Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance pullover hoodie made of tri-blend fabric, slightly more active wear oriented, but similar shape and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweat Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Basic pullover hoodie likely made from soft materials, focused on comfort and casual wear; very similar to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Oversized Sweat Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oversized pullover hoodie made for casual comfort and softness, matching the core features and silhouette closely.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweat Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Full-zip hoodie version; still casual and soft sweat material but differs in closure style from pullover.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance style with UV protection and dry-ex fabric; less focused on softness and casual comfort, more utility and active wear.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Zip-Up Blouson Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Blouson jacket with zip-up style differs significantly in silhouette and likely in material and purpose from a soft pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Women's Oversized Phoenix Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oversized fleece pullover hoodie designed for comfort and casual wear, very similar in silhouette and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Athletics Authentic Collection Dri-FIT MLB Pullover Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance-focused pullover with Dri-FIT fabric; less softness emphasis but similar pullover hoodie form.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Nike Toronto Blue Jays Authentic Collection Performance Pullover Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance pullover hoodie with focus on athletic features, less on soft comfort but similar overall shape.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a pullover sweatshirt without hood; similar soft material and casual use but missing the hood and silhouette of a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Basic men's pullover hoodie designed for comfort, softness, and casual wear; very similar product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Graphic Balloon Dog Sweatshirt Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hoodie featuring graphics, same basic construction and comfort, slightly different due to graphic design feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo CPFM Spongebob Squarepants Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Graphic pullover hoodie with same basic build and comfort features, differing mainly by graphic print but similar in form and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Zip-Up Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Zip-up version of a hoodie; similar soft material and casual wear focus but different style closure.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Basic men's pullover hoodie focused on comfort and softness, closely matching reference product features.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Dry Sweat Half-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Half-zip performance style hoodie geared toward athletic use with dry sweat fabric; less focused on softness but similar hoodie silhouette.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Oversized French Terry Pullover Hoodie",
+      "score": 9,
+      "rationale": "Very similar product type (pullover hoodie), likely soft fleece material and casual comfort, matching the core features of the reference hoodie.",
+      "map_id": "map_f7c9d972c374412f9ffbb91947ef87a7"
+    },
+    {
+      "competitor_product_name": "Nike Men's Trail Magic Hour Dri-FIT Running Hoodie",
+      "score": 7,
+      "rationale": "Hoodie but performance running style with Dri-FIT fabric; less focused on softness and casual wear, more on athletic use.",
+      "map_id": "map_e6107c5f9ad043168cce28e0b9db7def"
+    },
+    {
+      "competitor_product_name": "Nike Men's San Francisco Giants Authentic Collection Therma Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie designed for casual, comfortable wear with soft Therma fabric, similar function and silhouette to the reference.",
+      "map_id": "map_c745ac1ad4d34208909cfd86b213d685"
+    },
+    {
+      "competitor_product_name": "Men's Nike New York Yankees Authentic Collection Performance Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie with performance features; likely comfortable and casual but with some athletic leanings, similar but slightly less focus on softness.",
+      "map_id": "map_bba31a7a520849b5b8355f042f2a7a98"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Tech Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie with soft fleece and casual style, similar silhouette and purpose but probably more technical material than basic soft cotton.",
+      "map_id": "map_32146359a7694ceea971919e2c46f44e"
+    },
+    {
+      "competitor_product_name": "Nike Men's Detroit Tigers Authentic Collection Dri-FIT Pullover Hoodie",
+      "score": 7,
+      "rationale": "Pullover hoodie with Dri-FIT performance fabric; good match in silhouette but more performance oriented than soft comfort.",
+      "map_id": "map_5880ebac4fd4478c9bd4b0cee3ad703f"
+    },
+    {
+      "competitor_product_name": "Nike Wool Classic Hoodie",
+      "score": 6,
+      "rationale": "Classic hoodie but made of wool, a different material affecting softness and casual comfort; still similar silhouette though.",
+      "map_id": "map_af578d2c9b7d4b9e9126ccf018b4ae19"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Full Zip Fleece Hoodie",
+      "score": 8,
+      "rationale": "Full zip version of a fleece hoodie likely soft and comfortable, similar in function and feel but different closure style.",
+      "map_id": "map_c40de9bab4284c6b8e19c01dc8ad4036"
+    },
+    {
+      "competitor_product_name": "Nike Men's Chicago White Sox 2025 City Connect Therma Pullover Hoodie",
+      "score": 8,
+      "rationale": "Therma pullover hoodie with casual, breathable, and soft features; similar in shape and use, focused on warmth and comfort.",
+      "map_id": "map_a7365d10be664ca787321e6631b4780f"
+    },
+    {
+      "competitor_product_name": "Nike Men's San Diego Padres Authentic Collection Tri-Blend Performance Pullover Hoodie",
+      "score": 7,
+      "rationale": "Performance pullover hoodie made of tri-blend fabric, slightly more active wear oriented, but similar shape and casual use.",
+      "map_id": "map_3890663e33b5471285e526c3daa815e8"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweat Pullover Hoodie",
+      "score": 9,
+      "rationale": "Basic pullover hoodie likely made from soft materials, focused on comfort and casual wear; very similar to the reference product.",
+      "map_id": "map_2b85f80994f746978eb2493b5e07c404"
+    },
+    {
+      "competitor_product_name": "UNIQLO Oversized Sweat Hoodie",
+      "score": 9,
+      "rationale": "Oversized pullover hoodie made for casual comfort and softness, matching the core features and silhouette closely.",
+      "map_id": "map_afb9d5651e144aaeb9d00bee8eccc742"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweat Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "Full-zip hoodie version; still casual and soft sweat material but differs in closure style from pullover.",
+      "map_id": "map_78b79fbd96ca4145a906250707f769ef"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's DRY-EX Full-Zip Hoodie with UV Protection",
+      "score": 6,
+      "rationale": "Performance style with UV protection and dry-ex fabric; less focused on softness and casual comfort, more utility and active wear.",
+      "map_id": "map_44450831889b4683bc669c73e97b0664"
+    },
+    {
+      "competitor_product_name": "UNIQLO Zip-Up Blouson Jacket",
+      "score": 3,
+      "rationale": "Blouson jacket with zip-up style differs significantly in silhouette and likely in material and purpose from a soft pullover hoodie.",
+      "map_id": "map_42c1baf3f02144e39e8dde6297ed971d"
+    },
+    {
+      "competitor_product_name": "Nike Women's Oversized Phoenix Fleece Hoodie",
+      "score": 8,
+      "rationale": "Oversized fleece pullover hoodie designed for comfort and casual wear, very similar in silhouette and feel.",
+      "map_id": "map_7906cafe275f418ba0e3b1a31b8da805"
+    },
+    {
+      "competitor_product_name": "Nike Men's Athletics Authentic Collection Dri-FIT MLB Pullover Hoodie",
+      "score": 7,
+      "rationale": "Performance-focused pullover with Dri-FIT fabric; less softness emphasis but similar pullover hoodie form.",
+      "map_id": "map_824eb26db854471c948ae2ae3f7d28fb"
+    },
+    {
+      "competitor_product_name": "Men's Nike Toronto Blue Jays Authentic Collection Performance Pullover Hoodie",
+      "score": 7,
+      "rationale": "Performance pullover hoodie with focus on athletic features, less on soft comfort but similar overall shape.",
+      "map_id": "map_4d12a5a85b154d368a53bfeb833385da"
+    },
+    {
+      "competitor_product_name": "UNIQLO Sweatshirt",
+      "score": 7,
+      "rationale": "Likely a pullover sweatshirt without hood; similar soft material and casual use but missing the hood and silhouette of a hoodie.",
+      "map_id": "map_bfbdac7b60b84300af238d681c2d9b9d"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Hoodie",
+      "score": 9,
+      "rationale": "Basic men's pullover hoodie designed for comfort, softness, and casual wear; very similar product type.",
+      "map_id": "map_f43aeeccc17d4fe1813b2b3070b24d3e"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Graphic Balloon Dog Sweatshirt Hoodie",
+      "score": 8,
+      "rationale": "Hoodie featuring graphics, same basic construction and comfort, slightly different due to graphic design feature.",
+      "map_id": "map_5a6f9e6622d44a95888194f34fd01b1b"
+    },
+    {
+      "competitor_product_name": "Uniqlo CPFM Spongebob Squarepants Hoodie",
+      "score": 8,
+      "rationale": "Graphic pullover hoodie with same basic build and comfort features, differing mainly by graphic print but similar in form and function.",
+      "map_id": "map_80e46444600b409ca93507e920cef46f"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Zip-Up Hoodie",
+      "score": 8,
+      "rationale": "Zip-up version of a hoodie; similar soft material and casual wear focus but different style closure.",
+      "map_id": "map_8839db52ef5a4aabab417137900a3e93"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Hoodie",
+      "score": 9,
+      "rationale": "Basic men's pullover hoodie focused on comfort and softness, closely matching reference product features.",
+      "map_id": "map_97a9e94743ff4e4aa13de21da864fa1a"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Dry Sweat Half-Zip Hoodie",
+      "score": 7,
+      "rationale": "Half-zip performance style hoodie geared toward athletic use with dry sweat fabric; less focused on softness but similar hoodie silhouette.",
+      "map_id": "map_72f2ec7b3a4e483fa3915dcdbdae6bdb"
+    }
+  ]
+}

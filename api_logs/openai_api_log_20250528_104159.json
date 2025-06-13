@@ -1,0 +1,227 @@
+{
+  "timestamp": "20250528_104159",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Joseph Abboud Floral Neck Tie'\n  - Name='Joseph Abboud Men's Tie Nib'\n  - Name='Joseph Abboud Men's Long Silk Tie'\n  - Name='Joseph Abboud Men's Narrow Ginkgo Leaves Tie'\n  - Name='Joseph Abboud ECM 2 Checkered TIE'\n  - Name='Eton Men's Woven Silk Tie'\n  - Name='Joseph Abboud Men's Luxury TIE'\n  - Name='Joseph Abboud Men's Narrow Multi-Texture Stripe Tie'\n  - Name='Joseph Abboud Men's Floral Pattern Necktie'\n  - Name='Joseph Abboud Men's SILK Dress Shirt'\n  - Name='OTAA Men's Crisp Satin Necktie'\n  - Name='Joseph Abboud Floral Neck Tie'\n  - Name='Joseph Abboud Men's Squares Tie'\n  - Name='JOSEPH ABBOUD TIE'\n  - Name='Joseph Abboud Men's Narrow Micro-Pattern Tie'\n  - Name='Joseph Abboud Accessories Men's Tie'\n  - Name='Joseph Abboud Men's Narrow Paisley Bo'\n  - Name='OTAA Men's Satin Necktie'\n  - Name='Joseph Abboud Men's Floral Pattern Necktie'\n  - Name='Joseph Abboud Men's Plaid Neck Tie'\n  - Name='OTAA Men's Satin Skinny Tie'\n  - Name='Joseph Abboud Men's Narrow Floral Stripe'\n  - Name='Joseph Abboud Men's Narrow Tonal Paisley Tie'\n  - Name='Eton Men's Silk Polka Dot Tie'\n  - Name='Joseph Abboud Men's Geometric Silk Neck Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Joseph Abboud Floral Neck Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While a neck tie similar in function, the floral pattern differentiates it from a solid satin tie, but both are silk/neckties serving similar purposes.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Tie Nib\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A tie nib is an accessory used to hold ties in place, not a tie itself, so it is not directly relevant to the solid satin tie product.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Long Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A long silk tie matches closely as it is a silk tie similar in construction and function; the lack of mention of pattern suggests it could be solid, increasing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Ginkgo Leaves Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A narrow tie with a pattern (ginkgo leaves) differs in style but is similar in material and function; narrower width reduces some similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud ECM 2 Checkered TIE\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Checkered pattern differentiates from solid satin but similar function as a dress tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Woven Silk Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Woven silk tie shares material and function with a satin silk tie but the weave differs from satin's smooth finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Luxury TIE\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The generic term luxury tie suggests quality but no details on pattern or fabric, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Multi-Texture Stripe Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Striped and multi-texture differs from solid satin, also narrow fit differs from standard width.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Floral Pattern Necktie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Floral pattern differentiates but overall silk necktie is similar in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's SILK Dress Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is a shirt, not a tie, and thus not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Crisp Satin Necktie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A satin necktie directly corresponds in fabric and finish to the reference solid satin tie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Floral Neck Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated entry; same rationale as above floral pattern necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Squares Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Patterned with squares diverges from solid satin, though same product category.\"\n    },\n    {\n      \"competitor_product_name\": \"JOSEPH ABBOUD TIE\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic tie name with no detail makes relevance uncertain but it is a tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Micro-Pattern Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Narrow fit and micro-pattern contrast solid satin tie's smooth solid surface, moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Accessories Men's Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic accessory tie; lacks detail but relevant as a tie product.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Paisley Bo\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Possibly a narrow tie with paisley pattern, pattern and narrowness lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Necktie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Satin necktie closely matches the reference product in material and likely style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Floral Pattern Necktie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated floral pattern necktie; similar function but pattern lowers relevancy compared to solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Plaid Neck Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Plaid pattern differs in appearance but still a silk necktie.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Satin Skinny Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Satin fabric aligns with reference; skinny width slightly different silhouette but close.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Floral Stripe\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Patterned, striped, and narrow differ from solid satin tie's classic silhouette and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Tonal Paisley Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Pattern and narrow cut reduce relevancy though it is a silk tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Silk Polka Dot Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Polka dot pattern reduces relevancy from solid, but silk tie maintains functional and material similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Geometric Silk Neck Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Geometric pattern diverges from solid but it remains a silk necktie with similar construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Joseph Abboud Floral Neck Tie",
+      "score": 7,
+      "rationale": "While a neck tie similar in function, the floral pattern differentiates it from a solid satin tie, but both are silk/neckties serving similar purposes.",
+      "map_id": "map_db80edec9f7b45e9b755dc06c9bff5e4"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Floral Neck Tie",
+      "score": 7,
+      "rationale": "While a neck tie similar in function, the floral pattern differentiates it from a solid satin tie, but both are silk/neckties serving similar purposes.",
+      "map_id": "map_8fafc48d3a1449fd8b1972c294f961ca"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Tie Nib",
+      "score": 1,
+      "rationale": "A tie nib is an accessory used to hold ties in place, not a tie itself, so it is not directly relevant to the solid satin tie product.",
+      "map_id": "map_279671efe5764fea8535e6c6681c5b74"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Long Silk Tie",
+      "score": 9,
+      "rationale": "A long silk tie matches closely as it is a silk tie similar in construction and function; the lack of mention of pattern suggests it could be solid, increasing relevancy.",
+      "map_id": "map_fba5da50c1e04ea282ccf2529c6dc603"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Ginkgo Leaves Tie",
+      "score": 7,
+      "rationale": "A narrow tie with a pattern (ginkgo leaves) differs in style but is similar in material and function; narrower width reduces some similarity.",
+      "map_id": "map_42880543a15541bd8198ad3d5759b526"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud ECM 2 Checkered TIE",
+      "score": 6,
+      "rationale": "Checkered pattern differentiates from solid satin but similar function as a dress tie.",
+      "map_id": "map_63214dbdef8e47859fb3b79b513bd21d"
+    },
+    {
+      "competitor_product_name": "Eton Men's Woven Silk Tie",
+      "score": 8,
+      "rationale": "Woven silk tie shares material and function with a satin silk tie but the weave differs from satin's smooth finish.",
+      "map_id": "map_c519b7009a2d4825a85e9508451e0227"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Luxury TIE",
+      "score": 7,
+      "rationale": "The generic term luxury tie suggests quality but no details on pattern or fabric, moderately relevant.",
+      "map_id": "map_e904cf8347f74d45864925c3a03ef118"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Multi-Texture Stripe Tie",
+      "score": 6,
+      "rationale": "Striped and multi-texture differs from solid satin, also narrow fit differs from standard width.",
+      "map_id": "map_899ca4bbedb14a9cb5a4d2c7f6ce9803"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Floral Pattern Necktie",
+      "score": 7,
+      "rationale": "Floral pattern differentiates but overall silk necktie is similar in function and style.",
+      "map_id": "map_f5ad21bcd80747a2b27b50d8b478340b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Floral Pattern Necktie",
+      "score": 7,
+      "rationale": "Floral pattern differentiates but overall silk necktie is similar in function and style.",
+      "map_id": "map_95dff74438bf4b25be838fbf651ce878"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's SILK Dress Shirt",
+      "score": 1,
+      "rationale": "This is a shirt, not a tie, and thus not relevant.",
+      "map_id": "map_8c008f61725b44ac9aaa3ad5ef67e5f9"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Crisp Satin Necktie",
+      "score": 10,
+      "rationale": "A satin necktie directly corresponds in fabric and finish to the reference solid satin tie, making it highly relevant.",
+      "map_id": "map_a1572985166045389efbf24ecae132b4"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Floral Neck Tie",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above floral pattern necktie.",
+      "map_id": "map_db80edec9f7b45e9b755dc06c9bff5e4"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Floral Neck Tie",
+      "score": 7,
+      "rationale": "Repeated entry; same rationale as above floral pattern necktie.",
+      "map_id": "map_8fafc48d3a1449fd8b1972c294f961ca"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Squares Tie",
+      "score": 6,
+      "rationale": "Patterned with squares diverges from solid satin, though same product category.",
+      "map_id": "map_2e6632eee1204662a9e74e3eae0f3f72"
+    },
+    {
+      "competitor_product_name": "JOSEPH ABBOUD TIE",
+      "score": 5,
+      "rationale": "Generic tie name with no detail makes relevance uncertain but it is a tie.",
+      "map_id": "map_64117e773c3b476bb25ea4fc6d5508ec"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Micro-Pattern Tie",
+      "score": 6,
+      "rationale": "Narrow fit and micro-pattern contrast solid satin tie's smooth solid surface, moderate relevance.",
+      "map_id": "map_58b6f1d4b3324a8e8b45e453bf78e614"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Accessories Men's Tie",
+      "score": 5,
+      "rationale": "Generic accessory tie; lacks detail but relevant as a tie product.",
+      "map_id": "map_63cf077c5d32472e8cdee900c24a32aa"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Paisley Bo",
+      "score": 6,
+      "rationale": "Possibly a narrow tie with paisley pattern, pattern and narrowness lower relevancy.",
+      "map_id": "map_aee0cea22875452dac3d5c8013b90592"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Necktie",
+      "score": 10,
+      "rationale": "Satin necktie closely matches the reference product in material and likely style.",
+      "map_id": "map_d2c8d04c0b51471b937be43a9dda9bfd"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Floral Pattern Necktie",
+      "score": 7,
+      "rationale": "Repeated floral pattern necktie; similar function but pattern lowers relevancy compared to solid satin.",
+      "map_id": "map_f5ad21bcd80747a2b27b50d8b478340b"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Floral Pattern Necktie",
+      "score": 7,
+      "rationale": "Repeated floral pattern necktie; similar function but pattern lowers relevancy compared to solid satin.",
+      "map_id": "map_95dff74438bf4b25be838fbf651ce878"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Plaid Neck Tie",
+      "score": 6,
+      "rationale": "Plaid pattern differs in appearance but still a silk necktie.",
+      "map_id": "map_eb31a925bc1f4c00bdb21d75de06ca49"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Satin Skinny Tie",
+      "score": 8,
+      "rationale": "Satin fabric aligns with reference; skinny width slightly different silhouette but close.",
+      "map_id": "map_c644d67738b545cf802e2d808b35fd01"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Floral Stripe",
+      "score": 6,
+      "rationale": "Patterned, striped, and narrow differ from solid satin tie's classic silhouette and finish.",
+      "map_id": "map_234d8e6b866a464ebcae78452393ee98"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Tonal Paisley Tie",
+      "score": 6,
+      "rationale": "Pattern and narrow cut reduce relevancy though it is a silk tie.",
+      "map_id": "map_a6e3e4f85bb843c2820bce564078563f"
+    },
+    {
+      "competitor_product_name": "Eton Men's Silk Polka Dot Tie",
+      "score": 7,
+      "rationale": "Polka dot pattern reduces relevancy from solid, but silk tie maintains functional and material similarity.",
+      "map_id": "map_bd5f50cadb224e89b757b9a3268d281e"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Geometric Silk Neck Tie",
+      "score": 7,
+      "rationale": "Geometric pattern diverges from solid but it remains a silk necktie with similar construction.",
+      "map_id": "map_c52af0e19e54473ba14fdc38db4ec307"
+    }
+  ]
+}

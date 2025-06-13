@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250514_131002",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's Slim-Fit Organic Cotton Jeans'\n  - Name='Everlane Men's Organic Cotton Straight-leg Jean'\n  - Name='Everlane Women's Utility Pants'\n  - Name='Everlane Men's Linen Easy Pant'\n  - Name='Everlane Men's Selvedge Straight Fit Jeans'\n  - Name='Everlane Men's Performance Chino'\n  - Name='Everlane Pants Mens 29 Uniform Gray Workwear Slacks Mid Rise Dress'\n  - Name='UNIQLO Men's Tall Faux Wool Ankle Pants'\n  - Name='Carhartt WIP Landon Pant'\n  - Name='Everlane Men's Performance Traveler Chino'\n  - Name='Everlane Men's Easy Pant'\n  - Name='Taylor Stitch Men's Organic Cotton Democratic Foundation Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's Slim-Fit Organic Cotton Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's pants made of organic cotton with a focus on fit and durability, but the reference is a chore pant with utility features and heavier canvas material, whereas these are slim-fit jeans likely lighter and less utility-oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Cotton Straight-leg Jean\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to the previous, these are organic cotton jeans with a straight leg silhouette; somewhat comparable but more casual denim style versus chore pant construction and functional reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Utility Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Both are utility-focused pants with practical features, but this is a women's product and the material and construction details are unspecified, likely less similar in silhouette and fabric weight.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Linen Easy Pant\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are men's pants but linen and likely lighter, less durable construction and geared more for comfort than heavy-duty workwear, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Selvedge Straight Fit Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's selvedge jeans are durable with a straight fit and made of premium denim, sharing some overlap in function and material quality but different fabric type and design details from chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Chino\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Performance chinos are men's casual work pants with performance fabric, similar in intended use though likely lighter and different material than the heavy organic cotton canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Pants Mens 29 Uniform Gray Workwear Slacks Mid Rise Dress\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Workwear slacks share the functional workwear theme but are described as dress pants, suggesting a more formal style and likely less rugged construction compared to the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Tall Faux Wool Ankle Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"These are wool blend dressy ankle pants, very different fabric, purpose, and construction from the heavy-duty chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Landon Pant\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Carhartt is a well-known workwear brand; the Landon Pant has a similar utility and durability focus with reinforced construction and canvas or duck fabric likely close to the Taylor Stitch chore pant in purpose and design.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Traveler Chino\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to the performance chino above, these pants focus on utility and travel-friendly features, aligning closely with the functional aspect of the chore pant but made with different fabric and possibly lighter weight.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Easy Pant\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a casual, relaxed-fit pant oriented towards comfort rather than rugged workwear; less similar in function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Democratic Foundation Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"From the same brand with organic cotton construction and presumably strong workmanship; likely similar in fabric and style though possibly more of a casual or dress pant than the chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's Slim-Fit Organic Cotton Jeans",
+      "score": 6,
+      "rationale": "Both are men's pants made of organic cotton with a focus on fit and durability, but the reference is a chore pant with utility features and heavier canvas material, whereas these are slim-fit jeans likely lighter and less utility-oriented.",
+      "map_id": "map_6e21e617d37e4caf953aaa978893f653"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Cotton Straight-leg Jean",
+      "score": 6,
+      "rationale": "Similar to the previous, these are organic cotton jeans with a straight leg silhouette; somewhat comparable but more casual denim style versus chore pant construction and functional reinforcements.",
+      "map_id": "map_c0623ab226a34a1ab6fe15de798550dd"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Utility Pants",
+      "score": 5,
+      "rationale": "Both are utility-focused pants with practical features, but this is a women's product and the material and construction details are unspecified, likely less similar in silhouette and fabric weight.",
+      "map_id": "map_a1e8605c0e9441a79e0cce158bf327f2"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Linen Easy Pant",
+      "score": 3,
+      "rationale": "These are men's pants but linen and likely lighter, less durable construction and geared more for comfort than heavy-duty workwear, less relevant.",
+      "map_id": "map_95972521596c499fa72589c263b7ce17"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Selvedge Straight Fit Jeans",
+      "score": 6,
+      "rationale": "Men's selvedge jeans are durable with a straight fit and made of premium denim, sharing some overlap in function and material quality but different fabric type and design details from chore pant.",
+      "map_id": "map_4c929273764243f387902df27cc8b4f3"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Chino",
+      "score": 7,
+      "rationale": "Performance chinos are men's casual work pants with performance fabric, similar in intended use though likely lighter and different material than the heavy organic cotton canvas chore pant.",
+      "map_id": "map_40ea6014aa834f1c9be273be9206930c"
+    },
+    {
+      "competitor_product_name": "Everlane Pants Mens 29 Uniform Gray Workwear Slacks Mid Rise Dress",
+      "score": 5,
+      "rationale": "Workwear slacks share the functional workwear theme but are described as dress pants, suggesting a more formal style and likely less rugged construction compared to the chore pant.",
+      "map_id": "map_e2ad1fa18f304f4abd721e29542892c0"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Tall Faux Wool Ankle Pants",
+      "score": 2,
+      "rationale": "These are wool blend dressy ankle pants, very different fabric, purpose, and construction from the heavy-duty chore pant.",
+      "map_id": "map_59e0cb706b0c417d8079c08f11718091"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Landon Pant",
+      "score": 9,
+      "rationale": "Carhartt is a well-known workwear brand; the Landon Pant has a similar utility and durability focus with reinforced construction and canvas or duck fabric likely close to the Taylor Stitch chore pant in purpose and design.",
+      "map_id": "map_dca0ab4030d04d7680bd6d9bcdc7aa33"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Traveler Chino",
+      "score": 7,
+      "rationale": "Similar to the performance chino above, these pants focus on utility and travel-friendly features, aligning closely with the functional aspect of the chore pant but made with different fabric and possibly lighter weight.",
+      "map_id": "map_1226240ad4b840f488555b48f0d32e0e"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Easy Pant",
+      "score": 5,
+      "rationale": "Likely a casual, relaxed-fit pant oriented towards comfort rather than rugged workwear; less similar in function and construction.",
+      "map_id": "map_ccdee0d5441443728d10317e915463de"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Democratic Foundation Pants",
+      "score": 8,
+      "rationale": "From the same brand with organic cotton construction and presumably strong workmanship; likely similar in fabric and style though possibly more of a casual or dress pant than the chore pant.",
+      "map_id": "map_f0ce9c0ee02047e2ac8879b37f7812b1"
+    }
+  ]
+}

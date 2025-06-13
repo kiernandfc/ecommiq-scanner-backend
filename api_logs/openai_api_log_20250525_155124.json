@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250525_155124",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Filson Chore Coat'\n  - Name='Norse Projects Vargo Tech Poplin Mac Dark Navy SNorse Projects'\n  - Name='Faherty Atlantic Knit Peacoat'\n  - Name='Men Carhartt WIP OG Santa Fe Coat'\n  - Name='Carhartt WIP Mens OG Arctic Coat'\n  - Name='Barbour Men's Prestbury Wax Jacket'\n  - Name='Barbour Men's Waxed Sapper Jacket'\n  - Name='Filson Men's Tin Cloth Short Lined Cruiser Jacket'\n  - Name='Filson Vintage Wash Moleskin Work Coat'\n  - Name='Filson Waxed Heavyweight Distressed Work Jacket'\n  - Name='Filson Ranger Insulated Field Jacket'\n  - Name='Filson Men's Ranger Lightweight Anorak'\n  - Name='Filson Outerwear Utility Jacket'\n  - Name='Levi's Men's Cotton Denim Shirt Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Filson Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Filson Chore Coat shares the chore coat silhouette and workwear utility focus similar to The Ojai Jacket, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Vargo Tech Poplin Mac Dark Navy SNorse Projects\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a mac coat, generally longer and lighter in construction than a chore coat, so less relevant despite some outerwear utility overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Atlantic Knit Peacoat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A peacoat has a different silhouette and construction focused on warmth and style, unlike the chore coat utility design.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP OG Santa Fe Coat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt coats like the Santa Fe often share workwear styling and durable construction, close enough to chore coat utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens OG Arctic Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heavier winter coat with insulation; while workwear related, it differs in weight and purpose from the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Prestbury Wax Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Barbour wax jackets have a classic workwear-inspired aesthetic and utility features, similar in spirit to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Sapper Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar reasons to the Prestbury: waxed, durable, utility-oriented design akin to chore coats.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Short Lined Cruiser Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Filson's cruiser jacket shares tough fabric, workwear lineage, and similar outerwear function to the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Vintage Wash Moleskin Work Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A work coat crafted in durable moleskin fabric with vintage styling closely aligns with the Ojai chore coat's features and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Waxed Heavyweight Distressed Work Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Heavy duty, waxed, utility work jacket with similar construction and purpose as The Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Ranger Insulated Field Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While still workwear and utility-focused, the added insulation and field jacket style make it somewhat different from the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Lightweight Anorak\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Lightweight anorak style is more casual and less structured than a chore coat, so only loosely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Outerwear Utility Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Utility jacket closely related in function and styling to chore coats like The Ojai, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Denim Shirt Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Denim shirt jacket shares workwear heritage and similar layered construction but differs in fabric and silhouette from a chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Filson Chore Coat",
+      "score": 9,
+      "rationale": "Filson Chore Coat shares the chore coat silhouette and workwear utility focus similar to The Ojai Jacket, making it highly relevant.",
+      "map_id": "map_18cf0f0443a340928039c0b9b1af1115"
+    },
+    {
+      "competitor_product_name": "Norse Projects Vargo Tech Poplin Mac Dark Navy SNorse Projects",
+      "score": 4,
+      "rationale": "This is a mac coat, generally longer and lighter in construction than a chore coat, so less relevant despite some outerwear utility overlap.",
+      "map_id": "map_a5e04737ca29453a86abd7e0fa8a7315"
+    },
+    {
+      "competitor_product_name": "Faherty Atlantic Knit Peacoat",
+      "score": 3,
+      "rationale": "A peacoat has a different silhouette and construction focused on warmth and style, unlike the chore coat utility design.",
+      "map_id": "map_ca24c9ff775d433e93880021173e1d73"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP OG Santa Fe Coat",
+      "score": 7,
+      "rationale": "Carhartt coats like the Santa Fe often share workwear styling and durable construction, close enough to chore coat utility.",
+      "map_id": "map_fd2e1707e90241b2bbe669574cbb90ad"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens OG Arctic Coat",
+      "score": 5,
+      "rationale": "Heavier winter coat with insulation; while workwear related, it differs in weight and purpose from the Ojai chore coat.",
+      "map_id": "map_f7a77ca01d0c4f298e18772d1512d904"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Prestbury Wax Jacket",
+      "score": 7,
+      "rationale": "Barbour wax jackets have a classic workwear-inspired aesthetic and utility features, similar in spirit to a chore coat.",
+      "map_id": "map_d56ea74e416443758fa848af78161c8f"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed Sapper Jacket",
+      "score": 7,
+      "rationale": "Similar reasons to the Prestbury: waxed, durable, utility-oriented design akin to chore coats.",
+      "map_id": "map_624929b8e6ea4be9afbd153a385ecf24"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Short Lined Cruiser Jacket",
+      "score": 8,
+      "rationale": "Filson's cruiser jacket shares tough fabric, workwear lineage, and similar outerwear function to the Ojai chore coat.",
+      "map_id": "map_73c48240073041648d3a0ed911b14521"
+    },
+    {
+      "competitor_product_name": "Filson Vintage Wash Moleskin Work Coat",
+      "score": 9,
+      "rationale": "A work coat crafted in durable moleskin fabric with vintage styling closely aligns with the Ojai chore coat's features and silhouette.",
+      "map_id": "map_7539de3bc7d64e91953e5bc72a439950"
+    },
+    {
+      "competitor_product_name": "Filson Waxed Heavyweight Distressed Work Jacket",
+      "score": 9,
+      "rationale": "Heavy duty, waxed, utility work jacket with similar construction and purpose as The Ojai chore coat.",
+      "map_id": "map_dc88d48bd3e24d32a96cc42a4a701c29"
+    },
+    {
+      "competitor_product_name": "Filson Ranger Insulated Field Jacket",
+      "score": 6,
+      "rationale": "While still workwear and utility-focused, the added insulation and field jacket style make it somewhat different from the chore coat.",
+      "map_id": "map_1918221c51a2433fa0ad035c541bfead"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Lightweight Anorak",
+      "score": 5,
+      "rationale": "Lightweight anorak style is more casual and less structured than a chore coat, so only loosely related.",
+      "map_id": "map_da5281a6eb6646aa9c465d88cdbdbedc"
+    },
+    {
+      "competitor_product_name": "Filson Outerwear Utility Jacket",
+      "score": 8,
+      "rationale": "Utility jacket closely related in function and styling to chore coats like The Ojai, making it quite relevant.",
+      "map_id": "map_75b940fbe3c541368ecf8679476caaf0"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Denim Shirt Jacket",
+      "score": 7,
+      "rationale": "Denim shirt jacket shares workwear heritage and similar layered construction but differs in fabric and silhouette from a chore coat.",
+      "map_id": "map_fb24db6fb1db435e9e7af7baf0290e24"
+    }
+  ]
+}

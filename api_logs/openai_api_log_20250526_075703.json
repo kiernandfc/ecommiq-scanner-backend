@@ -1,0 +1,101 @@
+{
+  "timestamp": "20250526_075703",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Supreme Men's Mister Cartoon Zip Up Hooded Sweatshirt'\n  - Name='Men's adidas Essentials 3-Stripes Fleece Sportswear Zip Front Hoodie'\n  - Name='adidas Men's Mexico Manga Dorada Fleece Hoodie'\n  - Name='Uniqlo CPFM Spongebob Squarepants Hoodie'\n  - Name='UNIQLO US Sweat Oversized Pullover Hoodie'\n  - Name='Uniqlo Ultra Stretch Dry-ex Full-zip Hoodie'\n  - Name='Boston Scally The Eire Crewneck Sweatshirt'\n  - Name='Boston Scally The Windbreaker'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Supreme Men's Mister Cartoon Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A zip-up hooded sweatshirt, similar core product type and function (hoodie), though zip-up rather than pullover, which may affect the silhouette slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's adidas Essentials 3-Stripes Fleece Sportswear Zip Front Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Zip front fleece hoodie functionally very similar to the reference hoodie; sportswear focus but still a hooded sweatshirt suitable as a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Mexico Manga Dorada Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie, likely a pullover, similar in function and silhouette to the reference pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo CPFM Spongebob Squarepants Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover hoodie, similar product type and construction; difference is in design graphics only, which is excluded from relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO US Sweat Oversized Pullover Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Pullover hoodie closely matches the reference product's description of a soft, comfortable pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Ultra Stretch Dry-ex Full-zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Full-zip hoodie with stretch fabric differs slightly in construction from classic pullover but still a hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Eire Crewneck Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Crewneck sweatshirt lacks a hood, which is a key feature of the reference product, making it less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Windbreaker\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Windbreaker is a different outerwear category, typically lighter and constructed differently without sweatshirt fabric or hood typical of hoodies.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Supreme Men's Mister Cartoon Zip Up Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "A zip-up hooded sweatshirt, similar core product type and function (hoodie), though zip-up rather than pullover, which may affect the silhouette slightly.",
+      "map_id": "map_ef3962a31cc8442dacea06bf4013f875"
+    },
+    {
+      "competitor_product_name": "Men's adidas Essentials 3-Stripes Fleece Sportswear Zip Front Hoodie",
+      "score": 8,
+      "rationale": "Zip front fleece hoodie functionally very similar to the reference hoodie; sportswear focus but still a hooded sweatshirt suitable as a hoodie.",
+      "map_id": "map_a8162adb7c6f467cb46b9afbbe588c99"
+    },
+    {
+      "competitor_product_name": "adidas Men's Mexico Manga Dorada Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie, likely a pullover, similar in function and silhouette to the reference pullover hoodie.",
+      "map_id": "map_4f75656ff9544136b00ee4bf7e704970"
+    },
+    {
+      "competitor_product_name": "Uniqlo CPFM Spongebob Squarepants Hoodie",
+      "score": 9,
+      "rationale": "A pullover hoodie, similar product type and construction; difference is in design graphics only, which is excluded from relevance.",
+      "map_id": "map_86b1a54d82c7428893ba7c8ee24bdd25"
+    },
+    {
+      "competitor_product_name": "UNIQLO US Sweat Oversized Pullover Hoodie",
+      "score": 10,
+      "rationale": "Pullover hoodie closely matches the reference product's description of a soft, comfortable pullover hoodie.",
+      "map_id": "map_5c470d91981049ee9d202bbc3ffcab3e"
+    },
+    {
+      "competitor_product_name": "Uniqlo Ultra Stretch Dry-ex Full-zip Hoodie",
+      "score": 7,
+      "rationale": "Full-zip hoodie with stretch fabric differs slightly in construction from classic pullover but still a hooded sweatshirt.",
+      "map_id": "map_c392f8568ca840dd8b60112db87acdc4"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Eire Crewneck Sweatshirt",
+      "score": 4,
+      "rationale": "Crewneck sweatshirt lacks a hood, which is a key feature of the reference product, making it less similar.",
+      "map_id": "map_e4b688bf615d46cd8e34dccfd32bf8ad"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Windbreaker",
+      "score": 2,
+      "rationale": "Windbreaker is a different outerwear category, typically lighter and constructed differently without sweatshirt fabric or hood typical of hoodies.",
+      "map_id": "map_a18aacb947994a72a366b3d8350ff360"
+    }
+  ]
+}

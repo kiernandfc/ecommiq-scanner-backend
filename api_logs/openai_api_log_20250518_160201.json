@@ -1,0 +1,77 @@
+{
+  "timestamp": "20250518_160201",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='The Sunday Boston Wool Scally Cap'\n  - Name='Wool/Leatherette Scally Cap'\n  - Name='The Fighting Rock Boston Scally Cap'\n  - Name='Boston Scally Newsboy Flat Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"The Sunday Boston Wool Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This product is a scally cap like the reference and from the same brand Boston Scally, likely sharing similar style and construction, but the color and fabric details differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Wool/Leatherette Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This cap matches the key materials mentioned—wool and leatherette brim—and the scally cap style, making it very similar in construction and function.\"\n    },\n    {\n      \"competitor_product_name\": \"The Fighting Rock Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a Boston Scally product and a scally cap, but the name suggests a different model, possibly differing in panels or fabric style.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Newsboy Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A Boston Scally cap identified as newsboy/flat cap, which is closely related to scally caps but may differ slightly in silhouette and panel construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "The Sunday Boston Wool Scally Cap",
+      "score": 8,
+      "rationale": "This product is a scally cap like the reference and from the same brand Boston Scally, likely sharing similar style and construction, but the color and fabric details differ.",
+      "map_id": "map_c17393a58e8a4a67aa122c6b04f43111"
+    },
+    {
+      "competitor_product_name": "Wool/Leatherette Scally Cap",
+      "score": 9,
+      "rationale": "This cap matches the key materials mentioned—wool and leatherette brim—and the scally cap style, making it very similar in construction and function.",
+      "map_id": "map_f0fc43720b06477c80e535838338ff5f"
+    },
+    {
+      "competitor_product_name": "The Fighting Rock Boston Scally Cap",
+      "score": 7,
+      "rationale": "Also a Boston Scally product and a scally cap, but the name suggests a different model, possibly differing in panels or fabric style.",
+      "map_id": "map_5d9d37ed40214d3c9076660b8eaafbc9"
+    },
+    {
+      "competitor_product_name": "Boston Scally Newsboy Flat Cap",
+      "score": 7,
+      "rationale": "A Boston Scally cap identified as newsboy/flat cap, which is closely related to scally caps but may differ slightly in silhouette and panel construction.",
+      "map_id": "map_f7b44132ca5f47fba6ff3edb955d5ebb"
+    }
+  ]
+}

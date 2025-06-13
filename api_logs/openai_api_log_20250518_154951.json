@@ -1,0 +1,65 @@
+{
+  "timestamp": "20250518_154951",
+  "reference_brand": "PicturesOnGold",
+  "reference_name": "Cross Pendant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"PicturesOnGold\"\nReference Product Name: \"Cross Pendant\"\nReference Product Description:\n*This Cross is Solid Sterling Silver *Approximately 2/3 inch x 1 Inch The Approximate Weight is 1.27 GM *** ALL SIZES ARE APPROXIMATE***\nAvailable in Sterling Silver\nMetal: Sterling Silver\nIs a Chain Included? You can choose which chain to add to your order when checking out\nPendant Bail - fits up to 4mm chain. We can make bail larger, just let us know in the special instructions upon ordering\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Cross Necklace Ball & Chain'\n  - Name='18K Gold Celtic Crucifix Necklace'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Cross Necklace Ball & Chain\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"The competitor product likely features a cross pendant similar in form and function to the reference cross pendant, and includes a chain. This is very similar to the reference which is a sterling silver cross pendant with an optional chain. The only slight difference is the mention of a ball chain which is a specific chain style.\"\n    },\n    {\n      \"competitor_product_name\": \"18K Gold Celtic Crucifix Necklace\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This product is a cross-shaped crucifix pendant necklace, similar in core shape and purpose. However, it is a Celtic style and made of 18K gold, not sterling silver. Also, the term crucifix usually denotes a cross with a representation of Christ, which may differ in silhouette from a plain cross pendant. Therefore, it is relevant but less closely matched than the first competitor.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Cross Necklace Ball & Chain",
+      "score": 9,
+      "rationale": "The competitor product likely features a cross pendant similar in form and function to the reference cross pendant, and includes a chain. This is very similar to the reference which is a sterling silver cross pendant with an optional chain. The only slight difference is the mention of a ball chain which is a specific chain style.",
+      "map_id": "map_4ba89c088b20434081b2ffbed55a9d9e"
+    },
+    {
+      "competitor_product_name": "18K Gold Celtic Crucifix Necklace",
+      "score": 7,
+      "rationale": "This product is a cross-shaped crucifix pendant necklace, similar in core shape and purpose. However, it is a Celtic style and made of 18K gold, not sterling silver. Also, the term crucifix usually denotes a cross with a representation of Christ, which may differ in silhouette from a plain cross pendant. Therefore, it is relevant but less closely matched than the first competitor.",
+      "map_id": "map_811ea5b5202543d39f2bb9b5a9993e97"
+    }
+  ]
+}

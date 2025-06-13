@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250527_074551",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Banana Republic Women's Riley II Tailored Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt'\n  - Name='Nordstrom Button-Up Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt'\n  - Name='Van Heusen Men's Classic Fit Solid Poplin Dress Shirt'\n  - Name='Brooklyn Brigade Men's Slim Fit Performance Dress Shirt'\n  - Name='W.R.K Slim Fit Performance Dress Shirt'\n  - Name='Nordstrom Trim Fit Gingham Check Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt'\n  - Name='Men's Slim Fit Stripe Dress Shirt'\n  - Name='Boss Men's H-Hank Kent Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Traditional Untucked Fit Short-Sleeve Denim'\n  - Name='Lands' End Men's Big Long Sleeve Buttondown Shirt'\n  - Name='Bonobos Men's Weekday Warrior Plaid Dress Shirt'\n  - Name='Lands' End Men's Big and Tall Long Sleeve Buttondown Shirt'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos'\n  - Name='Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Chambray Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Premium Dress Shirt'\n  - Name='Bonobos Men's Everyday Dot Print Cotton Button-Down Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Banana Republic Women's Riley II Tailored Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a women's tailored shirt, different gender and likely different fit and collar style, less relevant to a men's non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's slim fit dress shirt with performance stretch features is quite relevant, similar purpose and silhouette but no explicit non-iron mention.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Button-Up Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic button-up, likely dress shirt but lacks detail on fit or non-iron properties; somewhat relevant but vague.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's slim fit wrinkle-resistant shirt is very similar in function and styling, close to non-iron and dress shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"Van Heusen Men's Classic Fit Solid Poplin Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's classic fit solid dress shirt is close in category; fit type differs but still a formal shirt, relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooklyn Brigade Men's Slim Fit Performance Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's slim fit performance dress shirt aligns well with the intended product style and use; likely similar materials.\"\n    },\n    {\n      \"competitor_product_name\": \"W.R.K Slim Fit Performance Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar to the Brooklyn Brigade, slim fit performance dress shirt matches core product features and usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Gingham Check Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit dress shirt is similar in shape and function but the gingham pattern is noted, less relevant than solids but still dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's slim fit performance stretch dress shirt aligns well with reference product; diamond texture is minor and fits dress category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Fit Stripe Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with stripes matches silhouette and function; pattern reduces relevancy slightly but still close.\"\n    },\n    {\n      \"competitor_product_name\": \"Boss Men's H-Hank Kent Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A well-known premium men's dress shirt likely similar in fit and fabric type; without extra details assume comparable product.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Traditional Untucked Fit Short-Sleeve Denim\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve denim shirt with untucked fit deviates significantly from long sleeve formal dress shirt, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Big Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve buttondown shirt with big sizing but unspecified fit or non-iron features; moderately relevant as casual/formal overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Plaid Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Plaid dress shirt in a known brand category; similar function but pattern reduces relevancy compared to solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Big and Tall Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to other Lands' End big/tall shirt; relevant for dress shirts but fit and non-iron status unclear.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Solid dress shirt from Bonobos matches reference product closely in use and likely fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Premium merino wool dress shirt is a dress shirt but different fabric mostly; slim fit similar but fabric changes relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Tailored broadcloth long sleeve dress shirt fits well with the non-iron dress shirt category in silhouette and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Stretch dress shirt aligns closely with reference in fit, use, and likely wrinkle properties.\"\n    },\n    {\n      \"competitor_product_name\": \"Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Women's no-iron shirt similar in fabric and finish but differing greatly in gender and likely cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Chambray Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Chambray fabric differs from typical dress shirt cotton but stretch and style keep it relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Premium Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Premium dress shirt from Bonobos matches well on fit, fabric type, and dress shirt usage.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Dot Print Cotton Button-Down Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Patterned dress shirt lowers relevancy but cotton button-down still somewhat matches function.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and almost identical description; this is essentially the same product, max relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar brand and cotton dress shirt but tuxedo style and herringbone fabric differ, slightly less relevant than core dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Banana Republic Women's Riley II Tailored Shirt",
+      "score": 3,
+      "rationale": "This is a women's tailored shirt, different gender and likely different fit and collar style, less relevant to a men's non-iron dress shirt.",
+      "map_id": "map_12fbdb0d35be42baa89a1f43c5ac6dc3"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Men's slim fit dress shirt with performance stretch features is quite relevant, similar purpose and silhouette but no explicit non-iron mention.",
+      "map_id": "map_ab2aba793f2f483db53f4a5cea48f60d"
+    },
+    {
+      "competitor_product_name": "Nordstrom Button-Up Shirt",
+      "score": 6,
+      "rationale": "Generic button-up, likely dress shirt but lacks detail on fit or non-iron properties; somewhat relevant but vague.",
+      "map_id": "map_93f85a96ccb04865bdfdf7b81f8f4c67"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt",
+      "score": 9,
+      "rationale": "Men's slim fit wrinkle-resistant shirt is very similar in function and styling, close to non-iron and dress shirt category.",
+      "map_id": "map_395867bbbaeb455fad4fe2d848501786"
+    },
+    {
+      "competitor_product_name": "Van Heusen Men's Classic Fit Solid Poplin Dress Shirt",
+      "score": 8,
+      "rationale": "Men's classic fit solid dress shirt is close in category; fit type differs but still a formal shirt, relevant.",
+      "map_id": "map_64d1fbabd93040a8b0a7aaa57e2baa22"
+    },
+    {
+      "competitor_product_name": "Brooklyn Brigade Men's Slim Fit Performance Dress Shirt",
+      "score": 8,
+      "rationale": "Men's slim fit performance dress shirt aligns well with the intended product style and use; likely similar materials.",
+      "map_id": "map_403a768fd13f4fd0a0701316a5676ad7"
+    },
+    {
+      "competitor_product_name": "W.R.K Slim Fit Performance Dress Shirt",
+      "score": 8,
+      "rationale": "Similar to the Brooklyn Brigade, slim fit performance dress shirt matches core product features and usage.",
+      "map_id": "map_6e6d92d12bb9450493f4979435c6694a"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Gingham Check Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit dress shirt is similar in shape and function but the gingham pattern is noted, less relevant than solids but still dress shirt.",
+      "map_id": "map_d1d67f39536e4589a3a8adfb0e70b5b0"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Diamond Dress Shirt",
+      "score": 8,
+      "rationale": "Men's slim fit performance stretch dress shirt aligns well with reference product; diamond texture is minor and fits dress category.",
+      "map_id": "map_1ed0790f5c744d74846c6fd6f9de16b2"
+    },
+    {
+      "competitor_product_name": "Men's Slim Fit Stripe Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with stripes matches silhouette and function; pattern reduces relevancy slightly but still close.",
+      "map_id": "map_b918c4ca41964e00817ff83f3a52ec34"
+    },
+    {
+      "competitor_product_name": "Boss Men's H-Hank Kent Dress Shirt",
+      "score": 8,
+      "rationale": "A well-known premium men's dress shirt likely similar in fit and fabric type; without extra details assume comparable product.",
+      "map_id": "map_8f2f222486d54c9bbc8fe4bfbf826a0f"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Traditional Untucked Fit Short-Sleeve Denim",
+      "score": 3,
+      "rationale": "Short-sleeve denim shirt with untucked fit deviates significantly from long sleeve formal dress shirt, less relevant.",
+      "map_id": "map_fe3ecf8973bf46af935002b94613bf29"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Big Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Long sleeve buttondown shirt with big sizing but unspecified fit or non-iron features; moderately relevant as casual/formal overlap.",
+      "map_id": "map_82863a696218436d862e15aaccf0fdef"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Plaid Dress Shirt",
+      "score": 7,
+      "rationale": "Plaid dress shirt in a known brand category; similar function but pattern reduces relevancy compared to solid.",
+      "map_id": "map_b6d6fb4e57d249849410630d5b183344"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Big and Tall Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Similar to other Lands' End big/tall shirt; relevant for dress shirts but fit and non-iron status unclear.",
+      "map_id": "map_183a62c815fc490ca62d3b7eaf495227"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 8,
+      "rationale": "Solid dress shirt from Bonobos matches reference product closely in use and likely fit.",
+      "map_id": "map_8c41cff34bf241c68886f36ea0f12a64"
+    },
+    {
+      "competitor_product_name": "Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos",
+      "score": 7,
+      "rationale": "Premium merino wool dress shirt is a dress shirt but different fabric mostly; slim fit similar but fabric changes relevancy slightly.",
+      "map_id": "map_634babf24f53473dab9180782daa48a1"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt",
+      "score": 8,
+      "rationale": "Tailored broadcloth long sleeve dress shirt fits well with the non-iron dress shirt category in silhouette and use.",
+      "map_id": "map_97ed4b62152e40a68590d7c360457130"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Stretch dress shirt aligns closely with reference in fit, use, and likely wrinkle properties.",
+      "map_id": "map_97f0620d036943ba95fd1511f5943d12"
+    },
+    {
+      "competitor_product_name": "Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt",
+      "score": 3,
+      "rationale": "Women's no-iron shirt similar in fabric and finish but differing greatly in gender and likely cut.",
+      "map_id": "map_f2de989063514045a3a375d24162b0a0"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Chambray Dress Shirt",
+      "score": 7,
+      "rationale": "Chambray fabric differs from typical dress shirt cotton but stretch and style keep it relevant.",
+      "map_id": "map_4114e66111404569bce322618e7a4d8d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Premium Dress Shirt",
+      "score": 8,
+      "rationale": "Premium dress shirt from Bonobos matches well on fit, fabric type, and dress shirt usage.",
+      "map_id": "map_020e2b60e7b545ed97dcf12a38443f20"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Dot Print Cotton Button-Down Shirt",
+      "score": 6,
+      "rationale": "Patterned dress shirt lowers relevancy but cotton button-down still somewhat matches function.",
+      "map_id": "map_daaf4254f892494696da28c548e26254"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 10,
+      "rationale": "Same brand and almost identical description; this is essentially the same product, max relevancy.",
+      "map_id": "map_4b2c2d789a344f04a26886057a3526bc"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Cotton Tuxedo Dress Shirt",
+      "score": 8,
+      "rationale": "Similar brand and cotton dress shirt but tuxedo style and herringbone fabric differ, slightly less relevant than core dress shirt.",
+      "map_id": "map_ada614bdd688417c8a3c0b21cd2a3486"
+    }
+  ]
+}

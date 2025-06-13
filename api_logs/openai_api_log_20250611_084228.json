@@ -1,0 +1,71 @@
+{
+  "timestamp": "20250611_084228",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='The Original Peaky Boston Scally Cap'\n  - Name='The Lunchbox Blackbox Edition Boston Scally Cap'\n  - Name='The Midnight Summer Peaky Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"The Original Peaky Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product shares the same 'Peaky' style and 8-panel signature design as the reference, making it effectively the same product in silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"The Lunchbox Blackbox Edition Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While this cap is also a Boston Scally, the name does not specify the 'Peaky' 8-panel style or the signature construction, so it is somewhat relevant but may have design differences.\"\n    },\n    {\n      \"competitor_product_name\": \"The Midnight Summer Peaky Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This clearly is part of the 'Peaky' Boston Scally line, suggesting similar 8-panel style and silhouette, though possibly differing in fabric or seasonal theme, making it highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "The Original Peaky Boston Scally Cap",
+      "score": 10,
+      "rationale": "This product shares the same 'Peaky' style and 8-panel signature design as the reference, making it effectively the same product in silhouette and construction.",
+      "map_id": "map_5923b7ba796943309ab7c8c7eac121f4"
+    },
+    {
+      "competitor_product_name": "The Lunchbox Blackbox Edition Boston Scally Cap",
+      "score": 7,
+      "rationale": "While this cap is also a Boston Scally, the name does not specify the 'Peaky' 8-panel style or the signature construction, so it is somewhat relevant but may have design differences.",
+      "map_id": "map_d243f0ab0caf43129a6ba9f2a899706d"
+    },
+    {
+      "competitor_product_name": "The Midnight Summer Peaky Boston Scally Cap",
+      "score": 9,
+      "rationale": "This clearly is part of the 'Peaky' Boston Scally line, suggesting similar 8-panel style and silhouette, though possibly differing in fabric or seasonal theme, making it highly relevant.",
+      "map_id": "map_7cbdf5717935440fab263910098dd454"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250510_102219",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Duboce Oversize Hooded Denim Work Jacket Men's'\n  - Name='Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's'\n  - Name='Filson 3-Layer Field Jacket'\n  - Name='Barbour Utility Chore Jacket'\n  - Name='FILSON Chore Jacket'\n  - Name='Levi's Men's Trucker Jacket with Lots of Pockets'\n  - Name='Barbour Jacket'\n  - Name='Levi's Men's Cotton Canvas Field Jacket'\n  - Name='Levi's Men's Plaid-Lined Canvas Utility Jacket'\n  - Name='Levi's Men's Portola Chore Coat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Duboce Oversize Hooded Denim Work Jacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are workwear-style jackets with durable fabrics, but the oversized denim and hooded styling differ from the classic chore coat silhouette and fabric of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it is a utility-inspired casual jacket, the sherpa lining and shacket style differ significantly from the chore coat silhouette and construction of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson 3-Layer Field Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar durability and outdoor utility focus, with a field jacket silhouette which is close to chore coat utility, though more specialized multi-layer construction differs somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Utility Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar in silhouette, function, and utility-focused design as a chore jacket, closely matching the core features and wear purpose of the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"FILSON Chore Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product type and purpose (chore jacket), similar durable workwear focus and likely comparable silhouette and construction, making this the closest match.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Trucker Jacket with Lots of Pockets\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Trucker jackets differ in silhouette from chore coats; despite many pockets indicating utility, the style and fabric likely differ considerably.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"General Barbour jackets can vary, but many offer utility and classic workwear appeal; without specific model, relevance is moderate but less precise than a chore jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Canvas Field Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Field jackets share utility and durable cotton fabric, with a functional outdoor focus; silhouette is somewhat similar though tailored for slightly different use cases.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Plaid-Lined Canvas Utility Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility jacket in durable canvas with lining suggests functional similarity; silhouette likely aligns well with a chore coat style for workwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Portola Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicit chore coat style closely aligns with the Ojai Jacket's silhouette and purpose, indicating high relevancy despite potential fabric differences.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Duboce Oversize Hooded Denim Work Jacket Men's",
+      "score": 6,
+      "rationale": "Both are workwear-style jackets with durable fabrics, but the oversized denim and hooded styling differ from the classic chore coat silhouette and fabric of the Ojai Jacket.",
+      "map_id": "map_11171051400f4660a6ad11881a4289f5"
+    },
+    {
+      "competitor_product_name": "Levi's Green Plaid Cotton Plaid Sherpa Lined Shacket Men's",
+      "score": 4,
+      "rationale": "While it is a utility-inspired casual jacket, the sherpa lining and shacket style differ significantly from the chore coat silhouette and construction of the Ojai Jacket.",
+      "map_id": "map_306a1bdb48ed42ae87e25a2b82259e4f"
+    },
+    {
+      "competitor_product_name": "Filson 3-Layer Field Jacket",
+      "score": 7,
+      "rationale": "Similar durability and outdoor utility focus, with a field jacket silhouette which is close to chore coat utility, though more specialized multi-layer construction differs somewhat.",
+      "map_id": "map_a37a77bcd5944b10994d0a3626a05e8b"
+    },
+    {
+      "competitor_product_name": "Barbour Utility Chore Jacket",
+      "score": 9,
+      "rationale": "Very similar in silhouette, function, and utility-focused design as a chore jacket, closely matching the core features and wear purpose of the Ojai Jacket.",
+      "map_id": "map_f8f5eafeb71d4228af70fbe741ef8342"
+    },
+    {
+      "competitor_product_name": "FILSON Chore Jacket",
+      "score": 10,
+      "rationale": "Identical product type and purpose (chore jacket), similar durable workwear focus and likely comparable silhouette and construction, making this the closest match.",
+      "map_id": "map_9cd806c57518427e9b451f2e06dc5668"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Trucker Jacket with Lots of Pockets",
+      "score": 5,
+      "rationale": "Trucker jackets differ in silhouette from chore coats; despite many pockets indicating utility, the style and fabric likely differ considerably.",
+      "map_id": "map_848fcc7037174589abbfad547e1afc98"
+    },
+    {
+      "competitor_product_name": "Barbour Jacket",
+      "score": 6,
+      "rationale": "General Barbour jackets can vary, but many offer utility and classic workwear appeal; without specific model, relevance is moderate but less precise than a chore jacket.",
+      "map_id": "map_5ca2e80043a14be09c8ffdd4e29b3efe"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Canvas Field Jacket",
+      "score": 7,
+      "rationale": "Field jackets share utility and durable cotton fabric, with a functional outdoor focus; silhouette is somewhat similar though tailored for slightly different use cases.",
+      "map_id": "map_f8b5910954b24b56b265e30181f1f855"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Plaid-Lined Canvas Utility Jacket",
+      "score": 7,
+      "rationale": "Utility jacket in durable canvas with lining suggests functional similarity; silhouette likely aligns well with a chore coat style for workwear.",
+      "map_id": "map_82af3014bdd34e52848432049c1275b9"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Portola Chore Coat",
+      "score": 9,
+      "rationale": "Explicit chore coat style closely aligns with the Ojai Jacket's silhouette and purpose, indicating high relevancy despite potential fabric differences.",
+      "map_id": "map_0d8f519f15694b7c96ba82a437e76762"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "timestamp": "20250522_084554",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Joseph Abboud Men's Striped Modern Tie'\n  - Name='Reserve Collection Interlocked Medallion Tie'\n  - Name='Pronto Uomo Men's Narrow Solid Silk Tie'\n  - Name='Pronto Uomo Men's Paisley Silk Tie'\n  - Name='Egara Men's Narrow Paint Swirls Tie'\n  - Name='Pronto Uomo Men's Super Paisley Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Striped Modern Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a tie with a striped pattern, unlike the solid satin tie. While both are ties likely for formal wear, the pattern difference lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Reserve Collection Interlocked Medallion Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This tie features an interlocked medallion design, differing from the solid satin style, but is still a formal tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Solid Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This tie is narrow, solid colored, and made of silk, closely matching the solid satin tie's key features of being solid and silk-like fabric, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Paisley Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Although made of silk, this tie has a paisley pattern, unlike the solid satin tie, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Narrow Paint Swirls Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This narrow tie has a painted swirl pattern which contrasts with the solid satin tie's smooth, solid finish, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Super Paisley Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The patterned paisley design and silk material differ from the solid satin style, therefore less relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Joseph Abboud Men's Striped Modern Tie",
+      "score": 6,
+      "rationale": "This is a tie with a striped pattern, unlike the solid satin tie. While both are ties likely for formal wear, the pattern difference lowers relevancy.",
+      "map_id": "map_b500418e3c2d43af87c80444f7c0622a"
+    },
+    {
+      "competitor_product_name": "Reserve Collection Interlocked Medallion Tie",
+      "score": 5,
+      "rationale": "This tie features an interlocked medallion design, differing from the solid satin style, but is still a formal tie.",
+      "map_id": "map_b501430eaaa14134a1d38668e0d140f3"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "This tie is narrow, solid colored, and made of silk, closely matching the solid satin tie's key features of being solid and silk-like fabric, making it highly relevant.",
+      "map_id": "map_3efccf33cca64bf4b2dd12534d36c9ff"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Paisley Silk Tie",
+      "score": 5,
+      "rationale": "Although made of silk, this tie has a paisley pattern, unlike the solid satin tie, reducing relevancy.",
+      "map_id": "map_bce6bf71e56b41ccac0413c5253895e6"
+    },
+    {
+      "competitor_product_name": "Egara Men's Narrow Paint Swirls Tie",
+      "score": 4,
+      "rationale": "This narrow tie has a painted swirl pattern which contrasts with the solid satin tie's smooth, solid finish, lowering relevancy.",
+      "map_id": "map_7723e7d553614beb8acac1dfd1a3e3a8"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Super Paisley Silk Tie",
+      "score": 4,
+      "rationale": "The patterned paisley design and silk material differ from the solid satin style, therefore less relevant.",
+      "map_id": "map_f662c43771e54c25acd1ba0c3c239b0e"
+    }
+  ]
+}

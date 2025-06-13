@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250609_091200",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Gray Newsboy Drivers Cap'\n  - Name='Kangol Men Women's Newsboy Drivers Cap'\n  - Name='Kangol Men's Network 507 Jacquard Ivy Cap'\n  - Name='Kangol Men's 504 Ventair Cap'\n  - Name='Kangol Newsboy Drivers Cap'\n  - Name='Kenmore Boston Scally Cap'\n  - Name='The Rocket Pop Boston Scally Cap'\n  - Name='Julep Boston Scally Cap'\n  - Name='Iron & Gravel Wool Scally Cap'\n  - Name='The Repel 8 Panel Boston Scally Cap'\n  - Name='Smoke & Rye Wool Scally Cap'\n  - Name='The Sailor Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Gray Newsboy Drivers Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a drivers-style cap similar to the reference's 'Driver' cap featuring a newsboy design, which likely shares a similar silhouette and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men Women's Newsboy Drivers Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another newsboy drivers cap likely similar in silhouette and function to the reference 'Driver' cap, suitable for both men and women.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Network 507 Jacquard Ivy Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"An Ivy cap differs in silhouette and panel structure compared to an 8-panel drivers cap, resulting in moderate relevancy based on being a men's hat but a different style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's 504 Ventair Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The 504 is a flat cap style quite distinct from an 8-panel drivers cap, though still a casual men's hat; less relevant due to style differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Newsboy Drivers Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A newsboy drivers cap that likely shares core features and design elements with the reference driver cap, similar functionality and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenmore Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A Boston Scally Cap, indicating similar brand and style family though 'Kenmore' likely has some differences; strong relevancy but not specified as an 8-panel driver.\"\n    },\n    {\n      \"competitor_product_name\": \"The Rocket Pop Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a Boston Scally Cap suggesting a similar style and brand consistency, but no specific mention of driver style or 8-panel design limits score.\"\n    },\n    {\n      \"competitor_product_name\": \"Julep Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Boston Scally Cap, indicating likely similarity in style and construction but no specific 'driver' or performance fabric noted.\"\n    },\n    {\n      \"competitor_product_name\": \"Iron & Gravel Wool Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A wool Scally cap, so similar overall cap style and silhouette but different material (wool vs breathable micro-poly sport fabric) reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"The Repel 8 Panel Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This matches the reference perfectly: 8-panel design, Boston Scally brand, suggesting use of advanced performance fabric and breathability identical to the 'Driver' cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Smoke & Rye Wool Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another wool Scally cap, with similar design style but differing material from the micro-poly fabric of the reference 'Driver' cap.\"\n    },\n    {\n      \"competitor_product_name\": \"The Sailor Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A Boston Scally Cap likely sharing general styling and brand consistency, but no direct mention of 8-panel or breathability features lowers score.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Gray Newsboy Drivers Cap",
+      "score": 8,
+      "rationale": "This is a drivers-style cap similar to the reference's 'Driver' cap featuring a newsboy design, which likely shares a similar silhouette and intended use.",
+      "map_id": "map_2eb52ce1f2694917a268a6d7f218247c"
+    },
+    {
+      "competitor_product_name": "Kangol Men Women's Newsboy Drivers Cap",
+      "score": 8,
+      "rationale": "Another newsboy drivers cap likely similar in silhouette and function to the reference 'Driver' cap, suitable for both men and women.",
+      "map_id": "map_c2ba88a5bd0a4f2abc89f7e1aad2e4f4"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Network 507 Jacquard Ivy Cap",
+      "score": 4,
+      "rationale": "An Ivy cap differs in silhouette and panel structure compared to an 8-panel drivers cap, resulting in moderate relevancy based on being a men's hat but a different style.",
+      "map_id": "map_e5c3ae330742414fad2bc4b6233e0f67"
+    },
+    {
+      "competitor_product_name": "Kangol Men's 504 Ventair Cap",
+      "score": 3,
+      "rationale": "The 504 is a flat cap style quite distinct from an 8-panel drivers cap, though still a casual men's hat; less relevant due to style differences.",
+      "map_id": "map_51331c32544e42a78015cd8399703ed8"
+    },
+    {
+      "competitor_product_name": "Kangol Newsboy Drivers Cap",
+      "score": 8,
+      "rationale": "A newsboy drivers cap that likely shares core features and design elements with the reference driver cap, similar functionality and silhouette.",
+      "map_id": "map_3fd8058108254a19a2a204f5bcffcb93"
+    },
+    {
+      "competitor_product_name": "Kenmore Boston Scally Cap",
+      "score": 7,
+      "rationale": "A Boston Scally Cap, indicating similar brand and style family though 'Kenmore' likely has some differences; strong relevancy but not specified as an 8-panel driver.",
+      "map_id": "map_db59c57d2a8d4741b13d9cdcf0309d53"
+    },
+    {
+      "competitor_product_name": "The Rocket Pop Boston Scally Cap",
+      "score": 7,
+      "rationale": "Also a Boston Scally Cap suggesting a similar style and brand consistency, but no specific mention of driver style or 8-panel design limits score.",
+      "map_id": "map_444a6b1188344ae4b3aaa1127dbd0a4f"
+    },
+    {
+      "competitor_product_name": "Julep Boston Scally Cap",
+      "score": 7,
+      "rationale": "Another Boston Scally Cap, indicating likely similarity in style and construction but no specific 'driver' or performance fabric noted.",
+      "map_id": "map_b28832673b2241dfbe09b17c07d17641"
+    },
+    {
+      "competitor_product_name": "Iron & Gravel Wool Scally Cap",
+      "score": 6,
+      "rationale": "A wool Scally cap, so similar overall cap style and silhouette but different material (wool vs breathable micro-poly sport fabric) reduces relevancy.",
+      "map_id": "map_b24782e00748416ab748e1cde5aca455"
+    },
+    {
+      "competitor_product_name": "The Repel 8 Panel Boston Scally Cap",
+      "score": 10,
+      "rationale": "This matches the reference perfectly: 8-panel design, Boston Scally brand, suggesting use of advanced performance fabric and breathability identical to the 'Driver' cap.",
+      "map_id": "map_6ea73eeb0bae4b7296db5c991329e47b"
+    },
+    {
+      "competitor_product_name": "Smoke & Rye Wool Scally Cap",
+      "score": 6,
+      "rationale": "Another wool Scally cap, with similar design style but differing material from the micro-poly fabric of the reference 'Driver' cap.",
+      "map_id": "map_d36d760b246644cdad6d5f72b51e20a8"
+    },
+    {
+      "competitor_product_name": "The Sailor Boston Scally Cap",
+      "score": 7,
+      "rationale": "A Boston Scally Cap likely sharing general styling and brand consistency, but no direct mention of 8-panel or breathability features lowers score.",
+      "map_id": "map_04f7c62772eb4076b2a122d4334cc925"
+    }
+  ]
+}

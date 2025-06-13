@@ -1,0 +1,71 @@
+{
+  "timestamp": "20250515_073457",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Boondock Collectors Edition",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Boondock Collectors Edition\"\nReference Product Description:\nVeritas meaning ‘truth’ and Aequitas meaning ‘justice’ is what we as a community feel is an important aspect of our culture. It’s a deep rooted city that is built upon loyalty. The black shamrock is a subtle yet strong touch to this six panel scally cap.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Mens Script Cap'\n  - Name='Goorin Bros. Wool Newsboy Hat'\n  - Name='Goorin Bros. Plaid Flat Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Script Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"The Carhartt WIP Mens Script Cap is likely a casual baseball-style cap differing significantly in silhouette and construction from the six-panel scally cap reference, making it only minimally relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Wool Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Wool Newsboy Hat shares a similar vintage-inspired style and rounded silhouette with multiple panels akin to a scally cap, making it moderately relevant though typically newsboy hats have a fuller shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Plaid Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"The Plaid Flat Cap closely resembles a six-panel scally cap in silhouette and construction, sharing the core product type and likely similar materials, leading to a high relevancy score.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Mens Script Cap",
+      "score": 2,
+      "rationale": "The Carhartt WIP Mens Script Cap is likely a casual baseball-style cap differing significantly in silhouette and construction from the six-panel scally cap reference, making it only minimally relevant.",
+      "map_id": "map_2170467f90e3407b80014885ef97675f"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Wool Newsboy Hat",
+      "score": 7,
+      "rationale": "The Wool Newsboy Hat shares a similar vintage-inspired style and rounded silhouette with multiple panels akin to a scally cap, making it moderately relevant though typically newsboy hats have a fuller shape.",
+      "map_id": "map_3559c706a26c439dacf163905430c7de"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Plaid Flat Cap",
+      "score": 9,
+      "rationale": "The Plaid Flat Cap closely resembles a six-panel scally cap in silhouette and construction, sharing the core product type and likely similar materials, leading to a high relevancy score.",
+      "map_id": "map_6a3e136d500b43f59c68f2ec653ad835"
+    }
+  ]
+}

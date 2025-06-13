@@ -1,0 +1,233 @@
+{
+  "timestamp": "20250517_155552",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nNo description available.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men's Marine Layer Vintage Heavy Slub Button Down'\n  - Name='Marine Layer Men's Classic Stretch Selvage Shirt'\n  - Name='Alex Mill Easy Shirt'\n  - Name='Santa Fe Wash Western Denim Shirt Alex Mill'\n  - Name='Men's Mizzen + Main Halyard Short Sleeve Shirt'\n  - Name='Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt'\n  - Name='Men Alex Mill Mill Shirt in Cotton Poplin'\n  - Name='SMU Ellis Sky Solid Oxford'\n  - Name='Alex Mill Men's Recycled Denim Work Jacket'\n  - Name='Everlane Slim Oxford Shirt'\n  - Name='Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt'\n  - Name='Mizzen+Main North Carolina Ellis Sky Solid Oxford'\n  - Name='Mizzen + Main Leeward Dress Shirt Steel Blue'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Bird Print Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Button-Down Collar Non-Iron Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Luxury Stripe Dress Shirt'\n  - Name='Alex Mill Carter Popover In Cotton Linen'\n  - Name='Alex Mill Linen Camp Shirt'\n  - Name='Everlane Slim Oxford Shirt'\n  - Name='Everlane Slim Oxford Shirt'\n  - Name='Bonobos Men's Everyday Slim Fit Button-Down Shirt'\n  - Name='Bonobos Men's Everyday Casual Slim Shirt'\n  - Name='Todd Snyder Men's Hemp-Cotton Overshirt'\n  - Name='Todd Snyder Men's Cotton Jacquard Point Collar Shirt'\n  - Name='Men's Charles Tyrwhitt New York Jets Washed Oxford Casual Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Vintage Heavy Slub Button Down\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's button-down shirt, similar in style and function to a typical 'jack shirt', making it quite relevant despite no direct description.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Classic Stretch Selvage Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a men's shirt with classic styling and stretch selvage fabric, relevant though possibly more specialized fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Easy Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's casual shirt similar in assumed use and silhouette to the Jack Shirt, relevant based on typical shirt characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Santa Fe Wash Western Denim Shirt Alex Mill\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Denim western shirt shares shirt categorization but denim fabric and western style may differentiate it somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen + Main Halyard Short Sleeve Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Short sleeve, possibly more performance-oriented shirt, moderately relevant but style and function may differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Button-down cotton oxford shirt aligns well with likely construction and style of Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Alex Mill Mill Shirt in Cotton Poplin\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Cotton poplin shirt from Alex Mill suggests similar style and usage, good relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"SMU Ellis Sky Solid Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt likely shares function and silhouette, though may be more formal than the Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Recycled Denim Work Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a denim work jacket, different from a shirt in silhouette and construction, lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Slim Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit oxford shirt fits well within typical shirt use and style profiles similar to Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic oxford cotton shirt relevant due to shared material and construction features.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main North Carolina Ellis Sky Solid Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid oxford shirt shares characteristics but might be more formal or dress-oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward Dress Shirt Steel Blue\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt likely more formal with different style focus but still a shirt product.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Cotton Bird Print Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Printed dress shirt diverges in style and purpose, less relevant to a casual button down like Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Button-Down Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton button-down collar shirt relevant but non-iron and dress styling may differ from Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Luxury Stripe Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with stripe pattern likely less casual than Jack Shirt, moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Carter Popover In Cotton Linen\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Popover style differs from button down shirt silhouette but cotton linen material somewhat similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Camp Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Camp shirt shares casual shirt categorization and silhouette, linen fabric relevant for style variations.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Slim Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Repeated product, same as prior entry, highly relevant oxford style shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Slim Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Repeated product entry consistent with previous relevancy score.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Slim Fit Button-Down Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit button-down shirt very relevant given probable similar fit, construction, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Slim Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Casual slim shirt is closely aligned in purpose and style to a shirt like Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Hemp-Cotton Overshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Overshirt is heavier and more like a light jacket than a shirt, somewhat less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cotton Jacquard Point Collar Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton shirt with point collar is relevant, though jacquard fabric might be more distinctive.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt New York Jets Washed Oxford Casual Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Casual oxford shirt aligns well with the expected style and construction of the Jack Shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men's Marine Layer Vintage Heavy Slub Button Down",
+      "score": 8,
+      "rationale": "This is a men's button-down shirt, similar in style and function to a typical 'jack shirt', making it quite relevant despite no direct description.",
+      "map_id": "map_a15e79994fb84d93a6a8e2faa83ea854"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Classic Stretch Selvage Shirt",
+      "score": 7,
+      "rationale": "Also a men's shirt with classic styling and stretch selvage fabric, relevant though possibly more specialized fabric.",
+      "map_id": "map_6e85c662c35c4c4582074e861349434b"
+    },
+    {
+      "competitor_product_name": "Alex Mill Easy Shirt",
+      "score": 8,
+      "rationale": "A men's casual shirt similar in assumed use and silhouette to the Jack Shirt, relevant based on typical shirt characteristics.",
+      "map_id": "map_bc30bcce953c4e70aa8e41dae70857b0"
+    },
+    {
+      "competitor_product_name": "Santa Fe Wash Western Denim Shirt Alex Mill",
+      "score": 7,
+      "rationale": "Denim western shirt shares shirt categorization but denim fabric and western style may differentiate it somewhat.",
+      "map_id": "map_5bbc2af57ddc45d8ae444ef10f944dc5"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen + Main Halyard Short Sleeve Shirt",
+      "score": 6,
+      "rationale": "Short sleeve, possibly more performance-oriented shirt, moderately relevant but style and function may differ.",
+      "map_id": "map_69fcc608724040b5a2f70a6a6cff70c4"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt",
+      "score": 8,
+      "rationale": "Button-down cotton oxford shirt aligns well with likely construction and style of Jack Shirt.",
+      "map_id": "map_83c75f105d784eaea469d3f16cb0700a"
+    },
+    {
+      "competitor_product_name": "Men Alex Mill Mill Shirt in Cotton Poplin",
+      "score": 8,
+      "rationale": "Cotton poplin shirt from Alex Mill suggests similar style and usage, good relevance.",
+      "map_id": "map_388e6da40c6e4d1b832f2e639a0aa4d8"
+    },
+    {
+      "competitor_product_name": "SMU Ellis Sky Solid Oxford",
+      "score": 7,
+      "rationale": "Oxford shirt likely shares function and silhouette, though may be more formal than the Jack Shirt.",
+      "map_id": "map_8b1a470097354eab8894ba9809b07ade"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Recycled Denim Work Jacket",
+      "score": 4,
+      "rationale": "This is a denim work jacket, different from a shirt in silhouette and construction, lower relevancy.",
+      "map_id": "map_e5a96dd9cb424c84b24d048b0c95f329"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Slim fit oxford shirt fits well within typical shirt use and style profiles similar to Jack Shirt.",
+      "map_id": "map_fc91648af9074a468ff4645779a8d4dd"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Slim fit oxford shirt fits well within typical shirt use and style profiles similar to Jack Shirt.",
+      "map_id": "map_0c69d5e9f2ae47edb9a9f33f241c531a"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Slim fit oxford shirt fits well within typical shirt use and style profiles similar to Jack Shirt.",
+      "map_id": "map_6607564a9d1f4ccc8f8c80ff1bdeef41"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt",
+      "score": 8,
+      "rationale": "Classic oxford cotton shirt relevant due to shared material and construction features.",
+      "map_id": "map_0d1510b1a16143da9b281487c903aaa0"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main North Carolina Ellis Sky Solid Oxford",
+      "score": 7,
+      "rationale": "Solid oxford shirt shares characteristics but might be more formal or dress-oriented.",
+      "map_id": "map_647ef8a44cd1447b98643b6e47eb2e06"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward Dress Shirt Steel Blue",
+      "score": 6,
+      "rationale": "Dress shirt likely more formal with different style focus but still a shirt product.",
+      "map_id": "map_b10c073011b945d298442dbb154cfd40"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Button-Down Collar Non-Iron Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton button-down collar shirt relevant but non-iron and dress styling may differ from Jack Shirt.",
+      "map_id": "map_43bb644dc2b84cdaadff510e29b5a341"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Luxury Stripe Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with stripe pattern likely less casual than Jack Shirt, moderate relevance.",
+      "map_id": "map_e63f228b259449a58dbc69beb316aa41"
+    },
+    {
+      "competitor_product_name": "Alex Mill Carter Popover In Cotton Linen",
+      "score": 6,
+      "rationale": "Popover style differs from button down shirt silhouette but cotton linen material somewhat similar.",
+      "map_id": "map_6114e8bddd984c219b8cf42199a15291"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Camp Shirt",
+      "score": 7,
+      "rationale": "Camp shirt shares casual shirt categorization and silhouette, linen fabric relevant for style variations.",
+      "map_id": "map_a32a8b2dd0444dc5b5a025bd7796b9d0"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product, same as prior entry, highly relevant oxford style shirt.",
+      "map_id": "map_fc91648af9074a468ff4645779a8d4dd"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product, same as prior entry, highly relevant oxford style shirt.",
+      "map_id": "map_0c69d5e9f2ae47edb9a9f33f241c531a"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product, same as prior entry, highly relevant oxford style shirt.",
+      "map_id": "map_6607564a9d1f4ccc8f8c80ff1bdeef41"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product entry consistent with previous relevancy score.",
+      "map_id": "map_fc91648af9074a468ff4645779a8d4dd"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product entry consistent with previous relevancy score.",
+      "map_id": "map_0c69d5e9f2ae47edb9a9f33f241c531a"
+    },
+    {
+      "competitor_product_name": "Everlane Slim Oxford Shirt",
+      "score": 8,
+      "rationale": "Repeated product entry consistent with previous relevancy score.",
+      "map_id": "map_6607564a9d1f4ccc8f8c80ff1bdeef41"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Slim Fit Button-Down Shirt",
+      "score": 8,
+      "rationale": "Slim fit button-down shirt very relevant given probable similar fit, construction, and use.",
+      "map_id": "map_1c158af919fe408aaadd827d43e06da6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Slim Shirt",
+      "score": 8,
+      "rationale": "Casual slim shirt is closely aligned in purpose and style to a shirt like Jack Shirt.",
+      "map_id": "map_b33dd0898c474ba185d84709f4410b2e"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Hemp-Cotton Overshirt",
+      "score": 6,
+      "rationale": "Overshirt is heavier and more like a light jacket than a shirt, somewhat less relevant.",
+      "map_id": "map_722c2e2d5cfc4f29b46016ff73bacb94"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cotton Jacquard Point Collar Shirt",
+      "score": 7,
+      "rationale": "Cotton shirt with point collar is relevant, though jacquard fabric might be more distinctive.",
+      "map_id": "map_613c92c2748b46f4ace6312e1722dae5"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt New York Jets Washed Oxford Casual Shirt",
+      "score": 7,
+      "rationale": "Casual oxford shirt aligns well with the expected style and construction of the Jack Shirt.",
+      "map_id": "map_f33f21a2cda54468bed9294bee70bedb"
+    }
+  ]
+}

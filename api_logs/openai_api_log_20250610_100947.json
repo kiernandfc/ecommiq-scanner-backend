@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250610_100947",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='H&M Men's Loose Fit Hoodie'\n  - Name='Carhartt Men's Loose Fit Midweight Logo Sleeve Graphic Sweatshirt'\n  - Name='Supreme Men's Paneled Hooded Sweatshirt'\n  - Name='Supreme Hoodie Top'\n  - Name='Everlane Men's Waffle-knit Hoodie Sweatshirt'\n  - Name='Gap Men's Heavyweight Stitch Logo Hoodie'\n  - Name='Gap Men's Heavyweight 1969 Athletic Logo Hoodie'\n  - Name='Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt'\n  - Name='Carhartt Men's Rain Defender Relaxed Fit Heavyweight Hooded Shirt Jac'\n  - Name='Nike Men's Texas Rangers Authentic Collection Sleeveless Dri-fit Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='Nike Men's Winston-Salem Club Fleece Hoodie'\n  - Name='adidas Men's Z.N.E. Hoodie'\n  - Name='Mens adidas ALL SZN Fleece Washed Hoodie'\n  - Name='adidas Men's Shmangry Zip-Up Graphic Hoodie'\n  - Name='adidas Men's Premium Sweatshirt'\n  - Name='Everlane Men's The Reverse Striped Zip Hoodie'\n  - Name='Gap Men's Vintage Soft Hoodie'\n  - Name='Nike Men's Club Fleece Pullover Hoodie'\n  - Name='Gap Men's Heavyweight Full-Zip Hoodie'\n  - Name='Nike Men's Sportswear Club Fleece Full-Zip Hoodie'\n  - Name='Nike Men's Pittsburgh Pirates Authentic Collection Therma Pullover Hoodie'\n  - Name='Minnesota Vikings Nike Therma Pullover Hoodie'\n  - Name='NIKE Men's Los Angeles Dodgers Authentic Collection City Connect Therma Pullover Hoodie'\n  - Name='Nike New York Yankees Men's Authentic Collection Tri-Blend Performance Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A loose fit hoodie aligns well with the Boston Scally Hoodie concept of comfort, softness, and mobility, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Logo Sleeve Graphic Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"While a loose fit sweatshirt with graphics is similar, it is not explicitly a hoodie, slightly lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Paneled Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt is directly relevant, and paneled design does not detract from core hoodie attributes.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Hoodie Top\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a hoodie, aligns well with soft comfortable sweatshirt concept.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Waffle-knit Hoodie Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A waffle-knit hoodie may have a different texture but still a hoodie sweatshirt, relevant though material differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Heavyweight Stitch Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Heavyweight hoodie matches the reference's comfort and warmth, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Heavyweight 1969 Athletic Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another heavyweight hoodie closely matching the Boston Scally Hoodie features and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Though hooded and relaxed fit, it's a long-sleeve T-shirt, which differs from a sweatshirt hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Relaxed Fit Heavyweight Hooded Shirt Jac\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A hooded shirt jacket with rain defense is quite different functionally and structurally.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Texas Rangers Authentic Collection Sleeveless Dri-fit Hoodie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Sleeveless hoodie is a very different style and function, less relevant for core hoodie concept.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Generic men's hoodie fits well with the reference product's function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Winston-Salem Club Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Fleece pullover hoodie aligns closely with the Boston Scally Hoodie softness and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Z.N.E. Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A performance hoodie with a specialized style, still relevant as a sweatshirt hoodie though with performance focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Mens adidas ALL SZN Fleece Washed Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Fleece washed hoodie matches comfort and softness criteria making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Shmangry Zip-Up Graphic Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip-up and graphic style diverges slightly from pullover soft sweatshirt, but still a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Premium Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Premium sweatshirt is similar but without specifying a hoodie style, slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Reverse Striped Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip-up hoodie with stripes differs somewhat in style but generally a hoodie sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Soft hoodie directly aligns with the Boston Scally Hoodie emphasis on softness and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover fleece hoodie closely matches the reference in cut, feel, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Heavyweight Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Heavyweight and hoodie relevant, but full-zip differs slightly from pullover style.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Fleece Full-Zip Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar reasoning as above, fleece full-zip hoodie is slightly different from pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Pittsburgh Pirates Authentic Collection Therma Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie intended for warmth, aligns well with reference product's purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Minnesota Vikings Nike Therma Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover therma hoodie similar in cut and function to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"NIKE Men's Los Angeles Dodgers Authentic Collection City Connect Therma Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover therma hoodie, soft and comfortable, directly relevant product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike New York Yankees Men's Authentic Collection Tri-Blend Performance Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover performance hoodie using tri-blend material aligns with comfort and soft sweatshirt concept.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Hoodie",
+      "score": 9,
+      "rationale": "A loose fit hoodie aligns well with the Boston Scally Hoodie concept of comfort, softness, and mobility, making it highly relevant.",
+      "map_id": "map_d6a16ad401134abca73af6baa1ef016c"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Logo Sleeve Graphic Sweatshirt",
+      "score": 7,
+      "rationale": "While a loose fit sweatshirt with graphics is similar, it is not explicitly a hoodie, slightly lowering relevancy.",
+      "map_id": "map_207873943be442afb10945a78eb9a5c2"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Paneled Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A hooded sweatshirt is directly relevant, and paneled design does not detract from core hoodie attributes.",
+      "map_id": "map_280768481ce346918f4063a31e9bb0d0"
+    },
+    {
+      "competitor_product_name": "Supreme Hoodie Top",
+      "score": 9,
+      "rationale": "Explicitly a hoodie, aligns well with soft comfortable sweatshirt concept.",
+      "map_id": "map_ef5044bfb08b45cb87393c12549c6ba8"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Waffle-knit Hoodie Sweatshirt",
+      "score": 8,
+      "rationale": "A waffle-knit hoodie may have a different texture but still a hoodie sweatshirt, relevant though material differs.",
+      "map_id": "map_4cfc886d40064ac19a2af4123dc3a414"
+    },
+    {
+      "competitor_product_name": "Gap Men's Heavyweight Stitch Logo Hoodie",
+      "score": 9,
+      "rationale": "Heavyweight hoodie matches the reference's comfort and warmth, very relevant.",
+      "map_id": "map_5f9c3a4b33dd4c6e9f26815719f8b026"
+    },
+    {
+      "competitor_product_name": "Gap Men's Heavyweight 1969 Athletic Logo Hoodie",
+      "score": 9,
+      "rationale": "Another heavyweight hoodie closely matching the Boston Scally Hoodie features and purpose.",
+      "map_id": "map_54f44a3aa21c4007a9822a6262788bec"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Relaxed Fit Midweight Long-Sleeve Logo Graphic Hooded T-Shirt",
+      "score": 6,
+      "rationale": "Though hooded and relaxed fit, it's a long-sleeve T-shirt, which differs from a sweatshirt hoodie.",
+      "map_id": "map_6b5ed35dc1574eefa434bf4ea567757e"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Relaxed Fit Heavyweight Hooded Shirt Jac",
+      "score": 5,
+      "rationale": "A hooded shirt jacket with rain defense is quite different functionally and structurally.",
+      "map_id": "map_8445d57ea9484b659329f12311f463a4"
+    },
+    {
+      "competitor_product_name": "Nike Men's Texas Rangers Authentic Collection Sleeveless Dri-fit Hoodie",
+      "score": 3,
+      "rationale": "Sleeveless hoodie is a very different style and function, less relevant for core hoodie concept.",
+      "map_id": "map_8be3e4907bff47529313485a53c4f25a"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "Generic men's hoodie fits well with the reference product's function and style.",
+      "map_id": "map_350c6b073da34f44977843bf1087264b"
+    },
+    {
+      "competitor_product_name": "Nike Men's Winston-Salem Club Fleece Hoodie",
+      "score": 9,
+      "rationale": "Fleece pullover hoodie aligns closely with the Boston Scally Hoodie softness and comfort.",
+      "map_id": "map_9bafd519062d41bfaf457b987619cc3d"
+    },
+    {
+      "competitor_product_name": "adidas Men's Z.N.E. Hoodie",
+      "score": 8,
+      "rationale": "A performance hoodie with a specialized style, still relevant as a sweatshirt hoodie though with performance focus.",
+      "map_id": "map_f04beb5b5f754523b411326a7e124d18"
+    },
+    {
+      "competitor_product_name": "Mens adidas ALL SZN Fleece Washed Hoodie",
+      "score": 9,
+      "rationale": "Fleece washed hoodie matches comfort and softness criteria making it highly relevant.",
+      "map_id": "map_f902419c2e0346e7ba62c2b67aab34fd"
+    },
+    {
+      "competitor_product_name": "adidas Men's Shmangry Zip-Up Graphic Hoodie",
+      "score": 7,
+      "rationale": "Zip-up and graphic style diverges slightly from pullover soft sweatshirt, but still a hoodie.",
+      "map_id": "map_a6f903c98e5b4f4a9c518e92999a347c"
+    },
+    {
+      "competitor_product_name": "adidas Men's Premium Sweatshirt",
+      "score": 7,
+      "rationale": "Premium sweatshirt is similar but without specifying a hoodie style, slightly less relevant.",
+      "map_id": "map_613697a8e17b4fde87f142312839d741"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Reverse Striped Zip Hoodie",
+      "score": 7,
+      "rationale": "Zip-up hoodie with stripes differs somewhat in style but generally a hoodie sweatshirt.",
+      "map_id": "map_a708fc0a6b7f4d86b1e1212743aacfcc"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Hoodie",
+      "score": 9,
+      "rationale": "Soft hoodie directly aligns with the Boston Scally Hoodie emphasis on softness and comfort.",
+      "map_id": "map_68ee958bf68242748df501db820a3e56"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "A pullover fleece hoodie closely matches the reference in cut, feel, and use.",
+      "map_id": "map_a5a786cdfe3942ac8efb42fc2bc9b217"
+    },
+    {
+      "competitor_product_name": "Gap Men's Heavyweight Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "Heavyweight and hoodie relevant, but full-zip differs slightly from pullover style.",
+      "map_id": "map_f0e62f957aad4baf84de0649f09d7498"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Fleece Full-Zip Hoodie",
+      "score": 8,
+      "rationale": "Similar reasoning as above, fleece full-zip hoodie is slightly different from pullover hoodie.",
+      "map_id": "map_51d529908db1411384a54f9d899da307"
+    },
+    {
+      "competitor_product_name": "Nike Men's Pittsburgh Pirates Authentic Collection Therma Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie intended for warmth, aligns well with reference product's purpose.",
+      "map_id": "map_bcbe256d97c5467f9971ac2c05fb6506"
+    },
+    {
+      "competitor_product_name": "Minnesota Vikings Nike Therma Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover therma hoodie similar in cut and function to the Boston Scally Hoodie.",
+      "map_id": "map_b918368b882f432a83a56fc70df3acd3"
+    },
+    {
+      "competitor_product_name": "NIKE Men's Los Angeles Dodgers Authentic Collection City Connect Therma Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover therma hoodie, soft and comfortable, directly relevant product type.",
+      "map_id": "map_036d83dccace404ba33e4d300e00515f"
+    },
+    {
+      "competitor_product_name": "Nike New York Yankees Men's Authentic Collection Tri-Blend Performance Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover performance hoodie using tri-blend material aligns with comfort and soft sweatshirt concept.",
+      "map_id": "map_139119b8cbe140dbbf205bdead1bb166"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250605_090909",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Charles Tyrwhitt Men's Semi-Plain Silk Tie'\n  - Name='Charles Tyrwhitt Men's Silk Tie'\n  - Name='Eton Blue Dots Silk Tie'\n  - Name='Charles Tyrwhitt Men's Tie'\n  - Name='OTAA Men's Weave Necktie'\n  - Name='Charles Tyrwhitt Silk Tie'\n  - Name='OTAA Men's Tahiti Weave Skinny Tie'\n  - Name='OTAA Men's Bond Velvet Skinny Tie'\n  - Name='Jos. A. Bank Men's Traveler Collection Floral Medallion Tie'\n  - Name='Joseph Abboud Men's Narrow Diagonal Stripe Silk Tie'\n  - Name='Joseph Abboud Men's Narrow Paisley Tie'\n  - Name='Brooks Brothers Men's Silk Paisley Tie'\n  - Name='Pronto Uomo Narrow Floral Silk Tie'\n  - Name='Joseph Abboud Men's Medallion and Vines Tie'\n  - Name='Kenneth Cole Men's Slim Reaction Solid Silk Tie'\n  - Name='Paul Smith Men's Satin Bow Tie'\n  - Name='Brooks Brothers Men's Silk Stripe Tie'\n  - Name='Joseph Abboud Men's Narrow Tie'\n  - Name='Joseph Abboud Men's Narrow Tonal Medallion Tie'\n  - Name='Pronto Uomo Men's Narrow Solid Silk Tie'\n  - Name='Joseph Abboud Men's Narrow Dot Stripe Tie'\n  - Name='Pronto Uomo Men's Narrow Plaid Tie'\n  - Name='Brooks Brothers Men's Silk Satin Tie'\n  - Name='Brooks Brothers Men's Silk Alternating Pine Paisley Tie'\n  - Name='Pronto Uomo Men's Narrow Solid Silk Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Plain Silk Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Silk tie similar in material and function; semi-plain implies close to solid but may have subtle texture, slightly less direct than purely solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A silk tie closely matches the satin material and refined style, likely smooth and solid, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Blue Dots Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk material but featuring dots pattern reduces direct match to solid satin tie; still formal neckwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic tie name, likely comparable product but uncertain if solid satin; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Weave Necktie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Necktie made with weave technique suggests textured fabric different from smooth satin; less relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Silk tie from same brand type very similar to satin in style and finish; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Tahiti Weave Skinny Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Weave texture and skinny style differs from classic solid satin tie silhouette and finish; lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"OTAA Men's Bond Velvet Skinny Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Velvet fabric and skinny cut differ significantly from smooth satin solid classic tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Floral Medallion Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Floral medallion pattern diverges from solid satin style; less relevant due to ornate pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Diagonal Stripe Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk material is similar but diagonal stripes reduce direct match to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Paisley pattern is ornate and pattern-heavy, unlike solid satin ties which are plain.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Silk fabric is similar but paisley pattern reduces relevancy to solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Narrow Floral Silk Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Floral patterned silk tie different in appearance and style from solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Medallion and Vines Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Highly patterned tie, distinct from plain solid satin tie in design and appeal.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Reaction Solid Silk Tie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Solid silk tie is very relevant; slim cut slightly differs from traditional silhouette but closely matches fabric and plain style.\"\n    },\n    {\n      \"competitor_product_name\": \"Paul Smith Men's Satin Bow Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Satin fabric is a match but bow tie silhouette differs from long necktie, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Stripe Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Striped silk tie shares fabric class but presence of stripe pattern reduces similarity with solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Narrow tie shape possibly less classic silhouette; no fabric details but likely similar function.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Tonal Medallion Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Pattern and narrow cut make this less similar to classic solid satin tie although tonal color may soften pattern impact.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Solid Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Narrow solid silk tie closely resembles solid satin tie in fabric and design, with minor difference in width.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Dot Stripe Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Patterned with dot stripes, reducing direct relevance to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Plaid Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Plaid pattern distinctly different from solid satin; less relevant despite similar necktie function.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Satin Tie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Silk satin tie matches exactly in fabric, finish, and style; highest relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Alternating Pine Paisley Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Ornate paisley pattern and alternating design differ significantly from solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Solid Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Solid silk tie with narrow cut very similar in fabric and finish; closely relevant despite style variation.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Plain Silk Tie",
+      "score": 8,
+      "rationale": "Silk tie similar in material and function; semi-plain implies close to solid but may have subtle texture, slightly less direct than purely solid satin.",
+      "map_id": "map_5f6e16d938534715984e4e62bfc718e3"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Silk Tie",
+      "score": 9,
+      "rationale": "A silk tie closely matches the satin material and refined style, likely smooth and solid, very relevant.",
+      "map_id": "map_30c90bcadd81437bb1d414d430b22cb5"
+    },
+    {
+      "competitor_product_name": "Eton Blue Dots Silk Tie",
+      "score": 6,
+      "rationale": "Silk material but featuring dots pattern reduces direct match to solid satin tie; still formal neckwear.",
+      "map_id": "map_7a4cc67bcede49228329015879b30480"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Tie",
+      "score": 7,
+      "rationale": "Generic tie name, likely comparable product but uncertain if solid satin; moderately relevant.",
+      "map_id": "map_a6801dec83194586ac9963130dcad49a"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Weave Necktie",
+      "score": 5,
+      "rationale": "Necktie made with weave technique suggests textured fabric different from smooth satin; less relevancy.",
+      "map_id": "map_ddd0215dc6964410a11d655de82f4c7a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Silk Tie",
+      "score": 9,
+      "rationale": "Silk tie from same brand type very similar to satin in style and finish; highly relevant.",
+      "map_id": "map_748d94938fe74c04950437eb6edf3943"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Tahiti Weave Skinny Tie",
+      "score": 4,
+      "rationale": "Weave texture and skinny style differs from classic solid satin tie silhouette and finish; lower relevancy.",
+      "map_id": "map_8d8d62bf85844a868fe960b48238a6ba"
+    },
+    {
+      "competitor_product_name": "OTAA Men's Bond Velvet Skinny Tie",
+      "score": 3,
+      "rationale": "Velvet fabric and skinny cut differ significantly from smooth satin solid classic tie.",
+      "map_id": "map_81bc541e038a4b21883a439f7e2a5c8c"
+    },
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Floral Medallion Tie",
+      "score": 3,
+      "rationale": "Floral medallion pattern diverges from solid satin style; less relevant due to ornate pattern.",
+      "map_id": "map_c5234c5dc7c74ef4aeb6b9db9d295443"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Diagonal Stripe Silk Tie",
+      "score": 5,
+      "rationale": "Silk material is similar but diagonal stripes reduce direct match to solid satin tie.",
+      "map_id": "map_f6fa5d163df64fcd8b5c65f65cc9a4b6"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Paisley Tie",
+      "score": 3,
+      "rationale": "Paisley pattern is ornate and pattern-heavy, unlike solid satin ties which are plain.",
+      "map_id": "map_bf3a5d830e1c409d94dbe40f99980bda"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Paisley Tie",
+      "score": 3,
+      "rationale": "Silk fabric is similar but paisley pattern reduces relevancy to solid satin.",
+      "map_id": "map_3a15618472c94eeb9e16feddbd1e3e4e"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Narrow Floral Silk Tie",
+      "score": 3,
+      "rationale": "Floral patterned silk tie different in appearance and style from solid satin tie.",
+      "map_id": "map_3ce0f03748774aafac0149f13ca628ea"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Medallion and Vines Tie",
+      "score": 3,
+      "rationale": "Highly patterned tie, distinct from plain solid satin tie in design and appeal.",
+      "map_id": "map_18b48fcba06f4b1d9c49b30fbc1ca5a7"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Reaction Solid Silk Tie",
+      "score": 8,
+      "rationale": "Solid silk tie is very relevant; slim cut slightly differs from traditional silhouette but closely matches fabric and plain style.",
+      "map_id": "map_5cc9171a0232427d94b0fe41815dbb88"
+    },
+    {
+      "competitor_product_name": "Paul Smith Men's Satin Bow Tie",
+      "score": 6,
+      "rationale": "Satin fabric is a match but bow tie silhouette differs from long necktie, reducing relevancy.",
+      "map_id": "map_7fa1c1dcf3c9447097f8001df4276ec7"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Stripe Tie",
+      "score": 5,
+      "rationale": "Striped silk tie shares fabric class but presence of stripe pattern reduces similarity with solid satin tie.",
+      "map_id": "map_fe560970c9234d0e8b352414d5ed0846"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Tie",
+      "score": 6,
+      "rationale": "Narrow tie shape possibly less classic silhouette; no fabric details but likely similar function.",
+      "map_id": "map_e169a14f0a2d4dedb5e13d826361b990"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Tonal Medallion Tie",
+      "score": 4,
+      "rationale": "Pattern and narrow cut make this less similar to classic solid satin tie although tonal color may soften pattern impact.",
+      "map_id": "map_2718d0ef5fce40108ddb10035899560f"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "Narrow solid silk tie closely resembles solid satin tie in fabric and design, with minor difference in width.",
+      "map_id": "map_99340962435f4ae9be589d26f05823c8"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "Narrow solid silk tie closely resembles solid satin tie in fabric and design, with minor difference in width.",
+      "map_id": "map_ddd062c86c1541b69fc4c08a372c95b1"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Dot Stripe Tie",
+      "score": 4,
+      "rationale": "Patterned with dot stripes, reducing direct relevance to solid satin tie.",
+      "map_id": "map_95a6666bd24c474eb9097cdb6158cf9c"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Plaid Tie",
+      "score": 3,
+      "rationale": "Plaid pattern distinctly different from solid satin; less relevant despite similar necktie function.",
+      "map_id": "map_a16ce110dac14ffca932a39ce448fd28"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Satin Tie",
+      "score": 10,
+      "rationale": "Silk satin tie matches exactly in fabric, finish, and style; highest relevancy.",
+      "map_id": "map_cefdb5c3df2b4417bc7de1880eccd1e7"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Alternating Pine Paisley Tie",
+      "score": 3,
+      "rationale": "Ornate paisley pattern and alternating design differ significantly from solid satin tie.",
+      "map_id": "map_34c1320844b545c4b2ed10811d03bf3d"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "Solid silk tie with narrow cut very similar in fabric and finish; closely relevant despite style variation.",
+      "map_id": "map_99340962435f4ae9be589d26f05823c8"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "Solid silk tie with narrow cut very similar in fabric and finish; closely relevant despite style variation.",
+      "map_id": "map_ddd062c86c1541b69fc4c08a372c95b1"
+    }
+  ]
+}

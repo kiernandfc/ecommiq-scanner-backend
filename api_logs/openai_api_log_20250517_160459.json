@@ -1,0 +1,311 @@
+{
+  "timestamp": "20250517_160459",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pants'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Pant'\n  - Name='Flint and Tinder Men's Stretch Selvedge Denim'\n  - Name='Flint and Tinder Men's Stretch Selvedge Denim'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 HB Straight Pant'\n  - Name='Flint and Tinder Men's Stretch Selvedge Denim'\n  - Name='Bonobos Men's Performance Link Pants'\n  - Name='Bonobos Men's Italian Flyweight Trouser Pants'\n  - Name='Men Course Legend Pants by Bonobos'\n  - Name='Carhartt WIP Men Single Knee'\n  - Name='Men Carhartt WIP Albert Pant'\n  - Name='UNIQLO Jersey Easy Cargo Pants'\n  - Name='Uniqlo Men's Slim Chino Pants'\n  - Name='Everlane Men's Slim-Fit Selvedge Jeans'\n  - Name='Carhartt WIP Men Newel Pant'\n  - Name='Carhartt Wip Mens Single Knee'\n  - Name='Everlane Men's Relaxed Canvas Pants'\n  - Name='Everlane Men's Easy Pant'\n  - Name='UNIQLO Men's Sweatpants'\n  - Name='Patagonia Men's Iron Forge Hemp Canvas Cargo Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar casual pant style with durable construction and likely similar fabric weight; however, chinos generally have different fabric and less utility detail compared to the chore pant's reinforced knees and canvas material.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Nearly identical to the above product; similar chino pants likely targeting a casual pant market but less heavy-duty and no mention of reinforced knees or canvas fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Duplicate name, same likely product type and features as the first entry; moderately relevant due to similar use as casual pants but construction details differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same product as above; relevant for casual pant comparison but differs in construction and fabric from chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar pant but '365 Pant' suggests a more general or lighter pant; less certain about construction or fabric weight, likely less utility than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's Stretch Selvedge Denim\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Denim fabric and stretch component indicate a more jean-like product, differing significantly in fabric and construction from canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's Stretch Selvedge Denim\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Repeated denim pant; relevant as bottom wear but less similar in fabric, structure, and use compared to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Athletic tapered pant suggests a different silhouette and function geared toward mobility and athletic use; less rugged construction implied than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated chino pant entry; relevant for casual pant comparison but different in fabric and reinforcement details.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Straight Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Straight pant silhouette similar but no mention of weight fabric or reinforcement; likely less durable and less utility focused than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's Stretch Selvedge Denim\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Denim pant with stretch again, differing in material and purpose from chore pant's canvas workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Performance Link Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Performance pants typically focused on comfort and stretch for active use; differ in fabric and rugged construction from chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Italian Flyweight Trouser Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Flyweight trousers are lightweight and dressier, substantially differing from heavy canvas and utility built chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Course Legend Pants by Bonobos\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Name suggests casual pants but without detail on fabric or reinforced construction; moderately related as casual wear but less durable than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Single Knee\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt WIP known for workwear; single knee reinforced suggests similarity in rugged workwear use and construction to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP Albert Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Carhartt workwear pant; likely durable and rugged, similar target use but less specific details on construction prevent higher score.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Jersey Easy Cargo Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Cargo pants share utility features but jersey fabric and 'easy' style suggests softer, less durable construction unlike chore pant's heavy canvas.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Slim Chino Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim chinos are similar in casual pant category but lighter construction and no reinforced utilitarian features make them less equivalent.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Slim-Fit Selvedge Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Denim jeans share durability but differ in fabric type and utility features compared to sewn canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Newel Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt WIP pant likely built for rugged use; similar workwear positioning makes it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Mens Single Knee\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as previous single knee reinforced pant; very similar in workwear function and construction to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Relaxed Canvas Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Canvas construction aligns with chore pant fabric; relaxed fit implies similar casual utility style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Easy Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual pant similar in general use, but 'easy' suggests lighter weight and less heavy-duty construction than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Sweatpants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Sweatpants imply a different category of loungewear with soft knit fabric, not comparable to rugged chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Iron Forge Hemp Canvas Cargo Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Heavy-duty hemp canvas cargo pant with workwear focus very similar in fabric, construction, and utility to chore pant, slightly different brand and cargo style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Similar casual pant style with durable construction and likely similar fabric weight; however, chinos generally have different fabric and less utility detail compared to the chore pant's reinforced knees and canvas material.",
+      "map_id": "map_0ae37a26e1de47978b2d4523f776e3a9"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Similar casual pant style with durable construction and likely similar fabric weight; however, chinos generally have different fabric and less utility detail compared to the chore pant's reinforced knees and canvas material.",
+      "map_id": "map_a1456f575229458b9c16f486dd5ce8bc"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Similar casual pant style with durable construction and likely similar fabric weight; however, chinos generally have different fabric and less utility detail compared to the chore pant's reinforced knees and canvas material.",
+      "map_id": "map_ddb87236c9de4b7ab7f94bc3c23e19da"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Similar casual pant style with durable construction and likely similar fabric weight; however, chinos generally have different fabric and less utility detail compared to the chore pant's reinforced knees and canvas material.",
+      "map_id": "map_9c50c2057dac453098de1f160948b987"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pants",
+      "score": 7,
+      "rationale": "Nearly identical to the above product; similar chino pants likely targeting a casual pant market but less heavy-duty and no mention of reinforced knees or canvas fabric.",
+      "map_id": "map_70cfb2b53112483e9b01a76eed7a7aa0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Duplicate name, same likely product type and features as the first entry; moderately relevant due to similar use as casual pants but construction details differ.",
+      "map_id": "map_0ae37a26e1de47978b2d4523f776e3a9"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Duplicate name, same likely product type and features as the first entry; moderately relevant due to similar use as casual pants but construction details differ.",
+      "map_id": "map_a1456f575229458b9c16f486dd5ce8bc"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Duplicate name, same likely product type and features as the first entry; moderately relevant due to similar use as casual pants but construction details differ.",
+      "map_id": "map_ddb87236c9de4b7ab7f94bc3c23e19da"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Duplicate name, same likely product type and features as the first entry; moderately relevant due to similar use as casual pants but construction details differ.",
+      "map_id": "map_9c50c2057dac453098de1f160948b987"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same product as above; relevant for casual pant comparison but differs in construction and fabric from chore pant.",
+      "map_id": "map_0ae37a26e1de47978b2d4523f776e3a9"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same product as above; relevant for casual pant comparison but differs in construction and fabric from chore pant.",
+      "map_id": "map_a1456f575229458b9c16f486dd5ce8bc"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same product as above; relevant for casual pant comparison but differs in construction and fabric from chore pant.",
+      "map_id": "map_ddb87236c9de4b7ab7f94bc3c23e19da"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same product as above; relevant for casual pant comparison but differs in construction and fabric from chore pant.",
+      "map_id": "map_9c50c2057dac453098de1f160948b987"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 6,
+      "rationale": "Similar pant but '365 Pant' suggests a more general or lighter pant; less certain about construction or fabric weight, likely less utility than chore pant.",
+      "map_id": "map_4db4cc96feb640028e2f19ac8ad1a068"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim fabric and stretch component indicate a more jean-like product, differing significantly in fabric and construction from canvas chore pant.",
+      "map_id": "map_da369ff093ef49c295e0b64c549ce402"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim fabric and stretch component indicate a more jean-like product, differing significantly in fabric and construction from canvas chore pant.",
+      "map_id": "map_b284c58a13d446f8b0c622db8899abef"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim fabric and stretch component indicate a more jean-like product, differing significantly in fabric and construction from canvas chore pant.",
+      "map_id": "map_bf4bcbf186094ab3890051c9ef403093"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Repeated denim pant; relevant as bottom wear but less similar in fabric, structure, and use compared to chore pant.",
+      "map_id": "map_da369ff093ef49c295e0b64c549ce402"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Repeated denim pant; relevant as bottom wear but less similar in fabric, structure, and use compared to chore pant.",
+      "map_id": "map_b284c58a13d446f8b0c622db8899abef"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Repeated denim pant; relevant as bottom wear but less similar in fabric, structure, and use compared to chore pant.",
+      "map_id": "map_bf4bcbf186094ab3890051c9ef403093"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 6,
+      "rationale": "Athletic tapered pant suggests a different silhouette and function geared toward mobility and athletic use; less rugged construction implied than chore pant.",
+      "map_id": "map_ad4b945977094e22a8cad4ba8a933992"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant entry; relevant for casual pant comparison but different in fabric and reinforcement details.",
+      "map_id": "map_0ae37a26e1de47978b2d4523f776e3a9"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant entry; relevant for casual pant comparison but different in fabric and reinforcement details.",
+      "map_id": "map_a1456f575229458b9c16f486dd5ce8bc"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant entry; relevant for casual pant comparison but different in fabric and reinforcement details.",
+      "map_id": "map_ddb87236c9de4b7ab7f94bc3c23e19da"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant entry; relevant for casual pant comparison but different in fabric and reinforcement details.",
+      "map_id": "map_9c50c2057dac453098de1f160948b987"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 6,
+      "rationale": "Straight pant silhouette similar but no mention of weight fabric or reinforcement; likely less durable and less utility focused than chore pant.",
+      "map_id": "map_dcf161afbd84468c8bc49b7a93dcf5eb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim pant with stretch again, differing in material and purpose from chore pant's canvas workwear style.",
+      "map_id": "map_da369ff093ef49c295e0b64c549ce402"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim pant with stretch again, differing in material and purpose from chore pant's canvas workwear style.",
+      "map_id": "map_b284c58a13d446f8b0c622db8899abef"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 4,
+      "rationale": "Denim pant with stretch again, differing in material and purpose from chore pant's canvas workwear style.",
+      "map_id": "map_bf4bcbf186094ab3890051c9ef403093"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Performance Link Pants",
+      "score": 5,
+      "rationale": "Performance pants typically focused on comfort and stretch for active use; differ in fabric and rugged construction from chore pant.",
+      "map_id": "map_0944f9493b904f04b5b9d3ebff3bbcca"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Italian Flyweight Trouser Pants",
+      "score": 3,
+      "rationale": "Flyweight trousers are lightweight and dressier, substantially differing from heavy canvas and utility built chore pant.",
+      "map_id": "map_c0609e2eb7f54dfa82b4db3e9b59577e"
+    },
+    {
+      "competitor_product_name": "Men Course Legend Pants by Bonobos",
+      "score": 5,
+      "rationale": "Name suggests casual pants but without detail on fabric or reinforced construction; moderately related as casual wear but less durable than chore pant.",
+      "map_id": "map_11a409de1b58417cadec45387d9cb1be"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Single Knee",
+      "score": 8,
+      "rationale": "Carhartt WIP known for workwear; single knee reinforced suggests similarity in rugged workwear use and construction to chore pant.",
+      "map_id": "map_24947981a0ff4483bb1bfa4dea3e75e9"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP Albert Pant",
+      "score": 7,
+      "rationale": "Another Carhartt workwear pant; likely durable and rugged, similar target use but less specific details on construction prevent higher score.",
+      "map_id": "map_188c8bc728ef4c7e9f00611b146d247d"
+    },
+    {
+      "competitor_product_name": "UNIQLO Jersey Easy Cargo Pants",
+      "score": 5,
+      "rationale": "Cargo pants share utility features but jersey fabric and 'easy' style suggests softer, less durable construction unlike chore pant's heavy canvas.",
+      "map_id": "map_26fcbf4eff2f4b3d876bb91809d0ddda"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Slim Chino Pants",
+      "score": 6,
+      "rationale": "Slim chinos are similar in casual pant category but lighter construction and no reinforced utilitarian features make them less equivalent.",
+      "map_id": "map_e14dda82bfb446c78ccfe455c05cd2d3"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Slim-Fit Selvedge Jeans",
+      "score": 5,
+      "rationale": "Denim jeans share durability but differ in fabric type and utility features compared to sewn canvas chore pant.",
+      "map_id": "map_61bd2314806e4ade87d68865dd4a2de8"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Newel Pant",
+      "score": 8,
+      "rationale": "Carhartt WIP pant likely built for rugged use; similar workwear positioning makes it highly relevant.",
+      "map_id": "map_1feaefff409d4bb58db8b4d6e62aa249"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Mens Single Knee",
+      "score": 8,
+      "rationale": "Same as previous single knee reinforced pant; very similar in workwear function and construction to chore pant.",
+      "map_id": "map_7a159cf24ca04627a962550033f5d31c"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Relaxed Canvas Pants",
+      "score": 7,
+      "rationale": "Canvas construction aligns with chore pant fabric; relaxed fit implies similar casual utility style.",
+      "map_id": "map_9f029d854e8945398eb894a0332dad69"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Easy Pant",
+      "score": 6,
+      "rationale": "Casual pant similar in general use, but 'easy' suggests lighter weight and less heavy-duty construction than chore pant.",
+      "map_id": "map_53b656245ae244478920c2616e65e5de"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Sweatpants",
+      "score": 2,
+      "rationale": "Sweatpants imply a different category of loungewear with soft knit fabric, not comparable to rugged chore pants.",
+      "map_id": "map_9491f2e2d1cd43e7be22e63370e285a5"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Iron Forge Hemp Canvas Cargo Pants",
+      "score": 9,
+      "rationale": "Heavy-duty hemp canvas cargo pant with workwear focus very similar in fabric, construction, and utility to chore pant, slightly different brand and cargo style.",
+      "map_id": "map_8e33878d3a8d4212b94f89877cbf688f"
+    }
+  ]
+}

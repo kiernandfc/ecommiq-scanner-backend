@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250520_113745",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Marine Layer Men's Cole Textured Twill Shirt'\n  - Name='Everlane Women's Oxford Button Up Shirt'\n  - Name='Alex Mill Men's Linen Camp Shirt'\n  - Name='Marine Layer Pacifica Stretch Twill Shirt'\n  - Name='Everlane Men's Heavyweight Overshirt'\n  - Name='Everlane Men's Classic Linen Short-Sleeve Shirt'\n  - Name='Everlane Relaxed Oxford Shirt'\n  - Name='Alabama Ellis Oxford'\n  - Name='Alex Mill Men's Alan Striped Cotton Henley'\n  - Name='Bonobos Men's Tech Slim Fit Windowpane Check Button-Up Shirt'\n  - Name='Men's Marine Layer Classic Stretch Selvage Shirt'\n  - Name='Marine Layer Men's Wyatt Sweater Button Down'\n  - Name='Men's Marine Layer Classic Balboa Shirt In Red'\n  - Name='Marine Layer Men's Lightweight Plaid Corduroy Shirt'\n  - Name='Everlane Relaxed Oxford Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt'\n  - Name='Buck Mason Men's Pima Classic T-Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Linen Tweed Point Shirt'\n  - Name='J.Crew Men's Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Giant-fit Oxford Shirt'\n  - Name='Buck Mason Men's Loomed P-43 Fatigue Shirt Jacket'\n  - Name='Buck Mason Men's Avalon Knit Polo Sweater'\n  - Name='Men's Taylor Stitch The Short Sleeve Hawthorne in Dried Fig Stripe'\n  - Name='J.Crew Men's Classic Flex Shirt'\n  - Name='Buck Mason Women's Mainstay Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Cole Textured Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a men's button-up shirt but made from textured twill rather than Oxford cotton. It shares function and use but differs in fabric and possible feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Oxford Button Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A women's Oxford button-up shirt matches fabric and style closely to the reference, but differs in gender fit and possibly details.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Linen Camp Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A camp shirt in linen differs in construction, silhouette, and fabric type compared to an Oxford button-down, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Pacifica Stretch Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Button-up use implies similarity, but stretch twill fabric and possible fit variance lowers relevancy from classic Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Heavyweight Overshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"An overshirt is typically heavier and used as outerwear, differing in purpose and weight from a lightweight Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Classic Linen Short-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve and linen fabric differ significantly in silhouette and material from the long sleeve Oxford reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Relaxed Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A relaxed fit Oxford shirt is a close match in fabric and style though with looser tailoring, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alabama Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford from Alabama Ellis likely shares fabric and silhouette closely, very similar to the reference jacket shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Alan Striped Cotton Henley\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A henley shirt with stripes differs considerably in collar style and silhouette from the Oxford button-down reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Slim Fit Windowpane Check Button-Up Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A slim fit button-up shirt in cotton with classic pattern is close in function and fit but the fabric tech qualities and pattern make it a bit different.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Classic Stretch Selvage Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's button-up shirt in stretch selvage fabric similar in general use but fabric differs from Oxford weave.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Wyatt Sweater Button Down\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A button-down sweater differs greatly in knit fabric and intended layering use versus an Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Classic Balboa Shirt In Red\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A classic shirt is generally similar in style and use but uncertain fabric and features reduce score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Lightweight Plaid Corduroy Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Corduroy fabric and lightweight construction differ from Oxford, also plaid pattern is stylistic difference but less critical.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Relaxed Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Identical name to previous Everlane relaxed Oxford shirt; very similar product type and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's cotton Oxford dress shirt closely matches fabric and function though has stripes and a dress shirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Pima Classic T-Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A t-shirt is fundamentally different in construction, style, and silhouette from an Oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Linen Tweed Point Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Also Taylor Stitch and organic cotton blends, but tweed point collar shirt is different in fabric texture and collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product type and fabric construction; organic cotton Oxford with similar casual and durable characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Giant-fit Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt similar in fabric but the 'giant-fit' silhouette differs substantially from tailored fit reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Loomed P-43 Fatigue Shirt Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A shirt-jacket serves a distinct purpose and heavier construction than an Oxford shirt; silhouette differs significantly.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Avalon Knit Polo Sweater\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A knit polo sweater is a different garment type, fabric, and neckline compared to an Oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch The Short Sleeve Hawthorne in Dried Fig Stripe\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Short sleeve and striped pattern, plus different style line, make it moderately relevant but not close match.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Classic Flex Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic button-up shirt likely similar in purpose and silhouette though fabric has stretch, differing somewhat from traditional rigid Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Women's Mainstay Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Women's classic shirt similar in function and general style but differs in gender fit, tailoring, and possibly fabric.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Marine Layer Men's Cole Textured Twill Shirt",
+      "score": 6,
+      "rationale": "This is a men's button-up shirt but made from textured twill rather than Oxford cotton. It shares function and use but differs in fabric and possible feel.",
+      "map_id": "map_ae0ed727ea494d4b9371092ef78fd2c4"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Oxford Button Up Shirt",
+      "score": 7,
+      "rationale": "A women's Oxford button-up shirt matches fabric and style closely to the reference, but differs in gender fit and possibly details.",
+      "map_id": "map_c4acef9625bd4606b6021a1876146d9b"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Linen Camp Shirt",
+      "score": 4,
+      "rationale": "A camp shirt in linen differs in construction, silhouette, and fabric type compared to an Oxford button-down, reducing relevancy.",
+      "map_id": "map_833a12ac44164b1ebb23630b0492b0c9"
+    },
+    {
+      "competitor_product_name": "Marine Layer Pacifica Stretch Twill Shirt",
+      "score": 5,
+      "rationale": "Button-up use implies similarity, but stretch twill fabric and possible fit variance lowers relevancy from classic Oxford shirt.",
+      "map_id": "map_79d7de319a6d435abbc728184a958549"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Heavyweight Overshirt",
+      "score": 4,
+      "rationale": "An overshirt is typically heavier and used as outerwear, differing in purpose and weight from a lightweight Oxford shirt.",
+      "map_id": "map_3d439dedc2704af7bd9e68b7e24c43df"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Classic Linen Short-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short sleeve and linen fabric differ significantly in silhouette and material from the long sleeve Oxford reference shirt.",
+      "map_id": "map_f3e2150762bf475f8912568cfdbdc7e9"
+    },
+    {
+      "competitor_product_name": "Everlane Relaxed Oxford Shirt",
+      "score": 8,
+      "rationale": "A relaxed fit Oxford shirt is a close match in fabric and style though with looser tailoring, making it highly relevant.",
+      "map_id": "map_dc6f7456ba1f46fda32f64539cadb11e"
+    },
+    {
+      "competitor_product_name": "Everlane Relaxed Oxford Shirt",
+      "score": 8,
+      "rationale": "A relaxed fit Oxford shirt is a close match in fabric and style though with looser tailoring, making it highly relevant.",
+      "map_id": "map_a9c131e600464dd1994451e90a1f50c5"
+    },
+    {
+      "competitor_product_name": "Alabama Ellis Oxford",
+      "score": 8,
+      "rationale": "An Oxford from Alabama Ellis likely shares fabric and silhouette closely, very similar to the reference jacket shirt.",
+      "map_id": "map_7f66505c5e0a47b98ed9ad2dd02086bf"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Alan Striped Cotton Henley",
+      "score": 2,
+      "rationale": "A henley shirt with stripes differs considerably in collar style and silhouette from the Oxford button-down reference.",
+      "map_id": "map_ca3b05ccdec649768bbb11545bf908b8"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Slim Fit Windowpane Check Button-Up Shirt",
+      "score": 7,
+      "rationale": "A slim fit button-up shirt in cotton with classic pattern is close in function and fit but the fabric tech qualities and pattern make it a bit different.",
+      "map_id": "map_74a3de9c1da5483a815f6aebb7ebbd5b"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Classic Stretch Selvage Shirt",
+      "score": 6,
+      "rationale": "Men's button-up shirt in stretch selvage fabric similar in general use but fabric differs from Oxford weave.",
+      "map_id": "map_1ccc9740a3db46f69f624975a54cb8e7"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Wyatt Sweater Button Down",
+      "score": 3,
+      "rationale": "A button-down sweater differs greatly in knit fabric and intended layering use versus an Oxford shirt.",
+      "map_id": "map_60baa7f8ffdc4324910abe0ef4ba3c97"
+    },
+    {
+      "competitor_product_name": "Men's Marine Layer Classic Balboa Shirt In Red",
+      "score": 6,
+      "rationale": "A classic shirt is generally similar in style and use but uncertain fabric and features reduce score slightly.",
+      "map_id": "map_15e67203ec0e43d2bf426d46192b2f99"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Lightweight Plaid Corduroy Shirt",
+      "score": 4,
+      "rationale": "Corduroy fabric and lightweight construction differ from Oxford, also plaid pattern is stylistic difference but less critical.",
+      "map_id": "map_1a5a5b499b0441159ff7cf222b2f46d1"
+    },
+    {
+      "competitor_product_name": "Everlane Relaxed Oxford Shirt",
+      "score": 8,
+      "rationale": "Identical name to previous Everlane relaxed Oxford shirt; very similar product type and fabric.",
+      "map_id": "map_dc6f7456ba1f46fda32f64539cadb11e"
+    },
+    {
+      "competitor_product_name": "Everlane Relaxed Oxford Shirt",
+      "score": 8,
+      "rationale": "Identical name to previous Everlane relaxed Oxford shirt; very similar product type and fabric.",
+      "map_id": "map_a9c131e600464dd1994451e90a1f50c5"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt",
+      "score": 8,
+      "rationale": "Men's cotton Oxford dress shirt closely matches fabric and function though has stripes and a dress shirt style.",
+      "map_id": "map_d6bf95f656454130bde43fbe72155820"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Pima Classic T-Shirt",
+      "score": 1,
+      "rationale": "A t-shirt is fundamentally different in construction, style, and silhouette from an Oxford button-down shirt.",
+      "map_id": "map_0a4747e9454d4295b7d562be4631257e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Linen Tweed Point Shirt",
+      "score": 6,
+      "rationale": "Also Taylor Stitch and organic cotton blends, but tweed point collar shirt is different in fabric texture and collar style.",
+      "map_id": "map_3d3440b56ea64b04994479c41f3cff72"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Broken-In Organic Cotton Oxford Shirt",
+      "score": 9,
+      "rationale": "Very similar product type and fabric construction; organic cotton Oxford with similar casual and durable characteristics.",
+      "map_id": "map_7bc7bfd98fb243c7b564591105548abd"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Giant-fit Oxford Shirt",
+      "score": 7,
+      "rationale": "Oxford shirt similar in fabric but the 'giant-fit' silhouette differs substantially from tailored fit reference.",
+      "map_id": "map_04abbb21bbd2461aa328457d95021211"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Loomed P-43 Fatigue Shirt Jacket",
+      "score": 3,
+      "rationale": "A shirt-jacket serves a distinct purpose and heavier construction than an Oxford shirt; silhouette differs significantly.",
+      "map_id": "map_65359f111c204e8696deeafadc9a764b"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Avalon Knit Polo Sweater",
+      "score": 2,
+      "rationale": "A knit polo sweater is a different garment type, fabric, and neckline compared to an Oxford button-down shirt.",
+      "map_id": "map_7ad85284839b4002acf79a5135f2fdb4"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch The Short Sleeve Hawthorne in Dried Fig Stripe",
+      "score": 5,
+      "rationale": "Short sleeve and striped pattern, plus different style line, make it moderately relevant but not close match.",
+      "map_id": "map_d361a730bb0545e5ab31a5f615b87a8f"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Classic Flex Shirt",
+      "score": 7,
+      "rationale": "Classic button-up shirt likely similar in purpose and silhouette though fabric has stretch, differing somewhat from traditional rigid Oxford.",
+      "map_id": "map_918630838b6748aca32617654b21b6d3"
+    },
+    {
+      "competitor_product_name": "Buck Mason Women's Mainstay Shirt",
+      "score": 6,
+      "rationale": "Women's classic shirt similar in function and general style but differs in gender fit, tailoring, and possibly fabric.",
+      "map_id": "map_1e673a2182ae4d398a4aedac62ade12e"
+    }
+  ]
+}

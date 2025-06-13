@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250604_073933",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Ivy Plaid Cap'\n  - Name='Stetson Ivy Grey Plaid Flat Cap'\n  - Name='Stetson Wool Plaid Hatteras Shadow Flat Cap'\n  - Name='Stetson Hatteras Old Cotton Newsboy Cap'\n  - Name='Stetson Plaid Ivy Paperboy Style Hat'\n  - Name='Stetson Wool Houndstooth Tweed Cap'\n  - Name='Kangol Accessories Men's Houndstooth Pattern Tweed Pebbles Cap'\n  - Name='Brixton Newsboy Hat'\n  - Name='Stetson Accessories Gray Plaid Flat Cap'\n  - Name='Stetson Men's Hat'\n  - Name='Stetson Accessories Plaid Linen Blend 6 Panel Newsboy Cabbie Cap'\n  - Name='Stetson Wool Check Pattern Cap'\n  - Name='Stetson Kent Linen Ivy Pastel Color Check Flat Cap'\n  - Name='Bailey Slater'\n  - Name='Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap'\n  - Name='Stetson Accessories Newsboy Cap'\n  - Name='Barbour Men's Waxed Cabbie Flannel Hat Cap'\n  - Name='Men Kangol Birdseye Maze 507'\n  - Name='Brixton Fiddler Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Ivy Plaid Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The Stetson Ivy Plaid Cap is an ivy style cap, which differs from the 8-panel Peaky flat cap in silhouette and construction, but shares plaid pattern and casual hat nature, giving moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Ivy Grey Plaid Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This product is a flat cap with plaid, closer in style and intended use to the Peaky cap, though it uses an ivy style rather than 8-panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Plaid Hatteras Shadow Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"As a wool plaid flat cap, it shares the flat cap style and plaid fabric, similar to the Peaky cap, though the exact panel construction may differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Hatteras Old Cotton Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a newsboy cap which commonly features an 8 or multiple panel construction like the Peaky cap; both have vintage flat cap aesthetics with varied material.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Plaid Ivy Paperboy Style Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Being a paperboy style hat similar to newsboy caps, it is somewhat similar in silhouette and construction to the Peaky cap, though it may have slight design differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Houndstooth Tweed Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A wool cap with tweed fabric is similar in fabric quality and style, but the name lacks specification of panel style and uses houndstooth pattern versus plaid.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Accessories Men's Houndstooth Pattern Tweed Pebbles Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The pebble cap differs in silhouette from flat or newsboy caps, and the pattern is different, making it less relevant despite being a men's tweed cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Newsboy Hat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Brixton newsboy hat shares strong silhouette and panel construction (often 8-panel) with the Peaky collection, making it highly relevant in style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Accessories Gray Plaid Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A gray plaid flat cap is similar in silhouette and fabric choice to the Peaky cap, but lacks detail if it's 8-panel, though relevancy remains quite good.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a very generic name without specification of style, silhouette, or construction, so relevance is low due to lack of detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Accessories Plaid Linen Blend 6 Panel Newsboy Cabbie Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Being a 6-panel newsboy/cabbie cap with plaid aligns it closely with the Peaky cap's style and construction, though differs by panel count and fabric blend.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Check Pattern Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A wool cap with check pattern similar in fabric choice and pattern type to plaid is fairly relevant, though the style and construction are not explicitly newsboy or Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Kent Linen Ivy Pastel Color Check Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An ivy flat cap with linen and pastel check is similar in type but differs in fabric, panel construction, and pattern tone compared to the Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Slater\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Without style detail, likely a flat or newsboy style hat, but unclear silhouette and panel details limit the relevancy score despite probable similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Again, a 6-panel plaid newsboy cap closely matches the Peaky cap's general form and fabric pattern, resulting in high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Accessories Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A generic newsboy cap from Stetson shares close silhouette and construction with the Peaky collection, making it highly relevant despite lack of pattern detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Cabbie Flannel Hat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A waxed flannel cabbie hat shares the general vintage silhouette but differs in material and finish, somewhat limiting relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Kangol Birdseye Maze 507\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The '507' usually refers to a flat cap but the birdseye maze pattern and Kangol brand style differ somewhat from Peaky, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fiddler Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The fiddler cap has a somewhat similar vintage flat cap feel and would appeal to a similar audience, though the shape and construction differ from 8-panel Peaky caps.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Ivy Plaid Cap",
+      "score": 6,
+      "rationale": "The Stetson Ivy Plaid Cap is an ivy style cap, which differs from the 8-panel Peaky flat cap in silhouette and construction, but shares plaid pattern and casual hat nature, giving moderate relevancy.",
+      "map_id": "map_553a8e98a6124e8c983a929b8db33f81"
+    },
+    {
+      "competitor_product_name": "Stetson Ivy Grey Plaid Flat Cap",
+      "score": 7,
+      "rationale": "This product is a flat cap with plaid, closer in style and intended use to the Peaky cap, though it uses an ivy style rather than 8-panel construction.",
+      "map_id": "map_d874058552eb44758608f70dad167cc4"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Plaid Hatteras Shadow Flat Cap",
+      "score": 7,
+      "rationale": "As a wool plaid flat cap, it shares the flat cap style and plaid fabric, similar to the Peaky cap, though the exact panel construction may differ.",
+      "map_id": "map_6576f488ff51407c975bb29525e4c740"
+    },
+    {
+      "competitor_product_name": "Stetson Hatteras Old Cotton Newsboy Cap",
+      "score": 8,
+      "rationale": "This is a newsboy cap which commonly features an 8 or multiple panel construction like the Peaky cap; both have vintage flat cap aesthetics with varied material.",
+      "map_id": "map_23ce325f8ec1420088896739539c9421"
+    },
+    {
+      "competitor_product_name": "Stetson Plaid Ivy Paperboy Style Hat",
+      "score": 7,
+      "rationale": "Being a paperboy style hat similar to newsboy caps, it is somewhat similar in silhouette and construction to the Peaky cap, though it may have slight design differences.",
+      "map_id": "map_9f6f5925b4134610b2b6d7be9ed72774"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Houndstooth Tweed Cap",
+      "score": 6,
+      "rationale": "A wool cap with tweed fabric is similar in fabric quality and style, but the name lacks specification of panel style and uses houndstooth pattern versus plaid.",
+      "map_id": "map_cd0ef840531b4b1d80f0b19d3414104c"
+    },
+    {
+      "competitor_product_name": "Kangol Accessories Men's Houndstooth Pattern Tweed Pebbles Cap",
+      "score": 5,
+      "rationale": "The pebble cap differs in silhouette from flat or newsboy caps, and the pattern is different, making it less relevant despite being a men's tweed cap.",
+      "map_id": "map_4b8c6cf112df460eb956ab747fff1f40"
+    },
+    {
+      "competitor_product_name": "Brixton Newsboy Hat",
+      "score": 9,
+      "rationale": "A Brixton newsboy hat shares strong silhouette and panel construction (often 8-panel) with the Peaky collection, making it highly relevant in style and function.",
+      "map_id": "map_e7d3633a9101486fbc8fb086421d37a5"
+    },
+    {
+      "competitor_product_name": "Stetson Accessories Gray Plaid Flat Cap",
+      "score": 7,
+      "rationale": "A gray plaid flat cap is similar in silhouette and fabric choice to the Peaky cap, but lacks detail if it's 8-panel, though relevancy remains quite good.",
+      "map_id": "map_b95666451ee546b491f84f49e68f4a08"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Hat",
+      "score": 3,
+      "rationale": "This is a very generic name without specification of style, silhouette, or construction, so relevance is low due to lack of detail.",
+      "map_id": "map_2154c5d416924abc9a8ad5f7baf2e564"
+    },
+    {
+      "competitor_product_name": "Stetson Accessories Plaid Linen Blend 6 Panel Newsboy Cabbie Cap",
+      "score": 8,
+      "rationale": "Being a 6-panel newsboy/cabbie cap with plaid aligns it closely with the Peaky cap's style and construction, though differs by panel count and fabric blend.",
+      "map_id": "map_d350e798b8804dd4840c29c56a735215"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Check Pattern Cap",
+      "score": 7,
+      "rationale": "A wool cap with check pattern similar in fabric choice and pattern type to plaid is fairly relevant, though the style and construction are not explicitly newsboy or Peaky.",
+      "map_id": "map_3e80dfe1964c4d3cbcda4a4e6b86af78"
+    },
+    {
+      "competitor_product_name": "Stetson Kent Linen Ivy Pastel Color Check Flat Cap",
+      "score": 6,
+      "rationale": "An ivy flat cap with linen and pastel check is similar in type but differs in fabric, panel construction, and pattern tone compared to the Peaky cap.",
+      "map_id": "map_cfd16b8b54a44cfa9c4edbd4664d0ab4"
+    },
+    {
+      "competitor_product_name": "Bailey Slater",
+      "score": 5,
+      "rationale": "Without style detail, likely a flat or newsboy style hat, but unclear silhouette and panel details limit the relevancy score despite probable similarity.",
+      "map_id": "map_727632680b6f4c32883cdef64ea78497"
+    },
+    {
+      "competitor_product_name": "Stetson Plaid Linen Blend 6 Panel Newsboy Cabbie Cap",
+      "score": 8,
+      "rationale": "Again, a 6-panel plaid newsboy cap closely matches the Peaky cap's general form and fabric pattern, resulting in high relevancy.",
+      "map_id": "map_5bc53379012a4cd8ba40aac4022d55a8"
+    },
+    {
+      "competitor_product_name": "Stetson Accessories Newsboy Cap",
+      "score": 8,
+      "rationale": "A generic newsboy cap from Stetson shares close silhouette and construction with the Peaky collection, making it highly relevant despite lack of pattern detail.",
+      "map_id": "map_2a0d51e3c35e4be8841c313d860ef80f"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed Cabbie Flannel Hat Cap",
+      "score": 6,
+      "rationale": "A waxed flannel cabbie hat shares the general vintage silhouette but differs in material and finish, somewhat limiting relevancy.",
+      "map_id": "map_d36063e74e35466c8b06c15372d90d64"
+    },
+    {
+      "competitor_product_name": "Men Kangol Birdseye Maze 507",
+      "score": 4,
+      "rationale": "The '507' usually refers to a flat cap but the birdseye maze pattern and Kangol brand style differ somewhat from Peaky, lowering relevancy.",
+      "map_id": "map_c5c6c57a10ef4a17afc3592fd88af33c"
+    },
+    {
+      "competitor_product_name": "Brixton Fiddler Cap",
+      "score": 7,
+      "rationale": "The fiddler cap has a somewhat similar vintage flat cap feel and would appeal to a similar audience, though the shape and construction differ from 8-panel Peaky caps.",
+      "map_id": "map_2aa26d1bb1b14c999eff6f701ac8fd75"
+    }
+  ]
+}

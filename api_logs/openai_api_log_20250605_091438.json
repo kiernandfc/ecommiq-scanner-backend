@@ -1,0 +1,347 @@
+{
+  "timestamp": "20250605_091438",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Dickies Men's Original 874 Work Pants'\n  - Name='Levi's Men's 511 Slim Tech Pants'\n  - Name='Flint and Tinder Men's 365 Pant'\n  - Name='Levi's Men's 555 Relaxed Straight Jeans'\n  - Name='Levi's Men's 565 Loose Straight Jeans'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Levi's Men's 511 Slim Fit Jeans'\n  - Name='Flint and Tinder Men's 365 Pant'\n  - Name='Dickies Men's Original 874 Work Pants'\n  - Name='Dickies Men's Original 874 Work Pants'\n  - Name='Dickies Men's Original 874 Work Pants'\n  - Name='Dickies Men's Original 874 Work Pants'\n  - Name='Dickies Men's 874 Pro Series Work Pants'\n  - Name='Alex Mill Double Pleated Linen Trousers'\n  - Name='Alex Mill Neil Twill Pants'\n  - Name='Alex Mill Sloane Pants'\n  - Name='Alex Mill Riley Stripe Pants'\n  - Name='Levi's Men's 541 Athletic Taper Fit Jeans'\n  - Name='Levi's Men's 550 Relaxed Fit Jeans'\n  - Name='Levi's Men's 505 Regular Fit Jeans'\n  - Name='Levi's Men's 578 Baggy Jeans'\n  - Name='Flint and Tinder Men's 365 HB Athletic Tapered Pant'\n  - Name='Bonobos Men's Slim Travel Jean Pants'\n  - Name='Men Coastal Linen 5-Pocket Pant by Bonobos'\n  - Name='Bonobos Men's Primo Chino Tailored'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Dickies Men's Original 874 Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 511 Slim Tech Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim fit tech pants are more fashion/performance oriented with a slimmer silhouette, less rugged construction; some overlap in pant category but distinct from work pant style.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flint and Tinder's 365 are rugged everyday pants with durable construction similar to chore/work pants, making them quite relevant in terms of use and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 555 Relaxed Straight Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Relaxed straight jeans are denim casual pants, less focused on workwear durability or canvas fabric; less relevant but still casual menswear pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 565 Loose Straight Jeans\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Loose straight jeans have a casual denim silhouette and construction, quite different from durable canvas chore pants; limited relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar durable everyday pants but with a tapered, athletic cut which is less traditional workwear silhouette but still fairly relevant in materials and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 511 Slim Fit Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim fit jeans are more fashion oriented and less rugged than chore pants but still casual men's pants; moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as previous Flint and Tinder 365 Pant; rugged, durable pants relevant to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Original 874 Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated entry identical to first; classic work pant highly relevant to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Original 874 Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated identical product; high relevancy as a classic work pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Original 874 Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated identical product again; very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Original 874 Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Repeated identical product; highly relevant work pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's 874 Pro Series Work Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pro Series is a variant of the classic 874 work pant line, similarly constructed and purposed, thus highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Double Pleated Linen Trousers\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Linen trousers with a pleated design are dressier and lighter-weight, designed for style over utility; very different from rugged chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Neil Twill Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Twill pants could share fabric weight and casual use, but likely less heavy duty construction and utility features; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Sloane Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"These are more fashion-oriented casual pants without workwear construction, low relevancy to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Riley Stripe Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Striped pattern and style indicate a more fashion/dress pant, very different in function and construction from chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 541 Athletic Taper Fit Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Athletic tapered jeans have a casual denim fit oriented towards style; not built for rugged utility, so limited relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 550 Relaxed Fit Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Relaxed fit denim jeans are casual wear with different construction and no workwear reinforcement; moderately low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 505 Regular Fit Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Regular fit jeans, standard casual denim pants; lack chore pant durability and features, so low-moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 578 Baggy Jeans\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baggy jeans suggest a fashion fit and casual denim fabric, with no workwear utility; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Athletic Tapered Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same as previous similar Flint and Tinder athletic tapered pants; fairly relevant due to their ruggedness but less traditional workwear fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Travel Jean Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Travel jeans have performance features but slim casual silhouette; less rugged and utilitarian than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Coastal Linen 5-Pocket Pant by Bonobos\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Lightweight linen pants focused on style and breathability; very different from heavy-duty chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Primo Chino Tailored\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Tailored chinos focus on smart casual style with a dressier silhouette; less relevant to rugged chore pant function and construction.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.",
+      "map_id": "map_8dd81ae66d14487b8a3355099f51056c"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.",
+      "map_id": "map_6dbc534fe77c43818030fdf6e92912c5"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.",
+      "map_id": "map_68edf80f40c54163a7123c867181a622"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.",
+      "map_id": "map_b151346d4e404b5bad768f8817c46156"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "These are classic work pants like the Chore Pant, built for durability and utility, likely similar in function, construction, and materials.",
+      "map_id": "map_8982abd149a646d2a4b30eb88feeca29"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 511 Slim Tech Pants",
+      "score": 5,
+      "rationale": "Slim fit tech pants are more fashion/performance oriented with a slimmer silhouette, less rugged construction; some overlap in pant category but distinct from work pant style.",
+      "map_id": "map_878181255c5a401daf80eb64616b8da0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Flint and Tinder's 365 are rugged everyday pants with durable construction similar to chore/work pants, making them quite relevant in terms of use and durability.",
+      "map_id": "map_290800d461254429867d885a4aa691f5"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Flint and Tinder's 365 are rugged everyday pants with durable construction similar to chore/work pants, making them quite relevant in terms of use and durability.",
+      "map_id": "map_fb483e2ac8d5492b850c364412a9459f"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 555 Relaxed Straight Jeans",
+      "score": 4,
+      "rationale": "Relaxed straight jeans are denim casual pants, less focused on workwear durability or canvas fabric; less relevant but still casual menswear pants.",
+      "map_id": "map_7075163e11d84a82a8d3dc8964833831"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 565 Loose Straight Jeans",
+      "score": 3,
+      "rationale": "Loose straight jeans have a casual denim silhouette and construction, quite different from durable canvas chore pants; limited relevancy.",
+      "map_id": "map_a87e88604a5542059b6554610114188f"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Similar durable everyday pants but with a tapered, athletic cut which is less traditional workwear silhouette but still fairly relevant in materials and use.",
+      "map_id": "map_70e05480241e431f9cd273941cf805c0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Similar durable everyday pants but with a tapered, athletic cut which is less traditional workwear silhouette but still fairly relevant in materials and use.",
+      "map_id": "map_5b251912f952401b958ad87df574e326"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 511 Slim Fit Jeans",
+      "score": 5,
+      "rationale": "Slim fit jeans are more fashion oriented and less rugged than chore pants but still casual men's pants; moderate relevancy.",
+      "map_id": "map_7d57beac33454e529f4815ba7920e6b8"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Same as previous Flint and Tinder 365 Pant; rugged, durable pants relevant to chore pants.",
+      "map_id": "map_290800d461254429867d885a4aa691f5"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Pant",
+      "score": 8,
+      "rationale": "Same as previous Flint and Tinder 365 Pant; rugged, durable pants relevant to chore pants.",
+      "map_id": "map_fb483e2ac8d5492b850c364412a9459f"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated entry identical to first; classic work pant highly relevant to chore pant.",
+      "map_id": "map_8dd81ae66d14487b8a3355099f51056c"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated entry identical to first; classic work pant highly relevant to chore pant.",
+      "map_id": "map_6dbc534fe77c43818030fdf6e92912c5"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated entry identical to first; classic work pant highly relevant to chore pant.",
+      "map_id": "map_68edf80f40c54163a7123c867181a622"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated entry identical to first; classic work pant highly relevant to chore pant.",
+      "map_id": "map_b151346d4e404b5bad768f8817c46156"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated entry identical to first; classic work pant highly relevant to chore pant.",
+      "map_id": "map_8982abd149a646d2a4b30eb88feeca29"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; high relevancy as a classic work pant.",
+      "map_id": "map_8dd81ae66d14487b8a3355099f51056c"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; high relevancy as a classic work pant.",
+      "map_id": "map_6dbc534fe77c43818030fdf6e92912c5"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; high relevancy as a classic work pant.",
+      "map_id": "map_68edf80f40c54163a7123c867181a622"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; high relevancy as a classic work pant.",
+      "map_id": "map_b151346d4e404b5bad768f8817c46156"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; high relevancy as a classic work pant.",
+      "map_id": "map_8982abd149a646d2a4b30eb88feeca29"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product again; very relevant.",
+      "map_id": "map_8dd81ae66d14487b8a3355099f51056c"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product again; very relevant.",
+      "map_id": "map_6dbc534fe77c43818030fdf6e92912c5"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product again; very relevant.",
+      "map_id": "map_68edf80f40c54163a7123c867181a622"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product again; very relevant.",
+      "map_id": "map_b151346d4e404b5bad768f8817c46156"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product again; very relevant.",
+      "map_id": "map_8982abd149a646d2a4b30eb88feeca29"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; highly relevant work pant.",
+      "map_id": "map_8dd81ae66d14487b8a3355099f51056c"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; highly relevant work pant.",
+      "map_id": "map_6dbc534fe77c43818030fdf6e92912c5"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; highly relevant work pant.",
+      "map_id": "map_68edf80f40c54163a7123c867181a622"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; highly relevant work pant.",
+      "map_id": "map_b151346d4e404b5bad768f8817c46156"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Original 874 Work Pants",
+      "score": 9,
+      "rationale": "Repeated identical product; highly relevant work pant.",
+      "map_id": "map_8982abd149a646d2a4b30eb88feeca29"
+    },
+    {
+      "competitor_product_name": "Dickies Men's 874 Pro Series Work Pants",
+      "score": 9,
+      "rationale": "Pro Series is a variant of the classic 874 work pant line, similarly constructed and purposed, thus highly relevant.",
+      "map_id": "map_037dc545e56e4d7ea4a9fb15fa8dcd32"
+    },
+    {
+      "competitor_product_name": "Alex Mill Double Pleated Linen Trousers",
+      "score": 2,
+      "rationale": "Linen trousers with a pleated design are dressier and lighter-weight, designed for style over utility; very different from rugged chore pant.",
+      "map_id": "map_d17cc1cb7fac4cedb8200d6eeb57e804"
+    },
+    {
+      "competitor_product_name": "Alex Mill Neil Twill Pants",
+      "score": 5,
+      "rationale": "Twill pants could share fabric weight and casual use, but likely less heavy duty construction and utility features; moderately relevant.",
+      "map_id": "map_b062e278c0d340ca9691cf524cff05d0"
+    },
+    {
+      "competitor_product_name": "Alex Mill Sloane Pants",
+      "score": 3,
+      "rationale": "These are more fashion-oriented casual pants without workwear construction, low relevancy to chore pant.",
+      "map_id": "map_8969d51d64754ea284151530373756ef"
+    },
+    {
+      "competitor_product_name": "Alex Mill Riley Stripe Pants",
+      "score": 2,
+      "rationale": "Striped pattern and style indicate a more fashion/dress pant, very different in function and construction from chore pant.",
+      "map_id": "map_95c7d9895eef4195824de91bcaff67f4"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 541 Athletic Taper Fit Jeans",
+      "score": 4,
+      "rationale": "Athletic tapered jeans have a casual denim fit oriented towards style; not built for rugged utility, so limited relevancy.",
+      "map_id": "map_59a5f56678204800b3e818e6323d4d64"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 550 Relaxed Fit Jeans",
+      "score": 4,
+      "rationale": "Relaxed fit denim jeans are casual wear with different construction and no workwear reinforcement; moderately low relevancy.",
+      "map_id": "map_41bcac7da5d04960a96763e8a231c73d"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 505 Regular Fit Jeans",
+      "score": 4,
+      "rationale": "Regular fit jeans, standard casual denim pants; lack chore pant durability and features, so low-moderate relevancy.",
+      "map_id": "map_bd22d29dd81f4c43afef23f0ad569999"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 578 Baggy Jeans",
+      "score": 3,
+      "rationale": "Baggy jeans suggest a fashion fit and casual denim fabric, with no workwear utility; low relevancy.",
+      "map_id": "map_f68609b4872c4db38c51fe0ff8ad8601"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Same as previous similar Flint and Tinder athletic tapered pants; fairly relevant due to their ruggedness but less traditional workwear fit.",
+      "map_id": "map_70e05480241e431f9cd273941cf805c0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Athletic Tapered Pant",
+      "score": 7,
+      "rationale": "Same as previous similar Flint and Tinder athletic tapered pants; fairly relevant due to their ruggedness but less traditional workwear fit.",
+      "map_id": "map_5b251912f952401b958ad87df574e326"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Travel Jean Pants",
+      "score": 3,
+      "rationale": "Travel jeans have performance features but slim casual silhouette; less rugged and utilitarian than chore pant.",
+      "map_id": "map_88c6a117d19c49f5ba2f87e66ff64223"
+    },
+    {
+      "competitor_product_name": "Men Coastal Linen 5-Pocket Pant by Bonobos",
+      "score": 2,
+      "rationale": "Lightweight linen pants focused on style and breathability; very different from heavy-duty chore pants.",
+      "map_id": "map_455e65611805473ebda1220133fb3dee"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Primo Chino Tailored",
+      "score": 3,
+      "rationale": "Tailored chinos focus on smart casual style with a dressier silhouette; less relevant to rugged chore pant function and construction.",
+      "map_id": "map_84f416a003494a4885dce776e3f54709"
+    }
+  ]
+}

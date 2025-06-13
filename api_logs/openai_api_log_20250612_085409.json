@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250612_085409",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Cape Codder Boston Scally Cap with Fish Hook'\n  - Name='The Sailor Boston Scally Cap'\n  - Name='Bundy Boston Scally Cap'\n  - Name='The Legacy Boston Scally Cap'\n  - Name='The Boondock Boston Scally Cap'\n  - Name='The Trainer Boston Scally Cap'\n  - Name='The Captain Boston Scally Cap'\n  - Name='The Pub Boston Scally Cap'\n  - Name='The Dorchester Collectors Edition Boston Scally Cap'\n  - Name='Kenmore Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Cape Codder Boston Scally Cap with Fish Hook\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a similar style of cap (Scally Cap) but no indication of sport fabric or specific technical features like The Driver's micro-poly technology.\"\n    },\n    {\n      \"competitor_product_name\": \"The Sailor Boston Scally Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another Scally cap variant, probably traditional style without mention of sport fabric or the 8-panel design of The Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Bundy Boston Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Shares the Scally Cap category; may have similar silhouette but lacks indication of breathable micro-poly sport fabric seen in The Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"The Legacy Boston Scally Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Name suggests a classic or heritage style; probably less performance-oriented than The Driver, thus less relevant in terms of features and technology.\"\n    },\n    {\n      \"competitor_product_name\": \"The Boondock Boston Scally Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another variant of Scally Cap, possibly different in style but no clear indication of sport technology or fabric, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Trainer Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Directly referenced in The Driver description as sharing the same interior lining, likely very similar in fit and comfort, though The Driver adds sport micro-poly fabric. Highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Captain Boston Scally Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a traditional or themed Scally Cap without noted technical features or fabric similar to The Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"The Pub Boston Scally Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Name suggests a classic style; probably lacks the sport fabric and 8-panel design, so less relevant to The Driver's functional attributes.\"\n    },\n    {\n      \"competitor_product_name\": \"The Dorchester Collectors Edition Boston Scally Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"'Collector's Edition' implies a specialty or limited edition cap likely focusing on design or heritage aspects, not sport fabric or performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenmore Boston Scally Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Standard Scally Cap model; no indication of performance fabric or sport technology, moderate relevance due to shared overall style.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Cape Codder Boston Scally Cap with Fish Hook",
+      "score": 6,
+      "rationale": "Likely a similar style of cap (Scally Cap) but no indication of sport fabric or specific technical features like The Driver's micro-poly technology.",
+      "map_id": "map_6bcce4fbbd794f4981856fa4f0dfa4bf"
+    },
+    {
+      "competitor_product_name": "The Sailor Boston Scally Cap",
+      "score": 5,
+      "rationale": "Another Scally cap variant, probably traditional style without mention of sport fabric or the 8-panel design of The Driver.",
+      "map_id": "map_8389d651fa14499cbe748d62898863ac"
+    },
+    {
+      "competitor_product_name": "Bundy Boston Scally Cap",
+      "score": 6,
+      "rationale": "Shares the Scally Cap category; may have similar silhouette but lacks indication of breathable micro-poly sport fabric seen in The Driver.",
+      "map_id": "map_fdce2190e89040f39a4d52895ae07500"
+    },
+    {
+      "competitor_product_name": "The Legacy Boston Scally Cap",
+      "score": 5,
+      "rationale": "Name suggests a classic or heritage style; probably less performance-oriented than The Driver, thus less relevant in terms of features and technology.",
+      "map_id": "map_a9eee9b0afe04939abfdee1852c120b0"
+    },
+    {
+      "competitor_product_name": "The Boondock Boston Scally Cap",
+      "score": 6,
+      "rationale": "Another variant of Scally Cap, possibly different in style but no clear indication of sport technology or fabric, moderately relevant.",
+      "map_id": "map_8bfc1a8ddb0f4ac890b200d5e2d5cc7e"
+    },
+    {
+      "competitor_product_name": "The Trainer Boston Scally Cap",
+      "score": 8,
+      "rationale": "Directly referenced in The Driver description as sharing the same interior lining, likely very similar in fit and comfort, though The Driver adds sport micro-poly fabric. Highly relevant.",
+      "map_id": "map_3b9ad85d14cc45c19b4554b25893896c"
+    },
+    {
+      "competitor_product_name": "The Captain Boston Scally Cap",
+      "score": 5,
+      "rationale": "Likely a traditional or themed Scally Cap without noted technical features or fabric similar to The Driver.",
+      "map_id": "map_4a06b9229ade46c5b4715c9fa90327ed"
+    },
+    {
+      "competitor_product_name": "The Pub Boston Scally Cap",
+      "score": 5,
+      "rationale": "Name suggests a classic style; probably lacks the sport fabric and 8-panel design, so less relevant to The Driver's functional attributes.",
+      "map_id": "map_b3b58e0f8b804d6692c717074cabdb5e"
+    },
+    {
+      "competitor_product_name": "The Dorchester Collectors Edition Boston Scally Cap",
+      "score": 4,
+      "rationale": "'Collector's Edition' implies a specialty or limited edition cap likely focusing on design or heritage aspects, not sport fabric or performance features.",
+      "map_id": "map_d86bd812509d451a8654e1f0a0077a92"
+    },
+    {
+      "competitor_product_name": "Kenmore Boston Scally Cap",
+      "score": 5,
+      "rationale": "Standard Scally Cap model; no indication of performance fabric or sport technology, moderate relevance due to shared overall style.",
+      "map_id": "map_ae4afa36a5db4d9fbb75e90069cc6b16"
+    }
+  ]
+}

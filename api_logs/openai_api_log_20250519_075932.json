@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250519_075932",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nNo description available.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Alex Mill Cropped Jo Shirt'\n  - Name='Alex Mill Men's Linen Shirt'\n  - Name='Alex Mill Men's Lightweight Mercer Tee'\n  - Name='Alex Mill Chambray Shirt'\n  - Name='J.Crew Men's Textured-Stripe Short-Sleeve Shirt'\n  - Name='J.Crew Men's Cotton-Linen Blend Camp-Collar Shirt'\n  - Name='J.Crew Men's Performance Knit Oxford Shirt'\n  - Name='J.Crew Men's Double-Knit Work Shirt'\n  - Name='J.Crew Men's Yarn-Dyed Seersucker Short-Sleeve Shirt'\n  - Name='J.Crew Men's Thompson Tuxedo Shirt'\n  - Name='Buck Mason Men's Nep Point Rider Western Shirt'\n  - Name='Taylor Stitch The Jack Men's Oxford'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Alex Mill Cropped Jo Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are shirts likely intended for casual wear, but the Alex Mill shirt is cropped, implying a different silhouette and possibly targeting a different demographic.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Linen Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A men's shirt like the Jack Shirt, but made from linen which suggests a different material and texture; likely similar in use and style but distinct fabric choice.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Lightweight Mercer Tee\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a tee (knitwear), while the reference is a shirt (woven), indicating a different construction and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Chambray Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chambray shirt shares the shirt category and likely similar silhouette and construction; fabric difference but close in product type.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Textured-Stripe Short-Sleeve Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A men's shirt relevant in function, but short sleeves differ from the Jack Shirt (implied long sleeve), reducing score somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Cotton-Linen Blend Camp-Collar Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar shirt type for men but camp collar may differ in collar style; cotton-linen blend suggests material variation but same category.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Performance Knit Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford shirt indicates a classic shirt style similar to the Jack Shirt (assumed from name and brand); knit construction slightly differs from standard woven shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Double-Knit Work Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work shirt likely shares function and silhouette with the Jack Shirt; double-knit fabric differs but remains in similar category.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Yarn-Dyed Seersucker Short-Sleeve Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Seersucker fabric and short sleeves diverge somewhat from the Jack Shirt; still a men's casual shirt but less similar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Thompson Tuxedo Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt for tuxedo is a more formal product, differing in style and possibly construction from the Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Nep Point Rider Western Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Western style shirt shares core function as men's casual shirt; stylistic detail differs but relevant overall.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch The Jack Men's Oxford\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is the exact product matching reference name and brand; therefore, fully relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Alex Mill Cropped Jo Shirt",
+      "score": 6,
+      "rationale": "Both are shirts likely intended for casual wear, but the Alex Mill shirt is cropped, implying a different silhouette and possibly targeting a different demographic.",
+      "map_id": "map_650d5f5334da49a5b3320b7c208e31e3"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Linen Shirt",
+      "score": 7,
+      "rationale": "A men's shirt like the Jack Shirt, but made from linen which suggests a different material and texture; likely similar in use and style but distinct fabric choice.",
+      "map_id": "map_6be77273af6f4a69aa43b363b66d47d9"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Lightweight Mercer Tee",
+      "score": 3,
+      "rationale": "This is a tee (knitwear), while the reference is a shirt (woven), indicating a different construction and function.",
+      "map_id": "map_1296da309bfd4fe6a73751e9bbd58725"
+    },
+    {
+      "competitor_product_name": "Alex Mill Chambray Shirt",
+      "score": 8,
+      "rationale": "Chambray shirt shares the shirt category and likely similar silhouette and construction; fabric difference but close in product type.",
+      "map_id": "map_fc49d59e4e194bb99a4f695ef9a87914"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Textured-Stripe Short-Sleeve Shirt",
+      "score": 7,
+      "rationale": "A men's shirt relevant in function, but short sleeves differ from the Jack Shirt (implied long sleeve), reducing score somewhat.",
+      "map_id": "map_925356d831834c1e8b56d3495ebc7cad"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Cotton-Linen Blend Camp-Collar Shirt",
+      "score": 7,
+      "rationale": "Similar shirt type for men but camp collar may differ in collar style; cotton-linen blend suggests material variation but same category.",
+      "map_id": "map_725c34270b9343d5b646ab8c04253597"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Performance Knit Oxford Shirt",
+      "score": 8,
+      "rationale": "An Oxford shirt indicates a classic shirt style similar to the Jack Shirt (assumed from name and brand); knit construction slightly differs from standard woven shirts.",
+      "map_id": "map_db79baf73c2c4a76a609a1b36aa718d0"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Double-Knit Work Shirt",
+      "score": 7,
+      "rationale": "Work shirt likely shares function and silhouette with the Jack Shirt; double-knit fabric differs but remains in similar category.",
+      "map_id": "map_54acf0f31348427692271a9727af8131"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Yarn-Dyed Seersucker Short-Sleeve Shirt",
+      "score": 6,
+      "rationale": "Seersucker fabric and short sleeves diverge somewhat from the Jack Shirt; still a men's casual shirt but less similar.",
+      "map_id": "map_ecff00b93a7845e78153ef8fae357bc7"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Thompson Tuxedo Shirt",
+      "score": 5,
+      "rationale": "Dress shirt for tuxedo is a more formal product, differing in style and possibly construction from the Jack Shirt.",
+      "map_id": "map_6d91931f2dc24f6ba0c337cee602eb90"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Nep Point Rider Western Shirt",
+      "score": 7,
+      "rationale": "Western style shirt shares core function as men's casual shirt; stylistic detail differs but relevant overall.",
+      "map_id": "map_d114642afcf84af4821a2f40620bcbfd"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch The Jack Men's Oxford",
+      "score": 10,
+      "rationale": "This is the exact product matching reference name and brand; therefore, fully relevant.",
+      "map_id": "map_541e17c3735643b4a5ccc5a331c6741a"
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "timestamp": "20250514_131411",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Faherty Men's Movement Field Jacket'\n  - Name='Levi's Men's Chore Jacket'\n  - Name='Barbour Men's Elmstone Quilted Jacket'\n  - Name='Levi's Men's Lightweight Cotton Twill Utility Jacket'\n  - Name='Men's Levi's Cotton Military Jacket'\n  - Name='Levi's Canvas Chore Barn Coat'\n  - Name='Levi's x Snoop Dogg Paisley Denim Chore Jacket'\n  - Name='Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton Ojai Jacket'\n  - Name='Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket'\n  - Name='Barbour Men's Ashby Quilted Jacket'\n  - Name='Barbour Men's Hereford Wax Jacket'\n  - Name='Barbour Men's Classic Bedale Waxed Cotton Jacket'\n  - Name='Men's Barbour Jackets'\n  - Name='Taylor Stitch Men's The Ojai Chore Coat'\n  - Name='Taylor Stitch Men's Organic Cotton Task Jacket'\n  - Name='Taylor Stitch Men's Organic Cotton/Leather Deck Jacket'\n  - Name='Barbour Men's Beaufort Waterproof Waxed Cotton Jacket'\n  - Name='Filson Men's Chore Jacket'\n  - Name='Taylor Stitch Men's The Ojai Chore Coat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Field Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Field jackets are utility outerwear with durable fabric and practical features, somewhat close in function to a chore coat but generally have a different silhouette and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket from Levi's shares the classic chore coat silhouette and utility features, making it highly relevant to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Elmstone Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted jackets focus on insulation and a different construction style; while outdoor-oriented like the Ojai, they differ in silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Cotton Twill Utility Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Lightweight cotton twill utility jacket strongly overlaps in fabric type and utility purpose, akin to the Ojai's organic cotton twill chore style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Levi's Cotton Military Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Military jackets have durable fabrics and a rugged style similar to chore coats; overlap in material and function but different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Canvas Chore Barn Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A canvas chore barn coat corresponds closely to the chore coat silhouette and utility features of the Ojai Jacket, making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's x Snoop Dogg Paisley Denim Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Denim chore jackets share the chore coat construction, though fabric differs from twill; still highly relevant based on silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and product line, specifically the Ojai with herringbone organic cotton variant; identical product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Ojai Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exactly the reference product as described; same brand, name, and fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton canvas with a chore-like design and utility features, though the corduroy collar adds a distinct style element, somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted jacket with different silhouette and purpose from chore coat; less relevant due to construction and design differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Hereford Wax Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Waxed jacket with utility function and classic styling, but differs in fabric and is typically heavier and different silhouette than chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Classic Bedale Waxed Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Bedale is a traditional waxed jacket with outdoor utility, somewhat analogous in function but different fabric and cut from the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Jackets\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Barbour jackets span various styles, some may share features but generally waxed or quilted fabrics differ significantly from the Ojai jacket's cotton twill chore styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Ojai Chore Coat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact match on brand and product, same chore coat silhouette and construction as reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Task Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar utility and organic cotton fabric, but potentially a different silhouette than the classic chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton/Leather Deck Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utilitarian jacket with organic cotton and leather components; construction differs as deck jackets have unique styles, less chore coat-like.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Beaufort Waterproof Waxed Cotton Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Waxed cotton outdoors jacket with utility but different silhouette and heavier fabric than the lightweight chore coat Ojai.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore jacket from Filson shares the chore coat structure and utility function, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Ojai Chore Coat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product reference; same silhouette, brand, and construction as Ojai Jacket.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Faherty Men's Movement Field Jacket",
+      "score": 6,
+      "rationale": "Field jackets are utility outerwear with durable fabric and practical features, somewhat close in function to a chore coat but generally have a different silhouette and style.",
+      "map_id": "map_e41b7ffe010a4ac08e8a1adf6e23b4e8"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Chore Jacket",
+      "score": 9,
+      "rationale": "A chore jacket from Levi's shares the classic chore coat silhouette and utility features, making it highly relevant to the Ojai Jacket.",
+      "map_id": "map_b511556b839347a68dabd99daa966c98"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Elmstone Quilted Jacket",
+      "score": 4,
+      "rationale": "Quilted jackets focus on insulation and a different construction style; while outdoor-oriented like the Ojai, they differ in silhouette and function.",
+      "map_id": "map_0f8b73ac19d341a29a31f45d31388184"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Cotton Twill Utility Jacket",
+      "score": 8,
+      "rationale": "Lightweight cotton twill utility jacket strongly overlaps in fabric type and utility purpose, akin to the Ojai's organic cotton twill chore style.",
+      "map_id": "map_e24dacc0b3424830a62dd4cdd419f65c"
+    },
+    {
+      "competitor_product_name": "Men's Levi's Cotton Military Jacket",
+      "score": 7,
+      "rationale": "Military jackets have durable fabrics and a rugged style similar to chore coats; overlap in material and function but different silhouette.",
+      "map_id": "map_31df1e44e1b8484f99a60beb38d8cf92"
+    },
+    {
+      "competitor_product_name": "Levi's Canvas Chore Barn Coat",
+      "score": 9,
+      "rationale": "A canvas chore barn coat corresponds closely to the chore coat silhouette and utility features of the Ojai Jacket, making it very relevant.",
+      "map_id": "map_3a35e689281b4de6813f78b3a702b595"
+    },
+    {
+      "competitor_product_name": "Levi's x Snoop Dogg Paisley Denim Chore Jacket",
+      "score": 8,
+      "rationale": "Denim chore jackets share the chore coat construction, though fabric differs from twill; still highly relevant based on silhouette and function.",
+      "map_id": "map_9e014222b8a74d3b9985765703ad3b30"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Ojai Herringbone Organic Cotton Work Jacket",
+      "score": 10,
+      "rationale": "Same brand and product line, specifically the Ojai with herringbone organic cotton variant; identical product type.",
+      "map_id": "map_a12ac24082224dd2b50cd35519741b7e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Ojai Jacket",
+      "score": 10,
+      "rationale": "Exactly the reference product as described; same brand, name, and fabric type.",
+      "map_id": "map_12cf054be1c24f41a07c4e4c89579bb2"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Canvas Corduroy Collar Depot Jacket",
+      "score": 7,
+      "rationale": "Cotton canvas with a chore-like design and utility features, though the corduroy collar adds a distinct style element, somewhat relevant.",
+      "map_id": "map_9d54936226404f9f894c6357ded7d7f5"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Quilted Jacket",
+      "score": 4,
+      "rationale": "Quilted jacket with different silhouette and purpose from chore coat; less relevant due to construction and design differences.",
+      "map_id": "map_032575d3c6a64a3fbf7cee9098324dc7"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Hereford Wax Jacket",
+      "score": 6,
+      "rationale": "Waxed jacket with utility function and classic styling, but differs in fabric and is typically heavier and different silhouette than chore coat.",
+      "map_id": "map_46d61aa376bf49f6af91f24e62b50811"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Classic Bedale Waxed Cotton Jacket",
+      "score": 6,
+      "rationale": "Bedale is a traditional waxed jacket with outdoor utility, somewhat analogous in function but different fabric and cut from the Ojai chore coat.",
+      "map_id": "map_1d0cb5438f714289a222022db3337fff"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Jackets",
+      "score": 5,
+      "rationale": "Generic Barbour jackets span various styles, some may share features but generally waxed or quilted fabrics differ significantly from the Ojai jacket's cotton twill chore styling.",
+      "map_id": "map_bb1c703d90ea41acb97d49fd298ed84e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat",
+      "score": 10,
+      "rationale": "Exact match on brand and product, same chore coat silhouette and construction as reference.",
+      "map_id": "map_f4cab8edca724e5b854689abb0211efe"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat",
+      "score": 10,
+      "rationale": "Exact match on brand and product, same chore coat silhouette and construction as reference.",
+      "map_id": "map_e001620737114ae592839d29746ca1f7"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Task Jacket",
+      "score": 8,
+      "rationale": "Similar utility and organic cotton fabric, but potentially a different silhouette than the classic chore coat.",
+      "map_id": "map_0b34ff4196ce4f668c872196d5e48f83"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton/Leather Deck Jacket",
+      "score": 7,
+      "rationale": "Utilitarian jacket with organic cotton and leather components; construction differs as deck jackets have unique styles, less chore coat-like.",
+      "map_id": "map_d841e80f4c5347a5886739628d6e41b6"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Beaufort Waterproof Waxed Cotton Jacket",
+      "score": 6,
+      "rationale": "Waxed cotton outdoors jacket with utility but different silhouette and heavier fabric than the lightweight chore coat Ojai.",
+      "map_id": "map_b7a22f34cb084aefb5d9f84d60d27a44"
+    },
+    {
+      "competitor_product_name": "Filson Men's Chore Jacket",
+      "score": 9,
+      "rationale": "A chore jacket from Filson shares the chore coat structure and utility function, highly relevant.",
+      "map_id": "map_0149b1e7ea76447d900a284b35a61361"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat",
+      "score": 10,
+      "rationale": "Identical product reference; same silhouette, brand, and construction as Ojai Jacket.",
+      "map_id": "map_f4cab8edca724e5b854689abb0211efe"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ojai Chore Coat",
+      "score": 10,
+      "rationale": "Identical product reference; same silhouette, brand, and construction as Ojai Jacket.",
+      "map_id": "map_e001620737114ae592839d29746ca1f7"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250510_100919",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Regular-Fit Supima Cotton Non-Iron Dress Shirt'\n  - Name='Regent Regular-Fit Stretch Supima Cotton Non-Iron Dress Shirt'\n  - Name='J.Crew Men's Mercantile Long Sleeve Slim Untucked Flex Shirt'\n  - Name='Banana Republic Men's Plaid Cotton Non-Iron Dress Shirt'\n  - Name='Banana Republic Factory Shirt Men's Standard Fit Non Iron Dress'\n  - Name='Banana Republic Men's Slim Fit Striped Button Up Dress Shirt'\n  - Name='Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt'\n  - Name='Banana Republic Non-Iron Slim Fit Button Down Shirt'\n  - Name='J.Crew Men's Tailored Performance Dress Shirt'\n  - Name='J.Crew Men's Slim-fit Long-Sleeve Oxford Tattersall Shirt'\n  - Name='Banana Republic Grant Fit Dress Shirt'\n  - Name='Banana Republic Camden Standard Fit Long Dress Shirt'\n  - Name='Men's Slim Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Stripe Dress Shirt - Cobalt Blue Single Cuff Size Medium Cotton'\n  - Name='Men's L.L.Bean Signature Northwoods Twill Shirt'\n  - Name='Nordstrom Trim Fit Premium Non-Iron Dress Shirt'\n  - Name='Banana Republic Men's Non-Iron Slim Fit Long Sleeve Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Banana Republic Factory Shirts Slim-Fit Non-Iron Plaid Dress Shirt'\n  - Name='Men's L.L.Bean All-Adventure Shirt'\n  - Name='Nordstrom Trim Fit Non-Iron Tuxedo Shirt'\n  - Name='Nordstrom Trim Fit Herringbone Dress Shirt'\n  - Name='Banana Republic Men's Tailored Slim Fit Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is an Oxford Polo shirt, typically a more casual knit shirt, not a traditional non-iron dress shirt in woven fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar to the above, this is a polo shirt style rather than a dress shirt, so less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Regular-Fit Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close product type: non-iron dress shirt with regular fit, relevant fabric and features similar to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Regent Regular-Fit Stretch Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Matches non-iron dress shirt criteria with stretch cotton and regular fit, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Mercantile Long Sleeve Slim Untucked Flex Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve dress-style shirt but described as 'untucked flex shirt', likely less formal and possibly not non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Plaid Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt, fitting the reference well except patterned rather than solid, which is disregarded.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Factory Shirt Men's Standard Fit Non Iron Dress\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Standard fit non-iron dress shirt matching core characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Striped Button Up Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt, but no explicit mention of non-iron; still quite relevant as a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit dress shirt, but microcheck pattern and no explicit non-iron mention reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Non-Iron Slim Fit Button Down Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron slim fit dress shirt, relevant, but button down collar might differ from semi-spread collar of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tailored Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with 'performance' fabric, likely similar use but no non-iron mention and fit specifics are less clear.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-fit Long-Sleeve Oxford Tattersall Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Oxford Tattersall shirt is a dressier casual shirt; slim fit long sleeve is relevant but no mention of non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Grant Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Grant fit dress shirt is a fit type from Banana Republic; likely dress shirt but no explicit non-iron mention.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Camden Standard Fit Long Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Standard fit long dress shirt probably very similar but no direct non-iron claim.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Slim Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic slim dress shirt description; no additional features mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Stripe Dress Shirt - Cobalt Blue Single Cuff Size Medium Cotton\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt with Oxford stripe fabric is quite relevant; button-down collar is a difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Signature Northwoods Twill Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Twill shirt likely more casual and no non-iron or dress shirt type indicated.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Premium Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Premium non-iron trim fit dress shirt is very close to reference product features.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Non-Iron Slim Fit Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron slim fit long sleeve dress shirt matches core features well.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with semi-cutaway collar close in style to semi-spread collar; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Factory Shirts Slim-Fit Non-Iron Plaid Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim-fit non-iron dress shirt is relevant though plaid pattern less so, which is disregarded.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean All-Adventure Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Adventure shirt likely designed for outdoor use, not a dress shirt and probably not non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Non-Iron Tuxedo Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron tuxedo shirt is dressy and close but tuxedo style differs in construction/occasion from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Trim fit dress shirt with herringbone fabric pattern is relevant though pattern and possible fabric texture differ slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Tailored Slim Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Tailored slim fit dress shirt is quite relevant but no mention of non-iron attribute.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo",
+      "score": 3,
+      "rationale": "This is an Oxford Polo shirt, typically a more casual knit shirt, not a traditional non-iron dress shirt in woven fabric.",
+      "map_id": "map_4b6b93ee4d5f4bec95a05dc555d31f5d"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 3,
+      "rationale": "Similar to the above, this is a polo shirt style rather than a dress shirt, so less relevant.",
+      "map_id": "map_a3f723ebdf414cc8be277e64e5ca8189"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Regular-Fit Supima Cotton Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Very close product type: non-iron dress shirt with regular fit, relevant fabric and features similar to reference.",
+      "map_id": "map_8ba64232e60e4e74a06785773524ef59"
+    },
+    {
+      "competitor_product_name": "Regent Regular-Fit Stretch Supima Cotton Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Matches non-iron dress shirt criteria with stretch cotton and regular fit, very relevant.",
+      "map_id": "map_7314be660f6d48ff9a978d913ebe55e6"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Mercantile Long Sleeve Slim Untucked Flex Shirt",
+      "score": 6,
+      "rationale": "Long sleeve dress-style shirt but described as 'untucked flex shirt', likely less formal and possibly not non-iron.",
+      "map_id": "map_c5bfdcd9f5144107b74f5f8a886dd2c1"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Plaid Cotton Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt, fitting the reference well except patterned rather than solid, which is disregarded.",
+      "map_id": "map_d9961a1f9ff44ac29024447ee2e6ed7e"
+    },
+    {
+      "competitor_product_name": "Banana Republic Factory Shirt Men's Standard Fit Non Iron Dress",
+      "score": 9,
+      "rationale": "Standard fit non-iron dress shirt matching core characteristics.",
+      "map_id": "map_d7917ba1a6fe493f94d404587fde5ce9"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Striped Button Up Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt, but no explicit mention of non-iron; still quite relevant as a dress shirt.",
+      "map_id": "map_bb20d9efe96f4f60a9c7e76b3b044aac"
+    },
+    {
+      "competitor_product_name": "Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit dress shirt, but microcheck pattern and no explicit non-iron mention reduces relevancy slightly.",
+      "map_id": "map_ef69f2e851d541e09d591d7d502f82fb"
+    },
+    {
+      "competitor_product_name": "Banana Republic Non-Iron Slim Fit Button Down Shirt",
+      "score": 8,
+      "rationale": "Non-iron slim fit dress shirt, relevant, but button down collar might differ from semi-spread collar of reference.",
+      "map_id": "map_259c03e608f748edb1260ea666871f52"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tailored Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with 'performance' fabric, likely similar use but no non-iron mention and fit specifics are less clear.",
+      "map_id": "map_04b0a479010c4774a3581438eb10ef49"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim-fit Long-Sleeve Oxford Tattersall Shirt",
+      "score": 6,
+      "rationale": "Oxford Tattersall shirt is a dressier casual shirt; slim fit long sleeve is relevant but no mention of non-iron.",
+      "map_id": "map_009d7fdfc15c45499e2b94cd162885da"
+    },
+    {
+      "competitor_product_name": "Banana Republic Grant Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Grant fit dress shirt is a fit type from Banana Republic; likely dress shirt but no explicit non-iron mention.",
+      "map_id": "map_29d8ebb1b34e4b45b22a24c2c3ed8b3c"
+    },
+    {
+      "competitor_product_name": "Banana Republic Camden Standard Fit Long Dress Shirt",
+      "score": 8,
+      "rationale": "Standard fit long dress shirt probably very similar but no direct non-iron claim.",
+      "map_id": "map_5d175dbd99924c75b5389fd8f38d2084"
+    },
+    {
+      "competitor_product_name": "Men's Slim Dress Shirt",
+      "score": 7,
+      "rationale": "Generic slim dress shirt description; no additional features mentioned.",
+      "map_id": "map_305cc6e8f1da4b9fa9634c737830267d"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Stripe Dress Shirt - Cobalt Blue Single Cuff Size Medium Cotton",
+      "score": 8,
+      "rationale": "Non-iron dress shirt with Oxford stripe fabric is quite relevant; button-down collar is a difference.",
+      "map_id": "map_c3231f368d41458aac935a01ffba9e05"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Signature Northwoods Twill Shirt",
+      "score": 4,
+      "rationale": "Twill shirt likely more casual and no non-iron or dress shirt type indicated.",
+      "map_id": "map_0c286cb186c5468da3472799d20d9ccc"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Premium Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Premium non-iron trim fit dress shirt is very close to reference product features.",
+      "map_id": "map_572f0abde901497d8fb239afccc261eb"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Non-Iron Slim Fit Long Sleeve Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron slim fit long sleeve dress shirt matches core features well.",
+      "map_id": "map_ccd4bc05dc5345ac98591a0dac265d18"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with semi-cutaway collar close in style to semi-spread collar; highly relevant.",
+      "map_id": "map_c211c86eeb3e4db0816372d40c371ac8"
+    },
+    {
+      "competitor_product_name": "Banana Republic Factory Shirts Slim-Fit Non-Iron Plaid Dress Shirt",
+      "score": 8,
+      "rationale": "Slim-fit non-iron dress shirt is relevant though plaid pattern less so, which is disregarded.",
+      "map_id": "map_c30e9f355c4f4493968da1aad63a1861"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean All-Adventure Shirt",
+      "score": 2,
+      "rationale": "Adventure shirt likely designed for outdoor use, not a dress shirt and probably not non-iron.",
+      "map_id": "map_083d43d901344e36a6a7d1cf7c0a0b60"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Non-Iron Tuxedo Shirt",
+      "score": 7,
+      "rationale": "Non-iron tuxedo shirt is dressy and close but tuxedo style differs in construction/occasion from dress shirt.",
+      "map_id": "map_bf0498b8e6664271a4c3c4d70425221a"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Herringbone Dress Shirt",
+      "score": 8,
+      "rationale": "Trim fit dress shirt with herringbone fabric pattern is relevant though pattern and possible fabric texture differ slightly.",
+      "map_id": "map_74416732b183441291984cdfa6c11198"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Tailored Slim Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Tailored slim fit dress shirt is quite relevant but no mention of non-iron attribute.",
+      "map_id": "map_0881240efc3d41689a782e15f3f2e2bd"
+    }
+  ]
+}

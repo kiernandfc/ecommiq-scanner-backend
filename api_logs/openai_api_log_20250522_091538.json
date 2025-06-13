@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250522_091538",
+  "reference_brand": "PicturesOnGold",
+  "reference_name": "Script Name Necklace",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"PicturesOnGold\"\nReference Product Name: \"Script Name Necklace\"\nReference Product Description:\nNames are beautiful and unique. Make sure you don't miss this special Modern Script Name Necklace and wear yours with style!\n\n16 inch is perfect for a Child or someone on the shorter side.\n18 Inches is the most popular size for most woman.\n20 inches for anyone who is tall or likes to wear their chain on the longer side\nNameplate can measure up to 1.75 inches wide depending on name length.\nAvailable in Sterling Silver, 14k Gold & Gold Plated\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='14K Yellow Gold Interlocking Hearts Photo Locket Necklace'\n  - Name='Baublebar 18K Gold Semi-Precious Custom Nameplate Necklace - Turquoise'\n  - Name='Personalized Dainty Name Necklace in Sterling Silver'\n  - Name='BaubleBar Mini Custom Icon Necklace Sterling Silver'\n  - Name='BaubleBar Disney Mickey Mouse Acrylic Custom Nameplate Necklace'\n  - Name='18K Gold Plated Sterling Silver Custom Nameplate Bracelet'\n  - Name='Custom Cursive Diamond Name Necklace'\n  - Name='BaubleBar Women's Mini Pavé Bubble Initial Necklace'\n  - Name='BaubleBar Tina Block Initial Necklace'\n  - Name='14K Solid Gold Personalized Script Necklace'\n  - Name='14K/18K Solid Gold Handwriting Name Necklace'\n  - Name='14K White Gold Heart Locket Necklace'\n  - Name='14K White Gold Diamond Heart Photo Locket Necklace'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"14K Yellow Gold Interlocking Hearts Photo Locket Necklace\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a locket necklace with photo feature and heart design, which is substantially different from a script nameplate necklace focused on personalized names.\"\n    },\n    {\n      \"competitor_product_name\": \"Baublebar 18K Gold Semi-Precious Custom Nameplate Necklace - Turquoise\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a custom nameplate necklace similar to the reference product, though it includes semi-precious stone embellishments which differs somewhat but shares core function and form.\"\n    },\n    {\n      \"competitor_product_name\": \"Personalized Dainty Name Necklace in Sterling Silver\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a personalized name necklace in a common material matching the reference, likely similar style and function, hence highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"BaubleBar Mini Custom Icon Necklace Sterling Silver\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a mini custom icon necklace rather than a nameplate, differing in form and personalization style, so lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"BaubleBar Disney Mickey Mouse Acrylic Custom Nameplate Necklace\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Custom nameplate style aligns with the reference but made of acrylic and themed with Mickey Mouse, altering construction and style.\"\n    },\n    {\n      \"competitor_product_name\": \"18K Gold Plated Sterling Silver Custom Nameplate Bracelet\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though custom and nameplate style, this is a bracelet, which differs significantly in silhouette and typical use from a necklace.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom Cursive Diamond Name Necklace\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a name necklace in cursive style like the reference script name necklace, with diamond embellishments adding luxury but core type is same.\"\n    },\n    {\n      \"competitor_product_name\": \"BaubleBar Women's Mini Pavé Bubble Initial Necklace\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An initial necklace is related but narrower in personalization (single letter) and uses pavé style, differing from full script names.\"\n    },\n    {\n      \"competitor_product_name\": \"BaubleBar Tina Block Initial Necklace\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Block initial necklace shares concept of initial personalization but differs significantly from full-name script necklace in appearance and scope.\"\n    },\n    {\n      \"competitor_product_name\": \"14K Solid Gold Personalized Script Necklace\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is essentially identical in function, personalization style, and material to the reference script name necklace, thus a perfect relevancy match.\"\n    },\n    {\n      \"competitor_product_name\": \"14K/18K Solid Gold Handwriting Name Necklace\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A handwriting name necklace in solid gold matches perfectly the personalized script style and material quality of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"14K White Gold Heart Locket Necklace\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a heart-shaped locket necklace, different in shape and function, not a script nameplate necklace.\"\n    },\n    {\n      \"competitor_product_name\": \"14K White Gold Diamond Heart Photo Locket Necklace\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Though luxurious, this is a diamond heart locket with photo holder, differing substantially from a personalized script name necklace.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "14K Yellow Gold Interlocking Hearts Photo Locket Necklace",
+      "score": 2,
+      "rationale": "This is a locket necklace with photo feature and heart design, which is substantially different from a script nameplate necklace focused on personalized names.",
+      "map_id": "map_ec3b404ee33f47f48c127c8d0ec2c9bb"
+    },
+    {
+      "competitor_product_name": "Baublebar 18K Gold Semi-Precious Custom Nameplate Necklace - Turquoise",
+      "score": 8,
+      "rationale": "This is a custom nameplate necklace similar to the reference product, though it includes semi-precious stone embellishments which differs somewhat but shares core function and form.",
+      "map_id": "map_514079c201374d22839cece8220346be"
+    },
+    {
+      "competitor_product_name": "Personalized Dainty Name Necklace in Sterling Silver",
+      "score": 9,
+      "rationale": "This is a personalized name necklace in a common material matching the reference, likely similar style and function, hence highly relevant.",
+      "map_id": "map_818983c019e14e92882e7af502556b39"
+    },
+    {
+      "competitor_product_name": "BaubleBar Mini Custom Icon Necklace Sterling Silver",
+      "score": 3,
+      "rationale": "This is a mini custom icon necklace rather than a nameplate, differing in form and personalization style, so lower relevancy.",
+      "map_id": "map_e4bdcd6b1bea4d669abe42b5601d76bb"
+    },
+    {
+      "competitor_product_name": "BaubleBar Disney Mickey Mouse Acrylic Custom Nameplate Necklace",
+      "score": 6,
+      "rationale": "Custom nameplate style aligns with the reference but made of acrylic and themed with Mickey Mouse, altering construction and style.",
+      "map_id": "map_dab0d3353e464a189f63d39ad6639d3b"
+    },
+    {
+      "competitor_product_name": "18K Gold Plated Sterling Silver Custom Nameplate Bracelet",
+      "score": 4,
+      "rationale": "Though custom and nameplate style, this is a bracelet, which differs significantly in silhouette and typical use from a necklace.",
+      "map_id": "map_c3e1f615ebb849fb8901dca5669b9b0b"
+    },
+    {
+      "competitor_product_name": "Custom Cursive Diamond Name Necklace",
+      "score": 9,
+      "rationale": "This is a name necklace in cursive style like the reference script name necklace, with diamond embellishments adding luxury but core type is same.",
+      "map_id": "map_a393117ba6e247f49cbaf8585ad4fa85"
+    },
+    {
+      "competitor_product_name": "BaubleBar Women's Mini Pavé Bubble Initial Necklace",
+      "score": 5,
+      "rationale": "An initial necklace is related but narrower in personalization (single letter) and uses pavé style, differing from full script names.",
+      "map_id": "map_767f3bdfdce54894b7756eb27aa7c98d"
+    },
+    {
+      "competitor_product_name": "BaubleBar Tina Block Initial Necklace",
+      "score": 5,
+      "rationale": "Block initial necklace shares concept of initial personalization but differs significantly from full-name script necklace in appearance and scope.",
+      "map_id": "map_ff204d1281e048a4986c23244c683c98"
+    },
+    {
+      "competitor_product_name": "14K Solid Gold Personalized Script Necklace",
+      "score": 10,
+      "rationale": "This is essentially identical in function, personalization style, and material to the reference script name necklace, thus a perfect relevancy match.",
+      "map_id": "map_2550800a04ff47fe88afba8e3564b14c"
+    },
+    {
+      "competitor_product_name": "14K/18K Solid Gold Handwriting Name Necklace",
+      "score": 10,
+      "rationale": "A handwriting name necklace in solid gold matches perfectly the personalized script style and material quality of the reference product.",
+      "map_id": "map_2eab73b273df4bfdac40221edb053ce1"
+    },
+    {
+      "competitor_product_name": "14K White Gold Heart Locket Necklace",
+      "score": 2,
+      "rationale": "This is a heart-shaped locket necklace, different in shape and function, not a script nameplate necklace.",
+      "map_id": "map_250e6b9fa36f4989b0743790a7f98005"
+    },
+    {
+      "competitor_product_name": "14K White Gold Diamond Heart Photo Locket Necklace",
+      "score": 2,
+      "rationale": "Though luxurious, this is a diamond heart locket with photo holder, differing substantially from a personalized script name necklace.",
+      "map_id": "map_eb5cf1bcd19d4b8bb7dda6160c0b5c7b"
+    }
+  ]
+}

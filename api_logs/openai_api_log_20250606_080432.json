@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250606_080432",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt'\n  - Name='Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt'\n  - Name='Lands' End Men's Oxford Short Sleeve Dress Shirt'\n  - Name='Bonobos Men's Stretch Oxford Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Plaid Dress Shirt'\n  - Name='Bonobos Men's Tech Slim Fit Gingham Check Button-Up Shirt'\n  - Name='Indochino Men's Sudbury Cotton Linen Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='Link Up Men's Matte Tie Bar'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it is a no-iron long sleeve shirt similar in function, it is a women's shirt, differing in intended user and likely cut, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a men's long sleeve dress shirt with traditional fit and likely non-iron or travel-friendly fabric. It shares many characteristics with the reference shirt including function and user.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Oxford Short Sleeve Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a men's dress shirt, but short sleeve rather than long sleeve like the reference, which reduces relevancy. Still, form and function overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Stretch Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's dress shirt with stretch fabric which may provide similar comfort and intended use as the reference non-iron dress shirt. No specific mention of no-iron finish but close.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Plaid Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's stretch dress shirt but plaid pattern and possibly not non-iron. Pattern differences are less important but may have different finish and feel, reducing relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Slim Fit Gingham Check Button-Up Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's button-up with tech features and gingham pattern, likely different material and fit compared to a classic non-iron dress shirt, moderate relevancy due to different fabric tech and pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Sudbury Cotton Linen Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's cotton-linen shirt likely less formal and not necessarily non-iron. Different fabric blend and texture make it moderately relevant but less than a conventional dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and very close product description (trim fit, wrinkle-free dress shirt). Essentially the identical product type and fit as reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Link Up Men's Matte Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This is an accessory (tie bar), not a shirt, so it is not relevant to the dress shirt reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt",
+      "score": 4,
+      "rationale": "While it is a no-iron long sleeve shirt similar in function, it is a women's shirt, differing in intended user and likely cut, making it less relevant.",
+      "map_id": "map_3fee0fa8114645c1bfc47c0e1ec1ee1d"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt",
+      "score": 7,
+      "rationale": "This is a men's long sleeve dress shirt with traditional fit and likely non-iron or travel-friendly fabric. It shares many characteristics with the reference shirt including function and user.",
+      "map_id": "map_5721cb6c3cfb42c599a0e122a5aae5a8"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Oxford Short Sleeve Dress Shirt",
+      "score": 6,
+      "rationale": "This is a men's dress shirt, but short sleeve rather than long sleeve like the reference, which reduces relevancy. Still, form and function overlap.",
+      "map_id": "map_a4baa6443d63451b9f005a539d1eab4d"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Stretch Oxford Shirt",
+      "score": 7,
+      "rationale": "Men's dress shirt with stretch fabric which may provide similar comfort and intended use as the reference non-iron dress shirt. No specific mention of no-iron finish but close.",
+      "map_id": "map_dc8b5d7a0c954e659626d7a4ca2abeb1"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Plaid Dress Shirt",
+      "score": 6,
+      "rationale": "Men's stretch dress shirt but plaid pattern and possibly not non-iron. Pattern differences are less important but may have different finish and feel, reducing relevancy slightly.",
+      "map_id": "map_613d0e15df9f4098a97a73a6897a156e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Slim Fit Gingham Check Button-Up Shirt",
+      "score": 5,
+      "rationale": "Men's button-up with tech features and gingham pattern, likely different material and fit compared to a classic non-iron dress shirt, moderate relevancy due to different fabric tech and pattern.",
+      "map_id": "map_b421c95238ff4129b96c9ed9e4055b53"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Sudbury Cotton Linen Shirt",
+      "score": 5,
+      "rationale": "Men's cotton-linen shirt likely less formal and not necessarily non-iron. Different fabric blend and texture make it moderately relevant but less than a conventional dress shirt.",
+      "map_id": "map_d19d1d0ca9514a49b8be4e09de4b6811"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 10,
+      "rationale": "Same brand and very close product description (trim fit, wrinkle-free dress shirt). Essentially the identical product type and fit as reference.",
+      "map_id": "map_a8139d9e9a05403da6a68d21da56036d"
+    },
+    {
+      "competitor_product_name": "Link Up Men's Matte Tie Bar",
+      "score": 1,
+      "rationale": "This is an accessory (tie bar), not a shirt, so it is not relevant to the dress shirt reference product.",
+      "map_id": "map_bcd5fe0caf5a485aa8bd7423e91b8627"
+    }
+  ]
+}

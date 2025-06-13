@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250603_152351",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Universal Works Bakers Chore Nylon Jacket'\n  - Name='Universal Works Men's Pembroke Jacket'\n  - Name='Faherty Stag x Faherty Indigo CPO Jacket'\n  - Name='Faherty Men's Organic Cotton Plaid Shirt Jacket'\n  - Name='Universal Works Men's Broad Cloth Fistral Jacket'\n  - Name='Universal Works Dockside Jacket'\n  - Name='Norse Projects Nunk Classic Jacket'\n  - Name='Norse Projects Jens Light Pertex Quantum'\n  - Name='Barbour Men's Heritage Liddesdale Quilted Jacket'\n  - Name='Levi's Men's Lightweight Trucker Jacket'\n  - Name='J. Crew Wallace & Barnes Duck Canvas Chore Coat Jacket'\n  - Name='J. Crew Wallace & Barnes Zip Front Twill Work Shirt'\n  - Name='Filson Women's Dry Waxed Plaid Cruiser Jacket'\n  - Name='Filson Women's Field Cruiser Jacket'\n  - Name='Filson Women's Dry Waxed Long Cruiser Jacket'\n  - Name='Filson Men's Down Bomber Jacket'\n  - Name='Filson Women's Aviator Cloth Work Jacket'\n  - Name='Filson Women's Lined Wool Packer Coat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Universal Works Bakers Chore Nylon Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This competitor product is a chore jacket like the reference, with similar utility and workwear inspiration but uses nylon instead of organic cotton twill, making it very relevant but not identical.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Pembroke Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The Pembroke jacket is more of a casual blazer-style jacket, differing from the chore coat silhouette and utility focus of the reference Ojai jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Stag x Faherty Indigo CPO Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a shirt jacket (CPO style) made from similar materials and meant for layering like the chore coat, sharing some functional and stylistic overlap but differing in silhouette and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Organic Cotton Plaid Shirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A shirt jacket in organic cotton which shares material and casual layering function but is not a chore coat, so less silhouette overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Broad Cloth Fistral Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a shirt or lightweight jacket with different fabric and form, less similar in structure and utility features compared to the chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Dockside Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Probably casual, utility-inspired outerwear by Universal Works but less clear if it has chore coat silhouette or fabric similar to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Nunk Classic Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A classic jacket with likely minimalistic design and utility focus, somewhat aligned with the chore coat silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Jens Light Pertex Quantum\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A lightweight technical jacket with synthetic Pertex fabric not aligned with organic cotton chore coat or silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Heritage Liddesdale Quilted Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Classic heritage quilted jacket focused more on warmth and country style than chore coat utility silhouette, some overlap in outerwear category.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Trucker Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim trucker jacket shares casual layering use and some workwear roots but differs in silhouette and fabric type from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"J. Crew Wallace & Barnes Duck Canvas Chore Coat Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore coat in heavy duck canvas very close in silhouette, utility, and fabric robustness to the Ojai jacket, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J. Crew Wallace & Barnes Zip Front Twill Work Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A work shirt made of twill fabric but more like a shirt than a coat, so less similar in silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Dry Waxed Plaid Cruiser Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Cruiser jacket with waxed fabric focused on weather protection, different style and construction from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Field Cruiser Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar reasoning as above, cruiser style and function differs from chore coat silhouette and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Dry Waxed Long Cruiser Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Longer cruiser profile and waxed fabric make it different in silhouette and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Down Bomber Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Down insulated bomber jacket aimed at warmth, very different silhouette and fabric from chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Aviator Cloth Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket with durable fabric and utility traits closer in function and construction to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Women's Lined Wool Packer Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heavier wool coat purposed for warmth and rugged use but different silhouette and fabric type.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Universal Works Bakers Chore Nylon Jacket",
+      "score": 8,
+      "rationale": "This competitor product is a chore jacket like the reference, with similar utility and workwear inspiration but uses nylon instead of organic cotton twill, making it very relevant but not identical.",
+      "map_id": "map_ada003157d394cc695d1e902237b12ed"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Pembroke Jacket",
+      "score": 5,
+      "rationale": "The Pembroke jacket is more of a casual blazer-style jacket, differing from the chore coat silhouette and utility focus of the reference Ojai jacket.",
+      "map_id": "map_c7fca2d23b95461d85edc7b325b84434"
+    },
+    {
+      "competitor_product_name": "Faherty Stag x Faherty Indigo CPO Jacket",
+      "score": 7,
+      "rationale": "This is a shirt jacket (CPO style) made from similar materials and meant for layering like the chore coat, sharing some functional and stylistic overlap but differing in silhouette and intended use.",
+      "map_id": "map_142ff2dd207c46fa898a0bd4474a6a44"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Organic Cotton Plaid Shirt Jacket",
+      "score": 6,
+      "rationale": "A shirt jacket in organic cotton which shares material and casual layering function but is not a chore coat, so less silhouette overlap.",
+      "map_id": "map_d8460264a91441f59467d927afd7ca6c"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Broad Cloth Fistral Jacket",
+      "score": 4,
+      "rationale": "Likely a shirt or lightweight jacket with different fabric and form, less similar in structure and utility features compared to the chore coat.",
+      "map_id": "map_971a4e02f54241b59e5b7fccf06f8881"
+    },
+    {
+      "competitor_product_name": "Universal Works Dockside Jacket",
+      "score": 6,
+      "rationale": "Probably casual, utility-inspired outerwear by Universal Works but less clear if it has chore coat silhouette or fabric similar to the reference.",
+      "map_id": "map_bfef7042127043da8760180a25a5c1ca"
+    },
+    {
+      "competitor_product_name": "Norse Projects Nunk Classic Jacket",
+      "score": 7,
+      "rationale": "A classic jacket with likely minimalistic design and utility focus, somewhat aligned with the chore coat silhouette and function.",
+      "map_id": "map_41e64fed28194beb8ea3607c7b207af0"
+    },
+    {
+      "competitor_product_name": "Norse Projects Jens Light Pertex Quantum",
+      "score": 3,
+      "rationale": "A lightweight technical jacket with synthetic Pertex fabric not aligned with organic cotton chore coat or silhouette.",
+      "map_id": "map_fdb988c70f9c44b1bd12bddf01336b5d"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Heritage Liddesdale Quilted Jacket",
+      "score": 5,
+      "rationale": "Classic heritage quilted jacket focused more on warmth and country style than chore coat utility silhouette, some overlap in outerwear category.",
+      "map_id": "map_820b3ce2037345ee92e13caf6876738b"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Trucker Jacket",
+      "score": 6,
+      "rationale": "Denim trucker jacket shares casual layering use and some workwear roots but differs in silhouette and fabric type from a chore coat.",
+      "map_id": "map_36eaf02eade643559101a9927c7dff8c"
+    },
+    {
+      "competitor_product_name": "J. Crew Wallace & Barnes Duck Canvas Chore Coat Jacket",
+      "score": 9,
+      "rationale": "A chore coat in heavy duck canvas very close in silhouette, utility, and fabric robustness to the Ojai jacket, highly relevant.",
+      "map_id": "map_a25a51972fe748d38263a91806f3526b"
+    },
+    {
+      "competitor_product_name": "J. Crew Wallace & Barnes Zip Front Twill Work Shirt",
+      "score": 4,
+      "rationale": "A work shirt made of twill fabric but more like a shirt than a coat, so less similar in silhouette and function.",
+      "map_id": "map_cb05d1609dd64e9da6eae6f81ae53854"
+    },
+    {
+      "competitor_product_name": "Filson Women's Dry Waxed Plaid Cruiser Jacket",
+      "score": 4,
+      "rationale": "Cruiser jacket with waxed fabric focused on weather protection, different style and construction from chore coat.",
+      "map_id": "map_d68c7845267f4590b8d67a6a5d07e7f8"
+    },
+    {
+      "competitor_product_name": "Filson Women's Field Cruiser Jacket",
+      "score": 4,
+      "rationale": "Similar reasoning as above, cruiser style and function differs from chore coat silhouette and fabric.",
+      "map_id": "map_39a3e53126df497590f00ba362ef99d3"
+    },
+    {
+      "competitor_product_name": "Filson Women's Dry Waxed Long Cruiser Jacket",
+      "score": 4,
+      "rationale": "Longer cruiser profile and waxed fabric make it different in silhouette and intended use.",
+      "map_id": "map_1051848684874667a56b89b93ba0be90"
+    },
+    {
+      "competitor_product_name": "Filson Men's Down Bomber Jacket",
+      "score": 3,
+      "rationale": "Down insulated bomber jacket aimed at warmth, very different silhouette and fabric from chore coat.",
+      "map_id": "map_d2cae9a87f174bc88a7025aaa615d9ee"
+    },
+    {
+      "competitor_product_name": "Filson Women's Aviator Cloth Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket with durable fabric and utility traits closer in function and construction to a chore coat.",
+      "map_id": "map_0b9694d11aed4e2ca9f426e58b5c069f"
+    },
+    {
+      "competitor_product_name": "Filson Women's Lined Wool Packer Coat",
+      "score": 5,
+      "rationale": "Heavier wool coat purposed for warmth and rugged use but different silhouette and fabric type.",
+      "map_id": "map_40c3d78d93054078bf0af39b0e098d92"
+    }
+  ]
+}

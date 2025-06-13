@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250520_114321",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Penner Wool Blend Check Driving Cap'\n  - Name='Men's Bailey Hats Bailey Glazer Flat Cap'\n  - Name='Bailey Perry'\n  - Name='Stetson Men's Woolen Stripe Driver Flat Cap'\n  - Name='Bailey Western Morgan Crushable Wool LiteFelt Hat'\n  - Name='Stetson Men's Brenscott Linen Driver Flat Cap'\n  - Name='Bailey Carver Pork Pie'\n  - Name='Bailey 1922 Chaplin Panama Bowler'\n  - Name='Reffell Men's Leather Ivy Cap'\n  - Name='Bailey Cuban'\n  - Name='Bailey Curtis'\n  - Name='Bailey Keter'\n  - Name='Bailey Galvin Wool Newsboy Cap'\n  - Name='Men Bailey 1922 Riffer LiteFelt Wool Hat'\n  - Name='Bailey Accessories Men's Flat Felt Driving Hat'\n  - Name='Bailey Men's Cresskill Straw Fedora'\n  - Name='Barbour Men's Lewis Trapper Hat'\n  - Name='Goorin Bros The Black Sheep Trucker Hat'\n  - Name='Men's Goorin Bros. Pigeon Trucker Hat'\n  - Name='Goorin Bros. Men's Cash Cow Trucker Hat'\n  - Name='Goorin Bros The Goat Trucker Hat'\n  - Name='Christys' Men's Tailored Linen Driver Flat Cap'\n  - Name='Goorin Brothers Ruthy (Black) Caps'\n  - Name='Goorin Bros Premium Rooster Trucker Mens Hat'\n  - Name='Barbour Men's Embroidered Baseball Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Penner Wool Blend Check Driving Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Both are driver caps with similar traditional styling; although the reference uses sport micro-poly fabric, the Penner is a wool blend, the core product type and silhouette are closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Bailey Hats Bailey Glazer Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap similar in silhouette to the 'Driver' scally cap; materials are not specified as sport fabric, but the style and intended use overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Perry\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat cap or similar style by Bailey; lacks detail but probably a traditional hat differing from sport fabric driver cap; moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Woolen Stripe Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A driver flat cap with wool fabric matches the driver style closely; difference in fabric (wool vs micro-poly sport) lowers score slightly, but silhouette and use are aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Western Morgan Crushable Wool LiteFelt Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While crushable and hat, LiteFelt and Western styling suggest a different category than a sport-focused driver cap; less relevant in construction and intended activity.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Brenscott Linen Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver flat cap style is shared; linen fabric differs from micro-poly sport fabric but still a breathable material suitable for similar use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Carver Pork Pie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Pork pie hats have a distinctly different silhouette and construction than driver caps, so low relevancy despite similar casual hat category.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey 1922 Chaplin Panama Bowler\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bowler hats differ substantially in shape and construction from driver caps, making it not very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Reffell Men's Leather Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap is a cousin to flat/driver caps but leather material differentiates it in texture and breathability; moderate overlap in style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Cuban\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Cuban hats typically are fedora-style with wide brims, quite different from driver cap silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Curtis\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Assuming Curtis is a flat or driver style cap, relevance is moderate; insufficient info but likely closer to reference than hats with different shapes.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Keter\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Limited info; if it's a flat or driver cap, moderate relevance; uncertain but likely less specialized than the reference sport cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Galvin Wool Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy caps share the flat cap family heritage with driver caps; wool fabric contrasts micro-poly but the silhouette and use are similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bailey 1922 Riffer LiteFelt Wool Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"LiteFelt wool hat likely has different structure and heavier material than sport micro-poly driver cap, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Accessories Men's Flat Felt Driving Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flat driving hat directly aligns with driver cap style; felt fabric contrasts with micro-poly but core product type matches well.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Cresskill Straw Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora hats with brims are different in silhouette and construction than driver caps; very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Lewis Trapper Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Trapper hats are winter hats with ear flaps and heavy insulation, entirely different use and construction from lightweight driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros The Black Sheep Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hats are baseball-style caps with mesh backs and curved bills, very different silhouette and purpose from driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Goorin Bros. Pigeon Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Same as above, trucker hat style is unrelated to driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Cash Cow Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Also a trucker hat with a different design, serving different style and function than driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros The Goat Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Another trucker hat; significantly different in style, material, and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' Men's Tailored Linen Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Driver flat cap with linen fabric closely matches reference product in style and materials focusing on breathability and sport use.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Brothers Ruthy (Black) Caps\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Without specific style info, likely a baseball or casual cap of a different style; low relevance to driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Premium Rooster Trucker Mens Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hat style again differs substantially from driver cap, leading to low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Embroidered Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Baseball cap silhouette differs materially and stylistically from driver caps; low relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Penner Wool Blend Check Driving Cap",
+      "score": 8,
+      "rationale": "Both are driver caps with similar traditional styling; although the reference uses sport micro-poly fabric, the Penner is a wool blend, the core product type and silhouette are closely related.",
+      "map_id": "map_128857be2d334dbc9de1030306ae2f47"
+    },
+    {
+      "competitor_product_name": "Men's Bailey Hats Bailey Glazer Flat Cap",
+      "score": 7,
+      "rationale": "This is a flat cap similar in silhouette to the 'Driver' scally cap; materials are not specified as sport fabric, but the style and intended use overlap.",
+      "map_id": "map_e5242a5124cf4b859195dc8839b795c8"
+    },
+    {
+      "competitor_product_name": "Bailey Perry",
+      "score": 6,
+      "rationale": "Likely a flat cap or similar style by Bailey; lacks detail but probably a traditional hat differing from sport fabric driver cap; moderate relevance.",
+      "map_id": "map_bb4c46e7112943f69f4e9071aeb27d83"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Woolen Stripe Driver Flat Cap",
+      "score": 8,
+      "rationale": "A driver flat cap with wool fabric matches the driver style closely; difference in fabric (wool vs micro-poly sport) lowers score slightly, but silhouette and use are aligned.",
+      "map_id": "map_19b7bac8d22749c49dae3a839ec1d1bd"
+    },
+    {
+      "competitor_product_name": "Bailey Western Morgan Crushable Wool LiteFelt Hat",
+      "score": 4,
+      "rationale": "While crushable and hat, LiteFelt and Western styling suggest a different category than a sport-focused driver cap; less relevant in construction and intended activity.",
+      "map_id": "map_4d3489bd31844648a140faeb83eb34b5"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Brenscott Linen Driver Flat Cap",
+      "score": 7,
+      "rationale": "Driver flat cap style is shared; linen fabric differs from micro-poly sport fabric but still a breathable material suitable for similar use.",
+      "map_id": "map_07ee57d6a4c34f76b1b1154a21eb9e7e"
+    },
+    {
+      "competitor_product_name": "Bailey Carver Pork Pie",
+      "score": 3,
+      "rationale": "Pork pie hats have a distinctly different silhouette and construction than driver caps, so low relevancy despite similar casual hat category.",
+      "map_id": "map_a44b8fb6bb894a02a5037af9069e0960"
+    },
+    {
+      "competitor_product_name": "Bailey 1922 Chaplin Panama Bowler",
+      "score": 2,
+      "rationale": "Bowler hats differ substantially in shape and construction from driver caps, making it not very relevant.",
+      "map_id": "map_40af8d251a4a449ebf065c89e47790d6"
+    },
+    {
+      "competitor_product_name": "Reffell Men's Leather Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy cap is a cousin to flat/driver caps but leather material differentiates it in texture and breathability; moderate overlap in style.",
+      "map_id": "map_6f3dce518e8a420eb2c8b1535d29f7da"
+    },
+    {
+      "competitor_product_name": "Bailey Cuban",
+      "score": 3,
+      "rationale": "Cuban hats typically are fedora-style with wide brims, quite different from driver cap silhouette and function.",
+      "map_id": "map_5a2176394f6c4b8499bfd547760c2c58"
+    },
+    {
+      "competitor_product_name": "Bailey Curtis",
+      "score": 6,
+      "rationale": "Assuming Curtis is a flat or driver style cap, relevance is moderate; insufficient info but likely closer to reference than hats with different shapes.",
+      "map_id": "map_7f7759e04c0e4377ad1a3ae5ca3a933d"
+    },
+    {
+      "competitor_product_name": "Bailey Keter",
+      "score": 5,
+      "rationale": "Limited info; if it's a flat or driver cap, moderate relevance; uncertain but likely less specialized than the reference sport cap.",
+      "map_id": "map_1adaf2ed6ae745848e5c7f19df9a66a8"
+    },
+    {
+      "competitor_product_name": "Bailey Galvin Wool Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy caps share the flat cap family heritage with driver caps; wool fabric contrasts micro-poly but the silhouette and use are similar.",
+      "map_id": "map_90080f05194545078476995eb0c892b7"
+    },
+    {
+      "competitor_product_name": "Men Bailey 1922 Riffer LiteFelt Wool Hat",
+      "score": 4,
+      "rationale": "LiteFelt wool hat likely has different structure and heavier material than sport micro-poly driver cap, reducing relevancy.",
+      "map_id": "map_763e4e1651fd44d3b5318e947abee3c4"
+    },
+    {
+      "competitor_product_name": "Bailey Accessories Men's Flat Felt Driving Hat",
+      "score": 8,
+      "rationale": "Flat driving hat directly aligns with driver cap style; felt fabric contrasts with micro-poly but core product type matches well.",
+      "map_id": "map_e4daffa29b5141ecbc47817e1e2f7fa2"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Cresskill Straw Fedora",
+      "score": 2,
+      "rationale": "Fedora hats with brims are different in silhouette and construction than driver caps; very low relevancy.",
+      "map_id": "map_364167c3909042d28c77b56ce8e027db"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Lewis Trapper Hat",
+      "score": 1,
+      "rationale": "Trapper hats are winter hats with ear flaps and heavy insulation, entirely different use and construction from lightweight driver caps.",
+      "map_id": "map_5656c483a3354da99dffd1d0a6938933"
+    },
+    {
+      "competitor_product_name": "Goorin Bros The Black Sheep Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hats are baseball-style caps with mesh backs and curved bills, very different silhouette and purpose from driver caps.",
+      "map_id": "map_25792bc52f9b41d8abb7dca5fc342e64"
+    },
+    {
+      "competitor_product_name": "Men's Goorin Bros. Pigeon Trucker Hat",
+      "score": 2,
+      "rationale": "Same as above, trucker hat style is unrelated to driver caps.",
+      "map_id": "map_673a82c32c34430ab44cc2a091e920e4"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Cash Cow Trucker Hat",
+      "score": 2,
+      "rationale": "Also a trucker hat with a different design, serving different style and function than driver caps.",
+      "map_id": "map_158149d7f7bd4bcab748c311a96f6b1d"
+    },
+    {
+      "competitor_product_name": "Goorin Bros The Goat Trucker Hat",
+      "score": 2,
+      "rationale": "Another trucker hat; significantly different in style, material, and purpose.",
+      "map_id": "map_b5baa39c7e4641ea8be9ed38a1dacf3b"
+    },
+    {
+      "competitor_product_name": "Christys' Men's Tailored Linen Driver Flat Cap",
+      "score": 8,
+      "rationale": "Driver flat cap with linen fabric closely matches reference product in style and materials focusing on breathability and sport use.",
+      "map_id": "map_fb30c8f996504878b775ec929acf3c6a"
+    },
+    {
+      "competitor_product_name": "Goorin Brothers Ruthy (Black) Caps",
+      "score": 3,
+      "rationale": "Without specific style info, likely a baseball or casual cap of a different style; low relevance to driver cap.",
+      "map_id": "map_cebb7d97c5d345548fd9d13f321cdad3"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Premium Rooster Trucker Mens Hat",
+      "score": 2,
+      "rationale": "Trucker hat style again differs substantially from driver cap, leading to low relevancy.",
+      "map_id": "map_16a020b5dc4244b3a7f9214c3c961d36"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Embroidered Baseball Cap",
+      "score": 2,
+      "rationale": "Baseball cap silhouette differs materially and stylistically from driver caps; low relevancy.",
+      "map_id": "map_3bc06e0094de4d238154336aec6f15b9"
+    }
+  ]
+}

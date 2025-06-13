@@ -1,0 +1,71 @@
+{
+  "timestamp": "20250516_090550",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Outerknown Men's New Beach Jeans Pants'\n  - Name='Outerknown Men's Cruiser Chino Drawstring Pants'\n  - Name='Outerknown Sur Sweatpants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Outerknown Men's New Beach Jeans Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's pants, but the reference is a heavy-duty chore pant made of organic cotton canvas with reinforced construction, while these appear to be lighter, casual jeans more suited for beachwear, likely with different materials and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Men's Cruiser Chino Drawstring Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"These are casual chino-style pants with a drawstring, likely lighter and less rugged than the Taylor Stitch chore pant. Although both are casual pants, the reference has reinforced knees and heavy canvas, indicating different intended use and durability.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Sur Sweatpants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Sweatpants are fundamentally different in purpose, construction, and silhouette from heavy-duty chore pants made of canvas. This product is not very relevant to the reference chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Outerknown Men's New Beach Jeans Pants",
+      "score": 6,
+      "rationale": "Both are men's pants, but the reference is a heavy-duty chore pant made of organic cotton canvas with reinforced construction, while these appear to be lighter, casual jeans more suited for beachwear, likely with different materials and construction.",
+      "map_id": "map_623bb989103f41ed809fa640a6c262a3"
+    },
+    {
+      "competitor_product_name": "Outerknown Men's Cruiser Chino Drawstring Pants",
+      "score": 5,
+      "rationale": "These are casual chino-style pants with a drawstring, likely lighter and less rugged than the Taylor Stitch chore pant. Although both are casual pants, the reference has reinforced knees and heavy canvas, indicating different intended use and durability.",
+      "map_id": "map_187a439f214d425ab174eabb5bc8c14e"
+    },
+    {
+      "competitor_product_name": "Outerknown Sur Sweatpants",
+      "score": 2,
+      "rationale": "Sweatpants are fundamentally different in purpose, construction, and silhouette from heavy-duty chore pants made of canvas. This product is not very relevant to the reference chore pant.",
+      "map_id": "map_d25f6f1cd186498387134cd10c293f16"
+    }
+  ]
+}

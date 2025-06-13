@@ -1,0 +1,155 @@
+{
+  "timestamp": "20250605_090800",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Banana Republic Non-Iron Standard Fit Button Down Shirt'\n  - Name='Banana Republic Men's Large Button Front Checked Shirt'\n  - Name='Men's Mizzen + Main Halyard Short Sleeve'\n  - Name='L.L.Bean Men's Comfort Stretch Chambray Shirt'\n  - Name='Calvin Klein Men's Refined Cotton Slim Fit Dress Shirt'\n  - Name='L.L.Bean Men's Signature Seersucker Madras Shirt'\n  - Name='Lands' End Men's Tall Short Sleeve No Iron Twill Shirt'\n  - Name='Bonobos Men's Tech Check Performance Button-Up Shirt'\n  - Name='Bonobos Men's Empire Stretch Tuxedo Shirt'\n  - Name='Bonobos Men's Athletic Shirt'\n  - Name='Bonobos Men's Everyday Casual Shirt'\n  - Name='Bonobos Men's Resort Riveria Jacquard Stripe Camp Shirt'\n  - Name='Bonobos Men's Resort Riveria Floral Linen Camp Shirt'\n  - Name='Bonobos Daily Grind Wrinkle Free Dress Shirt Extended Sizes - Blue'\n  - Name='Salutto Men's Tie Bar Clip'\n  - Name='The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Convertible Cotton Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Banana Republic Non-Iron Standard Fit Button Down Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a non-iron shirt with a standard fit and button down style, very similar in construction and function to the reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Large Button Front Checked Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While it is a button-front shirt, the checked pattern and unspecified fit reduce relevancy compared to a solid, standard or trim fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen + Main Halyard Short Sleeve\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve indicates a more casual style, differing from typical dress shirt characteristics, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Chambray Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Chambray fabric and comfort stretch usually imply casual wear rather than a classic dress shirt, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Refined Cotton Slim Fit Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A slim fit cotton dress shirt is highly similar in style and intended use to the reference product, making it closely relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Seersucker Madras Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The seersucker madras fabric suggests a casual and textured pattern shirt, which is quite different from a plain, refined dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Short Sleeve No Iron Twill Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"No iron and twill fabric align somewhat with dress shirt qualities, but short sleeves and tall fit adjust intended style and audience.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Check Performance Button-Up Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance fabric and a check pattern suggest a more casual or athletic style shirt, less formal than the reference dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Empire Stretch Tuxedo Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A tuxedo shirt is a type of dress shirt with formal styling; however, it is more specialized and distinct from a standard non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Athletic Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"An athletic shirt implies casual, performance use, differing significantly from a traditional dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual shirt differs in formality and possibly fit and fabric, reducing relevancy to a dress shirt product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Resort Riveria Jacquard Stripe Camp Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A camp shirt is a casual, loose silhouette not comparable to the structured dress shirt reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Resort Riveria Floral Linen Camp Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Similar to the previous camp shirt, casual linen fabric and floral pattern make it very different from the dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Daily Grind Wrinkle Free Dress Shirt Extended Sizes - Blue\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free dress shirt matches closely in function and style to the reference non-iron dress shirt, hence very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Salutto Men's Tie Bar Clip\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A tie bar clip is an accessory, not a shirt, so it is not relevant to the reference shirt product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This product matches the reference brand and closely aligns in fit, fabric, and wrinkle-free function making it essentially identical.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Convertible Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"While it has a herringbone pattern and a convertible feature, it remains a cotton dress shirt from the same brand, maintaining strong relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Banana Republic Non-Iron Standard Fit Button Down Shirt",
+      "score": 9,
+      "rationale": "This is a non-iron shirt with a standard fit and button down style, very similar in construction and function to the reference non-iron dress shirt.",
+      "map_id": "map_b77e13f894fe451ba9aa264e30962d32"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Large Button Front Checked Shirt",
+      "score": 5,
+      "rationale": "While it is a button-front shirt, the checked pattern and unspecified fit reduce relevancy compared to a solid, standard or trim fit dress shirt.",
+      "map_id": "map_df5f6c6b2eeb4bb7b931ae5225d84485"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen + Main Halyard Short Sleeve",
+      "score": 4,
+      "rationale": "Short sleeve indicates a more casual style, differing from typical dress shirt characteristics, reducing relevancy.",
+      "map_id": "map_dee8f52a90fa4a2899285e6837cc4ef9"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Chambray Shirt",
+      "score": 3,
+      "rationale": "Chambray fabric and comfort stretch usually imply casual wear rather than a classic dress shirt, lowering relevancy.",
+      "map_id": "map_d91ee7bdca7a4396823f13046f3f7d4c"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Refined Cotton Slim Fit Dress Shirt",
+      "score": 9,
+      "rationale": "A slim fit cotton dress shirt is highly similar in style and intended use to the reference product, making it closely relevant.",
+      "map_id": "map_abbdad46630544abb6f76bfd05696447"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Seersucker Madras Shirt",
+      "score": 4,
+      "rationale": "The seersucker madras fabric suggests a casual and textured pattern shirt, which is quite different from a plain, refined dress shirt.",
+      "map_id": "map_27f87e99580547258b4f6f1c7b1eefe2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Short Sleeve No Iron Twill Shirt",
+      "score": 6,
+      "rationale": "No iron and twill fabric align somewhat with dress shirt qualities, but short sleeves and tall fit adjust intended style and audience.",
+      "map_id": "map_57a7ab73e82743419da2e8eabfe1888e"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Check Performance Button-Up Shirt",
+      "score": 6,
+      "rationale": "Performance fabric and a check pattern suggest a more casual or athletic style shirt, less formal than the reference dress shirt.",
+      "map_id": "map_7205649bd18f4734b8a5319602b70c80"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Empire Stretch Tuxedo Shirt",
+      "score": 7,
+      "rationale": "A tuxedo shirt is a type of dress shirt with formal styling; however, it is more specialized and distinct from a standard non-iron dress shirt.",
+      "map_id": "map_bbc451b247eb419f9d8184cf5951c5be"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Athletic Shirt",
+      "score": 3,
+      "rationale": "An athletic shirt implies casual, performance use, differing significantly from a traditional dress shirt.",
+      "map_id": "map_03a28b64492e4420b99fc52b2ae29ff5"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Shirt",
+      "score": 5,
+      "rationale": "Casual shirt differs in formality and possibly fit and fabric, reducing relevancy to a dress shirt product.",
+      "map_id": "map_fa1e6f896d3046b491501c3542d85d4a"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Resort Riveria Jacquard Stripe Camp Shirt",
+      "score": 2,
+      "rationale": "A camp shirt is a casual, loose silhouette not comparable to the structured dress shirt reference product.",
+      "map_id": "map_886d54fe640e45b58b2438127ade1918"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Resort Riveria Floral Linen Camp Shirt",
+      "score": 2,
+      "rationale": "Similar to the previous camp shirt, casual linen fabric and floral pattern make it very different from the dress shirt.",
+      "map_id": "map_7f61edababd94f62bf613088dc1942f4"
+    },
+    {
+      "competitor_product_name": "Bonobos Daily Grind Wrinkle Free Dress Shirt Extended Sizes - Blue",
+      "score": 9,
+      "rationale": "Wrinkle-free dress shirt matches closely in function and style to the reference non-iron dress shirt, hence very relevant.",
+      "map_id": "map_ce5a7a8b037f4e648350f9b6c80dc913"
+    },
+    {
+      "competitor_product_name": "Salutto Men's Tie Bar Clip",
+      "score": 1,
+      "rationale": "A tie bar clip is an accessory, not a shirt, so it is not relevant to the reference shirt product.",
+      "map_id": "map_d9dea877a30c424a93b6a8c9df9c9cb1"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "This product matches the reference brand and closely aligns in fit, fabric, and wrinkle-free function making it essentially identical.",
+      "map_id": "map_982b8a5b8633434e97f29c4d2a66dcb6"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Convertible Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "While it has a herringbone pattern and a convertible feature, it remains a cotton dress shirt from the same brand, maintaining strong relevancy.",
+      "map_id": "map_8ec55908b53946daa6262108de3868aa"
+    }
+  ]
+}

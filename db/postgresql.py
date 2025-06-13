@@ -26,6 +26,8 @@ class CompetitorBrandDB(Base):
     competitor_brand = Column(String, nullable=False)
     search_query = Column(String, nullable=False)
     reference_product_description = Column(Text, nullable=True)
+    min_price = Column(Float, nullable=True)
+    max_price = Column(Float, nullable=True)
     active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -421,6 +423,36 @@ class PostgreSQLDatabase:
         """Add or update a catalog product and return status (id, is_new)"""
         session = self.Session()
         try:
+            if competitor_ids and hasattr(product, 'price') and product.price is not None:
+                # Fetch associated competitors to check min/max price constraints
+                competitors = session.query(CompetitorBrandDB).filter(CompetitorBrandDB.id.in_(competitor_ids)).all()
+                
+                if competitors:
+                    min_prices = [c.min_price for c in competitors if c.min_price is not None]
+                    max_prices = [c.max_price for c in competitors if c.max_price is not None]
+                    
+                    # Use the lowest min and highest max to create the widest possible valid range
+                    overall_min_price = min(min_prices) if min_prices else None
+                    overall_max_price = max(max_prices) if max_prices else None
+
+                    product_price = float(product.price)
+
+                    # Check if the price is outside the valid range
+                    price_out_of_range = False
+                    if overall_min_price is not None and product_price < overall_min_price:
+                        price_out_of_range = True
+                    
+                    if overall_max_price is not None and product_price > overall_max_price:
+                        price_out_of_range = True
+
+                    if price_out_of_range:
+                        self.logger.warning(
+                            f"Product price {product_price:.2f} for GID {product.google_shopping_id} "
+                            f"is outside the defined range [{overall_min_price}, {overall_max_price}]. Discarding price observation."
+                        )
+                        # Set price to None to prevent it from being saved
+                        product.price = None
+
             # Check if the product already exists
             if product.google_shopping_id:
                 existing = session.query(CatalogProductDB).filter(
@@ -428,14 +460,14 @@ class PostgreSQLDatabase:
                 ).first()
             else:
                 existing = None
-                
+            
             if existing:
                 # Update existing product
                 existing.google_shopping_id = product.google_shopping_id
                 existing.title = product.title if hasattr(product, 'title') else product.name
                 existing.link = product.link if hasattr(product, 'link') else product.url
                 existing.image_link = product.image_link if hasattr(product, 'image_link') else None
-                existing.price = float(product.price) if hasattr(product, 'price') else None
+                existing.price = float(product.price) if product.price is not None else None
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
                 
@@ -477,7 +509,7 @@ class PostgreSQLDatabase:
                     title=product.title if hasattr(product, 'title') else product.name,
                     link=product.link if hasattr(product, 'link') else product.url,
                     image_link=product.image_link if hasattr(product, 'image_link') else None,
-                    price=float(product.price) if hasattr(product, 'price') else None,
+                    price=float(product.price) if product.price is not None else None,
                     currency=product.currency if hasattr(product, 'currency') else None,
                     is_available=product.is_available if hasattr(product, 'is_available') else True,
                     
@@ -765,6 +797,9 @@ class PostgreSQLDatabase:
         1. daily_price_summary
         2. interpolated_price_summary_14day
         3. competitor_weighted_price_14day
+        4. daily_price_summary_all_dates
+        5. interpolated_price_summary_all_dates
+        6. competitor_weighted_price_all_dates
         """
         session = self.Session()
         try:
@@ -781,6 +816,18 @@ class PostgreSQLDatabase:
             # Step 3: Refresh competitor_weighted_price_14day (depends on interpolated view)
             self.logger.info("Refreshing competitor_weighted_price_14day...")
             session.execute(text("REFRESH MATERIALIZED VIEW competitor_weighted_price_14day"))
+
+            # Step 4: Refresh daily_price_summary_all_dates
+            self.logger.info("Refreshing daily_price_summary_all_dates...")
+            session.execute(text("REFRESH MATERIALIZED VIEW daily_price_summary_all_dates"))
+
+            # Step 5: Refresh interpolated_price_summary_all_dates (depends on daily_price_summary_all_dates)
+            self.logger.info("Refreshing interpolated_price_summary_all_dates...")
+            session.execute(text("REFRESH MATERIALIZED VIEW interpolated_price_summary_all_dates"))
+
+            # Step 6: Refresh competitor_weighted_price_all_dates (depends on interpolated_price_summary_all_dates)
+            self.logger.info("Refreshing competitor_weighted_price_all_dates...")
+            session.execute(text("REFRESH MATERIALIZED VIEW competitor_weighted_price_all_dates"))
             
             # Commit all changes
             session.commit()

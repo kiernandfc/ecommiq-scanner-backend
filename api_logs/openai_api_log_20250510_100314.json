@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250510_100314",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Jos. A. Bank Men's Traveler Collection Micro Check Tie'\n  - Name='Charles Tyrwhitt Men's Luxury Geometric Necktie'\n  - Name='Men's Wearhouse Tie'\n  - Name='Joseph Abboud Men's Narrow Labyrinth Tie'\n  - Name='Joseph Abboud Men's Narrow Celestial Silk Tie'\n  - Name='Joseph Abboud Men's Narrow Labyrinth Tie'\n  - Name='Pronto Uomo Men's Narrow Floral Motif Silk Tie'\n  - Name='Kenneth Cole Men's Narrow Gridlines Tie'\n  - Name='Pronto Uomo Men's Narrow Floral Motif Silk Tie'\n  - Name='Egara Big & Tall Men's Skinny Solid Tie at Men's Wearhouse, Silver / Metallic - Size: Extra Long'\n  - Name='Pronto Uomo Men's Narrow Floral Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Floral Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Stripe Silk Tie'\n  - Name='Pronto Uomo Men's Narrow Floral Motif Silk Tie'\n  - Name='Brooks Brothers Men's Silk Sailboat Motif Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Jos. A. Bank Men's Traveler Collection Micro Check Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a necktie similar in purpose and construction, but features a micro check pattern rather than being solid satin, which lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Luxury Geometric Necktie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar luxury necktie likely made of silk but with a geometric pattern rather than solid satin, reducing direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Wearhouse Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The name is generic with no details on pattern, fabric or finish; presumed a tie but uncertain if satin or solid, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Labyrinth Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow tie with a patterned design (Labyrinth), likely silk but not solid satin, so only moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Celestial Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk necktie with possibly a printed pattern, narrow cut; somewhat relevant due to silk material but not solid satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Labyrinth Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Duplicate of previous Labyrinth tie; same rationale applies.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Floral Motif Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Narrow silk tie with floral motif pattern, differing notably from solid satin tie in design and likely texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Narrow Gridlines Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow tie with gridline pattern; probably silk but pattern and narrow design decrease relevancy to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Floral Motif Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Same as previous floral motif tie; pattern and narrow style reduce relevancy to reference solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Big & Tall Men's Skinny Solid Tie at Men's Wearhouse, Silver / Metallic - Size: Extra Long\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Solid color tie aligns with reference product's solid aspect; skinny/special sizing affects silhouette relevance somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Floral Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Narrow silk tie with floral pattern, contrasting with solid satin reference tie in pattern complexity and likely finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Floral Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Duplicate of previous floral silk tie; same rationale applies.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Stripe Silk Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow silk tie with stripe pattern; pattern and narrow silhouette reduce relevancy compared to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Floral Motif Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Repeated floral motif narrow silk tie; pattern and cut make it less relevant to solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Silk Sailboat Motif Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie with a motif pattern; shares material but not solid design or smooth satin finish, so moderate relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Jos. A. Bank Men's Traveler Collection Micro Check Tie",
+      "score": 6,
+      "rationale": "This is a necktie similar in purpose and construction, but features a micro check pattern rather than being solid satin, which lowers relevancy.",
+      "map_id": "map_8da707665a63485c8f61e3817bc9f689"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Luxury Geometric Necktie",
+      "score": 6,
+      "rationale": "Similar luxury necktie likely made of silk but with a geometric pattern rather than solid satin, reducing direct relevancy.",
+      "map_id": "map_f5a6676a267d4d4eb5b7a1ceff335175"
+    },
+    {
+      "competitor_product_name": "Men's Wearhouse Tie",
+      "score": 5,
+      "rationale": "The name is generic with no details on pattern, fabric or finish; presumed a tie but uncertain if satin or solid, so moderate relevancy.",
+      "map_id": "map_8b20e045e79e43cbbd5a096f52d39f17"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Labyrinth Tie",
+      "score": 5,
+      "rationale": "Narrow tie with a patterned design (Labyrinth), likely silk but not solid satin, so only moderately relevant.",
+      "map_id": "map_11a143afa0bb4c60b7607518189b8983"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Labyrinth Tie",
+      "score": 5,
+      "rationale": "Narrow tie with a patterned design (Labyrinth), likely silk but not solid satin, so only moderately relevant.",
+      "map_id": "map_15992f5fb17f429aac62e4fb267bfce7"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Celestial Silk Tie",
+      "score": 6,
+      "rationale": "Silk necktie with possibly a printed pattern, narrow cut; somewhat relevant due to silk material but not solid satin.",
+      "map_id": "map_4c1a1f4583dd4cda8d34de8a44684edd"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Labyrinth Tie",
+      "score": 5,
+      "rationale": "Duplicate of previous Labyrinth tie; same rationale applies.",
+      "map_id": "map_11a143afa0bb4c60b7607518189b8983"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Labyrinth Tie",
+      "score": 5,
+      "rationale": "Duplicate of previous Labyrinth tie; same rationale applies.",
+      "map_id": "map_15992f5fb17f429aac62e4fb267bfce7"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with floral motif pattern, differing notably from solid satin tie in design and likely texture.",
+      "map_id": "map_98dc695defbd4f3dbf9fd6788605fcc7"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with floral motif pattern, differing notably from solid satin tie in design and likely texture.",
+      "map_id": "map_5747a06a3f764621a69451de297d461a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with floral motif pattern, differing notably from solid satin tie in design and likely texture.",
+      "map_id": "map_3baa7c186dcc4cba897b7748aa9d6234"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Narrow Gridlines Tie",
+      "score": 5,
+      "rationale": "Narrow tie with gridline pattern; probably silk but pattern and narrow design decrease relevancy to solid satin tie.",
+      "map_id": "map_21a79ddd6273409da1b9ad77a3a875ca"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Same as previous floral motif tie; pattern and narrow style reduce relevancy to reference solid satin tie.",
+      "map_id": "map_98dc695defbd4f3dbf9fd6788605fcc7"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Same as previous floral motif tie; pattern and narrow style reduce relevancy to reference solid satin tie.",
+      "map_id": "map_5747a06a3f764621a69451de297d461a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Same as previous floral motif tie; pattern and narrow style reduce relevancy to reference solid satin tie.",
+      "map_id": "map_3baa7c186dcc4cba897b7748aa9d6234"
+    },
+    {
+      "competitor_product_name": "Egara Big & Tall Men's Skinny Solid Tie at Men's Wearhouse, Silver / Metallic - Size: Extra Long",
+      "score": 7,
+      "rationale": "Solid color tie aligns with reference product's solid aspect; skinny/special sizing affects silhouette relevance somewhat.",
+      "map_id": "map_6ac29c56853f4d5eb33e84fd57973e56"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with floral pattern, contrasting with solid satin reference tie in pattern complexity and likely finish.",
+      "map_id": "map_4329b5870c594260b33b783fb92e1d2f"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Silk Tie",
+      "score": 4,
+      "rationale": "Narrow silk tie with floral pattern, contrasting with solid satin reference tie in pattern complexity and likely finish.",
+      "map_id": "map_049bcc7665f64dceb9c82bf597dc4b6a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Silk Tie",
+      "score": 4,
+      "rationale": "Duplicate of previous floral silk tie; same rationale applies.",
+      "map_id": "map_4329b5870c594260b33b783fb92e1d2f"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Silk Tie",
+      "score": 4,
+      "rationale": "Duplicate of previous floral silk tie; same rationale applies.",
+      "map_id": "map_049bcc7665f64dceb9c82bf597dc4b6a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Stripe Silk Tie",
+      "score": 5,
+      "rationale": "Narrow silk tie with stripe pattern; pattern and narrow silhouette reduce relevancy compared to solid satin tie.",
+      "map_id": "map_e4140dfbf59146dc8741c29967b35818"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Repeated floral motif narrow silk tie; pattern and cut make it less relevant to solid satin tie.",
+      "map_id": "map_98dc695defbd4f3dbf9fd6788605fcc7"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Repeated floral motif narrow silk tie; pattern and cut make it less relevant to solid satin tie.",
+      "map_id": "map_5747a06a3f764621a69451de297d461a"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Floral Motif Silk Tie",
+      "score": 4,
+      "rationale": "Repeated floral motif narrow silk tie; pattern and cut make it less relevant to solid satin tie.",
+      "map_id": "map_3baa7c186dcc4cba897b7748aa9d6234"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Silk Sailboat Motif Tie",
+      "score": 5,
+      "rationale": "Silk tie with a motif pattern; shares material but not solid design or smooth satin finish, so moderate relevancy.",
+      "map_id": "map_6e4b90116b9543b8b29f29a45b61a0c4"
+    }
+  ]
+}

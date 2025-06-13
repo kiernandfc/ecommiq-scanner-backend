@@ -1,0 +1,347 @@
+{
+  "timestamp": "20250609_091003",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men Alex Mill Standard Pleated Pant In Flax Linen'\n  - Name='Dickies Men's Industrial Flat Front Pants'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint And Tinder 365 Slim Fit Pants'\n  - Name='Levi's Men's 501 Original Jeans'\n  - Name='Men Alex Mill Pleated Cropped Chino Pants'\n  - Name='Alex Mill Neil Twill Pants'\n  - Name='Flint and Tinder Men's 365 HB Straight Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Alex Mill Men's AM Original 5 Pocket Jeans'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's Stretch Selvedge Denim'\n  - Name='511 Slim Fit Men's Levi's Jeans'\n  - Name='Levi's Men's 502 Regular Taper Jeans'\n  - Name='Levi's Men's 517 Bootcut Jeans'\n  - Name='Flint and Tinder Men's 365 HB Straight Pant'\n  - Name='Flint And Tinder 365 Straight Slim Fit Soft 5 Pocket Pant'\n  - Name='Flint and Tinder Men's 365 Chino Pant'\n  - Name='Flint and Tinder Men's Stretch Selvedge Denim'\n  - Name='Men's Levi's 567 Relaxed Flared Jeans'\n  - Name='Alex Mill Linen Pull-On Field Pants'\n  - Name='Omnigod x Alex Mill Relaxed Straight Raw Selvedge'\n  - Name='511 Slim Fit Levi's Men's Jeans'\n  - Name='510 Skinny Fit Levi's Men's Jeans'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men Alex Mill Standard Pleated Pant In Flax Linen\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Both are men's pants designed for casual or semi-casual wear but differ in fabric: linen vs. heavy organic cotton canvas. The Alex Mill pants have pleats and likely a different silhouette, while the Chore Pant is a sturdier chore pant style with reinforced knees.\"\n    },\n    {\n      \"competitor_product_name\": \"Dickies Men's Industrial Flat Front Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dickies Industrial pants are durable utility/work pants similar in function to the Chore Pant, often featuring flat fronts and durable construction, making them quite relevant despite brand differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint And Tinder 365 Slim Fit Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit pants may have a different silhouette than the looser cut chore pant. Also may lack specialized reinforcements, though still casual men’s pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 501 Original Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Classic denim jeans with button fly share strong casual and rugged DNA with chore pants, but differ in fabric and specific construction details (heavy denim vs canvas, no knee reinforcements).\"\n    },\n    {\n      \"competitor_product_name\": \"Men Alex Mill Pleated Cropped Chino Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Pleated and cropped chinos differ considerably in silhouette and function from durable chore pants. More fashion-forward, less utilitarian.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Neil Twill Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Twill pants are generally casual trousers with some overlap in fabric weight and style, but less rugged and missing chore pant details.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Straight Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Straight fit chinos with heavier base; closer to chore pant style in fit and casual workwear feel, though possibly lighter weight and missing reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated chino pant, casual with some overlap, but less specialized than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's AM Original 5 Pocket Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Jeans with 5-pocket styling akin to chore-inspired casual wear, but denim versus canvas fabric and missing chore pant reinforced construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Same as previous mentions of this casual chino pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's Stretch Selvedge Denim\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Stretch selvage denim jeans differ from chore pants in fabric and construction focus; more focused on denim enthusiasts than workwear utilitarian features.\"\n    },\n    {\n      \"competitor_product_name\": \"511 Slim Fit Men's Levi's Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim fit jeans from Levi’s are casual pants but slimmer with denim fabric rather than durable canvas chore pant style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 502 Regular Taper Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Regular tapered denim jeans with casual use; denim jeans differ from chore pants in fabric and reinforcements.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 517 Bootcut Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Bootcut jeans have a different silhouette and style focus than chore pants and are denim-based rather than canvas work pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 HB Straight Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated heavier base straight chinos, closer in style and function to chore pants among the casual pant selection.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint And Tinder 365 Straight Slim Fit Soft 5 Pocket Pant\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Softer fabric and slimmer fit reduces similarity to chore pant, which has a more rugged and reinforced silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's 365 Chino Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"Flint and Tinder Men's Stretch Selvedge Denim\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Repeated stretch denim jeans; denim fabric and stretch differ from sturdy chore pant construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Levi's 567 Relaxed Flared Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Relaxed flared jeans have denim fabric and different silhouette, less similar to utilitarian chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Pull-On Field Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Linen fabric and pull-on style differ considerably from button fly, heavy canvas chore pant, so low relevancy despite field pant name.\"\n    },\n    {\n      \"competitor_product_name\": \"Omnigod x Alex Mill Relaxed Straight Raw Selvedge\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Selvedge raw denim relaxed straight pants share casual and rugged aspects, but denim fabric differs from chore pant canvas.\"\n    },\n    {\n      \"competitor_product_name\": \"511 Slim Fit Levi's Men's Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Slim fit denim jeans, similar casual use but different fabric and fit from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"510 Skinny Fit Levi's Men's Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Skinny fit jeans have significantly different silhouette and fabric from utilitarian chore pants, lowering relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men Alex Mill Standard Pleated Pant In Flax Linen",
+      "score": 5,
+      "rationale": "Both are men's pants designed for casual or semi-casual wear but differ in fabric: linen vs. heavy organic cotton canvas. The Alex Mill pants have pleats and likely a different silhouette, while the Chore Pant is a sturdier chore pant style with reinforced knees.",
+      "map_id": "map_6f050655b5224ebd8c3d816e571956f1"
+    },
+    {
+      "competitor_product_name": "Dickies Men's Industrial Flat Front Pants",
+      "score": 8,
+      "rationale": "Dickies Industrial pants are durable utility/work pants similar in function to the Chore Pant, often featuring flat fronts and durable construction, making them quite relevant despite brand differences.",
+      "map_id": "map_880502e7cc144b16a20cf54b8ea8b4ba"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.",
+      "map_id": "map_562baffbc86e4d72ba8bda92da2fb6bb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.",
+      "map_id": "map_f89242b7a5c34f8c821eff6535c1574d"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.",
+      "map_id": "map_30abddb29a4345bca446bacf8d33a885"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.",
+      "map_id": "map_28729fd90bb04300a788b85faade894c"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "These are casual chino pants from Flint and Tinder; while chinos differ from chore pants in thicker construction and reinforcements, their intended wear occasions overlap and both are casual men’s pants.",
+      "map_id": "map_8bddbbd7c9694ecd993684376b486b7b"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.",
+      "map_id": "map_562baffbc86e4d72ba8bda92da2fb6bb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.",
+      "map_id": "map_f89242b7a5c34f8c821eff6535c1574d"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.",
+      "map_id": "map_30abddb29a4345bca446bacf8d33a885"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.",
+      "map_id": "map_28729fd90bb04300a788b85faade894c"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as above, repeated product with similar characteristics relevant as casual pants but without specific chore pant reinforcements.",
+      "map_id": "map_8bddbbd7c9694ecd993684376b486b7b"
+    },
+    {
+      "competitor_product_name": "Flint And Tinder 365 Slim Fit Pants",
+      "score": 6,
+      "rationale": "Slim fit pants may have a different silhouette than the looser cut chore pant. Also may lack specialized reinforcements, though still casual men’s pants.",
+      "map_id": "map_2b81a4a9c82641b8b7a5784a9e5633b5"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 501 Original Jeans",
+      "score": 6,
+      "rationale": "Classic denim jeans with button fly share strong casual and rugged DNA with chore pants, but differ in fabric and specific construction details (heavy denim vs canvas, no knee reinforcements).",
+      "map_id": "map_71da5a48559b436e9d84608e082b714f"
+    },
+    {
+      "competitor_product_name": "Men Alex Mill Pleated Cropped Chino Pants",
+      "score": 4,
+      "rationale": "Pleated and cropped chinos differ considerably in silhouette and function from durable chore pants. More fashion-forward, less utilitarian.",
+      "map_id": "map_c5dd5a0c487d43eab89ae7f3839f8f42"
+    },
+    {
+      "competitor_product_name": "Alex Mill Neil Twill Pants",
+      "score": 6,
+      "rationale": "Twill pants are generally casual trousers with some overlap in fabric weight and style, but less rugged and missing chore pant details.",
+      "map_id": "map_633448e2cc91453682b009a77295d0c0"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 7,
+      "rationale": "Straight fit chinos with heavier base; closer to chore pant style in fit and casual workwear feel, though possibly lighter weight and missing reinforcements.",
+      "map_id": "map_108818f7e09e4000aa2085b33238a4ed"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 7,
+      "rationale": "Straight fit chinos with heavier base; closer to chore pant style in fit and casual workwear feel, though possibly lighter weight and missing reinforcements.",
+      "map_id": "map_636b6edeab90479c9767046083bf8ca5"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual with some overlap, but less specialized than chore pant.",
+      "map_id": "map_562baffbc86e4d72ba8bda92da2fb6bb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual with some overlap, but less specialized than chore pant.",
+      "map_id": "map_f89242b7a5c34f8c821eff6535c1574d"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual with some overlap, but less specialized than chore pant.",
+      "map_id": "map_30abddb29a4345bca446bacf8d33a885"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual with some overlap, but less specialized than chore pant.",
+      "map_id": "map_28729fd90bb04300a788b85faade894c"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual with some overlap, but less specialized than chore pant.",
+      "map_id": "map_8bddbbd7c9694ecd993684376b486b7b"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's AM Original 5 Pocket Jeans",
+      "score": 6,
+      "rationale": "Jeans with 5-pocket styling akin to chore-inspired casual wear, but denim versus canvas fabric and missing chore pant reinforced construction.",
+      "map_id": "map_efdf462a02b94f09b0ae222fe7d54ac9"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as previous mentions of this casual chino pant.",
+      "map_id": "map_562baffbc86e4d72ba8bda92da2fb6bb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as previous mentions of this casual chino pant.",
+      "map_id": "map_f89242b7a5c34f8c821eff6535c1574d"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as previous mentions of this casual chino pant.",
+      "map_id": "map_30abddb29a4345bca446bacf8d33a885"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as previous mentions of this casual chino pant.",
+      "map_id": "map_28729fd90bb04300a788b85faade894c"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Same as previous mentions of this casual chino pant.",
+      "map_id": "map_8bddbbd7c9694ecd993684376b486b7b"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 5,
+      "rationale": "Stretch selvage denim jeans differ from chore pants in fabric and construction focus; more focused on denim enthusiasts than workwear utilitarian features.",
+      "map_id": "map_6609e0c6335d4673989af1cdc748b53e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 5,
+      "rationale": "Stretch selvage denim jeans differ from chore pants in fabric and construction focus; more focused on denim enthusiasts than workwear utilitarian features.",
+      "map_id": "map_a772824820f0429fa26ded7c095ff11a"
+    },
+    {
+      "competitor_product_name": "511 Slim Fit Men's Levi's Jeans",
+      "score": 5,
+      "rationale": "Slim fit jeans from Levi’s are casual pants but slimmer with denim fabric rather than durable canvas chore pant style.",
+      "map_id": "map_a54240ca59094d09b600a519e859ccc2"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 502 Regular Taper Jeans",
+      "score": 5,
+      "rationale": "Regular tapered denim jeans with casual use; denim jeans differ from chore pants in fabric and reinforcements.",
+      "map_id": "map_ac6dd49f75c94af0a24c4fe6b9cf0d88"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 517 Bootcut Jeans",
+      "score": 4,
+      "rationale": "Bootcut jeans have a different silhouette and style focus than chore pants and are denim-based rather than canvas work pants.",
+      "map_id": "map_f6df1e33100a455cbe3386ffeeda110f"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 7,
+      "rationale": "Repeated heavier base straight chinos, closer in style and function to chore pants among the casual pant selection.",
+      "map_id": "map_108818f7e09e4000aa2085b33238a4ed"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 HB Straight Pant",
+      "score": 7,
+      "rationale": "Repeated heavier base straight chinos, closer in style and function to chore pants among the casual pant selection.",
+      "map_id": "map_636b6edeab90479c9767046083bf8ca5"
+    },
+    {
+      "competitor_product_name": "Flint And Tinder 365 Straight Slim Fit Soft 5 Pocket Pant",
+      "score": 6,
+      "rationale": "Softer fabric and slimmer fit reduces similarity to chore pant, which has a more rugged and reinforced silhouette.",
+      "map_id": "map_695ff4049ea544e78c13901287429a56"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.",
+      "map_id": "map_562baffbc86e4d72ba8bda92da2fb6bb"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.",
+      "map_id": "map_f89242b7a5c34f8c821eff6535c1574d"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.",
+      "map_id": "map_30abddb29a4345bca446bacf8d33a885"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.",
+      "map_id": "map_28729fd90bb04300a788b85faade894c"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's 365 Chino Pant",
+      "score": 7,
+      "rationale": "Repeated chino pant, casual and somewhat similar use case but lighter fabric and less reinforcement.",
+      "map_id": "map_8bddbbd7c9694ecd993684376b486b7b"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 5,
+      "rationale": "Repeated stretch denim jeans; denim fabric and stretch differ from sturdy chore pant construction.",
+      "map_id": "map_6609e0c6335d4673989af1cdc748b53e"
+    },
+    {
+      "competitor_product_name": "Flint and Tinder Men's Stretch Selvedge Denim",
+      "score": 5,
+      "rationale": "Repeated stretch denim jeans; denim fabric and stretch differ from sturdy chore pant construction.",
+      "map_id": "map_a772824820f0429fa26ded7c095ff11a"
+    },
+    {
+      "competitor_product_name": "Men's Levi's 567 Relaxed Flared Jeans",
+      "score": 5,
+      "rationale": "Relaxed flared jeans have denim fabric and different silhouette, less similar to utilitarian chore pant.",
+      "map_id": "map_e6240da859b741cfb6fbb2b16a963d42"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Pull-On Field Pants",
+      "score": 4,
+      "rationale": "Linen fabric and pull-on style differ considerably from button fly, heavy canvas chore pant, so low relevancy despite field pant name.",
+      "map_id": "map_a039cb930e8f457b8b63f426ca3f9083"
+    },
+    {
+      "competitor_product_name": "Omnigod x Alex Mill Relaxed Straight Raw Selvedge",
+      "score": 6,
+      "rationale": "Selvedge raw denim relaxed straight pants share casual and rugged aspects, but denim fabric differs from chore pant canvas.",
+      "map_id": "map_15e244b3e17040ee8b471f45f65361b1"
+    },
+    {
+      "competitor_product_name": "511 Slim Fit Levi's Men's Jeans",
+      "score": 5,
+      "rationale": "Slim fit denim jeans, similar casual use but different fabric and fit from chore pants.",
+      "map_id": "map_f796e03d7c7f49c9b56732667e4449ba"
+    },
+    {
+      "competitor_product_name": "510 Skinny Fit Levi's Men's Jeans",
+      "score": 4,
+      "rationale": "Skinny fit jeans have significantly different silhouette and fabric from utilitarian chore pants, lowering relevancy.",
+      "map_id": "map_de3ca14c996d4a2f97fee7e2f50db036"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250518_160018",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brixton Embroidered Snapback Hat Cap'\n  - Name='Brixton Men's Snapback Hat Cap'\n  - Name='Brixton Neon Finish Line Snapback Hat'\n  - Name='Barbour 7 1/4 Waterproof Waxed Cabby Newsboy Newsie Driving Flat Hat'\n  - Name='Stetson Driving Cap'\n  - Name='Stetson Silk/linen/cotton Driver Cap'\n  - Name='Kangol Twist Stripe 504 Ivy Cap'\n  - Name='Caddy Boston Scally Cap'\n  - Name='The Captain Treasure Edition Boston Scally Cap'\n  - Name='The Captain Boston Scally Cap'\n  - Name='The Sunday Boston Wool Scally Cap'\n  - Name='Peaky Boston Scally Cap'\n  - Name='The Speakeasy Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brixton Embroidered Snapback Hat Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a snapback hat, which differs significantly in silhouette and construction from the 8-panel scally cap. Less relevant due to different style and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Snapback Hat Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Similar to above, a snapback hat does not share the form-fitting 8-panel design or lightweight micro-poly fabric of the 'Driver' cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Neon Finish Line Snapback Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Although a hat, the snapback style and likely heavier materials make it less comparable to the sport-oriented scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour 7 1/4 Waterproof Waxed Cabby Newsboy Newsie Driving Flat Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a cabby/newsboy/driving cap, which is closer in style to a scally cap. However, the waxed waterproof material differs from the lightweight micro-poly fabric, reducing breathability comparability.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Driving Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A driving cap aligns well in silhouette and intended use with the 'Driver' scally cap, but lacks mention of modern sport fabric technology and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Silk/linen/cotton Driver Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This driving cap shares the product type and likely shape with the reference but uses traditional silk/linen/cotton materials rather than micro-poly sport fabric, somewhat reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Twist Stripe 504 Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy caps differ in panel construction and silhouette from 8-panel scally caps, making them moderately relevant but less aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Caddy Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A scally cap by the same brand is highly relevant. Assuming similar lightweight sport performance design, although not explicitly stated, it is very close in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"The Captain Treasure Edition Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap likely using similar construction and materials, very relevant as a related product in the same category.\"\n    },\n    {\n      \"competitor_product_name\": \"The Captain Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same rationale as above—same brand and scally cap type, very relevant to the 'Driver' reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Sunday Boston Wool Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a Boston Scally product but made with wool, which differs from the micro-poly sport fabric and likely breathability profile, lowering relevance somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Peaky Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another Boston Scally cap with probable similar styling and construction, although possibly not the same fabric technology, moderately to highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Speakeasy Boston Scally Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same brand and cap style, likely with similar design ethos but uncertain about fabric details, making it quite relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brixton Embroidered Snapback Hat Cap",
+      "score": 3,
+      "rationale": "This is a snapback hat, which differs significantly in silhouette and construction from the 8-panel scally cap. Less relevant due to different style and materials.",
+      "map_id": "map_4ecd243678f542e48b65ad8c13d98b33"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Snapback Hat Cap",
+      "score": 3,
+      "rationale": "Similar to above, a snapback hat does not share the form-fitting 8-panel design or lightweight micro-poly fabric of the 'Driver' cap.",
+      "map_id": "map_7fd50993c27c44848cad0d5d74be50a7"
+    },
+    {
+      "competitor_product_name": "Brixton Neon Finish Line Snapback Hat",
+      "score": 3,
+      "rationale": "Although a hat, the snapback style and likely heavier materials make it less comparable to the sport-oriented scally cap.",
+      "map_id": "map_ec620721958646cc98e1bd2f3c0abe0f"
+    },
+    {
+      "competitor_product_name": "Barbour 7 1/4 Waterproof Waxed Cabby Newsboy Newsie Driving Flat Hat",
+      "score": 6,
+      "rationale": "This is a cabby/newsboy/driving cap, which is closer in style to a scally cap. However, the waxed waterproof material differs from the lightweight micro-poly fabric, reducing breathability comparability.",
+      "map_id": "map_adca8566c27b405b9fd238fa7a65f68e"
+    },
+    {
+      "competitor_product_name": "Stetson Driving Cap",
+      "score": 7,
+      "rationale": "A driving cap aligns well in silhouette and intended use with the 'Driver' scally cap, but lacks mention of modern sport fabric technology and breathability.",
+      "map_id": "map_41073ca38a7147aa8291e6a0094bc3c1"
+    },
+    {
+      "competitor_product_name": "Stetson Silk/linen/cotton Driver Cap",
+      "score": 8,
+      "rationale": "This driving cap shares the product type and likely shape with the reference but uses traditional silk/linen/cotton materials rather than micro-poly sport fabric, somewhat reducing relevancy.",
+      "map_id": "map_b55aa195be0d469f901c433a555fd879"
+    },
+    {
+      "competitor_product_name": "Kangol Twist Stripe 504 Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy caps differ in panel construction and silhouette from 8-panel scally caps, making them moderately relevant but less aligned.",
+      "map_id": "map_d68009f8377649fbac33a01c012824c4"
+    },
+    {
+      "competitor_product_name": "Caddy Boston Scally Cap",
+      "score": 9,
+      "rationale": "A scally cap by the same brand is highly relevant. Assuming similar lightweight sport performance design, although not explicitly stated, it is very close in function and style.",
+      "map_id": "map_da1b385fe3b149eca42eb9b39f111e02"
+    },
+    {
+      "competitor_product_name": "The Captain Treasure Edition Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap likely using similar construction and materials, very relevant as a related product in the same category.",
+      "map_id": "map_245b273b1dae42e68a82e3f4b5251aaa"
+    },
+    {
+      "competitor_product_name": "The Captain Boston Scally Cap",
+      "score": 9,
+      "rationale": "Same rationale as above—same brand and scally cap type, very relevant to the 'Driver' reference product.",
+      "map_id": "map_7a7545c0480843e1976ad68a11e0e93f"
+    },
+    {
+      "competitor_product_name": "The Sunday Boston Wool Scally Cap",
+      "score": 7,
+      "rationale": "Also a Boston Scally product but made with wool, which differs from the micro-poly sport fabric and likely breathability profile, lowering relevance somewhat.",
+      "map_id": "map_eaf52694dafd473d94dfdc228ac7c458"
+    },
+    {
+      "competitor_product_name": "Peaky Boston Scally Cap",
+      "score": 8,
+      "rationale": "Another Boston Scally cap with probable similar styling and construction, although possibly not the same fabric technology, moderately to highly relevant.",
+      "map_id": "map_303e3534bd394500a065cd67fc4f2bda"
+    },
+    {
+      "competitor_product_name": "The Speakeasy Boston Scally Cap",
+      "score": 8,
+      "rationale": "Same brand and cap style, likely with similar design ethos but uncertain about fabric details, making it quite relevant.",
+      "map_id": "map_36f1cab6d68e4cc79cdfb5a6138068af"
+    }
+  ]
+}

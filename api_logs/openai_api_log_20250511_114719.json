@@ -1,0 +1,71 @@
+{
+  "timestamp": "20250511_114719",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Chore Coat Jacket'\n  - Name='Barbour Men's Solar Transport Waxed Cotton Hooded Jacket'\n  - Name='Barbour Men's Transporter Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Chore Coat Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a chore coat jacket similar in silhouette and likely function to the Ojai Jacket. Both are chore coats designed for versatility and utility, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Solar Transport Waxed Cotton Hooded Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While this is a utility jacket, it is a waxed cotton hooded jacket which diverges from the classic chore coat silhouette and likely has different features focused on weatherproofing, thus moderately relevant but less aligned.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Transporter Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Barbour Transporter Jacket is a waxed cotton jacket with some chore coat design influences and utility features. However, the waxed cotton and possibly different styling makes it somewhat less relevant than a straight chore coat but still similar in purpose.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Chore Coat Jacket",
+      "score": 9,
+      "rationale": "This is a chore coat jacket similar in silhouette and likely function to the Ojai Jacket. Both are chore coats designed for versatility and utility, making it highly relevant.",
+      "map_id": "map_cb616690cb254ba09e4464072faf056f"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Solar Transport Waxed Cotton Hooded Jacket",
+      "score": 6,
+      "rationale": "While this is a utility jacket, it is a waxed cotton hooded jacket which diverges from the classic chore coat silhouette and likely has different features focused on weatherproofing, thus moderately relevant but less aligned.",
+      "map_id": "map_ee3900d6b4354de5a73dace64c7b9229"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Transporter Jacket",
+      "score": 7,
+      "rationale": "The Barbour Transporter Jacket is a waxed cotton jacket with some chore coat design influences and utility features. However, the waxed cotton and possibly different styling makes it somewhat less relevant than a straight chore coat but still similar in purpose.",
+      "map_id": "map_797ed54ffc0742c8961996b347cbc9f9"
+    }
+  ]
+}

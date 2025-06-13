@@ -1,0 +1,155 @@
+{
+  "timestamp": "20250520_081026",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J. Crew Jackets & Coats | Wallace & Barnes Brown 100% Cotton Chore Jacket | J. Crew | Color: Brown | Size: M | Arhnorth's Closet'\n  - Name='Barbour Royston Casual Jacket Mens'\n  - Name='Alex Mill Work Jacket'\n  - Name='Engineered Garments Wool Blend Baker Jacket'\n  - Name='Levi's Cotton Canvas Hooded Utility Jacket with Sherpa Lining Men's'\n  - Name='Barbour Ashby Jacket'\n  - Name='Barbour Men's Utility Spey Waxed Jacket'\n  - Name='men Norse Projects Hakon Solotex Corduroy'\n  - Name='Faherty Men's Range Fleece Shirt Jacket'\n  - Name='Barbour Men's Elmstone Quilted Jacket'\n  - Name='Engineered Garments Workaday Chore Jacket Navyxwhite S 2200463356104'\n  - Name='Levi's Men's Lightweight Cotton Canvas Trucker Jacket'\n  - Name='Faherty Inlet Knit CPO'\n  - Name='Filson Chore Jacket'\n  - Name='Barbour Men's Powell Quilted Jacket'\n  - Name='Alex Mill Linen Work Jacket'\n  - Name='Alex Mill Sam Cotton Linen Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J. Crew Jackets & Coats | Wallace & Barnes Brown 100% Cotton Chore Jacket | J. Crew | Color: Brown | Size: M | Arhnorth's Closet\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a 100% cotton chore jacket which aligns closely with the Ojai's cotton twill chore coat silhouette and utility focus, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Royston Casual Jacket Mens\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Barbour Royston is a casual jacket from a heritage brand known for outerwear, but likely with different materials and construction from a chore coat, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A work jacket typically aligns well with the chore coat silhouette and function, likely made from similar durable cotton fabrics, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Wool Blend Baker Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a jacket with a workwear vibe, the wool blend material and baker jacket style differ from a cotton chore coat, moderately less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Cotton Canvas Hooded Utility Jacket with Sherpa Lining Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Made from cotton canvas, utility inspired, but the hood and sherpa lining introduce different functionality and silhouette than a chore coat, somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Ashby Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another Barbour jacket typically waxed cotton and designed for casual outerwear, not chore coat construction, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Utility Spey Waxed Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to other Barbour utility jackets with waxed cotton and different style, less chore coat focused but utility elements present, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"men Norse Projects Hakon Solotex Corduroy\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A corduroy jacket from Norse Projects implies different material and possibly a different style than the chore coat, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Range Fleece Shirt Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Fleece shirt jacket differs significantly in material and probably construction from a cotton chore coat, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Elmstone Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted jacket is a different construction and purpose compared to a chore coat, low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Workaday Chore Jacket Navyxwhite S 2200463356104\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A chore jacket from Engineered Garments is essentially the same product type and construction as the Ojai Jacket, making it extremely relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Lightweight Cotton Canvas Trucker Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Both are cotton outerwear but the trucker jacket silhouette differs from chore coat, still moderately relevant given material and category.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Inlet Knit CPO\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A knit CPO shirt jacket differs in material and construction from cotton twill chore coats, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Filson chore jacket matches core product type, material durability and utility focus similar to Ojai Jacket, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Powell Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quilted construction and style differ from chore jacket style, low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Linen Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Work jacket style is close, but linen fabric differs from cotton twill, slightly less relevance but still related.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Sam Cotton Linen Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A cotton linen jacket combining similar materials and likely comparable silhouette but fabric differs from pure cotton twill, moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J. Crew Jackets & Coats | Wallace & Barnes Brown 100% Cotton Chore Jacket | J. Crew | Color: Brown | Size: M | Arhnorth's Closet",
+      "score": 9,
+      "rationale": "This is a 100% cotton chore jacket which aligns closely with the Ojai's cotton twill chore coat silhouette and utility focus, making it highly relevant.",
+      "map_id": "map_78b9b0f8c93c4b70b48bd4794a9046e8"
+    },
+    {
+      "competitor_product_name": "Barbour Royston Casual Jacket Mens",
+      "score": 6,
+      "rationale": "Barbour Royston is a casual jacket from a heritage brand known for outerwear, but likely with different materials and construction from a chore coat, moderately relevant.",
+      "map_id": "map_ac2a3583ac224ddba8ea91e68d5b5ead"
+    },
+    {
+      "competitor_product_name": "Alex Mill Work Jacket",
+      "score": 8,
+      "rationale": "A work jacket typically aligns well with the chore coat silhouette and function, likely made from similar durable cotton fabrics, highly relevant.",
+      "map_id": "map_cc048e1070264f64b1a1bb5f583de816"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Wool Blend Baker Jacket",
+      "score": 5,
+      "rationale": "While a jacket with a workwear vibe, the wool blend material and baker jacket style differ from a cotton chore coat, moderately less relevant.",
+      "map_id": "map_7ad8b26748fc4e479d98268cbc1567d3"
+    },
+    {
+      "competitor_product_name": "Levi's Cotton Canvas Hooded Utility Jacket with Sherpa Lining Men's",
+      "score": 6,
+      "rationale": "Made from cotton canvas, utility inspired, but the hood and sherpa lining introduce different functionality and silhouette than a chore coat, somewhat relevant.",
+      "map_id": "map_cf2f38f1550c4c888d68b12591151789"
+    },
+    {
+      "competitor_product_name": "Barbour Ashby Jacket",
+      "score": 6,
+      "rationale": "Another Barbour jacket typically waxed cotton and designed for casual outerwear, not chore coat construction, moderately relevant.",
+      "map_id": "map_f2c824079d4c4bbbba7dd3d0bc90c9e4"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Utility Spey Waxed Jacket",
+      "score": 6,
+      "rationale": "Similar to other Barbour utility jackets with waxed cotton and different style, less chore coat focused but utility elements present, moderately relevant.",
+      "map_id": "map_1c9c386a8a294c2eadac3084c04db34d"
+    },
+    {
+      "competitor_product_name": "men Norse Projects Hakon Solotex Corduroy",
+      "score": 5,
+      "rationale": "A corduroy jacket from Norse Projects implies different material and possibly a different style than the chore coat, less relevant.",
+      "map_id": "map_dfe015b822e6480badd6205146203d3a"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Range Fleece Shirt Jacket",
+      "score": 4,
+      "rationale": "Fleece shirt jacket differs significantly in material and probably construction from a cotton chore coat, less relevant.",
+      "map_id": "map_b1343764aaa94f2f860111c505f1fc98"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Elmstone Quilted Jacket",
+      "score": 4,
+      "rationale": "Quilted jacket is a different construction and purpose compared to a chore coat, low relevance.",
+      "map_id": "map_8af96379346b42f2ad57abaa85c21a4e"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Workaday Chore Jacket Navyxwhite S 2200463356104",
+      "score": 10,
+      "rationale": "A chore jacket from Engineered Garments is essentially the same product type and construction as the Ojai Jacket, making it extremely relevant.",
+      "map_id": "map_3f618850d7014833ba6f30b78fc288de"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Lightweight Cotton Canvas Trucker Jacket",
+      "score": 7,
+      "rationale": "Both are cotton outerwear but the trucker jacket silhouette differs from chore coat, still moderately relevant given material and category.",
+      "map_id": "map_ca81479397844adfbb217c01204bc66e"
+    },
+    {
+      "competitor_product_name": "Faherty Inlet Knit CPO",
+      "score": 5,
+      "rationale": "A knit CPO shirt jacket differs in material and construction from cotton twill chore coats, less relevant.",
+      "map_id": "map_3643e2f275e240bd8b70e211864fa732"
+    },
+    {
+      "competitor_product_name": "Filson Chore Jacket",
+      "score": 9,
+      "rationale": "Filson chore jacket matches core product type, material durability and utility focus similar to Ojai Jacket, very relevant.",
+      "map_id": "map_2a78b395fc4340948b52f1b3dd5bd2dd"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Powell Quilted Jacket",
+      "score": 4,
+      "rationale": "Quilted construction and style differ from chore jacket style, low relevancy.",
+      "map_id": "map_52819621c2494d019b3de84677fe0efb"
+    },
+    {
+      "competitor_product_name": "Alex Mill Linen Work Jacket",
+      "score": 7,
+      "rationale": "Work jacket style is close, but linen fabric differs from cotton twill, slightly less relevance but still related.",
+      "map_id": "map_211254f218a049ef88d7bfb51de882f7"
+    },
+    {
+      "competitor_product_name": "Alex Mill Sam Cotton Linen Jacket",
+      "score": 7,
+      "rationale": "A cotton linen jacket combining similar materials and likely comparable silhouette but fabric differs from pure cotton twill, moderately relevant.",
+      "map_id": "map_15d11ed5280e45329ed821b9276e25b1"
+    }
+  ]
+}

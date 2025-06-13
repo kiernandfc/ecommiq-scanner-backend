@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250610_101542",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='UNIQLO Relaxed Ankle Jeans'\n  - Name='Uniqlo Men's Slim Jeans'\n  - Name='Carhartt WIP Landon Pant'\n  - Name='Carhartt WIP Men Simple Pant'\n  - Name='Everlane Men's Relaxed 4-Way Stretch Organic Jean'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Ankle Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Both are casual pants, but the reference pant is a chore/work-style pant with durable canvas and reinforced construction, while the Uniqlo ankle jeans are denim jeans with a more fashion-forward cut, likely less rugged.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Slim Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Slim jeans differ notably in silhouette and likely material (denim vs canvas). Reference is a relaxed chore pant emphasizing ruggedness and organic cotton canvas, so less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Landon Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Carhartt's Landon Pant is a workwear-inspired pant that shares similar material (canvas or heavy cotton), function and rugged design focus, making it highly relevant to the Taylor Stitch chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Simple Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a workwear style pant by Carhartt with durable construction and simple styling, though potentially less technical detail than the Landon Pant, still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Relaxed 4-Way Stretch Organic Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While made from organic cotton and relaxed fit, it's a jean with stretch fabric rather than rigid canvas with reinforced details, so moderately relevant but different core material and intent.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "UNIQLO Relaxed Ankle Jeans",
+      "score": 5,
+      "rationale": "Both are casual pants, but the reference pant is a chore/work-style pant with durable canvas and reinforced construction, while the Uniqlo ankle jeans are denim jeans with a more fashion-forward cut, likely less rugged.",
+      "map_id": "map_449541b23a08480b8236d1557d216c32"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Slim Jeans",
+      "score": 4,
+      "rationale": "Slim jeans differ notably in silhouette and likely material (denim vs canvas). Reference is a relaxed chore pant emphasizing ruggedness and organic cotton canvas, so less relevant.",
+      "map_id": "map_c9c02e1968fb48b6a0345e19b32adb75"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Landon Pant",
+      "score": 8,
+      "rationale": "Carhartt's Landon Pant is a workwear-inspired pant that shares similar material (canvas or heavy cotton), function and rugged design focus, making it highly relevant to the Taylor Stitch chore pant.",
+      "map_id": "map_cbb323b5fdd1447095ba6f7051c43241"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Simple Pant",
+      "score": 7,
+      "rationale": "Also a workwear style pant by Carhartt with durable construction and simple styling, though potentially less technical detail than the Landon Pant, still quite relevant.",
+      "map_id": "map_c54ffd4448454c959a8eaff867d298bb"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Relaxed 4-Way Stretch Organic Jean",
+      "score": 5,
+      "rationale": "While made from organic cotton and relaxed fit, it's a jean with stretch fabric rather than rigid canvas with reinforced details, so moderately relevant but different core material and intent.",
+      "map_id": "map_58c40fe765c947a7a0fadd70981a5d5a"
+    }
+  ]
+}

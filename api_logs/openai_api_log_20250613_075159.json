@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250613_075159",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men - Bordeaux Sweatshirt com capuz Loose Fit - Size: S - H&M'\n  - Name='GAP Dames Hoodie'\n  - Name='Men - Preto Sweatshirt com capuz e estampado Loose Fit - Size: L - H&M'\n  - Name='GAP Hoodie Sweater Heren'\n  - Name='Men - Verde caqui claro Sweatshirt com capuz Regular Fit - Size: XS - H&M'\n  - Name='GAP, Heren Sweatshirt, Blauw / Navy / lichtgrijs, L'\n  - Name='Men - Cinzento claro mesclado/Royale Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M'\n  - Name='Men - Castanho escuro/Organic Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M'\n  - Name='Men - Verde floresta Sweatshirt com capuz e estampado Loose Fit - Size: XS - H&M'\n  - Name='Men - Preto/Discovery Channel Sweatshirt com capuz Regular Fit - Size: XS - H&M'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men - Bordeaux Sweatshirt com capuz Loose Fit - Size: S - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hooded sweatshirt with a loose fit, closely matching the hoodie style and function of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"GAP Dames Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A women's hoodie from GAP, similar in core function and style as a hooded sweatshirt, though the gender target differs from the mostly male-leaning examples.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Preto Sweatshirt com capuz e estampado Loose Fit - Size: L - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's hooded sweatshirt with a loose fit, the same product type and construction as the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"GAP Hoodie Sweater Heren\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A men's hoodie sweater from GAP, essentially identical in style and function to the reference Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Verde caqui claro Sweatshirt com capuz Regular Fit - Size: XS - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hooded sweatshirt with regular fit, closely aligns with the reference hoodie in terms of product type and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"GAP, Heren Sweatshirt, Blauw / Navy / lichtgrijs, L\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a men's sweatshirt without explicit mention of a hood, so potentially less relevant though still a related sweatshirt-type garment.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Cinzento claro mesclado/Royale Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hooded sweatshirt with loose fit and printed design, very similar in silhouette and function to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Castanho escuro/Organic Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Similar men's hooded sweatshirt with loose fit and pattern, aligning well with the reference hoodie's type and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Verde floresta Sweatshirt com capuz e estampado Loose Fit - Size: XS - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hooded sweatshirt loose fit, congruent in product type, features, and intended use with the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Men - Preto/Discovery Channel Sweatshirt com capuz Regular Fit - Size: XS - H&M\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hooded sweatshirt with regular fit, very relevant as it matches the core hoodie construction and function.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men - Bordeaux Sweatshirt com capuz Loose Fit - Size: S - H&M",
+      "score": 9,
+      "rationale": "This is a men's hooded sweatshirt with a loose fit, closely matching the hoodie style and function of the reference product.",
+      "map_id": "map_22a44c1d15f043dd84d800cbf33581a6"
+    },
+    {
+      "competitor_product_name": "GAP Dames Hoodie",
+      "score": 8,
+      "rationale": "A women's hoodie from GAP, similar in core function and style as a hooded sweatshirt, though the gender target differs from the mostly male-leaning examples.",
+      "map_id": "map_869b76be8df24d7ab5d054960067255e"
+    },
+    {
+      "competitor_product_name": "Men - Preto Sweatshirt com capuz e estampado Loose Fit - Size: L - H&M",
+      "score": 9,
+      "rationale": "A men's hooded sweatshirt with a loose fit, the same product type and construction as the reference hoodie.",
+      "map_id": "map_f06c55f0c6c9420ca3adf25bb7e73fb5"
+    },
+    {
+      "competitor_product_name": "GAP Hoodie Sweater Heren",
+      "score": 10,
+      "rationale": "A men's hoodie sweater from GAP, essentially identical in style and function to the reference Boston Scally Hoodie.",
+      "map_id": "map_c82e0be046be435e98e28a20be24854b"
+    },
+    {
+      "competitor_product_name": "Men - Verde caqui claro Sweatshirt com capuz Regular Fit - Size: XS - H&M",
+      "score": 9,
+      "rationale": "Men's hooded sweatshirt with regular fit, closely aligns with the reference hoodie in terms of product type and intended use.",
+      "map_id": "map_02ba4db9807d4b7bb18ee73639cbe48b"
+    },
+    {
+      "competitor_product_name": "GAP, Heren Sweatshirt, Blauw / Navy / lichtgrijs, L",
+      "score": 7,
+      "rationale": "This is a men's sweatshirt without explicit mention of a hood, so potentially less relevant though still a related sweatshirt-type garment.",
+      "map_id": "map_df883d6b2e4f40aaafad3dffea4cfc8a"
+    },
+    {
+      "competitor_product_name": "Men - Cinzento claro mesclado/Royale Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M",
+      "score": 9,
+      "rationale": "Men's hooded sweatshirt with loose fit and printed design, very similar in silhouette and function to the reference hoodie.",
+      "map_id": "map_65c6bc7b9705462ca577101f62e7c291"
+    },
+    {
+      "competitor_product_name": "Men - Castanho escuro/Organic Sweatshirt com capuz e estampado Loose Fit - Size: XXL - H&M",
+      "score": 9,
+      "rationale": "Similar men's hooded sweatshirt with loose fit and pattern, aligning well with the reference hoodie's type and construction.",
+      "map_id": "map_284cb860cd9a44ffbf17a169e21c6ee4"
+    },
+    {
+      "competitor_product_name": "Men - Verde floresta Sweatshirt com capuz e estampado Loose Fit - Size: XS - H&M",
+      "score": 9,
+      "rationale": "Men's hooded sweatshirt loose fit, congruent in product type, features, and intended use with the Boston Scally Hoodie.",
+      "map_id": "map_4f68d90dcc374ff5bf877e2ca70f6915"
+    },
+    {
+      "competitor_product_name": "Men - Preto/Discovery Channel Sweatshirt com capuz Regular Fit - Size: XS - H&M",
+      "score": 9,
+      "rationale": "Men's hooded sweatshirt with regular fit, very relevant as it matches the core hoodie construction and function.",
+      "map_id": "map_14638176cb2545abb877ee7b4335c34b"
+    }
+  ]
+}

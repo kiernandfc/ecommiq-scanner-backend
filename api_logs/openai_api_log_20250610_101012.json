@@ -1,0 +1,185 @@
+{
+  "timestamp": "20250610_101012",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Nike Men's Club Tennis Fleece Pullover Hoodie'\n  - Name='Nike Women's Phoenix Fleece Over-Oversized Hoodie'\n  - Name='Nike Men's Sportswear Club Fleece'\n  - Name='Nike Men's Dri-FIT UV Hooded Running Top'\n  - Name='adidas Men's University of Miami Hurricanes Fleece Hooded Sweatshirt'\n  - Name='adidas Men's Basketball Crazy Warm Fleece Hoodie'\n  - Name='Carhartt Men's Loose Fit Midweight Hooded Shamrock Sweatshirt'\n  - Name='American Apparel Embroidered Fleece Hoodie Sweatshirt'\n  - Name='American Apparel Hoodie'\n  - Name='Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt'\n  - Name='American Apparel Men's California Fleece Hoodie'\n  - Name='Carhartt Men's Super Dux Relaxed Fit Sherpa-Lined Active Jacket'\n  - Name='adidas Men's Collegiate Hoodie'\n  - Name='Uniqlo Men's Pullover Hoodie'\n  - Name='American Apparel Imperial Heavyweight Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='American Apparel Men's Born & Bred NYC Long Sleeve Zip Hoodie Sweatshirt'\n  - Name='American Apparel Men's Custom Embroidered Reflex Fleece Hoodie'\n  - Name='adidas Men's Select Foundation Fleece Hoodie'\n  - Name='UNIQLO Half-Zip Sweatshirt'\n  - Name='UNIQLO Fleece Full-Zip Jacket'\n  - Name='Uniqlo CPFM Spongebob Squarepants Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Nike Men's Club Tennis Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's fleece pullover hoodie similar in style and likely softness and comfort to the reference hoodie, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Women's Phoenix Fleece Over-Oversized Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A fleece hoodie like the reference, but women's oversized cut differs somewhat in silhouette and intended fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Fleece\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Likely a fleece sweatshirt, probably a pullover and hooded, similar in function and comfort to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Dri-FIT UV Hooded Running Top\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Although it is hooded, this product is performance-focused running apparel with different fabric and function than a soft casual fleece hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's University of Miami Hurricanes Fleece Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hooded sweatshirt like the reference, designed as casual wear and soft comfort, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Basketball Crazy Warm Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A warm fleece hoodie related to casual wear, but with a basketball theme which may influence cut and insulation slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Hooded Shamrock Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Loose fit midweight hooded sweatshirt likely similar in function and construction to the reference but with a potentially heavier fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Embroidered Fleece Hoodie Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Fleece hoodie sweatshirt, focused on a similar type of comfortable casual wear, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Simple hoodie likely fleece and comfortable, similar but less descriptive so general relevance is slightly lower.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hooded midweight sweatshirt with sherpa lining and full zip, less similar silhouette and heavier insulation than reference pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's California Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's fleece hoodie, similar construction, purpose and comfort level to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Super Dux Relaxed Fit Sherpa-Lined Active Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a jacket with sherpa lining designed for active wear, heavier and structurally different than a soft fleece hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Collegiate Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Standard fleece hoodie with college branding, similar in construction and intended casual comfort to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Basic pullover hoodie for men, very close in style and purpose to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Imperial Heavyweight Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A heavyweight hoodie variant provides similar style but thicker fabric, reducing mobility slightly compared to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Generic men's hoodie, likely fleece but less detailed info; presumably similar and relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Born & Bred NYC Long Sleeve Zip Hoodie Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip hoodie differs in construction (zip vs pullover) and style though still a fleece sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Custom Embroidered Reflex Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece hoodie similar in fabric and comfort; custom embroidery does not affect core similarity much.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Select Foundation Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Standard fleece pullover hoodie, very close in style and function to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Half-Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Half-zip generally differs from pullover hoodie style; likely fleece but less similar silhouette and wear style.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Fleece Full-Zip Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Full zip jacket differs in construction and intended use; lacks hood thus less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo CPFM Spongebob Squarepants Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hooded pullover fleece similar in construction though with graphic print; core product remains a casual fleece hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Nike Men's Club Tennis Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "This is a men's fleece pullover hoodie similar in style and likely softness and comfort to the reference hoodie, making it highly relevant.",
+      "map_id": "map_009bb8baca704999b3ad1bf4ea7baf67"
+    },
+    {
+      "competitor_product_name": "Nike Women's Phoenix Fleece Over-Oversized Hoodie",
+      "score": 7,
+      "rationale": "A fleece hoodie like the reference, but women's oversized cut differs somewhat in silhouette and intended fit.",
+      "map_id": "map_66ff02ad118d4c32aecbf05872aec737"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Fleece",
+      "score": 8,
+      "rationale": "Likely a fleece sweatshirt, probably a pullover and hooded, similar in function and comfort to the reference.",
+      "map_id": "map_0166645f48c44be8ac188b56fe8eb23b"
+    },
+    {
+      "competitor_product_name": "Nike Men's Dri-FIT UV Hooded Running Top",
+      "score": 4,
+      "rationale": "Although it is hooded, this product is performance-focused running apparel with different fabric and function than a soft casual fleece hoodie.",
+      "map_id": "map_84e82ed711be47c180bf876cc36c7a46"
+    },
+    {
+      "competitor_product_name": "adidas Men's University of Miami Hurricanes Fleece Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A fleece hooded sweatshirt like the reference, designed as casual wear and soft comfort, highly relevant.",
+      "map_id": "map_f7dcff2eb0574622b59779526bedbe8a"
+    },
+    {
+      "competitor_product_name": "adidas Men's Basketball Crazy Warm Fleece Hoodie",
+      "score": 8,
+      "rationale": "A warm fleece hoodie related to casual wear, but with a basketball theme which may influence cut and insulation slightly.",
+      "map_id": "map_bbfdcd977c2146b69c649e8d9e6698c9"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Hooded Shamrock Sweatshirt",
+      "score": 8,
+      "rationale": "Loose fit midweight hooded sweatshirt likely similar in function and construction to the reference but with a potentially heavier fabric.",
+      "map_id": "map_4efd5f9a16e84307bfd9e0116e9523db"
+    },
+    {
+      "competitor_product_name": "American Apparel Embroidered Fleece Hoodie Sweatshirt",
+      "score": 9,
+      "rationale": "Fleece hoodie sweatshirt, focused on a similar type of comfortable casual wear, very relevant.",
+      "map_id": "map_e5ea079e4a564d77a1d8e5d7efe8fb14"
+    },
+    {
+      "competitor_product_name": "American Apparel Hoodie",
+      "score": 8,
+      "rationale": "Simple hoodie likely fleece and comfortable, similar but less descriptive so general relevance is slightly lower.",
+      "map_id": "map_4ab8edba3d084839835882723dd0acff"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt",
+      "score": 6,
+      "rationale": "Hooded midweight sweatshirt with sherpa lining and full zip, less similar silhouette and heavier insulation than reference pullover hoodie.",
+      "map_id": "map_1248e0919a6a4c518fa4a41be74fb022"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's California Fleece Hoodie",
+      "score": 9,
+      "rationale": "Men's fleece hoodie, similar construction, purpose and comfort level to the reference hoodie.",
+      "map_id": "map_78abde151ad74893a028861ba47a4a69"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Super Dux Relaxed Fit Sherpa-Lined Active Jacket",
+      "score": 3,
+      "rationale": "This is a jacket with sherpa lining designed for active wear, heavier and structurally different than a soft fleece hoodie.",
+      "map_id": "map_def1d376d5f749429a9f55501e30745a"
+    },
+    {
+      "competitor_product_name": "adidas Men's Collegiate Hoodie",
+      "score": 9,
+      "rationale": "Standard fleece hoodie with college branding, similar in construction and intended casual comfort to reference.",
+      "map_id": "map_5ab035327ff64f93a3d4597c4bde9430"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Pullover Hoodie",
+      "score": 9,
+      "rationale": "Basic pullover hoodie for men, very close in style and purpose to the reference.",
+      "map_id": "map_561b8d5e8aac4a8d952159a825e8d21c"
+    },
+    {
+      "competitor_product_name": "American Apparel Imperial Heavyweight Hoodie",
+      "score": 8,
+      "rationale": "A heavyweight hoodie variant provides similar style but thicker fabric, reducing mobility slightly compared to reference.",
+      "map_id": "map_0b42d354c9c2490f86094efc02c4ea0d"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 8,
+      "rationale": "Generic men's hoodie, likely fleece but less detailed info; presumably similar and relevant.",
+      "map_id": "map_a13681b9f91641f38ce5a72278c01c58"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Born & Bred NYC Long Sleeve Zip Hoodie Sweatshirt",
+      "score": 7,
+      "rationale": "Zip hoodie differs in construction (zip vs pullover) and style though still a fleece sweatshirt.",
+      "map_id": "map_27e8985d1fcc49fca5c24b4139251f75"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Custom Embroidered Reflex Fleece Hoodie",
+      "score": 8,
+      "rationale": "Fleece hoodie similar in fabric and comfort; custom embroidery does not affect core similarity much.",
+      "map_id": "map_67860cfd2f1f4d10bc5d0cc2f192752d"
+    },
+    {
+      "competitor_product_name": "adidas Men's Select Foundation Fleece Hoodie",
+      "score": 9,
+      "rationale": "Standard fleece pullover hoodie, very close in style and function to the reference product.",
+      "map_id": "map_953c01f7bd6f4ca9b28acb96fe95a4d4"
+    },
+    {
+      "competitor_product_name": "UNIQLO Half-Zip Sweatshirt",
+      "score": 5,
+      "rationale": "Half-zip generally differs from pullover hoodie style; likely fleece but less similar silhouette and wear style.",
+      "map_id": "map_fedc2022348847e2b88a34fe8c535dc2"
+    },
+    {
+      "competitor_product_name": "UNIQLO Fleece Full-Zip Jacket",
+      "score": 4,
+      "rationale": "Full zip jacket differs in construction and intended use; lacks hood thus less relevant.",
+      "map_id": "map_e4a53921ee7647f28ad6cec4f4b41fca"
+    },
+    {
+      "competitor_product_name": "Uniqlo CPFM Spongebob Squarepants Hoodie",
+      "score": 8,
+      "rationale": "A hooded pullover fleece similar in construction though with graphic print; core product remains a casual fleece hoodie.",
+      "map_id": "map_e2c3dac9896c4ee8a1558557558cb834"
+    }
+  ]
+}

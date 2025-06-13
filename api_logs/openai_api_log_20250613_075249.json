@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250613_075249",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Бейсболка Kangol, Колір: Чорний, Furgora Links K3018ST'\n  - Name='Капелюх Kangol колір K2094ST'\n  - Name='Чоловіче коричневе кепі KANGOL 0290BC CH011'\n  - Name='Капелюх Kangol колір червоний K3017ST.SC613-SC613'\n  - Name='Kangol Капелюх K4373.BK001'\n  - Name='KANGOL кепка'\n  - Name='Капелюх Kangol колір K5335'\n  - Name='чоловічий Кашкет Kangol колір 6736BC.DB433'\n  - Name='Кепка стрейч Kangol BDH18010 Бордовий'\n  - Name='Чоловіча сіра кепка Сірий ONESIZE KANGOL K5475 CHARCOAL'\n  - Name='Kangol Кашкет K3300HT.DR667-DR667'\n  - Name='Бавовняна бейсболка Kangol візерунок K4360'\n  - Name='Капелюх Kangol K4359'\n  - Name='Чоловіче оливкове вовняне кепі KANGOL K0875FA SAGE GREEN'\n  - Name='Капелюх Kangol колір K3411.BL320'\n  - Name='Kangol Капелюх K4228HT K4228HT.WD207'\n  - Name='Чоловіча Бейсболка Kangol'\n  - Name='Двосторонній капелюх Kangol'\n  - Name='Kangol Капелюх K4012SP'\n  - Name='Вовняний капелюх Kangol колір K3181ST'\n  - Name='Капелюх Kangol колір K3326ST'\n  - Name='Капелюх Kangol колір K3411'\n  - Name='Чоловіча чорна вовняна кепка Чорний L-XL KANGOL K3769 BLACK'\n  - Name='Вовняний кашкет Kangol HEATHERED TIE DYE 504 колір K3668.BG003'\n  - Name='Brixton Brood Adjustable Snap Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Бейсболка Kangol, Колір: Чорний, Furgora Links K3018ST\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a baseball cap, differing in silhouette and style from the 8-panel Peaky scally cap; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір K2094ST\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General hat from Kangol; without exact style details, scored moderately for potential similarity but uncertain if a Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Чоловіче коричневе кепі KANGOL 0290BC CH011\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Described as a male kepi, which is closer to a flat cap style similar to Peaky caps; somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір червоний K3017ST.SC613-SC613\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic kangol hat with no style specifics, moderate relevance due to being a hat but lacking details.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Капелюх K4373.BK001\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Kangol hat; relevance is moderate given unknown style but likely a casual hat related to the category.\"\n    },\n    {\n      \"competitor_product_name\": \"KANGOL кепка\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Generic Kangol cap; 'кепка' suggests a cap style, possibly similar but uncertain if 8-panel Peaky style; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір K5335\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General Kangol hat with unknown style; some relevance as it is a hat but lacking specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"чоловічий Кашкет Kangol колір 6736BC.DB433\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a male 'kashket' (flat cap) which is stylistically closer to the Peaky 8-panel design; high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Кепка стрейч Kangol BDH18010 Бордовий\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Stretch cap (probably a fitted or stretch fabric cap) differs in construction from structured Peaky cap; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Чоловіча сіра кепка Сірий ONESIZE KANGOL K5475 CHARCOAL\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's grey cap, could be a flat cap or similar; moderately relevant given generic cap term.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Кашкет K3300HT.DR667-DR667\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Kashket is a flat cap style similar to Peaky caps; high relevance due to silhouette and function similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Бавовняна бейсболка Kangol візерунок K4360\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Cotton baseball cap is different silhouette and purpose than Peaky cap; low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol K4359\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Kangol hat; no style info limits scoring to moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Чоловіче оливкове вовняне кепі KANGOL K0875FA SAGE GREEN\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Wool kepi cap likely flat cap style; similar to Peaky silhouette and material, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір K3411.BL320\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Unspecified Kangol hat, moderate relevance due to unknown style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Капелюх K4228HT K4228HT.WD207\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General Kangol hat, lacking style details, moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Чоловіча Бейсболка Kangol\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Men's baseball cap differs considerably in form and construction from Peaky 8-panel cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Двосторонній капелюх Kangol\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Reversible Kangol hat; without style info, moderate relevance assumed.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Капелюх K4012SP\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Kangol hat, insufficient detail lowers score to moderate.\"\n    },\n    {\n      \"competitor_product_name\": \"Вовняний капелюх Kangol колір K3181ST\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wool hat from Kangol; material aligns with reference but unknown style limits score.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір K3326ST\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Kangol hat without more details, so moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Капелюх Kangol колір K3411\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic Kangol hat, moderate score due to lack of specificity.\"\n    },\n    {\n      \"competitor_product_name\": \"Чоловіча чорна вовняна кепка Чорний L-XL KANGOL K3769 BLACK\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Black wool male kepka, style likely close to flat cap, which is quite relevant to the Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Вовняний кашкет Kangol HEATHERED TIE DYE 504 колір K3668.BG003\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wool kashket (flat cap) with similar construction and function to Peaky cap; high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Adjustable Snap Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Snapback adjustable cap differs significantly in silhouette and construction from 8-panel Peaky cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Бейсболка Kangol, Колір: Чорний, Furgora Links K3018ST",
+      "score": 3,
+      "rationale": "This is a baseball cap, differing in silhouette and style from the 8-panel Peaky scally cap; less relevant.",
+      "map_id": "map_cab4b7ea17524621ab63630e567c93d8"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір K2094ST",
+      "score": 5,
+      "rationale": "General hat from Kangol; without exact style details, scored moderately for potential similarity but uncertain if a Peaky style.",
+      "map_id": "map_ee10d1ac991b4c878f8e9fd12d4775a4"
+    },
+    {
+      "competitor_product_name": "Чоловіче коричневе кепі KANGOL 0290BC CH011",
+      "score": 6,
+      "rationale": "Described as a male kepi, which is closer to a flat cap style similar to Peaky caps; somewhat relevant.",
+      "map_id": "map_c0846557219c446097306f2c556dbc04"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір червоний K3017ST.SC613-SC613",
+      "score": 5,
+      "rationale": "Generic kangol hat with no style specifics, moderate relevance due to being a hat but lacking details.",
+      "map_id": "map_c1836f701d6145a681eec52cc543b78f"
+    },
+    {
+      "competitor_product_name": "Kangol Капелюх K4373.BK001",
+      "score": 5,
+      "rationale": "Generic Kangol hat; relevance is moderate given unknown style but likely a casual hat related to the category.",
+      "map_id": "map_fbb83cf35d2b4373b84f45758c00b6cd"
+    },
+    {
+      "competitor_product_name": "KANGOL кепка",
+      "score": 6,
+      "rationale": "Generic Kangol cap; 'кепка' suggests a cap style, possibly similar but uncertain if 8-panel Peaky style; moderately relevant.",
+      "map_id": "map_c056931c2f334efba0f0cbcc0d93e2dc"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір K5335",
+      "score": 5,
+      "rationale": "General Kangol hat with unknown style; some relevance as it is a hat but lacking specifics.",
+      "map_id": "map_22dcb5ba9249474d912b61191f80f20e"
+    },
+    {
+      "competitor_product_name": "чоловічий Кашкет Kangol колір 6736BC.DB433",
+      "score": 8,
+      "rationale": "This is a male 'kashket' (flat cap) which is stylistically closer to the Peaky 8-panel design; high relevance.",
+      "map_id": "map_6b776d017e1e411ea3453883b30ca81f"
+    },
+    {
+      "competitor_product_name": "Кепка стрейч Kangol BDH18010 Бордовий",
+      "score": 4,
+      "rationale": "Stretch cap (probably a fitted or stretch fabric cap) differs in construction from structured Peaky cap; low relevance.",
+      "map_id": "map_a6527b65842c46b89e7b40684469efe9"
+    },
+    {
+      "competitor_product_name": "Чоловіча сіра кепка Сірий ONESIZE KANGOL K5475 CHARCOAL",
+      "score": 6,
+      "rationale": "Men's grey cap, could be a flat cap or similar; moderately relevant given generic cap term.",
+      "map_id": "map_e35867f5153e41bdaa698382a137e0da"
+    },
+    {
+      "competitor_product_name": "Kangol Кашкет K3300HT.DR667-DR667",
+      "score": 8,
+      "rationale": "Kashket is a flat cap style similar to Peaky caps; high relevance due to silhouette and function similarity.",
+      "map_id": "map_5d123d89e3f54615b593373b8797d294"
+    },
+    {
+      "competitor_product_name": "Бавовняна бейсболка Kangol візерунок K4360",
+      "score": 3,
+      "rationale": "Cotton baseball cap is different silhouette and purpose than Peaky cap; low relevance.",
+      "map_id": "map_a53b30184af04e1691d2266205ce9ffa"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol K4359",
+      "score": 5,
+      "rationale": "Generic Kangol hat; no style info limits scoring to moderate relevance.",
+      "map_id": "map_90af85da628c400f8d9627d0753a0b0c"
+    },
+    {
+      "competitor_product_name": "Чоловіче оливкове вовняне кепі KANGOL K0875FA SAGE GREEN",
+      "score": 7,
+      "rationale": "Wool kepi cap likely flat cap style; similar to Peaky silhouette and material, fairly relevant.",
+      "map_id": "map_9ae93a7d6c5a4240888f2802ee9b4d18"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір K3411.BL320",
+      "score": 5,
+      "rationale": "Unspecified Kangol hat, moderate relevance due to unknown style.",
+      "map_id": "map_6ec2f95cf2db46fca7e8d9ca825cefd4"
+    },
+    {
+      "competitor_product_name": "Kangol Капелюх K4228HT K4228HT.WD207",
+      "score": 5,
+      "rationale": "General Kangol hat, lacking style details, moderate relevance.",
+      "map_id": "map_98fe1e7eab9d4658a1f6fafd1d541393"
+    },
+    {
+      "competitor_product_name": "Чоловіча Бейсболка Kangol",
+      "score": 3,
+      "rationale": "Men's baseball cap differs considerably in form and construction from Peaky 8-panel cap.",
+      "map_id": "map_50699701da6946eab9b1785d47d311ea"
+    },
+    {
+      "competitor_product_name": "Двосторонній капелюх Kangol",
+      "score": 5,
+      "rationale": "Reversible Kangol hat; without style info, moderate relevance assumed.",
+      "map_id": "map_6095890bb53a4dcb8c8fccf246e8128a"
+    },
+    {
+      "competitor_product_name": "Kangol Капелюх K4012SP",
+      "score": 5,
+      "rationale": "Generic Kangol hat, insufficient detail lowers score to moderate.",
+      "map_id": "map_42dbb3bb68354b84aaea0c24807f63bf"
+    },
+    {
+      "competitor_product_name": "Вовняний капелюх Kangol колір K3181ST",
+      "score": 6,
+      "rationale": "Wool hat from Kangol; material aligns with reference but unknown style limits score.",
+      "map_id": "map_cffc56d0c77e4f22aab3b479267ff99e"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір K3326ST",
+      "score": 5,
+      "rationale": "Generic Kangol hat without more details, so moderate relevance.",
+      "map_id": "map_6cb1d1e2d5e44ee48f758ef328d85ac2"
+    },
+    {
+      "competitor_product_name": "Капелюх Kangol колір K3411",
+      "score": 5,
+      "rationale": "Generic Kangol hat, moderate score due to lack of specificity.",
+      "map_id": "map_2f388f63441445b3b5ae0fd73b353b8d"
+    },
+    {
+      "competitor_product_name": "Чоловіча чорна вовняна кепка Чорний L-XL KANGOL K3769 BLACK",
+      "score": 7,
+      "rationale": "Black wool male kepka, style likely close to flat cap, which is quite relevant to the Peaky cap.",
+      "map_id": "map_a70549dcd8e4498db04b7256af6abf81"
+    },
+    {
+      "competitor_product_name": "Вовняний кашкет Kangol HEATHERED TIE DYE 504 колір K3668.BG003",
+      "score": 8,
+      "rationale": "Wool kashket (flat cap) with similar construction and function to Peaky cap; high relevance.",
+      "map_id": "map_324a85f025174704a5fd8fb1f0e33ee4"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Adjustable Snap Cap",
+      "score": 3,
+      "rationale": "Snapback adjustable cap differs significantly in silhouette and construction from 8-panel Peaky cap.",
+      "map_id": "map_7d0650e58bcd400395ab7e1c1765249e"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250613_075325",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Barbour Claymore Bakerboy Hat'\n  - Name='Bailey Hats Harwood Flat Cap'\n  - Name='Herren Stetson Texas Colour Check Leinen Flatcap Schirmmütze Schiebermütze Leinencap'\n  - Name='Herren Stetson 6-teilige Flatcap 8-teilige Stoffmütze'\n  - Name='Men's Barbour Gallingale Tartan Flat Cap'\n  - Name='Men's Barbour Crieff Flat Cap'\n  - Name='Goorin Bros. Plaid Big Bad Woof Cream Trucker'\n  - Name='Barbour, Tilbehør, Herre, Blå, M, Bomuld, Marineblå Cheviot Vokset Flad Kasket med Tartan Øreklapper'\n  - Name='Barbour Rothbury Hat'\n  - Name='Homme Stetson Casquette Kent Colverton Check bordeaux'\n  - Name='Barbour Hats Tartan Wax Flat Cap'\n  - Name='Carhartt Wip Madison Corduroy Logo Cap'\n  - Name='Barbour Claymore Bakerboy Navy Cap taglia'\n  - Name='Barbour Men's Wax Flat Cap'\n  - Name='Barbour Flat Cap Mens Classic Wool Tartan Newsboy Plaid Size 7 &'\n  - Name='Barbour Hats Barlow Wool Flat Cap'\n  - Name='Men's Barbour Deveron Tweed Flat Cap'\n  - Name='Barbour Finnean Cap'\n  - Name='Goorin Bros. S/m Flatcap'\n  - Name='Goorin Bros Newsboy Cabbie Taxi Flatcap Hat Y2k Golf Monarch Ear Flap'\n  - Name='Bailey Hats Cassell Herringbone Wool Blend Newsboy Cap'\n  - Name='Waddell Newsboy Cap by Bailey 1922 grey / 6 3/4-6 7/8 (S)'\n  - Name='Bailey Hats Arley Wool Blend Newsboy Cap'\n  - Name='Bailey of Hollywood Alsen Caps Navy : LG'\n  - Name='Bailey flatcap Keps Ormond Cap @ Hatstore'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Barbour Claymore Bakerboy Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This product is a bakerboy hat, similar to the Peaky cap in style and construction with a multi-panel design, matching the silhouette and usage closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Hats Harwood Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap style shares similar usage and shape to the Peaky cap but often has a less pronounced multi-panel construction compared to a bakerboy/Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson Texas Colour Check Leinen Flatcap Schirmmütze Schiebermütze Leinencap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flatcap with check fabric, similar in style, but likely with fewer panels and less emphasis on bakerboy silhouette, lowering exact similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Herren Stetson 6-teilige Flatcap 8-teilige Stoffmütze\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Specifically an 8-panel flat cap which closely resembles the Peaky cap's construction, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Gallingale Tartan Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tartan flat cap similar in material and purpose, but flat cap style differs slightly from the 8-panel Peaky cap silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Crieff Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another flat cap with traditional fabric, slightly less similar in silhouette and construction to Peaky's 8-panel style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Plaid Big Bad Woof Cream Trucker\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a trucker cap, a very different style and construction from the Peaky cap, thus low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour, Tilbehør, Herre, Blå, M, Bomuld, Marineblå Cheviot Vokset Flad Kasket med Tartan Øreklapper\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Although a flat cap with tartan, presence of ear flaps and other features significantly deviate from the Peaky cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Rothbury Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Hat style unclear but likely different from the 8-panel Peaky cap; moderately relevant if classed as a flat or similar cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Homme Stetson Casquette Kent Colverton Check bordeaux\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat cap from brand and name, similar fabric usage but less clear about panel construction or bakerboy style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Hats Tartan Wax Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Standard flat cap style and fabric, functionally similar but less specific on bakerboy 8-panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Madison Corduroy Logo Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a casual cap with different silhouette and panels, probably a baseball-style cap, thus low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Claymore Bakerboy Navy Cap taglia\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another bakerboy cap by Barbour, closely matching Peaky's style, shape, and structure.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Wax Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style, waxed fabric differs but shape and panel number likely similar, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Flat Cap Mens Classic Wool Tartan Newsboy Plaid Size 7 &\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy flat cap aligns well with Peaky 8-panel style and construction, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Hats Barlow Wool Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flat cap style similar in function but less clearly bakerboy/multi-panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Deveron Tweed Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tweed flat cap similar in usage and shape but less detailed info on panels and structure.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Finnean Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General cap name with less detail; could be flat or other style, moderate relevancy due to being a men's cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. S/m Flatcap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flatcap aligns generally with Peaky cap type, though no detail about panel construction or bakerboy style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Newsboy Cabbie Taxi Flatcap Hat Y2k Golf Monarch Ear Flap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy/cabbie style is close to Peaky cap silhouette; however, presence of ear flaps may reduce similarity somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Hats Cassell Herringbone Wool Blend Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy cap with multi-panel design, material and construction similar to Peaky cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Waddell Newsboy Cap by Bailey 1922 grey / 6 3/4-6 7/8 (S)\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy cap is similar in overall shape and panel count to an 8-panel Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Hats Arley Wool Blend Newsboy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy cap style very similar to Peaky cap, both serving the same style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Alsen Caps Navy : LG\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"General cap name with no style detail; assumed less similarity without specifying flat or bakerboy style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey flatcap Keps Ormond Cap @ Hatstore\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flatcap designation implies moderate similarity in shape and use to Peaky cap, but no specific panel construction mentioned.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Barbour Claymore Bakerboy Hat",
+      "score": 8,
+      "rationale": "This product is a bakerboy hat, similar to the Peaky cap in style and construction with a multi-panel design, matching the silhouette and usage closely.",
+      "map_id": "map_cfcca553088245f9ad607827484da435"
+    },
+    {
+      "competitor_product_name": "Bailey Hats Harwood Flat Cap",
+      "score": 7,
+      "rationale": "Flat cap style shares similar usage and shape to the Peaky cap but often has a less pronounced multi-panel construction compared to a bakerboy/Peaky cap.",
+      "map_id": "map_51ff2ba4f6fb4d41b3371ce24342d492"
+    },
+    {
+      "competitor_product_name": "Herren Stetson Texas Colour Check Leinen Flatcap Schirmmütze Schiebermütze Leinencap",
+      "score": 6,
+      "rationale": "A flatcap with check fabric, similar in style, but likely with fewer panels and less emphasis on bakerboy silhouette, lowering exact similarity.",
+      "map_id": "map_dd5170737a464c0ab52d4676ef60d60f"
+    },
+    {
+      "competitor_product_name": "Herren Stetson 6-teilige Flatcap 8-teilige Stoffmütze",
+      "score": 7,
+      "rationale": "Specifically an 8-panel flat cap which closely resembles the Peaky cap's construction, making it quite relevant.",
+      "map_id": "map_0eeefc70b7a64cf38077bd600986f601"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Gallingale Tartan Flat Cap",
+      "score": 6,
+      "rationale": "Tartan flat cap similar in material and purpose, but flat cap style differs slightly from the 8-panel Peaky cap silhouette.",
+      "map_id": "map_0a034fd15c394e0ead9e2f167bfd2b52"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Crieff Flat Cap",
+      "score": 6,
+      "rationale": "Another flat cap with traditional fabric, slightly less similar in silhouette and construction to Peaky's 8-panel style.",
+      "map_id": "map_5a42e20c0ac64d39812719f3e44adc4e"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Plaid Big Bad Woof Cream Trucker",
+      "score": 2,
+      "rationale": "This is a trucker cap, a very different style and construction from the Peaky cap, thus low relevancy.",
+      "map_id": "map_64c80746fa3e4cb1944031cc08b0983a"
+    },
+    {
+      "competitor_product_name": "Barbour, Tilbehør, Herre, Blå, M, Bomuld, Marineblå Cheviot Vokset Flad Kasket med Tartan Øreklapper",
+      "score": 3,
+      "rationale": "Although a flat cap with tartan, presence of ear flaps and other features significantly deviate from the Peaky cap style.",
+      "map_id": "map_6a594db5a9024231a46e15da080572c8"
+    },
+    {
+      "competitor_product_name": "Barbour Rothbury Hat",
+      "score": 5,
+      "rationale": "Hat style unclear but likely different from the 8-panel Peaky cap; moderately relevant if classed as a flat or similar cap.",
+      "map_id": "map_747e7d3538064b15b81c04fa52b67fa3"
+    },
+    {
+      "competitor_product_name": "Homme Stetson Casquette Kent Colverton Check bordeaux",
+      "score": 6,
+      "rationale": "Likely a flat cap from brand and name, similar fabric usage but less clear about panel construction or bakerboy style.",
+      "map_id": "map_7fe3500940f6489f8bdf593bdc39597a"
+    },
+    {
+      "competitor_product_name": "Barbour Hats Tartan Wax Flat Cap",
+      "score": 6,
+      "rationale": "Standard flat cap style and fabric, functionally similar but less specific on bakerboy 8-panel construction.",
+      "map_id": "map_54b90d9e20ba45c28ac41cb437f26ca3"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Madison Corduroy Logo Cap",
+      "score": 2,
+      "rationale": "Likely a casual cap with different silhouette and panels, probably a baseball-style cap, thus low relevancy.",
+      "map_id": "map_ac2c03ff9345401aa435c249f43fc711"
+    },
+    {
+      "competitor_product_name": "Barbour Claymore Bakerboy Navy Cap taglia",
+      "score": 8,
+      "rationale": "Another bakerboy cap by Barbour, closely matching Peaky's style, shape, and structure.",
+      "map_id": "map_cd50781656c14442ac34cebd00f9f9d7"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Wax Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap style, waxed fabric differs but shape and panel number likely similar, moderately relevant.",
+      "map_id": "map_ff530752307243878b19c05f0b6546b9"
+    },
+    {
+      "competitor_product_name": "Barbour Flat Cap Mens Classic Wool Tartan Newsboy Plaid Size 7 &",
+      "score": 7,
+      "rationale": "Newsboy flat cap aligns well with Peaky 8-panel style and construction, making it quite relevant.",
+      "map_id": "map_94565efc593341539a3261c2bd6dfe4b"
+    },
+    {
+      "competitor_product_name": "Barbour Hats Barlow Wool Flat Cap",
+      "score": 6,
+      "rationale": "A flat cap style similar in function but less clearly bakerboy/multi-panel construction.",
+      "map_id": "map_cb4b2ce13bd84edda46dd20d4b18082d"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Deveron Tweed Flat Cap",
+      "score": 6,
+      "rationale": "Tweed flat cap similar in usage and shape but less detailed info on panels and structure.",
+      "map_id": "map_802d25bad30f40dea8f05feeb8bde200"
+    },
+    {
+      "competitor_product_name": "Barbour Finnean Cap",
+      "score": 5,
+      "rationale": "General cap name with less detail; could be flat or other style, moderate relevancy due to being a men's cap.",
+      "map_id": "map_9dd5eecaaa604ca1b510d6bee35c731c"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. S/m Flatcap",
+      "score": 6,
+      "rationale": "Flatcap aligns generally with Peaky cap type, though no detail about panel construction or bakerboy style.",
+      "map_id": "map_aa75df48cb4d41a782ddb1940d59b486"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Newsboy Cabbie Taxi Flatcap Hat Y2k Golf Monarch Ear Flap",
+      "score": 7,
+      "rationale": "Newsboy/cabbie style is close to Peaky cap silhouette; however, presence of ear flaps may reduce similarity somewhat.",
+      "map_id": "map_4e81e662af8241d9ba1d437a1253d1d1"
+    },
+    {
+      "competitor_product_name": "Bailey Hats Cassell Herringbone Wool Blend Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy cap with multi-panel design, material and construction similar to Peaky cap.",
+      "map_id": "map_78dc5455f6d84e3e89e9170fa46a571b"
+    },
+    {
+      "competitor_product_name": "Waddell Newsboy Cap by Bailey 1922 grey / 6 3/4-6 7/8 (S)",
+      "score": 7,
+      "rationale": "Newsboy cap is similar in overall shape and panel count to an 8-panel Peaky.",
+      "map_id": "map_206b4d63d43e4907911b455da9b52cbf"
+    },
+    {
+      "competitor_product_name": "Bailey Hats Arley Wool Blend Newsboy Cap",
+      "score": 7,
+      "rationale": "Newsboy cap style very similar to Peaky cap, both serving the same style and function.",
+      "map_id": "map_6421b954cb9142759e511244372b0624"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Alsen Caps Navy : LG",
+      "score": 5,
+      "rationale": "General cap name with no style detail; assumed less similarity without specifying flat or bakerboy style.",
+      "map_id": "map_e3fd341ebbdc48cba12d6e974769a2e2"
+    },
+    {
+      "competitor_product_name": "Bailey flatcap Keps Ormond Cap @ Hatstore",
+      "score": 6,
+      "rationale": "Flatcap designation implies moderate similarity in shape and use to Peaky cap, but no specific panel construction mentioned.",
+      "map_id": "map_4b1f83f493224010a378e2751950d5b7"
+    }
+  ]
+}

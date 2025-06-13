@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250530_083309",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Michael Kors Big & Tall Men's Non-Iron Solid Dress Shirt'\n  - Name='Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt'\n  - Name='Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt'\n  - Name='Egara Men's Skinny Fit Squares Dress Shirt'\n  - Name='Egara Men's Skinny Fit Square Pattern Dress Shirt'\n  - Name='Nordstrom Trim Fit Microcheck Cotton Dress Shirt'\n  - Name='Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Twill Button Up Shirt'\n  - Name='Men's L.L.Bean Stonecoast Performance Button Front Shirt Short Sleeve'\n  - Name='Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt'\n  - Name='Lands' End Women's No Iron Button Front Shirt'\n  - Name='Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt'\n  - Name='Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt'\n  - Name='Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt'\n  - Name='Bonobos Men's Riviera Short Sleeve Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Michael Kors Big & Tall Men's Non-Iron Solid Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a non-iron solid dress shirt like the reference, differing mainly in size range (Big & Tall) but highly similar in core features.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit dress shirt made of cotton but with a microcheck pattern rather than solid, somewhat differing from the solid textured reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wrinkle-free dress shirt but traditional (not trim) fit and oxford cloth with button down collar, differing from semi-spread collar and fit of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt with spread collar (similar to semi-spread) made of twill fabric, features align closely with reference except fabric type.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Squares Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Skinny fit dress shirt with a squares pattern, less relevant due to fit and patterned fabric differing from textured solid and fits of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Square Pattern Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Same assessment as above; skinny fit and patterned dress shirt diverges from the reference's style and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Microcheck Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Trim fit cotton dress shirt but with microcheck pattern instead of solid textured, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit, wrinkle-free, dress shirt with stretch collar features, very similar functional attributes to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Twill Button Up Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Modern fit dress shirt in twill fabric, button up style; relevant but fit and fabric differ from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Stonecoast Performance Button Front Shirt Short Sleeve\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve performance shirt, not a long sleeve dress shirt, substantially different in purpose and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit, wrinkle-resistant dress shirt with stretch fabric and button up style, close to reference's non-iron, trimmed fit dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's No Iron Button Front Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's no-iron shirt, likely differing in cut and fit significantly from the men's reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Women's no-iron long sleeve shirt, different target demographic and likely silhouette from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's long sleeve tailored dress shirt in broadcloth, fairly relevant though fit description differs from trim or standard fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's no iron dress shirt with pattern, relevant in function but differs by patterned fabric compared to solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Short Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve shirt for warmer weather, less relevant to long sleeve dress shirt reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same brand and very close product name indicating trim fit wrinkle-free dress shirt matching reference in function, fit, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Virtually identical to reference product, same brand, trim fit, wrinkle-free cotton dress shirt, perfectly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Michael Kors Big & Tall Men's Non-Iron Solid Dress Shirt",
+      "score": 9,
+      "rationale": "This is a non-iron solid dress shirt like the reference, differing mainly in size range (Big & Tall) but highly similar in core features.",
+      "map_id": "map_9b836028d82d4a0dac5b4f0a23989c1c"
+    },
+    {
+      "competitor_product_name": "Nordstrom Victoria St. Trim Fit Microcheck Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit dress shirt made of cotton but with a microcheck pattern rather than solid, somewhat differing from the solid textured reference shirt.",
+      "map_id": "map_4f406db3adbb46d192cf3680d2de88fa"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Wrinkle-Free Oxford Cloth Button Down Shirt",
+      "score": 6,
+      "rationale": "Wrinkle-free dress shirt but traditional (not trim) fit and oxford cloth with button down collar, differing from semi-spread collar and fit of reference.",
+      "map_id": "map_5d96ad3ad1774d42a12107786b01cc78"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt with spread collar (similar to semi-spread) made of twill fabric, features align closely with reference except fabric type.",
+      "map_id": "map_47a5676f5f8a462caaa63e58996edcc3"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Squares Dress Shirt",
+      "score": 5,
+      "rationale": "Skinny fit dress shirt with a squares pattern, less relevant due to fit and patterned fabric differing from textured solid and fits of reference.",
+      "map_id": "map_ff6cb8abd3a74659a9c6efb30ac28f4d"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Square Pattern Dress Shirt",
+      "score": 5,
+      "rationale": "Same assessment as above; skinny fit and patterned dress shirt diverges from the reference's style and fit.",
+      "map_id": "map_5475f097ab724e98997cb5864cb20e17"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Microcheck Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Trim fit cotton dress shirt but with microcheck pattern instead of solid textured, moderately relevant.",
+      "map_id": "map_ee80255e1b4c41d5bde9687846d67e4c"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Infinite Wrinkle Free Slim Fit Stretch Collar Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit, wrinkle-free, dress shirt with stretch collar features, very similar functional attributes to reference.",
+      "map_id": "map_8ce8d05e665f4994ad87a816f535bd89"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Twill Button Up Shirt",
+      "score": 6,
+      "rationale": "Modern fit dress shirt in twill fabric, button up style; relevant but fit and fabric differ from reference.",
+      "map_id": "map_fa88ca5eb55d409b9071064d5c8bc49d"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Stonecoast Performance Button Front Shirt Short Sleeve",
+      "score": 3,
+      "rationale": "Short sleeve performance shirt, not a long sleeve dress shirt, substantially different in purpose and style.",
+      "map_id": "map_1d417990002d4551b8c2583fba0a1bf5"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Wrinkle-Resistant 4-Way Stretch Button Up Shirt",
+      "score": 8,
+      "rationale": "Slim fit, wrinkle-resistant dress shirt with stretch fabric and button up style, close to reference's non-iron, trimmed fit dress shirt.",
+      "map_id": "map_b101207fa82648eea12afe3515cd6035"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's No Iron Button Front Shirt",
+      "score": 4,
+      "rationale": "Women's no-iron shirt, likely differing in cut and fit significantly from the men's reference product.",
+      "map_id": "map_c59c51903fe64b23a51317b8540a6b16"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's No Iron Supima Cotton Long Sleeve Shirt",
+      "score": 4,
+      "rationale": "Women's no-iron long sleeve shirt, different target demographic and likely silhouette from reference.",
+      "map_id": "map_7ecf3e250a5f417cbab135bf9505fb98"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Long Sleeve Tailored Broadcloth Dress Shirt",
+      "score": 7,
+      "rationale": "Men's long sleeve tailored dress shirt in broadcloth, fairly relevant though fit description differs from trim or standard fit.",
+      "map_id": "map_bf0fae7bcf104bbaa7dc6dcacd77f0ab"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt",
+      "score": 7,
+      "rationale": "Men's no iron dress shirt with pattern, relevant in function but differs by patterned fabric compared to solid.",
+      "map_id": "map_901ac9b6a7da4b9ebc45dfc03386fff2"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short sleeve shirt for warmer weather, less relevant to long sleeve dress shirt reference product.",
+      "map_id": "map_57d988a9f92c41c8ad75a375e15880a5"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 10,
+      "rationale": "Same brand and very close product name indicating trim fit wrinkle-free dress shirt matching reference in function, fit, and construction.",
+      "map_id": "map_00333374032d4666a2caa3998961b7ad"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "Virtually identical to reference product, same brand, trim fit, wrinkle-free cotton dress shirt, perfectly relevant.",
+      "map_id": "map_72eb576cd7aa41849386e7df7150e5c8"
+    }
+  ]
+}

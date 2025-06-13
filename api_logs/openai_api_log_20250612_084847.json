@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250612_084847",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford'\n  - Name='Men's Charles Tyrwhitt Non-Iron Poplin Short-Sleeve Cotton Formal Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Men's Pure Supima Cotton Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt'\n  - Name='Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt'\n  - Name='J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt'\n  - Name='J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dress Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dobby Dress Shirt'\n  - Name='J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar'\n  - Name='J.Crew Men's Relaxed Broken-In Organic Cotton Oxford Shirt'\n  - Name='J.Crew Men's Slim-Fit Bowery Wrinkle-Free Stretch Cotton Shirt'\n  - Name='J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt'\n  - Name='J.Crew Men's Slim Secret Wash Cotton Poplin Shirt'\n  - Name='J.Crew Men's Ludlow Premium Cotton Dress Shirt with French Cuffs'\n  - Name='Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Herringbone Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt'\n  - Name='L.L.Bean Men's VentureStretch Woven Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a non-iron dress shirt with stretch Supima cotton like the reference, but this is a women's classic fit, so less similar in target audience and fit style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron dress shirt made from stretch Supima cotton, similar high-quality cotton and non-iron feature, likely similar construction as reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Poplin Short-Sleeve Cotton Formal Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron formal men's shirt like reference but short-sleeve and poplin fabric differentiate it somewhat in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though non-iron and made with Supima cotton, it is a polo shirt rather than a dress shirt, so silhouette and construction differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Same reasons as above; a polo shirt rather than a dress shirt though non-iron and cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Pure Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's dress shirt made from pure Supima cotton but non-iron feature not explicitly stated, still very relevant due to material and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Almost identical product type: men's stretch Supima cotton non-iron dress shirt, closely matching the reference in features and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Same as above, essentially an identical product in terms of features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's slim-fit premium cotton dress shirt; does not specify non-iron feature but similar style and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's dress shirt in cotton Oxford; pattern differs and no explicit non-iron claim, but similar construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron twill dress shirt closely aligned in function and fabric innovation though twill instead of textured solid fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt but focused on casual untucked fit and organic Oxford cotton without non-iron feature, less formal than reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton poplin dress shirt with secret wash treatment, no explicit non-iron claim although treated for softness and ease, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free dress shirt comparable to non-iron performance; similar use and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dobby Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free dobby fabric dress shirt close in function and style to the reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar fabric and wash but point collar differs from semi-spread; non-iron feature not specified, so moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Relaxed Broken-In Organic Cotton Oxford Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"More casual relaxed fit and organic cotton Oxford fabric not non-iron; less formal and different construction.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-Fit Bowery Wrinkle-Free Stretch Cotton Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free, stretch cotton shirt similar to non-iron; slim fit and dress shirt style align well with reference.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free dress shirt similar to non-iron in function and intended use, just in tall sizing.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton poplin slim shirt with secret wash but no non-iron claim; somewhat relevant in style and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Ludlow Premium Cotton Dress Shirt with French Cuffs\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Premium cotton dress shirt similar to reference; presence of French cuffs adds a formal detail but non-iron feature not confirmed.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt very close in core features and function to reference, just differing slightly in fabric texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt in herringbone texture; likely similar intended use and construction though no explicit non-iron note.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit dress shirt made of Supima cotton similar to reference; no direct non-iron claim but very relevant in type and materials.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's VentureStretch Woven Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Woven shirt designed for stretching and activity; not explicitly a dress shirt or non-iron, more casual and performance oriented.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Women's Classic-Fit Non-Iron Stretch Supima Cotton Dress Shirt",
+      "score": 7,
+      "rationale": "Also a non-iron dress shirt with stretch Supima cotton like the reference, but this is a women's classic fit, so less similar in target audience and fit style.",
+      "map_id": "map_34e8b604f51e48ddb6c8b0c985c8488b"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford",
+      "score": 9,
+      "rationale": "Men's non-iron dress shirt made from stretch Supima cotton, similar high-quality cotton and non-iron feature, likely similar construction as reference.",
+      "map_id": "map_089398ac18064647b2908de5806c52c4"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Poplin Short-Sleeve Cotton Formal Shirt",
+      "score": 7,
+      "rationale": "Non-iron formal men's shirt like reference but short-sleeve and poplin fabric differentiate it somewhat in style and construction.",
+      "map_id": "map_a9093dbe5e104c23ae34c35743a5de2c"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Oxford Polo",
+      "score": 4,
+      "rationale": "Though non-iron and made with Supima cotton, it is a polo shirt rather than a dress shirt, so silhouette and construction differ.",
+      "map_id": "map_56caf19ffb154c7eae5fa572c0f28587"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 4,
+      "rationale": "Same reasons as above; a polo shirt rather than a dress shirt though non-iron and cotton.",
+      "map_id": "map_4074cae903d94175869acdc98c4c41f1"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Pure Supima Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Men's dress shirt made from pure Supima cotton but non-iron feature not explicitly stated, still very relevant due to material and use.",
+      "map_id": "map_48edf23b18f84a73945e3868f9abbc42"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Almost identical product type: men's stretch Supima cotton non-iron dress shirt, closely matching the reference in features and construction.",
+      "map_id": "map_c1c57cc66d224d788122eddfefb5c59a"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Supima Cotton Non Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Same as above, essentially an identical product in terms of features and intended use.",
+      "map_id": "map_3581b9a927c1493a982ba89d76a7f5db"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Men's slim-fit premium cotton dress shirt; does not specify non-iron feature but similar style and use.",
+      "map_id": "map_c571d4b7b68a488bb1e9132585af8f1a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt",
+      "score": 7,
+      "rationale": "Men's dress shirt in cotton Oxford; pattern differs and no explicit non-iron claim, but similar construction and purpose.",
+      "map_id": "map_2560673a147f4f43b6246337a7c32f5e"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron twill dress shirt closely aligned in function and fabric innovation though twill instead of textured solid fabric.",
+      "map_id": "map_85d6f5f381a8405cb9680628df1da9ce"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Broken-In Organic Cotton Oxford Shirt",
+      "score": 6,
+      "rationale": "Dress shirt but focused on casual untucked fit and organic Oxford cotton without non-iron feature, less formal than reference.",
+      "map_id": "map_20da2d2d752344009a89a3bf0ea90fed"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Cotton poplin dress shirt with secret wash treatment, no explicit non-iron claim although treated for softness and ease, moderately relevant.",
+      "map_id": "map_d03ff47ab10a4d3b96ba83c2b1374f4c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free dress shirt comparable to non-iron performance; similar use and construction.",
+      "map_id": "map_821ecc35d789432281124c96b0dbd8fc"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dobby Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free dobby fabric dress shirt close in function and style to the reference non-iron dress shirt.",
+      "map_id": "map_4527b584f1744ba5b11b4f49a0fd7ab3"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Secret Wash Cotton Poplin Shirt with Point Collar",
+      "score": 7,
+      "rationale": "Similar fabric and wash but point collar differs from semi-spread; non-iron feature not specified, so moderately relevant.",
+      "map_id": "map_59ef0fc6a2d545cc9d0bb31d5056ba15"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Relaxed Broken-In Organic Cotton Oxford Shirt",
+      "score": 6,
+      "rationale": "More casual relaxed fit and organic cotton Oxford fabric not non-iron; less formal and different construction.",
+      "map_id": "map_5d2e1faaa0594a7e97dec591ce40519c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim-Fit Bowery Wrinkle-Free Stretch Cotton Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free, stretch cotton shirt similar to non-iron; slim fit and dress shirt style align well with reference.",
+      "map_id": "map_c3b32b472514435798c375559aa5cd3c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Bowery Wrinkle-Free Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free dress shirt similar to non-iron in function and intended use, just in tall sizing.",
+      "map_id": "map_ba3f8cfd42bc4ec9875428b0dc3f9542"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Secret Wash Cotton Poplin Shirt",
+      "score": 7,
+      "rationale": "Cotton poplin slim shirt with secret wash but no non-iron claim; somewhat relevant in style and fabric.",
+      "map_id": "map_a4a4eb38d4444628bfa428140940dc85"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Ludlow Premium Cotton Dress Shirt with French Cuffs",
+      "score": 8,
+      "rationale": "Premium cotton dress shirt similar to reference; presence of French cuffs adds a formal detail but non-iron feature not confirmed.",
+      "map_id": "map_c9d98eaed2b14a578ade9975c74c13ea"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt very close in core features and function to reference, just differing slightly in fabric texture.",
+      "map_id": "map_2c80e05f3a22487a83d27af0e6078b87"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Herringbone Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt in herringbone texture; likely similar intended use and construction though no explicit non-iron note.",
+      "map_id": "map_a8780d3c50484b53aa5451abf6f3a69f"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit dress shirt made of Supima cotton similar to reference; no direct non-iron claim but very relevant in type and materials.",
+      "map_id": "map_1830575573ce413cb7168e1bc62f35ba"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's VentureStretch Woven Shirt",
+      "score": 6,
+      "rationale": "Woven shirt designed for stretching and activity; not explicitly a dress shirt or non-iron, more casual and performance oriented.",
+      "map_id": "map_d83b81caba8647288f79e04e984b2be0"
+    }
+  ]
+}

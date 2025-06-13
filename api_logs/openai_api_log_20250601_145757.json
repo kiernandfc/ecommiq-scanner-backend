@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250601_145757",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt'\n  - Name='Taylor Stitch Men's Davis Organic Cotton/Linen Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Shirt'\n  - Name='Taylor Stitch Men's Jack Linen Shirt'\n  - Name='Taylor Stitch Men's Recycled Polyester Wool Saddler Shirt'\n  - Name='Buck Mason Men's Skyline Poplin One Pocket Shirt'\n  - Name='Buck Mason Men's Draped Pocket Button Shirt'\n  - Name='Men's Taylor Stitch The Short Sleeve California Hemp'\n  - Name='Taylor Stitch Men's Linen Weber Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Short Sleeve California'\n  - Name='Taylor Stitch Men's Jack Oxford Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a dress shirt with slim fit and premium cotton, similar in function as a button-down shirt but likely more formal and less rugged, without mention of organic cotton or similar construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Davis Organic Cotton/Linen Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also from Taylor Stitch and made of organic cotton/linen blend, likely similar quality and some features, but the presence of linen affects fabric weight and texture compared to the pure organic cotton Oxford of The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical name, made of organic cotton, and clearly the same product or extremely close variant of The Jack Shirt as described.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Linen Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same 'Jack' line from Taylor Stitch but linen fabric changes texture and likely the weight; similar construction and fit indications but a different material.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Recycled Polyester Wool Saddler Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Different material makeup (polyester and wool), and presumably different style (Saddler vs Jack) and heavier fabric; less relevant to the cotton Oxford Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Skyline Poplin One Pocket Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Poplin fabric shirt with one pocket, likely similar category (casual button-down) but different fabric and different brand, with only moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Buck Mason Men's Draped Pocket Button Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another Buck Mason casual shirt; details suggest casual buttoned shirt but no mention of fabric type or tailoring details comparable to The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Taylor Stitch The Short Sleeve California Hemp\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Same brand but short sleeve and hemp fabric, differing in sleeve length and material, lowering functional and style similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Linen Weber Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Taylor Stitch makes this linen shirt; different fabric but likely similar construction quality and fit; related in purpose and brand but less so than the cotton Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Short Sleeve California\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Organic cotton short sleeve shirt from Taylor Stitch; shares fabric and brand but differs in sleeve length and probably cut, reducing similarity to The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Nearly identical product name and fabric type 'Oxford'; presumably the exact or closest variant to The Jack Shirt reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Slim-Fit Ludlow Premium Cotton Dress Shirt",
+      "score": 6,
+      "rationale": "This is a dress shirt with slim fit and premium cotton, similar in function as a button-down shirt but likely more formal and less rugged, without mention of organic cotton or similar construction.",
+      "map_id": "map_072896e4b31f48bda54f1a6c938e62e3"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Davis Organic Cotton/Linen Shirt",
+      "score": 8,
+      "rationale": "Also from Taylor Stitch and made of organic cotton/linen blend, likely similar quality and some features, but the presence of linen affects fabric weight and texture compared to the pure organic cotton Oxford of The Jack Shirt.",
+      "map_id": "map_cf550e303018471e9d70bc4fa55499bf"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Shirt",
+      "score": 10,
+      "rationale": "Identical name, made of organic cotton, and clearly the same product or extremely close variant of The Jack Shirt as described.",
+      "map_id": "map_a144c64391554cd194fab6797fb74183"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Linen Shirt",
+      "score": 8,
+      "rationale": "Same 'Jack' line from Taylor Stitch but linen fabric changes texture and likely the weight; similar construction and fit indications but a different material.",
+      "map_id": "map_6554c53245ac4142b19861797d217e5b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Recycled Polyester Wool Saddler Shirt",
+      "score": 4,
+      "rationale": "Different material makeup (polyester and wool), and presumably different style (Saddler vs Jack) and heavier fabric; less relevant to the cotton Oxford Jack Shirt.",
+      "map_id": "map_72deecccee0a448998919297fcd9f05c"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Skyline Poplin One Pocket Shirt",
+      "score": 6,
+      "rationale": "Poplin fabric shirt with one pocket, likely similar category (casual button-down) but different fabric and different brand, with only moderate relevance.",
+      "map_id": "map_272b46f200264de78c4d160388c65393"
+    },
+    {
+      "competitor_product_name": "Buck Mason Men's Draped Pocket Button Shirt",
+      "score": 5,
+      "rationale": "Another Buck Mason casual shirt; details suggest casual buttoned shirt but no mention of fabric type or tailoring details comparable to The Jack Shirt.",
+      "map_id": "map_5ee51d0adffc49d7ab66d3fc74887bce"
+    },
+    {
+      "competitor_product_name": "Men's Taylor Stitch The Short Sleeve California Hemp",
+      "score": 5,
+      "rationale": "Same brand but short sleeve and hemp fabric, differing in sleeve length and material, lowering functional and style similarity.",
+      "map_id": "map_08ce37dd6be6411ead83fbaa34e68521"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Linen Weber Shirt",
+      "score": 7,
+      "rationale": "Taylor Stitch makes this linen shirt; different fabric but likely similar construction quality and fit; related in purpose and brand but less so than the cotton Jack Shirt.",
+      "map_id": "map_8aba987e96b44f99b4a39e157ccb4f0c"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Short Sleeve California",
+      "score": 6,
+      "rationale": "Organic cotton short sleeve shirt from Taylor Stitch; shares fabric and brand but differs in sleeve length and probably cut, reducing similarity to The Jack Shirt.",
+      "map_id": "map_97b59d86057d489ca37a8e9d50701335"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Nearly identical product name and fabric type 'Oxford'; presumably the exact or closest variant to The Jack Shirt reference product.",
+      "map_id": "map_91c921282c5b438fa12ef3322b20965c"
+    }
+  ]
+}

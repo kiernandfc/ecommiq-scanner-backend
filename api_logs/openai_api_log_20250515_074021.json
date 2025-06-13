@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250515_074021",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Texture Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt'\n  - Name='J.Crew Men's Slim Organic Cotton Chambray Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt'\n  - Name='Men's Athletic-Fit Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Gingham Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Paisley Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Texture Circle Dress Shirt'\n  - Name='Banana Republic Men's Slim Fit Cotton Blend Dress Shirt'\n  - Name='Men's L.L.Bean Signature Northwoods Twill Shirt'\n  - Name='Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo'\n  - Name='Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Prince Of Wales Checkered Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Slim-Fit Poplin Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Checkered Cotton Linen Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Prince Of Wales Checkered Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a cotton Oxford dress shirt, similar in fabric type, but no mention of non-iron feature; pattern is checkered but that does not reduce relevance as color/pattern is deprioritized.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Texture Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron textured dress shirt closely matches the reference product's key features including non-iron and texture; highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt in twill fabric is very relevant though striped pattern and specific fabric differ slightly from solid texture.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Organic Cotton Chambray Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Chambray fabric and organic cotton indicate casual style and different texture from dress shirt; no non-iron feature mentioned; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron cotton Oxford dress shirt matches many aspects; collar is button-down which differs from semi-spread collar in reference but overall similar category.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Athletic-Fit Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt category aligns; athletic fit differs from trim and standard fit options but still relevant as dress shirt type.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Gingham Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt with gingham pattern; close in fabric care and dress shirt type though pattern differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron twill dress shirt with checkered pattern; fabric and non-iron features align, pattern difference has low impact.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron puppytooth textured dress shirt very similar to reference in function and fabric type, differing mainly by pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Paisley Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron stretch fabric aligns, but paisley pattern is more decorative; still a dress shirt similar to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron stretch Oxford dress shirt very similar to reference, both in fabric type, non-iron feature, and dress shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Texture Circle Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron stretch textured dress shirt closely matches the reference product's key features including fabric and care.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Cotton Blend Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton blend dress shirt in slim fit shares silhouette and category but no mention of non-iron may reduce relevance slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Signature Northwoods Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Twill fabric shirt likely casual or outdoor style, no non-iron care mentioned; less relevant to dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Non-iron Oxford and stretch cotton relate, but polo style differs significantly from dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron stretch dress shirt very similar to reference product in care and style, just different sizing focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron twill dress shirt aligns well; checkered pattern difference is minor in relevance context.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Prince Of Wales Checkered Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron checkered dress shirt with Prince of Wales pattern; fabric and care align closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron stretch cotton dress shirt very close in features to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Slim-Fit Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim-fit poplin shirt shares some characteristics but no non-iron feature mentioned and poplin differs in texture from Oxford/twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Checkered Cotton Linen Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron cotton linen shirt shares dress shirt function but linen blend impacts fabric texture and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton Oxford dress shirt aligns in fabric and style but no non-iron feature and striped pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron dress shirt matches well but cutaway collar differs from semi-spread; still very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Prince Of Wales Checkered Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with Prince of Wales check pattern but no mention of non-iron; less relevant on care feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron performance twill dress shirt aligns very closely with reference in terms of care, fabric type, and function.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt",
+      "score": 7,
+      "rationale": "This is a cotton Oxford dress shirt, similar in fabric type, but no mention of non-iron feature; pattern is checkered but that does not reduce relevance as color/pattern is deprioritized.",
+      "map_id": "map_224d5b016c7c4f5f9f8907012acf0715"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Texture Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron textured dress shirt closely matches the reference product's key features including non-iron and texture; highly relevant.",
+      "map_id": "map_05eb75fec9634585b103085acbb8c6ca"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stripe Twill Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt in twill fabric is very relevant though striped pattern and specific fabric differ slightly from solid texture.",
+      "map_id": "map_ddcedddf98d7444481ba3f985843b13c"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Organic Cotton Chambray Shirt",
+      "score": 5,
+      "rationale": "Chambray fabric and organic cotton indicate casual style and different texture from dress shirt; no non-iron feature mentioned; less relevant.",
+      "map_id": "map_f71635781c5e48c3b3670cc29f9234a4"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Button-Down Collar Non-Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron cotton Oxford dress shirt matches many aspects; collar is button-down which differs from semi-spread collar in reference but overall similar category.",
+      "map_id": "map_3c78a0b46cdd46d79c320b71a6595eca"
+    },
+    {
+      "competitor_product_name": "Men's Athletic-Fit Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt category aligns; athletic fit differs from trim and standard fit options but still relevant as dress shirt type.",
+      "map_id": "map_cc51a1eca9794fe79752da2f75e3ecb1"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Gingham Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt with gingham pattern; close in fabric care and dress shirt type though pattern differs.",
+      "map_id": "map_25e1074092124b27850672d9c6d0210b"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron twill dress shirt with checkered pattern; fabric and non-iron features align, pattern difference has low impact.",
+      "map_id": "map_c2e401c1cf88402bb085a6788855d06a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Puppytooth Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron puppytooth textured dress shirt very similar to reference in function and fabric type, differing mainly by pattern.",
+      "map_id": "map_43dc7c3865204904a2f17fea5d490506"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Paisley Dress Shirt",
+      "score": 7,
+      "rationale": "Non-iron stretch fabric aligns, but paisley pattern is more decorative; still a dress shirt similar to reference.",
+      "map_id": "map_bfb9659e407d428f8832e2f4bc6ffd19"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron stretch Oxford dress shirt very similar to reference, both in fabric type, non-iron feature, and dress shirt category.",
+      "map_id": "map_659baf7057b34d528228204ace08d468"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Texture Circle Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron stretch textured dress shirt closely matches the reference product's key features including fabric and care.",
+      "map_id": "map_2d12bb1ea5d1449bb9385bf568704ddd"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Cotton Blend Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton blend dress shirt in slim fit shares silhouette and category but no mention of non-iron may reduce relevance slightly.",
+      "map_id": "map_b1d0ad455fcd4962b49cf77262e3dfbb"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Signature Northwoods Twill Shirt",
+      "score": 5,
+      "rationale": "Twill fabric shirt likely casual or outdoor style, no non-iron care mentioned; less relevant to dress shirt reference.",
+      "map_id": "map_c6085e23fb8a4b1793875d0b211ffb74"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Stretch Cotton Non-Iron Oxford Polo",
+      "score": 6,
+      "rationale": "Non-iron Oxford and stretch cotton relate, but polo style differs significantly from dress shirt.",
+      "map_id": "map_e7921ee7aa704edfbb0756ab964ab2d4"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Big & Tall Stretch Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron stretch dress shirt very similar to reference product in care and style, just different sizing focus.",
+      "map_id": "map_9621435e3ec347a79e19aca82a5a76d4"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Checkered Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron twill dress shirt aligns well; checkered pattern difference is minor in relevance context.",
+      "map_id": "map_623d3aa16d404b1fb0588732b1ea01af"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Prince Of Wales Checkered Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron checkered dress shirt with Prince of Wales pattern; fabric and care align closely.",
+      "map_id": "map_0c0d42651a7e415eb37d7b946179208d"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron stretch cotton dress shirt very close in features to the reference product.",
+      "map_id": "map_6779c772166146e995ce5c226b6dae96"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Slim-Fit Poplin Shirt",
+      "score": 7,
+      "rationale": "Slim-fit poplin shirt shares some characteristics but no non-iron feature mentioned and poplin differs in texture from Oxford/twill.",
+      "map_id": "map_5fb6f4355c71407687bc47bb43f0b924"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Checkered Cotton Linen Dress Shirt",
+      "score": 7,
+      "rationale": "Non-iron cotton linen shirt shares dress shirt function but linen blend impacts fabric texture and feel.",
+      "map_id": "map_7c33ddcd20bd450495f57db7953aa005"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton Oxford dress shirt aligns in fabric and style but no non-iron feature and striped pattern.",
+      "map_id": "map_38f80fa06a13449e85d4ee8d56b242e0"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Non-iron dress shirt matches well but cutaway collar differs from semi-spread; still very relevant.",
+      "map_id": "map_adf0280c390e4fe6a1c57f5c7c5db0e3"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Prince Of Wales Checkered Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with Prince of Wales check pattern but no mention of non-iron; less relevant on care feature.",
+      "map_id": "map_c8efbbc87f614dd7b47d77d9027870c4"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Performance Twill Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron performance twill dress shirt aligns very closely with reference in terms of care, fabric type, and function.",
+      "map_id": "map_2a9a1263e2c0419a97ebc82269db639d"
+    }
+  ]
+}

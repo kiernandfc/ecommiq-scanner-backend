@@ -1,0 +1,101 @@
+{
+  "timestamp": "20250530_083820",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP OG Single Knee Pant Men'\n  - Name='Carhartt WIP Micah Packable Set'\n  - Name='Everlane Women's Utility Pants'\n  - Name='UNIQLO Men's Wide Chino Pants'\n  - Name='Carhartt WIP Men Newel Pant'\n  - Name='Carhartt WIP Master Pant'\n  - Name='Carhartt WIP Men Module Pant'\n  - Name='Carhartt WIP Men Simple Pant'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Single Knee Pant Men\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Both are men's durable work pants featuring reinforced knee construction, designed for heavy-duty use, similar fabric weight and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Micah Packable Set\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a packable set which likely includes multiple garments, not specifically chore or utility pants, so low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Utility Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Utility pants for women share similar function and style to chore pants but differ in gender target and potentially some construction details.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Chino Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While these are men's pants, wide chinos are more casual and lack the reinforced construction and heavy-duty materials of chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Newel Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another Carhartt men's pant with utility styling, likely built for durability, close in function but may differ in construction details.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Master Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's work pant from Carhartt WIP with durability and workwear styling, similar to chore pant in purpose and features.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Module Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Another Carhartt WIP men's pant focused on utility/workwear, likely similar in durability and construction to the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Simple Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a simpler work pant with likely fewer reinforced features, making it somewhat less relevant but still similar in utility category.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP OG Single Knee Pant Men",
+      "score": 9,
+      "rationale": "Both are men's durable work pants featuring reinforced knee construction, designed for heavy-duty use, similar fabric weight and utility features.",
+      "map_id": "map_1c923aa7219f4a1688d38ee217d62da1"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Micah Packable Set",
+      "score": 2,
+      "rationale": "This is a packable set which likely includes multiple garments, not specifically chore or utility pants, so low relevance.",
+      "map_id": "map_236c0e493a74450aa502c0dde5333055"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Utility Pants",
+      "score": 7,
+      "rationale": "Utility pants for women share similar function and style to chore pants but differ in gender target and potentially some construction details.",
+      "map_id": "map_3d9de2f526704e52abb26ab9e00ce344"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Chino Pants",
+      "score": 4,
+      "rationale": "While these are men's pants, wide chinos are more casual and lack the reinforced construction and heavy-duty materials of chore pants.",
+      "map_id": "map_9ddc3d50f4484b929860ff4ae1bc0cff"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Newel Pant",
+      "score": 8,
+      "rationale": "Another Carhartt men's pant with utility styling, likely built for durability, close in function but may differ in construction details.",
+      "map_id": "map_0022ad0f36b0491d8e0c705f884a2141"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Master Pant",
+      "score": 8,
+      "rationale": "A men's work pant from Carhartt WIP with durability and workwear styling, similar to chore pant in purpose and features.",
+      "map_id": "map_db780e5245194f708e00118fcd6e36b5"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Module Pant",
+      "score": 8,
+      "rationale": "Another Carhartt WIP men's pant focused on utility/workwear, likely similar in durability and construction to the chore pant.",
+      "map_id": "map_c275976e75324a98abe2a4bdc57ccf0a"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Simple Pant",
+      "score": 7,
+      "rationale": "This is a simpler work pant with likely fewer reinforced features, making it somewhat less relevant but still similar in utility category.",
+      "map_id": "map_0c11776e6f43416bbc2582947f01a486"
+    }
+  ]
+}

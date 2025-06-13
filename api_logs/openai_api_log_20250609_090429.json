@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250609_090429",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Everyday Casual Plaid Shirt'\n  - Name='J.Crew Men's Bowery Wrinkle-Free Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Grid Checkered Dress Shirt'\n  - Name='J.Crew Men's Bowery Performance Stretch Dress Shirt'\n  - Name='J.Crew Men's Tall Secret Wash Cotton Poplin Shirt'\n  - Name='Charles Tyrwhitt Men's Button-Down Collar Non-Iron Twill Dress Shirt'\n  - Name='Men's Dress Shirt Fit Laura Ashley x Tie Bar Winter Forest'\n  - Name='The Tie Bar Men's Standard Fit Non-Iron Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt'\n  - Name='Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Plaid Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a casual plaid shirt, likely with a casual cut and pattern, which contrasts with the dress shirt focus of the reference product, which also emphasizes non-iron and formal wear.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a wrinkle-free dress shirt which matches the non-iron functionality and dress shirt styling, very similar in purpose and features to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Grid Checkered Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A non-iron dress shirt like the reference, with a button-down collar and an Oxford grid pattern; functionally similar though button-down style differs from semi-spread collar.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Bowery Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A performance stretch dress shirt likely designed for comfort and dress occasions, close in function and style despite possible fabric differences.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Secret Wash Cotton Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A cotton poplin shirt intended for dress occasions, but 'Secret Wash' may imply a different wrinkle-resistance feature, and fit targeting tall sizes; somewhat relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Button-Down Collar Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A non-iron dress shirt with button-down collar and twill fabric; close in function and features though collar style differs from semi-spread.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Dress Shirt Fit Laura Ashley x Tie Bar Winter Forest\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A dress shirt from Tie Bar collaboration, likely similar construction, though the name suggests a specific color/pattern; relevant in brand and category but less detail on non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Standard Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a Tie Bar brand non-iron dress shirt in standard fit, matching exactly the reference product type, function, and brand.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Though a dress shirt from Tie Bar, being a tuxedo shirt with pleats targets formal evening wear, different use-case and possibly fabric, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Floral patterned cotton dress shirt, a collaboration; probably shares some features but floral and cotton fabric suggest more casual or seasonal wear, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Tie Bar brand trim fit wrinkle-free dress shirt closely aligns with non-iron dress shirt in features, fit, and purpose, making it highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Plaid Shirt",
+      "score": 3,
+      "rationale": "This is a casual plaid shirt, likely with a casual cut and pattern, which contrasts with the dress shirt focus of the reference product, which also emphasizes non-iron and formal wear.",
+      "map_id": "map_26a5a468be584c24a2130edeb3db3dfe"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Wrinkle-Free Dress Shirt",
+      "score": 9,
+      "rationale": "This is a wrinkle-free dress shirt which matches the non-iron functionality and dress shirt styling, very similar in purpose and features to the reference product.",
+      "map_id": "map_13e54b70d7574cd39818046e44003e0c"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Button-Down Non-Iron Oxford Grid Checkered Dress Shirt",
+      "score": 8,
+      "rationale": "A non-iron dress shirt like the reference, with a button-down collar and an Oxford grid pattern; functionally similar though button-down style differs from semi-spread collar.",
+      "map_id": "map_83bff932c39b49f3b3ce2525e61b032b"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Bowery Performance Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "A performance stretch dress shirt likely designed for comfort and dress occasions, close in function and style despite possible fabric differences.",
+      "map_id": "map_e388cf75c0404639b48184be1017219f"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Secret Wash Cotton Poplin Shirt",
+      "score": 6,
+      "rationale": "A cotton poplin shirt intended for dress occasions, but 'Secret Wash' may imply a different wrinkle-resistance feature, and fit targeting tall sizes; somewhat relevant.",
+      "map_id": "map_b0eba546fba0469fa6c56b036f4850d6"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Button-Down Collar Non-Iron Twill Dress Shirt",
+      "score": 8,
+      "rationale": "A non-iron dress shirt with button-down collar and twill fabric; close in function and features though collar style differs from semi-spread.",
+      "map_id": "map_e4c2c4b1406d4e4fafd22c9877f7705d"
+    },
+    {
+      "competitor_product_name": "Men's Dress Shirt Fit Laura Ashley x Tie Bar Winter Forest",
+      "score": 7,
+      "rationale": "A dress shirt from Tie Bar collaboration, likely similar construction, though the name suggests a specific color/pattern; relevant in brand and category but less detail on non-iron.",
+      "map_id": "map_ac65bdec47ab457592bce3e7c4452525"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Standard Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "This is a Tie Bar brand non-iron dress shirt in standard fit, matching exactly the reference product type, function, and brand.",
+      "map_id": "map_c8dc14ba936a4774b1fe97b4c48fa4a4"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt",
+      "score": 6,
+      "rationale": "Though a dress shirt from Tie Bar, being a tuxedo shirt with pleats targets formal evening wear, different use-case and possibly fabric, reducing relevancy.",
+      "map_id": "map_d9a46e1aa75148dba7e265e01bf5440e"
+    },
+    {
+      "competitor_product_name": "Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt",
+      "score": 5,
+      "rationale": "Floral patterned cotton dress shirt, a collaboration; probably shares some features but floral and cotton fabric suggest more casual or seasonal wear, lowering relevancy.",
+      "map_id": "map_27a0c76ddf204c75a1a634fd62e71248"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Tie Bar brand trim fit wrinkle-free dress shirt closely aligns with non-iron dress shirt in features, fit, and purpose, making it highly relevant.",
+      "map_id": "map_96c5badc70cf4da4855080624fa9f3b2"
+    }
+  ]
+}

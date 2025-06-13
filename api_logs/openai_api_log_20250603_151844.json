@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250603_151844",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brixton Steadfast High Profile Snapback Hat'\n  - Name='Brixton Trippy Medium Profile Strapback Cap'\n  - Name='Brixton Oath III MP Trucker Snapback Hat'\n  - Name='Goorin Bros Men's. The Lone Wolf Trucker'\n  - Name='Barbour Men's Waxed Cotton Hood'\n  - Name='Barbour Men's Cheviot Flat Cap'\n  - Name='Barbour Men's Wax Sports Cap'\n  - Name='Brixton Copley Np Hp Trucker Hat'\n  - Name='Goorin Bros. Men's First Goat Trucker Hat'\n  - Name='Goorin Bros. Facheun A-Frame Trucker Cap'\n  - Name='Goorin Bros. The Freedom Eagle Trucker'\n  - Name='Brixton Oath Iii Snapback Hat'\n  - Name='Goorin Bros. The Baddest Boy Adjustable Snapback Trucker Hat'\n  - Name='Brixton Reno Straw Hat'\n  - Name='Brixton Stout Pork Pie Hat'\n  - Name='Brixton Hooligan Snap Flat Cap'\n  - Name='Goorin Bros. The Baddest Boy Trucker'\n  - Name='Brixton Accessories Trucker Hat'\n  - Name='Brixton Mens Ralph Np Hp Trucker Hat'\n  - Name='Brixton Parsons LP Adjustable Cotton Corduroy Cap'\n  - Name='Brixton Men's Alpha Block X C MP Mesh Cap'\n  - Name='Brixton The League Medium Profile Snapback Cap'\n  - Name='Brixton Messer Fedora'\n  - Name='Brixton Alpha LP Cap'\n  - Name='Goorin Bros. Men's High Eagle Trucker Hat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brixton Steadfast High Profile Snapback Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The snapback is a structured hat with a different silhouette and not a traditional 8-panel flat cap; less similar in shape and intended style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Trippy Medium Profile Strapback Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Strapback cap differs in profile and usually has a more casual baseball cap style versus an 8-panel scally cap; moderate relevancy due to both being casual hats.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Oath III MP Trucker Snapback Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker snapback hat has mesh back and structured front with snap closure, very different in shape and construction from an 8-panel flat racing-inspired cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's. The Lone Wolf Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker style with mesh back and snap closure is quite different in silhouette and construction from the performance 8-panel scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Cotton Hood\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A waxed cotton hood is outerwear and not a hat at all; unrelated product category and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cheviot Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flat cap is similar in style and shape to a scally cap, often 8-panel or similar construction; close in silhouette and function, though materials differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Wax Sports Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sports cap implies performance use but wax coating differs materially; possibly a structured cap, less directly comparable but somewhat aligned in function.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Copley Np Hp Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat with mesh back and snap closure differs strongly in silhouette and construction from the 8-panel breathable scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's First Goat Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat is not similar in design or fabric technology to the lightweight performance scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Facheun A-Frame Trucker Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Again a trucker style with a structured A-frame design differing notably from scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Freedom Eagle Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat style, mesh back with snap closure, very different silhouette and performance focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Oath Iii Snapback Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Structured snapback cap with flat brim does not align closely with the scally cap’s 8-panel performance design.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Baddest Boy Adjustable Snapback Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A snapback trucker hat is far from a form-fitting 8-panel sports cap in both material and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Reno Straw Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Straw hat is a different material and style, totally different construction and purpose than the performance scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Stout Pork Pie Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Pork pie hat has some stylistic overlap in being a soft crown hat but differs in silhouette and typical materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Snap Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap style from the name, closely related to the scally cap in shape, though possibly less performance tech fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Baddest Boy Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker style with mesh and snap closure differs in look and fabric technology from the Driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Accessories Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Generic trucker hat style does not match the 8-panel breathable sports fabric construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Mens Ralph Np Hp Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat profile and mesh back contrast sharply with the fitted 8-panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Parsons LP Adjustable Cotton Corduroy Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Adjustable cotton cap is closer in casual hat category but different in fabric and likely construction from the micro-poly sport scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Alpha Block X C MP Mesh Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Mesh cap shares breathable fabric concept but likely less form-fitting and different silhouette than the Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton The League Medium Profile Snapback Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Medium profile snapback does not align closely with the scally cap’s 8-panel form-fitting design.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Messer Fedora\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Fedora is a very different style with a structured brim, material and silhouette compared to a scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Alpha LP Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Presumed adjustable low profile cap with some overlap in shape and use but lacking exact 8-panel construction and performance fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's High Eagle Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"High-profile trucker is very different in construction, fabric, fit and usage from the performance 8-panel scally cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brixton Steadfast High Profile Snapback Hat",
+      "score": 4,
+      "rationale": "The snapback is a structured hat with a different silhouette and not a traditional 8-panel flat cap; less similar in shape and intended style.",
+      "map_id": "map_bbd393fa45844e10b9b20f052a0946ea"
+    },
+    {
+      "competitor_product_name": "Brixton Trippy Medium Profile Strapback Cap",
+      "score": 4,
+      "rationale": "Strapback cap differs in profile and usually has a more casual baseball cap style versus an 8-panel scally cap; moderate relevancy due to both being casual hats.",
+      "map_id": "map_5c96710778fd49338ee620b9e38eefdf"
+    },
+    {
+      "competitor_product_name": "Brixton Oath III MP Trucker Snapback Hat",
+      "score": 3,
+      "rationale": "Trucker snapback hat has mesh back and structured front with snap closure, very different in shape and construction from an 8-panel flat racing-inspired cap.",
+      "map_id": "map_962cbc47001b4f3d80df6b0d95ec5700"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's. The Lone Wolf Trucker",
+      "score": 3,
+      "rationale": "Trucker style with mesh back and snap closure is quite different in silhouette and construction from the performance 8-panel scally cap.",
+      "map_id": "map_1f74b967c1b2453b8e774601e02aba41"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed Cotton Hood",
+      "score": 1,
+      "rationale": "A waxed cotton hood is outerwear and not a hat at all; unrelated product category and purpose.",
+      "map_id": "map_33e924650419402e8c6dd01281b0e4fa"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cheviot Flat Cap",
+      "score": 8,
+      "rationale": "Flat cap is similar in style and shape to a scally cap, often 8-panel or similar construction; close in silhouette and function, though materials differ.",
+      "map_id": "map_a9167ac8e1d243c78383fe13e621200f"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Wax Sports Cap",
+      "score": 5,
+      "rationale": "Sports cap implies performance use but wax coating differs materially; possibly a structured cap, less directly comparable but somewhat aligned in function.",
+      "map_id": "map_20867bfd6aff4497ad7252d18ff2b081"
+    },
+    {
+      "competitor_product_name": "Brixton Copley Np Hp Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat with mesh back and snap closure differs strongly in silhouette and construction from the 8-panel breathable scally cap.",
+      "map_id": "map_96d50a89b3504a2581435b4b2afda7ab"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's First Goat Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat is not similar in design or fabric technology to the lightweight performance scally cap.",
+      "map_id": "map_b758a1e28658496e89f84f6e7c7b3a6d"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Facheun A-Frame Trucker Cap",
+      "score": 3,
+      "rationale": "Again a trucker style with a structured A-frame design differing notably from scally cap.",
+      "map_id": "map_549236d56b82405dbbf1442978cb2733"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Freedom Eagle Trucker",
+      "score": 3,
+      "rationale": "Trucker hat style, mesh back with snap closure, very different silhouette and performance focus.",
+      "map_id": "map_ce44cc5d09704b0eacadefec173cda0a"
+    },
+    {
+      "competitor_product_name": "Brixton Oath Iii Snapback Hat",
+      "score": 4,
+      "rationale": "Structured snapback cap with flat brim does not align closely with the scally cap’s 8-panel performance design.",
+      "map_id": "map_22e5ad098bdd4de286fa9b65f7f37af7"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Baddest Boy Adjustable Snapback Trucker Hat",
+      "score": 3,
+      "rationale": "A snapback trucker hat is far from a form-fitting 8-panel sports cap in both material and silhouette.",
+      "map_id": "map_e5b10c92523540978adb14662669560c"
+    },
+    {
+      "competitor_product_name": "Brixton Reno Straw Hat",
+      "score": 2,
+      "rationale": "Straw hat is a different material and style, totally different construction and purpose than the performance scally cap.",
+      "map_id": "map_236f5f3354e1422bbb77486cc7a8db1f"
+    },
+    {
+      "competitor_product_name": "Brixton Stout Pork Pie Hat",
+      "score": 5,
+      "rationale": "Pork pie hat has some stylistic overlap in being a soft crown hat but differs in silhouette and typical materials.",
+      "map_id": "map_21191f767a8942e2bb668747381ea445"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Snap Flat Cap",
+      "score": 7,
+      "rationale": "This is a flat cap style from the name, closely related to the scally cap in shape, though possibly less performance tech fabric.",
+      "map_id": "map_2bb95a9923104590aa678295648f53d9"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Baddest Boy Trucker",
+      "score": 3,
+      "rationale": "Trucker style with mesh and snap closure differs in look and fabric technology from the Driver scally cap.",
+      "map_id": "map_b9b67b3fbabc4f089322cc86c568af77"
+    },
+    {
+      "competitor_product_name": "Brixton Accessories Trucker Hat",
+      "score": 3,
+      "rationale": "Generic trucker hat style does not match the 8-panel breathable sports fabric construction.",
+      "map_id": "map_8695f447f4654796ae44d36e1e805501"
+    },
+    {
+      "competitor_product_name": "Brixton Mens Ralph Np Hp Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat profile and mesh back contrast sharply with the fitted 8-panel design.",
+      "map_id": "map_46f034434c9e4db094b42b8630c3d58d"
+    },
+    {
+      "competitor_product_name": "Brixton Parsons LP Adjustable Cotton Corduroy Cap",
+      "score": 6,
+      "rationale": "Adjustable cotton cap is closer in casual hat category but different in fabric and likely construction from the micro-poly sport scally cap.",
+      "map_id": "map_5dfb2cdf18be4284b14ad9d3f930d991"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Alpha Block X C MP Mesh Cap",
+      "score": 6,
+      "rationale": "Mesh cap shares breathable fabric concept but likely less form-fitting and different silhouette than the Driver.",
+      "map_id": "map_bac0d0aa5fa64cb39765d0aa2e986e93"
+    },
+    {
+      "competitor_product_name": "Brixton The League Medium Profile Snapback Cap",
+      "score": 4,
+      "rationale": "Medium profile snapback does not align closely with the scally cap’s 8-panel form-fitting design.",
+      "map_id": "map_a458ff34661f42c3883ac962266b1d30"
+    },
+    {
+      "competitor_product_name": "Brixton Messer Fedora",
+      "score": 2,
+      "rationale": "Fedora is a very different style with a structured brim, material and silhouette compared to a scally cap.",
+      "map_id": "map_038d16ae66794f5cb31b58bda9b04fe7"
+    },
+    {
+      "competitor_product_name": "Brixton Alpha LP Cap",
+      "score": 6,
+      "rationale": "Presumed adjustable low profile cap with some overlap in shape and use but lacking exact 8-panel construction and performance fabric.",
+      "map_id": "map_d1f03bcd1f0a4177927178abe516ebd2"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's High Eagle Trucker Hat",
+      "score": 3,
+      "rationale": "High-profile trucker is very different in construction, fabric, fit and usage from the performance 8-panel scally cap.",
+      "map_id": "map_b3c42db1341b4a5a999d549b59a0e743"
+    }
+  ]
+}

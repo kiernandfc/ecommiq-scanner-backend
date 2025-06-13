@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250511_114136",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='J.Crew Men's Seersucker Short-Sleeve Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Nordstrom Traditional Fit Non-Iron Cotton Button-Down Dress Shirt'\n  - Name='Nordstrom Traditional Fit Herringbone Dress Shirt'\n  - Name='L.L.Bean Men's Signature Rugged Cotton Twill Shirt'\n  - Name='Daniel Hechter Men's Tonal Paisley Non-Iron Stretch Dress Shirt'\n  - Name='Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt'\n  - Name='Bonobos Men's Everyday Casual Slim Shirt'\n  - Name='Bonobos Men's Lily Pad Stripe Everyday Casual Shirt'\n  - Name='Lands' End Women's Petite No Iron Button Front Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Plaid Dress Shirt'\n  - Name='Indochino Men's Custom French Cuff Dress Shirt'\n  - Name='Indochino Luxury Hyde French Cuff Dress Shirt'\n  - Name='Lands' End Men's Oxford Long Sleeve Dress Shirt'\n  - Name='Lands' End Men's Short Sleeve No Iron Twill Shirt'\n  - Name='Lands' End Men's Tall Long Sleeve Buttondown Shirt'\n  - Name='Bonobos Men's Slim Tech Button Down Shirt'\n  - Name='Indochino Button Down Dress Shirt'\n  - Name='Indochino White Hyde Dress Shirt'\n  - Name='Indochino Hartland Button-Down Long Sleeve Lightweight Dress Shirt'\n  - Name='Indochino Men's Custom Dress Shirt'\n  - Name='Indochino Men's Striped Classic Fit Dress Shirt'\n  - Name='Cuda Men's Indochino Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"J.Crew Men's Seersucker Short-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a short-sleeve seersucker shirt, more casual and likely not a dress shirt in trim or standard fit, differing significantly from the reference non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A cotton Oxford dress shirt closely aligns with the reference product type, although no explicit non-iron feature is mentioned, it shares dress shirt characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A non-iron dress shirt with a semi-cutaway collar very similar in function and style to the reference semi-spread non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Non-Iron Cotton Button-Down Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with traditional fit and button-down style very similar to the reference shirt, differing mostly in fit style and possibly collar type.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with traditional fit and herringbone texture; presumed non-iron is not specified, so slightly less relevant than confirmed non-iron options.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Rugged Cotton Twill Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Described as rugged cotton twill shirt, generally more casual and heavier construction, diverging from dress/non-iron shirt classification.\"\n    },\n    {\n      \"competitor_product_name\": \"Daniel Hechter Men's Tonal Paisley Non-Iron Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with stretch and tonal paisley adds pattern, but core product is very similar in function and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"No iron Oxford dress shirt with tailored fit closely matches the reference product in key attributes.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Long sleeve traditional fit shirt suitable for travel, likely dress shirt but non-iron and collar style unspecified, slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Slim Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual shirt with slim fit but intended for everyday wear, possibly less formal and different function than a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Lily Pad Stripe Everyday Casual Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Casual shirt with stripes named as everyday casual, less formal and likely less structured than dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Petite No Iron Button Front Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's shirt differing in target customer and likely fit and styling, though no iron feature is shared.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Plaid Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt with stretch and plaid pattern, likely closer to the reference though pattern and stretch features differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom French Cuff Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Custom dress shirt with French cuff; more formal but aligns well in dress shirt category despite cuff difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Luxury Hyde French Cuff Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Luxury French cuff dress shirt, similar dress shirt category though French cuff adds formal detail absent in reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Oxford Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oxford long sleeve dress shirt very similar in style and fabric to reference product though no explicit non-iron claim.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Short Sleeve No Iron Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Short sleeve no iron twill shirt is less formal due to short sleeves and twill fabric, diverging from dress shirt norms.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve button down shirt likely dress shirt but non-iron status and collar style unclear, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Tech Button Down Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit button down shirt likely dress shirt with technical fabric but less detail on non-iron or collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Button Down Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A button down dress shirt by Indochino closely matches core features of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino White Hyde Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"White dress shirt from Indochino likely similar in fit and function to reference, though no mention of non-iron.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Hartland Button-Down Long Sleeve Lightweight Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Lightweight, button-down, long sleeve dress shirt aligns closely with the reference non-iron dress shirt in features.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Custom Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Custom dress shirt from Indochino is very similar to the reference product in terms of category and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Indochino Men's Striped Classic Fit Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic fit striped dress shirt closely aligns with the reference product's dress shirt classification, differing mainly in pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Cuda Men's Indochino Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Indochino dress shirt sold by Cuda likely matching dress shirt category of reference product, presumably similar fit and features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "J.Crew Men's Seersucker Short-Sleeve Shirt",
+      "score": 3,
+      "rationale": "This is a short-sleeve seersucker shirt, more casual and likely not a dress shirt in trim or standard fit, differing significantly from the reference non-iron dress shirt.",
+      "map_id": "map_1eda67912af348e2811ed55989d6f041"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Stripe Dress Shirt",
+      "score": 8,
+      "rationale": "A cotton Oxford dress shirt closely aligns with the reference product type, although no explicit non-iron feature is mentioned, it shares dress shirt characteristics.",
+      "map_id": "map_fe06c8f1594e4218b06f4af40f1712b8"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "A non-iron dress shirt with a semi-cutaway collar very similar in function and style to the reference semi-spread non-iron dress shirt.",
+      "map_id": "map_3682bbf322214c9e9163b306db4d44b7"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Non-Iron Cotton Button-Down Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with traditional fit and button-down style very similar to the reference shirt, differing mostly in fit style and possibly collar type.",
+      "map_id": "map_2dee655662c84798be6eaf1c2a711696"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Herringbone Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with traditional fit and herringbone texture; presumed non-iron is not specified, so slightly less relevant than confirmed non-iron options.",
+      "map_id": "map_76e3578240f94898bea34499aee37d3b"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Rugged Cotton Twill Shirt",
+      "score": 3,
+      "rationale": "Described as rugged cotton twill shirt, generally more casual and heavier construction, diverging from dress/non-iron shirt classification.",
+      "map_id": "map_07762cc8d773440f8fac8cb89c871db7"
+    },
+    {
+      "competitor_product_name": "Daniel Hechter Men's Tonal Paisley Non-Iron Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with stretch and tonal paisley adds pattern, but core product is very similar in function and construction.",
+      "map_id": "map_0e49a7e5dbb247e48f8f038f717e1e4e"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Tailored Fit No Iron Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "No iron Oxford dress shirt with tailored fit closely matches the reference product in key attributes.",
+      "map_id": "map_1c288ba0ff5c48e1b26a374e114c0911"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit Long Sleeve Travel Kit Shirt",
+      "score": 7,
+      "rationale": "Long sleeve traditional fit shirt suitable for travel, likely dress shirt but non-iron and collar style unspecified, slightly less relevant.",
+      "map_id": "map_9ec8abf380c14e16b90753f5b978fe17"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Slim Shirt",
+      "score": 5,
+      "rationale": "Casual shirt with slim fit but intended for everyday wear, possibly less formal and different function than a dress shirt.",
+      "map_id": "map_2115ec39311a4e43895920d8ec1d06f3"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Lily Pad Stripe Everyday Casual Shirt",
+      "score": 4,
+      "rationale": "Casual shirt with stripes named as everyday casual, less formal and likely less structured than dress shirt.",
+      "map_id": "map_fb3b016897284ba390195d4fbf7e7248"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Petite No Iron Button Front Shirt",
+      "score": 2,
+      "rationale": "Women's shirt differing in target customer and likely fit and styling, though no iron feature is shared.",
+      "map_id": "map_37d86af9a94d404387419d81e708c6e6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Plaid Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt with stretch and plaid pattern, likely closer to the reference though pattern and stretch features differ.",
+      "map_id": "map_da4c6a6aa8f34d94adb4983c51809b91"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom French Cuff Dress Shirt",
+      "score": 8,
+      "rationale": "Custom dress shirt with French cuff; more formal but aligns well in dress shirt category despite cuff difference.",
+      "map_id": "map_2afc5d0aa8214e29be0e98336ff1396a"
+    },
+    {
+      "competitor_product_name": "Indochino Luxury Hyde French Cuff Dress Shirt",
+      "score": 8,
+      "rationale": "Luxury French cuff dress shirt, similar dress shirt category though French cuff adds formal detail absent in reference.",
+      "map_id": "map_a806df3c06c94f77b5110433b969994c"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Oxford Long Sleeve Dress Shirt",
+      "score": 9,
+      "rationale": "Oxford long sleeve dress shirt very similar in style and fabric to reference product though no explicit non-iron claim.",
+      "map_id": "map_4d42e474a63f46baabcbe5d084a19ecb"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Short Sleeve No Iron Twill Shirt",
+      "score": 5,
+      "rationale": "Short sleeve no iron twill shirt is less formal due to short sleeves and twill fabric, diverging from dress shirt norms.",
+      "map_id": "map_c695c683088d4848a03055aadd844950"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Long sleeve button down shirt likely dress shirt but non-iron status and collar style unclear, moderately relevant.",
+      "map_id": "map_0cad1486a413422db36736035890cd64"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Slim Tech Button Down Shirt",
+      "score": 7,
+      "rationale": "Slim fit button down shirt likely dress shirt with technical fabric but less detail on non-iron or collar style.",
+      "map_id": "map_01a1250e2e6f44ca8ce487ffc27f1aee"
+    },
+    {
+      "competitor_product_name": "Indochino Button Down Dress Shirt",
+      "score": 9,
+      "rationale": "A button down dress shirt by Indochino closely matches core features of the reference product.",
+      "map_id": "map_f46f1da6f3f14c00bd87feb94dbede45"
+    },
+    {
+      "competitor_product_name": "Indochino White Hyde Dress Shirt",
+      "score": 9,
+      "rationale": "White dress shirt from Indochino likely similar in fit and function to reference, though no mention of non-iron.",
+      "map_id": "map_fae613ae4bdb4252ab0ab23f6a50fa1f"
+    },
+    {
+      "competitor_product_name": "Indochino Hartland Button-Down Long Sleeve Lightweight Dress Shirt",
+      "score": 9,
+      "rationale": "Lightweight, button-down, long sleeve dress shirt aligns closely with the reference non-iron dress shirt in features.",
+      "map_id": "map_a1fa6d27d3404e7d883854d6ee96e19a"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Custom Dress Shirt",
+      "score": 10,
+      "rationale": "Custom dress shirt from Indochino is very similar to the reference product in terms of category and function.",
+      "map_id": "map_7683a5565003430893b970161c388c63"
+    },
+    {
+      "competitor_product_name": "Indochino Men's Striped Classic Fit Dress Shirt",
+      "score": 9,
+      "rationale": "Classic fit striped dress shirt closely aligns with the reference product's dress shirt classification, differing mainly in pattern.",
+      "map_id": "map_9ddce4c8215f45b9ab85fa3e3f2190f1"
+    },
+    {
+      "competitor_product_name": "Cuda Men's Indochino Dress Shirt",
+      "score": 9,
+      "rationale": "Indochino dress shirt sold by Cuda likely matching dress shirt category of reference product, presumably similar fit and features.",
+      "map_id": "map_49b83e207b494f338d40e50905aad9b2"
+    }
+  ]
+}

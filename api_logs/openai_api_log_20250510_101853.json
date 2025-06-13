@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250510_101853",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bailey Of Hollywood Poet Flatcap Newsboy Plaid Tweed Hat'\n  - Name='Goorin Bros. Shady Tweed Fedora'\n  - Name='Bailey Of Hollywood News Boy Cap'\n  - Name='Bailey Italian News Boy Cap'\n  - Name='Kangol Wool 504 Flannel Cap'\n  - Name='Stetson Men's Milbirdge Wool Ivy Cap'\n  - Name='Men's Goorin Bros Goat Field 100'\n  - Name='Stetson Men's Checked Linen Driver Flat Cap'\n  - Name='Carhartt Men's WIP Logo Baseball Cap'\n  - Name='Bailey Red Green Tartan Plaid Newsboy Cabbie Flat Cap'\n  - Name='Men Stetson Hatteras Check Harris Tweed Flat Cap'\n  - Name='Barbour Men's Cairn Flat Cap'\n  - Name='Kangol Wool 507 Ivy Cap'\n  - Name='Goorin Big Yachty Flatcaps in Navy/Blue, Size 2XL'\n  - Name='Carhartt Men's Canvas Cap'\n  - Name='Bailey of Hollywood Men's Mickey Wool Newsboy Cap'\n  - Name='Brixton Brood Blue Snap Cap'\n  - Name='Bailey Of Hollywood Poet Flatcap Hat'\n  - Name='Kangol White Black Houndstooth Large Newsboy Cabbie Hat Cap'\n  - Name='Kangol Club Plaid Baseball Cap'\n  - Name='Women Brixton Fiddler Cap Dusk/black Vega Cap'\n  - Name='Majestic Rose Boston Scally Cap'\n  - Name='The Harvestland Boston Scally Cap'\n  - Name='The Black Rose Peaky Boston Scally Cap'\n  - Name='The Triple Crown Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bailey Of Hollywood Poet Flatcap Newsboy Plaid Tweed Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a flatcap/newsboy style hat with plaid tweed fabric, similar to the 'Peaky' 8-panel style capped with plaid fabric, making it quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Shady Tweed Fedora\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A fedora differs significantly from a Peaky/flat cap in silhouette and construction, so relevance is low despite tweed fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Of Hollywood News Boy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Newsboy caps are close in style to Peaky caps; without fabric details, relevance is moderate to high.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Italian News Boy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar to above, another newsboy cap likely sharing similar silhouette and use, making it fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool 504 Flannel Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The Wool 504 is an ivy cap style which is similar but not identical to a Peaky; moderate relevance due to close shape and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Milbirdge Wool Ivy Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"An ivy cap differs from a Peaky, but both are traditional flat cap styles; moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Goorin Bros Goat Field 100\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Name lacks clear indication of flat or Peaky style; likely a field or outdoor hat, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Checked Linen Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a flat cap style, similar silhouette and construction, relevant despite fabric difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's WIP Logo Baseball Cap\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A baseball cap has a very different silhouette and style from a Peaky flat cap; not relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Red Green Tartan Plaid Newsboy Cabbie Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy/cabbie flat cap in tartan plaid fabric closely resembles Peaky cap style, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Stetson Hatteras Check Harris Tweed Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flat cap in checked Harris Tweed is functionally and stylistically quite similar to the Peaky, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cairn Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A flat cap style similar to Peaky, though fabric and exact panel construction not specified; relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wool 507 Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap style is similar but distinct from a Peaky; relevance medium due to shape difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Big Yachty Flatcaps in Navy/Blue, Size 2XL\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Flat cap similar generally in silhouette and purpose to Peaky cap, relevant though color/style specifics differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Likely a baseball or work cap style different from Peaky flat cap, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey of Hollywood Men's Mickey Wool Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy wool cap very close in style and construction to Peaky, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Blue Snap Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A snap cap often resembles a baseball or retro casual cap, differing from Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Of Hollywood Poet Flatcap Hat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A flatcap with poet/newsboy style similar in construction to Peaky, high relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol White Black Houndstooth Large Newsboy Cabbie Hat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Newsboy/cabbie hat with similar silhouette and likely panel construction, quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Club Plaid Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Baseball cap style is different from Peaky flat cap despite plaid fabric; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Women Brixton Fiddler Cap Dusk/black Vega Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Fiddler cap is stylistically similar to flat/Peaky caps, making it relevant despite gender marketing.\"\n    },\n    {\n      \"competitor_product_name\": \"Majestic Rose Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Boston Scally cap by the same brand suggests very close style and construction to the reference, just different model.\"\n    },\n    {\n      \"competitor_product_name\": \"The Harvestland Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap, likely same 8-panel construction and signature style, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Black Rose Peaky Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product to the reference (exact name match) so full relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"The Triple Crown Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap probably sharing core features like 8-panel and silhouette; highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bailey Of Hollywood Poet Flatcap Newsboy Plaid Tweed Hat",
+      "score": 8,
+      "rationale": "This is a flatcap/newsboy style hat with plaid tweed fabric, similar to the 'Peaky' 8-panel style capped with plaid fabric, making it quite relevant.",
+      "map_id": "map_b1caec250b714812a02aa439a36123d8"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Shady Tweed Fedora",
+      "score": 3,
+      "rationale": "A fedora differs significantly from a Peaky/flat cap in silhouette and construction, so relevance is low despite tweed fabric.",
+      "map_id": "map_9c194bbd95f64eb4a77b75ac0978f63b"
+    },
+    {
+      "competitor_product_name": "Bailey Of Hollywood News Boy Cap",
+      "score": 7,
+      "rationale": "Newsboy caps are close in style to Peaky caps; without fabric details, relevance is moderate to high.",
+      "map_id": "map_7079a49224784c8cb44b6671202b23f3"
+    },
+    {
+      "competitor_product_name": "Bailey Italian News Boy Cap",
+      "score": 7,
+      "rationale": "Similar to above, another newsboy cap likely sharing similar silhouette and use, making it fairly relevant.",
+      "map_id": "map_f21854cc67d144b3a03c10b915df165a"
+    },
+    {
+      "competitor_product_name": "Kangol Wool 504 Flannel Cap",
+      "score": 6,
+      "rationale": "The Wool 504 is an ivy cap style which is similar but not identical to a Peaky; moderate relevance due to close shape and fabric.",
+      "map_id": "map_d99e6695367c4932a44df80fd1e9a5eb"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Milbirdge Wool Ivy Cap",
+      "score": 6,
+      "rationale": "An ivy cap differs from a Peaky, but both are traditional flat cap styles; moderate relevancy.",
+      "map_id": "map_2da48128e484424f852ceaa8176e9a11"
+    },
+    {
+      "competitor_product_name": "Men's Goorin Bros Goat Field 100",
+      "score": 2,
+      "rationale": "Name lacks clear indication of flat or Peaky style; likely a field or outdoor hat, so low relevancy.",
+      "map_id": "map_945902a65e2849f0a21691d8aa74e371"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Checked Linen Driver Flat Cap",
+      "score": 7,
+      "rationale": "This is a flat cap style, similar silhouette and construction, relevant despite fabric difference.",
+      "map_id": "map_d8ae9df562414579a9946c5f4b8e7a04"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's WIP Logo Baseball Cap",
+      "score": 1,
+      "rationale": "A baseball cap has a very different silhouette and style from a Peaky flat cap; not relevant.",
+      "map_id": "map_6737e0c8ecc54afea8ce9a1263baf509"
+    },
+    {
+      "competitor_product_name": "Bailey Red Green Tartan Plaid Newsboy Cabbie Flat Cap",
+      "score": 8,
+      "rationale": "Newsboy/cabbie flat cap in tartan plaid fabric closely resembles Peaky cap style, making it highly relevant.",
+      "map_id": "map_9619251095f343eb829c7c98eaa3c8bb"
+    },
+    {
+      "competitor_product_name": "Men Stetson Hatteras Check Harris Tweed Flat Cap",
+      "score": 8,
+      "rationale": "Flat cap in checked Harris Tweed is functionally and stylistically quite similar to the Peaky, very relevant.",
+      "map_id": "map_87a3fb0a189a4c1482f78fee7e0f8e07"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cairn Flat Cap",
+      "score": 7,
+      "rationale": "A flat cap style similar to Peaky, though fabric and exact panel construction not specified; relevant.",
+      "map_id": "map_95b29312646c4a7eaa2244f432b6b717"
+    },
+    {
+      "competitor_product_name": "Kangol Wool 507 Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy cap style is similar but distinct from a Peaky; relevance medium due to shape difference.",
+      "map_id": "map_63b3be103e4a4bfd83a2d780948ff050"
+    },
+    {
+      "competitor_product_name": "Goorin Big Yachty Flatcaps in Navy/Blue, Size 2XL",
+      "score": 7,
+      "rationale": "Flat cap similar generally in silhouette and purpose to Peaky cap, relevant though color/style specifics differ.",
+      "map_id": "map_14a9207054c74c58bd4b2461447f7f33"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Cap",
+      "score": 2,
+      "rationale": "Likely a baseball or work cap style different from Peaky flat cap, reducing relevancy.",
+      "map_id": "map_07ccde873eb445a8a73ca6023023e574"
+    },
+    {
+      "competitor_product_name": "Bailey of Hollywood Men's Mickey Wool Newsboy Cap",
+      "score": 8,
+      "rationale": "Newsboy wool cap very close in style and construction to Peaky, highly relevant.",
+      "map_id": "map_231307ed7e664ebaa4f570c08c00114a"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Blue Snap Cap",
+      "score": 3,
+      "rationale": "A snap cap often resembles a baseball or retro casual cap, differing from Peaky style.",
+      "map_id": "map_7bc45516b60b4dbf8e8fffbc4bc21d12"
+    },
+    {
+      "competitor_product_name": "Bailey Of Hollywood Poet Flatcap Hat",
+      "score": 8,
+      "rationale": "A flatcap with poet/newsboy style similar in construction to Peaky, high relevance.",
+      "map_id": "map_0398f39f73f7494e8b18be17a90a6949"
+    },
+    {
+      "competitor_product_name": "Kangol White Black Houndstooth Large Newsboy Cabbie Hat Cap",
+      "score": 8,
+      "rationale": "Newsboy/cabbie hat with similar silhouette and likely panel construction, quite relevant.",
+      "map_id": "map_55c1c149a6b74a79b65b246210117478"
+    },
+    {
+      "competitor_product_name": "Kangol Club Plaid Baseball Cap",
+      "score": 2,
+      "rationale": "Baseball cap style is different from Peaky flat cap despite plaid fabric; low relevancy.",
+      "map_id": "map_e7bfa248d60045ccb00bc5af9974f9f7"
+    },
+    {
+      "competitor_product_name": "Women Brixton Fiddler Cap Dusk/black Vega Cap",
+      "score": 7,
+      "rationale": "Fiddler cap is stylistically similar to flat/Peaky caps, making it relevant despite gender marketing.",
+      "map_id": "map_338aedf7b978423c8e6e2380ab2445dc"
+    },
+    {
+      "competitor_product_name": "Majestic Rose Boston Scally Cap",
+      "score": 9,
+      "rationale": "A Boston Scally cap by the same brand suggests very close style and construction to the reference, just different model.",
+      "map_id": "map_0c0a038039bc4607966714f71a9521e1"
+    },
+    {
+      "competitor_product_name": "The Harvestland Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap, likely same 8-panel construction and signature style, highly relevant.",
+      "map_id": "map_62bbb92a6c5b4d7f8ad9869f30199245"
+    },
+    {
+      "competitor_product_name": "The Black Rose Peaky Boston Scally Cap",
+      "score": 10,
+      "rationale": "Identical product to the reference (exact name match) so full relevance.",
+      "map_id": "map_02919512b9214467a772e9906ba1f187"
+    },
+    {
+      "competitor_product_name": "The Triple Crown Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap probably sharing core features like 8-panel and silhouette; highly relevant.",
+      "map_id": "map_2563c5d144f7493a97d18e00b5164c2f"
+    }
+  ]
+}

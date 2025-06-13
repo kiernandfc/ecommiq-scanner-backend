@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250520_114338",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros. The King Lion Trucker'\n  - Name='Barbour Cairn Flat Cap'\n  - Name='Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband'\n  - Name='Hat BARBOUR Men color Green'\n  - Name='Barbour Crieff Flat Cap'\n  - Name='Barbour Men's Wax Cap'\n  - Name='Barbour Men's Waxed Cotton Bucket Hat'\n  - Name='Barbour Finnean Cap'\n  - Name='Men's Goorin Bros Panther Trucker Hat'\n  - Name='Barbour - Tartan Baseball Cap - Men - CottonCotton - One Size - Green'\n  - Name='Barbour Crieff Flat Cap'\n  - Name='Brixton Brood Baggy Snap Cap'\n  - Name='Barbour Men's Transport 6 Panel Bucket Hat'\n  - Name='Goorin Bros. Men's MVP Predator Eagle Mesh Trucker Hat'\n  - Name='Goorin Bros Mens. The Stallion Trucker'\n  - Name='Kangol Tropic Halifax K3300HT'\n  - Name='Kangol Vintage Cashmere Wool Newsboy Driver Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros. The King Lion Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a trucker hat with a mesh back and likely a different construction and purpose than the Driver scally cap's sporty, breathable micro-poly 8-panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Cairn Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flat cap shares some silhouette similarity with a scally cap, but traditional materials and a less sporty construction reduce relevancy compared to the Driver's high-tech fabric and form-fitting 8-panel design.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A 6-panel flat cap with a sweatband is relatively closer in construction to the Driver, though it likely lacks the advanced micro-poly sport fabric and breathability; the form-fitting panel design and sweatband are similar features.\"\n    },\n    {\n      \"competitor_product_name\": \"Hat BARBOUR Men color Green\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Name is vague and does not specify type or style of hat, making it not evidently relevant to the Driver cap's specific style and material.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Crieff Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar to other Barbour flat caps: some shared silhouette elements but less relevant due to different materials and style focus compared to the micro-poly sporty Driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Wax Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A wax cap suggests a waterproof cotton style with different fabric and likely silhouette, making it less relevant to the lightweight, breathable Driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Waxed Cotton Bucket Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bucket hats have a fundamentally different shape and usage compared to a fitted scally cap, plus different materials reduce relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Finnean Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat or tweed style cap, sharing some shape characteristics but differing in materials and sporty construction from the Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Goorin Bros Panther Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat construction and style differ substantially from a fitted, performance-oriented scally cap, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour - Tartan Baseball Cap - Men - CottonCotton - One Size - Green\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A baseball cap differs in silhouette and structure from an 8-panel scally cap, and cotton fabric contrasts with the micro-poly sport fabric of the Driver.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Crieff Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Same as previously listed Crieff Flat Caps: moderate relevancy due to similar cap shape but differing materials and performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Baggy Snap Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A snapback style and baggier fit differ from the form-fitting 8-panel Driver cap, though both are casual headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Transport 6 Panel Bucket Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bucket hat style and fabric differ considerably from the Driver's cap style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's MVP Predator Eagle Mesh Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat style with mesh is less relevant due to distinct silhouette and construction compared to the Driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Mens. The Stallion Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hats differ significantly in style and construction from an 8-panel fitted scally cap and micro-poly performance fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Tropic Halifax K3300HT\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Kangol Tropic Halifax is a lightweight, breathable 6-panel cap made with tropical weight fabric, quite close in performance, construction, and use to the Driver; a strong relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Vintage Cashmere Wool Newsboy Driver Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A newsboy/driver style cap matches the Driver's silhouette closely, though cashmere wool is traditional rather than micro-poly sport fabric; good relevancy due to shared style and function.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros. The King Lion Trucker",
+      "score": 3,
+      "rationale": "This is a trucker hat with a mesh back and likely a different construction and purpose than the Driver scally cap's sporty, breathable micro-poly 8-panel design.",
+      "map_id": "map_cf6589bb73224d0ea7bad0b38f7db76f"
+    },
+    {
+      "competitor_product_name": "Barbour Cairn Flat Cap",
+      "score": 6,
+      "rationale": "A flat cap shares some silhouette similarity with a scally cap, but traditional materials and a less sporty construction reduce relevancy compared to the Driver's high-tech fabric and form-fitting 8-panel design.",
+      "map_id": "map_32caa7cdc8514fe0891a304266a39e22"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Murray Way 6-Panel Ivy Flat Cap with Sweatband",
+      "score": 7,
+      "rationale": "A 6-panel flat cap with a sweatband is relatively closer in construction to the Driver, though it likely lacks the advanced micro-poly sport fabric and breathability; the form-fitting panel design and sweatband are similar features.",
+      "map_id": "map_914f9f215b7841bfb06209d9f41feea7"
+    },
+    {
+      "competitor_product_name": "Hat BARBOUR Men color Green",
+      "score": 1,
+      "rationale": "Name is vague and does not specify type or style of hat, making it not evidently relevant to the Driver cap's specific style and material.",
+      "map_id": "map_3b4d77c8cb2e44e09520cba014ca8dc0"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 6,
+      "rationale": "Similar to other Barbour flat caps: some shared silhouette elements but less relevant due to different materials and style focus compared to the micro-poly sporty Driver cap.",
+      "map_id": "map_53dd1872bd85486ea5c465612918506d"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 6,
+      "rationale": "Similar to other Barbour flat caps: some shared silhouette elements but less relevant due to different materials and style focus compared to the micro-poly sporty Driver cap.",
+      "map_id": "map_673535b14180438d9450208c59479675"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Wax Cap",
+      "score": 4,
+      "rationale": "A wax cap suggests a waterproof cotton style with different fabric and likely silhouette, making it less relevant to the lightweight, breathable Driver cap.",
+      "map_id": "map_fa83c949ea454fee852e6f8a029872bc"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Waxed Cotton Bucket Hat",
+      "score": 3,
+      "rationale": "Bucket hats have a fundamentally different shape and usage compared to a fitted scally cap, plus different materials reduce relevancy.",
+      "map_id": "map_4071bde5f8464c83bab6d152c2c18dab"
+    },
+    {
+      "competitor_product_name": "Barbour Finnean Cap",
+      "score": 6,
+      "rationale": "Likely a flat or tweed style cap, sharing some shape characteristics but differing in materials and sporty construction from the Driver.",
+      "map_id": "map_90ee8017ec26451faef996867f0fa13e"
+    },
+    {
+      "competitor_product_name": "Men's Goorin Bros Panther Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat construction and style differ substantially from a fitted, performance-oriented scally cap, making it less relevant.",
+      "map_id": "map_2374d7f1307541db95e46358da49d0d1"
+    },
+    {
+      "competitor_product_name": "Barbour - Tartan Baseball Cap - Men - CottonCotton - One Size - Green",
+      "score": 4,
+      "rationale": "A baseball cap differs in silhouette and structure from an 8-panel scally cap, and cotton fabric contrasts with the micro-poly sport fabric of the Driver.",
+      "map_id": "map_506c60aba9684f109038251c0c541f51"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 6,
+      "rationale": "Same as previously listed Crieff Flat Caps: moderate relevancy due to similar cap shape but differing materials and performance features.",
+      "map_id": "map_53dd1872bd85486ea5c465612918506d"
+    },
+    {
+      "competitor_product_name": "Barbour Crieff Flat Cap",
+      "score": 6,
+      "rationale": "Same as previously listed Crieff Flat Caps: moderate relevancy due to similar cap shape but differing materials and performance features.",
+      "map_id": "map_673535b14180438d9450208c59479675"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Baggy Snap Cap",
+      "score": 5,
+      "rationale": "A snapback style and baggier fit differ from the form-fitting 8-panel Driver cap, though both are casual headwear.",
+      "map_id": "map_b13bbcf9ecec408d895e01b7e12c4c97"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Transport 6 Panel Bucket Hat",
+      "score": 3,
+      "rationale": "Bucket hat style and fabric differ considerably from the Driver's cap style and construction.",
+      "map_id": "map_9d0766cc62d44a2f97a5e3c147c0cd93"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's MVP Predator Eagle Mesh Trucker Hat",
+      "score": 3,
+      "rationale": "Trucker hat style with mesh is less relevant due to distinct silhouette and construction compared to the Driver cap.",
+      "map_id": "map_1c5586fd4f3d4ca78962a25ac1efb48f"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Mens. The Stallion Trucker",
+      "score": 3,
+      "rationale": "Trucker hats differ significantly in style and construction from an 8-panel fitted scally cap and micro-poly performance fabric.",
+      "map_id": "map_6d93f2e148714dbf8872714a3c0e5d97"
+    },
+    {
+      "competitor_product_name": "Kangol Tropic Halifax K3300HT",
+      "score": 8,
+      "rationale": "Kangol Tropic Halifax is a lightweight, breathable 6-panel cap made with tropical weight fabric, quite close in performance, construction, and use to the Driver; a strong relevancy.",
+      "map_id": "map_f365fe81fd4c4b719ec0d822a1492073"
+    },
+    {
+      "competitor_product_name": "Kangol Vintage Cashmere Wool Newsboy Driver Cap",
+      "score": 7,
+      "rationale": "A newsboy/driver style cap matches the Driver's silhouette closely, though cashmere wool is traditional rather than micro-poly sport fabric; good relevancy due to shared style and function.",
+      "map_id": "map_f2338f897afa446d8820e675c0c386e9"
+    }
+  ]
+}

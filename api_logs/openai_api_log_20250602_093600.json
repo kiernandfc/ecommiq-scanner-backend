@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250602_093600",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt'\n  - Name='L.L.Bean Men's Signature Seersucker Madras Shirt'\n  - Name='L.L.Bean Men's Tropicwear Short-Sleeve Shirt'\n  - Name='Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt'\n  - Name='Lands' End Men's Oxford Long Sleeve Dress Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt'\n  - Name='L.L.Bean Men's Comfort Stretch Long-Sleeve Shirt'\n  - Name='Michael Kors Men's Solid Non-Iron Stretch Dress Shirt'\n  - Name='Lands' End Men's Tall Pattern No Iron Dress Shirt'\n  - Name='Lands' End Women's Long Sleeve Straight Collar No Iron Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='The Desk To Dinner Shirt Slim for Men by Bonobos'\n  - Name='Men's Tie Bars (4 Pcs)'\n  - Name='Men's Metal Tie Bar Clip Pin Wedding Party Business Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar no-iron long sleeve dress shirt but designed for women, which may differ in fit and collar style from the reference men's shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Signature Seersucker Madras Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Men's shirt but likely casual seersucker fabric, different texture and possibly not designed as a dress shirt; no mention of non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Tropicwear Short-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short-sleeve shirt, which differs from the reference long sleeve dress shirt; likely casual wear rather than dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's no-iron dress shirt with similar fabric (Supima pinpoint) and purpose; closely matches reference in function and style except pattern presence.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Oxford Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's long sleeve dress shirt with classic Oxford fabric; likely similar in fit and construction but no indication of non-iron finish.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Long sleeve men's shirt with stretch and performance focus, possibly casual or sport style rather than dress shirt; likely different fabric and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Comfort Stretch Long-Sleeve Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long sleeve men's shirt with comfort stretch, potentially crossover dress and casual; no mention of non-iron or specific dress shirt features.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Solid Non-Iron Stretch Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Men's solid non-iron stretch dress shirt matches almost exactly the reference product in key features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Pattern No Iron Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's non-iron dress shirt with tall sizing, similar fit and features; pattern presence lowers score slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Long Sleeve Straight Collar No Iron Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Women's non-iron long sleeve shirt with straight collar, somewhat similar but differs in gender-specific fit and collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's stretch dress shirt likely designed for work and dress occasions, similar silhouette and function, though no direct mention of non-iron treatment.\"\n    },\n    {\n      \"competitor_product_name\": \"The Desk To Dinner Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's slim dress shirt intended for versatile use; likely similar in cut and occasion but lacks explicit non-iron feature in name.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Tie Bars (4 Pcs)\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Accessory product (tie bars) unrelated to shirts in function or construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Metal Tie Bar Clip Pin Wedding Party Business Shirt\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Tie bar accessory unrelated to dress shirts themselves.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Women's Lands' End No Iron Supima Cotton Long Sleeve Shirt",
+      "score": 7,
+      "rationale": "Similar no-iron long sleeve dress shirt but designed for women, which may differ in fit and collar style from the reference men's shirt.",
+      "map_id": "map_e1b8eb4cc3c647349c2e2499abd9eb02"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Signature Seersucker Madras Shirt",
+      "score": 4,
+      "rationale": "Men's shirt but likely casual seersucker fabric, different texture and possibly not designed as a dress shirt; no mention of non-iron treatment.",
+      "map_id": "map_abd9c70d428d4fcc83c18aa6a8b40b8d"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Tropicwear Short-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short-sleeve shirt, which differs from the reference long sleeve dress shirt; likely casual wear rather than dress shirt.",
+      "map_id": "map_174ec78841f340048ddba4973432c1f7"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pattern No Iron Supima Pinpoint Dress Shirt",
+      "score": 9,
+      "rationale": "Men's no-iron dress shirt with similar fabric (Supima pinpoint) and purpose; closely matches reference in function and style except pattern presence.",
+      "map_id": "map_80a16851067e468a83a59b2781ddaba9"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Oxford Long Sleeve Dress Shirt",
+      "score": 8,
+      "rationale": "Men's long sleeve dress shirt with classic Oxford fabric; likely similar in fit and construction but no indication of non-iron finish.",
+      "map_id": "map_7b3cd570cd594a2eb8deaf293bd25ec7"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Long-Sleeve Performance Shirt",
+      "score": 5,
+      "rationale": "Long sleeve men's shirt with stretch and performance focus, possibly casual or sport style rather than dress shirt; likely different fabric and construction.",
+      "map_id": "map_67e270bcf5c642c2976093ac585f590b"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Comfort Stretch Long-Sleeve Shirt",
+      "score": 6,
+      "rationale": "Long sleeve men's shirt with comfort stretch, potentially crossover dress and casual; no mention of non-iron or specific dress shirt features.",
+      "map_id": "map_34ad5facbcc34897883186cd4e234f0d"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Solid Non-Iron Stretch Dress Shirt",
+      "score": 10,
+      "rationale": "Men's solid non-iron stretch dress shirt matches almost exactly the reference product in key features and intended use.",
+      "map_id": "map_0ee4d984be6547ccbec11f1ea769e492"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Pattern No Iron Dress Shirt",
+      "score": 8,
+      "rationale": "Men's non-iron dress shirt with tall sizing, similar fit and features; pattern presence lowers score slightly.",
+      "map_id": "map_d3bce225d5cb400497e6c1f172adf5e9"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Long Sleeve Straight Collar No Iron Shirt",
+      "score": 6,
+      "rationale": "Women's non-iron long sleeve shirt with straight collar, somewhat similar but differs in gender-specific fit and collar style.",
+      "map_id": "map_6592a0ca2c67405c82907b6b47165aa3"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Men's stretch dress shirt likely designed for work and dress occasions, similar silhouette and function, though no direct mention of non-iron treatment.",
+      "map_id": "map_fc300e3a5992405db9cef665eb3208ab"
+    },
+    {
+      "competitor_product_name": "The Desk To Dinner Shirt Slim for Men by Bonobos",
+      "score": 8,
+      "rationale": "Men's slim dress shirt intended for versatile use; likely similar in cut and occasion but lacks explicit non-iron feature in name.",
+      "map_id": "map_37da03f90463471dafb6a8a8aaf05560"
+    },
+    {
+      "competitor_product_name": "Men's Tie Bars (4 Pcs)",
+      "score": 1,
+      "rationale": "Accessory product (tie bars) unrelated to shirts in function or construction.",
+      "map_id": "map_8da7a5e1b95e49cf829be547ea88bb68"
+    },
+    {
+      "competitor_product_name": "Men's Metal Tie Bar Clip Pin Wedding Party Business Shirt",
+      "score": 1,
+      "rationale": "Tie bar accessory unrelated to dress shirts themselves.",
+      "map_id": "map_5f84162b196e4fc2bb11853fefbc04bd"
+    }
+  ]
+}

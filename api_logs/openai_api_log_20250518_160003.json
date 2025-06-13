@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250518_160003",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Harris Tweed Driving Cap'\n  - Name='Stetson Driver Cap Linen Flat Cap'\n  - Name='Stetson Houndstooth Driver Cap'\n  - Name='Stetson Wool Herringbone Flat Cap'\n  - Name='Stetson Herringbone Drivers Cap'\n  - Name='Stetson Belfast Wool Herringbone Flat Cap'\n  - Name='Stetson Men's Driving Cap'\n  - Name='Bailey Men's Chadwick Dockman Cap'\n  - Name='Stetson Herringbone Silk Driver Flat Cap'\n  - Name='Carhartt Men's WIP Cotton Cap'\n  - Name='Brixton Men's Forte Medium Profile Mesh Trucker Cap'\n  - Name='Christys' London Wool Felt Ascot Top Hat'\n  - Name='Stetson Kent Structure Linen Flat Cap'\n  - Name='Brixton X Coors Men's Coors Colt Ball Cap'\n  - Name='Brixton Hooligan Snap Cap'\n  - Name='Brixton Terminal Crossover Medium Profile Snapback Cap'\n  - Name='Brixton Adjustable Bend Baseball Cap'\n  - Name='Brixton Fiddler Cap'\n  - Name='Brixton Women's Brood Adjustable Snap Cap'\n  - Name='Brixton Men's Truss Logo Ball Cap'\n  - Name='Goorin Bros. The Black Panther Trucker Hat'\n  - Name='Brixton Men's Beta X Low Profile Mesh Camper Cap'\n  - Name='Brixton Trucker Hat Cap'\n  - Name='Brixton Accessories Trade Mark Ballcap'\n  - Name='Brixton Parsons LP Hat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Harris Tweed Driving Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a driving cap similar in style to the reference, suggesting similar silhouette and use, though it likely uses traditional tweed rather than the micro-poly sport fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Driver Cap Linen Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Also a driver/flat cap but made with linen fabric which may differ in performance and breathability compared to the micro-poly technical fabric in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Houndstooth Driver Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another driver cap variant indicating similar style and function, though fabric and construction details are unclear and likely less sport-tech oriented.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Herringbone Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A flat cap with wool fabric which relates in shape but differs in material and likely breathability and performance aspects.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Herringbone Drivers Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Directly labeled as a drivers cap with herringbone pattern, close in silhouette and intended use, though fabric type differs from the sport micro-poly knit.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Belfast Wool Herringbone Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Wool flat cap with similar silhouette but less overlap in technical fabric and performance features.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Driving Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Clear alignment in product type and intended use; probably differs in fabric but shares driver cap construction and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Men's Chadwick Dockman Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Likely a flat or dock worker style cap with similar silhouette but less tailored for sport performance and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Herringbone Silk Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driving cap with silk and herringbone fabric, shares shape and usage but less technical performance fabric like the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's WIP Cotton Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Cotton cap but lacks indication of being a driver or flat cap style and probably is a baseball or casual cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Forte Medium Profile Mesh Trucker Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Mesh trucker caps differ greatly in silhouette and casual use from driver flat caps designed for breathability and performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Christys' London Wool Felt Ascot Top Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Top hats are entirely different in shape, construction, and intended use—no relevancy to the driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Kent Structure Linen Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Linen flat cap aligns somewhat in style and form but differs in fabric technology and presumably weight and performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton X Coors Men's Coors Colt Ball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Ball cap is different silhouette and construction from driver flat caps, serving a different style niche.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Snap Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Snap caps are structured differently and not driver flat caps; lower relevancy despite being headwear.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Terminal Crossover Medium Profile Snapback Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Snapback cap silhouette and construction differ from the form-fitting, multi-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Adjustable Bend Baseball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Traditional baseball cap style and function; different from flat driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fiddler Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Fiddler caps are similar in being flat caps but have distinct crown shapes and styling; moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Women's Brood Adjustable Snap Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Snap cap with adjustable back differs in style and construction from form-fitting flat driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Truss Logo Ball Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Ball caps differ significantly in silhouette and function from driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Black Panther Trucker Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hats have mesh back and different profile unlike the fitted driver cap style.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Men's Beta X Low Profile Mesh Camper Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Low profile mesh caps share casual use but differ in construction and silhouette from driver caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Trucker Hat Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Trucker hats differ in shape, construction, and intended casual streetwear use.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Accessories Trade Mark Ballcap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Ballcap differs in style and construction from the driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Parsons LP Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"The Parsons LP is a flat cap style but may have distinct silhouette differences; moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Harris Tweed Driving Cap",
+      "score": 8,
+      "rationale": "This is a driving cap similar in style to the reference, suggesting similar silhouette and use, though it likely uses traditional tweed rather than the micro-poly sport fabric.",
+      "map_id": "map_e2582bdc71ae4b348a5ea77cfbdcb1af"
+    },
+    {
+      "competitor_product_name": "Stetson Driver Cap Linen Flat Cap",
+      "score": 7,
+      "rationale": "Also a driver/flat cap but made with linen fabric which may differ in performance and breathability compared to the micro-poly technical fabric in the reference.",
+      "map_id": "map_3dd7b972ba7c43b99d468f2a4700f67b"
+    },
+    {
+      "competitor_product_name": "Stetson Houndstooth Driver Cap",
+      "score": 7,
+      "rationale": "Another driver cap variant indicating similar style and function, though fabric and construction details are unclear and likely less sport-tech oriented.",
+      "map_id": "map_05f2a6dafc414c1db2bb4fb2cae2ca94"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Herringbone Flat Cap",
+      "score": 6,
+      "rationale": "A flat cap with wool fabric which relates in shape but differs in material and likely breathability and performance aspects.",
+      "map_id": "map_bf49de2a8f40445e867b72878622c22e"
+    },
+    {
+      "competitor_product_name": "Stetson Herringbone Drivers Cap",
+      "score": 8,
+      "rationale": "Directly labeled as a drivers cap with herringbone pattern, close in silhouette and intended use, though fabric type differs from the sport micro-poly knit.",
+      "map_id": "map_34fecb30d97f443c8de2b19f8498bf2f"
+    },
+    {
+      "competitor_product_name": "Stetson Belfast Wool Herringbone Flat Cap",
+      "score": 6,
+      "rationale": "Wool flat cap with similar silhouette but less overlap in technical fabric and performance features.",
+      "map_id": "map_555003e2b23d4bd6ba2573c909ee632f"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Driving Cap",
+      "score": 8,
+      "rationale": "Clear alignment in product type and intended use; probably differs in fabric but shares driver cap construction and function.",
+      "map_id": "map_b49b271310d4490ca34f464feaa99c40"
+    },
+    {
+      "competitor_product_name": "Bailey Men's Chadwick Dockman Cap",
+      "score": 6,
+      "rationale": "Likely a flat or dock worker style cap with similar silhouette but less tailored for sport performance and breathability.",
+      "map_id": "map_5856da5fd1294d5198f1f52807299c23"
+    },
+    {
+      "competitor_product_name": "Stetson Herringbone Silk Driver Flat Cap",
+      "score": 7,
+      "rationale": "Driving cap with silk and herringbone fabric, shares shape and usage but less technical performance fabric like the reference.",
+      "map_id": "map_6ed8d787f36142d8900137da5e487345"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's WIP Cotton Cap",
+      "score": 3,
+      "rationale": "Cotton cap but lacks indication of being a driver or flat cap style and probably is a baseball or casual cap.",
+      "map_id": "map_3dedbf39929d4c7eb649118352d087b9"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Forte Medium Profile Mesh Trucker Cap",
+      "score": 2,
+      "rationale": "Mesh trucker caps differ greatly in silhouette and casual use from driver flat caps designed for breathability and performance.",
+      "map_id": "map_2d3746e79bd742f0942191e598393bee"
+    },
+    {
+      "competitor_product_name": "Christys' London Wool Felt Ascot Top Hat",
+      "score": 1,
+      "rationale": "Top hats are entirely different in shape, construction, and intended use—no relevancy to the driver cap.",
+      "map_id": "map_b42d8d0dced74495bbd1187de93c129f"
+    },
+    {
+      "competitor_product_name": "Stetson Kent Structure Linen Flat Cap",
+      "score": 7,
+      "rationale": "Linen flat cap aligns somewhat in style and form but differs in fabric technology and presumably weight and performance.",
+      "map_id": "map_156a871af0184166a041f079fc1760ef"
+    },
+    {
+      "competitor_product_name": "Brixton X Coors Men's Coors Colt Ball Cap",
+      "score": 2,
+      "rationale": "Ball cap is different silhouette and construction from driver flat caps, serving a different style niche.",
+      "map_id": "map_45a4836b563343fb90a8f1be9819856c"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Snap Cap",
+      "score": 2,
+      "rationale": "Snap caps are structured differently and not driver flat caps; lower relevancy despite being headwear.",
+      "map_id": "map_22b6ff0042ea4d2f9a1b9011d8d52ddc"
+    },
+    {
+      "competitor_product_name": "Brixton Terminal Crossover Medium Profile Snapback Cap",
+      "score": 2,
+      "rationale": "Snapback cap silhouette and construction differ from the form-fitting, multi-panel driver cap.",
+      "map_id": "map_c8efd240b2cb438781c004459e233161"
+    },
+    {
+      "competitor_product_name": "Brixton Adjustable Bend Baseball Cap",
+      "score": 2,
+      "rationale": "Traditional baseball cap style and function; different from flat driver caps.",
+      "map_id": "map_57906b0798874d8c8479b9e31a0936bc"
+    },
+    {
+      "competitor_product_name": "Brixton Fiddler Cap",
+      "score": 6,
+      "rationale": "Fiddler caps are similar in being flat caps but have distinct crown shapes and styling; moderately relevant.",
+      "map_id": "map_fee05489aa2a4ea488f5f15d24be8c5e"
+    },
+    {
+      "competitor_product_name": "Brixton Women's Brood Adjustable Snap Cap",
+      "score": 2,
+      "rationale": "Snap cap with adjustable back differs in style and construction from form-fitting flat driver caps.",
+      "map_id": "map_3af47c993b1e43c78975c63fae188133"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Truss Logo Ball Cap",
+      "score": 2,
+      "rationale": "Ball caps differ significantly in silhouette and function from driver caps.",
+      "map_id": "map_018644158c2b46fb8828736a92d7b994"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Black Panther Trucker Hat",
+      "score": 2,
+      "rationale": "Trucker hats have mesh back and different profile unlike the fitted driver cap style.",
+      "map_id": "map_26fa11b409af46c5af98b282ff982966"
+    },
+    {
+      "competitor_product_name": "Brixton Men's Beta X Low Profile Mesh Camper Cap",
+      "score": 3,
+      "rationale": "Low profile mesh caps share casual use but differ in construction and silhouette from driver caps.",
+      "map_id": "map_6a5cc5fd7a544cef99b3754563d0f8ad"
+    },
+    {
+      "competitor_product_name": "Brixton Trucker Hat Cap",
+      "score": 2,
+      "rationale": "Trucker hats differ in shape, construction, and intended casual streetwear use.",
+      "map_id": "map_fb8443bcc6d9412a996a493e38cb642a"
+    },
+    {
+      "competitor_product_name": "Brixton Accessories Trade Mark Ballcap",
+      "score": 2,
+      "rationale": "Ballcap differs in style and construction from the driver cap.",
+      "map_id": "map_dcb88bdc8bc544eab80f51dcd6ce17f0"
+    },
+    {
+      "competitor_product_name": "Brixton Parsons LP Hat",
+      "score": 5,
+      "rationale": "The Parsons LP is a flat cap style but may have distinct silhouette differences; moderately relevant.",
+      "map_id": "map_c6d3edb7923a45baaaedb02a52e433a2"
+    }
+  ]
+}

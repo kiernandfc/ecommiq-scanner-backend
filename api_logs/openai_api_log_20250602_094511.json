@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250602_094511",
+  "reference_brand": "Ledge Lounger",
+  "reference_name": "Essential Umbrella",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Ledge Lounger\"\nReference Product Name: \"Essential Umbrella\"\nReference Product Description:\nOur multi-operational Essential Umbrella features an aluminum center pole and is ideal for both in-pool and on-deck use. High-quality materials, such as fiberglass ribs, sewn-in vents, and marine-grade fabrics make the Essential Umbrella resistant to wind, corrosion, rust, and warping. Choose from hundreds of canopy and pole combinations to create the perfect umbrella to match your personal style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Purple Leaf 9 ft Patio Umbrella'\n  - Name='Purple Leaf Patio Cantilever Umbrella'\n  - Name='Purple Leaf 8 ft Square Patio Umbrella Cantilever Outdoor Umbrella'\n  - Name='AquaBlu Ledge Lounger'\n  - Name='Frontgate 9' Round Outdoor Market Umbrella'\n  - Name='9 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base'\n  - Name='PURPLE LEAF 8ft Patio Umbrella with Base'\n  - Name='Purple Leaf Extra Large Premium Patio Cantilever Offset Umbrella'\n  - Name='Purple Leaf 11 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base'\n  - Name='Grand Patio 12FT Outdoor Offset Large Round Aluminum Cantilever Umbrella with Base'\n  - Name='Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Purple Leaf 9 ft Patio Umbrella\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a patio umbrella similar in size and likely function to the reference, suggesting similar use though no specific mention of materials or multi-operational feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Patio Cantilever Umbrella\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A cantilever umbrella differs in pole design (offset) compared to the reference's center pole, making it less similar though still a patio umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 8 ft Square Patio Umbrella Cantilever Outdoor Umbrella\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Square shape and cantilever design diverge from the reference's center pole umbrella; size is somewhat smaller, lowering similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"AquaBlu Ledge Lounger\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"This appears to be furniture (lounger), not an umbrella, thus not relevant to the reference umbrella product.\"\n    },\n    {\n      \"competitor_product_name\": \"Frontgate 9' Round Outdoor Market Umbrella\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar round outdoor umbrella likely center pole but no mention of specialized materials like marine-grade fabrics or in-pool suitability.\"\n    },\n    {\n      \"competitor_product_name\": \"9 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Square shape and cantilever design differ from the essential umbrella's center pole and possible round shape, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"PURPLE LEAF 8ft Patio Umbrella with Base\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"An 8ft patio umbrella is functionally similar; no details on materials or in-pool use but size and base suggest some similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf Extra Large Premium Patio Cantilever Offset Umbrella\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Offset cantilever design differs from reference; larger size also suggests different product segment.\"\n    },\n    {\n      \"competitor_product_name\": \"Purple Leaf 11 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Large 11 ft square cantilever umbrella differs in shape and pole construction from multi-operational center pole umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Grand Patio 12FT Outdoor Offset Large Round Aluminum Cantilever Umbrella with Base\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Large, offset cantilever umbrella with significant size difference and pole style distinct from the essential umbrella.\"\n    },\n    {\n      \"competitor_product_name\": \"Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Furniture bundle including pool furniture, not an umbrella product, so very low relevancy despite brand match.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Purple Leaf 9 ft Patio Umbrella",
+      "score": 8,
+      "rationale": "This is a patio umbrella similar in size and likely function to the reference, suggesting similar use though no specific mention of materials or multi-operational feature.",
+      "map_id": "map_718dd7c57b0c4503adf310c397e30888"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Patio Cantilever Umbrella",
+      "score": 6,
+      "rationale": "A cantilever umbrella differs in pole design (offset) compared to the reference's center pole, making it less similar though still a patio umbrella.",
+      "map_id": "map_3d65331d6c4341a8ae2379457c3dbd32"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 8 ft Square Patio Umbrella Cantilever Outdoor Umbrella",
+      "score": 5,
+      "rationale": "Square shape and cantilever design diverge from the reference's center pole umbrella; size is somewhat smaller, lowering similarity.",
+      "map_id": "map_944094d977a14543aa4312bf1fcba14d"
+    },
+    {
+      "competitor_product_name": "AquaBlu Ledge Lounger",
+      "score": 1,
+      "rationale": "This appears to be furniture (lounger), not an umbrella, thus not relevant to the reference umbrella product.",
+      "map_id": "map_3e0f7a7896724f709a88a6a25736fa41"
+    },
+    {
+      "competitor_product_name": "Frontgate 9' Round Outdoor Market Umbrella",
+      "score": 7,
+      "rationale": "Similar round outdoor umbrella likely center pole but no mention of specialized materials like marine-grade fabrics or in-pool suitability.",
+      "map_id": "map_cbec07f337ff43e4be3908c96ff7ab61"
+    },
+    {
+      "competitor_product_name": "9 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base",
+      "score": 5,
+      "rationale": "Square shape and cantilever design differ from the essential umbrella's center pole and possible round shape, reducing relevancy.",
+      "map_id": "map_325314dd02ed420699e3b23604486589"
+    },
+    {
+      "competitor_product_name": "PURPLE LEAF 8ft Patio Umbrella with Base",
+      "score": 7,
+      "rationale": "An 8ft patio umbrella is functionally similar; no details on materials or in-pool use but size and base suggest some similarity.",
+      "map_id": "map_5175054a15a848cab1a6eff35559b9f8"
+    },
+    {
+      "competitor_product_name": "Purple Leaf Extra Large Premium Patio Cantilever Offset Umbrella",
+      "score": 4,
+      "rationale": "Offset cantilever design differs from reference; larger size also suggests different product segment.",
+      "map_id": "map_48001e8072be420e98fb65b04778ef23"
+    },
+    {
+      "competitor_product_name": "Purple Leaf 11 ft. Square High-Quality Aluminum Cantilever Outdoor Patio Umbrella with Base",
+      "score": 4,
+      "rationale": "Large 11 ft square cantilever umbrella differs in shape and pole construction from multi-operational center pole umbrella.",
+      "map_id": "map_e637280717134edfb55bc03a84e65700"
+    },
+    {
+      "competitor_product_name": "Grand Patio 12FT Outdoor Offset Large Round Aluminum Cantilever Umbrella with Base",
+      "score": 4,
+      "rationale": "Large, offset cantilever umbrella with significant size difference and pole style distinct from the essential umbrella.",
+      "map_id": "map_b5685b3e81f5447d88ec920139ef08bf"
+    },
+    {
+      "competitor_product_name": "Ledge Lounger Outdoor Paradise In- Pool Furniture Bundle",
+      "score": 2,
+      "rationale": "Furniture bundle including pool furniture, not an umbrella product, so very low relevancy despite brand match.",
+      "map_id": "map_5dd813aa13f54ab59721e2a0f53f1d55"
+    }
+  ]
+}

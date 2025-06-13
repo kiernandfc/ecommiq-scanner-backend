@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250512_072723",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Uniqlo C Sweat Oversized Pullover Hoodie'\n  - Name='Uniqlo Zip Up Sweat Hoodie'\n  - Name='UNIQLO Men's Sweat Hoodie'\n  - Name='Everlane Men's Off-Duty Tech Hoodie'\n  - Name='Boston Scally The Game Day Crewneck T-Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Uniqlo C Sweat Oversized Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product is also a pullover hoodie made from sweat fabric, similar soft and comfortable sweatshirt likely with similar function and silhouette, making it highly relevant to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Zip Up Sweat Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"While it is a hooded sweatshirt with sweat fabric, the zip-up construction differs slightly from the pull-over style of the reference but still serves similar uses and features, so it remains very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Sweat Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's sweat hoodie like the reference, presumably soft and comfortable with similar silhouette and function, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Off-Duty Tech Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Although it is a men's hoodie likely soft and comfortable, the 'tech' aspect may imply different materials or performance features, which might differ slightly from the classic soft sweatshirt feel, reducing relevancy somewhat.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally The Game Day Crewneck T-Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a crewneck t-shirt, not a hoodie or sweatshirt, so while from the same brand and related to game day wear, the silhouette, construction, and function differ significantly from the hoodie reference product.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Uniqlo C Sweat Oversized Pullover Hoodie",
+      "score": 9,
+      "rationale": "This product is also a pullover hoodie made from sweat fabric, similar soft and comfortable sweatshirt likely with similar function and silhouette, making it highly relevant to the reference hoodie.",
+      "map_id": "map_bb5cc8e643eb4b85ab6432d68c80acd7"
+    },
+    {
+      "competitor_product_name": "Uniqlo Zip Up Sweat Hoodie",
+      "score": 8,
+      "rationale": "While it is a hooded sweatshirt with sweat fabric, the zip-up construction differs slightly from the pull-over style of the reference but still serves similar uses and features, so it remains very relevant.",
+      "map_id": "map_aa9a0de474064b649fa174eb86692490"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Sweat Hoodie",
+      "score": 9,
+      "rationale": "This is a men's sweat hoodie like the reference, presumably soft and comfortable with similar silhouette and function, making it highly relevant.",
+      "map_id": "map_c10bc6ee5d254acfbb8e3cfdc8cee7fa"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Off-Duty Tech Hoodie",
+      "score": 7,
+      "rationale": "Although it is a men's hoodie likely soft and comfortable, the 'tech' aspect may imply different materials or performance features, which might differ slightly from the classic soft sweatshirt feel, reducing relevancy somewhat.",
+      "map_id": "map_6854d1c52ba6455ba4382b85298f8840"
+    },
+    {
+      "competitor_product_name": "Boston Scally The Game Day Crewneck T-Shirt",
+      "score": 2,
+      "rationale": "This is a crewneck t-shirt, not a hoodie or sweatshirt, so while from the same brand and related to game day wear, the silhouette, construction, and function differ significantly from the hoodie reference product.",
+      "map_id": "map_f09ee340f5d745ff82fbfc3ee26d4ba1"
+    }
+  ]
+}

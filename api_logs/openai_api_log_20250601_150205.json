@@ -1,0 +1,173 @@
+{
+  "timestamp": "20250601_150205",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Hickory Denim Chore Jacket'\n  - Name='Levi's Men's Made Crafted Chore Coat'\n  - Name='Faherty Men's Jersey Shirt Jacket'\n  - Name='Alex Mill Arthur Cotton Linen Twill Work Jacket'\n  - Name='Barbour Royston Casual Cotton Jacket Mens'\n  - Name='Levi's Vintage 70's Sherpa Lined Barn Jacket'\n  - Name='Levi's Men's Trucker Utility Chore Jacket'\n  - Name='Faherty Movement Field Jacket'\n  - Name='Filson Men's Ranger Short Cruiser Jacket'\n  - Name='Modern Filson Canvas Chore Coat'\n  - Name='Faherty Men's Movement Linen Blazer'\n  - Name='Alex Mill Men's Linen Work Jacket'\n  - Name='Barbour Beaufort Wax Jacket Mens'\n  - Name='Barbour Men's Timberwolf Long Sleeved Buttoned Jacket'\n  - Name='Men's Barbour Prestbury Wax Jacket'\n  - Name='Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S'\n  - Name='Levi's Men's Military Camo Barn Chore Coat'\n  - Name='Levi's Men's 70's Inspired Shacket Shirt'\n  - Name='Levi's Men's 90's Tab Blue Canvas Chore Workwear Jacket'\n  - Name='Levi's Vintage 90s Blanket Lined Denim Chore Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Hickory Denim Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a chore jacket like the reference, sharing the classic chore coat silhouette and utility focus, though made of denim rather than organic cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Made Crafted Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore coat closely aligned with the reference product's style and function, likely similar construction and utilitarian design.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Jersey Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A shirt jacket which is generally lighter and less structured than a chore coat; less similar silhouette and likely fewer utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Arthur Cotton Linen Twill Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A work jacket in cotton linen twill, similar fabric weight and construction to the reference, with utility and workwear influences.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Royston Casual Cotton Jacket Mens\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While a cotton jacket potentially with utility, Barbour’s casual jackets often differ in silhouette from chore coats, more of a casual outer layer.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Vintage 70's Sherpa Lined Barn Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A lined barn jacket is different in silhouette and purpose than a lightweight chore coat; more insulated and bulkier.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Trucker Utility Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar in function and style, a chore jacket with utility features; likely close in silhouette and construction to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Movement Field Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A field jacket generally has a distinct military-inspired silhouette and construction differing from chore coats, with more pockets and heavier construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ranger Short Cruiser Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A rugged outdoor jacket similar in function; cruiser jackets are slightly different in silhouette but share durability and utility focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Modern Filson Canvas Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore coat in canvas fabric, very close in core design and intended use to the reference chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Linen Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A blazer differs significantly in silhouette, cut, and intended use from a chore coat or work jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Linen Work Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A work jacket with linen fabric fits closely with the reference in terms of style and function, emphasizing utility and workwear silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Beaufort Wax Jacket Mens\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a waxed cotton jacket with a different traditional silhouette (field jacket style) and heavier weatherproofing focus than a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Timberwolf Long Sleeved Buttoned Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely an outdoor jacket differing in silhouette and construction from the chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Barbour Prestbury Wax Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A wax jacket usually heavier and with different style cues compared to the chore coat's lighter, more utilitarian design.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A chore casual jacket in cotton, similar in style and function to the reference chore coat but branded for casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Military Camo Barn Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore coat with military camo influences, very close to the reference in function and silhouette, especially given the reference fabric inspiration.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 70's Inspired Shacket Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A shacket is a hybrid shirt and jacket, generally lighter and less structured than a chore coat, with a different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's 90's Tab Blue Canvas Chore Workwear Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A chore workwear jacket in canvas, very similar design, silhouette, and construction to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Vintage 90s Blanket Lined Denim Chore Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A chore jacket with blanket lining; while the silhouette is similar, the lining changes the function and weight, making it less comparable.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Hickory Denim Chore Jacket",
+      "score": 8,
+      "rationale": "This is a chore jacket like the reference, sharing the classic chore coat silhouette and utility focus, though made of denim rather than organic cotton twill.",
+      "map_id": "map_cd7a4b400f4547efbfe5b2199c3a7806"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Made Crafted Chore Coat",
+      "score": 9,
+      "rationale": "A chore coat closely aligned with the reference product's style and function, likely similar construction and utilitarian design.",
+      "map_id": "map_e626725e8c0849cfb6895bf8b70d1d38"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Jersey Shirt Jacket",
+      "score": 5,
+      "rationale": "A shirt jacket which is generally lighter and less structured than a chore coat; less similar silhouette and likely fewer utility features.",
+      "map_id": "map_b99ed4d0eacd4352a2226ef975c4c0b8"
+    },
+    {
+      "competitor_product_name": "Alex Mill Arthur Cotton Linen Twill Work Jacket",
+      "score": 8,
+      "rationale": "A work jacket in cotton linen twill, similar fabric weight and construction to the reference, with utility and workwear influences.",
+      "map_id": "map_4b59e7a2e8274705abb970e3d23e4964"
+    },
+    {
+      "competitor_product_name": "Barbour Royston Casual Cotton Jacket Mens",
+      "score": 6,
+      "rationale": "While a cotton jacket potentially with utility, Barbour’s casual jackets often differ in silhouette from chore coats, more of a casual outer layer.",
+      "map_id": "map_fa5495b7746e46fc921a9db3874ec1b4"
+    },
+    {
+      "competitor_product_name": "Levi's Vintage 70's Sherpa Lined Barn Jacket",
+      "score": 4,
+      "rationale": "A lined barn jacket is different in silhouette and purpose than a lightweight chore coat; more insulated and bulkier.",
+      "map_id": "map_2c3959f0c9b4425caeafe9b529426fd6"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Trucker Utility Chore Jacket",
+      "score": 9,
+      "rationale": "Very similar in function and style, a chore jacket with utility features; likely close in silhouette and construction to the reference.",
+      "map_id": "map_2744257c311348eb81157f86f64e3914"
+    },
+    {
+      "competitor_product_name": "Faherty Movement Field Jacket",
+      "score": 5,
+      "rationale": "A field jacket generally has a distinct military-inspired silhouette and construction differing from chore coats, with more pockets and heavier construction.",
+      "map_id": "map_43104af59f104d4c8e59d24506c4569f"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ranger Short Cruiser Jacket",
+      "score": 7,
+      "rationale": "A rugged outdoor jacket similar in function; cruiser jackets are slightly different in silhouette but share durability and utility focus.",
+      "map_id": "map_4ee76850d4024f24b925aededdee3c01"
+    },
+    {
+      "competitor_product_name": "Modern Filson Canvas Chore Coat",
+      "score": 9,
+      "rationale": "A chore coat in canvas fabric, very close in core design and intended use to the reference chore coat.",
+      "map_id": "map_404a8ea62da94229a35db7fecb647615"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Movement Linen Blazer",
+      "score": 3,
+      "rationale": "A blazer differs significantly in silhouette, cut, and intended use from a chore coat or work jacket.",
+      "map_id": "map_16ae9dbe61e24b0295ef89386abf3c3b"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Linen Work Jacket",
+      "score": 8,
+      "rationale": "A work jacket with linen fabric fits closely with the reference in terms of style and function, emphasizing utility and workwear silhouette.",
+      "map_id": "map_dfb8dffd2c6a482a92ddee6245080e34"
+    },
+    {
+      "competitor_product_name": "Barbour Beaufort Wax Jacket Mens",
+      "score": 4,
+      "rationale": "This is a waxed cotton jacket with a different traditional silhouette (field jacket style) and heavier weatherproofing focus than a chore coat.",
+      "map_id": "map_a31cc321924a4347a66aa3609ce31cae"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Timberwolf Long Sleeved Buttoned Jacket",
+      "score": 5,
+      "rationale": "Likely an outdoor jacket differing in silhouette and construction from the chore coat style.",
+      "map_id": "map_6bb0b1b286314c98ab63121cea077bc6"
+    },
+    {
+      "competitor_product_name": "Men's Barbour Prestbury Wax Jacket",
+      "score": 4,
+      "rationale": "A wax jacket usually heavier and with different style cues compared to the chore coat's lighter, more utilitarian design.",
+      "map_id": "map_079c7c2ec5fe4aef8f9856589cb792df"
+    },
+    {
+      "competitor_product_name": "Barbour International x Steve McQueen Cotton Terrance Chore Casual Jacket - S",
+      "score": 8,
+      "rationale": "A chore casual jacket in cotton, similar in style and function to the reference chore coat but branded for casual wear.",
+      "map_id": "map_afc45ccb1fde406c96dc6dd6ed7e968c"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Military Camo Barn Chore Coat",
+      "score": 9,
+      "rationale": "A chore coat with military camo influences, very close to the reference in function and silhouette, especially given the reference fabric inspiration.",
+      "map_id": "map_4ff658d274f4431d87078ce9e5956bcc"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 70's Inspired Shacket Shirt",
+      "score": 5,
+      "rationale": "A shacket is a hybrid shirt and jacket, generally lighter and less structured than a chore coat, with a different silhouette.",
+      "map_id": "map_377098d38d1c4eba9ebe0c06694c8fa3"
+    },
+    {
+      "competitor_product_name": "Levi's Men's 90's Tab Blue Canvas Chore Workwear Jacket",
+      "score": 9,
+      "rationale": "A chore workwear jacket in canvas, very similar design, silhouette, and construction to the reference product.",
+      "map_id": "map_9bbfee7c9b684d7e8aab810354a0da32"
+    },
+    {
+      "competitor_product_name": "Levi's Vintage 90s Blanket Lined Denim Chore Jacket",
+      "score": 6,
+      "rationale": "A chore jacket with blanket lining; while the silhouette is similar, the lining changes the function and weight, making it less comparable.",
+      "map_id": "map_0f3b1b1a8cb346efa0cbb1ba46e77094"
+    }
+  ]
+}

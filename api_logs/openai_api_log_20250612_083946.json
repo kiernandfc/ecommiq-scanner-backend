@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250612_083946",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='adidas Men's Tiro 24 Sweat Hoodie'\n  - Name='Nike Men's Dri-FIT Lightweight Tour Golf Hoodie'\n  - Name='adidas Men's Premium Sweatshirt'\n  - Name='UNIQLO Oversized Sweat Hoodie'\n  - Name='Everlane Off-Duty Terry Quarter-Zip'\n  - Name='Everlane Off-duty Terry Hoodie'\n  - Name='Carhartt Men's Rain Defender Rutland Thermal Lined Hooded Zip Front Sweatshirt'\n  - Name='Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Hoodie'\n  - Name='Nike Men's Dri-FIT UV Primary Pullover Hoodie'\n  - Name='Nike Pro Hyperwarm Hood'\n  - Name='UNIQLO Women's Airism Full-Zip Hoodie with UV Protection'\n  - Name='Gap Men's Relaxed Gap Logo Hoodie'\n  - Name='Carhartt Men's Midweight Hooded Front Zip Sweatshirt'\n  - Name='Carhartt Men's Heavyweight Rain Defender Full Zip Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt'\n  - Name='Champion Men's Athletic Signature Script Logo Pullover Hooded Hoodie'\n  - Name='Champion Big & Tall Men's Powerblend Fleece Full Zip Hoodie'\n  - Name='Champion Men's Shearling Long Sleeve Hoodie'\n  - Name='Carhartt Men's Flannel-Lined Loose Fit Firm Duck Insulated Active Jacket'\n  - Name='Supreme Men's Motion Logo Cotton Hoodie'\n  - Name='Supreme Men's Motion Logo Hooded Sweatshirt'\n  - Name='adidas Men's Essentials 3-Stripes Fleece Hoodie'\n  - Name='Nike Men's Club French Terry Hoodie'\n  - Name='adidas Men's Collegiate Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"adidas Men's Tiro 24 Sweat Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hooded sweatshirt designed for sportswear, likely soft and comfortable like the Boston Scally Hoodie, matching core function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Dri-FIT Lightweight Tour Golf Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A lightweight hooded sweatshirt geared for golf, offering comfort and mobility similar to the reference hoodie but specialized for sport.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Premium Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Premium sweatshirt likely high quality and comfortable, but name lacks 'hoodie' specification so may not have a hood.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Oversized Sweat Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"An oversized sweat hoodie directly matching the hooded sweatshirt form, emphasizing comfort and mobility like the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Off-Duty Terry Quarter-Zip\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A quarter-zip sweatshirt differs in silhouette and closure from a pullover hoodie, impacting direct relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Off-duty Terry Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hoodie made from terry fabric, fits the core category of a hooded sweatshirt with comfort focus similar to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Rutland Thermal Lined Hooded Zip Front Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A hooded zip-front sweatshirt with thermal lining; similar in hooded aspect but heavier and more specialized in weather resistance.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A midweight hoodie with relaxed fit, similar overall function and style focus, though targeted at women which may slightly vary fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Dri-FIT UV Primary Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A pullover hoodie designed for UV protection, similar basic construction and use as the reference hoodie with added feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Pro Hyperwarm Hood\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A hood designed for warmth likely more of a base layer accessory than a full hoodie sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Women's Airism Full-Zip Hoodie with UV Protection\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hoodie with full zip and UV protection, similar hooded sweatshirt function but with zip and specialized fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Relaxed Gap Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A relaxed fit pullover hoodie, matching the core style and comfort focus of the reference hoodie well.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Hooded Front Zip Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Midweight hooded zip sweatshirt is similar in function but has zip front unlike the pullover in the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Heavyweight Rain Defender Full Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Heavyweight hooded zip sweatshirt designed for rain protection, heavier and more specialized than the soft, casual reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to above with added sherpa lining for warmth, differing in heaviness and zip front construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Thermal-lined, midweight rain-resistant zip sweatshirt less similar due to weight, lining, and zip front.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Athletic Signature Script Logo Pullover Hooded Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hooded sweatshirt precisely matching the reference product type, focused on casual comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Big & Tall Men's Powerblend Fleece Full Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Fleece full zip hoodie, close in functionality but zip front reduces relevancy compared to pullover reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Shearling Long Sleeve Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hoodie with shearling lining, more insulated and different feel than the lightweight, soft Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flannel-Lined Loose Fit Firm Duck Insulated Active Jacket\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Insulated jacket with flannel lining, very different product category and function from a soft hooded sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Motion Logo Cotton Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Cotton pullover hoodie with logo style, closely matching the soft, comfortable hooded sweatshirt described.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Motion Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Directly described as a hooded sweatshirt, same core product type and function.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Essentials 3-Stripes Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece pullover hoodie, similar in silhouette and use, emphasis on comfort and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club French Terry Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie made of French terry fabric, very similar in comfort and construction to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Collegiate Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic collegiate style pullover hoodie, matching the soft, comfortable hooded sweatshirt archetype.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "adidas Men's Tiro 24 Sweat Hoodie",
+      "score": 8,
+      "rationale": "A hooded sweatshirt designed for sportswear, likely soft and comfortable like the Boston Scally Hoodie, matching core function and style.",
+      "map_id": "map_bcf05b70b51a4fab98efa4138bf890d8"
+    },
+    {
+      "competitor_product_name": "Nike Men's Dri-FIT Lightweight Tour Golf Hoodie",
+      "score": 7,
+      "rationale": "A lightweight hooded sweatshirt geared for golf, offering comfort and mobility similar to the reference hoodie but specialized for sport.",
+      "map_id": "map_e6fc99ccfc1b49b09672bb52f69cf331"
+    },
+    {
+      "competitor_product_name": "adidas Men's Premium Sweatshirt",
+      "score": 6,
+      "rationale": "Premium sweatshirt likely high quality and comfortable, but name lacks 'hoodie' specification so may not have a hood.",
+      "map_id": "map_2ce5f513f4284969beb481885a5af9d3"
+    },
+    {
+      "competitor_product_name": "UNIQLO Oversized Sweat Hoodie",
+      "score": 9,
+      "rationale": "An oversized sweat hoodie directly matching the hooded sweatshirt form, emphasizing comfort and mobility like the reference product.",
+      "map_id": "map_2a4722dc75fe470da012182d270ba4a0"
+    },
+    {
+      "competitor_product_name": "Everlane Off-Duty Terry Quarter-Zip",
+      "score": 4,
+      "rationale": "A quarter-zip sweatshirt differs in silhouette and closure from a pullover hoodie, impacting direct relevancy.",
+      "map_id": "map_7d1439bd92c84acd83f0c8608795e700"
+    },
+    {
+      "competitor_product_name": "Everlane Off-duty Terry Hoodie",
+      "score": 9,
+      "rationale": "A hoodie made from terry fabric, fits the core category of a hooded sweatshirt with comfort focus similar to the Boston Scally Hoodie.",
+      "map_id": "map_b5c953bd0cec433ab64473414ea38d7a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Rutland Thermal Lined Hooded Zip Front Sweatshirt",
+      "score": 6,
+      "rationale": "A hooded zip-front sweatshirt with thermal lining; similar in hooded aspect but heavier and more specialized in weather resistance.",
+      "map_id": "map_f77be2edd9a1455ebf7db54de99a4d65"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Relaxed Fit Midweight Logo Sleeve Graphic Hoodie",
+      "score": 8,
+      "rationale": "A midweight hoodie with relaxed fit, similar overall function and style focus, though targeted at women which may slightly vary fit.",
+      "map_id": "map_f752128c1e4d4c25991b1b0b3160419b"
+    },
+    {
+      "competitor_product_name": "Nike Men's Dri-FIT UV Primary Pullover Hoodie",
+      "score": 8,
+      "rationale": "A pullover hoodie designed for UV protection, similar basic construction and use as the reference hoodie with added feature.",
+      "map_id": "map_02f2d97a6eee42fc83eb4481a55e0a9f"
+    },
+    {
+      "competitor_product_name": "Nike Pro Hyperwarm Hood",
+      "score": 4,
+      "rationale": "A hood designed for warmth likely more of a base layer accessory than a full hoodie sweatshirt.",
+      "map_id": "map_30fed022d1ba4afd92c8fe5bb7130b93"
+    },
+    {
+      "competitor_product_name": "UNIQLO Women's Airism Full-Zip Hoodie with UV Protection",
+      "score": 7,
+      "rationale": "Hoodie with full zip and UV protection, similar hooded sweatshirt function but with zip and specialized fabric.",
+      "map_id": "map_9ce6e042d6ce4cabab2e188765d26ed1"
+    },
+    {
+      "competitor_product_name": "Gap Men's Relaxed Gap Logo Hoodie",
+      "score": 9,
+      "rationale": "A relaxed fit pullover hoodie, matching the core style and comfort focus of the reference hoodie well.",
+      "map_id": "map_bb593136554541628783059aa18706a5"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Hooded Front Zip Sweatshirt",
+      "score": 7,
+      "rationale": "Midweight hooded zip sweatshirt is similar in function but has zip front unlike the pullover in the reference.",
+      "map_id": "map_5da21fce9e124b918e8d3b2c006a3491"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Heavyweight Rain Defender Full Zip Sweatshirt",
+      "score": 5,
+      "rationale": "Heavyweight hooded zip sweatshirt designed for rain protection, heavier and more specialized than the soft, casual reference hoodie.",
+      "map_id": "map_1ea313d72282411998038c5bbfbc5f17"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Sherpa Lined Full Zip Sweatshirt",
+      "score": 5,
+      "rationale": "Similar to above with added sherpa lining for warmth, differing in heaviness and zip front construction.",
+      "map_id": "map_ec1f1dd78b8341a59d7d5d949b344e36"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt",
+      "score": 5,
+      "rationale": "Thermal-lined, midweight rain-resistant zip sweatshirt less similar due to weight, lining, and zip front.",
+      "map_id": "map_7848dac5924f48f4b5133eb7754769bb"
+    },
+    {
+      "competitor_product_name": "Champion Men's Athletic Signature Script Logo Pullover Hooded Hoodie",
+      "score": 9,
+      "rationale": "Pullover hooded sweatshirt precisely matching the reference product type, focused on casual comfort.",
+      "map_id": "map_fd499890754e4f978df3596f7385b16a"
+    },
+    {
+      "competitor_product_name": "Champion Big & Tall Men's Powerblend Fleece Full Zip Hoodie",
+      "score": 7,
+      "rationale": "Fleece full zip hoodie, close in functionality but zip front reduces relevancy compared to pullover reference.",
+      "map_id": "map_5466f71f28834ba8a8f87ffca90b355b"
+    },
+    {
+      "competitor_product_name": "Champion Men's Shearling Long Sleeve Hoodie",
+      "score": 6,
+      "rationale": "Hoodie with shearling lining, more insulated and different feel than the lightweight, soft Boston Scally Hoodie.",
+      "map_id": "map_b680bdee2adb46b5a0ffc7b8fa82664a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flannel-Lined Loose Fit Firm Duck Insulated Active Jacket",
+      "score": 2,
+      "rationale": "Insulated jacket with flannel lining, very different product category and function from a soft hooded sweatshirt.",
+      "map_id": "map_082cfc81068b4ed38f6bc10132c0534e"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Motion Logo Cotton Hoodie",
+      "score": 9,
+      "rationale": "Cotton pullover hoodie with logo style, closely matching the soft, comfortable hooded sweatshirt described.",
+      "map_id": "map_4e6ca7bfd5be4e27a766535b7ab1a9dd"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Motion Logo Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Directly described as a hooded sweatshirt, same core product type and function.",
+      "map_id": "map_6c55e341df6c43eebb13450a44c6791c"
+    },
+    {
+      "competitor_product_name": "adidas Men's Essentials 3-Stripes Fleece Hoodie",
+      "score": 8,
+      "rationale": "Fleece pullover hoodie, similar in silhouette and use, emphasis on comfort and casual wear.",
+      "map_id": "map_ee8702d63f0f4674b7eb54e158391fa8"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club French Terry Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie made of French terry fabric, very similar in comfort and construction to the reference hoodie.",
+      "map_id": "map_d1e09baa3fce497799f1a714b8ded2d7"
+    },
+    {
+      "competitor_product_name": "adidas Men's Collegiate Hoodie",
+      "score": 9,
+      "rationale": "Classic collegiate style pullover hoodie, matching the soft, comfortable hooded sweatshirt archetype.",
+      "map_id": "map_6c991d5101d6479282d8a107525355c7"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250530_083814",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Slim Travel Jean Pants'\n  - Name='Everlane Men's Weekend Performance Chino'\n  - Name='Everlane Men's Performance Traveler Chino'\n  - Name='Everlane Tech Pant'\n  - Name='Everlane Women's Wide-leg Stretch Linen Pants'\n  - Name='UNIQLO Men's Tall Sweatpants'\n  - Name='Everlane The Easy Pant Straight Leg Jeans'\n  - Name='Everlane Men's Organic Taper Jeans'\n  - Name='Everlane Men's Sweat Drawstring Pull On Jogger'\n  - Name='Everlane Women's Utility Barrel Pants'\n  - Name='Italian Gurkha Trouser Pants for Men by Bonobos'\n  - Name='Bonobos Men's Athletic Fit Weekday Warrior Dress Pants'\n  - Name='UNIQLO Men's Ultra Stretch Tall Pants'\n  - Name='UNIQLO Stretch Easy Ankle Pants'\n  - Name='Carhartt WIP Men Aaron Jeans'\n  - Name='Carhartt WIP Single Knee Pant'\n  - Name='Men Carhartt WIP Floyde Pant'\n  - Name='Uniqlo Men's Straight Chino Pants'\n  - Name='UNIQLO Relaxed Linen Blend Pants'\n  - Name='UNIQLO Men's Tall 2-Way Stretch Ankle Pants'\n  - Name='UNIQLO Men's Wide Straight Jeans'\n  - Name='Everlane Women's Dream Pant'\n  - Name='Outerknown Ambassador'\n  - Name='Women Carhartt WIP Women’s Drewe Pant'\n  - Name='Carhartt WIP Men Landon'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Slim Travel Jean Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Both are men's pants but Bonobos are slim travel jeans whereas the reference is organic cotton chore pants with durable construction; different materials and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Weekend Performance Chino\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's casual pants with chinos likely comparable in style and use, but the reference has heavier organic cotton canvas with reinforced knees, differing in fabric and ruggedness.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Traveler Chino\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar casual men's pants designed for travel and performance; likely similar silhouette but reference has heavier canvas fabric and workwear construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Tech Pant\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Tech Pant implies synthetic performance fabric with stretch; different material focus from the reference's organic cotton canvas chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Wide-leg Stretch Linen Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Different gender focus, wide-leg stretch linen pants are quite different in silhouette and fabric from the reference chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Tall Sweatpants\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Sweatpants are casual knit lounge pants, very different in construction, fabric, and style compared to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane The Easy Pant Straight Leg Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's straight leg jeans are similar in silhouette but the reference uses heavy organic cotton canvas with special reinforcement, differing in fabric and details.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Taper Jeans\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Men's tapered organic jeans share organic cotton material theme and men's casual pant style but differ in fabric weight and construction details.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Sweat Drawstring Pull On Jogger\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Joggers with drawstring pull on waistband and sweat fabric are fundamentally different in purpose and construction from chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Utility Barrel Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Utility barrel pants share the 'utility' concept but differ in gender, silhouette (wide/barrel leg), and likely fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Italian Gurkha Trouser Pants for Men by Bonobos\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Gurkha trousers are dressier, tailored pants very different in style and function from rugged chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Athletic Fit Weekday Warrior Dress Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Dress pants aimed at professional wear do not align closely with rugged, casual chore pant style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Ultra Stretch Tall Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Stretch fabric pants emphasize flexibility and casual wear but lack the durable cotton canvas and reinforced details of chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Stretch Easy Ankle Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Easy ankle pants with stretch differ in fabric and rugged construction from the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Aaron Jeans\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Carhartt WIP focuses on workwear style; jeans differ in fabric but share rugged intent and construction similar to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Single Knee Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Single knee pants from Carhartt WIP are very close in workwear style and construction with reinforced knees, similar fabric weight and purpose to the reference chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP Floyde Pant\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Floyde pant likely a rugged work pant close in function and style though specific details unknown; probably similar relevance to chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Uniqlo Men's Straight Chino Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Straight chino pants are casual men's pants with similar silhouette but differ in fabric weight and reinforced features.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Relaxed linen blend pants differ significantly in fabric, weight and style from the heavy organic cotton chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Tall 2-Way Stretch Ankle Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Stretch ankle pants focus on lightweight fabric and flexibility unlike the rugged chore pant construction.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Wide Straight Jeans\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Wide straight jeans may share casual pant function but differ in fabric and silhouette details from chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Dream Pant\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women's dressier or softer silhouette pant not closely aligned with rugged men’s chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Ambassador\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Outerknown Ambassador pants are casual men’s pants but more fashion oriented than workwear, less rugged construction than chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Women Carhartt WIP Women’s Drewe Pant\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Women's version of Carhartt pants likely share some rugged traits but different gender focus and possibly different silhouette and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men Landon\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Carhartt WIP Landon pants are rugged men's workwear style pants likely similar in fabric and reinforced construction to the chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Slim Travel Jean Pants",
+      "score": 4,
+      "rationale": "Both are men's pants but Bonobos are slim travel jeans whereas the reference is organic cotton chore pants with durable construction; different materials and purpose.",
+      "map_id": "map_279dc9307e6d425eaad851fe67d86e92"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Weekend Performance Chino",
+      "score": 6,
+      "rationale": "Both are men's casual pants with chinos likely comparable in style and use, but the reference has heavier organic cotton canvas with reinforced knees, differing in fabric and ruggedness.",
+      "map_id": "map_b05ff8d0fe0f4f8991cdfa235f660ada"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Traveler Chino",
+      "score": 6,
+      "rationale": "Similar casual men's pants designed for travel and performance; likely similar silhouette but reference has heavier canvas fabric and workwear construction.",
+      "map_id": "map_a859e59cc5df492eb7bd1365113363e1"
+    },
+    {
+      "competitor_product_name": "Everlane Tech Pant",
+      "score": 5,
+      "rationale": "Tech Pant implies synthetic performance fabric with stretch; different material focus from the reference's organic cotton canvas chore pant.",
+      "map_id": "map_5461c692566c42a0a574d6bb02695161"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Wide-leg Stretch Linen Pants",
+      "score": 2,
+      "rationale": "Different gender focus, wide-leg stretch linen pants are quite different in silhouette and fabric from the reference chore pant.",
+      "map_id": "map_453e8a7ce50b4cea996bbf67ebdac41b"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Tall Sweatpants",
+      "score": 1,
+      "rationale": "Sweatpants are casual knit lounge pants, very different in construction, fabric, and style compared to chore pants.",
+      "map_id": "map_c675470634ca485487d89880df43af0e"
+    },
+    {
+      "competitor_product_name": "Everlane The Easy Pant Straight Leg Jeans",
+      "score": 5,
+      "rationale": "Men's straight leg jeans are similar in silhouette but the reference uses heavy organic cotton canvas with special reinforcement, differing in fabric and details.",
+      "map_id": "map_c960b62d0c324525903ea411ef07e77f"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Taper Jeans",
+      "score": 5,
+      "rationale": "Men's tapered organic jeans share organic cotton material theme and men's casual pant style but differ in fabric weight and construction details.",
+      "map_id": "map_856fd745803a471b9f7d1aca42ad15f4"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Sweat Drawstring Pull On Jogger",
+      "score": 1,
+      "rationale": "Joggers with drawstring pull on waistband and sweat fabric are fundamentally different in purpose and construction from chore pants.",
+      "map_id": "map_5cb61945f1c6404eb29d884489fc62e1"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Utility Barrel Pants",
+      "score": 3,
+      "rationale": "Utility barrel pants share the 'utility' concept but differ in gender, silhouette (wide/barrel leg), and likely fabric.",
+      "map_id": "map_2be12926884e40ccbb660619c3e817b0"
+    },
+    {
+      "competitor_product_name": "Italian Gurkha Trouser Pants for Men by Bonobos",
+      "score": 3,
+      "rationale": "Gurkha trousers are dressier, tailored pants very different in style and function from rugged chore pants.",
+      "map_id": "map_9034329dfaa0498d91f1a771b3664927"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Athletic Fit Weekday Warrior Dress Pants",
+      "score": 2,
+      "rationale": "Dress pants aimed at professional wear do not align closely with rugged, casual chore pant style and construction.",
+      "map_id": "map_57e5f13130144d99bcc8ce10439ce678"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Ultra Stretch Tall Pants",
+      "score": 3,
+      "rationale": "Stretch fabric pants emphasize flexibility and casual wear but lack the durable cotton canvas and reinforced details of chore pants.",
+      "map_id": "map_070e8baa2d1e47e08a3e84be75b7ea98"
+    },
+    {
+      "competitor_product_name": "UNIQLO Stretch Easy Ankle Pants",
+      "score": 3,
+      "rationale": "Easy ankle pants with stretch differ in fabric and rugged construction from the chore pant.",
+      "map_id": "map_d6da86bd958d48fd8190954cd74e263e"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Aaron Jeans",
+      "score": 6,
+      "rationale": "Carhartt WIP focuses on workwear style; jeans differ in fabric but share rugged intent and construction similar to chore pant.",
+      "map_id": "map_108a6b0d068540658c0dacf1ab58db6f"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Single Knee Pant",
+      "score": 8,
+      "rationale": "Single knee pants from Carhartt WIP are very close in workwear style and construction with reinforced knees, similar fabric weight and purpose to the reference chore pant.",
+      "map_id": "map_8929b631dbb04fe584e8d5aefd09442e"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP Floyde Pant",
+      "score": 7,
+      "rationale": "Floyde pant likely a rugged work pant close in function and style though specific details unknown; probably similar relevance to chore pant.",
+      "map_id": "map_5a75f3b17445446e9d926b680fc50d2d"
+    },
+    {
+      "competitor_product_name": "Uniqlo Men's Straight Chino Pants",
+      "score": 5,
+      "rationale": "Straight chino pants are casual men's pants with similar silhouette but differ in fabric weight and reinforced features.",
+      "map_id": "map_fa819dc79b6043ba8b0292f8805ce19a"
+    },
+    {
+      "competitor_product_name": "UNIQLO Relaxed Linen Blend Pants",
+      "score": 2,
+      "rationale": "Relaxed linen blend pants differ significantly in fabric, weight and style from the heavy organic cotton chore pant.",
+      "map_id": "map_f301544123314cf9ab29f1af7a19d400"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Tall 2-Way Stretch Ankle Pants",
+      "score": 3,
+      "rationale": "Stretch ankle pants focus on lightweight fabric and flexibility unlike the rugged chore pant construction.",
+      "map_id": "map_da8f635f2f8244e48a8376fdd0c7e456"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Wide Straight Jeans",
+      "score": 4,
+      "rationale": "Wide straight jeans may share casual pant function but differ in fabric and silhouette details from chore pant.",
+      "map_id": "map_8d5436c0c077430abc7f452a15f03514"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Dream Pant",
+      "score": 2,
+      "rationale": "Women's dressier or softer silhouette pant not closely aligned with rugged men’s chore pant.",
+      "map_id": "map_c60f2fa822de4becb0fa786e818bf03e"
+    },
+    {
+      "competitor_product_name": "Outerknown Ambassador",
+      "score": 4,
+      "rationale": "Outerknown Ambassador pants are casual men’s pants but more fashion oriented than workwear, less rugged construction than chore pant.",
+      "map_id": "map_aa3ca99819c04995b39851f147310aa9"
+    },
+    {
+      "competitor_product_name": "Women Carhartt WIP Women’s Drewe Pant",
+      "score": 3,
+      "rationale": "Women's version of Carhartt pants likely share some rugged traits but different gender focus and possibly different silhouette and fit.",
+      "map_id": "map_01741ce6f6dd4212abfbf93216d6c268"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men Landon",
+      "score": 7,
+      "rationale": "Carhartt WIP Landon pants are rugged men's workwear style pants likely similar in fabric and reinforced construction to the chore pant.",
+      "map_id": "map_136a2693fc7445fca833713260952885"
+    }
+  ]
+}

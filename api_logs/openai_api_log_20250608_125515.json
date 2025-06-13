@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250608_125515",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Patagonia Men's All Seasons Double Knee Pants'\n  - Name='Patagonia Men's R2 TechFace Pants'\n  - Name='Everlane Men's Performance Chino'\n  - Name='UNIQLO Women's AirSense Wide Pants'\n  - Name='UNIQLO Stretch Easy Ankle Pants'\n  - Name='UNIQLO Relaxed Linen Blend Pants'\n  - Name='UNIQLO Men's Ultra Stretch DRY-EX Tapered Pants'\n  - Name='Patagonia Men's Synchilla Pants'\n  - Name='Everlane Men's Performance Chino Uniform'\n  - Name='Carhartt WIP 'Double Knee' Jeans'\n  - Name='Carhartt WIP Kade Cargo Pants'\n  - Name='Everlane Men's Organic Cotton Straight-leg Jean'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Patagonia Men's All Seasons Double Knee Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product shares the key features of double-knee reinforcement and is pants designed for durability, similar to the reference Chore Pant, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's R2 TechFace Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"These are performance pants likely focused on technical fabric and insulation rather than canvas workwear style or construction, so moderately relevant but less so than chore-specific pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Chino\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance chinos share the general pant silhouette but likely lack the heavy-duty double-knee construction and canvas material of the reference, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Women's AirSense Wide Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"These are women's wide pants with a likely different material and purpose (comfort, breathability) rather than durable workwear chinos, so low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Stretch Easy Ankle Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual stretch ankle pants differ substantially in construction and use from double-knee durable chore pants, only vaguely related as pants.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Relaxed Linen Blend Pants\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Linen blend relaxed pants are intended for light casual wear and do not share the heavy canvas, reinforced construction or workwear purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Men's Ultra Stretch DRY-EX Tapered Pants\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Though these are men's pants, the stretch and DRY-EX technical fabric focus on performance and comfort over durability or workwear function.\"\n    },\n    {\n      \"competitor_product_name\": \"Patagonia Men's Synchilla Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"These are likely fleece pants for warmth and casual wear, differing in material and construction from canvas chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Performance Chino Uniform\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"As similar chinos, they share silhouette but probably not the heavier canvas or double-knee reinforcements, thus moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP 'Double Knee' Jeans\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Jeans with double-knee reinforcement are quite close in function and durable construction, making them highly relevant to the reference chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Kade Cargo Pants\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cargo pants with durable Carhartt branding share workwear focus, construction, and possibly similar material but include cargo pockets differing from Chore Pant style.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Organic Cotton Straight-leg Jean\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Organic cotton straight-leg jeans are reasonably similar in material and silhouette but may lack reinforced knees and the chore pant specific details.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Patagonia Men's All Seasons Double Knee Pants",
+      "score": 9,
+      "rationale": "This product shares the key features of double-knee reinforcement and is pants designed for durability, similar to the reference Chore Pant, making it highly relevant.",
+      "map_id": "map_4ae1d16b604549789b833420d8e02f7b"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's R2 TechFace Pants",
+      "score": 5,
+      "rationale": "These are performance pants likely focused on technical fabric and insulation rather than canvas workwear style or construction, so moderately relevant but less so than chore-specific pants.",
+      "map_id": "map_57462a3509bf435d8d961785b9e4e88c"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Chino",
+      "score": 6,
+      "rationale": "Performance chinos share the general pant silhouette but likely lack the heavy-duty double-knee construction and canvas material of the reference, moderately relevant.",
+      "map_id": "map_6c9ff7bf7a4e482899493ea9384f8e37"
+    },
+    {
+      "competitor_product_name": "UNIQLO Women's AirSense Wide Pants",
+      "score": 2,
+      "rationale": "These are women's wide pants with a likely different material and purpose (comfort, breathability) rather than durable workwear chinos, so low relevancy.",
+      "map_id": "map_af05d60defa342ef84d61fabf05cda26"
+    },
+    {
+      "competitor_product_name": "UNIQLO Stretch Easy Ankle Pants",
+      "score": 3,
+      "rationale": "Casual stretch ankle pants differ substantially in construction and use from double-knee durable chore pants, only vaguely related as pants.",
+      "map_id": "map_0dbcbed050234710952ea9e954efc0f9"
+    },
+    {
+      "competitor_product_name": "UNIQLO Relaxed Linen Blend Pants",
+      "score": 2,
+      "rationale": "Linen blend relaxed pants are intended for light casual wear and do not share the heavy canvas, reinforced construction or workwear purpose.",
+      "map_id": "map_2f82905c3f54403fbbe69c3bf27dff4d"
+    },
+    {
+      "competitor_product_name": "UNIQLO Men's Ultra Stretch DRY-EX Tapered Pants",
+      "score": 3,
+      "rationale": "Though these are men's pants, the stretch and DRY-EX technical fabric focus on performance and comfort over durability or workwear function.",
+      "map_id": "map_b078951656c449ac9d4443cf130fff23"
+    },
+    {
+      "competitor_product_name": "Patagonia Men's Synchilla Pants",
+      "score": 4,
+      "rationale": "These are likely fleece pants for warmth and casual wear, differing in material and construction from canvas chore pants.",
+      "map_id": "map_5050f5d28df74a7d9b70246f4e66d984"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Performance Chino Uniform",
+      "score": 6,
+      "rationale": "As similar chinos, they share silhouette but probably not the heavier canvas or double-knee reinforcements, thus moderately relevant.",
+      "map_id": "map_c1823287235445038e4874dea7cfbf99"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP 'Double Knee' Jeans",
+      "score": 8,
+      "rationale": "Jeans with double-knee reinforcement are quite close in function and durable construction, making them highly relevant to the reference chore pant.",
+      "map_id": "map_e0c9203cdab64e56a01cb7c6c62d91de"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Kade Cargo Pants",
+      "score": 7,
+      "rationale": "Cargo pants with durable Carhartt branding share workwear focus, construction, and possibly similar material but include cargo pockets differing from Chore Pant style.",
+      "map_id": "map_5c9bd76b925846eeb522a3541864549c"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Organic Cotton Straight-leg Jean",
+      "score": 5,
+      "rationale": "Organic cotton straight-leg jeans are reasonably similar in material and silhouette but may lack reinforced knees and the chore pant specific details.",
+      "map_id": "map_cc7adeba48914215825de8a388775c17"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "timestamp": "20250513_091335",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Majestic Rose Boston Scally Cap'\n  - Name='The Black Rose Peaky Boston Scally Cap'\n  - Name='Boston Scally Co. Men's Peaky Newsboy 8-Panel Cotton Flat Cap'\n  - Name='The Violet Rose Plaid Peaky Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Majestic Rose Boston Scally Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Shares the Boston Scally brand and is a scally cap, but the name suggests a different style variant without specific mention of the 'Peaky' or 8-panel style.\"\n    },\n    {\n      \"competitor_product_name\": \"The Black Rose Peaky Boston Scally Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches the reference product exactly in name and implies the same 8-panel Peaky style and Boston Scally brand, indicating it is the identical product.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Co. Men's Peaky Newsboy 8-Panel Cotton Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Matches the brand, 'Peaky' 8-panel newsboy style, and flat cap silhouette very closely, differing only by cotton material mention and lack of specific pattern or brim details.\"\n    },\n    {\n      \"competitor_product_name\": \"The Violet Rose Plaid Peaky Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Shares the Peaky 8-panel style and Boston Scally branding, similar silhouette to reference product; color/pattern variation is not penalized so highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Majestic Rose Boston Scally Cap",
+      "score": 7,
+      "rationale": "Shares the Boston Scally brand and is a scally cap, but the name suggests a different style variant without specific mention of the 'Peaky' or 8-panel style.",
+      "map_id": "map_4bb79762b3c042ad8d850c0a80128931"
+    },
+    {
+      "competitor_product_name": "The Black Rose Peaky Boston Scally Cap",
+      "score": 10,
+      "rationale": "Matches the reference product exactly in name and implies the same 8-panel Peaky style and Boston Scally brand, indicating it is the identical product.",
+      "map_id": "map_dfcb8bf555fa44bfa003450ff529d072"
+    },
+    {
+      "competitor_product_name": "Boston Scally Co. Men's Peaky Newsboy 8-Panel Cotton Flat Cap",
+      "score": 9,
+      "rationale": "Matches the brand, 'Peaky' 8-panel newsboy style, and flat cap silhouette very closely, differing only by cotton material mention and lack of specific pattern or brim details.",
+      "map_id": "map_91fb1f07e9b94d4ea9c0015ccce37664"
+    },
+    {
+      "competitor_product_name": "The Violet Rose Plaid Peaky Boston Scally Cap",
+      "score": 9,
+      "rationale": "Shares the Peaky 8-panel style and Boston Scally branding, similar silhouette to reference product; color/pattern variation is not penalized so highly relevant.",
+      "map_id": "map_022d7fbea92343cf9f7b9eed4b56eb83"
+    }
+  ]
+}

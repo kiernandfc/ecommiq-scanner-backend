@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250610_101416",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Men's Italian Linen Ivy Driver Cap'\n  - Name='Stetson Men's Driver Virgin Wool Flat Cap'\n  - Name='Stetson Men's Houndstooth Tweed Driver Cap'\n  - Name='Stetson Light Cashmere Wool Driver Flat Cap'\n  - Name='Stetson Harris Tweed Virgin Wool Driving Cap'\n  - Name='Carhartt Men's Rugged Flex Cap Twill Mesh-Back Logo Patch'\n  - Name='Stetson Patchwork Driver Cap - Made in Europe , Holland Hats'\n  - Name='Stetson Wool Herringbone Flat Cap'\n  - Name='Stetson Men's Dundee Leather Ivy Cap'\n  - Name='Carhartt Men's Cotton Canvas Cap'\n  - Name='Carhartt Men's Canvas Mesh Back Logo Graphic Cap'\n  - Name='Carhartt Men's Buffalo Sandstone Mesh Hat'\n  - Name='Bailey Newry'\n  - Name='Bailey Stockton Premium Ivy Leather Cap'\n  - Name='Carhartt WIP Field Baseball Cap'\n  - Name='Barbour Men's Cheviot Flat Cap'\n  - Name='Goorin Bros. Members Only Collection Papa Cap'\n  - Name='Brixton Cardova Mid Profile Strapback Baseball Cap'\n  - Name='Brixton Assembly Fiddler Fisherman Cap'\n  - Name='Goorin Bros. The Queen Bee Trucker'\n  - Name='Goorin Bros. Soft Pack Trucker Hat'\n  - Name='Brixton Hooligan Lightweight Flat Cap'\n  - Name='Goorin Bros. The Freedom Eagle Trucker'\n  - Name='Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat'\n  - Name='Big Yachty Tan / X-Large'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Men's Italian Linen Ivy Driver Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This cap is also a driver style, similar silhouette and function, though made with linen rather than micro-poly sport fabric; both prioritizing breathability and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Driver Virgin Wool Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver style with flat cap construction, similar intended use but made with virgin wool, less focused on sport technology and breathability compared to micro-poly.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Houndstooth Tweed Driver Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar driver cap silhouette and function, but tweed fabric indicates a heavier, less breathable material compared to the sport fabric of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Light Cashmere Wool Driver Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver flat cap style, high-quality wool, less emphasis on sport performance but similar shape and casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Harris Tweed Virgin Wool Driving Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driving cap style with similar silhouette, made with traditional tweed wool, less breathability and sport performance.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rugged Flex Cap Twill Mesh-Back Logo Patch\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"While it has a mesh back for breathability and is a sport-inspired cap, its construction and style likely differ significantly from an 8-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Patchwork Driver Cap - Made in Europe , Holland Hats\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Driver cap style consistent with the reference product, though patchwork construction may differ; still similar silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Herringbone Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap style with wool herringbone fabric, similar shape but heavier fabric and less focus on sport tech and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Dundee Leather Ivy Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap construction but leather material and different style, less similar to breathable sport driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Cotton Canvas Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Canvas material and general cap style, but not a driver or flat cap style; likely different construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Mesh Back Logo Graphic Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Mesh back improves breathability, but style is different (likely baseball cap style), not driver or flat cap silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Buffalo Sandstone Mesh Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Mesh hat style likely more casual baseball cap than driver cap; different silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Newry\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Bailey Newry is a flat cap style similar in silhouette, but fabric specifics unknown; possibly not sport fabric, thus moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Bailey Stockton Premium Ivy Leather Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ivy cap with leather material differs from 8-panel driver cap in design and breathability.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Field Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baseball cap style is different from driver 8-panel form-fitting cap making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cheviot Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Flat cap silhouette similar, but traditional uses heavier fabric and less performance focus, resulting in moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Members Only Collection Papa Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Papa cap from Goorin Bros may share some silhouette similarity but likely less technical fabric, moderate to low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Cardova Mid Profile Strapback Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Baseball cap style with strapback differs significantly from 8-panel driver cap silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Assembly Fiddler Fisherman Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Fiddler cap has a different crown style but similar vintage-inspired headwear; moderate relevancy due to different shape and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Queen Bee Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat style differs in silhouette and construction from driver cap; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Soft Pack Trucker Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Same as above, trucker hat style varies greatly from driver cap design and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Hooligan Lightweight Flat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Lightweight flat cap aligns well with form and function, though may not use micro-poly sport fabric, still good relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Freedom Eagle Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker hat style with different silhouette and sport usage; low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Duckbill/Ivy/Newsboy are close in silhouette to driver caps; linen fabric offers breathability, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Big Yachty Tan / X-Large\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Appears unrelated to cap style (likely a different product or non-headwear altogether); no relevancy.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Men's Italian Linen Ivy Driver Cap",
+      "score": 8,
+      "rationale": "This cap is also a driver style, similar silhouette and function, though made with linen rather than micro-poly sport fabric; both prioritizing breathability and style.",
+      "map_id": "map_b51c3b7e4da54bd2899b2323b70891c6"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Driver Virgin Wool Flat Cap",
+      "score": 7,
+      "rationale": "Driver style with flat cap construction, similar intended use but made with virgin wool, less focused on sport technology and breathability compared to micro-poly.",
+      "map_id": "map_f1e3c4127ace4d7eb20b8dfffbc7dfde"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Houndstooth Tweed Driver Cap",
+      "score": 7,
+      "rationale": "Similar driver cap silhouette and function, but tweed fabric indicates a heavier, less breathable material compared to the sport fabric of the reference.",
+      "map_id": "map_038b077fcb6b46468ab7ad7b4d21fbf2"
+    },
+    {
+      "competitor_product_name": "Stetson Light Cashmere Wool Driver Flat Cap",
+      "score": 7,
+      "rationale": "Driver flat cap style, high-quality wool, less emphasis on sport performance but similar shape and casual use.",
+      "map_id": "map_c47d4e50d1c74de6be08ab4be63a8d4c"
+    },
+    {
+      "competitor_product_name": "Stetson Harris Tweed Virgin Wool Driving Cap",
+      "score": 7,
+      "rationale": "Driving cap style with similar silhouette, made with traditional tweed wool, less breathability and sport performance.",
+      "map_id": "map_4ef373afb3ba4eebb8e9625c05f602d1"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rugged Flex Cap Twill Mesh-Back Logo Patch",
+      "score": 4,
+      "rationale": "While it has a mesh back for breathability and is a sport-inspired cap, its construction and style likely differ significantly from an 8-panel driver cap.",
+      "map_id": "map_718afe19121b4813945332136156a9fb"
+    },
+    {
+      "competitor_product_name": "Stetson Patchwork Driver Cap - Made in Europe , Holland Hats",
+      "score": 7,
+      "rationale": "Driver cap style consistent with the reference product, though patchwork construction may differ; still similar silhouette and function.",
+      "map_id": "map_5f01d4635bdb44c4829ded22bf36b819"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Herringbone Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap style with wool herringbone fabric, similar shape but heavier fabric and less focus on sport tech and breathability.",
+      "map_id": "map_2adfb8a7d56b43b0bdb2e279ce628715"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Dundee Leather Ivy Cap",
+      "score": 5,
+      "rationale": "Ivy cap construction but leather material and different style, less similar to breathable sport driver cap.",
+      "map_id": "map_12840a73d63d49dd810a1a0bb6fc1e47"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Cotton Canvas Cap",
+      "score": 3,
+      "rationale": "Canvas material and general cap style, but not a driver or flat cap style; likely different construction and silhouette.",
+      "map_id": "map_135251a0465a4816b41dd987d8b22133"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Mesh Back Logo Graphic Cap",
+      "score": 4,
+      "rationale": "Mesh back improves breathability, but style is different (likely baseball cap style), not driver or flat cap silhouette.",
+      "map_id": "map_b8555f069a0f4ea3bd53d2ce7f5d515a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Buffalo Sandstone Mesh Hat",
+      "score": 3,
+      "rationale": "Mesh hat style likely more casual baseball cap than driver cap; different silhouette and construction.",
+      "map_id": "map_0d46ef6189c34e3d88d20421d173a868"
+    },
+    {
+      "competitor_product_name": "Bailey Newry",
+      "score": 6,
+      "rationale": "Bailey Newry is a flat cap style similar in silhouette, but fabric specifics unknown; possibly not sport fabric, thus moderate relevance.",
+      "map_id": "map_f2712af88523438996b656a7b8c8c301"
+    },
+    {
+      "competitor_product_name": "Bailey Stockton Premium Ivy Leather Cap",
+      "score": 5,
+      "rationale": "Ivy cap with leather material differs from 8-panel driver cap in design and breathability.",
+      "map_id": "map_b56204f36ae541ba94bad67eb285a9fb"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Field Baseball Cap",
+      "score": 3,
+      "rationale": "Baseball cap style is different from driver 8-panel form-fitting cap making it less relevant.",
+      "map_id": "map_83f1386433c449d8bbc8d059ab6b7199"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cheviot Flat Cap",
+      "score": 6,
+      "rationale": "Flat cap silhouette similar, but traditional uses heavier fabric and less performance focus, resulting in moderate relevancy.",
+      "map_id": "map_e56fba9f93654f21a1299e8d5070b2c1"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Members Only Collection Papa Cap",
+      "score": 5,
+      "rationale": "Papa cap from Goorin Bros may share some silhouette similarity but likely less technical fabric, moderate to low relevancy.",
+      "map_id": "map_abe0992ee8784ca792b3c4be241ba8fe"
+    },
+    {
+      "competitor_product_name": "Brixton Cardova Mid Profile Strapback Baseball Cap",
+      "score": 3,
+      "rationale": "Baseball cap style with strapback differs significantly from 8-panel driver cap silhouette and construction.",
+      "map_id": "map_8ed8cc858d874723b63e1db3e3557a1c"
+    },
+    {
+      "competitor_product_name": "Brixton Assembly Fiddler Fisherman Cap",
+      "score": 6,
+      "rationale": "Fiddler cap has a different crown style but similar vintage-inspired headwear; moderate relevancy due to different shape and use.",
+      "map_id": "map_a44e23c2048e4af58cdfca6a6672d34a"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Queen Bee Trucker",
+      "score": 3,
+      "rationale": "Trucker hat style differs in silhouette and construction from driver cap; low relevancy.",
+      "map_id": "map_df841376932d436a9927f07ddae6fccf"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Soft Pack Trucker Hat",
+      "score": 3,
+      "rationale": "Same as above, trucker hat style varies greatly from driver cap design and fabric.",
+      "map_id": "map_331c49504cd4400aa08a9e360a0d1450"
+    },
+    {
+      "competitor_product_name": "Brixton Hooligan Lightweight Flat Cap",
+      "score": 7,
+      "rationale": "Lightweight flat cap aligns well with form and function, though may not use micro-poly sport fabric, still good relevance.",
+      "map_id": "map_8d48add7412a4293a68f566c9a2f7898"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Freedom Eagle Trucker",
+      "score": 3,
+      "rationale": "Trucker hat style with different silhouette and sport usage; low relevancy.",
+      "map_id": "map_128da920d9fd4528b1230bf1986767b2"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's. Benjamin Paul Linen Duckbill Ivy Flat Cap Newsboy Hat",
+      "score": 7,
+      "rationale": "Duckbill/Ivy/Newsboy are close in silhouette to driver caps; linen fabric offers breathability, moderately relevant.",
+      "map_id": "map_566bb524cc7f4082ab3a2889a331f5a6"
+    },
+    {
+      "competitor_product_name": "Big Yachty Tan / X-Large",
+      "score": 1,
+      "rationale": "Appears unrelated to cap style (likely a different product or non-headwear altogether); no relevancy.",
+      "map_id": "map_4d8393fe09a440ec973d132985f42b3e"
+    }
+  ]
+}

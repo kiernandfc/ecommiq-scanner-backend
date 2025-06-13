@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250525_154107",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Mizzen+main Phil Mickelson Golf Polo Shirt'\n  - Name='Men's Mizzen+Main Halyard Short Sleeve'\n  - Name='Mizzen + Main Leeward Short Sleeve'\n  - Name='Mizzen+Main Ellis Oxford Solid Shirt'\n  - Name='Leeward Men's Performance Short Sleeve Button Down Dress Shirt'\n  - Name='Arizona Ellis Oxford'\n  - Name='Mizzen+main Men's Long Sleeve Dress Shirt'\n  - Name='Todd Snyder Men's Cropped Rayon Capri Shirt'\n  - Name='Men's Todd Snyder Cotton Poplin End on End Spread Collar Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt'\n  - Name='Mizzen + Main Leeward Men's Short Sleeve Coastal Fjord Fern Geo'\n  - Name='Mens Mizzen+Main Leeward Short Sleeve'\n  - Name='Mizzen + Main Leeward No Tuck Rose Triple Dash Dress Shirt'\n  - Name='Alex Mill Women's Santa Fe Denim Western Shirt'\n  - Name='Sea Soft Irish Linen Camp Collar Short Sleeve Shirt'\n  - Name='Men's Todd Snyder Button-down Collar Shirt'\n  - Name='Todd Snyder Men's Cropped Rayon Camp Collar Shirt'\n  - Name='Todd Snyder Men's Italian Stretch Knit Dress Shirt'\n  - Name='Todd Snyder Men's Italian Denim Overshirt'\n  - Name='Todd Snyder Men's Cropped Irish Linen Camp Collar Shirt'\n  - Name='Todd Snyder Men's Relaxed Silk-Cotton Point Collar Shirt'\n  - Name='Todd Snyder Men's Cropped Linen Camp Collar Shirt'\n  - Name='Todd Snyder Men's Slim Fit Favorite Oxford Shirt'\n  - Name='Todd Snyder Men's Cropped Cotton Crepe Camp Collar Shirt'\n  - Name='Todd Snyder Men's Seersucker Long Point Collar Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Mizzen+main Phil Mickelson Golf Polo Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a golf polo shirt, likely knit with a collar, quite different in fabric and construction from an Oxford button-down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Halyard Short Sleeve\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve button-down dress shirts are closer but short sleeve and performance fabrics reduce relevancy compared to the long sleeve Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward Short Sleeve\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Similar to above, short sleeve button-down shirts share some function but fabric and sleeve length differ from the Jack Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Ellis Oxford Solid Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is an Oxford shirt, likely long sleeve and close in construction to the Taylor Stitch Jack Shirt, very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Leeward Men's Performance Short Sleeve Button Down Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve performance dress shirt is somewhat related as a dress shirt but lacks the Oxford fabric and tailoring of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Arizona Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An Oxford shirt sharing the key fabric and likely style features making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+main Men's Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Long sleeve dress shirt is close in style and construction but may differ in fabric and tailoring specifics.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cropped Rayon Capri Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Rayon fabric and cropped silhouette differ significantly from the organic cotton, longer Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Todd Snyder Cotton Poplin End on End Spread Collar Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton poplin dress shirt is similar in use and construction but poplin fabric differs from Oxford basket weave.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron Oxford shirt closely matches the fabric, style, and function of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward Men's Short Sleeve Coastal Fjord Fern Geo\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve and likely performance fabric reduce relevancy despite being a button down shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mens Mizzen+Main Leeward Short Sleeve\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Repeated short sleeve button down shirt similar to above with moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward No Tuck Rose Triple Dash Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Performance dress shirt designed to be untucked aligns somewhat with the shorter length and tailored fit of the reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Women's Santa Fe Denim Western Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Denim western shirt differs in fabric and style from the tailored Oxford shirt, and is women's cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Sea Soft Irish Linen Camp Collar Short Sleeve Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Camp collar and linen fabric with short sleeves are quite different in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Todd Snyder Button-down Collar Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"General button-down collar shirt likely similar in cut and use, though fabric is unspecified.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cropped Rayon Camp Collar Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Rayon fabric, cropped length, and camp collar differ markedly from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Italian Stretch Knit Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Stretch knit fabric differs significantly from woven Oxford, but still a long sleeve dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Italian Denim Overshirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Denim overshirt is heavier and different in style and layering function versus shirt worn alone.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cropped Irish Linen Camp Collar Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Cropped length, camp collar, linen fabric differ strongly from the tailored Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Relaxed Silk-Cotton Point Collar Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk-cotton blend and point collar with relaxed fit differ in fabric and styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cropped Linen Camp Collar Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Again cropped length, camp collar, and linen fabric reduce relevancy greatly.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Slim Fit Favorite Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit Oxford shirt very similar in construction, fabric and styling to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Cropped Cotton Crepe Camp Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Cropped, camp collar and crepe fabric differ substantially from the organic cotton Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Seersucker Long Point Collar Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Seersucker fabric and point collar differ, but still a long sleeve dress shirt, somewhat relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Mizzen+main Phil Mickelson Golf Polo Shirt",
+      "score": 2,
+      "rationale": "This is a golf polo shirt, likely knit with a collar, quite different in fabric and construction from an Oxford button-down shirt.",
+      "map_id": "map_8948c1127d8f4d8e83b3275696334059"
+    },
+    {
+      "competitor_product_name": "Men's Mizzen+Main Halyard Short Sleeve",
+      "score": 4,
+      "rationale": "Short sleeve button-down dress shirts are closer but short sleeve and performance fabrics reduce relevancy compared to the long sleeve Oxford shirt.",
+      "map_id": "map_aaaf8a228c944471967d5e35346f8dc4"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward Short Sleeve",
+      "score": 4,
+      "rationale": "Similar to above, short sleeve button-down shirts share some function but fabric and sleeve length differ from the Jack Oxford.",
+      "map_id": "map_6fd8ba5ae12844a88c1c8c34088b7c2e"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Ellis Oxford Solid Shirt",
+      "score": 8,
+      "rationale": "This is an Oxford shirt, likely long sleeve and close in construction to the Taylor Stitch Jack Shirt, very relevant.",
+      "map_id": "map_a6c84efb1c93429d9f91b17f4d130fa7"
+    },
+    {
+      "competitor_product_name": "Leeward Men's Performance Short Sleeve Button Down Dress Shirt",
+      "score": 4,
+      "rationale": "Short sleeve performance dress shirt is somewhat related as a dress shirt but lacks the Oxford fabric and tailoring of the reference.",
+      "map_id": "map_7e7787e9f0b049fe8c9d585f0a8dafcd"
+    },
+    {
+      "competitor_product_name": "Arizona Ellis Oxford",
+      "score": 8,
+      "rationale": "An Oxford shirt sharing the key fabric and likely style features making it highly relevant.",
+      "map_id": "map_3445065a212144d2ad55256e8f0750f9"
+    },
+    {
+      "competitor_product_name": "Mizzen+main Men's Long Sleeve Dress Shirt",
+      "score": 7,
+      "rationale": "Long sleeve dress shirt is close in style and construction but may differ in fabric and tailoring specifics.",
+      "map_id": "map_e45424f2e80f4ed0835f76d90f9cca27"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cropped Rayon Capri Shirt",
+      "score": 3,
+      "rationale": "Rayon fabric and cropped silhouette differ significantly from the organic cotton, longer Oxford shirt.",
+      "map_id": "map_fc6fa5adcfbc473ba845c956e7351c4b"
+    },
+    {
+      "competitor_product_name": "Men's Todd Snyder Cotton Poplin End on End Spread Collar Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton poplin dress shirt is similar in use and construction but poplin fabric differs from Oxford basket weave.",
+      "map_id": "map_90ee85f66ff54e179eec798d12b9ded0"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Oxford Stretch Shirt",
+      "score": 9,
+      "rationale": "Non-iron Oxford shirt closely matches the fabric, style, and function of the reference product.",
+      "map_id": "map_0bd76d23a5bc48c0ae7f51e0232e2790"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward Men's Short Sleeve Coastal Fjord Fern Geo",
+      "score": 4,
+      "rationale": "Short sleeve and likely performance fabric reduce relevancy despite being a button down shirt.",
+      "map_id": "map_f52f2ddc5fac44d4b38b7396d45982c0"
+    },
+    {
+      "competitor_product_name": "Mens Mizzen+Main Leeward Short Sleeve",
+      "score": 4,
+      "rationale": "Repeated short sleeve button down shirt similar to above with moderate relevancy.",
+      "map_id": "map_5350e725d0394311a9130794fb7ca223"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward No Tuck Rose Triple Dash Dress Shirt",
+      "score": 6,
+      "rationale": "Performance dress shirt designed to be untucked aligns somewhat with the shorter length and tailored fit of the reference shirt.",
+      "map_id": "map_d65b07f437a84a67af784db1c2828b62"
+    },
+    {
+      "competitor_product_name": "Alex Mill Women's Santa Fe Denim Western Shirt",
+      "score": 3,
+      "rationale": "Denim western shirt differs in fabric and style from the tailored Oxford shirt, and is women's cut.",
+      "map_id": "map_30527b3e9f55422f8804237a47480fb6"
+    },
+    {
+      "competitor_product_name": "Sea Soft Irish Linen Camp Collar Short Sleeve Shirt",
+      "score": 2,
+      "rationale": "Camp collar and linen fabric with short sleeves are quite different in style and construction.",
+      "map_id": "map_cec59c4c6c794396981ec7b72c4a200e"
+    },
+    {
+      "competitor_product_name": "Men's Todd Snyder Button-down Collar Shirt",
+      "score": 7,
+      "rationale": "General button-down collar shirt likely similar in cut and use, though fabric is unspecified.",
+      "map_id": "map_7a6b35f460f5459b9ccf655dcf30cd39"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cropped Rayon Camp Collar Shirt",
+      "score": 2,
+      "rationale": "Rayon fabric, cropped length, and camp collar differ markedly from the reference.",
+      "map_id": "map_cf4ea7a5717d45edb21eef6c4ee64c5e"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Italian Stretch Knit Dress Shirt",
+      "score": 5,
+      "rationale": "Stretch knit fabric differs significantly from woven Oxford, but still a long sleeve dress shirt.",
+      "map_id": "map_1c20b78ab0054b419b5949300f94c7c1"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Italian Denim Overshirt",
+      "score": 3,
+      "rationale": "Denim overshirt is heavier and different in style and layering function versus shirt worn alone.",
+      "map_id": "map_85b0cb92b2764e4faf330947d5f5a098"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cropped Irish Linen Camp Collar Shirt",
+      "score": 2,
+      "rationale": "Cropped length, camp collar, linen fabric differ strongly from the tailored Oxford shirt.",
+      "map_id": "map_37bd748ac76348888a1a2ceeb5c4bd18"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Relaxed Silk-Cotton Point Collar Shirt",
+      "score": 4,
+      "rationale": "Silk-cotton blend and point collar with relaxed fit differ in fabric and styling.",
+      "map_id": "map_10ef86a75ea64992b90e5de78c8aadea"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cropped Linen Camp Collar Shirt",
+      "score": 2,
+      "rationale": "Again cropped length, camp collar, and linen fabric reduce relevancy greatly.",
+      "map_id": "map_1f6704ede55d454eb660e9da9dce10d2"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Slim Fit Favorite Oxford Shirt",
+      "score": 9,
+      "rationale": "Slim fit Oxford shirt very similar in construction, fabric and styling to the reference product.",
+      "map_id": "map_7c85a54c93f546d68d22b6cf3ee7e6dd"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Cropped Cotton Crepe Camp Collar Shirt",
+      "score": 3,
+      "rationale": "Cropped, camp collar and crepe fabric differ substantially from the organic cotton Oxford shirt.",
+      "map_id": "map_aea00683b1bb418888dbf2ed356b914a"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Seersucker Long Point Collar Dress Shirt",
+      "score": 5,
+      "rationale": "Seersucker fabric and point collar differ, but still a long sleeve dress shirt, somewhat relevant.",
+      "map_id": "map_9260e41af9aa4603a1875b2fbe6115ed"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250517_160001",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Shirt'\n  - Name='Lands' End Women's Plus Size No Iron Button Front Shirt'\n  - Name='Lands' End Men's No Iron Supima Pinpoint Dress Shirt'\n  - Name='Men Bonobos Slim Fit Plaid Cotton Madras Button-Down Shirt'\n  - Name='J.Crew Women's Fitted Stretch Cotton Poplin Shirt'\n  - Name='J.Crew Men's Tall Bowery Performance Stretch Dress Shirt'\n  - Name='Banana Republic Slim-Fit Wrinkle-Resistant Plaid Dress Shirt'\n  - Name='Egara Men's Skinny Fit Dot Dress Shirt'\n  - Name='Egara Men's Skinny Fit Square Dress Shirt'\n  - Name='Egara Men's Skinny Fit Double Dot Dress Shirt'\n  - Name='Calvin Klein Men's Classic Fit Herringbone Dress Shirt'\n  - Name='Nordstrom Trim Fit Premium Non-Iron Dress Shirt'\n  - Name='Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt'\n  - Name='Classic Fit Non-Iron Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Flannel Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt'\n  - Name='&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Modern fit wrinkle-resistant dress shirt is very similar in function and fit to a non-iron dress shirt, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Regular fit non-iron dress shirt matches the reference product's core features of being non-iron and dress shirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a men’s shirt, the BeanFlex twill likely emphasizes casual or performance features unlike a dress shirt, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's Plus Size No Iron Button Front Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"This is a women's shirt and plus size, differing in fit and target customer from the men's dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's No Iron Supima Pinpoint Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Men's no iron pinpoint dress shirt closely aligns with the reference in fabric type, care, and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Bonobos Slim Fit Plaid Cotton Madras Button-Down Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Though a men's shirt, the button-down and plaid madras styling suggest a casual shirt rather than dress shirt, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Women's Fitted Stretch Cotton Poplin Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Women’s fitted shirt with stretch cotton poplin differs in gender, likely fit and style from the referenced men's non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Bowery Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men’s performance stretch dress shirt shares core dress shirt features; stretch and tall sizing slightly differ from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Slim-Fit Wrinkle-Resistant Plaid Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim-fit wrinkle-resistant dress shirt is similar, but plaid pattern and wrinkle resistance make it slightly different from non-iron solid shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Dot Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Skinny fit dot dress shirt is a dress shirt but with a patterned fabric and slimmer silhouette than the reference's trim or standard fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Square Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Similar rationale to the dot dress shirt; skinny fit and pattern affect similarity but general category matches.\"\n    },\n    {\n      \"competitor_product_name\": \"Egara Men's Skinny Fit Double Dot Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Consistent with other Egara skinny fit dress shirts; relevant due to being dress shirts but differs in fit and pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Classic Fit Herringbone Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit dress shirt very close in style and use, herringbone texture is a minor difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Premium Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Trim fit non-iron dress shirt matches reference product excellence in fit and care features exactly.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic fit dress shirt with grid pattern and spread collar is highly relevant but slight pattern and fit differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Classic Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Generic classic fit non-iron dress shirt aligns perfectly in category and function with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Flannel Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Flannel shirt is casual and heavier fabric, differing greatly from dress shirt style and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Tailored fit no iron dress shirt is nearly identical in core features to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with semi-cutaway collar is very similar, though collar style differs slightly from semi-spread.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit spread collar twill dress shirt aligns well but twill fabric and slim fit differ slightly from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt with performance stretch is similar in use and style, but stretch and slim fit differ from standard options.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Duplicate entry, same score and rationale as before: very similar in fit and function to non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Athletic fit and stain repellency add distinctions, plus big & tall sizing impacts fit relevance, though still a dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit stretch collar and check pattern differentiate it more from the plain, non-iron dress shirt reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit wrinkle-resistant dress shirt is close but slimmer and wrinkle finish differ from non-iron standard or trim fit.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Modern fit wrinkle-resistant dress shirt is very similar in function and fit to a non-iron dress shirt, making it highly relevant.",
+      "map_id": "map_363863789ffd4ff093dec21219ab1850"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Modern fit wrinkle-resistant dress shirt is very similar in function and fit to a non-iron dress shirt, making it highly relevant.",
+      "map_id": "map_0fb1a22e926e438ca2741ef7ba8d3ece"
+    },
+    {
+      "competitor_product_name": "Brooks Brothers Men's Regular Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Regular fit non-iron dress shirt matches the reference product's core features of being non-iron and dress shirt style.",
+      "map_id": "map_4f165e26ae7640298388562f21063833"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Shirt",
+      "score": 5,
+      "rationale": "While a men’s shirt, the BeanFlex twill likely emphasizes casual or performance features unlike a dress shirt, reducing relevancy.",
+      "map_id": "map_6ad989e6ac1240d78efd526945fdb7d3"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's Plus Size No Iron Button Front Shirt",
+      "score": 3,
+      "rationale": "This is a women's shirt and plus size, differing in fit and target customer from the men's dress shirt reference.",
+      "map_id": "map_09e7f6e9c0c947aca5fd57554ba7713b"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's No Iron Supima Pinpoint Dress Shirt",
+      "score": 10,
+      "rationale": "Men's no iron pinpoint dress shirt closely aligns with the reference in fabric type, care, and style.",
+      "map_id": "map_0841bd680fcb4a13af9966089f2317d4"
+    },
+    {
+      "competitor_product_name": "Men Bonobos Slim Fit Plaid Cotton Madras Button-Down Shirt",
+      "score": 4,
+      "rationale": "Though a men's shirt, the button-down and plaid madras styling suggest a casual shirt rather than dress shirt, lowering relevancy.",
+      "map_id": "map_64d4896da7ce4f88a776530a001ae8cd"
+    },
+    {
+      "competitor_product_name": "J.Crew Women's Fitted Stretch Cotton Poplin Shirt",
+      "score": 2,
+      "rationale": "Women’s fitted shirt with stretch cotton poplin differs in gender, likely fit and style from the referenced men's non-iron dress shirt.",
+      "map_id": "map_82a2186994784e6fbf274c4f47652d10"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Bowery Performance Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Men’s performance stretch dress shirt shares core dress shirt features; stretch and tall sizing slightly differ from reference.",
+      "map_id": "map_137a0d5952eb45a08fc5df944232993f"
+    },
+    {
+      "competitor_product_name": "Banana Republic Slim-Fit Wrinkle-Resistant Plaid Dress Shirt",
+      "score": 7,
+      "rationale": "Slim-fit wrinkle-resistant dress shirt is similar, but plaid pattern and wrinkle resistance make it slightly different from non-iron solid shirt.",
+      "map_id": "map_ad578b81cffc45d281f31c4e9aed0aa4"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Dot Dress Shirt",
+      "score": 7,
+      "rationale": "Skinny fit dot dress shirt is a dress shirt but with a patterned fabric and slimmer silhouette than the reference's trim or standard fit.",
+      "map_id": "map_30ea5c8223284f94b7b764e449c82366"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Square Dress Shirt",
+      "score": 7,
+      "rationale": "Similar rationale to the dot dress shirt; skinny fit and pattern affect similarity but general category matches.",
+      "map_id": "map_d20e3f909df84410b5dcd7b04de55199"
+    },
+    {
+      "competitor_product_name": "Egara Men's Skinny Fit Double Dot Dress Shirt",
+      "score": 7,
+      "rationale": "Consistent with other Egara skinny fit dress shirts; relevant due to being dress shirts but differs in fit and pattern.",
+      "map_id": "map_c0a3748a90ee4433a75c2fd2b42cd0ff"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Classic Fit Herringbone Dress Shirt",
+      "score": 8,
+      "rationale": "Classic fit dress shirt very close in style and use, herringbone texture is a minor difference.",
+      "map_id": "map_cf348f445041482c8cf4970b22db2719"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Premium Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Trim fit non-iron dress shirt matches reference product excellence in fit and care features exactly.",
+      "map_id": "map_1952e6bdf0ae4d63a37c85aefa5063de"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Classic Fit Grid Spread Collar Dress Shirt",
+      "score": 9,
+      "rationale": "Classic fit dress shirt with grid pattern and spread collar is highly relevant but slight pattern and fit differences.",
+      "map_id": "map_f0569a28bd7146d1bf229da024d45066"
+    },
+    {
+      "competitor_product_name": "Classic Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Generic classic fit non-iron dress shirt aligns perfectly in category and function with the reference product.",
+      "map_id": "map_db4d8c374dfc401cb8d357286bd1ad0d"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Flannel Shirt",
+      "score": 3,
+      "rationale": "Flannel shirt is casual and heavier fabric, differing greatly from dress shirt style and fabric.",
+      "map_id": "map_16df77bebd504df39a2e98252e6e98c7"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Tailored fit no iron dress shirt is nearly identical in core features to the reference product.",
+      "map_id": "map_963fe88a28064e978b51467e4d0e2b11"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with semi-cutaway collar is very similar, though collar style differs slightly from semi-spread.",
+      "map_id": "map_48dd9983536f4d0cbbfd09cb3ca9f069"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Spread Collar Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit spread collar twill dress shirt aligns well but twill fabric and slim fit differ slightly from reference.",
+      "map_id": "map_31396328c7564b95958db7ce624fa957"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt with performance stretch is similar in use and style, but stretch and slim fit differ from standard options.",
+      "map_id": "map_adb947b0daa44240adcad486b46f8051"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Duplicate entry, same score and rationale as before: very similar in fit and function to non-iron dress shirt.",
+      "map_id": "map_363863789ffd4ff093dec21219ab1850"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Duplicate entry, same score and rationale as before: very similar in fit and function to non-iron dress shirt.",
+      "map_id": "map_0fb1a22e926e438ca2741ef7ba8d3ece"
+    },
+    {
+      "competitor_product_name": "&Collar Big & Tall Men's Athletic Fit Stain-Repellent Dress Shirt",
+      "score": 7,
+      "rationale": "Athletic fit and stain repellency add distinctions, plus big & tall sizing impacts fit relevance, though still a dress shirt.",
+      "map_id": "map_38bf9cdf95bb4063964bcaedfac6a235"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Stretch Collar Check Dress Shirt",
+      "score": 6,
+      "rationale": "Slim fit stretch collar and check pattern differentiate it more from the plain, non-iron dress shirt reference.",
+      "map_id": "map_ed8c2b16b478479e9d028516863563aa"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Wrinkle-Resistant Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit wrinkle-resistant dress shirt is close but slimmer and wrinkle finish differ from non-iron standard or trim fit.",
+      "map_id": "map_04eacc1250224104a2489f7ca5c4bf85"
+    }
+  ]
+}

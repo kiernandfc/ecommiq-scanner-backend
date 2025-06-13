@@ -1,0 +1,161 @@
+{
+  "timestamp": "20250613_080406",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Cream Ecru Navy Blue Check Shirt Charles Tyrwhitt Medium Non Iron'\n  - Name='Charles Tyrwhitt Dress Casual Shirt Men’s 15.5 33 White & Green Check'\n  - Name='Charles Tyrwhitt Dress Shirt Mens 17 / 43 Non Iron Slim Fit Blue'\n  - Name='Charles Tyrwhitt Long Sleeve Shirt Various Colors/patterns 15/34in'\n  - Name='Charles Tyrwhitt Shirt Mens 17/35 Classic Fit Blue Pink Tattersall Non'\n  - Name='Charles Tyrwhitt Button-Down Shirt Classic Fit Men Regular Blue Long Sleeve Non Iron | M'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Slim-Fit Poplin Dress Shirt'\n  - Name='Charles Tyrwhitt Mens Lilac Non Iron Micro Diamond Classic Fit 16/35'\n  - Name='Charles Tyrwhitt Slim Fit Dress Shirt Size 16/33 Blue Cuff-link Shirt'\n  - Name='Charles Tyrwhitt Button Up Dress Shirt 17/37 In Classic Fit Non-iron'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Cotton Formal Shirt'\n  - Name='Charles Tyrwhitt Dress Shirt Mens L Large 16-5-35 White Non-iron Long'\n  - Name='Charles Tyrwhitt Green & Blue Button-up Dress Shirt | Slim Fit'\n  - Name='Men's Dress Shirt | Classic Fit | Regular | Navy | Mini Grid Check | Button-Down | CHARLES TYRWHITT | Non Iron | 16.5 | Multicolor | 100% Cotton'\n  - Name='Charles Tyrwhitt Non Iron Extra Slim Fit Blue Dress Shirt Mens Sz'\n  - Name='Charles Tyrwhitt Extra Slim Fit Non-iron Dress Shirt Men's Size 15.5'\n  - Name='Charles Tyrwhitt Dress Shirt, Pale Yellow, 16/33, 100% Cotton'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Cream Ecru Navy Blue Check Shirt Charles Tyrwhitt Medium Non Iron\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a non-iron dress shirt similar in function and construction, with probable fit options; pattern differs but overall highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Dress Casual Shirt Men’s 15.5 33 White & Green Check\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Casual shirt may be less formal and possibly not non-iron, reducing relevancy to a formal non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Dress Shirt Mens 17 / 43 Non Iron Slim Fit Blue\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A non-iron slim fit dress shirt directly comparable in purpose and features to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Long Sleeve Shirt Various Colors/patterns 15/34in\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Long sleeve shirt but no clear indication it is dress, non-iron or specific fit; less specific relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Shirt Mens 17/35 Classic Fit Blue Pink Tattersall Non\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit non-iron dress shirt very similar in fit and features to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Button-Down Shirt Classic Fit Men Regular Blue Long Sleeve Non Iron | M\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Non-iron, classic fit button-down dress shirt with long sleeves; very similar in style and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron twill fabric dress shirt closely matches reference in fabric treatment and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Slim-Fit Poplin Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim-fit poplin dress shirt shares fit and category though no explicit non-iron mention slightly lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Mens Lilac Non Iron Micro Diamond Classic Fit 16/35\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Classic fit non-iron dress shirt with a specific weave pattern; very close in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Slim Fit Dress Shirt Size 16/33 Blue Cuff-link Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt suitable for formal occasions, but no non-iron specification lowers relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Button Up Dress Shirt 17/37 In Classic Fit Non-iron\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic fit non-iron dress shirt very relevant to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Cotton Formal Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron twill formal dress shirt closely matches function and construction of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Dress Shirt Mens L Large 16-5-35 White Non-iron Long\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron long sleeve dress shirt very similar in fabric treatment and use to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Green & Blue Button-up Dress Shirt | Slim Fit\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt but no explicit non-iron detail reduces relevancy slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Dress Shirt | Classic Fit | Regular | Navy | Mini Grid Check | Button-Down | CHARLES TYRWHITT | Non Iron | 16.5 | Multicolor | 100% Cotton\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic fit, non-iron dress shirt with button-down collar very similar in features and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Non Iron Extra Slim Fit Blue Dress Shirt Mens Sz\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Extra slim fit non-iron dress shirt matches reference category closely except slightly different fit style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Extra Slim Fit Non-iron Dress Shirt Men's Size 15.5\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Extra slim fit non-iron dress shirt closely related to the reference product in key aspects.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Dress Shirt, Pale Yellow, 16/33, 100% Cotton\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt made of cotton, but absence of non-iron or fit details lowers relevancy compared to reference.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Cream Ecru Navy Blue Check Shirt Charles Tyrwhitt Medium Non Iron",
+      "score": 8,
+      "rationale": "This is a non-iron dress shirt similar in function and construction, with probable fit options; pattern differs but overall highly relevant.",
+      "map_id": "map_a0a8f3563f8943188c639af30a5c9daf"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Dress Casual Shirt Men’s 15.5 33 White & Green Check",
+      "score": 6,
+      "rationale": "Casual shirt may be less formal and possibly not non-iron, reducing relevancy to a formal non-iron dress shirt.",
+      "map_id": "map_f47dda6ea59e49cab76f1503817b4c73"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Dress Shirt Mens 17 / 43 Non Iron Slim Fit Blue",
+      "score": 9,
+      "rationale": "A non-iron slim fit dress shirt directly comparable in purpose and features to the reference.",
+      "map_id": "map_548ce46f80424085852689b7b047016f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Long Sleeve Shirt Various Colors/patterns 15/34in",
+      "score": 5,
+      "rationale": "Long sleeve shirt but no clear indication it is dress, non-iron or specific fit; less specific relevancy.",
+      "map_id": "map_ddd2da53cc33463a9d3bef427754c2bf"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Shirt Mens 17/35 Classic Fit Blue Pink Tattersall Non",
+      "score": 8,
+      "rationale": "Classic fit non-iron dress shirt very similar in fit and features to reference product.",
+      "map_id": "map_1bd296b198184b548ade34e93d5d32a5"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Button-Down Shirt Classic Fit Men Regular Blue Long Sleeve Non Iron | M",
+      "score": 8,
+      "rationale": "Non-iron, classic fit button-down dress shirt with long sleeves; very similar in style and function.",
+      "map_id": "map_6177c2a62f9944d585a7e2ff6fda12d7"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron twill fabric dress shirt closely matches reference in fabric treatment and purpose.",
+      "map_id": "map_f79daa9bd05d431f86121fe08cf6fa1b"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Slim-Fit Poplin Dress Shirt",
+      "score": 8,
+      "rationale": "Slim-fit poplin dress shirt shares fit and category though no explicit non-iron mention slightly lowers relevancy.",
+      "map_id": "map_28f85b9ed26f468fa80cfdfc9d5d522b"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Mens Lilac Non Iron Micro Diamond Classic Fit 16/35",
+      "score": 8,
+      "rationale": "Classic fit non-iron dress shirt with a specific weave pattern; very close in function and style.",
+      "map_id": "map_73a7b0417bb44a668a906faf62d6a295"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Slim Fit Dress Shirt Size 16/33 Blue Cuff-link Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt suitable for formal occasions, but no non-iron specification lowers relevancy.",
+      "map_id": "map_18eb0e95b51b422cbfe81a9f084ea7f5"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Button Up Dress Shirt 17/37 In Classic Fit Non-iron",
+      "score": 9,
+      "rationale": "Classic fit non-iron dress shirt very relevant to the reference product.",
+      "map_id": "map_1c343055590a4bbc8b195249657577ba"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Grid Checkered Cotton Formal Shirt",
+      "score": 9,
+      "rationale": "Non-iron twill formal dress shirt closely matches function and construction of reference.",
+      "map_id": "map_c824915a77c044a085fa12c35422e7c5"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Dress Shirt Mens L Large 16-5-35 White Non-iron Long",
+      "score": 9,
+      "rationale": "Non-iron long sleeve dress shirt very similar in fabric treatment and use to reference.",
+      "map_id": "map_709439dac8b9419b90e990c762097743"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Green & Blue Button-up Dress Shirt | Slim Fit",
+      "score": 7,
+      "rationale": "Slim fit dress shirt but no explicit non-iron detail reduces relevancy slightly.",
+      "map_id": "map_27658db75dff4b1c8eb0f4f85f7d00d1"
+    },
+    {
+      "competitor_product_name": "Men's Dress Shirt | Classic Fit | Regular | Navy | Mini Grid Check | Button-Down | CHARLES TYRWHITT | Non Iron | 16.5 | Multicolor | 100% Cotton",
+      "score": 9,
+      "rationale": "Classic fit, non-iron dress shirt with button-down collar very similar in features and style.",
+      "map_id": "map_d86b71bea0664029bfc91af6c051567f"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Non Iron Extra Slim Fit Blue Dress Shirt Mens Sz",
+      "score": 9,
+      "rationale": "Extra slim fit non-iron dress shirt matches reference category closely except slightly different fit style.",
+      "map_id": "map_4e10a3bce9724eee8f0e3093e808771a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Extra Slim Fit Non-iron Dress Shirt Men's Size 15.5",
+      "score": 9,
+      "rationale": "Extra slim fit non-iron dress shirt closely related to the reference product in key aspects.",
+      "map_id": "map_b66d4f327f1748f1ace0e393c43eaccd"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Dress Shirt, Pale Yellow, 16/33, 100% Cotton",
+      "score": 6,
+      "rationale": "Dress shirt made of cotton, but absence of non-iron or fit details lowers relevancy compared to reference.",
+      "map_id": "map_ace59b03431f47028eb11d82c6dc4d3f"
+    }
+  ]
+}

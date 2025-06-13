@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250529_171322",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='TAYLOR STITCH Size 40 Grey Charcoal Cotton Blend Chore Jacket'\n  - Name='Taylor Stitch Men's Indigo Cord Dispatch Jacket'\n  - Name='Taylor Stitch The Ojai Cross Dye Barn Chore Jacket'\n  - Name='Engineered Garments Andover Blazer'\n  - Name='Engineered Garments Nepenthes Madras Vintage Chore Style Patchwork Jacket'\n  - Name='Military Liner Jacket'\n  - Name='Taylor Stitch Men's Emerson Lightweight Double Jacket'\n  - Name='Taylor Stitch Men's The Ignition Zip Chore Jacket'\n  - Name='Alex Mill Vintage Wash Denim Work Jacket'\n  - Name='Men Alex Mill Vintage Wash Chore Shirt'\n  - Name='Engineered Garments Men's Wool Chore Coat'\n  - Name='Carhartt WIP OG Active Jacket men'\n  - Name='Taylor Stitch Shift Jacket'\n  - Name='Taylor Stitch Men's Ojai Sagebrush Diamond Quilt Jacket'\n  - Name='Alex Mill Garment Dyed Canvas Work Jacket - Stoneware'\n  - Name='Engineered Garments Jacket'\n  - Name='Engineered Garments Cagoule Shirt'\n  - Name='Engineered Garments \"lab Shirt\" Striped Work Coat'\n  - Name='Taylor Stitch Men's Organic Cotton Crew Jacket'\n  - Name='Taylor Stitch Men's Casual Jacket'\n  - Name='Engineered Garments Tropical Wool Loiter Jacket'\n  - Name='Alex Mill Men's Casual Work Jacket'\n  - Name='Engineered Garments Ll Bomber Jacket'\n  - Name='Archival Engineered Garments Coat'\n  - Name='Engineered Garments Chore Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"TAYLOR STITCH Size 40 Grey Charcoal Cotton Blend Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a chore jacket from the same brand, likely very similar in silhouette and function, closely related to the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Indigo Cord Dispatch Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"While it is a jacket by Taylor Stitch, the Dispatch Jacket is a different style and fabric, less similar in construction and purpose to the Ojai chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch The Ojai Cross Dye Barn Chore Jacket\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is essentially the same model (The Ojai) but a variation, so it is identical in silhouette, construction, and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Andover Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A blazer-style jacket differs substantially in silhouette and formality from a utilitarian chore coat, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Nepenthes Madras Vintage Chore Style Patchwork Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a chore-style jacket with patchwork design; related in function and type but differs in fabric and construction style.\"\n    },\n    {\n      \"competitor_product_name\": \"Military Liner Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Different jacket type focusing on insulation layers rather than chore coat silhouette and utility features.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Emerson Lightweight Double Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Another jacket from Taylor Stitch but described as lightweight double jacket; likely a different silhouette and use case.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's The Ignition Zip Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jacket with a zipper closure from the same brand, closely related in function and construction, but zipper changes some details.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Vintage Wash Denim Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A work jacket with vintage wash denim is similar in utilitarian purpose and style to a chore jacket, although fabric differs from cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Alex Mill Vintage Wash Chore Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"A chore shirt is significantly different in silhouette and construction from a chore jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Men's Wool Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A chore coat in wool shares silhouette and utility with the Ojai Jacket; material differs but concept is similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP OG Active Jacket men\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Carhartt active jacket is a functional workwear jacket but different silhouette/construction from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Shift Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A different jacket model from Taylor Stitch, likely causal and less utility-focused compared to the chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Ojai Sagebrush Diamond Quilt Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A variation of the Ojai Jacket with quilting; very similar silhouette and function with added insulation detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Garment Dyed Canvas Work Jacket - Stoneware\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Canvas work jacket shares similar workwear functionality and silhouette close to a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic jacket name from the brand; without specific reference to chore style, moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Cagoule Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A cagoule shirt is distinct in function and shape compared to a chore coat jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments \\\"lab Shirt\\\" Striped Work Coat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A work coat shares utilitarian function and similar silhouette, making it relevant though differing design details.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Crew Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Another jacket by same brand using organic cotton, but crew jacket silhouette differs from chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Casual Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A casual jacket designation implies a different silhouette/utility level than a chore coat, moderately related.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Tropical Wool Loiter Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Loiter jacket is a different style and fabric from chore coat, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Men's Casual Work Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Casual work jacket aligns somewhat with chore coat purpose and shape, fairly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Ll Bomber Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bomber jacket silhouette is distinct and less utilitarian compared to chore coat, low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Archival Engineered Garments Coat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Generic coat with archival label, unclear if chore style; moderately relevant due to coat classification.\"\n    },\n    {\n      \"competitor_product_name\": \"Engineered Garments Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a chore jacket from Engineered Garments brand, highly relevant in silhouette, features, and utility.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "TAYLOR STITCH Size 40 Grey Charcoal Cotton Blend Chore Jacket",
+      "score": 9,
+      "rationale": "This is a chore jacket from the same brand, likely very similar in silhouette and function, closely related to the Ojai Jacket.",
+      "map_id": "map_aa15a35c8bc94ecabd289618bab9b192"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Indigo Cord Dispatch Jacket",
+      "score": 6,
+      "rationale": "While it is a jacket by Taylor Stitch, the Dispatch Jacket is a different style and fabric, less similar in construction and purpose to the Ojai chore coat.",
+      "map_id": "map_a3c46c135ef54c02bf1c2e81f5c9c454"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch The Ojai Cross Dye Barn Chore Jacket",
+      "score": 10,
+      "rationale": "This is essentially the same model (The Ojai) but a variation, so it is identical in silhouette, construction, and intended use.",
+      "map_id": "map_d7527805c7f2400dae6ddff1ba608fae"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Andover Blazer",
+      "score": 3,
+      "rationale": "A blazer-style jacket differs substantially in silhouette and formality from a utilitarian chore coat, making it less relevant.",
+      "map_id": "map_1980ec437f174342973284003256faed"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Nepenthes Madras Vintage Chore Style Patchwork Jacket",
+      "score": 7,
+      "rationale": "This is a chore-style jacket with patchwork design; related in function and type but differs in fabric and construction style.",
+      "map_id": "map_bd386ef7efeb49b4910071e01524fef5"
+    },
+    {
+      "competitor_product_name": "Military Liner Jacket",
+      "score": 4,
+      "rationale": "Different jacket type focusing on insulation layers rather than chore coat silhouette and utility features.",
+      "map_id": "map_2e7cc7189fed443cbd50d67571746b7e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Emerson Lightweight Double Jacket",
+      "score": 5,
+      "rationale": "Another jacket from Taylor Stitch but described as lightweight double jacket; likely a different silhouette and use case.",
+      "map_id": "map_c47d2dac25dd4ea5b098cf47ebc89943"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's The Ignition Zip Chore Jacket",
+      "score": 8,
+      "rationale": "Chore jacket with a zipper closure from the same brand, closely related in function and construction, but zipper changes some details.",
+      "map_id": "map_2eda6df6af9e4e858da04deff775fe86"
+    },
+    {
+      "competitor_product_name": "Alex Mill Vintage Wash Denim Work Jacket",
+      "score": 7,
+      "rationale": "A work jacket with vintage wash denim is similar in utilitarian purpose and style to a chore jacket, although fabric differs from cotton twill.",
+      "map_id": "map_41b6895659934c908448f8071db88499"
+    },
+    {
+      "competitor_product_name": "Men Alex Mill Vintage Wash Chore Shirt",
+      "score": 4,
+      "rationale": "A chore shirt is significantly different in silhouette and construction from a chore jacket.",
+      "map_id": "map_c83ae159fdea43d8a55a0754170497c6"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Men's Wool Chore Coat",
+      "score": 8,
+      "rationale": "A chore coat in wool shares silhouette and utility with the Ojai Jacket; material differs but concept is similar.",
+      "map_id": "map_d0553e4ba74d4967ad45156598bee673"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP OG Active Jacket men",
+      "score": 6,
+      "rationale": "Carhartt active jacket is a functional workwear jacket but different silhouette/construction from a chore coat.",
+      "map_id": "map_912ca493bb5f4d1cad0ceb8c24d1e9a3"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Shift Jacket",
+      "score": 5,
+      "rationale": "A different jacket model from Taylor Stitch, likely causal and less utility-focused compared to the chore coat style.",
+      "map_id": "map_2c2855dcf9474ef7894deb843075ce8e"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Ojai Sagebrush Diamond Quilt Jacket",
+      "score": 9,
+      "rationale": "A variation of the Ojai Jacket with quilting; very similar silhouette and function with added insulation detail.",
+      "map_id": "map_2a092b9b51d54bd5bc44f1f2a79f0dde"
+    },
+    {
+      "competitor_product_name": "Alex Mill Garment Dyed Canvas Work Jacket - Stoneware",
+      "score": 8,
+      "rationale": "Canvas work jacket shares similar workwear functionality and silhouette close to a chore coat.",
+      "map_id": "map_d5700b0169c942f299fb87563308f266"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Jacket",
+      "score": 5,
+      "rationale": "Generic jacket name from the brand; without specific reference to chore style, moderately relevant.",
+      "map_id": "map_3781bac856d0494bacbdb185b80a1014"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Cagoule Shirt",
+      "score": 2,
+      "rationale": "A cagoule shirt is distinct in function and shape compared to a chore coat jacket.",
+      "map_id": "map_14ba57ad404f41bc8255906de89caa60"
+    },
+    {
+      "competitor_product_name": "Engineered Garments \"lab Shirt\" Striped Work Coat",
+      "score": 7,
+      "rationale": "A work coat shares utilitarian function and similar silhouette, making it relevant though differing design details.",
+      "map_id": "map_9ba4b290c1b64205baad6dfb36684a1b"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Crew Jacket",
+      "score": 6,
+      "rationale": "Another jacket by same brand using organic cotton, but crew jacket silhouette differs from chore coat style.",
+      "map_id": "map_41d0a8090d8e471ab7c5d4d1da25c6c9"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Casual Jacket",
+      "score": 5,
+      "rationale": "A casual jacket designation implies a different silhouette/utility level than a chore coat, moderately related.",
+      "map_id": "map_b5ec72dd9b4a46a285977fd83a4c6e59"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Tropical Wool Loiter Jacket",
+      "score": 4,
+      "rationale": "Loiter jacket is a different style and fabric from chore coat, making it less relevant.",
+      "map_id": "map_15ff50be205747d2957ed06dcf95d315"
+    },
+    {
+      "competitor_product_name": "Alex Mill Men's Casual Work Jacket",
+      "score": 7,
+      "rationale": "Casual work jacket aligns somewhat with chore coat purpose and shape, fairly relevant.",
+      "map_id": "map_8de22917a2f5425386d8684e0c47b10f"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Ll Bomber Jacket",
+      "score": 3,
+      "rationale": "Bomber jacket silhouette is distinct and less utilitarian compared to chore coat, low relevancy.",
+      "map_id": "map_1275eb0dea4f4177aca4ac440acce398"
+    },
+    {
+      "competitor_product_name": "Archival Engineered Garments Coat",
+      "score": 5,
+      "rationale": "Generic coat with archival label, unclear if chore style; moderately relevant due to coat classification.",
+      "map_id": "map_ca03a745d7db479baceb87323be6e427"
+    },
+    {
+      "competitor_product_name": "Engineered Garments Chore Jacket",
+      "score": 9,
+      "rationale": "This is a chore jacket from Engineered Garments brand, highly relevant in silhouette, features, and utility.",
+      "map_id": "map_046974bc5fc1499ea70a481528c965ed"
+    }
+  ]
+}

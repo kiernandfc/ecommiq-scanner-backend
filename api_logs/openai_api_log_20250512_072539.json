@@ -1,0 +1,131 @@
+{
+  "timestamp": "20250512_072539",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Stetson Wool Tweed Newsboy Flat Cap'\n  - Name='Carhartt Men's Fleece 2-in-1 Headwear'\n  - Name='Crane's Country Store Camo Fleece 2-in-1 Hat'\n  - Name='Stetson Plaid Newsboy Cap Hat'\n  - Name='Goorin Bros. Flip Side Trucker Hat'\n  - Name='Carhartt WIP Madison Logo Cap'\n  - Name='Goorin Hartman Wide Brim Toquilla Straw Fedora'\n  - Name='Stetson Accessories Plaid Newsboy Cap'\n  - Name='Stetson Plaid Newsboy Cap'\n  - Name='Stetson Wool Plaid Newsboy Hat'\n  - Name='Boston Scally Cap'\n  - Name='Smoke & Rye Wool Scally Cap'\n  - Name='Whiskey Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Stetson Wool Tweed Newsboy Flat Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Both are newsboy-style caps with similar multi-panel construction and intended for similar use, very close to the Peaky style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Fleece 2-in-1 Headwear\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"This is a fleece headwear designed for warmth and versatility, not a structured newsboy or scally cap, differing greatly in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Crane's Country Store Camo Fleece 2-in-1 Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Similar to the Carhartt fleece item, this is a functional fleece hat with different style and no panel construction, not comparable to a newsboy/scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Plaid Newsboy Cap Hat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A plaid newsboy cap from Stetson closely matches the Peaky in silhouette, panel style, and fabric type, highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Flip Side Trucker Hat\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A trucker hat is completely different in silhouette, construction, and style from a newsboy/scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Madison Logo Cap\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"A logo cap typically implies a baseball or casual ball cap style, differing from the structured multi-panel newsboy cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Hartman Wide Brim Toquilla Straw Fedora\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"A wide brim fedora hat is a very different hat style than a newsboy or scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Accessories Plaid Newsboy Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Similar to other Stetson plaid newsboy caps, similar silhouette and structure, strong product relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Plaid Newsboy Cap\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Almost identical style and construction to the reference product, both being plaid newsboy caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Wool Plaid Newsboy Hat\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A wool plaid newsboy hat closely matches the reference product in fabric, style, and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A scally cap from the same brand but unspecified exact style, likely very similar construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Smoke & Rye Wool Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same scally cap style with wool material, very close in function and silhouette to the reference Peaky.\"\n    },\n    {\n      \"competitor_product_name\": \"Whiskey Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another scally cap variant by Boston Scally, highly similar silhouette and product type to the Peaky.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Stetson Wool Tweed Newsboy Flat Cap",
+      "score": 9,
+      "rationale": "Both are newsboy-style caps with similar multi-panel construction and intended for similar use, very close to the Peaky style.",
+      "map_id": "map_bc28a3708b9b4e35adde15c5d088f304"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Fleece 2-in-1 Headwear",
+      "score": 2,
+      "rationale": "This is a fleece headwear designed for warmth and versatility, not a structured newsboy or scally cap, differing greatly in style and construction.",
+      "map_id": "map_691a999b8d1b4f57afb914efa0f8b7ec"
+    },
+    {
+      "competitor_product_name": "Crane's Country Store Camo Fleece 2-in-1 Hat",
+      "score": 2,
+      "rationale": "Similar to the Carhartt fleece item, this is a functional fleece hat with different style and no panel construction, not comparable to a newsboy/scally cap.",
+      "map_id": "map_0309fe0d60aa4e8e9a32649d4368be1d"
+    },
+    {
+      "competitor_product_name": "Stetson Plaid Newsboy Cap Hat",
+      "score": 10,
+      "rationale": "A plaid newsboy cap from Stetson closely matches the Peaky in silhouette, panel style, and fabric type, highly relevant.",
+      "map_id": "map_50cb47a33de942ddbeb3960cec0fb181"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Flip Side Trucker Hat",
+      "score": 1,
+      "rationale": "A trucker hat is completely different in silhouette, construction, and style from a newsboy/scally cap.",
+      "map_id": "map_fb5024a0ccac4c149eac36257bcefc92"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Madison Logo Cap",
+      "score": 2,
+      "rationale": "A logo cap typically implies a baseball or casual ball cap style, differing from the structured multi-panel newsboy cap.",
+      "map_id": "map_7c7c31ab758248e182f3f10e7e2de324"
+    },
+    {
+      "competitor_product_name": "Goorin Hartman Wide Brim Toquilla Straw Fedora",
+      "score": 1,
+      "rationale": "A wide brim fedora hat is a very different hat style than a newsboy or scally cap.",
+      "map_id": "map_36f528f47a81484cbbac939ee5d076eb"
+    },
+    {
+      "competitor_product_name": "Stetson Accessories Plaid Newsboy Cap",
+      "score": 9,
+      "rationale": "Similar to other Stetson plaid newsboy caps, similar silhouette and structure, strong product relevancy.",
+      "map_id": "map_4feaee31d34541f08af4b23143b0a2ed"
+    },
+    {
+      "competitor_product_name": "Stetson Plaid Newsboy Cap",
+      "score": 10,
+      "rationale": "Almost identical style and construction to the reference product, both being plaid newsboy caps.",
+      "map_id": "map_88ad41a3312342798bdd218eb4d5eb50"
+    },
+    {
+      "competitor_product_name": "Stetson Wool Plaid Newsboy Hat",
+      "score": 10,
+      "rationale": "A wool plaid newsboy hat closely matches the reference product in fabric, style, and construction.",
+      "map_id": "map_3c2cc967dc484f2f8ab1e5d4c0b9c623"
+    },
+    {
+      "competitor_product_name": "Boston Scally Cap",
+      "score": 9,
+      "rationale": "A scally cap from the same brand but unspecified exact style, likely very similar construction and silhouette.",
+      "map_id": "map_e1d1ffe8745045a28da8f48fa0b0244e"
+    },
+    {
+      "competitor_product_name": "Smoke & Rye Wool Scally Cap",
+      "score": 9,
+      "rationale": "Same scally cap style with wool material, very close in function and silhouette to the reference Peaky.",
+      "map_id": "map_64a307b1f4b7493abfb0b658a647a07e"
+    },
+    {
+      "competitor_product_name": "Whiskey Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another scally cap variant by Boston Scally, highly similar silhouette and product type to the Peaky.",
+      "map_id": "map_9be3a6d11ac04bbbacea17122fe3bd87"
+    }
+  ]
+}

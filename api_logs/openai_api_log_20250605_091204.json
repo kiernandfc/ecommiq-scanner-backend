@@ -1,0 +1,119 @@
+{
+  "timestamp": "20250605_091204",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Boondock Collectors Edition",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Boondock Collectors Edition\"\nReference Product Description:\nVeritas meaning ‘truth’ and Aequitas meaning ‘justice’ is what we as a community feel is an important aspect of our culture. It’s a deep rooted city that is built upon loyalty. The black shamrock is a subtle yet strong touch to this six panel scally cap.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Kangol Bermuda 504'\n  - Name='Kangol Wavy Pane 507 Ivy Cap'\n  - Name='Kangol USA Woollux 504 Limited Edition'\n  - Name='Barbour Ashford Flat Cap'\n  - Name='Goorin Bros. Men's Wool-Blend Cap'\n  - Name='Goorin Bros Men's Newsboy Hat Cap'\n  - Name='Goorin Bros. Bold Hatmakers Cabbie Newsboy Hat'\n  - Name='Goorin Bros Vintage Brown Tweed Wool Cabbie Newsboy Hat'\n  - Name='Goorin Bros Men's Newsboy Cabbie Flat Cap Hat'\n  - Name='Goorin Bros. Men's Patch-Detail Cap'\n  - Name='Goorin Bros Accessories Vintage Cabbie Newsboy Hat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Kangol Bermuda 504\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"The reference product is a six panel scally cap, and the Kangol Bermuda 504 is also a 504 style flat cap, which is a very similar silhouette and style, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Wavy Pane 507 Ivy Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The 507 Ivy Cap is close in style to the scally cap, sharing the flat cap silhouette but typically with a more fitted crown, so moderately high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol USA Woollux 504 Limited Edition\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is another 504 flat cap, very similar in silhouette and likely material, so it's very relevant to the six panel scally reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Ashford Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A flat cap similar to a scally cap in shape and function, so it is quite relevant to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Wool-Blend Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"The generic name suggests a wool blend cap that may be a flat cap, but lacks specifics, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's Newsboy Hat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Newsboy cap is related but puffier and fuller than a scally cap, so it's somewhat less relevant but still related.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Bold Hatmakers Cabbie Newsboy Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A cabbie newsboy hat is more rounded and fuller than a six panel scally, so less relevant though still a similar category.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Vintage Brown Tweed Wool Cabbie Newsboy Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar to the other newsboy cabbie hats in fuller, rounder style, so less relevant compared to a six panel scally flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's Newsboy Cabbie Flat Cap Hat\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Though combining multiple terms, the presence of 'flat cap' suggests some similarity, but the newsboy/cabbie influence may make it fuller, so moderate relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Men's Patch-Detail Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"The generic naming and emphasis on patch detail doesn't clarify silhouette; likely a casual cap but less clearly a scally or flat cap, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Accessories Vintage Cabbie Newsboy Hat\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"As a cabbie newsboy hat, it has a puffier, fuller shape than a scally cap, so somewhat less relevant though in a related cap category.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Kangol Bermuda 504",
+      "score": 8,
+      "rationale": "The reference product is a six panel scally cap, and the Kangol Bermuda 504 is also a 504 style flat cap, which is a very similar silhouette and style, making it highly relevant.",
+      "map_id": "map_7ae7f581e0644ad3acf7e4782dc40ad9"
+    },
+    {
+      "competitor_product_name": "Kangol Wavy Pane 507 Ivy Cap",
+      "score": 7,
+      "rationale": "The 507 Ivy Cap is close in style to the scally cap, sharing the flat cap silhouette but typically with a more fitted crown, so moderately high relevancy.",
+      "map_id": "map_589cf5f002d0492abc00707c09615f0c"
+    },
+    {
+      "competitor_product_name": "Kangol USA Woollux 504 Limited Edition",
+      "score": 9,
+      "rationale": "This is another 504 flat cap, very similar in silhouette and likely material, so it's very relevant to the six panel scally reference.",
+      "map_id": "map_883b99402dbe46509ab7abcffd80272e"
+    },
+    {
+      "competitor_product_name": "Barbour Ashford Flat Cap",
+      "score": 8,
+      "rationale": "A flat cap similar to a scally cap in shape and function, so it is quite relevant to the reference product.",
+      "map_id": "map_11cefcb6cc5148e18552ccf2bb34b509"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Wool-Blend Cap",
+      "score": 6,
+      "rationale": "The generic name suggests a wool blend cap that may be a flat cap, but lacks specifics, so moderate relevancy.",
+      "map_id": "map_a36f0ce5c4f549b1a8f4e299c4975770"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's Newsboy Hat Cap",
+      "score": 6,
+      "rationale": "Newsboy cap is related but puffier and fuller than a scally cap, so it's somewhat less relevant but still related.",
+      "map_id": "map_15d6e80b6941402dacf0bab1d3cd1964"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Bold Hatmakers Cabbie Newsboy Hat",
+      "score": 5,
+      "rationale": "A cabbie newsboy hat is more rounded and fuller than a six panel scally, so less relevant though still a similar category.",
+      "map_id": "map_5c6f52322a8549e2bb6b000321cdaebd"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Vintage Brown Tweed Wool Cabbie Newsboy Hat",
+      "score": 5,
+      "rationale": "Similar to the other newsboy cabbie hats in fuller, rounder style, so less relevant compared to a six panel scally flat cap.",
+      "map_id": "map_d5cfbd41c49141f7a9ff87d19dada2f9"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's Newsboy Cabbie Flat Cap Hat",
+      "score": 6,
+      "rationale": "Though combining multiple terms, the presence of 'flat cap' suggests some similarity, but the newsboy/cabbie influence may make it fuller, so moderate relevancy.",
+      "map_id": "map_96fa0eeed58141e4b1610d6fbea69467"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Men's Patch-Detail Cap",
+      "score": 4,
+      "rationale": "The generic naming and emphasis on patch detail doesn't clarify silhouette; likely a casual cap but less clearly a scally or flat cap, lowering relevancy.",
+      "map_id": "map_a486827d509e48a2af48d671b0176713"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Accessories Vintage Cabbie Newsboy Hat",
+      "score": 5,
+      "rationale": "As a cabbie newsboy hat, it has a puffier, fuller shape than a scally cap, so somewhat less relevant though in a related cap category.",
+      "map_id": "map_9563b3728eb2486195bc49f8abc7afe0"
+    }
+  ]
+}

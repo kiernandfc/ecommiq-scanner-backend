@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250511_114229",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Everlane Men's Crew Neck Long Sleeve Pullover Sweatshirt'\n  - Name='Everlane Men's The Track Hoodie Pullover Pockets'\n  - Name='Everlane Men's Premium Merino Crew Neck Sweater'\n  - Name='Everlane Men's Reverse Weave Cotton Sweatshirt'\n  - Name='Everlane Men's The Track Hoodie'\n  - Name='H&M Men's Loose Fit Hoodie'\n  - Name='H&M Men's Loose-Fit Sleeveless Sports Hoodie'\n  - Name='Gap Vintagesoft Hoodie'\n  - Name='Champion Men's Liu Sharks Reverse Weave Fleece Pullover Hoodie'\n  - Name='Champion Men's Notre Dame Fighting Irish Reverse Weave Fleece Pullover Hoodie'\n  - Name='Gap Men's Fleece Arch Logo Pullover Hoodie'\n  - Name='Champion Men's Saint Mary's Gaels Reverse Weave Fleece Pullover Hoodie'\n  - Name='Champion Men's Reverse Weave Hoodie'\n  - Name='Champion Men's ECU Pirates Arch Over Logo Pullover Hoodie'\n  - Name='Champion Men's West Virginia Mountaineers Arched Logo Fleece Pullover Hoodie'\n  - Name='Everlane Unisex Crew Sweatshirt'\n  - Name='Everlane Men's Hoodie'\n  - Name='Everlane Men's Crewneck Pullover Sweatshirt'\n  - Name='Everlane Organic Cotton Crewneck Sweatshirt'\n  - Name='EVERLANE Waffle-knit Hoodie'\n  - Name='Everlane Women's The Zip Hoodie Sweatshirt Jacket'\n  - Name='Everlane Men's No Pocket Hoodie'\n  - Name='Champion Men's Florida State Seminoles Basic Arch Fleece Pullover Hoodie'\n  - Name='Champion Men's Cornell Reverse Weave Fleece Pullover Hoodie'\n  - Name='Champion Men's USC Trojans Basketball Icon Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Everlane Men's Crew Neck Long Sleeve Pullover Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a sweatshirt but crew neck, no hood, so similar in comfort but differs in hood feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Track Hoodie Pullover Pockets\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"It is a men's hoodie pullover with pockets, closely matching the reference in style and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Premium Merino Crew Neck Sweater\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Crew neck sweater differs substantially in style and likely material; not a hoodie or sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Reverse Weave Cotton Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton sweatshirt without explicit mention of hood, likely close but may lack hood feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's The Track Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hoodie very similar in style and likely functionality to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A men's loose fit hoodie that matches core product type and features except possibly looser fit.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose-Fit Sleeveless Sports Hoodie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Sleeveless, which significantly changes the product function and construction from regular hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hoodie of sweatshirt style; closely aligned in use and design but brand difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Liu Sharks Reverse Weave Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece pullover hoodie very similar in function and silhouette to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Notre Dame Fighting Irish Reverse Weave Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same as prior: fleece pullover hoodie, structurally and functionally similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Fleece Arch Logo Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece pullover hoodie, very close in product category and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Saint Mary's Gaels Reverse Weave Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover fleece hoodie, shares key features with the reference Boston Scally hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Reverse Weave Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Reverse weave hoodie is a sweatshirt with hood, aligning well with the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's ECU Pirates Arch Over Logo Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece pullover hoodie, similar construction and use to reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's West Virginia Mountaineers Arched Logo Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Same product category as reference hoodie: fleece pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Unisex Crew Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Crew sweatshirt, no hood, different in silhouette but similar in comfort and material likely.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Directly a men's hoodie, almost identical product category and likely features.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Crewneck Pullover Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Crewneck pullover sweatshirt shares some traits but lacks hood feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Organic Cotton Crewneck Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Crew neck organic cotton sweatshirt, no hood but similar in comfort and style.\"\n    },\n    {\n      \"competitor_product_name\": \"EVERLANE Waffle-knit Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hoodie with waffle-knit texture; same core garment but potentially different fabric texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's The Zip Hoodie Sweatshirt Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hoodie with zipper and designed for women; differs in closure and possibly fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's No Pocket Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hoodie likely similar in structure and use but without pockets, very close to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Florida State Seminoles Basic Arch Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Basic fleece pullover hoodie, matching reference in style and utility.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Cornell Reverse Weave Fleece Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Reverse weave fleece pullover hoodie, aligning closely with the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's USC Trojans Basketball Icon Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece pullover hoodie with sports branding, similar construction and function.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Everlane Men's Crew Neck Long Sleeve Pullover Sweatshirt",
+      "score": 6,
+      "rationale": "This is a sweatshirt but crew neck, no hood, so similar in comfort but differs in hood feature.",
+      "map_id": "map_4b4f1ee117a648c18b760222296dbb12"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Track Hoodie Pullover Pockets",
+      "score": 9,
+      "rationale": "It is a men's hoodie pullover with pockets, closely matching the reference in style and construction.",
+      "map_id": "map_776163c74f6c48b3960439c13f4bd598"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Premium Merino Crew Neck Sweater",
+      "score": 3,
+      "rationale": "Crew neck sweater differs substantially in style and likely material; not a hoodie or sweatshirt.",
+      "map_id": "map_b54c750f9b944d689fc50fca5bcc7b5b"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Reverse Weave Cotton Sweatshirt",
+      "score": 7,
+      "rationale": "Cotton sweatshirt without explicit mention of hood, likely close but may lack hood feature.",
+      "map_id": "map_01f3f541806c46aa853cb6b7830c9569"
+    },
+    {
+      "competitor_product_name": "Everlane Men's The Track Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie very similar in style and likely functionality to the reference hoodie.",
+      "map_id": "map_1e42e8c6ed884602a7ba7eaf1ddde50d"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Hoodie",
+      "score": 8,
+      "rationale": "A men's loose fit hoodie that matches core product type and features except possibly looser fit.",
+      "map_id": "map_940f8743b9ee430f94b5605cbfa69f2d"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose-Fit Sleeveless Sports Hoodie",
+      "score": 4,
+      "rationale": "Sleeveless, which significantly changes the product function and construction from regular hoodie.",
+      "map_id": "map_20e67feeda0347a78f5eb9f204112bbc"
+    },
+    {
+      "competitor_product_name": "Gap Vintagesoft Hoodie",
+      "score": 8,
+      "rationale": "Hoodie of sweatshirt style; closely aligned in use and design but brand difference.",
+      "map_id": "map_1b955fb583e34fe3b94e16fb97ce0814"
+    },
+    {
+      "competitor_product_name": "Champion Men's Liu Sharks Reverse Weave Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Fleece pullover hoodie very similar in function and silhouette to the reference product.",
+      "map_id": "map_520d5bc13cef4a22aceeb78c2ddecc04"
+    },
+    {
+      "competitor_product_name": "Champion Men's Notre Dame Fighting Irish Reverse Weave Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Same as prior: fleece pullover hoodie, structurally and functionally similar.",
+      "map_id": "map_1b03c79ba4254fce9ad22c5dfc2e17a4"
+    },
+    {
+      "competitor_product_name": "Gap Men's Fleece Arch Logo Pullover Hoodie",
+      "score": 8,
+      "rationale": "Fleece pullover hoodie, very close in product category and intended use.",
+      "map_id": "map_17a542868eb442b89d5f7fba8359424b"
+    },
+    {
+      "competitor_product_name": "Champion Men's Saint Mary's Gaels Reverse Weave Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover fleece hoodie, shares key features with the reference Boston Scally hoodie.",
+      "map_id": "map_82870d453e0e4022b7aeab51f409139d"
+    },
+    {
+      "competitor_product_name": "Champion Men's Reverse Weave Hoodie",
+      "score": 8,
+      "rationale": "Reverse weave hoodie is a sweatshirt with hood, aligning well with the reference product.",
+      "map_id": "map_fcb4a95e4c0047539737c147ad994c71"
+    },
+    {
+      "competitor_product_name": "Champion Men's ECU Pirates Arch Over Logo Pullover Hoodie",
+      "score": 8,
+      "rationale": "Fleece pullover hoodie, similar construction and use to reference hoodie.",
+      "map_id": "map_876de356a04b47a4926d33414c5dcb78"
+    },
+    {
+      "competitor_product_name": "Champion Men's West Virginia Mountaineers Arched Logo Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Same product category as reference hoodie: fleece pullover hoodie.",
+      "map_id": "map_b39477fc17ae4f748e4cf68db4a9b267"
+    },
+    {
+      "competitor_product_name": "Everlane Unisex Crew Sweatshirt",
+      "score": 5,
+      "rationale": "Crew sweatshirt, no hood, different in silhouette but similar in comfort and material likely.",
+      "map_id": "map_e5f6e07c5f534d5e89cd7531f3280f4a"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Hoodie",
+      "score": 10,
+      "rationale": "Directly a men's hoodie, almost identical product category and likely features.",
+      "map_id": "map_c23e6b1e70654f658e3746170fa31103"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Crewneck Pullover Sweatshirt",
+      "score": 6,
+      "rationale": "Crewneck pullover sweatshirt shares some traits but lacks hood feature.",
+      "map_id": "map_37d4a7427f42429581dfe6fd3e2675df"
+    },
+    {
+      "competitor_product_name": "Everlane Organic Cotton Crewneck Sweatshirt",
+      "score": 6,
+      "rationale": "Crew neck organic cotton sweatshirt, no hood but similar in comfort and style.",
+      "map_id": "map_55bbc727fd654784ad336e3e79907464"
+    },
+    {
+      "competitor_product_name": "EVERLANE Waffle-knit Hoodie",
+      "score": 7,
+      "rationale": "Hoodie with waffle-knit texture; same core garment but potentially different fabric texture.",
+      "map_id": "map_d87dd81376104c74a2ed61e793f534a6"
+    },
+    {
+      "competitor_product_name": "Everlane Women's The Zip Hoodie Sweatshirt Jacket",
+      "score": 6,
+      "rationale": "Hoodie with zipper and designed for women; differs in closure and possibly fit.",
+      "map_id": "map_089fc6707e5d4b84ba787bb6f4ab7666"
+    },
+    {
+      "competitor_product_name": "Everlane Men's No Pocket Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie likely similar in structure and use but without pockets, very close to reference.",
+      "map_id": "map_ed668c9c45f1448a846f5bb8519ad264"
+    },
+    {
+      "competitor_product_name": "Champion Men's Florida State Seminoles Basic Arch Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Basic fleece pullover hoodie, matching reference in style and utility.",
+      "map_id": "map_8e80f905a3094b879f6bf5f3322351a7"
+    },
+    {
+      "competitor_product_name": "Champion Men's Cornell Reverse Weave Fleece Pullover Hoodie",
+      "score": 8,
+      "rationale": "Reverse weave fleece pullover hoodie, aligning closely with the reference hoodie.",
+      "map_id": "map_deac8b1283434c26826336fd0dbe0df9"
+    },
+    {
+      "competitor_product_name": "Champion Men's USC Trojans Basketball Icon Pullover Hoodie",
+      "score": 8,
+      "rationale": "Fleece pullover hoodie with sports branding, similar construction and function.",
+      "map_id": "map_90c05a71237c40b79cb34f42435ca026"
+    }
+  ]
+}

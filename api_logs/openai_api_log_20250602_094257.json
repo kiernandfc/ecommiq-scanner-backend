@@ -1,0 +1,167 @@
+{
+  "timestamp": "20250602_094257",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Long Denim Hippie/chore Jacket'\n  - Name='Filson Men's Tin Cloth Lined Cruiser Jacket'\n  - Name='Universal Works Men's Merchant Jacket'\n  - Name='Alex Mill Frontier Denim Jacket'\n  - Name='Universal Works Wool Fleece Field Jacket'\n  - Name='Alex Mill Work Jacket Blazer'\n  - Name='Filson Down Cruiser Jacket'\n  - Name='Filson Men's Mackinaw Wool Blazer'\n  - Name='Filson Men's Ultralight Jacket'\n  - Name='Filson Men's Granite Spire Fleece Jacket'\n  - Name='Wallace & Barnes Men's J.crew Button Down Chore Jacket Coat'\n  - Name='Levi's Blue Chore Coat'\n  - Name='- Levi's Workwear Chore Jacket'\n  - Name='Levi's Men's Chore Coat'\n  - Name='Levi's Men's Sherpa Lined Corduroy Chore Jacket'\n  - Name='Levi's Men's Vintage Large Denim Chore Jacket'\n  - Name='Levi's Panatela Chore Jacket VTG L - Men | Color: Beige | Size: L'\n  - Name='Barbour Men's Wool Chore Jacket'\n  - Name='Faherty Men's Corduroy Coaches Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Long Denim Hippie/chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Shares the chore coat style and utility focus, but made from denim rather than organic cotton twill; similar silhouette and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Tin Cloth Lined Cruiser Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cruiser jacket with sturdy fabric and utility elements, similar ruggedness albeit different name and some design features.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Merchant Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Appears to be a workwear-inspired jacket similar in silhouette and utility but exact fabric and details vary.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Frontier Denim Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Denim jacket with potential utility features, less chore coat specific silhouette and different fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Wool Fleece Field Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Field jacket style with different material (wool fleece), less chore coat specific but shares outdoor workwear vibe.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Work Jacket Blazer\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Work jacket with blazer styling, less traditional chore coat silhouette but similar casual utility function.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Down Cruiser Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Down insulated cruiser jacket focuses more on warmth than chore coat utility; different construction and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Mackinaw Wool Blazer\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Blazer style, wool material; less utility and does not share chore coat construction or fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Ultralight Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Ultralight jacket likely for lightweight weather protection, less heavy-duty utility-focused chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Filson Men's Granite Spire Fleece Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Fleece jacket, different purpose and material, lacks chore coat silhouette and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Wallace & Barnes Men's J.crew Button Down Chore Jacket Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Chore jacket explicitly named, likely similar silhouette, utility functionality, and casual workwear style.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Blue Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic chore coat with similar design and function, matching core product type closely.\"\n    },\n    {\n      \"competitor_product_name\": \"- Levi's Workwear Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Workwear chore jacket matches the reference in style, function, and construction closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Directly named chore coat, indicating strong similarity in silhouette, features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Sherpa Lined Corduroy Chore Jacket\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Chore jacket silhouette and function, but lined and corduroy fabric differs from cotton twill.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Vintage Large Denim Chore Jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Vintage denim chore jacket shares the core silhouette and utility, just different material.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Panatela Chore Jacket VTG L - Men | Color: Beige | Size: L\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Named chore jacket with vintage style, closely matching silhouette and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Wool Chore Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Chore jacket style with wool fabric, similar silhouette and function but different material.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Corduroy Coaches Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Coaches jacket differs significantly from chore coat silhouette and construction; corduroy fabric less typical.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Long Denim Hippie/chore Jacket",
+      "score": 8,
+      "rationale": "Shares the chore coat style and utility focus, but made from denim rather than organic cotton twill; similar silhouette and purpose.",
+      "map_id": "map_812c275028a84a358e17b3365d1f63f9"
+    },
+    {
+      "competitor_product_name": "Filson Men's Tin Cloth Lined Cruiser Jacket",
+      "score": 7,
+      "rationale": "Cruiser jacket with sturdy fabric and utility elements, similar ruggedness albeit different name and some design features.",
+      "map_id": "map_c40cd141ec6444479f1df9530442481e"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Merchant Jacket",
+      "score": 7,
+      "rationale": "Appears to be a workwear-inspired jacket similar in silhouette and utility but exact fabric and details vary.",
+      "map_id": "map_2f4419cdcd7142459aca5369bf076759"
+    },
+    {
+      "competitor_product_name": "Alex Mill Frontier Denim Jacket",
+      "score": 6,
+      "rationale": "Denim jacket with potential utility features, less chore coat specific silhouette and different fabric.",
+      "map_id": "map_8ed0ce1d0b1048d19c2bc6804051c0ec"
+    },
+    {
+      "competitor_product_name": "Universal Works Wool Fleece Field Jacket",
+      "score": 5,
+      "rationale": "Field jacket style with different material (wool fleece), less chore coat specific but shares outdoor workwear vibe.",
+      "map_id": "map_7c8ed7fad2c34a80a350d61681b1cc05"
+    },
+    {
+      "competitor_product_name": "Alex Mill Work Jacket Blazer",
+      "score": 6,
+      "rationale": "Work jacket with blazer styling, less traditional chore coat silhouette but similar casual utility function.",
+      "map_id": "map_ece08d648e0f42efb8a6a0b8d1de206d"
+    },
+    {
+      "competitor_product_name": "Filson Down Cruiser Jacket",
+      "score": 4,
+      "rationale": "Down insulated cruiser jacket focuses more on warmth than chore coat utility; different construction and purpose.",
+      "map_id": "map_d880ead43a6d4e0e9993ea8254b9c056"
+    },
+    {
+      "competitor_product_name": "Filson Men's Mackinaw Wool Blazer",
+      "score": 3,
+      "rationale": "Blazer style, wool material; less utility and does not share chore coat construction or fabric.",
+      "map_id": "map_212def52613349b3a77352601ea9c499"
+    },
+    {
+      "competitor_product_name": "Filson Men's Ultralight Jacket",
+      "score": 4,
+      "rationale": "Ultralight jacket likely for lightweight weather protection, less heavy-duty utility-focused chore coat.",
+      "map_id": "map_557409e43c4445ed9451b0c57bad6344"
+    },
+    {
+      "competitor_product_name": "Filson Men's Granite Spire Fleece Jacket",
+      "score": 3,
+      "rationale": "Fleece jacket, different purpose and material, lacks chore coat silhouette and construction.",
+      "map_id": "map_d0372c5ccade409d98ba098439ee5e00"
+    },
+    {
+      "competitor_product_name": "Wallace & Barnes Men's J.crew Button Down Chore Jacket Coat",
+      "score": 9,
+      "rationale": "Chore jacket explicitly named, likely similar silhouette, utility functionality, and casual workwear style.",
+      "map_id": "map_c625fcf74fff4ee396a260b900e7d273"
+    },
+    {
+      "competitor_product_name": "Levi's Blue Chore Coat",
+      "score": 9,
+      "rationale": "Classic chore coat with similar design and function, matching core product type closely.",
+      "map_id": "map_85b3491a0bde4dd7a46a21b75f4a45ad"
+    },
+    {
+      "competitor_product_name": "- Levi's Workwear Chore Jacket",
+      "score": 9,
+      "rationale": "Workwear chore jacket matches the reference in style, function, and construction closely.",
+      "map_id": "map_75c67af6af564186b19a9149c1f920e5"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Chore Coat",
+      "score": 9,
+      "rationale": "Directly named chore coat, indicating strong similarity in silhouette, features and intended use.",
+      "map_id": "map_177b3e299de44598ac954ca3a6191edc"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Sherpa Lined Corduroy Chore Jacket",
+      "score": 8,
+      "rationale": "Chore jacket silhouette and function, but lined and corduroy fabric differs from cotton twill.",
+      "map_id": "map_38c0b823b89c4ce78eb4ce1bbf41810a"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Vintage Large Denim Chore Jacket",
+      "score": 9,
+      "rationale": "Vintage denim chore jacket shares the core silhouette and utility, just different material.",
+      "map_id": "map_b0b94930e3884ca5894550656f45b57b"
+    },
+    {
+      "competitor_product_name": "Levi's Panatela Chore Jacket VTG L - Men | Color: Beige | Size: L",
+      "score": 9,
+      "rationale": "Named chore jacket with vintage style, closely matching silhouette and function.",
+      "map_id": "map_cbc8253764f146ea81729b74d4887af4"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Wool Chore Jacket",
+      "score": 7,
+      "rationale": "Chore jacket style with wool fabric, similar silhouette and function but different material.",
+      "map_id": "map_5e0d98a787884257871792c3b99008e1"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Corduroy Coaches Jacket",
+      "score": 5,
+      "rationale": "Coaches jacket differs significantly from chore coat silhouette and construction; corduroy fabric less typical.",
+      "map_id": "map_23f315b1fa4c4d7fb8ba1e659910c56c"
+    }
+  ]
+}

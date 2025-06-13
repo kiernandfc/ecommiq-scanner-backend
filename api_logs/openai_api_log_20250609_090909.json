@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250609_090909",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Taylor Stitch Jack Oxford Shirt'\n  - Name='Taylor Stitch Men's Flannel Button Shirt'\n  - Name='Taylor Stitch Men's Hemp Crewneck Tee'\n  - Name='Marine Layer Men's Textured Check Shirt'\n  - Name='Marine Layer Men's Oliver Better-Than-Linen Short Sleeve Shirt'\n  - Name='Hamilton + Todd Snyder Oxford Dress Shirt'\n  - Name='Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt'\n  - Name='Taylor Stitch Jack Oxford Shirt'\n  - Name='Everlane Essential Organic Polo T-Shirt'\n  - Name='Everlane Men's Pique Polo T-Shirt'\n  - Name='Everlane Men's Brushed Flannel Shirt'\n  - Name='Todd Snyder Men's Slim Fit Cotton Poplin Point Collar Shirt'\n  - Name='Taylor Stitch Men's Davis Dailola Print Short Sleeve Shirt'\n  - Name='Missouri Ellis Oxford'\n  - Name='Todd Snyder Men's Merino Spread Collar Dress Shirt'\n  - Name='Mizzen+Main Leeward No Tuck Men's Dress Shirt Silver Filbert Plaid'\n  - Name='Charles Tyrwhitt Men's Checkered Poplin Button-Down Collar Non-Iron Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt'\n  - Name='Todd Snyder Men's Rayon Hollywood Shirt'\n  - Name='Mizzen+Main Leeward No Tuck Dress Shirt'\n  - Name='Irish Sea Soft Linen Point Collar Shirt'\n  - Name='Mizzen+Main Colorado Boulder Ellis Sky Oxford'\n  - Name='Alabama Ellis Oxford'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Taylor Stitch Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Identical product name and presumably same construction and fabric as the reference Jack Shirt, making it directly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Flannel Button Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Also a button-down shirt, but flannel fabric differs substantially from Oxford and it likely has different tailoring and texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Hemp Crewneck Tee\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Completely different product type (t-shirt versus Oxford button-down shirt), no overlap in construction or silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Textured Check Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Also a button-down shirt but likely a casual fabric with texture and checks, differing from the Jack's clean Oxford weave and tailoring.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Oliver Better-Than-Linen Short Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve and linen-like fabric differ notably from long sleeve, structured Oxford, making it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Hamilton + Todd Snyder Oxford Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Another Oxford dress shirt with similar fabric and construction likely, but different brand and perhaps variations in fit and details.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Close variant to the reference shirt but short sleeve instead of long sleeve; similar material and branding.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Jack Oxford Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Exact same product name as the reference, indicating identical product.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Essential Organic Polo T-Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Polo t-shirt is different category and silhouette from Oxford button-down shirt, despite possibly organic cotton.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Pique Polo T-Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Similar to above, polo shirt with pique fabric is a different style and construction from an Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Brushed Flannel Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Button-down flannel shirt shares the shirt category but fabric and likely tailoring and finish differ from Oxford Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Slim Fit Cotton Poplin Point Collar Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Button-down dress shirt with cotton poplin fabric shares features with the Jack Shirt though poplin is lighter and smoother than rugby Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Taylor Stitch Men's Davis Dailola Print Short Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Short sleeve and printed fabric differ from the plain Oxford Jack Shirt designed for durability and cleaner look.\"\n    },\n    {\n      \"competitor_product_name\": \"Missouri Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt likely similar fabric and construction, possibly different cut or brand but same general product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Merino Spread Collar Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt construction but merino wool fabric deviates from cotton Oxford, and spread collar differs from button-down collar.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Leeward No Tuck Men's Dress Shirt Silver Filbert Plaid\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Non-iron dress shirt with casual pattern but similar silhouette and intended use, although fabric and pattern vary.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Checkered Poplin Button-Down Collar Non-Iron Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Very similar product type: button-down collar shirt in cotton poplin with non-iron finish; closely matches core features though fabric finish differs.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with stretch cotton differs from sturdy organic rugby oxford but shares intended use as durable dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Rayon Hollywood Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Rayon fabric and likely looser style differ significantly from structured organic cotton Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Leeward No Tuck Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar in styling as a dress shirt likely with performance fabric, but different material than cotton Oxford.\"\n    },\n    {\n      \"competitor_product_name\": \"Irish Sea Soft Linen Point Collar Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Linen fabric is lighter and less durable than Oxford, and point collar differs from button-down style.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Colorado Boulder Ellis Sky Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt, similar fabric and intended use, making it one of the closer competitors despite brand difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Alabama Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Likely an Oxford shirt with similar fabric and construction, closely aligned with reference product apart from branding.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Taylor Stitch Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Identical product name and presumably same construction and fabric as the reference Jack Shirt, making it directly relevant.",
+      "map_id": "map_96cb76d98e72401db0eaaad531620796"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Identical product name and presumably same construction and fabric as the reference Jack Shirt, making it directly relevant.",
+      "map_id": "map_f1b675e6f87a48689578b15c5e536fea"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Flannel Button Shirt",
+      "score": 5,
+      "rationale": "Also a button-down shirt, but flannel fabric differs substantially from Oxford and it likely has different tailoring and texture.",
+      "map_id": "map_f6de269023864c5b9eabe2bb4dbb0c91"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Hemp Crewneck Tee",
+      "score": 1,
+      "rationale": "Completely different product type (t-shirt versus Oxford button-down shirt), no overlap in construction or silhouette.",
+      "map_id": "map_47cc292e450349d9b4455001e90b0ad6"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Textured Check Shirt",
+      "score": 4,
+      "rationale": "Also a button-down shirt but likely a casual fabric with texture and checks, differing from the Jack's clean Oxford weave and tailoring.",
+      "map_id": "map_0e66f0c26a50450099115a4aee1aeb26"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Oliver Better-Than-Linen Short Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short sleeve and linen-like fabric differ notably from long sleeve, structured Oxford, making it less relevant.",
+      "map_id": "map_fa5adfa582304cd3a5be79b07816da9a"
+    },
+    {
+      "competitor_product_name": "Hamilton + Todd Snyder Oxford Dress Shirt",
+      "score": 7,
+      "rationale": "Another Oxford dress shirt with similar fabric and construction likely, but different brand and perhaps variations in fit and details.",
+      "map_id": "map_466caaadca9d41b7b64d4c0ea074f390"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Organic Cotton Jack Short Sleeve Shirt",
+      "score": 8,
+      "rationale": "Close variant to the reference shirt but short sleeve instead of long sleeve; similar material and branding.",
+      "map_id": "map_d967d09dd5344fd8a64590be271d02a5"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Exact same product name as the reference, indicating identical product.",
+      "map_id": "map_96cb76d98e72401db0eaaad531620796"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Jack Oxford Shirt",
+      "score": 10,
+      "rationale": "Exact same product name as the reference, indicating identical product.",
+      "map_id": "map_f1b675e6f87a48689578b15c5e536fea"
+    },
+    {
+      "competitor_product_name": "Everlane Essential Organic Polo T-Shirt",
+      "score": 2,
+      "rationale": "Polo t-shirt is different category and silhouette from Oxford button-down shirt, despite possibly organic cotton.",
+      "map_id": "map_738b2a6bc3484b4ba69a9e16fa82cdc4"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Pique Polo T-Shirt",
+      "score": 2,
+      "rationale": "Similar to above, polo shirt with pique fabric is a different style and construction from an Oxford shirt.",
+      "map_id": "map_545558c8c1fe445b8b2f7832966aecc3"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Brushed Flannel Shirt",
+      "score": 4,
+      "rationale": "Button-down flannel shirt shares the shirt category but fabric and likely tailoring and finish differ from Oxford Jack Shirt.",
+      "map_id": "map_2611d5108bff4b179e62c2c5b784baf7"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Slim Fit Cotton Poplin Point Collar Shirt",
+      "score": 7,
+      "rationale": "Button-down dress shirt with cotton poplin fabric shares features with the Jack Shirt though poplin is lighter and smoother than rugby Oxford.",
+      "map_id": "map_e1aed9560b084d3a9173e9ac2a61e227"
+    },
+    {
+      "competitor_product_name": "Taylor Stitch Men's Davis Dailola Print Short Sleeve Shirt",
+      "score": 3,
+      "rationale": "Short sleeve and printed fabric differ from the plain Oxford Jack Shirt designed for durability and cleaner look.",
+      "map_id": "map_da2709b3b4f84bd9a41232dce490f27a"
+    },
+    {
+      "competitor_product_name": "Missouri Ellis Oxford",
+      "score": 8,
+      "rationale": "Oxford shirt likely similar fabric and construction, possibly different cut or brand but same general product type.",
+      "map_id": "map_39b5c358a4d9402c8e98afea2a15a697"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Merino Spread Collar Dress Shirt",
+      "score": 5,
+      "rationale": "Dress shirt construction but merino wool fabric deviates from cotton Oxford, and spread collar differs from button-down collar.",
+      "map_id": "map_dc71f1ce2b8443138a95cf3c137cbd66"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Leeward No Tuck Men's Dress Shirt Silver Filbert Plaid",
+      "score": 6,
+      "rationale": "Non-iron dress shirt with casual pattern but similar silhouette and intended use, although fabric and pattern vary.",
+      "map_id": "map_3cce2b6095d24a6295eebb631f62b459"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Checkered Poplin Button-Down Collar Non-Iron Shirt",
+      "score": 7,
+      "rationale": "Very similar product type: button-down collar shirt in cotton poplin with non-iron finish; closely matches core features though fabric finish differs.",
+      "map_id": "map_7daf2a7db473401796674af808d0a78d"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Cotton Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with stretch cotton differs from sturdy organic rugby oxford but shares intended use as durable dress shirt.",
+      "map_id": "map_bba4d399cdf64e52b1cff8bf59e5205f"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Rayon Hollywood Shirt",
+      "score": 3,
+      "rationale": "Rayon fabric and likely looser style differ significantly from structured organic cotton Oxford shirt.",
+      "map_id": "map_b19b531bb0984563bcd326e5e92a6412"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Leeward No Tuck Dress Shirt",
+      "score": 6,
+      "rationale": "Similar in styling as a dress shirt likely with performance fabric, but different material than cotton Oxford.",
+      "map_id": "map_2e02d8687c67448288b5c6df2f2959b9"
+    },
+    {
+      "competitor_product_name": "Irish Sea Soft Linen Point Collar Shirt",
+      "score": 4,
+      "rationale": "Linen fabric is lighter and less durable than Oxford, and point collar differs from button-down style.",
+      "map_id": "map_7f2ca8c6aa134ac3b6d9d5446ef4ba41"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Colorado Boulder Ellis Sky Oxford",
+      "score": 8,
+      "rationale": "Oxford shirt, similar fabric and intended use, making it one of the closer competitors despite brand difference.",
+      "map_id": "map_a261cfdd46af42f28014178532a356ff"
+    },
+    {
+      "competitor_product_name": "Alabama Ellis Oxford",
+      "score": 8,
+      "rationale": "Likely an Oxford shirt with similar fabric and construction, closely aligned with reference product apart from branding.",
+      "map_id": "map_2774d406d3a446e98153d3a75eeffefe"
+    }
+  ]
+}

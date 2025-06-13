@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250523_082117",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Brooks Brothers Regent Fit Dress Shirt'\n  - Name='Nordstrom Premium Non-Iron Windowpane Check Dress Shirt'\n  - Name='Nordstrom Trim Fit Gingham Check Dress Shirt'\n  - Name='L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt'\n  - Name='Wrinkle-Free Oxford Cloth Pinpoint Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt'\n  - Name='Michael Kors Men's Slim Fit Passport Dress Shirt'\n  - Name='BOSS Men's Hank Slim Fit Solid Performance Cotton Piqué Dress Shirt'\n  - Name='David Donahue Men's Slim Fit Micro Dobby Cotton Dress Shirt'\n  - Name='Nordstrom Trim Fit Oxford Dress Shirt'\n  - Name='Men's L.L.Bean Signature Northwoods Twill Shirt'\n  - Name='L.L.Bean Men's BeanFlex Twill Shirt'\n  - Name='L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt'\n  - Name='Joseph Abboud Men's Modern Fit Performance Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Wrinkle-Resistant Stripe Dress Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Performance Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Textured Dress Shirt'\n  - Name='L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt'\n  - Name='&Collar Big & Tall Men's Pacific Athletic Fit Dress Shirt'\n  - Name='Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt'\n  - Name='Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt'\n  - Name='Lands' End Men's Pinpoint Oxford Shirt'\n  - Name='Lands' End Men's Tailored Fit No Iron Long Sleeve Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Brooks Brothers Regent Fit Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Both are dress shirts suitable for work and formal occasions; 'Regent Fit' is a well-known classic fit which is similar to trim or standard fit styles.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Premium Non-Iron Windowpane Check Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Non-iron dress shirt with premium quality, very close match to the reference in fabric and purpose, differing mainly by a check pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Gingham Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Trim fit dress shirt like the reference, although patterned rather than solid, still very relevant for formal and business wear.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual untucked fit with plaid pattern and more casual styling, less relevant as a formal or dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Wrinkle-Free Oxford Cloth Pinpoint Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free or non-iron fabric and dress shirt style with Oxford cloth, highly relevant to the reference shirt's purpose and fabric features.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Slightly fitted twill shirt, likely more casual and not specifically a dress shirt or non-iron, moderate relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Slim Fit Passport Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit dress shirt, likely non-iron or performance oriented; similar purpose and style to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"BOSS Men's Hank Slim Fit Solid Performance Cotton Piqué Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit solid dress shirt with performance cotton; though piqué fabric differs slightly, it serves similar use and style.\"\n    },\n    {\n      \"competitor_product_name\": \"David Donahue Men's Slim Fit Micro Dobby Cotton Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit dress shirt with textured dobby cotton fabric; similar form and function, slightly different fabric texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Trim Fit Oxford Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Trim fit, non-iron likely, Oxford dress shirt; very close match to the reference in fit, fabric, and purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's L.L.Bean Signature Northwoods Twill Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Twill shirt generally casual and heavier fabric, not typically a dress shirt; less relevant to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's BeanFlex Twill Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Casual twill shirt without dress shirt emphasis, lower relevance to dress shirt category.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Canvas fabric and casual traditional fit shirt; not a dress shirt nor non-iron, low relevance.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit dress shirt with performance fabric and micro check pattern; very relevant to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Modern Fit Performance Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Modern fit performance dress shirt closely matches reference attributes in fit and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Wrinkle-Resistant Stripe Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit wrinkle-resistant dress shirt with stripe pattern; functionally and stylistically similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Performance Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit performance fabric dress shirt, close to reference in fit and purpose though pattern not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Textured Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim fit textured dress shirt matching the referenced shirt's fabric texture and fit characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely casual hemp fabric shirt, less relevant to dress shirt category and non-iron features.\"\n    },\n    {\n      \"competitor_product_name\": \"&Collar Big & Tall Men's Pacific Athletic Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Dress shirt with athletic fit targeting big & tall segment; similar function but different fit style.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Solid slim fit dress shirt made of premium cotton, closely matching all key characteristics of the reference shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Traditional fit, no iron Oxford dress shirt closely aligned with reference product in fabric and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Tailored fit no iron Oxford dress shirt, highly relevant with close match in function, fit, and fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Pinpoint Oxford Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pinpoint Oxford shirt likely dress style; relevance slightly less if no explicit no-iron treatment mentioned.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Long Sleeve Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Tailored fit no iron shirt, close in key attributes, with potential fit and function alignment though fabric specifics unknown.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Brooks Brothers Regent Fit Dress Shirt",
+      "score": 9,
+      "rationale": "Both are dress shirts suitable for work and formal occasions; 'Regent Fit' is a well-known classic fit which is similar to trim or standard fit styles.",
+      "map_id": "map_e6408f371da24ae7b559af0ef6f6eeaf"
+    },
+    {
+      "competitor_product_name": "Nordstrom Premium Non-Iron Windowpane Check Dress Shirt",
+      "score": 10,
+      "rationale": "Non-iron dress shirt with premium quality, very close match to the reference in fabric and purpose, differing mainly by a check pattern.",
+      "map_id": "map_fded16e846fc459b86a55187ab48e6da"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Gingham Check Dress Shirt",
+      "score": 9,
+      "rationale": "Trim fit dress shirt like the reference, although patterned rather than solid, still very relevant for formal and business wear.",
+      "map_id": "map_32ad8b07b9fa4cf683e77ac2dc093b5f"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Plaid Shirt",
+      "score": 3,
+      "rationale": "Casual untucked fit with plaid pattern and more casual styling, less relevant as a formal or dress shirt.",
+      "map_id": "map_dc7c233bf55c48aabaec4424604c387f"
+    },
+    {
+      "competitor_product_name": "Wrinkle-Free Oxford Cloth Pinpoint Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free or non-iron fabric and dress shirt style with Oxford cloth, highly relevant to the reference shirt's purpose and fabric features.",
+      "map_id": "map_5c50f819d13044809239a14a6f64d1e7"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Slightly Fitted Shirt",
+      "score": 4,
+      "rationale": "Slightly fitted twill shirt, likely more casual and not specifically a dress shirt or non-iron, moderate relevance.",
+      "map_id": "map_cf835fd2018745209eda4bee9a7cb275"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Slim Fit Passport Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit dress shirt, likely non-iron or performance oriented; similar purpose and style to reference.",
+      "map_id": "map_526f4bc59b4244d0b716733882460a45"
+    },
+    {
+      "competitor_product_name": "BOSS Men's Hank Slim Fit Solid Performance Cotton Piqué Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit solid dress shirt with performance cotton; though piqué fabric differs slightly, it serves similar use and style.",
+      "map_id": "map_9dbe49cd106244cc980b4fb212c99906"
+    },
+    {
+      "competitor_product_name": "David Donahue Men's Slim Fit Micro Dobby Cotton Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit dress shirt with textured dobby cotton fabric; similar form and function, slightly different fabric texture.",
+      "map_id": "map_0d29c8cc6fc54455973208ad077efabd"
+    },
+    {
+      "competitor_product_name": "Nordstrom Trim Fit Oxford Dress Shirt",
+      "score": 10,
+      "rationale": "Trim fit, non-iron likely, Oxford dress shirt; very close match to the reference in fit, fabric, and purpose.",
+      "map_id": "map_2d86ae9179bc4b48b030090dde17e03e"
+    },
+    {
+      "competitor_product_name": "Men's L.L.Bean Signature Northwoods Twill Shirt",
+      "score": 3,
+      "rationale": "Twill shirt generally casual and heavier fabric, not typically a dress shirt; less relevant to the reference.",
+      "map_id": "map_30365963bdf04030b9189a4f3525b977"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's BeanFlex Twill Shirt",
+      "score": 3,
+      "rationale": "Casual twill shirt without dress shirt emphasis, lower relevance to dress shirt category.",
+      "map_id": "map_3e3786d28e3142c685b6db389206d54a"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Fit Sunwashed Canvas Shirt",
+      "score": 2,
+      "rationale": "Canvas fabric and casual traditional fit shirt; not a dress shirt nor non-iron, low relevance.",
+      "map_id": "map_528580d9832f469ca5f15863dad9f427"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Ultra Performance Stretch Micro Check Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit dress shirt with performance fabric and micro check pattern; very relevant to the reference product.",
+      "map_id": "map_075da7a8a07a4cd6aecc6b0af09d69b1"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Modern Fit Performance Dress Shirt",
+      "score": 9,
+      "rationale": "Modern fit performance dress shirt closely matches reference attributes in fit and function.",
+      "map_id": "map_2b8d1232a72c4413a6ac62b871ac1d25"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Wrinkle-Resistant Stripe Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit wrinkle-resistant dress shirt with stripe pattern; functionally and stylistically similar.",
+      "map_id": "map_a500f7b97bdc44b2a2556d97ca0cfbd9"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Performance Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit performance fabric dress shirt, close to reference in fit and purpose though pattern not specified.",
+      "map_id": "map_e98a6716f658424482f7da4c7f7f67da"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Textured Dress Shirt",
+      "score": 9,
+      "rationale": "Slim fit textured dress shirt matching the referenced shirt's fabric texture and fit characteristics.",
+      "map_id": "map_18dd94d80b5e4218afaa217558edf20e"
+    },
+    {
+      "competitor_product_name": "L.L.Bean Men's Stonecoast Hemp Long-Sleeve Shirt",
+      "score": 3,
+      "rationale": "Likely casual hemp fabric shirt, less relevant to dress shirt category and non-iron features.",
+      "map_id": "map_d5011a83272d4eccbff780607bcaf18d"
+    },
+    {
+      "competitor_product_name": "&Collar Big & Tall Men's Pacific Athletic Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Dress shirt with athletic fit targeting big & tall segment; similar function but different fit style.",
+      "map_id": "map_06a1fbf8a51a40daa89c193f057919b3"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim Fit Solid Supima Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "Solid slim fit dress shirt made of premium cotton, closely matching all key characteristics of the reference shirt.",
+      "map_id": "map_ee1f83455a15476a8cf84c16b1d8d9a2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Traditional Fit No Iron Oxford Dress Shirt",
+      "score": 10,
+      "rationale": "Traditional fit, no iron Oxford dress shirt closely aligned with reference product in fabric and finish.",
+      "map_id": "map_e4f2fb63f9e745f8a5dd0dffc30b55f2"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Oxford Dress Shirt",
+      "score": 10,
+      "rationale": "Tailored fit no iron Oxford dress shirt, highly relevant with close match in function, fit, and fabric.",
+      "map_id": "map_0774460aadf742c29c5956df1b3c51eb"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Pinpoint Oxford Shirt",
+      "score": 8,
+      "rationale": "Pinpoint Oxford shirt likely dress style; relevance slightly less if no explicit no-iron treatment mentioned.",
+      "map_id": "map_9dd3387e045346eda77e38cd48993dac"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Long Sleeve Shirt",
+      "score": 9,
+      "rationale": "Tailored fit no iron shirt, close in key attributes, with potential fit and function alignment though fabric specifics unknown.",
+      "map_id": "map_8cb5474f3ba64397981a8f641913c0b2"
+    }
+  ]
+}

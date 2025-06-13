@@ -1,0 +1,83 @@
+{
+  "timestamp": "20250604_073634",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt'\n  - Name='Men's Dress Shirt Fit Laura Ashley x Tie Bar Indienne Floral'\n  - Name='The Tie Bar Men's Premium Chambray Dress Shirt'\n  - Name='The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a cotton dress shirt like the reference, from the same brand, but special floral pattern likely adds a casual or fashion-forward element; fabric finish like non-iron is not specified, so lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product: dress shirt from Tie Bar, wrinkle-free (likely non-iron), standard fit; matches core features and function closely to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Dress Shirt Fit Laura Ashley x Tie Bar Indienne Floral\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Dress shirt by the same collaboration but floral pattern and no direct mention of wrinkle-free or non-iron; fit may vary, so less aligned with the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Premium Chambray Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt by Tie Bar, premium chambray fabric suggests a different textured material and possible casual style; still a formal shirt, but fabric and function may differ somewhat from non-iron classic dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tuxedo shirt is more formal and specialized than a general dress shirt; pleated herringbone texture and specific tuxedo style reduce relevancy despite same brand and shirt type.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Laura Ashley x Tie Bar Men's Brompton Floral Cotton Dress Shirt",
+      "score": 6,
+      "rationale": "This is a cotton dress shirt like the reference, from the same brand, but special floral pattern likely adds a casual or fashion-forward element; fabric finish like non-iron is not specified, so lower relevancy.",
+      "map_id": "map_82879d84d89a496eaafa299aba6917eb"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Standard Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Very similar product: dress shirt from Tie Bar, wrinkle-free (likely non-iron), standard fit; matches core features and function closely to the reference product.",
+      "map_id": "map_6e1b72f40c85487cb7021d8d282bb85d"
+    },
+    {
+      "competitor_product_name": "Men's Dress Shirt Fit Laura Ashley x Tie Bar Indienne Floral",
+      "score": 5,
+      "rationale": "Dress shirt by the same collaboration but floral pattern and no direct mention of wrinkle-free or non-iron; fit may vary, so less aligned with the reference.",
+      "map_id": "map_4a379fa1490e4094b622897367c85692"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Premium Chambray Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt by Tie Bar, premium chambray fabric suggests a different textured material and possible casual style; still a formal shirt, but fabric and function may differ somewhat from non-iron classic dress shirt.",
+      "map_id": "map_7b46ef33c985423f8253b9ae9b83996c"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Herringbone Pleated Tuxedo Dress Shirt",
+      "score": 6,
+      "rationale": "Tuxedo shirt is more formal and specialized than a general dress shirt; pleated herringbone texture and specific tuxedo style reduce relevancy despite same brand and shirt type.",
+      "map_id": "map_4b4c89b4fe924e9ba61f92624915233c"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250518_155912",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Wrinkle-Free'\n  - Name='Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt'\n  - Name='David Donahue Men's Regular Fit Micro Geometric Dobby Dress Shirt'\n  - Name='Michael Kors Men's Solid Non-Iron Stretch Dress Shirt'\n  - Name='Brooklyn Brigade Men's Dante Non-Iron Performance Stretch Shirt'\n  - Name='Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt'\n  - Name='J.Crew Men's Tall Bowery Point-Collar Stretch Cotton Shirt'\n  - Name='J.Crew Men's Slim Untucked Brushed Twill Shirt'\n  - Name='Banana Republic Men's Slim Fit Non-Iron Dress Shirt'\n  - Name='David Donahue Men's Regular Fit Broadcloth French Cuff Dress Shirt'\n  - Name='WRKNY Men's Slim Fit Broken Stripe Performance Dress Shirt'\n  - Name='Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt'\n  - Name='Banana Republic Slim-Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Lands' End Men's Oxford Long Sleeve Dress Shirt'\n  - Name='Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt'\n  - Name='Eton Men's Contemporary Fit Twill Dress Shirt'\n  - Name='Calvin Klein Men's Slim-Fit Dress Shirt'\n  - Name='Calvin Klein Big & Tall Men's Slim Fit Non-Iron French Cuff Dress Shirt at Men's Wearhouse'\n  - Name='Banana Republic Men's Standard-Fit Wrinkle-Resistant Dress Shirt'\n  - Name='Rhone Men's Commuter Shirt Slim Fit'\n  - Name='Eton Slim Fit Paisley Shirt'\n  - Name='Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt'\n  - Name='Lauren Women's Ralph Lauren Easy Care Stretch Cotton Shirt'\n  - Name='Kenneth Cole Men's Slim Fit Performance Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Wrinkle-Free\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Long-sleeve wrinkle-free shirt suitable for casual or business casual use, but traditional untucked fit differs from dress shirt trim or standard fit and likely less formal collar style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with formal construction and dress shirt collar type, very close to reference product though collar style (cutaway) differs slightly from semi-spread.\"\n    },\n    {\n      \"competitor_product_name\": \"David Donahue Men's Regular Fit Micro Geometric Dobby Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Regular fit dress shirt with typical dress shirt construction; geometric pattern slightly reduces focus but overall quite relevant as a dress shirt similar to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Michael Kors Men's Solid Non-Iron Stretch Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Solid color non-iron dress shirt with stretch, very similar purpose and style to the reference product; likely similar collar but not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Brooklyn Brigade Men's Dante Non-Iron Performance Stretch Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron performance stretch shirt, but lacking specific indication of dress shirt collar style or fit; likely a dress shirt but possibly more casual or technical fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with a semi-cutaway collar, very close in style and function to the semi-spread collar of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Non-iron stretch Oxford dress shirt; checkered pattern and fabric type suggest casual or business casual dress shirt, relevant but less so than solid and semi-spread collars.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tall Bowery Point-Collar Stretch Cotton Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Point collar stretch cotton shirt, likely a dress shirt variant but point collar differs from semi-spread and less focus on non-iron or dress formal style.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Untucked Brushed Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Untucked brushed twill shirt is less formal and designed to be worn untucked, differing notably from a structured non-iron dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Slim Fit Non-Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Slim fit non-iron dress shirt aligns exactly in function, fit, and treatment with the reference product, very high relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"David Donahue Men's Regular Fit Broadcloth French Cuff Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Regular fit broadcloth dress shirt with French cuffs similar in formality but French cuffs imply more formal styling than reference; still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"WRKNY Men's Slim Fit Broken Stripe Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Slim fit dress shirt with performance fabric and stripped pattern, somewhat less traditional but still a dress shirt relevant to the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron dress shirt with cutaway collar, very similar product category and construction to reference despite collar variation.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Slim-Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Slim-fit wrinkle-resistant dress shirt strongly aligns with the non-iron dress shirt reference focusing on convenience and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Oxford Long Sleeve Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Long sleeve Oxford dress shirt typically formal and dress shirt type; no strong indication of non-iron treatment or collar style, still relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron Oxford dress shirt with traditional fit, very close in formality and treatment to reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Men's Contemporary Fit Twill Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Contemporary fit twill dress shirt aligns well with dress shirt category though fabric differs; still quite relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Slim-Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim-fit dress shirt likely non-iron or wrinkle-resistant, aligns well with dress shirt function and fit of reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Big & Tall Men's Slim Fit Non-Iron French Cuff Dress Shirt at Men's Wearhouse\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron slim fit dress shirt with French cuffs, very similar to reference except for cuff style and sizing.\"\n    },\n    {\n      \"competitor_product_name\": \"Banana Republic Men's Standard-Fit Wrinkle-Resistant Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Standard fit wrinkle-resistant dress shirt closely matches reference product in purpose, fit and care.\"\n    },\n    {\n      \"competitor_product_name\": \"Rhone Men's Commuter Shirt Slim Fit\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit commuter shirt likely technical fabric and lifestyle oriented, less formal and different usage focus than classic dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Slim Fit Paisley Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Slim fit dress shirt with paisley pattern; dress shirt but patterned nature and possible fabric differences lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Cotton Oxford checkered dress shirt less formal due to pattern and fabric; still a dress shirt with some non-iron properties possibly.\"\n    },\n    {\n      \"competitor_product_name\": \"Lauren Women's Ralph Lauren Easy Care Stretch Cotton Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Women’s easy care stretch cotton shirt, different gender target and likely different styling; lower relevancy despite similar fabric care features.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Slim Fit Performance Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim fit performance dress shirt is a dress shirt variant with stretch or technical fabric, similar but with a performance focus.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "L.L.Bean Men's Traditional Untucked Fit Long-Sleeve Wrinkle-Free",
+      "score": 6,
+      "rationale": "Long-sleeve wrinkle-free shirt suitable for casual or business casual use, but traditional untucked fit differs from dress shirt trim or standard fit and likely less formal collar style.",
+      "map_id": "map_744e925309054f908db8642eefa8740c"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Cutaway Collar Non-Iron Poplin Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with formal construction and dress shirt collar type, very close to reference product though collar style (cutaway) differs slightly from semi-spread.",
+      "map_id": "map_179d1a91a3904c1aaf0f0c2aa36defc6"
+    },
+    {
+      "competitor_product_name": "David Donahue Men's Regular Fit Micro Geometric Dobby Dress Shirt",
+      "score": 8,
+      "rationale": "Regular fit dress shirt with typical dress shirt construction; geometric pattern slightly reduces focus but overall quite relevant as a dress shirt similar to the reference.",
+      "map_id": "map_a9da6c9b528c4e5d8eca61aca8c798a2"
+    },
+    {
+      "competitor_product_name": "Michael Kors Men's Solid Non-Iron Stretch Dress Shirt",
+      "score": 9,
+      "rationale": "Solid color non-iron dress shirt with stretch, very similar purpose and style to the reference product; likely similar collar but not specified.",
+      "map_id": "map_5dca662644a14eeea21b6e7678843559"
+    },
+    {
+      "competitor_product_name": "Brooklyn Brigade Men's Dante Non-Iron Performance Stretch Shirt",
+      "score": 7,
+      "rationale": "Non-iron performance stretch shirt, but lacking specific indication of dress shirt collar style or fit; likely a dress shirt but possibly more casual or technical fabric.",
+      "map_id": "map_7f4c02bd9f5f483995d9977e19c0df00"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Semi-Cutaway Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with a semi-cutaway collar, very close in style and function to the semi-spread collar of the reference.",
+      "map_id": "map_6a43e35e62b04281b7c8b2c0fdb43758"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Non-Iron Stretch Oxford Checkered Dress Shirt",
+      "score": 7,
+      "rationale": "Non-iron stretch Oxford dress shirt; checkered pattern and fabric type suggest casual or business casual dress shirt, relevant but less so than solid and semi-spread collars.",
+      "map_id": "map_281365b917d142b2a3d7242e4e9d8d07"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tall Bowery Point-Collar Stretch Cotton Shirt",
+      "score": 6,
+      "rationale": "Point collar stretch cotton shirt, likely a dress shirt variant but point collar differs from semi-spread and less focus on non-iron or dress formal style.",
+      "map_id": "map_ac70fb9cc37043fdabc8b54b5de314c9"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Untucked Brushed Twill Shirt",
+      "score": 5,
+      "rationale": "Untucked brushed twill shirt is less formal and designed to be worn untucked, differing notably from a structured non-iron dress shirt.",
+      "map_id": "map_2d150b102fa94602a6337ffc6c352728"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Slim Fit Non-Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Slim fit non-iron dress shirt aligns exactly in function, fit, and treatment with the reference product, very high relevancy.",
+      "map_id": "map_e536fde3786a47bc9283e9851dc025a3"
+    },
+    {
+      "competitor_product_name": "David Donahue Men's Regular Fit Broadcloth French Cuff Dress Shirt",
+      "score": 8,
+      "rationale": "Regular fit broadcloth dress shirt with French cuffs similar in formality but French cuffs imply more formal styling than reference; still highly relevant.",
+      "map_id": "map_8c2a23e165d74b9a9b6a6bbe07ee0f02"
+    },
+    {
+      "competitor_product_name": "WRKNY Men's Slim Fit Broken Stripe Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Slim fit dress shirt with performance fabric and stripped pattern, somewhat less traditional but still a dress shirt relevant to the reference.",
+      "map_id": "map_be368f1e6ade44068b035f36f8595185"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cutaway Collar Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron dress shirt with cutaway collar, very similar product category and construction to reference despite collar variation.",
+      "map_id": "map_08122f5f3a974ebb9db46ff22fb8812a"
+    },
+    {
+      "competitor_product_name": "Banana Republic Slim-Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Slim-fit wrinkle-resistant dress shirt strongly aligns with the non-iron dress shirt reference focusing on convenience and fit.",
+      "map_id": "map_0e0300fce8da4a2c8a9aab34f3a6f001"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Oxford Long Sleeve Dress Shirt",
+      "score": 8,
+      "rationale": "Long sleeve Oxford dress shirt typically formal and dress shirt type; no strong indication of non-iron treatment or collar style, still relevant.",
+      "map_id": "map_28d268a755c84134a54d152f362b14b5"
+    },
+    {
+      "competitor_product_name": "Nordstrom Traditional Fit Cotton Oxford Non-Iron Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron Oxford dress shirt with traditional fit, very close in formality and treatment to reference product.",
+      "map_id": "map_8bf4c3658fa14049b1f91626096f26d9"
+    },
+    {
+      "competitor_product_name": "Eton Men's Contemporary Fit Twill Dress Shirt",
+      "score": 8,
+      "rationale": "Contemporary fit twill dress shirt aligns well with dress shirt category though fabric differs; still quite relevant.",
+      "map_id": "map_514d600f596245e689f77992687451f6"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Slim-Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Slim-fit dress shirt likely non-iron or wrinkle-resistant, aligns well with dress shirt function and fit of reference.",
+      "map_id": "map_bddf35835fd44665b10ad003017795dc"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Big & Tall Men's Slim Fit Non-Iron French Cuff Dress Shirt at Men's Wearhouse",
+      "score": 9,
+      "rationale": "Non-iron slim fit dress shirt with French cuffs, very similar to reference except for cuff style and sizing.",
+      "map_id": "map_775b8a69e5874a82ae5cfc621bcf37a6"
+    },
+    {
+      "competitor_product_name": "Banana Republic Men's Standard-Fit Wrinkle-Resistant Dress Shirt",
+      "score": 9,
+      "rationale": "Standard fit wrinkle-resistant dress shirt closely matches reference product in purpose, fit and care.",
+      "map_id": "map_a17a5dc16ba34820810dc56769f915f4"
+    },
+    {
+      "competitor_product_name": "Rhone Men's Commuter Shirt Slim Fit",
+      "score": 6,
+      "rationale": "Slim fit commuter shirt likely technical fabric and lifestyle oriented, less formal and different usage focus than classic dress shirt.",
+      "map_id": "map_cb56f60addf4429e9b42417411e02f7f"
+    },
+    {
+      "competitor_product_name": "Eton Slim Fit Paisley Shirt",
+      "score": 6,
+      "rationale": "Slim fit dress shirt with paisley pattern; dress shirt but patterned nature and possible fabric differences lower relevancy.",
+      "map_id": "map_0f8817251593417b82efbb3ade670714"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Cotton Oxford Checkered Dress Shirt",
+      "score": 7,
+      "rationale": "Cotton Oxford checkered dress shirt less formal due to pattern and fabric; still a dress shirt with some non-iron properties possibly.",
+      "map_id": "map_bb18855f0ea5487bad96f2cd3e9af180"
+    },
+    {
+      "competitor_product_name": "Lauren Women's Ralph Lauren Easy Care Stretch Cotton Shirt",
+      "score": 3,
+      "rationale": "Women’s easy care stretch cotton shirt, different gender target and likely different styling; lower relevancy despite similar fabric care features.",
+      "map_id": "map_dfe76f4a2d03471791af95924d163b19"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Slim Fit Performance Dress Shirt",
+      "score": 8,
+      "rationale": "Slim fit performance dress shirt is a dress shirt variant with stretch or technical fabric, similar but with a performance focus.",
+      "map_id": "map_ba8ed97dc9d742ae8cb5a9efb428d244"
+    }
+  ]
+}

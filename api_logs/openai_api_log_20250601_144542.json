@@ -1,0 +1,101 @@
+{
+  "timestamp": "20250601_144542",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt Men's 100614 Factory 2nd Rain Defender Loose Fit Heavyweight Full-Zip Sweatshirt'\n  - Name='Men's adidas Essentials 3-Bar Terry Sportswear Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='American Apparel Tri-Blend Hoodie Made in USA'\n  - Name='American Apparel Unisex Fleece Pullover Hoodie Sweatshirt Small'\n  - Name='American Apparel Hoodie Heather Gray - Men | Color: Gray | Size: S'\n  - Name='American Apparel Fleece Hoodie'\n  - Name='UNIQLO Women's Airism Full-Zip Hoodie with UV Protection'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt Men's 100614 Factory 2nd Rain Defender Loose Fit Heavyweight Full-Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a heavyweight full-zip sweatshirt, similar to a hoodie but likely heavier and with a zip, making it somewhat relevant but less similar due to construction and weight.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's adidas Essentials 3-Bar Terry Sportswear Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A terry sportswear hoodie aligns closely with the Boston Scally Hoodie in being soft, comfortable, and a classic hoodie; slight brand and use differences but very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A standard men's hoodie from a well-known apparel brand, very similar in silhouette and function to the Boston Scally Hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Tri-Blend Hoodie Made in USA\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Also a hoodie made with tri-blend fabric, likely soft and comfortable like the Boston Scally Hoodie, closely matching style and comfort emphasis.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Unisex Fleece Pullover Hoodie Sweatshirt Small\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A unisex fleece pullover hoodie sweatshirt matches exactly the Boston Scally Hoodie in terms of construction, style, and comfort focus.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Hoodie Heather Gray - Men | Color: Gray | Size: S\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Standard men's hoodie, similar in function and design; color and size details do not affect relevancy much.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Fleece Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"A fleece hoodie aligns perfectly with the Boston Scally Hoodie as to fabric, comfort, and style.\"\n    },\n    {\n      \"competitor_product_name\": \"UNIQLO Women's Airism Full-Zip Hoodie with UV Protection\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"A full-zip hoodie but designed for women and with heat/UV protection features; relevant as a hoodie but differs in zipper and intended usage features.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt Men's 100614 Factory 2nd Rain Defender Loose Fit Heavyweight Full-Zip Sweatshirt",
+      "score": 6,
+      "rationale": "This is a heavyweight full-zip sweatshirt, similar to a hoodie but likely heavier and with a zip, making it somewhat relevant but less similar due to construction and weight.",
+      "map_id": "map_147808670c0446d6a96c536217685977"
+    },
+    {
+      "competitor_product_name": "Men's adidas Essentials 3-Bar Terry Sportswear Hoodie",
+      "score": 9,
+      "rationale": "A terry sportswear hoodie aligns closely with the Boston Scally Hoodie in being soft, comfortable, and a classic hoodie; slight brand and use differences but very relevant.",
+      "map_id": "map_96c50ef692b447aeb61d302d13a01f31"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 9,
+      "rationale": "A standard men's hoodie from a well-known apparel brand, very similar in silhouette and function to the Boston Scally Hoodie.",
+      "map_id": "map_5ae96ac4d8694f3bbeaec88d420d8dbf"
+    },
+    {
+      "competitor_product_name": "American Apparel Tri-Blend Hoodie Made in USA",
+      "score": 9,
+      "rationale": "Also a hoodie made with tri-blend fabric, likely soft and comfortable like the Boston Scally Hoodie, closely matching style and comfort emphasis.",
+      "map_id": "map_dcbbc6ec4be24050a2aa8df8c6d2415e"
+    },
+    {
+      "competitor_product_name": "American Apparel Unisex Fleece Pullover Hoodie Sweatshirt Small",
+      "score": 10,
+      "rationale": "A unisex fleece pullover hoodie sweatshirt matches exactly the Boston Scally Hoodie in terms of construction, style, and comfort focus.",
+      "map_id": "map_24c7179d25c147a7a92f2ca92549e909"
+    },
+    {
+      "competitor_product_name": "American Apparel Hoodie Heather Gray - Men | Color: Gray | Size: S",
+      "score": 9,
+      "rationale": "Standard men's hoodie, similar in function and design; color and size details do not affect relevancy much.",
+      "map_id": "map_7bd9108b2a514aa2be5a6584799c7862"
+    },
+    {
+      "competitor_product_name": "American Apparel Fleece Hoodie",
+      "score": 10,
+      "rationale": "A fleece hoodie aligns perfectly with the Boston Scally Hoodie as to fabric, comfort, and style.",
+      "map_id": "map_f0a7ce0d65ea4b0e98ab0fe9f9ddae4c"
+    },
+    {
+      "competitor_product_name": "UNIQLO Women's Airism Full-Zip Hoodie with UV Protection",
+      "score": 7,
+      "rationale": "A full-zip hoodie but designed for women and with heat/UV protection features; relevant as a hoodie but differs in zipper and intended usage features.",
+      "map_id": "map_a15b26c29a0a45c68d1e990b17a43684"
+    }
+  ]
+}

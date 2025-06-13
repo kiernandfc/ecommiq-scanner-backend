@@ -1,0 +1,137 @@
+{
+  "timestamp": "20250605_091512",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Chore Pant",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Chore Pant\"\nReference Product Description:\nThe Chore Pant in Aged Penny Chipped Canvas from Taylor Stitch 12.5-oz. 100% organic cotton canvas. 6-oz. 100% organic cotton SF Map pocketing. Stone washed for a worn in look and feel. Angled front slash pockets for easy entry. Two half-lined back patch pockets. Signature double-knee reinforced construction. Pen sleeve on both front panels. Front and back pockets bar-tacked at stress points. Button fly closure. Double-needle construction throughout. Wash cold and tumble dry low. Made in China.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt WIP Cargo Pants'\n  - Name='Everlane Women's Phoebe Trouser'\n  - Name='Carhartt WIP Aviation Pant Men'\n  - Name='Everlane Tech Pant'\n  - Name='NWT Carhartt WIP Ruck Double Knee Workwear Pants'\n  - Name='Carhartt Wip Men's Single Knee Pant Green'\n  - Name='men Carhartt WIP Wide Panel Pants'\n  - Name='CARHARTT WIP Master Pant'\n  - Name='Carhartt Wip Sid Pant'\n  - Name='Men Carhartt WIP Midland Single Knee Trousers'\n  - Name='Carhartt WIP Cole Cargo'\n  - Name='CARHARTT WIP Men's Double Knee Canvas Pants'\n  - Name='Outerknown Smith Cord Pants'\n  - Name='Outerknown Nomad Men's Chino Pants'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt WIP Cargo Pants\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Both are sturdy workwear pants made for durability and utility; cargo pants include extra pockets but share similar construction focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Phoebe Trouser\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"A trouser is a more refined style likely targeting fashion over workwear functionality; materials and construction likely differ.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Aviation Pant Men\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Workwear-style pants with functional design and durable materials; similar utility but potentially different styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Tech Pant\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Tech pants focus on fabric performance and sleekness unlike heavy-duty canvas chore pants; less overlap in use and style.\"\n    },\n    {\n      \"competitor_product_name\": \"NWT Carhartt WIP Ruck Double Knee Workwear Pants\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Double knee workwear pants closely match reference product's double-knee reinforcement and durability focus.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Men's Single Knee Pant Green\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Workwear pant with single knee reinforcement, similar construction but less robust than double knee style.\"\n    },\n    {\n      \"competitor_product_name\": \"men Carhartt WIP Wide Panel Pants\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Workwear pants with wide panel design, related to utility pants but different silhouette and possibly less reinforcement.\"\n    },\n    {\n      \"competitor_product_name\": \"CARHARTT WIP Master Pant\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Known as a durable, heavy-duty work pant similar in purpose and construction to the chore pant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Wip Sid Pant\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Casual workwear pant with simpler design; related but less feature-rich or reinforced structure.\"\n    },\n    {\n      \"competitor_product_name\": \"Men Carhartt WIP Midland Single Knee Trousers\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Durable work trousers with single knee reinforcement, sharing many functional characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Cole Cargo\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Cargo work pant with functional pocketing and durable construction similar to chore pants.\"\n    },\n    {\n      \"competitor_product_name\": \"CARHARTT WIP Men's Double Knee Canvas Pants\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Nearly identical product type: double knee reinforcement, canvas fabric, workwear focus matches chore pant features perfectly.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Smith Cord Pants\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Corduroy pants with casual styling; less robust construction, but durable fabric gives some functional overlap.\"\n    },\n    {\n      \"competitor_product_name\": \"Outerknown Nomad Men's Chino Pants\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Chinos are more lightweight and fashion-oriented pants, differing in durability and reinforcement from chore pant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt WIP Cargo Pants",
+      "score": 8,
+      "rationale": "Both are sturdy workwear pants made for durability and utility; cargo pants include extra pockets but share similar construction focus.",
+      "map_id": "map_fa32d5687f594f339b66dba37561b35f"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Phoebe Trouser",
+      "score": 3,
+      "rationale": "A trouser is a more refined style likely targeting fashion over workwear functionality; materials and construction likely differ.",
+      "map_id": "map_22f4ee34dc5e4dd8b10e536b9c108c48"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Aviation Pant Men",
+      "score": 7,
+      "rationale": "Workwear-style pants with functional design and durable materials; similar utility but potentially different styling.",
+      "map_id": "map_702cddfa1a964d9ea04916761d0e10f8"
+    },
+    {
+      "competitor_product_name": "Everlane Tech Pant",
+      "score": 4,
+      "rationale": "Tech pants focus on fabric performance and sleekness unlike heavy-duty canvas chore pants; less overlap in use and style.",
+      "map_id": "map_3c942798549645ef941dfb62697c9813"
+    },
+    {
+      "competitor_product_name": "NWT Carhartt WIP Ruck Double Knee Workwear Pants",
+      "score": 9,
+      "rationale": "Double knee workwear pants closely match reference product's double-knee reinforcement and durability focus.",
+      "map_id": "map_472238f435644575be02988f8535bf5a"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Men's Single Knee Pant Green",
+      "score": 7,
+      "rationale": "Workwear pant with single knee reinforcement, similar construction but less robust than double knee style.",
+      "map_id": "map_cf6d5400ec6c4082ac2c8446477e9071"
+    },
+    {
+      "competitor_product_name": "men Carhartt WIP Wide Panel Pants",
+      "score": 6,
+      "rationale": "Workwear pants with wide panel design, related to utility pants but different silhouette and possibly less reinforcement.",
+      "map_id": "map_682dafc053ad4b7aba99c8ce09415aa8"
+    },
+    {
+      "competitor_product_name": "CARHARTT WIP Master Pant",
+      "score": 8,
+      "rationale": "Known as a durable, heavy-duty work pant similar in purpose and construction to the chore pant.",
+      "map_id": "map_74e301892acd464bb555cbbd86ae9ef0"
+    },
+    {
+      "competitor_product_name": "Carhartt Wip Sid Pant",
+      "score": 5,
+      "rationale": "Casual workwear pant with simpler design; related but less feature-rich or reinforced structure.",
+      "map_id": "map_b91ac36dceec4bb7a92205fde6726ba5"
+    },
+    {
+      "competitor_product_name": "Men Carhartt WIP Midland Single Knee Trousers",
+      "score": 7,
+      "rationale": "Durable work trousers with single knee reinforcement, sharing many functional characteristics.",
+      "map_id": "map_bc17c7f01afe46c0a9bccbae8bcc04bf"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Cole Cargo",
+      "score": 8,
+      "rationale": "Cargo work pant with functional pocketing and durable construction similar to chore pants.",
+      "map_id": "map_8579ad7249bc49659883f1928f9373c1"
+    },
+    {
+      "competitor_product_name": "CARHARTT WIP Men's Double Knee Canvas Pants",
+      "score": 10,
+      "rationale": "Nearly identical product type: double knee reinforcement, canvas fabric, workwear focus matches chore pant features perfectly.",
+      "map_id": "map_11e13f404d314fe5a18c532c730841ad"
+    },
+    {
+      "competitor_product_name": "Outerknown Smith Cord Pants",
+      "score": 5,
+      "rationale": "Corduroy pants with casual styling; less robust construction, but durable fabric gives some functional overlap.",
+      "map_id": "map_8b5b8910e0384825b8ce86527b9fd9f7"
+    },
+    {
+      "competitor_product_name": "Outerknown Nomad Men's Chino Pants",
+      "score": 4,
+      "rationale": "Chinos are more lightweight and fashion-oriented pants, differing in durability and reinforcement from chore pant.",
+      "map_id": "map_c143039e25d748df872102e0a309caba"
+    }
+  ]
+}

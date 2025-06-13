@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250523_084515",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Jack Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Jack Shirt\"\nReference Product Description:\nThe Oxford button-down is a stylish wardrobe staple with endless versatility, so it’s no surprise that our signature Oxford, The Jack, has become a mainstay of our roster. Its burly 100% organic cotton basket weave and double-needle felled construction make it sturdy enough to stand up to the roughest workday, while peerless tailoring and a clean, pleatless design means it’s snazzy enough for your next night on the town. Soft to the touch but built for a decade of solid wear. Oxford is a perfectly versatile fabric that looks just as good pressed as it does pulled off the back of a chair. While traditional cotton uses 25% of the world's pesticides, our organic cotton doesn't use a drop. A better shirt, Responsibly Built For The Long Haul. 6-oz. 100% organic cotton. Made from our burly rugby oxford. Our signature Jack button-down collar. Garment dyed and washed for a soft, lived-in feel. Double-needle felled construction throughout. Natural buttons. Lock-stitched buttons and buttonholes. Shorter length to be worn untucked. Tailored fit and high armhole. No pleats for easy ironing and clean lines. Wash cold and tumble dry low. Model is 6'0\", wearing a Medium.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men's Marine Layer Classic Stretch Selvage Shirt'\n  - Name='Marine Layer Pacifica Stretch Twill Shirt'\n  - Name='Marine Layer Men's Crinkle Double Cloth Shirt'\n  - Name='Everlane Men's Pique Polo T-Shirt'\n  - Name='Mizzen + Main Leeward Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt'\n  - Name='Men's Charles Tyrwhitt England Rugby Washed Oxford Stripe Shirt'\n  - Name='Todd Snyder Men's Italian Linen Spread Collar Dress Shirt'\n  - Name='Marquette Ellis Oxford'\n  - Name='Mizzen + Main Leeward No Tuck Dress Shirt'\n  - Name='Alex Mill Val Poplin Shirt'\n  - Name='Everlane Relaxed Oxford Shirt'\n  - Name='Mizzen+Main Ole Miss Ellis Sky Solid Oxford'\n  - Name='Men's Charles Tyrwhitt Luxury Stripe Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Button-Down Collar Non-Iron Oxford Fine Checkered Cotton Formal Shirt'\n  - Name='Todd Snyder x Woolrich Men's Embroidered Camp Collar Shirt'\n  - Name='Mizzen+Main South Carolina Ellis Sky Oxford'\n  - Name='Alex Mill Eastwood Cotton Linen Polo'\n  - Name='Charles Tyrwhitt Men's Stretch Washed Oxford Shirt'\n  - Name='Mizzen + Main Leeward White Circle Texture Dress Shirt'\n  - Name='Alex Mill Jo Linen Shirt'\n  - Name='Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt'\n  - Name='Men's Charles Tyrwhitt Four-Way Stretch Button Down Jersey Shirt'\n  - Name='J.Crew Men's Slim Bowery Wrinkle-Free Dress Shirt'\n  - Name='J.Crew Men's Tailored Performance Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men's Marine Layer Classic Stretch Selvage Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Both are men's shirts with likely durable fabric, but the competitor emphasizes stretch and selvage, which suggests a different fabric construction and possibly fit compared to a classic rigid Oxford cotton shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Pacifica Stretch Twill Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A men's shirt made from stretch twill, indicating a softer, more casual fabric different from the burly Oxford cotton of the reference. Similar category but less directly comparable in fabric and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"Marine Layer Men's Crinkle Double Cloth Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Shirt product but double cloth and crinkle texture suggests a different material construction with less focus on the structured, durable Oxford weave construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Pique Polo T-Shirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Polo shirt is a different silhouette and typically knit fabric, not woven Oxford shirt construction, making it much less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt construction likely shares collar/button features and similar style use cases. Mizzen + Main often uses performance fabrics that are different from organic cotton Oxford, so some material divergence lowers score.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product: men's Oxford shirt with stretch and washed cotton. Construction and fabric type align closely with the reference, with added stretch feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt England Rugby Washed Oxford Stripe Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt with rugby styling and stripes. Very close to reference in fabric and construction, but stripes and rugby styling slightly reduce direct similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder Men's Italian Linen Spread Collar Dress Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Dress shirt but made from linen fabric, which is lighter and different in feel and structure from Oxford cotton. Spread collar distinct from button-down.\"\n    },\n    {\n      \"competitor_product_name\": \"Marquette Ellis Oxford\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oxford shirt likely similar in material and construction to reference; name suggests very close alignment in fabric and design.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward No Tuck Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tailored dress shirt designed to be worn untucked like the reference. Likely constructed differently with performance fabrics but shares silhouette intent.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Val Poplin Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Poplin fabric is lighter and smoother than Oxford, differing in texture and durability but still a woven dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Relaxed Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oxford shirt like the reference with similar fabric and construction cues, though a relaxed fit differs from tailored fit of The Jack Shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main Ole Miss Ellis Sky Solid Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford construction in Mizzen + Main styling, likely made from technical fabrics rather than organic cotton but shares fabric type and shirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Luxury Stripe Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with stripes, probably made from smooth cotton rather than rugged Oxford. Similar category but different fabric and styling details.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Button-Down Collar Non-Iron Oxford Fine Checkered Cotton Formal Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close to reference: Oxford fabric, button-down collar, similar construction though non-iron may differ in finish. High relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Todd Snyder x Woolrich Men's Embroidered Camp Collar Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Camp collar shirt differs significantly in collar style and casual silhouette. Likely made from different fabric too.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen+Main South Carolina Ellis Sky Oxford\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Oxford shirt similar in style but Mizzen + Main fabric technology likely differs from organic cotton Oxford reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Eastwood Cotton Linen Polo\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Polo shirt with cotton-linen knit construction; different silhouette and fabric type makes it less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very similar product with washed stretch Oxford cotton like the reference, aligning closely in fabrication and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Mizzen + Main Leeward White Circle Texture Dress Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Dress shirt with textured fabric, likely technical material, differing from organic cotton Oxford but same form factor.\"\n    },\n    {\n      \"competitor_product_name\": \"Alex Mill Jo Linen Shirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen shirt with different fabric feel and weight from Oxford cotton, also likely different tailoring style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close in fabric (stretch washed Oxford cotton), construction, and style to the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Four-Way Stretch Button Down Jersey Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Jersey indicates knit fabric differing from woven Oxford cotton; button-down silhouette is similar but fabric differs substantially.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Slim Bowery Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Dress shirt with wrinkle-free cotton likely shares silhouette but uses lighter, less rugged fabric than the reference Oxford shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"J.Crew Men's Tailored Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Tailored dress shirt with performance fabric, sharing some tailoring and fit similarities but different fabric from organic Oxford.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men's Marine Layer Classic Stretch Selvage Shirt",
+      "score": 6,
+      "rationale": "Both are men's shirts with likely durable fabric, but the competitor emphasizes stretch and selvage, which suggests a different fabric construction and possibly fit compared to a classic rigid Oxford cotton shirt.",
+      "map_id": "map_f09523865f6e4d6e97a8d0ec5e793bed"
+    },
+    {
+      "competitor_product_name": "Marine Layer Pacifica Stretch Twill Shirt",
+      "score": 5,
+      "rationale": "A men's shirt made from stretch twill, indicating a softer, more casual fabric different from the burly Oxford cotton of the reference. Similar category but less directly comparable in fabric and feel.",
+      "map_id": "map_6231e5fe5c514332b297ee96186ae98a"
+    },
+    {
+      "competitor_product_name": "Marine Layer Men's Crinkle Double Cloth Shirt",
+      "score": 4,
+      "rationale": "Shirt product but double cloth and crinkle texture suggests a different material construction with less focus on the structured, durable Oxford weave construction.",
+      "map_id": "map_32881fbcb1fe44399e02de712fe7a2f6"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Pique Polo T-Shirt",
+      "score": 2,
+      "rationale": "Polo shirt is a different silhouette and typically knit fabric, not woven Oxford shirt construction, making it much less relevant.",
+      "map_id": "map_022f51f5b5a94bd0af674fa93304ce00"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt construction likely shares collar/button features and similar style use cases. Mizzen + Main often uses performance fabrics that are different from organic cotton Oxford, so some material divergence lowers score.",
+      "map_id": "map_d4ebff56b8d84c0f848524b1bf526723"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Stretch Washed Oxford Cotton Shirt",
+      "score": 9,
+      "rationale": "Very similar product: men's Oxford shirt with stretch and washed cotton. Construction and fabric type align closely with the reference, with added stretch feature.",
+      "map_id": "map_1fdfae8cebc540648c998f28a00f90a0"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt England Rugby Washed Oxford Stripe Shirt",
+      "score": 8,
+      "rationale": "Oxford shirt with rugby styling and stripes. Very close to reference in fabric and construction, but stripes and rugby styling slightly reduce direct similarity.",
+      "map_id": "map_c26740393dea42cc828027e43490cb3b"
+    },
+    {
+      "competitor_product_name": "Todd Snyder Men's Italian Linen Spread Collar Dress Shirt",
+      "score": 4,
+      "rationale": "Dress shirt but made from linen fabric, which is lighter and different in feel and structure from Oxford cotton. Spread collar distinct from button-down.",
+      "map_id": "map_2ee5c57bfa804575aad205cafddfe1ec"
+    },
+    {
+      "competitor_product_name": "Marquette Ellis Oxford",
+      "score": 8,
+      "rationale": "Oxford shirt likely similar in material and construction to reference; name suggests very close alignment in fabric and design.",
+      "map_id": "map_1b2a7cee639c4b2bb9667602f4fcc8c5"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward No Tuck Dress Shirt",
+      "score": 7,
+      "rationale": "Tailored dress shirt designed to be worn untucked like the reference. Likely constructed differently with performance fabrics but shares silhouette intent.",
+      "map_id": "map_7a27767c97374401a5909c61c7014469"
+    },
+    {
+      "competitor_product_name": "Alex Mill Val Poplin Shirt",
+      "score": 6,
+      "rationale": "Poplin fabric is lighter and smoother than Oxford, differing in texture and durability but still a woven dress shirt.",
+      "map_id": "map_f1ab170ad41a4d9ca2bee4029ab5e690"
+    },
+    {
+      "competitor_product_name": "Everlane Relaxed Oxford Shirt",
+      "score": 9,
+      "rationale": "Oxford shirt like the reference with similar fabric and construction cues, though a relaxed fit differs from tailored fit of The Jack Shirt.",
+      "map_id": "map_e500e4aa66df48e7a9bc8d36ff3e28c8"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main Ole Miss Ellis Sky Solid Oxford",
+      "score": 7,
+      "rationale": "Oxford construction in Mizzen + Main styling, likely made from technical fabrics rather than organic cotton but shares fabric type and shirt style.",
+      "map_id": "map_4c4b962b477941cc8d06e358e8048f27"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Luxury Stripe Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with stripes, probably made from smooth cotton rather than rugged Oxford. Similar category but different fabric and styling details.",
+      "map_id": "map_21bf6c7a66294102a73b97ecb08139d8"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Button-Down Collar Non-Iron Oxford Fine Checkered Cotton Formal Shirt",
+      "score": 9,
+      "rationale": "Very close to reference: Oxford fabric, button-down collar, similar construction though non-iron may differ in finish. High relevancy.",
+      "map_id": "map_d62145ab1244406cbc24a14b1eb824dc"
+    },
+    {
+      "competitor_product_name": "Todd Snyder x Woolrich Men's Embroidered Camp Collar Shirt",
+      "score": 3,
+      "rationale": "Camp collar shirt differs significantly in collar style and casual silhouette. Likely made from different fabric too.",
+      "map_id": "map_0b2ba3c0537841d38906c7d3affcff48"
+    },
+    {
+      "competitor_product_name": "Mizzen+Main South Carolina Ellis Sky Oxford",
+      "score": 7,
+      "rationale": "Oxford shirt similar in style but Mizzen + Main fabric technology likely differs from organic cotton Oxford reference.",
+      "map_id": "map_2d2e53e33fed4e1297c174c4ab4c811d"
+    },
+    {
+      "competitor_product_name": "Alex Mill Eastwood Cotton Linen Polo",
+      "score": 3,
+      "rationale": "Polo shirt with cotton-linen knit construction; different silhouette and fabric type makes it less relevant.",
+      "map_id": "map_b6e4f84976314612b8d0bde5f80350f2"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Oxford Shirt",
+      "score": 9,
+      "rationale": "Very similar product with washed stretch Oxford cotton like the reference, aligning closely in fabrication and style.",
+      "map_id": "map_0dd897d05e6449ce9dd115cec8157513"
+    },
+    {
+      "competitor_product_name": "Mizzen + Main Leeward White Circle Texture Dress Shirt",
+      "score": 6,
+      "rationale": "Dress shirt with textured fabric, likely technical material, differing from organic cotton Oxford but same form factor.",
+      "map_id": "map_b4acc67d1b8e4c778d1a96fa654e4141"
+    },
+    {
+      "competitor_product_name": "Alex Mill Jo Linen Shirt",
+      "score": 3,
+      "rationale": "Linen shirt with different fabric feel and weight from Oxford cotton, also likely different tailoring style.",
+      "map_id": "map_1ddffea577584c70a64e8108d57341c8"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Men's Stretch Washed Cotton Oxford Shirt",
+      "score": 9,
+      "rationale": "Very close in fabric (stretch washed Oxford cotton), construction, and style to the reference product.",
+      "map_id": "map_99f14c2ca78a4a6a80a2aeb6851760f7"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Four-Way Stretch Button Down Jersey Shirt",
+      "score": 5,
+      "rationale": "Jersey indicates knit fabric differing from woven Oxford cotton; button-down silhouette is similar but fabric differs substantially.",
+      "map_id": "map_bf04466537a946e6bac3e30368fc2a53"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Slim Bowery Wrinkle-Free Dress Shirt",
+      "score": 7,
+      "rationale": "Dress shirt with wrinkle-free cotton likely shares silhouette but uses lighter, less rugged fabric than the reference Oxford shirt.",
+      "map_id": "map_fe4f4ccc541b4324a021e3e15d3def18"
+    },
+    {
+      "competitor_product_name": "J.Crew Men's Tailored Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Tailored dress shirt with performance fabric, sharing some tailoring and fit similarities but different fabric from organic Oxford.",
+      "map_id": "map_fcd9708e35a64ed299399b753f3238d9"
+    }
+  ]
+}

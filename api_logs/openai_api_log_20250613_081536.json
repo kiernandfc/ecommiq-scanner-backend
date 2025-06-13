@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250613_081536",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='CHARLES TYRWHITT SILK TIE 58 x3.5'\n  - Name='Mens Charles Tyrwhitt Blue The Lions Tie'\n  - Name='Charles Tyrwhitt Slim Silk Tie - Blue'\n  - Name='Joe Joseph Abboud Silk Necktie Made Is Usa Gold Diamonds Navy Dots'\n  - Name='Eton Solid Tie'\n  - Name='Joseph Abboud Made In Italy 100% Silk Tie Purple Black Gold Orange'\n  - Name='Eton Flower Silk Tie'\n  - Name='Eton Skjorte Red Pattern'\n  - Name='Eton - Tie, Herre, Orange, Paisley, Silk - Orange Paisley Print Silk Tie - Wide range of Ties at Etonshirts'\n  - Name='ETON Geometric Pattern Silk Tie Lilla - One Size - Men > Smykke'\n  - Name='Eton Mens Tie Made In France Silk Vintage'\n  - Name='Mens Charles Tyrwhitt Pink Stain Resistant Geo Tie'\n  - Name='Charles Tyrwhitt Silk Tie 58x3.5\" Wide.new.'\n  - Name='Charles Tyrwhitt Jermyn Street Uk Elegant Italian Polka Silk Necktie,'\n  - Name='JOSEPH ABBOUD SILK TIE 60X3.5\" WIDE USA'\n  - Name='Charles Tyrwhitt Mens Silk Necktie 58” X 3.25” Modern Career Blue'\n  - Name='Joseph Abboud Navy Striped Necktie Extra Long Silk 3.75 In Width 65.5'\n  - Name='Eton Solid Silk Satin Tie'\n  - Name='Charles Tyrwhitt Pale Purple Floral Medallion Silk Tie Jermyn Street'\n  - Name='Eton Navy Square Pattern'\n  - Name='charles Tyrwhitt Gold Geometric Silk Tie England 60\"/ 3.6\" Ec'\n  - Name='Joseph Abboud Ancient Madder Mens Silk Necktie Plum Green Taupe Gold'\n  - Name='Eton Yellow Geometric Silk Tie'\n  - Name='Joseph Abboud Green/blue/gold Striped 100% Silk Pattern Necktie Adult'\n  - Name='Eton Grenadine Tie Dark'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"CHARLES TYRWHITT SILK TIE 58 x3.5\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Silk tie close in material and likely style to the satin tie, similar purpose and construction, but no explicit mention of solid or satin fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Mens Charles Tyrwhitt Blue The Lions Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A silk tie like the reference but likely patterned (The Lions) rather than solid satin, thus less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Slim Silk Tie - Blue\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk material and slim tie similar in product type and material, but likely patterned or less sheen since satin not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Joe Joseph Abboud Silk Necktie Made Is Usa Gold Diamonds Navy Dots\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk necktie but patterned with dots, not solid satin, reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Solid Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Solid tie closely matches the core attribute of the reference product, likely similar in style though fabric not specified but probably silk/satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Made In Italy 100% Silk Tie Purple Black Gold Orange\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Silk tie but multiple colors and possible pattern reduces relevancy versus a solid satin tie.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Flower Silk Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Silk tie but floral pattern, not solid satin, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Skjorte Red Pattern\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Seems to be a shirt ('Skjorte'), not a tie; unrelated product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton - Tie, Herre, Orange, Paisley, Silk - Orange Paisley Print Silk Tie - Wide range of Ties at Etonshirts\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk tie but paisley pattern, not solid satin, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"ETON Geometric Pattern Silk Tie Lilla - One Size - Men > Smykke\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk tie with geometric pattern, less similar due to pattern and not described as satin.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Mens Tie Made In France Silk Vintage\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Silk tie likely similar silhouette and construction; vintage might indicate different styling but could be satin, increasing relevance slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Mens Charles Tyrwhitt Pink Stain Resistant Geo Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk/geometric patterned, stain resistant feature noted, but not solid satin, so less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Silk Tie 58x3.5\\\" Wide.new.\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Silk tie very similar in construction and likely smooth finish; fabric sheen presumed but no solid specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Jermyn Street Uk Elegant Italian Polka Silk Necktie,\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk tie but polka dot pattern distinct from solid satin ties reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"JOSEPH ABBOUD SILK TIE 60X3.5\\\" WIDE USA\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk tie similar in function and style; no pattern or fabric sheen specified but close to satin ties.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Mens Silk Necktie 58” X 3.25” Modern Career Blue\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Silk necktie suitable for modern career wear, likely smooth like satin but color and pattern not specified.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Navy Striped Necktie Extra Long Silk 3.75 In Width 65.5\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Striped silk necktie differs from solid satin ties reducing similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Solid Silk Satin Tie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Explicitly a solid silk satin tie matching the reference product exactly in fabric, finish, and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Charles Tyrwhitt Pale Purple Floral Medallion Silk Tie Jermyn Street\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Silk tie with floral medallion pattern, not solid satin, lower relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Navy Square Pattern\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Likely a patterned tie differing from solid satin ties in core look and feel.\"\n    },\n    {\n      \"competitor_product_name\": \"charles Tyrwhitt Gold Geometric Silk Tie England 60\\\"/ 3.6\\\" Ec\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk geometric patterned tie differs from solid satin tie in pattern and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Ancient Madder Mens Silk Necktie Plum Green Taupe Gold\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk necktie with pattern (ancient madder), not a solid satin tie, less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Yellow Geometric Silk Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Silk tie with geometric pattern; pattern deviates from solid satin style reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Green/blue/gold Striped 100% Silk Pattern Necktie Adult\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Striped silk necktie different from solid satin tie, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Eton Grenadine Tie Dark\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Grenadine ties have a textured weave and matte finish, differing from smooth satin but same use and form; moderately relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "CHARLES TYRWHITT SILK TIE 58 x3.5",
+      "score": 8,
+      "rationale": "Silk tie close in material and likely style to the satin tie, similar purpose and construction, but no explicit mention of solid or satin fabric.",
+      "map_id": "map_d8df1d2cbe1143dea3acb73f49c58cd0"
+    },
+    {
+      "competitor_product_name": "Mens Charles Tyrwhitt Blue The Lions Tie",
+      "score": 5,
+      "rationale": "A silk tie like the reference but likely patterned (The Lions) rather than solid satin, thus less relevant.",
+      "map_id": "map_bcfafeff343a45f18b00641edc8b526c"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Slim Silk Tie - Blue",
+      "score": 7,
+      "rationale": "Silk material and slim tie similar in product type and material, but likely patterned or less sheen since satin not specified.",
+      "map_id": "map_40538dd7c9ad4e6b8aec8687ec96ca1e"
+    },
+    {
+      "competitor_product_name": "Joe Joseph Abboud Silk Necktie Made Is Usa Gold Diamonds Navy Dots",
+      "score": 4,
+      "rationale": "Silk necktie but patterned with dots, not solid satin, reducing relevancy.",
+      "map_id": "map_0b280dc62b5144f29b90c6732edfb5f3"
+    },
+    {
+      "competitor_product_name": "Eton Solid Tie",
+      "score": 9,
+      "rationale": "Solid tie closely matches the core attribute of the reference product, likely similar in style though fabric not specified but probably silk/satin.",
+      "map_id": "map_47b78015b22142f38fb79d8bbb576118"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Made In Italy 100% Silk Tie Purple Black Gold Orange",
+      "score": 5,
+      "rationale": "Silk tie but multiple colors and possible pattern reduces relevancy versus a solid satin tie.",
+      "map_id": "map_4fda7efb9f2e41938d4b880c418e36d8"
+    },
+    {
+      "competitor_product_name": "Eton Flower Silk Tie",
+      "score": 3,
+      "rationale": "Silk tie but floral pattern, not solid satin, less relevant.",
+      "map_id": "map_5a18f0858c99437ca3752343e2bf31bb"
+    },
+    {
+      "competitor_product_name": "Eton Skjorte Red Pattern",
+      "score": 1,
+      "rationale": "Seems to be a shirt ('Skjorte'), not a tie; unrelated product type.",
+      "map_id": "map_3b423d2ce44f4f9ca716047e18abd7c8"
+    },
+    {
+      "competitor_product_name": "Eton - Tie, Herre, Orange, Paisley, Silk - Orange Paisley Print Silk Tie - Wide range of Ties at Etonshirts",
+      "score": 4,
+      "rationale": "Silk tie but paisley pattern, not solid satin, lowering relevancy.",
+      "map_id": "map_17aba9299a94435bbf60d4c5dda6a9ba"
+    },
+    {
+      "competitor_product_name": "ETON Geometric Pattern Silk Tie Lilla - One Size - Men > Smykke",
+      "score": 4,
+      "rationale": "Silk tie with geometric pattern, less similar due to pattern and not described as satin.",
+      "map_id": "map_e0e4355743524e7bb8cc566c663143d7"
+    },
+    {
+      "competitor_product_name": "Eton Mens Tie Made In France Silk Vintage",
+      "score": 6,
+      "rationale": "Silk tie likely similar silhouette and construction; vintage might indicate different styling but could be satin, increasing relevance slightly.",
+      "map_id": "map_ef4a114545c44120b23447524d3af794"
+    },
+    {
+      "competitor_product_name": "Mens Charles Tyrwhitt Pink Stain Resistant Geo Tie",
+      "score": 4,
+      "rationale": "Silk/geometric patterned, stain resistant feature noted, but not solid satin, so less relevant.",
+      "map_id": "map_916a0ce055a84311bc2cad300f87391d"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Silk Tie 58x3.5\" Wide.new.",
+      "score": 8,
+      "rationale": "Silk tie very similar in construction and likely smooth finish; fabric sheen presumed but no solid specified.",
+      "map_id": "map_f5620da3edea47358ebe0aa14366986a"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Jermyn Street Uk Elegant Italian Polka Silk Necktie,",
+      "score": 4,
+      "rationale": "Silk tie but polka dot pattern distinct from solid satin ties reducing relevancy.",
+      "map_id": "map_283c81d202654779b82c41d605304793"
+    },
+    {
+      "competitor_product_name": "JOSEPH ABBOUD SILK TIE 60X3.5\" WIDE USA",
+      "score": 7,
+      "rationale": "Silk tie similar in function and style; no pattern or fabric sheen specified but close to satin ties.",
+      "map_id": "map_28f1656d84eb4cef9e54e493cd2c5ecf"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Mens Silk Necktie 58” X 3.25” Modern Career Blue",
+      "score": 7,
+      "rationale": "Silk necktie suitable for modern career wear, likely smooth like satin but color and pattern not specified.",
+      "map_id": "map_6bb3a476e230476b8ee04ec8607a7350"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Navy Striped Necktie Extra Long Silk 3.75 In Width 65.5",
+      "score": 5,
+      "rationale": "Striped silk necktie differs from solid satin ties reducing similarity.",
+      "map_id": "map_466b07533e134b9ba73c14b72c36cba5"
+    },
+    {
+      "competitor_product_name": "Eton Solid Silk Satin Tie",
+      "score": 10,
+      "rationale": "Explicitly a solid silk satin tie matching the reference product exactly in fabric, finish, and style.",
+      "map_id": "map_837858c6d66a4b38b7d783ade34a58ca"
+    },
+    {
+      "competitor_product_name": "Charles Tyrwhitt Pale Purple Floral Medallion Silk Tie Jermyn Street",
+      "score": 3,
+      "rationale": "Silk tie with floral medallion pattern, not solid satin, lower relevancy.",
+      "map_id": "map_694a7ecd08d647f0a46a2c7e22e5b89b"
+    },
+    {
+      "competitor_product_name": "Eton Navy Square Pattern",
+      "score": 3,
+      "rationale": "Likely a patterned tie differing from solid satin ties in core look and feel.",
+      "map_id": "map_4c2d7bff2b7246389f70d8719d7df8c4"
+    },
+    {
+      "competitor_product_name": "charles Tyrwhitt Gold Geometric Silk Tie England 60\"/ 3.6\" Ec",
+      "score": 4,
+      "rationale": "Silk geometric patterned tie differs from solid satin tie in pattern and style.",
+      "map_id": "map_8b6c0b15abdd4339ab0b765ae1b03a71"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Ancient Madder Mens Silk Necktie Plum Green Taupe Gold",
+      "score": 4,
+      "rationale": "Silk necktie with pattern (ancient madder), not a solid satin tie, less relevant.",
+      "map_id": "map_782cc09ecad1474f82a8f35afe9bd63c"
+    },
+    {
+      "competitor_product_name": "Eton Yellow Geometric Silk Tie",
+      "score": 4,
+      "rationale": "Silk tie with geometric pattern; pattern deviates from solid satin style reducing relevancy.",
+      "map_id": "map_b4296ca57200408cbb0dafabd337d61e"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Green/blue/gold Striped 100% Silk Pattern Necktie Adult",
+      "score": 4,
+      "rationale": "Striped silk necktie different from solid satin tie, lowering relevancy.",
+      "map_id": "map_bf6f69d1088b4f4a8afa8e2503338f49"
+    },
+    {
+      "competitor_product_name": "Eton Grenadine Tie Dark",
+      "score": 6,
+      "rationale": "Grenadine ties have a textured weave and matte finish, differing from smooth satin but same use and form; moderately relevant.",
+      "map_id": "map_623cdc2c46684a13950947e9ec0f3d91"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250516_090733",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Dark Blue Gap Hoodie Medium Men (new)'\n  - Name='Gap Men's Logo Fleece Hoodie'\n  - Name='CD450 Champion Garment-Dyed Hooded Sweatshirt'\n  - Name='Champion 213498_BS'\n  - Name='Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Loose Fit Heavyweight Quarter-Zip Sweatshirt'\n  - Name='adidas Men's Feel Cozy Pullover Fleece Hoodie'\n  - Name='Gap Men's Vintage Soft Hoodie'\n  - Name='Vintage Gap Hoodie Big Logo 5-46 in Grey, Men's (Size Small)'\n  - Name='Gap Men's Hoodie'\n  - Name='Gap OCD Old Gap Fleece Hoodie Big Logo Oversized - Men | Color: White/Black | Size: XL'\n  - Name='Gap Men's Oversized Heavyweight Sweatshirt'\n  - Name='Gap Men's Star Wars Heavyweight Hoodie'\n  - Name='Gap Hoodie Black Logo Pullover Fleece Cotton Men’s Size Large'\n  - Name='Gap Hoodie Beige Gray Logo Pullover Cotton Fleece 546844-47-1, Men's, Size: XS'\n  - Name='Gap Men's Vintage Sweatshirt Hoodie Size Xl Beige Cream Fleece'\n  - Name='Gap Men's Logo Mockneck Sweatshirt'\n  - Name='Gap Men's Star Wars Oversized Graphic Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Hooded'\n  - Name='adidas Men's Long Sleeve Hoodie'\n  - Name='Supreme Men's Hoodie'\n  - Name='Adidas Basketball Hoodie men'\n  - Name='Everlane Men's Off-Duty Tech Hoodie'\n  - Name='Everlane Women's Off-Duty Terry Hoodie'\n  - Name='Gap Hoodie With Big Logo Men’s Size Xl Blue Fleece Hoodie T7'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Dark Blue Gap Hoodie Medium Men (new)\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a men's hoodie similar in style and function to the Boston Scally Hoodie, likely made for casual wear and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A fleece hoodie intended for men, very similar in core product type and use as the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"CD450 Champion Garment-Dyed Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hooded sweatshirt with similar construction and function, matching the essential qualities of the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion 213498_BS\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Likely a hooded sweatshirt given the brand and code, but lack of explicit name reduces confidence in exact match.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Hooded sweatshirt but with a flame-resistant feature and zip front, making it more specialized and different from a standard pullover hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Heavyweight Quarter-Zip Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Quarter-zip sweatshirt more like a pullover but not a full hoodie; heavy and rain-resistant features set it apart from reference.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Feel Cozy Pullover Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A pullover fleece hoodie for men, very close to the Boston Scally Hoodie in terms of style, material, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Likely a soft pullover hoodie similar to the reference product in construction and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Vintage Gap Hoodie Big Logo 5-46 in Grey, Men's (Size Small)\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A men's vintage-style hoodie with similar core features and silhouette to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Directly named men's hoodie from Gap, aligns perfectly with the reference standard hoodie product.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap OCD Old Gap Fleece Hoodie Big Logo Oversized - Men | Color: White/Black | Size: XL\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Oversized fleece hoodie with similar function and core features, difference is in fit which is still closely related.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Oversized Heavyweight Sweatshirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Heavyweight sweatshirt, oversized, but not explicitly stated as a hoodie, so somewhat less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Star Wars Heavyweight Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Heavyweight hoodie with a graphic design, largely matching the product type and use case of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Hoodie Black Logo Pullover Fleece Cotton Men’s Size Large\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover fleece hoodie for men, matching core attributes and intended casual use.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Hoodie Beige Gray Logo Pullover Cotton Fleece 546844-47-1, Men's, Size: XS\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Same as above, pullover fleece hoodie for men, very similar to reference in construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Sweatshirt Hoodie Size Xl Beige Cream Fleece\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Vintage style fleece hoodie matching core features of the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Mockneck Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A sweatshirt but with a mockneck rather than a hood, changes silhouette and reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Star Wars Oversized Graphic Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sweatshirt with graphic and oversized fit, but not explicitly a hoodie, lowering relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Hooded\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hooded sweatshirt with rain defender treatment and logo graphic, making it less similar but still a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Long Sleeve Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Long sleeve hoodie matching reference product's pullover hooded sweatshirt characteristics very closely.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Men's Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Hoodie from similar casual wear category, similar product type and usage despite brand differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Adidas Basketball Hoodie men\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hoodie geared for basketball activity, slightly sportier but still very similar in core construction and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Men's Off-Duty Tech Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A hoodie targeting casual/off-duty use, likely similar construction but possibly more technical materials.\"\n    },\n    {\n      \"competitor_product_name\": \"Everlane Women's Off-Duty Terry Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Similar product type but designed for women; silhouette and fit may differ, lowering direct relevancy for a men's hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Hoodie With Big Logo Men’s Size Xl Blue Fleece Hoodie T7\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men’s fleece pullover hoodie from Gap, directly comparable in product type and usage to reference.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Dark Blue Gap Hoodie Medium Men (new)",
+      "score": 9,
+      "rationale": "This is a men's hoodie similar in style and function to the Boston Scally Hoodie, likely made for casual wear and comfort.",
+      "map_id": "map_754f7bcfac2e4a439129455edd0b72af"
+    },
+    {
+      "competitor_product_name": "Gap Men's Logo Fleece Hoodie",
+      "score": 9,
+      "rationale": "A fleece hoodie intended for men, very similar in core product type and use as the reference hoodie.",
+      "map_id": "map_2978f7610c914b95b28e4a5587d01ec6"
+    },
+    {
+      "competitor_product_name": "CD450 Champion Garment-Dyed Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A hooded sweatshirt with similar construction and function, matching the essential qualities of the reference hoodie.",
+      "map_id": "map_470e0904f2614d98abad8388eb1d7874"
+    },
+    {
+      "competitor_product_name": "Champion 213498_BS",
+      "score": 7,
+      "rationale": "Likely a hooded sweatshirt given the brand and code, but lack of explicit name reduces confidence in exact match.",
+      "map_id": "map_a643973959224cd6a5a7f7d08cc10f60"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Flame-Resistant Force Loose Fit Midweight Hooded Zip Front Sweatshirt",
+      "score": 5,
+      "rationale": "Hooded sweatshirt but with a flame-resistant feature and zip front, making it more specialized and different from a standard pullover hoodie.",
+      "map_id": "map_a8b9c53a41f24a93be9a94582d0637f1"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Heavyweight Quarter-Zip Sweatshirt",
+      "score": 4,
+      "rationale": "Quarter-zip sweatshirt more like a pullover but not a full hoodie; heavy and rain-resistant features set it apart from reference.",
+      "map_id": "map_c2ac228bb2b748c3a9785dc8f62cd86c"
+    },
+    {
+      "competitor_product_name": "adidas Men's Feel Cozy Pullover Fleece Hoodie",
+      "score": 9,
+      "rationale": "A pullover fleece hoodie for men, very close to the Boston Scally Hoodie in terms of style, material, and use.",
+      "map_id": "map_9f1c7ebb4feb4085b18eab34c571f05b"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Hoodie",
+      "score": 9,
+      "rationale": "Likely a soft pullover hoodie similar to the reference product in construction and function.",
+      "map_id": "map_1844b1998d5849338edf470027b11a8c"
+    },
+    {
+      "competitor_product_name": "Vintage Gap Hoodie Big Logo 5-46 in Grey, Men's (Size Small)",
+      "score": 9,
+      "rationale": "A men's vintage-style hoodie with similar core features and silhouette to the reference hoodie.",
+      "map_id": "map_c920f70419de4eae8b859e709418d182"
+    },
+    {
+      "competitor_product_name": "Gap Men's Hoodie",
+      "score": 10,
+      "rationale": "Directly named men's hoodie from Gap, aligns perfectly with the reference standard hoodie product.",
+      "map_id": "map_40241e1f168b45099f27e3c25ebf9e20"
+    },
+    {
+      "competitor_product_name": "Gap OCD Old Gap Fleece Hoodie Big Logo Oversized - Men | Color: White/Black | Size: XL",
+      "score": 9,
+      "rationale": "Oversized fleece hoodie with similar function and core features, difference is in fit which is still closely related.",
+      "map_id": "map_de18b58eb8844d4bbaa4f94173c92cee"
+    },
+    {
+      "competitor_product_name": "Gap Men's Oversized Heavyweight Sweatshirt",
+      "score": 7,
+      "rationale": "Heavyweight sweatshirt, oversized, but not explicitly stated as a hoodie, so somewhat less relevant.",
+      "map_id": "map_7e65820ee3ab4c2fbb65641f8c6306c5"
+    },
+    {
+      "competitor_product_name": "Gap Men's Star Wars Heavyweight Hoodie",
+      "score": 9,
+      "rationale": "Heavyweight hoodie with a graphic design, largely matching the product type and use case of the reference.",
+      "map_id": "map_c4c3252c9b0a4869bdd35b4dfe2022c0"
+    },
+    {
+      "competitor_product_name": "Gap Hoodie Black Logo Pullover Fleece Cotton Men’s Size Large",
+      "score": 9,
+      "rationale": "Pullover fleece hoodie for men, matching core attributes and intended casual use.",
+      "map_id": "map_632cc3f439a4442fb7cca40020ca81ac"
+    },
+    {
+      "competitor_product_name": "Gap Hoodie Beige Gray Logo Pullover Cotton Fleece 546844-47-1, Men's, Size: XS",
+      "score": 9,
+      "rationale": "Same as above, pullover fleece hoodie for men, very similar to reference in construction and silhouette.",
+      "map_id": "map_54ee0e6b5ddd4d4591e8564c8e9306ca"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Sweatshirt Hoodie Size Xl Beige Cream Fleece",
+      "score": 9,
+      "rationale": "Vintage style fleece hoodie matching core features of the reference hoodie.",
+      "map_id": "map_b610cf7921ab44fcb7498b2883b60709"
+    },
+    {
+      "competitor_product_name": "Gap Men's Logo Mockneck Sweatshirt",
+      "score": 5,
+      "rationale": "A sweatshirt but with a mockneck rather than a hood, changes silhouette and reduces relevancy.",
+      "map_id": "map_aea1fab2986046d287777a8f57613dce"
+    },
+    {
+      "competitor_product_name": "Gap Men's Star Wars Oversized Graphic Sweatshirt",
+      "score": 5,
+      "rationale": "Sweatshirt with graphic and oversized fit, but not explicitly a hoodie, lowering relevancy.",
+      "map_id": "map_51a8af3aabad42d8a6e3407ceabb4dbf"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Midweight Logo Graphic Hooded",
+      "score": 7,
+      "rationale": "Hooded sweatshirt with rain defender treatment and logo graphic, making it less similar but still a hoodie.",
+      "map_id": "map_a1482ca26cd94464801fbe599a6ddac6"
+    },
+    {
+      "competitor_product_name": "adidas Men's Long Sleeve Hoodie",
+      "score": 9,
+      "rationale": "Long sleeve hoodie matching reference product's pullover hooded sweatshirt characteristics very closely.",
+      "map_id": "map_0de916d3602647e19effddfc42478e8d"
+    },
+    {
+      "competitor_product_name": "Supreme Men's Hoodie",
+      "score": 9,
+      "rationale": "Hoodie from similar casual wear category, similar product type and usage despite brand differences.",
+      "map_id": "map_6565546124d644dcb637a7906313ee5a"
+    },
+    {
+      "competitor_product_name": "Adidas Basketball Hoodie men",
+      "score": 8,
+      "rationale": "Hoodie geared for basketball activity, slightly sportier but still very similar in core construction and silhouette.",
+      "map_id": "map_2a157e184b864f8395ea5aa42d318a25"
+    },
+    {
+      "competitor_product_name": "Everlane Men's Off-Duty Tech Hoodie",
+      "score": 8,
+      "rationale": "A hoodie targeting casual/off-duty use, likely similar construction but possibly more technical materials.",
+      "map_id": "map_4184de8b27804bc38f1278ab71407311"
+    },
+    {
+      "competitor_product_name": "Everlane Women's Off-Duty Terry Hoodie",
+      "score": 6,
+      "rationale": "Similar product type but designed for women; silhouette and fit may differ, lowering direct relevancy for a men's hoodie.",
+      "map_id": "map_1abfea82de8b4517899b0c34251d96de"
+    },
+    {
+      "competitor_product_name": "Gap Hoodie With Big Logo Men’s Size Xl Blue Fleece Hoodie T7",
+      "score": 9,
+      "rationale": "Men’s fleece pullover hoodie from Gap, directly comparable in product type and usage to reference.",
+      "map_id": "map_c3735681b89440d2acb067a837a5167c"
+    }
+  ]
+}

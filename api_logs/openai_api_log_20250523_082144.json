@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250523_082144",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Men's Mizzen+Main Leeward Dress Shirt White'\n  - Name='Lands' End Women's No Iron Button Front Shirt'\n  - Name='Lands' End Men's Tall Short Sleeve No Iron Twill Shirt'\n  - Name='Lands' End Men's Performance Dress Shirt'\n  - Name='Custom Logo Men's Long Sleeve Buttondown Shirt'\n  - Name='Lands' End Men's Big Long Sleeve Straight Collar Patterned Broadcloth Shirt'\n  - Name='Lands' End Men's Red & White Stripe Supima No Iron Oxford Dress Shirt'\n  - Name='Lands' End Woman's No Iron Plaid Gingham Button Down Dress Shirt'\n  - Name='Lands' End Men's NWOT Oxford Shirt'\n  - Name='Lands' End Long Sleeve Pinstripe Button-down'\n  - Name='Thomas Mason for J.Crew Men's Washed Poplin Shirt'\n  - Name='Bonobos Men's Jetsetter Stretch Dress Shirt'\n  - Name='Bonobos Men's Weekday Warrior Slim Dress Shirt'\n  - Name='Bonobos Men's Weekday Warrior Dress Shirt'\n  - Name='Bonobos Men's Empire Stretch Tuxedo Shirt with Studs'\n  - Name='Bonobos Men's Riviera Short Sleeve Shirt Slim'\n  - Name='Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt'\n  - Name='Bonobos Men's Daily Grind Wrinkle Free Dress Shirt'\n  - Name='Bonobos Men's Jetsetter Premium Linen Dress Shirt'\n  - Name='Bonobos Jetsetter Stretch Dress Shirt'\n  - Name='Bonobos Men's Plaid Wrinkle Free Slim Fit Dress Shirt'\n  - Name='Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt'\n  - Name='Bonobos Men's Riviera Short Sleeve Shirt Slim'\n  - Name='Lands' End Men's Tailored Fit No Iron Dress Shirt'\n  - Name='Bonobos Men's Weekday Warrior Check Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Men's Mizzen+Main Leeward Dress Shirt White\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a men's dress shirt likely made for formal or work occasions, similar to the reference shirt, though no explicit mention of non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Women's No Iron Button Front Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"A women's non-iron shirt shares the non-iron feature but differs in target gender and potentially fit and styling.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tall Short Sleeve No Iron Twill Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's non-iron dress shirt aligns well with function and material but is short sleeve which differs from standard long sleeve dress shirts.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Performance Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's dress shirt suggests similarity, and 'performance' implies functional fabric; uncertain if non-iron, so slightly less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Custom Logo Men's Long Sleeve Buttondown Shirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Men's long sleeve buttondown shirt is similar in shape and use but lacking info about non-iron or dress shirt quality.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Big Long Sleeve Straight Collar Patterned Broadcloth Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's long sleeve dress shirt with straight collar is similar; broadcloth fabric is common dress shirt material; no non-iron detail.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Red & White Stripe Supima No Iron Oxford Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's non-iron Oxford dress shirt closely matches reference product features, fabric, and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Woman's No Iron Plaid Gingham Button Down Dress Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Women's non-iron dress shirt shares function but differs in gender target and likely fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's NWOT Oxford Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's Oxford shirt similar in construction and use but unsure if non-iron; slight relevancy reduction.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Long Sleeve Pinstripe Button-down\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Long sleeve button-down dress shirt likely similar function and style but no info on non-iron feature.\"\n    },\n    {\n      \"competitor_product_name\": \"Thomas Mason for J.Crew Men's Washed Poplin Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Men's poplin shirt indicates dress shirt style; washed finish may differ from non-iron but overall similar use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Men's stretch dress shirt likely a dress shirt variant, possibly wrinkle resistant or non-iron, close in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Slim Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Slim dress shirt for men similar in style and function; name suggests daily wear similar to reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Like the slim version but possibly more standard fit, still very relevant as a men's dress shirt for work/weekend use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Empire Stretch Tuxedo Shirt with Studs\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Tuxedo shirt differs in formal occasion and style but shares shirt construction; less relevant due to specific formal wear role.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Short Sleeve Shirt Slim\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Short sleeve shirt is less formal and different silhouette; less relevant despite men's shirt similarity.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Short sleeve casual button-up with print differs significantly in formal use and construction from reference dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Daily Grind Wrinkle Free Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Wrinkle-free dress shirt closely aligns with non-iron dress shirt features, same use and fit likely.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Jetsetter Premium Linen Dress Shirt\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Linen dress shirts differ in fabric feel and wrinkle characteristics but are dress shirts for similar uses.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Jetsetter Stretch Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Stretch dress shirt likely shares fit and function with reference; probable wrinkle resistance makes it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Plaid Wrinkle Free Slim Fit Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Wrinkle free slim fit men's dress shirt aligns well with non-iron reference in structure and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Non-iron twill dress shirt closely matches reference product characteristics, fabric, and function.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Short Sleeve Shirt Slim\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Duplicate of earlier short sleeve slim shirt; short sleeve reduces relevancy for dress shirt comparison.\"\n    },\n    {\n      \"competitor_product_name\": \"Lands' End Men's Tailored Fit No Iron Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Men's tailored fit no iron dress shirt matches reference product exactly in key features and intended use.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Weekday Warrior Check Dress Shirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Checked dress shirt variant similar in construction and use to reference non-iron dress shirt.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Men's Mizzen+Main Leeward Dress Shirt White",
+      "score": 8,
+      "rationale": "This is a men's dress shirt likely made for formal or work occasions, similar to the reference shirt, though no explicit mention of non-iron feature.",
+      "map_id": "map_06cc25105132496889b5ec339fd42838"
+    },
+    {
+      "competitor_product_name": "Lands' End Women's No Iron Button Front Shirt",
+      "score": 5,
+      "rationale": "A women's non-iron shirt shares the non-iron feature but differs in target gender and potentially fit and styling.",
+      "map_id": "map_23574bd55c4e4c0dbc91c5482d602e1f"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tall Short Sleeve No Iron Twill Shirt",
+      "score": 7,
+      "rationale": "Men's non-iron dress shirt aligns well with function and material but is short sleeve which differs from standard long sleeve dress shirts.",
+      "map_id": "map_55bd67402b52484682083fb1f4f9bc37"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Performance Dress Shirt",
+      "score": 7,
+      "rationale": "Men's dress shirt suggests similarity, and 'performance' implies functional fabric; uncertain if non-iron, so slightly less relevant.",
+      "map_id": "map_92f54103968a4263bdb5477d4f9c1654"
+    },
+    {
+      "competitor_product_name": "Custom Logo Men's Long Sleeve Buttondown Shirt",
+      "score": 6,
+      "rationale": "Men's long sleeve buttondown shirt is similar in shape and use but lacking info about non-iron or dress shirt quality.",
+      "map_id": "map_6e85c1db80a94afa8f51757c7a4fc46d"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Big Long Sleeve Straight Collar Patterned Broadcloth Shirt",
+      "score": 7,
+      "rationale": "Men's long sleeve dress shirt with straight collar is similar; broadcloth fabric is common dress shirt material; no non-iron detail.",
+      "map_id": "map_110a093692414a268f6b057e91910a7c"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Red & White Stripe Supima No Iron Oxford Dress Shirt",
+      "score": 9,
+      "rationale": "Men's non-iron Oxford dress shirt closely matches reference product features, fabric, and use.",
+      "map_id": "map_38d15e06f48b4161a173c929f416b7a5"
+    },
+    {
+      "competitor_product_name": "Lands' End Woman's No Iron Plaid Gingham Button Down Dress Shirt",
+      "score": 5,
+      "rationale": "Women's non-iron dress shirt shares function but differs in gender target and likely fit.",
+      "map_id": "map_e8c8ff1cf54a47a69a43bdd328e2257e"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's NWOT Oxford Shirt",
+      "score": 7,
+      "rationale": "Men's Oxford shirt similar in construction and use but unsure if non-iron; slight relevancy reduction.",
+      "map_id": "map_11b6c075880342c094922cb1f13b0ea5"
+    },
+    {
+      "competitor_product_name": "Lands' End Long Sleeve Pinstripe Button-down",
+      "score": 7,
+      "rationale": "Long sleeve button-down dress shirt likely similar function and style but no info on non-iron feature.",
+      "map_id": "map_8c3c5a5dd526434f9f943942ab8edb19"
+    },
+    {
+      "competitor_product_name": "Thomas Mason for J.Crew Men's Washed Poplin Shirt",
+      "score": 7,
+      "rationale": "Men's poplin shirt indicates dress shirt style; washed finish may differ from non-iron but overall similar use.",
+      "map_id": "map_1739bfa02fff4f6fb8d04d537fab6f95"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Men's stretch dress shirt likely a dress shirt variant, possibly wrinkle resistant or non-iron, close in function and style.",
+      "map_id": "map_582171fb7c9548c08d5ce1617ea03b62"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Slim Dress Shirt",
+      "score": 8,
+      "rationale": "Slim dress shirt for men similar in style and function; name suggests daily wear similar to reference.",
+      "map_id": "map_1b1a700a679d4ad19293ac47c4d433b0"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Dress Shirt",
+      "score": 8,
+      "rationale": "Like the slim version but possibly more standard fit, still very relevant as a men's dress shirt for work/weekend use.",
+      "map_id": "map_4fcfe40c817243ecb463fed924aeca47"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Empire Stretch Tuxedo Shirt with Studs",
+      "score": 6,
+      "rationale": "Tuxedo shirt differs in formal occasion and style but shares shirt construction; less relevant due to specific formal wear role.",
+      "map_id": "map_f2f49f4e39144f7a9bc08310999a9366"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Shirt Slim",
+      "score": 5,
+      "rationale": "Short sleeve shirt is less formal and different silhouette; less relevant despite men's shirt similarity.",
+      "map_id": "map_29da66b91f2b436788b30c51a4f180d3"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Shirt Slim",
+      "score": 5,
+      "rationale": "Short sleeve shirt is less formal and different silhouette; less relevant despite men's shirt similarity.",
+      "map_id": "map_8d49f1fc8a03400babdc3dfd0c58a4b4"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Tech Slim Fit Geo Print Short Sleeve Button-Up Shirt",
+      "score": 4,
+      "rationale": "Short sleeve casual button-up with print differs significantly in formal use and construction from reference dress shirt.",
+      "map_id": "map_fe2999dca17049a1814f981692ab8711"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Daily Grind Wrinkle Free Dress Shirt",
+      "score": 9,
+      "rationale": "Wrinkle-free dress shirt closely aligns with non-iron dress shirt features, same use and fit likely.",
+      "map_id": "map_0cc5bafdedf949378759d2fc8e5fdde6"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Jetsetter Premium Linen Dress Shirt",
+      "score": 7,
+      "rationale": "Linen dress shirts differ in fabric feel and wrinkle characteristics but are dress shirts for similar uses.",
+      "map_id": "map_c3a0ae67facb438aa85b2a1a45daa63d"
+    },
+    {
+      "competitor_product_name": "Bonobos Jetsetter Stretch Dress Shirt",
+      "score": 8,
+      "rationale": "Stretch dress shirt likely shares fit and function with reference; probable wrinkle resistance makes it highly relevant.",
+      "map_id": "map_d7ee91bd1e744570b9595730d2355738"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Plaid Wrinkle Free Slim Fit Dress Shirt",
+      "score": 8,
+      "rationale": "Wrinkle free slim fit men's dress shirt aligns well with non-iron reference in structure and function.",
+      "map_id": "map_b3d9feb7d7a046d1b68245593ba34d47"
+    },
+    {
+      "competitor_product_name": "Men's Charles Tyrwhitt Non-Iron Twill Mini Grid Checkered Dress Shirt",
+      "score": 9,
+      "rationale": "Non-iron twill dress shirt closely matches reference product characteristics, fabric, and function.",
+      "map_id": "map_a026bcfaf7fb43469553d45643d63de5"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Shirt Slim",
+      "score": 5,
+      "rationale": "Duplicate of earlier short sleeve slim shirt; short sleeve reduces relevancy for dress shirt comparison.",
+      "map_id": "map_29da66b91f2b436788b30c51a4f180d3"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Short Sleeve Shirt Slim",
+      "score": 5,
+      "rationale": "Duplicate of earlier short sleeve slim shirt; short sleeve reduces relevancy for dress shirt comparison.",
+      "map_id": "map_8d49f1fc8a03400babdc3dfd0c58a4b4"
+    },
+    {
+      "competitor_product_name": "Lands' End Men's Tailored Fit No Iron Dress Shirt",
+      "score": 10,
+      "rationale": "Men's tailored fit no iron dress shirt matches reference product exactly in key features and intended use.",
+      "map_id": "map_080de946407d4d77974cb20fdf9dbd5b"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Weekday Warrior Check Dress Shirt",
+      "score": 8,
+      "rationale": "Checked dress shirt variant similar in construction and use to reference non-iron dress shirt.",
+      "map_id": "map_ec54656e8a274fe58f6d2522d7437aea"
+    }
+  ]
+}

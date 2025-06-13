@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250524_075020",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Easter Rose Peaky",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Easter Rose Peaky\"\nReference Product Description:\nThe 'Black Rose' Peaky is a long awaited addition to our coveted 'Peaky' Collection. This scally cap boasts our signature 8-panel style in a black and grey plaid fabric with a leatherette brim to contrast.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Goorin Bros. Pacheco Grey Wool Blend Flat Driving Newsboy Cap'\n  - Name='Goorin Bros Men's Plaid Check Seersucker Newsboy Flat Cap Hat'\n  - Name='Colour Pixel Flat Cap by Kangol'\n  - Name='Kangol Black Newsboy Hat'\n  - Name='Kangol Club Plaid Baseball Cap'\n  - Name='Kangol Cord Ivy Cap'\n  - Name='Kangol Clubhouse Stripe 507 Flat Cap'\n  - Name='Kangol Men's Hyper Plaid Bucket Hat'\n  - Name='Brixton Brood Snap Cap'\n  - Name='The Plaid Trainer Boston Scally Cap'\n  - Name='Caddy Boston Scally Cap'\n  - Name='The Distillery Boston Scally Cap'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Goorin Bros. Pacheco Grey Wool Blend Flat Driving Newsboy Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This product is a flat driving newsboy cap similar in style to the referenced Peaky cap with 8-panel construction, likely made with wool blend, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Men's Plaid Check Seersucker Newsboy Flat Cap Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a newsboy flat cap with plaid pattern, similar in silhouette and style, but the seersucker fabric differs from the wool/leather blend, slightly reducing relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Colour Pixel Flat Cap by Kangol\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"It is a flat cap which matches the silhouette, but the name implies a more casual and potentially different fabric style with no mention of leatherette brim or 8-panels.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Black Newsboy Hat\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a black newsboy hat, matching the silhouette closely; however, details on paneling and brim material are not provided, so relevancy is medium-high.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Club Plaid Baseball Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Although it features plaid, this is a baseball cap, differing significantly in construction and silhouette from a Peaky newsboy style cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Cord Ivy Cap\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"The Ivy cap shape is distinct from the newsboy Peaky cap style, so despite possible material similarities, it is less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Clubhouse Stripe 507 Flat Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A 507 flat cap shares a similar flat silhouette with the Peaky but may differ in panel construction and brim style, making it moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Kangol Men's Hyper Plaid Bucket Hat\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Bucket hats have a very different shape and construction from newsboy caps, making this product minimally relevant despite the plaid pattern.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Brood Snap Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While a snap cap differs somewhat in silhouette, Brixton usually produces classic styles, so it may be somewhat relevant but not as close as traditional newsboy caps.\"\n    },\n    {\n      \"competitor_product_name\": \"The Plaid Trainer Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A Boston Scally cap with plaid pattern is very close to the reference product, likely sharing many features and silhouette, just a different specific model.\"\n    },\n    {\n      \"competitor_product_name\": \"Caddy Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another Boston Scally cap potentially very similar in silhouette and construction, closely relevant to the reference Peaky collection.\"\n    },\n    {\n      \"competitor_product_name\": \"The Distillery Boston Scally Cap\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"As a Boston Scally cap, probably very similar in style and construction, with 8-panel design and classic details, making it highly relevant.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Goorin Bros. Pacheco Grey Wool Blend Flat Driving Newsboy Cap",
+      "score": 8,
+      "rationale": "This product is a flat driving newsboy cap similar in style to the referenced Peaky cap with 8-panel construction, likely made with wool blend, making it highly relevant.",
+      "map_id": "map_e8fba923baeb4aed9b80a2baec6e67cb"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Men's Plaid Check Seersucker Newsboy Flat Cap Hat",
+      "score": 7,
+      "rationale": "This is a newsboy flat cap with plaid pattern, similar in silhouette and style, but the seersucker fabric differs from the wool/leather blend, slightly reducing relevancy.",
+      "map_id": "map_cb5dc9018bf746aab3836983441bf1fc"
+    },
+    {
+      "competitor_product_name": "Colour Pixel Flat Cap by Kangol",
+      "score": 6,
+      "rationale": "It is a flat cap which matches the silhouette, but the name implies a more casual and potentially different fabric style with no mention of leatherette brim or 8-panels.",
+      "map_id": "map_4d4c9e29d7e441b5b7e2ec8b37154860"
+    },
+    {
+      "competitor_product_name": "Kangol Black Newsboy Hat",
+      "score": 7,
+      "rationale": "This is a black newsboy hat, matching the silhouette closely; however, details on paneling and brim material are not provided, so relevancy is medium-high.",
+      "map_id": "map_61849d4fc66e4c9184ee548b15234997"
+    },
+    {
+      "competitor_product_name": "Kangol Club Plaid Baseball Cap",
+      "score": 3,
+      "rationale": "Although it features plaid, this is a baseball cap, differing significantly in construction and silhouette from a Peaky newsboy style cap.",
+      "map_id": "map_6131f40ccf4d45d186bd8ec5c65e5f1a"
+    },
+    {
+      "competitor_product_name": "Kangol Cord Ivy Cap",
+      "score": 3,
+      "rationale": "The Ivy cap shape is distinct from the newsboy Peaky cap style, so despite possible material similarities, it is less relevant.",
+      "map_id": "map_fdbc8263054e46699bd59c69db5c1fc0"
+    },
+    {
+      "competitor_product_name": "Kangol Clubhouse Stripe 507 Flat Cap",
+      "score": 6,
+      "rationale": "A 507 flat cap shares a similar flat silhouette with the Peaky but may differ in panel construction and brim style, making it moderately relevant.",
+      "map_id": "map_8e97552da0014b7db510b3042bc981bc"
+    },
+    {
+      "competitor_product_name": "Kangol Men's Hyper Plaid Bucket Hat",
+      "score": 2,
+      "rationale": "Bucket hats have a very different shape and construction from newsboy caps, making this product minimally relevant despite the plaid pattern.",
+      "map_id": "map_5f6d5f78f36e4a4cb6e067ac6e124716"
+    },
+    {
+      "competitor_product_name": "Brixton Brood Snap Cap",
+      "score": 5,
+      "rationale": "While a snap cap differs somewhat in silhouette, Brixton usually produces classic styles, so it may be somewhat relevant but not as close as traditional newsboy caps.",
+      "map_id": "map_96297340b81c4a9a89e28362410d3995"
+    },
+    {
+      "competitor_product_name": "The Plaid Trainer Boston Scally Cap",
+      "score": 9,
+      "rationale": "A Boston Scally cap with plaid pattern is very close to the reference product, likely sharing many features and silhouette, just a different specific model.",
+      "map_id": "map_5d06a9bc8dfe4d83ba7d8274ea52a488"
+    },
+    {
+      "competitor_product_name": "Caddy Boston Scally Cap",
+      "score": 9,
+      "rationale": "Another Boston Scally cap potentially very similar in silhouette and construction, closely relevant to the reference Peaky collection.",
+      "map_id": "map_b2317a06b58f4e849213248eb03a6e94"
+    },
+    {
+      "competitor_product_name": "The Distillery Boston Scally Cap",
+      "score": 9,
+      "rationale": "As a Boston Scally cap, probably very similar in style and construction, with 8-panel design and classic details, making it highly relevant.",
+      "map_id": "map_81017bce7fdc40c4a23bf51e49231ba8"
+    }
+  ]
+}

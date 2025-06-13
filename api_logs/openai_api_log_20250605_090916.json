@@ -1,0 +1,113 @@
+{
+  "timestamp": "20250605_090916",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Solid Satin Tie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Solid Satin Tie\"\nReference Product Description:\nSolid satin ties deliver sleek sophistication with their smooth finish and rich sheen, making them a go-to choice for timeless and refined style.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Pronto Uomo Men's Narrow Polka Dot Silk Tie'\n  - Name='Joseph Abboud Men's Narrow Paisley Tie'\n  - Name='Pronto Uomo Men's Narrow Solid Silk Tie'\n  - Name='Calvin Klein Men's Classic Silk Tie'\n  - Name='Kenneth Cole Men's Extra Long Narrow Floral Tie'\n  - Name='Joseph Abboud Men's Narrow Sweeping Paisley Tie'\n  - Name='Pronto Uomo Men's Narrow Paisley Tie'\n  - Name='Pronto Uomo Men's Narrow Diamond Grid Tie'\n  - Name='Pronto Uomo Men's Diamante Tie'\n  - Name='Joseph Abboud Men's Narrow Poppy Pine Tie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Polka Dot Silk Tie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Also a silk tie but features a polka dot pattern, differing from the solid satin reference; similar material and function but patterned versus solid.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Paisley Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow silk tie but paisley patterned, so less similar in appearance though similar function and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Solid Silk Tie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Narrow solid silk tie closely aligns with the reference solid satin silk tie in material, finish and style, with minor variation in specific silk weave.\"\n    },\n    {\n      \"competitor_product_name\": \"Calvin Klein Men's Classic Silk Tie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Classic silk tie likely similar in materials and function; lack of 'solid' in name might imply some pattern or texture difference but still largely similar.\"\n    },\n    {\n      \"competitor_product_name\": \"Kenneth Cole Men's Extra Long Narrow Floral Tie\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Extra long narrow tie with floral pattern differs in both pattern and possibly size; less relevant to standard solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Sweeping Paisley Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow paisley silk tie similar in material and shape but different pattern reduces relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Paisley Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Similar shape and likely fabric but paisley pattern differs from the reference solid satin design.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Narrow Diamond Grid Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow tie likely silk but patterned with diamond grid, differing from solid satin style.\"\n    },\n    {\n      \"competitor_product_name\": \"Pronto Uomo Men's Diamante Tie\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Name suggests a more embellished or decorative tie rather than smooth solid satin; less aligned in style and finish.\"\n    },\n    {\n      \"competitor_product_name\": \"Joseph Abboud Men's Narrow Poppy Pine Tie\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Narrow tie likely patterned or textured by name implication; same shape but different design approach than solid satin.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Polka Dot Silk Tie",
+      "score": 6,
+      "rationale": "Also a silk tie but features a polka dot pattern, differing from the solid satin reference; similar material and function but patterned versus solid.",
+      "map_id": "map_9864f1a0e39244f483e6b16f35194426"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Paisley Tie",
+      "score": 5,
+      "rationale": "Narrow silk tie but paisley patterned, so less similar in appearance though similar function and shape.",
+      "map_id": "map_367c8541ba174d28871f0e04e3bf3905"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Solid Silk Tie",
+      "score": 9,
+      "rationale": "Narrow solid silk tie closely aligns with the reference solid satin silk tie in material, finish and style, with minor variation in specific silk weave.",
+      "map_id": "map_96ada39e101646e9aa050423febc3d2a"
+    },
+    {
+      "competitor_product_name": "Calvin Klein Men's Classic Silk Tie",
+      "score": 7,
+      "rationale": "Classic silk tie likely similar in materials and function; lack of 'solid' in name might imply some pattern or texture difference but still largely similar.",
+      "map_id": "map_06f613e0a26341fd838974e079666e7b"
+    },
+    {
+      "competitor_product_name": "Kenneth Cole Men's Extra Long Narrow Floral Tie",
+      "score": 4,
+      "rationale": "Extra long narrow tie with floral pattern differs in both pattern and possibly size; less relevant to standard solid satin style.",
+      "map_id": "map_303ee4d1621a4b2694c73368e4378810"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Sweeping Paisley Tie",
+      "score": 5,
+      "rationale": "Narrow paisley silk tie similar in material and shape but different pattern reduces relevancy.",
+      "map_id": "map_808560bdcb7147e4a5e230dfa9fee582"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Paisley Tie",
+      "score": 5,
+      "rationale": "Similar shape and likely fabric but paisley pattern differs from the reference solid satin design.",
+      "map_id": "map_028886a8417943d5b6bcaec324255a6f"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Narrow Diamond Grid Tie",
+      "score": 5,
+      "rationale": "Narrow tie likely silk but patterned with diamond grid, differing from solid satin style.",
+      "map_id": "map_4b73cf2735cd4b5a9dee9179b977c6bb"
+    },
+    {
+      "competitor_product_name": "Pronto Uomo Men's Diamante Tie",
+      "score": 3,
+      "rationale": "Name suggests a more embellished or decorative tie rather than smooth solid satin; less aligned in style and finish.",
+      "map_id": "map_e33af1d6ab6d4e22a30f299db309280d"
+    },
+    {
+      "competitor_product_name": "Joseph Abboud Men's Narrow Poppy Pine Tie",
+      "score": 5,
+      "rationale": "Narrow tie likely patterned or textured by name implication; same shape but different design approach than solid satin.",
+      "map_id": "map_f9b3a5eb95c44181ae6a0b8f87debe3f"
+    }
+  ]
+}

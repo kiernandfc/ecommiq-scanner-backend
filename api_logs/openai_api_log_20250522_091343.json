@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250522_091343",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Gap Vintagesoft Arch Logo Full-Zip Hoodie'\n  - Name='Gap Men's Vintage Soft Hoodie'\n  - Name='Gap Vintagesoft Oversized Hoodie'\n  - Name='Gap Men's Relaxed Gap Logo Hoodie'\n  - Name='H&M Men's Essential Hoodie'\n  - Name='H&M Men's Hoodie'\n  - Name='Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt'\n  - Name='Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt'\n  - Name='Champion S800 Adult Eco Full-Zip Hooded Sweatshirt'\n  - Name='Carhartt Men's Midweight Crewneck Sweatshirt'\n  - Name='Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt'\n  - Name='Champion Men's Reverse Weave Hoodie Made in USA'\n  - Name='Carhartt Men's Midweight Hooded Sweatshirt'\n  - Name='Champion Mens Hoodies Big and Tall'\n  - Name='Carhartt Men's Rain Defender Loose Fit Heavyweight Hoodie'\n  - Name='Champion Satin C Logo Cotton Terry Hoodie'\n  - Name='Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt'\n  - Name='Champion Mens Hoodies Big and Tall - Embroidered Pullover Fleece Sweatshirt Khaki'\n  - Name='Supreme S Logo Cotton Hoodie'\n  - Name='Supreme Motion Logo Hooded Sweatshirt'\n  - Name='Supreme Special Zip Up Hooded Sweatshirt'\n  - Name='Champion Men's Relaxed French Terry Hoodie'\n  - Name='Carhartt WIP Mens Hooded American Script Hoodie'\n  - Name='Carhartt Toddler Boys' Long-Sleeve Half-Zip Sweatshirt'\n  - Name='adidas Men's Mercedes-AMG Petronas Formula One Team Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Arch Logo Full-Zip Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This is a full-zip hoodie made from vintage soft material, which matches the soft, comfortable, hooded sweatshirt characteristic of the reference product.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Hoodie\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"This is a vintage soft hoodie like the reference, emphasizing softness, comfort, and classic hooded sweatshirt features.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Oversized Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also made from vintagesoft fabric, it's a hoodie, though the oversized fit slightly differs from the standard fit implied by the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Relaxed Gap Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A relaxed fit hoodie from the Gap, suggesting comfort and mobility similar to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Essential Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"An essential hoodie suggests a fundamental hooded sweatshirt similar in function and design but may differ slightly in fabric or softness.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Generic men's hoodie likely similar in basic construction but less specified about softness or mobility than the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"It's a lightweight sweatshirt but not explicitly a hoodie, and includes a graphic, differing in function and style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Full-zip and sweatshirt but thermal-lined and rain-defender features suggest a more technical use, less focus on softness and casual hooded style.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion S800 Adult Eco Full-Zip Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A full-zip hooded sweatshirt emphasizing eco materials aligns well with the reference's key features: hood, sweatshirt, comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Crewneck Sweatshirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Crewneck sweatshirt without a hood differs significantly in silhouette and function from the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Midweight hooded sweatshirt aligns closely in silhouette and function though midweight may differ slightly in softness and warmth.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Reverse Weave Hoodie Made in USA\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Classic hoodie with a focus on quality and construction, very close in style and function to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Midweight Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Midweight hooded sweatshirt aligns well as a comfortable hoodie, slightly heavier than likely the reference but similar overall.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Mens Hoodies Big and Tall\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hoodies similar in style to reference but the big and tall fit may diverge in intended customer demographic and silhouette slightly.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Rain Defender Loose Fit Heavyweight Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Heavyweight rain defender hoodie serves a more technical purpose; less emphasis on softness and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Satin C Logo Cotton Terry Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Classic cotton terry hoodie with logo aligns well with the reference product's focus on comfort and casual hooded sweatshirt style.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Full zip hoodie but sherpa-lined and women's relaxed fit makes it less comparable in function and target audience.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Mens Hoodies Big and Tall - Embroidered Pullover Fleece Sweatshirt Khaki\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Pullover fleece hoodie aligns well functionally but the big and tall fit and possible fleece weight differs from the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme S Logo Cotton Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Cotton hoodie with logo similar in general product type and construction but may target a different market or style aesthetic.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Motion Logo Hooded Sweatshirt\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Similar hooded sweatshirt with logo, matching the core silhouette and purpose though stylistically maybe different.\"\n    },\n    {\n      \"competitor_product_name\": \"Supreme Special Zip Up Hooded Sweatshirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Full zip hooded sweatshirt directly comparable in silhouette and function to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Champion Men's Relaxed French Terry Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Relaxed fit French terry hoodie is very similar in construction, softness, and purpose to the reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Mens Hooded American Script Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Hoodie resembling casual wear with logo styling aligns in product function though possibly different material or cut.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Toddler Boys' Long-Sleeve Half-Zip Sweatshirt\",\n      \"relevancy_score\": 2,\n      \"rationale\": \"Toddler sized, half zip sweatshirt significantly differs in target market and product function from adult hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"adidas Men's Mercedes-AMG Petronas Formula One Team Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Athletic branded men's hoodie, similar in function and silhouette though intended for sporty or fan audience.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Gap Vintagesoft Arch Logo Full-Zip Hoodie",
+      "score": 9,
+      "rationale": "This is a full-zip hoodie made from vintage soft material, which matches the soft, comfortable, hooded sweatshirt characteristic of the reference product.",
+      "map_id": "map_345d2ff097094e0486f9ca3837250ee2"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Hoodie",
+      "score": 10,
+      "rationale": "This is a vintage soft hoodie like the reference, emphasizing softness, comfort, and classic hooded sweatshirt features.",
+      "map_id": "map_83942e4db5b241c9b6e5c0bc4f0e2c90"
+    },
+    {
+      "competitor_product_name": "Gap Vintagesoft Oversized Hoodie",
+      "score": 8,
+      "rationale": "Also made from vintagesoft fabric, it's a hoodie, though the oversized fit slightly differs from the standard fit implied by the reference.",
+      "map_id": "map_4470ad0e5df14eb199d34903c2dc7ccc"
+    },
+    {
+      "competitor_product_name": "Gap Men's Relaxed Gap Logo Hoodie",
+      "score": 9,
+      "rationale": "A relaxed fit hoodie from the Gap, suggesting comfort and mobility similar to the reference hoodie.",
+      "map_id": "map_ce7402218c1b436fa746bf732c2bbb82"
+    },
+    {
+      "competitor_product_name": "H&M Men's Essential Hoodie",
+      "score": 8,
+      "rationale": "An essential hoodie suggests a fundamental hooded sweatshirt similar in function and design but may differ slightly in fabric or softness.",
+      "map_id": "map_0b49bb2f62264a07be88fa8612ff605b"
+    },
+    {
+      "competitor_product_name": "H&M Men's Hoodie",
+      "score": 7,
+      "rationale": "Generic men's hoodie likely similar in basic construction but less specified about softness or mobility than the reference.",
+      "map_id": "map_5a250ec1e8f645ff88e872195dafefaf"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt",
+      "score": 3,
+      "rationale": "It's a lightweight sweatshirt but not explicitly a hoodie, and includes a graphic, differing in function and style.",
+      "map_id": "map_548adb13de0e41a9aec2aa9821fe1a1b"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Midweight Thermal-Lined Full-Zip Sweatshirt",
+      "score": 6,
+      "rationale": "Full-zip and sweatshirt but thermal-lined and rain-defender features suggest a more technical use, less focus on softness and casual hooded style.",
+      "map_id": "map_bc81ba51cf32490f88ed9b56254ec622"
+    },
+    {
+      "competitor_product_name": "Champion S800 Adult Eco Full-Zip Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "A full-zip hooded sweatshirt emphasizing eco materials aligns well with the reference's key features: hood, sweatshirt, comfort.",
+      "map_id": "map_fe3afa41cb594e8d8e9b350036666b10"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Crewneck Sweatshirt",
+      "score": 2,
+      "rationale": "Crewneck sweatshirt without a hood differs significantly in silhouette and function from the reference hoodie.",
+      "map_id": "map_84dbe0b6c7bd455bbff9a4926507c6da"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Sleeve Logo Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "Midweight hooded sweatshirt aligns closely in silhouette and function though midweight may differ slightly in softness and warmth.",
+      "map_id": "map_efe9d1d8696f42faab52da2ac74537ca"
+    },
+    {
+      "competitor_product_name": "Champion Men's Reverse Weave Hoodie Made in USA",
+      "score": 10,
+      "rationale": "Classic hoodie with a focus on quality and construction, very close in style and function to the reference hoodie.",
+      "map_id": "map_f74c35448b46454aa28b1d6774f40c55"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Midweight Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "Midweight hooded sweatshirt aligns well as a comfortable hoodie, slightly heavier than likely the reference but similar overall.",
+      "map_id": "map_39c0d8c3df154e399149be8f4355f495"
+    },
+    {
+      "competitor_product_name": "Champion Mens Hoodies Big and Tall",
+      "score": 7,
+      "rationale": "Hoodies similar in style to reference but the big and tall fit may diverge in intended customer demographic and silhouette slightly.",
+      "map_id": "map_8f5bb5b0e8d74d9ab9862f11a7856bb2"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Rain Defender Loose Fit Heavyweight Hoodie",
+      "score": 7,
+      "rationale": "Heavyweight rain defender hoodie serves a more technical purpose; less emphasis on softness and casual wear.",
+      "map_id": "map_7711ba4c241045f3896e19e94d4c7f67"
+    },
+    {
+      "competitor_product_name": "Champion Satin C Logo Cotton Terry Hoodie",
+      "score": 9,
+      "rationale": "Classic cotton terry hoodie with logo aligns well with the reference product's focus on comfort and casual hooded sweatshirt style.",
+      "map_id": "map_3219ff6ca7ad4e3696cf5a894e12a649"
+    },
+    {
+      "competitor_product_name": "Carhartt Women's Relaxed Fit Midweight Sherpa-Lined Full Zip Sweatshirt",
+      "score": 5,
+      "rationale": "Full zip hoodie but sherpa-lined and women's relaxed fit makes it less comparable in function and target audience.",
+      "map_id": "map_6c412b09086945c8a47f8a7fc9444ec4"
+    },
+    {
+      "competitor_product_name": "Champion Mens Hoodies Big and Tall - Embroidered Pullover Fleece Sweatshirt Khaki",
+      "score": 7,
+      "rationale": "Pullover fleece hoodie aligns well functionally but the big and tall fit and possible fleece weight differs from the reference.",
+      "map_id": "map_5e182bbf905141669828e1ab6a107f77"
+    },
+    {
+      "competitor_product_name": "Supreme S Logo Cotton Hoodie",
+      "score": 8,
+      "rationale": "Cotton hoodie with logo similar in general product type and construction but may target a different market or style aesthetic.",
+      "map_id": "map_58f23049146b44b5bc2e5b0b5a80048e"
+    },
+    {
+      "competitor_product_name": "Supreme Motion Logo Hooded Sweatshirt",
+      "score": 8,
+      "rationale": "Similar hooded sweatshirt with logo, matching the core silhouette and purpose though stylistically maybe different.",
+      "map_id": "map_228be253e64e4145a955534f7a4dd5f0"
+    },
+    {
+      "competitor_product_name": "Supreme Special Zip Up Hooded Sweatshirt",
+      "score": 9,
+      "rationale": "Full zip hooded sweatshirt directly comparable in silhouette and function to the reference hoodie.",
+      "map_id": "map_c869071eaccc49ab8efcfb04709cc7dd"
+    },
+    {
+      "competitor_product_name": "Champion Men's Relaxed French Terry Hoodie",
+      "score": 9,
+      "rationale": "Relaxed fit French terry hoodie is very similar in construction, softness, and purpose to the reference hoodie.",
+      "map_id": "map_6244ca6ee02f4f3987069c9f57d15d07"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Mens Hooded American Script Hoodie",
+      "score": 8,
+      "rationale": "Hoodie resembling casual wear with logo styling aligns in product function though possibly different material or cut.",
+      "map_id": "map_a60e6474798348fcbb6f9873d541a64c"
+    },
+    {
+      "competitor_product_name": "Carhartt Toddler Boys' Long-Sleeve Half-Zip Sweatshirt",
+      "score": 2,
+      "rationale": "Toddler sized, half zip sweatshirt significantly differs in target market and product function from adult hoodie.",
+      "map_id": "map_c44d4329ae064bf8a5c09fa7c90c41af"
+    },
+    {
+      "competitor_product_name": "adidas Men's Mercedes-AMG Petronas Formula One Team Hoodie",
+      "score": 8,
+      "rationale": "Athletic branded men's hoodie, similar in function and silhouette though intended for sporty or fan audience.",
+      "map_id": "map_a0b5b755d219419caba66a0cb5ee32b2"
+    }
+  ]
+}

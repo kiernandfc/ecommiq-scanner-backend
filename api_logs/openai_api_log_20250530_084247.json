@@ -1,0 +1,107 @@
+{
+  "timestamp": "20250530_084247",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Levi's Relaxed Fit Trucker Jacket Men's'\n  - Name='Universal Works Button Chore Jacket Coat Olive Green Cotton Moleskin'\n  - Name='Faherty Men's Shorelite Jacket'\n  - Name='Barbour Men's Cord Liddesdale Quilted Jacket'\n  - Name='Universal Works Dockside Jacket'\n  - Name='Universal Works Plaid Chore Coat'\n  - Name='Universal Works Men's Button Chore Jacket Coat'\n  - Name='Barbour Cotton Jacket with Multiple Cargo Pockets'\n  - Name='Barbour Northumbria Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Levi's Relaxed Fit Trucker Jacket Men's\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a jacket and the Trucker silhouette shares some casual jacket traits, but it is typically more structured denim and less utility-focused than a chore coat like the Ojai Jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Button Chore Jacket Coat Olive Green Cotton Moleskin\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"This product is explicitly a chore jacket made from cotton moleskin, closely matching the Ojai Jacket's chore coat silhouette and utility focus, making it highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Shorelite Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"While this is a men's jacket, without specific mention of a chore coat style or utility features and material similarity, it is moderately relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Cord Liddesdale Quilted Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a quilted jacket with corduroy elements, differing in construction and style from a cotton chore coat, thus less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Dockside Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"As a jacket by the same brand known for utility clothing, it might share some functional features though 'Dockside' likely implies a different style from a chore coat.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Plaid Chore Coat\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"This is a chore coat which aligns with the Ojai's silhouette and function, though the plaid pattern is a difference; pattern isn't weighted heavily but it likely implies a cotton fabric variant.\"\n    },\n    {\n      \"competitor_product_name\": \"Universal Works Men's Button Chore Jacket Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Explicitly a chore jacket coat closely matching Ojai's key features: button front, chore coat style, utility emphasis, and cotton fabric likely making it very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Cotton Jacket with Multiple Cargo Pockets\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"This is a cotton jacket with multiple cargo pockets, indicating utility; however, Barbour's typical styling differs somewhat from chore coat silhouettes.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Northumbria Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a Barbour jacket which usually means a waxed or quilted style differing in fabric and possibly silhouette from a cotton chore coat like the Ojai Jacket.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Levi's Relaxed Fit Trucker Jacket Men's",
+      "score": 6,
+      "rationale": "This is a jacket and the Trucker silhouette shares some casual jacket traits, but it is typically more structured denim and less utility-focused than a chore coat like the Ojai Jacket.",
+      "map_id": "map_592e7d6c69524ba18313f3d10dfcf7d3"
+    },
+    {
+      "competitor_product_name": "Universal Works Button Chore Jacket Coat Olive Green Cotton Moleskin",
+      "score": 9,
+      "rationale": "This product is explicitly a chore jacket made from cotton moleskin, closely matching the Ojai Jacket's chore coat silhouette and utility focus, making it highly relevant.",
+      "map_id": "map_3fa9473e6bf040568c860fc166a492a2"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Shorelite Jacket",
+      "score": 5,
+      "rationale": "While this is a men's jacket, without specific mention of a chore coat style or utility features and material similarity, it is moderately relevant.",
+      "map_id": "map_adf143ed78b94c38939bc8b7ec5097f5"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Cord Liddesdale Quilted Jacket",
+      "score": 4,
+      "rationale": "This is a quilted jacket with corduroy elements, differing in construction and style from a cotton chore coat, thus less relevant.",
+      "map_id": "map_c6374c1a484b47f89dc1a21baebf5225"
+    },
+    {
+      "competitor_product_name": "Universal Works Dockside Jacket",
+      "score": 6,
+      "rationale": "As a jacket by the same brand known for utility clothing, it might share some functional features though 'Dockside' likely implies a different style from a chore coat.",
+      "map_id": "map_3e0b0d1d37df40af8b0afe0113991043"
+    },
+    {
+      "competitor_product_name": "Universal Works Plaid Chore Coat",
+      "score": 8,
+      "rationale": "This is a chore coat which aligns with the Ojai's silhouette and function, though the plaid pattern is a difference; pattern isn't weighted heavily but it likely implies a cotton fabric variant.",
+      "map_id": "map_9d548c60a89447a6926caf5dfbf0b9b4"
+    },
+    {
+      "competitor_product_name": "Universal Works Men's Button Chore Jacket Coat",
+      "score": 9,
+      "rationale": "Explicitly a chore jacket coat closely matching Ojai's key features: button front, chore coat style, utility emphasis, and cotton fabric likely making it very relevant.",
+      "map_id": "map_85aea8ecfb26444cab50944e477c52bb"
+    },
+    {
+      "competitor_product_name": "Barbour Cotton Jacket with Multiple Cargo Pockets",
+      "score": 7,
+      "rationale": "This is a cotton jacket with multiple cargo pockets, indicating utility; however, Barbour's typical styling differs somewhat from chore coat silhouettes.",
+      "map_id": "map_0c8a4440b8714c48a738e32d5ffb346e"
+    },
+    {
+      "competitor_product_name": "Barbour Northumbria Jacket",
+      "score": 5,
+      "rationale": "This is a Barbour jacket which usually means a waxed or quilted style differing in fabric and possibly silhouette from a cotton chore coat like the Ojai Jacket.",
+      "map_id": "map_70bc481f83d14a1ea5d10c898a05bd39"
+    }
+  ]
+}

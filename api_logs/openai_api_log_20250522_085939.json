@@ -1,0 +1,125 @@
+{
+  "timestamp": "20250522_085939",
+  "reference_brand": "Taylor Stitch",
+  "reference_name": "The Ojai Jacket",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Taylor Stitch\"\nReference Product Name: \"The Ojai Jacket\"\nReference Product Description:\nWith its classic French chore coat silhouette that’s easy to dress up or down and an abundance of utility-focused features, it’s no wonder why The Ojai has become one of our most popular designs ever. This iteration is rendered in an organic cotton twill that’s reverse-engineered from deadstock military fabric, so it’ll stand up to years of hard wear and pick up incredible character along the way.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt Wip Drewe chore denim jacket'\n  - Name='Carhartt WIP x Iab Studio OG Chore Coat'\n  - Name='Carhartt WIP Men's Drewe Chore Coat'\n  - Name='Norse Projects Classic Tailored Coat'\n  - Name='Barbour Men's Ashby Casual Cotton Jacket'\n  - Name='Faherty Savannah Cotton Overshirt'\n  - Name='Levi's Men's Cotton Depot Jacket'\n  - Name='Faherty Men's Horizon Series Jacket'\n  - Name='Faherty Timberline Fleece Trucker'\n  - Name='Faherty Men's Commander Shirt Jacket'\n  - Name='Faherty High Pile Fleece Lined Wool-Blend Pullover'\n  - Name='Faherty Men's Movement Flex Linen Shirt Jacket'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt Wip Drewe chore denim jacket\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Similar chore coat style and utility focus, denim vs cotton twill difference but overall very close in function and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP x Iab Studio OG Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Chore coat with utility features resembling the reference; materials may differ but closely aligned in purpose and shape.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Men's Drewe Chore Coat\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Another chore coat, very similar in style, utility, and function to the reference jacket.\"\n    },\n    {\n      \"competitor_product_name\": \"Norse Projects Classic Tailored Coat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a more formal tailored coat, different in silhouette and intended use compared to casual chore coat style.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Ashby Casual Cotton Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Casual cotton jacket with possible utility elements, but more of a traditional casual jacket rather than classic chore coat silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Savannah Cotton Overshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"An overshirt suggests lighter weight, less structured than chore coats; less utility and different silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Levi's Men's Cotton Depot Jacket\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Cotton jacket potentially similar in construction but may be closer to a workwear style jacket rather than chore coat specifically.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Horizon Series Jacket\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a casual jacket but no indication it's a chore coat, probably different silhouette and features.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Timberline Fleece Trucker\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Trucker jacket style is distinct from chore coat; fleece lining changes function and construction significantly.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Commander Shirt Jacket\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Shirt jacket style is less structured and more like a heavy overshirt rather than a chore coat, different silhouette and utility level.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty High Pile Fleece Lined Wool-Blend Pullover\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Not a jacket or chore coat; different category altogether (pullover), very low relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Faherty Men's Movement Flex Linen Shirt Jacket\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Linen shirt jacket is quite different in material, structure, and intended use; more lightweight and casual than chore coat.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt Wip Drewe chore denim jacket",
+      "score": 9,
+      "rationale": "Similar chore coat style and utility focus, denim vs cotton twill difference but overall very close in function and silhouette.",
+      "map_id": "map_77468ba9425c4516871d8d3234b0a09a"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP x Iab Studio OG Chore Coat",
+      "score": 9,
+      "rationale": "Chore coat with utility features resembling the reference; materials may differ but closely aligned in purpose and shape.",
+      "map_id": "map_774e640689ee4b9f987cc8cf36f7f9e5"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Men's Drewe Chore Coat",
+      "score": 9,
+      "rationale": "Another chore coat, very similar in style, utility, and function to the reference jacket.",
+      "map_id": "map_b7cb62b0e3a84b98aa628c7f5d5f41d5"
+    },
+    {
+      "competitor_product_name": "Norse Projects Classic Tailored Coat",
+      "score": 4,
+      "rationale": "Likely a more formal tailored coat, different in silhouette and intended use compared to casual chore coat style.",
+      "map_id": "map_cb066f3b02f74e6bbefe2f5af501cdd5"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Ashby Casual Cotton Jacket",
+      "score": 7,
+      "rationale": "Casual cotton jacket with possible utility elements, but more of a traditional casual jacket rather than classic chore coat silhouette.",
+      "map_id": "map_e4cc9cbd93374a099b15a7744ca72137"
+    },
+    {
+      "competitor_product_name": "Faherty Savannah Cotton Overshirt",
+      "score": 5,
+      "rationale": "An overshirt suggests lighter weight, less structured than chore coats; less utility and different silhouette.",
+      "map_id": "map_937b8817340e45d787928e50ca65a622"
+    },
+    {
+      "competitor_product_name": "Levi's Men's Cotton Depot Jacket",
+      "score": 6,
+      "rationale": "Cotton jacket potentially similar in construction but may be closer to a workwear style jacket rather than chore coat specifically.",
+      "map_id": "map_3ad978b82a9944eb9439b567e4703988"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Horizon Series Jacket",
+      "score": 4,
+      "rationale": "Likely a casual jacket but no indication it's a chore coat, probably different silhouette and features.",
+      "map_id": "map_6a7f44a89ff64061b99d274164063291"
+    },
+    {
+      "competitor_product_name": "Faherty Timberline Fleece Trucker",
+      "score": 3,
+      "rationale": "Trucker jacket style is distinct from chore coat; fleece lining changes function and construction significantly.",
+      "map_id": "map_d7ea5ce35d184addb6b8e9b81416898f"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Commander Shirt Jacket",
+      "score": 5,
+      "rationale": "Shirt jacket style is less structured and more like a heavy overshirt rather than a chore coat, different silhouette and utility level.",
+      "map_id": "map_7f7d92594ffa4659a59aa3a1db33e378"
+    },
+    {
+      "competitor_product_name": "Faherty High Pile Fleece Lined Wool-Blend Pullover",
+      "score": 1,
+      "rationale": "Not a jacket or chore coat; different category altogether (pullover), very low relevancy.",
+      "map_id": "map_87c0f0234b364979bbb041bb3120359e"
+    },
+    {
+      "competitor_product_name": "Faherty Men's Movement Flex Linen Shirt Jacket",
+      "score": 3,
+      "rationale": "Linen shirt jacket is quite different in material, structure, and intended use; more lightweight and casual than chore coat.",
+      "map_id": "map_b9d9235bff004abbbb5ea47fd8bc27c5"
+    }
+  ]
+}

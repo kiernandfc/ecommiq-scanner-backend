@@ -1,0 +1,101 @@
+{
+  "timestamp": "20250510_101008",
+  "reference_brand": "Tie Bar",
+  "reference_name": "Non-Iron Dress Shirt",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Tie Bar\"\nReference Product Name: \"Non-Iron Dress Shirt\"\nReference Product Description:\nMeet your new wardrobe staple. This must have textured solid dress shirt is perfect for any occasion, keeping you looking your absolute best at work and on the weekends. Available in trim fit and standard fit. Need help finding your shirt size? Check out our Shirt Size Guide for the perfect fit.\nCollar Style: Semi-spread. A popular collar style that has a wider spread between the collar points to accommodate the widest range of tie knots. Also the best collar type to dress down and wear without a tie.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Bonobos Men's Riviera Seersucker Check Shirt'\n  - Name='Bonobos Men's Everyday Casual Check Shirt'\n  - Name='The Desk To Dinner Shirt Slim for Men by Bonobos'\n  - Name='Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos'\n  - Name='Saddlebred Men's Cameron Tie Bar'\n  - Name='The Tie Bar Men's Wrinkle-Free Cotton Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt'\n  - Name='The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Bonobos Men's Riviera Seersucker Check Shirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"This is a dress shirt but described as seersucker and check pattern, likely more casual and textured, different fabric and style from the reference's non-iron solid dress shirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Bonobos Men's Everyday Casual Check Shirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"This is a casual check shirt, which likely differs in formality and fabric from a non-iron dress shirt. More casual use and less formal construction.\"\n    },\n    {\n      \"competitor_product_name\": \"The Desk To Dinner Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Described as suitable for desk to dinner, likely a versatile dress shirt with a slim fit, aligning more closely with the reference dress shirt in style and fit.\"\n    },\n    {\n      \"competitor_product_name\": \"Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A premium merino wool dress shirt with a slim fit; though a dress shirt, the fabric differs significantly from typical non-iron cotton, implying some difference in care and texture.\"\n    },\n    {\n      \"competitor_product_name\": \"Saddlebred Men's Cameron Tie Bar\",\n      \"relevancy_score\": 1,\n      \"rationale\": \"Appears to be a necktie or tie accessory, not a dress shirt, thus irrelevant.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Very close to the reference product: a wrinkle-free cotton dress shirt from the same brand, likely similar fit and function but slightly less detail on fit.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Almost identical to the reference product; trim fit and wrinkle-free dress shirt from the same brand matches exactly in silhouette and features.\"\n    },\n    {\n      \"competitor_product_name\": \"The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt\",\n      \"relevancy_score\": 10,\n      \"rationale\": \"Matches exactly the reference product in fit, fabric, and wrinkle-free feature, from the same brand.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Bonobos Men's Riviera Seersucker Check Shirt",
+      "score": 5,
+      "rationale": "This is a dress shirt but described as seersucker and check pattern, likely more casual and textured, different fabric and style from the reference's non-iron solid dress shirt.",
+      "map_id": "map_b9669319966847f89a1c74fffd498b3f"
+    },
+    {
+      "competitor_product_name": "Bonobos Men's Everyday Casual Check Shirt",
+      "score": 4,
+      "rationale": "This is a casual check shirt, which likely differs in formality and fabric from a non-iron dress shirt. More casual use and less formal construction.",
+      "map_id": "map_b9df683b4f144928b5afc826740d9779"
+    },
+    {
+      "competitor_product_name": "The Desk To Dinner Shirt Slim for Men by Bonobos",
+      "score": 7,
+      "rationale": "Described as suitable for desk to dinner, likely a versatile dress shirt with a slim fit, aligning more closely with the reference dress shirt in style and fit.",
+      "map_id": "map_acb00bdfea024d508fc0c25df9f36ff8"
+    },
+    {
+      "competitor_product_name": "Jetsetter Premium Merino Dress Shirt Slim for Men by Bonobos",
+      "score": 6,
+      "rationale": "A premium merino wool dress shirt with a slim fit; though a dress shirt, the fabric differs significantly from typical non-iron cotton, implying some difference in care and texture.",
+      "map_id": "map_6ae5b5a4e16f43fca09d8c4bf5e8ebc6"
+    },
+    {
+      "competitor_product_name": "Saddlebred Men's Cameron Tie Bar",
+      "score": 1,
+      "rationale": "Appears to be a necktie or tie accessory, not a dress shirt, thus irrelevant.",
+      "map_id": "map_a0ab17f52a9d403eb2a620553a2a97a4"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Wrinkle-Free Cotton Dress Shirt",
+      "score": 9,
+      "rationale": "Very close to the reference product: a wrinkle-free cotton dress shirt from the same brand, likely similar fit and function but slightly less detail on fit.",
+      "map_id": "map_9cf90574a9704ec0b370d60b75d130ba"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Dress Shirt",
+      "score": 10,
+      "rationale": "Almost identical to the reference product; trim fit and wrinkle-free dress shirt from the same brand matches exactly in silhouette and features.",
+      "map_id": "map_808110273c6a4cd5a58e0ef6f737f3df"
+    },
+    {
+      "competitor_product_name": "The Tie Bar Men's Trim Fit Wrinkle-Free Cotton Dress Shirt",
+      "score": 10,
+      "rationale": "Matches exactly the reference product in fit, fabric, and wrinkle-free feature, from the same brand.",
+      "map_id": "map_6fe1f4929f9b4f7296414a3edcd0aa5e"
+    }
+  ]
+}

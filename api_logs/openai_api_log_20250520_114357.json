@@ -1,0 +1,215 @@
+{
+  "timestamp": "20250520_114357",
+  "reference_brand": "Boston Scally",
+  "reference_name": "Boston Scally Hoodie",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"Boston Scally Hoodie\"\nReference Product Description:\nThere is nothing more that every Bostonian needs than a quality hooded sweatshirt… or as we like to refer to them as… a “hoodie.”\n\nLook, when we put on a “hoodie” we want a soft & comfortable sweatshirt that gives us enough mobility to raise our arm and hail down the bartender for another beer or go nuts when the Pats score.\n\nThis sweatshirt provides just that—it's SUPER soft. This is the sweatshirt you have to hold back from wearing to bed every night.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='H&M Men's Loose Fit Hoodie with Side Stripes'\n  - Name='Gap Men's Vintage Soft Hoodie'\n  - Name='Gap Men's VintageSoft Arch Logo Hoodie'\n  - Name='H&M Men's Regular-Fit Jersey Hooded Jacket'\n  - Name='Carhartt Mens 106793 Rain Defender Loose Fit Midweight Logo Graphic Hoodie for'\n  - Name='Nike Men's Solo Swoosh Full-Zip Hoodie'\n  - Name='American Apparel Men's Hoodie'\n  - Name='Nike Men's Club French Terry Hoodie'\n  - Name='American Apparel Reflex Fleece Crewneck Sweatshirt'\n  - Name='H&M Men's Oversized Hoodie'\n  - Name='Gap Men's Arch Logo Fleece Hoodie'\n  - Name='men sweatshirt GAP Heritage Logo GAP SNL'\n  - Name='Gap Men's Heritage Logo Pullover Hoodie'\n  - Name='Men's Heavyweight Oversized Hoodie by Gap'\n  - Name='Gap Men's Logo Fleece Pullover Hoodie'\n  - Name='Gap Logo Zip Hoodie'\n  - Name='Gap Vintagesoft Hoodie'\n  - Name='Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt'\n  - Name='Carhartt Men's High Visibility Loose Fit Midweight Thermal Lined Full Zip Class 3 Sweatshirt'\n  - Name='Carhartt Men's Loose Fit Midweight Rain Defender Graphic Hoodie'\n  - Name='Carhartt Men's Loose Fit Midweight Logo Graphic Sweatshirt'\n  - Name='H&M Men's Loose Fit Sweatshirt'\n  - Name='American Apparel Men's Hoodie'\n  - Name='Nike Men's Sportswear Club Fleece Hoodie'\n  - Name='Nike Men's Milwaukee Brewers Authentic Collection City Connect Therma Pullover Hoodie'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Hoodie with Side Stripes\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Also a men's hoodie with a loose fit, likely similar in softness and casual wear; side stripes are a minor design difference.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Vintage Soft Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Men's hoodie described as \\\"vintage soft,\\\" emphasizing softness similar to the reference hoodie, likely very close in function and comfort.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's VintageSoft Arch Logo Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"A hoodie emphasizing soft fabric and casual wear, closely matching the soft comfortable sweatshirt concept of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Regular-Fit Jersey Hooded Jacket\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hooded jacket likely similar in design and use, but as a jacket may have zipper and different construction affecting softness and mobility.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Mens 106793 Rain Defender Loose Fit Midweight Logo Graphic Hoodie for\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hoodie with midweight fabric and rain defender feature, which may reduce softness; focus on workwear durability differs from the casual soft sweatshirt.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Solo Swoosh Full-Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Hoodie with full zip likely similar in use but construction differs from pullover, may affect softness and silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Generic men's hoodie likely soft and casual similar to reference product; fits the core product type well.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Club French Terry Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"French terry fabric hoodies are soft and casual, fitting well with the reference product's characteristics.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Reflex Fleece Crewneck Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Crewneck sweatshirt lacks a hood, changing the silhouette and use case compared to a hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Oversized Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Oversized hoodie retains key hoodie features; softness and comfort likely emphasized, similar purpose.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Arch Logo Fleece Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Fleece hoodie focused on comfort and softness, aligns closely with reference hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"men sweatshirt GAP Heritage Logo GAP SNL\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Described as sweatshirt but not explicitly a hoodie; missing hood affects relevancy.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Heritage Logo Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Pullover hoodie matching core style and function with focus on softness and casual wear.\"\n    },\n    {\n      \"competitor_product_name\": \"Men's Heavyweight Oversized Hoodie by Gap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Heavyweight and oversized hoodie likely similar in features; heavier fabric may impact softness compared to reference but still highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Men's Logo Fleece Pullover Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Fleece pullover hoodie strongly aligns with the soft, comfortable sweatshirt characteristics of the reference.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Logo Zip Hoodie\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Zip-up hoodie differs in silhouette from pullover reference, but still closely related in product type.\"\n    },\n    {\n      \"competitor_product_name\": \"Gap Vintagesoft Hoodie\",\n      \"relevancy_score\": 9,\n      \"rationale\": \"Name emphasizes softness and hoodie style, very similar to reference hoodie in material feel and use.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sweatshirt without hood differs in silhouette and intended casual use compared to hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's High Visibility Loose Fit Midweight Thermal Lined Full Zip Class 3 Sweatshirt\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"High visibility, thermal lined, full zip sweatshirt with workwear focus less relevant to soft casual hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Rain Defender Graphic Hoodie\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"Hoodie but midweight rain defender likely less soft and casual, thus less relevant though same category.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Loose Fit Midweight Logo Graphic Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sweatshirt without hood reduces relevancy despite loose fit and midweight fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"H&M Men's Loose Fit Sweatshirt\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Sweatshirt without hood differs in silhouette and casual use compared to hoodie.\"\n    },\n    {\n      \"competitor_product_name\": \"American Apparel Men's Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"General men's hoodie likely soft and comfortable, matching reference product features well.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Sportswear Club Fleece Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Fleece hoodie aligns well with reference on softness and comfort, typical hoodie silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Nike Men's Milwaukee Brewers Authentic Collection City Connect Therma Pullover Hoodie\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Pullover hoodie emphasizing warmth and comfort, similar in use and style to reference hoodie.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Hoodie with Side Stripes",
+      "score": 8,
+      "rationale": "Also a men's hoodie with a loose fit, likely similar in softness and casual wear; side stripes are a minor design difference.",
+      "map_id": "map_8e281e8296cc4518bcab2e85ced80e21"
+    },
+    {
+      "competitor_product_name": "Gap Men's Vintage Soft Hoodie",
+      "score": 9,
+      "rationale": "Men's hoodie described as \"vintage soft,\" emphasizing softness similar to the reference hoodie, likely very close in function and comfort.",
+      "map_id": "map_c7caec00ef2d4499b32fc74f8e1d6c84"
+    },
+    {
+      "competitor_product_name": "Gap Men's VintageSoft Arch Logo Hoodie",
+      "score": 9,
+      "rationale": "A hoodie emphasizing soft fabric and casual wear, closely matching the soft comfortable sweatshirt concept of the reference.",
+      "map_id": "map_fbd897ed0c4648f2b726446bcf773b66"
+    },
+    {
+      "competitor_product_name": "H&M Men's Regular-Fit Jersey Hooded Jacket",
+      "score": 7,
+      "rationale": "Hooded jacket likely similar in design and use, but as a jacket may have zipper and different construction affecting softness and mobility.",
+      "map_id": "map_43427c17385d4149a189d215dbec7876"
+    },
+    {
+      "competitor_product_name": "Carhartt Mens 106793 Rain Defender Loose Fit Midweight Logo Graphic Hoodie for",
+      "score": 6,
+      "rationale": "Hoodie with midweight fabric and rain defender feature, which may reduce softness; focus on workwear durability differs from the casual soft sweatshirt.",
+      "map_id": "map_91e9c16163d644339c12f8c5febc6e0e"
+    },
+    {
+      "competitor_product_name": "Nike Men's Solo Swoosh Full-Zip Hoodie",
+      "score": 7,
+      "rationale": "Hoodie with full zip likely similar in use but construction differs from pullover, may affect softness and silhouette.",
+      "map_id": "map_046cb774b3824d6f947dd987e82c14d3"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 8,
+      "rationale": "Generic men's hoodie likely soft and casual similar to reference product; fits the core product type well.",
+      "map_id": "map_c96595c794d644008c32e1f09c0baa8c"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 8,
+      "rationale": "Generic men's hoodie likely soft and casual similar to reference product; fits the core product type well.",
+      "map_id": "map_a0ce1496881e4893a0e824957ce660e5"
+    },
+    {
+      "competitor_product_name": "Nike Men's Club French Terry Hoodie",
+      "score": 8,
+      "rationale": "French terry fabric hoodies are soft and casual, fitting well with the reference product's characteristics.",
+      "map_id": "map_4d7b422995c04d1dbd5488004ec4ef93"
+    },
+    {
+      "competitor_product_name": "American Apparel Reflex Fleece Crewneck Sweatshirt",
+      "score": 5,
+      "rationale": "Crewneck sweatshirt lacks a hood, changing the silhouette and use case compared to a hoodie.",
+      "map_id": "map_b1d924ff9e1545d59964c3dd4595218c"
+    },
+    {
+      "competitor_product_name": "H&M Men's Oversized Hoodie",
+      "score": 8,
+      "rationale": "Oversized hoodie retains key hoodie features; softness and comfort likely emphasized, similar purpose.",
+      "map_id": "map_77037a9cb4bc4947940c0857dfa89d22"
+    },
+    {
+      "competitor_product_name": "Gap Men's Arch Logo Fleece Hoodie",
+      "score": 9,
+      "rationale": "Fleece hoodie focused on comfort and softness, aligns closely with reference hoodie.",
+      "map_id": "map_ce57d3bb1cba465bb7138d1c3b0dd2a3"
+    },
+    {
+      "competitor_product_name": "men sweatshirt GAP Heritage Logo GAP SNL",
+      "score": 5,
+      "rationale": "Described as sweatshirt but not explicitly a hoodie; missing hood affects relevancy.",
+      "map_id": "map_8862421573ad4c22ac1cd7d42520ae0d"
+    },
+    {
+      "competitor_product_name": "Gap Men's Heritage Logo Pullover Hoodie",
+      "score": 9,
+      "rationale": "Pullover hoodie matching core style and function with focus on softness and casual wear.",
+      "map_id": "map_eea8cd75986340968c3893f4441d0033"
+    },
+    {
+      "competitor_product_name": "Men's Heavyweight Oversized Hoodie by Gap",
+      "score": 8,
+      "rationale": "Heavyweight and oversized hoodie likely similar in features; heavier fabric may impact softness compared to reference but still highly relevant.",
+      "map_id": "map_39b9b090c2ae4ab7882245223080c95f"
+    },
+    {
+      "competitor_product_name": "Gap Men's Logo Fleece Pullover Hoodie",
+      "score": 9,
+      "rationale": "Fleece pullover hoodie strongly aligns with the soft, comfortable sweatshirt characteristics of the reference.",
+      "map_id": "map_8644464647044c1095ec2c1e1c7fd8ad"
+    },
+    {
+      "competitor_product_name": "Gap Logo Zip Hoodie",
+      "score": 7,
+      "rationale": "Zip-up hoodie differs in silhouette from pullover reference, but still closely related in product type.",
+      "map_id": "map_4d84ae7bc0f3427eb98f63b010cdda83"
+    },
+    {
+      "competitor_product_name": "Gap Vintagesoft Hoodie",
+      "score": 9,
+      "rationale": "Name emphasizes softness and hoodie style, very similar to reference hoodie in material feel and use.",
+      "map_id": "map_1e08c3951cc2465782c68f39d565961e"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Relaxed Fit Lightweight Logo Graphic Sweatshirt",
+      "score": 5,
+      "rationale": "Sweatshirt without hood differs in silhouette and intended casual use compared to hoodie.",
+      "map_id": "map_74c30011e30e4acd9b75e347714b018a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's High Visibility Loose Fit Midweight Thermal Lined Full Zip Class 3 Sweatshirt",
+      "score": 4,
+      "rationale": "High visibility, thermal lined, full zip sweatshirt with workwear focus less relevant to soft casual hoodie.",
+      "map_id": "map_cd2c4a34cf7742d58d296f4ca3fa9f6d"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Rain Defender Graphic Hoodie",
+      "score": 6,
+      "rationale": "Hoodie but midweight rain defender likely less soft and casual, thus less relevant though same category.",
+      "map_id": "map_fa7e9879bce94bfaa7d580b58315ee2e"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Loose Fit Midweight Logo Graphic Sweatshirt",
+      "score": 5,
+      "rationale": "Sweatshirt without hood reduces relevancy despite loose fit and midweight fabric.",
+      "map_id": "map_97688d33a1754d2cb3c5fe4f2735e110"
+    },
+    {
+      "competitor_product_name": "H&M Men's Loose Fit Sweatshirt",
+      "score": 5,
+      "rationale": "Sweatshirt without hood differs in silhouette and casual use compared to hoodie.",
+      "map_id": "map_ac6f69bea54b4a5dae13c0ad75f53479"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 8,
+      "rationale": "General men's hoodie likely soft and comfortable, matching reference product features well.",
+      "map_id": "map_c96595c794d644008c32e1f09c0baa8c"
+    },
+    {
+      "competitor_product_name": "American Apparel Men's Hoodie",
+      "score": 8,
+      "rationale": "General men's hoodie likely soft and comfortable, matching reference product features well.",
+      "map_id": "map_a0ce1496881e4893a0e824957ce660e5"
+    },
+    {
+      "competitor_product_name": "Nike Men's Sportswear Club Fleece Hoodie",
+      "score": 8,
+      "rationale": "Fleece hoodie aligns well with reference on softness and comfort, typical hoodie silhouette.",
+      "map_id": "map_46697c80f619411fbecb9c4ac5a95612"
+    },
+    {
+      "competitor_product_name": "Nike Men's Milwaukee Brewers Authentic Collection City Connect Therma Pullover Hoodie",
+      "score": 8,
+      "rationale": "Pullover hoodie emphasizing warmth and comfort, similar in use and style to reference hoodie.",
+      "map_id": "map_2039b9e0fd57495d81f9807f3452b031"
+    }
+  ]
+}

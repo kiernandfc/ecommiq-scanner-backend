@@ -1,0 +1,203 @@
+{
+  "timestamp": "20250513_091216",
+  "reference_brand": "Boston Scally",
+  "reference_name": "The Driver",
+  "input": {
+    "system_prompt": "You are an AI assistant evaluating product relevancy.\nYour goal is to determine how relevant a list of competitor products are to a specific reference product, based on names and descriptions.\nOutput the scores as a JSON object containing a single key 'scores', which is an array of objects. Each object in the array must have 'competitor_product_name' (the exact competitor product name provided in the input), 'relevancy_score' (an integer 1-10), and 'rationale' (a brief explanation for the score).\n\nThe relevancy scale is 1-10:\n- 1: Not relevant at all.\n- 10: Identical product.\n\nImportant scoring guidelines:\n- Focus on product function, features, silhouette, and construction\n- DO NOT emphasize color or pattern when scoring, as the reference product may encompass a wide range of colors/patterns not specified\n- Consider the core product type, shape, materials, and intended use\n- Evaluate if the products serve similar purposes and would appeal to similar customers\n- Ensure every competitor product listed receives a score.\n",
+    "user_prompt": "\nReference Brand: \"Boston Scally\"\nReference Product Name: \"The Driver\"\nReference Product Description:\nIntroducing The ‘Driver’ Scally Cap from Boston Scally—a game-changer crafted for those who appreciate style and performance. Engineered with a lightweight, durable and breathable micro-poly sport fabric, this cap ensures unparalleled comfort. The interior lining matches that of our most-loved ‘Trainer’ cap, and enhances the overall feel and fit.\n\nFeaturing a form-fitting 8-panel design, The ‘Driver’ is the first of its kind to incorporate sport technology with micro-poly fabric, offering complete breathability while covering your dome. Whether you're on the golf course or enjoying a day out, The ‘Driver’ will keep you cool and comfortable throughout your endeavors.\n\nCompetitor Products to Evaluate (Max 25):\n  - Name='Carhartt Men's Script Baseball Cap'\n  - Name='Stetson Men's Superior Cotton Driver Flat Cap'\n  - Name='Carhartt WIP Linus Cap men Caps'\n  - Name='Carhartt Men's Force Logo Graphic Cap'\n  - Name='Carhartt Accessories Ballcap'\n  - Name='Carhartt Men's Madison Logo Cap'\n  - Name='Carhartt Men's Canvas Saguaro National Park Patch Cap'\n  - Name='Carhartt Men's Class of 89 Embroidered Cotton Cap'\n  - Name='Carhartt Odessa Soft Canvas Force Wick Sweat Hat Cap'\n  - Name='Carhartt WIP Drewe Bucket Hat'\n  - Name='Carhartt Men's Force Wicks Sweat Hat/cap'\n  - Name='Carhartt WIP logo patch cap men'\n  - Name='Carhartt Men's WIP Logo- Appliqué Cotton Cap'\n  - Name='CARHARTT ODESSA CAP DOV / OSFA'\n  - Name='Goorin Bros. Women's Freedom Eagle Trucker Hat'\n  - Name='Barbour Men's Flat Cap'\n  - Name='Brixton Fiddler Cap'\n  - Name='Goorin Bros. Unisex V2 Premium Mesh Adjustable Trucker Cap'\n  - Name='Goorin Bros. The Queen Bee Trucker Hat'\n  - Name='Brixton Grade HP Trucker Hat'\n  - Name='Goorin Bros Queen Bee'\n  - Name='Barbour Flat Wax Cap'\n  - Name='Goorin Bros Moon Rooster Hat'\n  - Name='Goorin Bros Rizzky Bizznizz Trucker Hat'\n  - Name='Goorin Bros The Player Dolphin Trucker Hat'\n\nBased on the reference product description and each competitor product's name, please provide the relevancy score for *each* competitor product using the 1-10 scale. Remember to focus on product features, silhouette, and construction rather than color or pattern. Return the results in the specified JSON format (an object with a 'scores' array, where each item has 'competitor_product_name', 'relevancy_score', and 'rationale' explaining why you assigned that score).\n",
+    "model": "gpt-4.1-mini",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "description": "An array of relevancy scores for the competitor products.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "competitor_product_name": {
+                "type": "string",
+                "description": "The exact name of the competitor product as provided in the input."
+              },
+              "relevancy_score": {
+                "type": "integer",
+                "description": "Product relevancy score from 1 to 10."
+              },
+              "rationale": {
+                "type": "string",
+                "description": "Brief explanation for why this score was assigned."
+              }
+            },
+            "required": [
+              "competitor_product_name",
+              "relevancy_score",
+              "rationale"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "scores"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "response": {
+    "status": "completed",
+    "raw_output": "{\n  \"scores\": [\n    {\n      \"competitor_product_name\": \"Carhartt Men's Script Baseball Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"This is a baseball cap focused on casual wear, similar in function as headwear, but differs in silhouette and possibly material technology from the 8-panel driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Stetson Men's Superior Cotton Driver Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"A 'driver flat cap' closely matches the style and function of the Boston Scally Driver cap; though likely made of cotton and classic materials versus micro-poly sport fabric, its traditional flat cap style is very relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Linus Cap men Caps\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a casual cap from Carhartt WIP; silhouette and materials unspecified but probably less performance-oriented and different in style from the sport-scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Logo Graphic Cap\",\n      \"relevancy_score\": 6,\n      \"rationale\": \"A casual and sporty cap brand with performance fabric, possibly more similar in technology but differs in silhouette (likely baseball style).\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Accessories Ballcap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Ballcap typically denotes baseball style cap, which differs significantly in silhouette and panel construction from the 8-panel driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Madison Logo Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Likely a standard baseball cap style with logo, differing in style and possibly fabric from the driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Canvas Saguaro National Park Patch Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Canvas patch cap suggests standard baseball cap silhouette with canvas material; less relevant due to silhouette and fabric differences.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Class of 89 Embroidered Cotton Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Embroidered cotton cap is probably a baseball cap with cotton material, different from the sports micro-poly driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Odessa Soft Canvas Force Wick Sweat Hat Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"The Odessa cap features soft canvas and sweat-wicking technology, somewhat similar in performance intent although visual style is probably more casual than the specialized driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP Drewe Bucket Hat\",\n      \"relevancy_score\": 3,\n      \"rationale\": \"Bucket hat style differs significantly in shape and function from the driver flat/scally cap; less relevant due to silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's Force Wicks Sweat Hat/cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Focus on sweat-wicking performance fabric aligns with the breathable feature of the driver cap, though silhouette likely differs (hat/cap).\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt WIP logo patch cap men\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Standard casual cap probably baseball or similar style, differing from the driver cap in shape and possibly fabric.\"\n    },\n    {\n      \"competitor_product_name\": \"Carhartt Men's WIP Logo- Appliqué Cotton Cap\",\n      \"relevancy_score\": 5,\n      \"rationale\": \"Cotton cap likely more casual silhouette differing from performance-oriented driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"CARHARTT ODESSA CAP DOV / OSFA\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Odessa cap known for sweat-wicking and performance fabric; somewhat similar in function but likely different style/silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Women's Freedom Eagle Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker hat has a distinct silhouette with mesh back and snapback, unlike the driver cap; less relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Men's Flat Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Flat cap style is very close to the driver cap silhouette; though fabric may differ (classic materials vs micro-poly), it is highly relevant.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Fiddler Cap\",\n      \"relevancy_score\": 7,\n      \"rationale\": \"Fiddler cap has a similar silhouette to flat/driver caps, slightly different style but relevant as alternative form-fitting caps.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. Unisex V2 Premium Mesh Adjustable Trucker Cap\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker cap silhouette and mesh back differ considerably from the driver cap's 8-panel scally style.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros. The Queen Bee Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Same reasoning as other trucker hats; mesh-backed adjustable trucker caps differ in shape and construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Brixton Grade HP Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker hat silhouette does not match driver cap style or panel construction.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Queen Bee\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Assuming this is a trucker or similar style hat from Goorin Bros, not closely related to the driver scally cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Barbour Flat Wax Cap\",\n      \"relevancy_score\": 8,\n      \"rationale\": \"Barbour's flat wax cap shares close silhouette and function with the driver cap, though materials differ; highly relevant as alternative flat cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Moon Rooster Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Likely a trucker or casual cap style unlike the performance flat driver cap.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros Rizzky Bizznizz Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker hat style with mesh and adjustable closure differs from the driver cap silhouette.\"\n    },\n    {\n      \"competitor_product_name\": \"Goorin Bros The Player Dolphin Trucker Hat\",\n      \"relevancy_score\": 4,\n      \"rationale\": \"Trucker hat silhouette and function differ significantly from the driver scally cap.\"\n    }\n  ]\n}",
+    "incomplete_details": null
+  },
+  "scores_with_rationales": [
+    {
+      "competitor_product_name": "Carhartt Men's Script Baseball Cap",
+      "score": 6,
+      "rationale": "This is a baseball cap focused on casual wear, similar in function as headwear, but differs in silhouette and possibly material technology from the 8-panel driver scally cap.",
+      "map_id": "map_694cf9ff16e94e58809641bc3b3030a0"
+    },
+    {
+      "competitor_product_name": "Stetson Men's Superior Cotton Driver Flat Cap",
+      "score": 8,
+      "rationale": "A 'driver flat cap' closely matches the style and function of the Boston Scally Driver cap; though likely made of cotton and classic materials versus micro-poly sport fabric, its traditional flat cap style is very relevant.",
+      "map_id": "map_e768a25a911249f6a2abf6c6014ba6a1"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Linus Cap men Caps",
+      "score": 5,
+      "rationale": "Likely a casual cap from Carhartt WIP; silhouette and materials unspecified but probably less performance-oriented and different in style from the sport-scally cap.",
+      "map_id": "map_3a86fb1c220f4039baad2c78c39a24f0"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Logo Graphic Cap",
+      "score": 6,
+      "rationale": "A casual and sporty cap brand with performance fabric, possibly more similar in technology but differs in silhouette (likely baseball style).",
+      "map_id": "map_b93945efdf91404884ed82b4bba0e756"
+    },
+    {
+      "competitor_product_name": "Carhartt Accessories Ballcap",
+      "score": 5,
+      "rationale": "Ballcap typically denotes baseball style cap, which differs significantly in silhouette and panel construction from the 8-panel driver cap.",
+      "map_id": "map_f8d46d8b0576478b951d7511c2415f3f"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Madison Logo Cap",
+      "score": 5,
+      "rationale": "Likely a standard baseball cap style with logo, differing in style and possibly fabric from the driver scally cap.",
+      "map_id": "map_965f74c566b74404a5e8924f53a480d2"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Canvas Saguaro National Park Patch Cap",
+      "score": 5,
+      "rationale": "Canvas patch cap suggests standard baseball cap silhouette with canvas material; less relevant due to silhouette and fabric differences.",
+      "map_id": "map_ec310c93c0be4eb0878ff72e94ec0747"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Class of 89 Embroidered Cotton Cap",
+      "score": 5,
+      "rationale": "Embroidered cotton cap is probably a baseball cap with cotton material, different from the sports micro-poly driver cap.",
+      "map_id": "map_5beded29ff7d4637a44b5ac48e06a9cf"
+    },
+    {
+      "competitor_product_name": "Carhartt Odessa Soft Canvas Force Wick Sweat Hat Cap",
+      "score": 7,
+      "rationale": "The Odessa cap features soft canvas and sweat-wicking technology, somewhat similar in performance intent although visual style is probably more casual than the specialized driver scally cap.",
+      "map_id": "map_a6164c149300482baef1700940c9bfd0"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP Drewe Bucket Hat",
+      "score": 3,
+      "rationale": "Bucket hat style differs significantly in shape and function from the driver flat/scally cap; less relevant due to silhouette.",
+      "map_id": "map_043f7fcffb514ab48e0615a33747087a"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's Force Wicks Sweat Hat/cap",
+      "score": 7,
+      "rationale": "Focus on sweat-wicking performance fabric aligns with the breathable feature of the driver cap, though silhouette likely differs (hat/cap).",
+      "map_id": "map_508cec444b8d490d972261d36cf8e141"
+    },
+    {
+      "competitor_product_name": "Carhartt WIP logo patch cap men",
+      "score": 5,
+      "rationale": "Standard casual cap probably baseball or similar style, differing from the driver cap in shape and possibly fabric.",
+      "map_id": "map_b33b692722d141d1ae6e27f37891e78c"
+    },
+    {
+      "competitor_product_name": "Carhartt Men's WIP Logo- Appliqué Cotton Cap",
+      "score": 5,
+      "rationale": "Cotton cap likely more casual silhouette differing from performance-oriented driver cap.",
+      "map_id": "map_bc9e7b0ba116494f84289755c2a15fdc"
+    },
+    {
+      "competitor_product_name": "CARHARTT ODESSA CAP DOV / OSFA",
+      "score": 7,
+      "rationale": "Odessa cap known for sweat-wicking and performance fabric; somewhat similar in function but likely different style/silhouette.",
+      "map_id": "map_e68cd4711d174ba1a00a879b5981d560"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Women's Freedom Eagle Trucker Hat",
+      "score": 4,
+      "rationale": "Trucker hat has a distinct silhouette with mesh back and snapback, unlike the driver cap; less relevant.",
+      "map_id": "map_e5b602659d3d42f18530a5be4a77da9f"
+    },
+    {
+      "competitor_product_name": "Barbour Men's Flat Cap",
+      "score": 8,
+      "rationale": "Flat cap style is very close to the driver cap silhouette; though fabric may differ (classic materials vs micro-poly), it is highly relevant.",
+      "map_id": "map_7a64a3234af24318b0fd2f7d28cbbc29"
+    },
+    {
+      "competitor_product_name": "Brixton Fiddler Cap",
+      "score": 7,
+      "rationale": "Fiddler cap has a similar silhouette to flat/driver caps, slightly different style but relevant as alternative form-fitting caps.",
+      "map_id": "map_4557062158d743b18ad5cb858d89bef5"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. Unisex V2 Premium Mesh Adjustable Trucker Cap",
+      "score": 4,
+      "rationale": "Trucker cap silhouette and mesh back differ considerably from the driver cap's 8-panel scally style.",
+      "map_id": "map_a0479d988f7a4445b547a15e401bf0cf"
+    },
+    {
+      "competitor_product_name": "Goorin Bros. The Queen Bee Trucker Hat",
+      "score": 4,
+      "rationale": "Same reasoning as other trucker hats; mesh-backed adjustable trucker caps differ in shape and construction.",
+      "map_id": "map_b9a9e09b191c44b089cc0e04550cf27d"
+    },
+    {
+      "competitor_product_name": "Brixton Grade HP Trucker Hat",
+      "score": 4,
+      "rationale": "Trucker hat silhouette does not match driver cap style or panel construction.",
+      "map_id": "map_59daca2752a54c1ebcdbb06a90c0d774"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Queen Bee",
+      "score": 4,
+      "rationale": "Assuming this is a trucker or similar style hat from Goorin Bros, not closely related to the driver scally cap.",
+      "map_id": "map_7c365cbb7848478383c22c720fadbe0c"
+    },
+    {
+      "competitor_product_name": "Barbour Flat Wax Cap",
+      "score": 8,
+      "rationale": "Barbour's flat wax cap shares close silhouette and function with the driver cap, though materials differ; highly relevant as alternative flat cap.",
+      "map_id": "map_f7ae66e54a9c432597039c727c8ee222"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Moon Rooster Hat",
+      "score": 4,
+      "rationale": "Likely a trucker or casual cap style unlike the performance flat driver cap.",
+      "map_id": "map_b612dd8ca62144cdba959cd8987cd0a1"
+    },
+    {
+      "competitor_product_name": "Goorin Bros Rizzky Bizznizz Trucker Hat",
+      "score": 4,
+      "rationale": "Trucker hat style with mesh and adjustable closure differs from the driver cap silhouette.",
+      "map_id": "map_df06b4f23e0c484b8d472a6f797a5f71"
+    },
+    {
+      "competitor_product_name": "Goorin Bros The Player Dolphin Trucker Hat",
+      "score": 4,
+      "rationale": "Trucker hat silhouette and function differ significantly from the driver scally cap.",
+      "map_id": "map_25eefd4bfcdb445d940416901191c351"
+    }
+  ]
+}
