@@ -192,10 +192,22 @@ def main():
     # Parse arguments
     args = parser.parse_args()
     
-    # Set log level
-    configure_logger(args.log_level)
+    # Set log level - convert string to logging level constant
+    log_level_map = {
+        'DEBUG': logging.DEBUG,
+        'INFO': logging.INFO,
+        'WARNING': logging.WARNING,
+        'ERROR': logging.ERROR,
+        'CRITICAL': logging.CRITICAL
+    }
+    
+    # Get the numeric log level, default to INFO if not found
+    log_level = log_level_map.get(args.log_level.upper(), logging.INFO)
+    
+    # Setup the root logger with the proper level
+    setup_main_logger('ecommiq_scanner', log_level)
     logger = configure_logger(__name__)
-
+    
     # Check for unsupported modes
     if args.mode in ['update', 'both']:
         logger.error("Error: Only 'scan' mode is currently supported. The 'update' functionality is not available.")
@@ -352,9 +364,19 @@ def main():
         print(f"Updated Products: {len(scan_results['updated'])} ({(len(scan_results['updated']) / total_catalog_count * 100):.1f}% of catalog)")
         print(f"Products Found:   {products_this_scan} ({(products_this_scan / total_catalog_count * 100):.1f}% of catalog)")
         print(f"Total in Catalog: {total_catalog_count}")
+        
+        # Display currency and pricing issues
+        non_usd_scrapes = scan_results.get("non_usd_scrapes_count", 0)
+        out_of_bounds_prices = scan_results.get("out_of_bounds_prices_count", 0)
+        print("\nDATA QUALITY METRICS")
+        print("=" * 30)
+        print(f"Non-USD Scrapes:      {non_usd_scrapes}")
+        print(f"Out-of-bounds Prices: {out_of_bounds_prices}")
+        
+        # Display errors if any
         if len(scan_results["errors"]) > 0:
             error_percent = (len(scan_results["errors"]) / total_catalog_count) * 100
-            print(f"Failed Products:  {len(scan_results['errors'])} ({error_percent:.1f}% of catalog)")
+            print(f"\nFailed Products:  {len(scan_results['errors'])} ({error_percent:.1f}% of catalog)")
                     
     except Exception as e:
         logger.error(f"Critical error in scan mode: {str(e)}")

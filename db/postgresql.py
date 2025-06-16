@@ -423,36 +423,6 @@ class PostgreSQLDatabase:
         """Add or update a catalog product and return status (id, is_new)"""
         session = self.Session()
         try:
-            if competitor_ids and hasattr(product, 'price') and product.price is not None:
-                # Fetch associated competitors to check min/max price constraints
-                competitors = session.query(CompetitorBrandDB).filter(CompetitorBrandDB.id.in_(competitor_ids)).all()
-                
-                if competitors:
-                    min_prices = [c.min_price for c in competitors if c.min_price is not None]
-                    max_prices = [c.max_price for c in competitors if c.max_price is not None]
-                    
-                    # Use the lowest min and highest max to create the widest possible valid range
-                    overall_min_price = min(min_prices) if min_prices else None
-                    overall_max_price = max(max_prices) if max_prices else None
-
-                    product_price = float(product.price)
-
-                    # Check if the price is outside the valid range
-                    price_out_of_range = False
-                    if overall_min_price is not None and product_price < overall_min_price:
-                        price_out_of_range = True
-                    
-                    if overall_max_price is not None and product_price > overall_max_price:
-                        price_out_of_range = True
-
-                    if price_out_of_range:
-                        self.logger.warning(
-                            f"Product price {product_price:.2f} for GID {product.google_shopping_id} "
-                            f"is outside the defined range [{overall_min_price}, {overall_max_price}]. Discarding price observation."
-                        )
-                        # Set price to None to prevent it from being saved
-                        product.price = None
-
             # Check if the product already exists
             if product.google_shopping_id:
                 existing = session.query(CatalogProductDB).filter(
@@ -467,7 +437,6 @@ class PostgreSQLDatabase:
                 existing.title = product.title if hasattr(product, 'title') else product.name
                 existing.link = product.link if hasattr(product, 'link') else product.url
                 existing.image_link = product.image_link if hasattr(product, 'image_link') else None
-                existing.price = float(product.price) if product.price is not None else None
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
                 
@@ -509,7 +478,6 @@ class PostgreSQLDatabase:
                     title=product.title if hasattr(product, 'title') else product.name,
                     link=product.link if hasattr(product, 'link') else product.url,
                     image_link=product.image_link if hasattr(product, 'image_link') else None,
-                    price=float(product.price) if product.price is not None else None,
                     currency=product.currency if hasattr(product, 'currency') else None,
                     is_available=product.is_available if hasattr(product, 'is_available') else True,
                     
@@ -678,6 +646,62 @@ class PostgreSQLDatabase:
         """Add a price history record"""
         session = self.Session()
         try:
+            # Check price against min/max constraints for associated competitors
+            try:
+                # Get all competitors associated with this catalog product
+                competitors_query = session.query(CompetitorBrandDB).join(
+                    CompetitorCatalogMapDB,
+                    CompetitorBrandDB.id == CompetitorCatalogMapDB.competitor_id
+                ).filter(
+                    CompetitorCatalogMapDB.catalog_id == price.catalog_id
+                )
+                
+                competitors = competitors_query.all()
+                
+                if competitors:
+                    # Extract min and max prices from competitors
+                    min_prices = [c.min_price for c in competitors if c.min_price is not None]
+                    max_prices = [c.max_price for c in competitors if c.max_price is not None]
+                    
+                    # Use the lowest min and highest max to create the widest possible valid range
+                    overall_min_price = min(min_prices) if min_prices else None
+                    overall_max_price = max(max_prices) if max_prices else None
+                    
+                    product_price = float(price.price)
+                    
+                    # Get product name for better error messages
+                    product_name = "Unknown"
+                    try:
+                        product = session.query(CatalogProductDB).filter(CatalogProductDB.id == price.catalog_id).first()
+                        if product:
+                            product_name = product.name
+                    except Exception:
+                        # If we can't get the name, just continue with the default
+                        pass
+                        
+                    # Check if the price is outside the valid range
+                    price_out_of_range = False
+                    if overall_min_price is not None and product_price < overall_min_price:
+                        price_out_of_range = True
+                        self.logger.warning(
+                            f"Price {product_price:.2f} for product '{product_name}' (ID: {price.catalog_id}) "
+                            f"is below the minimum price {overall_min_price}. Skipping price recording."
+                        )
+                    
+                    if overall_max_price is not None and product_price > overall_max_price:
+                        price_out_of_range = True
+                        self.logger.warning(
+                            f"Price {product_price:.2f} for product '{product_name}' (ID: {price.catalog_id}) "
+                            f"is above the maximum price {overall_max_price}. Skipping price recording."
+                        )
+                    
+                    if price_out_of_range:
+                        # Skip adding this price to the database
+                        return "OUT_OF_BOUNDS"
+            except Exception as e:
+                # Log the error but continue with adding the price
+                self.logger.error(f"Error during price validation: {e}")
+            
             # Generate a unique ID for the price history entry if needed
             price_id = price.id or self._generate_id("price_")
 

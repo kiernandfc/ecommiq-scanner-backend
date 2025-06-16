@@ -28,7 +28,7 @@ from utils.logger import setup_main_logger
 #     active=True
 # )
 # Option 2: Fetch a competitor by ID from the database (replace with a valid ID)
-COMPETITOR_ID_TO_FETCH = "comp_180ed0a9c8814521bd36138eb97fe086" # <--- CHANGE THIS
+COMPETITOR_ID_TO_FETCH = "comp_eb145749" # <--- CHANGE THIS
 
 # --- Setup ---
 # logger = configure_logger("test_single_scan", logging.DEBUG)

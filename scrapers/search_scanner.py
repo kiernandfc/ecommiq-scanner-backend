@@ -8,6 +8,8 @@ import concurrent.futures
 from functools import partial
 from collections import defaultdict
 import time
+import json
+import os
 
 from db.postgresql import PostgreSQLDatabase
 from db.models import CompetitorBrand, CatalogProduct, PriceHistory
@@ -22,7 +24,80 @@ class SearchScanner:
         # Get logger instance, level is inherited from root config set in main.py
         self.logger = configure_logger(f"{__name__}.SearchScanner")
         # self.logger.debug("SearchScanner initialized") # This will be filtered if root is INFO
+        
+        # Create api_logs directory if it doesn't exist
+        self.logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'api_logs')
+        os.makedirs(self.logs_dir, exist_ok=True)
+        
+        # Tracking metrics
+        self.non_usd_scrapes_count = 0
+        self.out_of_bounds_prices_count = 0
 
+    def _dump_raw_results(self, results: Dict[str, Any], competitor: CompetitorBrand, suffix: str = "") -> None:
+        """
+        Dump raw scrape results to a text file in the api_logs folder
+        
+        Args:
+            results: The raw results from Oxylabs
+            competitor: The competitor brand being scraped
+            suffix: Optional suffix to add to the filename
+        """
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"raw_scrape_{competitor.competitor_brand.replace(' ', '_')}{('_' + suffix) if suffix else ''}_{timestamp}.txt"
+            filepath = os.path.join(self.logs_dir, filename)
+            
+            self.logger.info(f"Dumping raw scrape results to {filepath}")
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                # Write competitor info
+                f.write(f"Competitor: {competitor.competitor_brand}\n")
+                f.write(f"Search Query: {competitor.search_query}\n")
+                f.write(f"Timestamp: {timestamp}\n")
+                if suffix:
+                    f.write(f"Attempt: {suffix}\n")
+                f.write("="*50 + "\n\n")
+                
+                # Write raw results
+                f.write(json.dumps(results, indent=2, ensure_ascii=False))
+                
+            self.logger.info(f"Successfully saved raw scrape results to {filepath}")
+        except Exception as e:
+            self.logger.error(f"Error dumping raw results: {str(e)}")
+            self.logger.error(traceback.format_exc())
+    
+    def _check_all_usd_currency(self, results: Dict[str, Any]) -> bool:
+        """
+        Check if all products in the results have USD currency
+        
+        Args:
+            results: The raw results from Oxylabs
+            
+        Returns:
+            True if all products have USD currency, False otherwise
+        """
+        try:
+            # Process organic results
+            organic_results = results['results'][0]['content']['results']['organic']
+            
+            # Check currency for each product
+            non_usd_count = 0
+            for item in organic_results:
+                currency = item.get('currency', '')
+                if currency != 'USD':
+                    non_usd_count += 1
+                    self.logger.warning(f"Found non-USD currency: {currency} for product: {item.get('title', 'Unknown')}")
+            
+            if non_usd_count > 0:
+                self.logger.warning(f"Found {non_usd_count} out of {len(organic_results)} products with non-USD currency")
+                return False
+            
+            return True
+        except Exception as e:
+            self.logger.error(f"Error checking currencies: {str(e)}")
+            # If we can't check, assume it's not all USD
+            return False
+    
     def scan_for_competitor(self, competitor: CompetitorBrand) -> Dict[str, Any]:
         """
         Scan Google Shopping for a competitor's products
@@ -44,9 +119,47 @@ class SearchScanner:
             full_search_query = f"{competitor.search_query.strip()} {competitor.competitor_brand.strip()}"
             self.logger.info(f"Using full search query: '{full_search_query}'")
             
-            # Get search results from Oxylabs
-            self.logger.debug(f"Requesting Google Shopping results via Oxylabs")
-            results = self.oxylabs.search_google_shopping(full_search_query)
+            # Try up to 3 times to get results with USD currency
+            max_attempts = 3
+            attempt = 1
+            results = None
+            all_usd = False
+            
+            while attempt <= max_attempts and not all_usd:
+                self.logger.debug(f"Attempt {attempt}/{max_attempts}: Requesting Google Shopping results via Oxylabs")
+                results = self.oxylabs.search_google_shopping(full_search_query)
+                
+                # Dump raw results to a file in api_logs folder
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                self._dump_raw_results(results, competitor, f"attempt_{attempt}_{timestamp}")
+                
+                # Check if all products have USD currency
+                all_usd = self._check_all_usd_currency(results)
+                
+                if all_usd:
+                    self.logger.info(f"All products have USD currency on attempt {attempt}")
+                    break
+                else:
+                    self.logger.warning(f"Found non-USD currencies on attempt {attempt}, retrying...")
+                    self.non_usd_scrapes_count += 1
+                    attempt += 1
+            
+            # If we still don't have all USD after max attempts, log error and return
+            if not all_usd:
+                error_msg = f"Failed to get all USD results after {max_attempts} attempts"
+                self.logger.error(error_msg)
+                errors.append({
+                    "competitor": competitor.competitor_brand,
+                    "product": None,
+                    "error": error_msg,
+                    "traceback": ""
+                })
+                return {
+                    "created": created_products, 
+                    "updated": updated_products, 
+                    "competitor": competitor,
+                    "errors": errors
+                }
             
             self.logger.debug(f"Processing search results")
             
@@ -113,7 +226,19 @@ class SearchScanner:
                     )
                     self.logger.debug(f"Created PriceHistory object: review_count={price.review_count}, position={price.position}")
                     self.logger.debug(f"Adding price history: {price.price} {price.currency}")
-                    self.db.add_price(price)
+                    
+                    # Add price history
+                    try:
+                        price_result = self.db.add_price(price)
+                        if price_result == "OUT_OF_BOUNDS":
+                            self.out_of_bounds_prices_count += 1
+                            self.logger.debug(f"Price out of bounds for {product.name} - incrementing counter to {self.out_of_bounds_prices_count}")
+                        elif price_result:  # It's a price ID
+                            self.logger.debug(f"Added price history: {price_result}")
+                    except Exception as e:
+                        self.logger.warning(f"Error adding price history: {e}")
+                        # Don't fail the entire scan if price addition fails:
+                        raise
                     
                 except Exception as e:
                     error_msg = f"Error processing product {item.get('title', 'Unknown')}: {str(e)}"
@@ -277,7 +402,9 @@ class SearchScanner:
             "start_time": start_time,
             "end_time": end_time,
             "duration_seconds": duration,
-            "total_catalog_count": total_catalog_count
+            "total_catalog_count": total_catalog_count,
+            "non_usd_scrapes_count": self.non_usd_scrapes_count,
+            "out_of_bounds_prices_count": self.out_of_bounds_prices_count
         }
         
         if not show_progress:

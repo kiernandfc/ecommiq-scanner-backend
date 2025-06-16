@@ -12,7 +12,9 @@ WITH
             search_query AS category, -- Using search_query as the category context
             report_date,
             competitor_brand AS specific_competitor_brand, -- The actual competitor
-            weighted_avg_price AS specific_competitor_price
+            weighted_avg_price AS specific_competitor_price,
+            sum_of_weights,
+            product_count
         FROM
             competitor_weighted_price_all_dates
         WHERE
@@ -39,6 +41,8 @@ WITH
             cpd.specific_competitor_brand,
             rpd.reference_price,
             cpd.specific_competitor_price,
+            cpd.sum_of_weights,
+            cpd.product_count,
             -- Calculate daily price index: reference_price / specific_competitor_price
             CASE
                 WHEN cpd.specific_competitor_price IS NOT NULL AND cpd.specific_competitor_price <> 0
@@ -63,6 +67,8 @@ WITH
             specific_competitor_brand,
             reference_price AS base_reference_price,
             specific_competitor_price AS base_specific_competitor_price,
+            sum_of_weights AS base_sum_of_weights,
+            product_count AS base_product_count,
             daily_ref_vs_comp_price_index AS base_ref_vs_comp_price_index
         FROM
             daily_individual_prices
@@ -80,10 +86,14 @@ SELECT
     dip.specific_competitor_brand,
     dip.reference_price AS original_reference_price,
     dip.specific_competitor_price AS original_specific_competitor_price,
+    dip.sum_of_weights AS original_sum_of_weights,
+    dip.product_count AS original_product_count,
     dip.daily_ref_vs_comp_price_index AS original_ref_vs_comp_price_index,
 
     bpiv.base_reference_price,
     bpiv.base_specific_competitor_price,
+    bpiv.base_sum_of_weights,
+    bpiv.base_product_count,
     bpiv.base_ref_vs_comp_price_index,
 
     -- Indexed reference price (relative to its own price on April 1st for this specific comparison)
@@ -130,4 +140,8 @@ Includes:
 - indexed_reference_price: Reference brand''s price indexed to its own price on 2025-04-01 for that specific comparison context.
 - indexed_specific_competitor_price: Specific competitor''s price indexed to its own price on 2025-04-01.
 - reindexed_ref_vs_comp_price_index: (reference_price / specific_competitor_price) index, re-indexed to 1.0 on 2025-04-01.
+- base_sum_of_weights: Sum of weights from the base period (April 1st, 2025).
+- base_product_count: Count of products from the base period (April 1st, 2025).
+- original_sum_of_weights: Sum of weights for the current date.
+- original_product_count: Count of products for the current date.
 Sources data primarily from competitor_weighted_price_all_dates.';
