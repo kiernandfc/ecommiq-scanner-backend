@@ -93,4 +93,44 @@ class OxylabsClient:
         return response.json()
 
     def _make_request(self, payload):
-        """Make a request to Oxylabs API""" 
+        """Make a request to Oxylabs API"""
+        self.logger.debug(f"Sending request to Oxylabs API with payload: {payload}")
+        response = requests.post(
+            self.base_url,
+            auth=(self.username, self.password),
+            json=payload
+        )
+        
+        if response.status_code != 200:
+            error_msg = f"Oxylabs API error: {response.status_code} - {response.text}"
+            self.logger.error(error_msg)
+            raise Exception(error_msg)
+            
+        self.logger.debug(f"Received successful response from Oxylabs API")
+        return response.json()
+        
+    def scrape_direct_website(self, url: str, parse_code: str) -> Dict[str, Any]:
+        """
+        Scrape a direct website URL using Oxylabs API
+        
+        Args:
+            url: The direct website URL to scrape
+            parse_code: The parsing instructions for Oxylabs
+            
+        Returns:
+            Dict containing the parsed website data
+        """
+        self.logger.debug(f"Scraping direct website URL: {url} with parse code: {parse_code}")
+        
+        payload = {
+            'source': 'universal',
+            'url': url,
+            'geo_location': 'US',
+            'render': 'html',
+            'parse': True,
+            'parsing_instructions': {
+                'parse': parse_code
+            }
+        }
+
+        return self._make_request(payload)

@@ -292,10 +292,17 @@ class SearchScanner:
         
         try:
             competitors = self.db.get_active_competitors()
+            
+            # Filter to only include Google Shopping competitors (those without a site_id)
+            google_shopping_competitors = [comp for comp in competitors if comp.site_id is None]
+            
             if not show_progress:
-                self.logger.debug(f"Found {len(competitors)} active competitors to scan")
+                self.logger.debug(f"Found {len(competitors)} active competitors total, {len(google_shopping_competitors)} Google Shopping competitors to scan")
             else:
-                print(f"Found {len(competitors)} competitors to scan with {max_workers} threads")
+                print(f"Found {len(google_shopping_competitors)} Google Shopping competitors to scan with {max_workers} threads")
+            
+            # Use filtered competitors for scanning
+            competitors = google_shopping_competitors
             
             # Get total catalog count before scan
             total_catalog_count = self.db.get_total_catalog_count()

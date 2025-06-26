@@ -11,11 +11,24 @@ import time
 from botocore.exceptions import ClientError
 import psycopg2
 
-from .models import CompetitorBrand, CatalogProduct, PriceHistory
+from .models import CompetitorBrand, CatalogProduct, PriceHistory, Site
 from utils.helpers import utc_now
 from utils.logger import configure_logger
 
 Base = declarative_base()
+
+class SiteDB(Base):
+    __tablename__ = 'sites'
+    
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    base_url = Column(String, nullable=False)
+    oxylabs_parse_code = Column(String, nullable=False)
+    active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    competitors = relationship("CompetitorBrandDB", back_populates="site")
 
 class CompetitorBrandDB(Base):
     __tablename__ = 'competitors'
@@ -28,11 +41,13 @@ class CompetitorBrandDB(Base):
     reference_product_description = Column(Text, nullable=True)
     min_price = Column(Float, nullable=True)
     max_price = Column(Float, nullable=True)
+    site_id = Column(String, ForeignKey('sites.id'), nullable=True)
     active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     catalog_products = relationship("CatalogProductDB", secondary="competitor_catalog_map", back_populates="competitors")
+    site = relationship("SiteDB", back_populates="competitors")
 
 class CompetitorCatalogMapDB(Base):
     __tablename__ = 'competitor_catalog_map'
@@ -46,7 +61,7 @@ class CatalogProductDB(Base):
     __tablename__ = 'catalog'
     
     id = Column(String, primary_key=True)
-    google_shopping_id = Column(String, index=True)
+    google_shopping_id = Column(String, index=True, nullable=True)
     title = Column(String)
     link = Column(String)
     image_link = Column(String)
@@ -59,6 +74,9 @@ class CatalogProductDB(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     description = Column(Text)
+    sku = Column(String, nullable=True)
+    brand = Column(String, nullable=True)
+    source_type = Column(String, default='google_shopping')
     
     competitors = relationship("CompetitorBrandDB", secondary="competitor_catalog_map", back_populates="catalog_products")
     price_history = relationship("PriceHistoryDB", back_populates="catalog_product")
@@ -69,6 +87,7 @@ class PriceHistoryDB(Base):
     id = Column(String, primary_key=True)
     catalog_id = Column(String, ForeignKey('catalog.id'), nullable=False)
     price = Column(Float, nullable=False)
+    list_price = Column(Float, nullable=True)
     currency = Column(String, nullable=False)
     merchant = Column(String)
     is_available = Column(Boolean, default=True)
@@ -76,6 +95,7 @@ class PriceHistoryDB(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     review_count = Column(Integer, nullable=True)
     position = Column(Integer, nullable=True)
+    description = Column(Text, nullable=True)
     
     catalog_product = relationship("CatalogProductDB", back_populates="price_history")
 
@@ -248,16 +268,11 @@ class PostgreSQLDatabase:
     
     def add_reference(self, competitor: CompetitorBrand) -> str:
         """Add a new competitor reference to the database"""
+        self.logger.debug(f"Adding competitor reference: {competitor.reference_brand} vs {competitor.competitor_brand}")
         session = self.Session()
         try:
-            # Convert model to database object
+            # Generate ID if not provided
             competitor_id = competitor.id or self._generate_id("comp_")
-            
-            # Check if a record with this ID already exists
-            existing = session.query(CompetitorBrandDB).filter(CompetitorBrandDB.id == competitor_id).first()
-            if existing:
-                # Generate a new unique ID
-                competitor_id = self._generate_id("comp_")
             
             competitor_db = CompetitorBrandDB(
                 id=competitor_id,
@@ -265,20 +280,24 @@ class PostgreSQLDatabase:
                 reference_product=competitor.reference_product,
                 competitor_brand=competitor.competitor_brand,
                 search_query=competitor.search_query,
+                reference_product_description=competitor.reference_product_description,
+                min_price=float(competitor.min_price) if competitor.min_price else None,
+                max_price=float(competitor.max_price) if competitor.max_price else None,
+                site_id=competitor.site_id,
                 active=competitor.active,
                 created_at=competitor.created_at,
                 updated_at=competitor.updated_at
             )
             
+            # Add to session and commit
             session.add(competitor_db)
             session.commit()
             
-            # Update the model with the ID
-            competitor.id = competitor_id
+            self.logger.info(f"Added competitor reference with ID: {competitor_id}")
             return competitor_id
         except Exception as e:
             session.rollback()
-            self.logger.error(f"Error adding competitor: {e}")
+            self.logger.error(f"Error adding competitor reference: {e}")
             raise
         finally:
             session.close()
@@ -301,6 +320,10 @@ class PostgreSQLDatabase:
                     reference_product=competitor_db.reference_product,
                     competitor_brand=competitor_db.competitor_brand,
                     search_query=competitor_db.search_query,
+                    reference_product_description=competitor_db.reference_product_description,
+                    min_price=competitor_db.min_price,
+                    max_price=competitor_db.max_price,
+                    site_id=competitor_db.site_id,
                     active=competitor_db.active,
                     created_at=competitor_db.created_at,
                     updated_at=competitor_db.updated_at
@@ -325,6 +348,10 @@ class PostgreSQLDatabase:
                     reference_product=competitor_db.reference_product,
                     competitor_brand=competitor_db.competitor_brand,
                     search_query=competitor_db.search_query,
+                    reference_product_description=competitor_db.reference_product_description,
+                    min_price=competitor_db.min_price,
+                    max_price=competitor_db.max_price,
+                    site_id=competitor_db.site_id,
                     active=competitor_db.active,
                     created_at=competitor_db.created_at,
                     updated_at=competitor_db.updated_at
@@ -340,31 +367,34 @@ class PostgreSQLDatabase:
         if not competitor.id:
             raise ValueError("Competitor must have an ID to be updated")
             
+        self.logger.debug(f"Updating competitor: {competitor.id}")
         session = self.Session()
         try:
-            competitor_db = session.query(CompetitorBrandDB).filter(CompetitorBrandDB.id == competitor.id).first()
-            
-            if not competitor_db:
-                raise ValueError(f"Competitor with ID {competitor.id} not found")
-            
-            competitor_db.reference_brand = competitor.reference_brand
-            competitor_db.reference_product = competitor.reference_product
-            competitor_db.competitor_brand = competitor.competitor_brand
-            competitor_db.search_query = competitor.search_query
-            competitor_db.active = competitor.active
-            
-            # Preserve the reference_product_description if it exists
-            if hasattr(competitor, 'reference_product_description'):
-                competitor_db.reference_product_description = competitor.reference_product_description
-            
-            competitor_db.updated_at = utc_now()
+            # Find existing competitor
+            existing = session.query(CompetitorBrandDB).filter(CompetitorBrandDB.id == competitor.id).first()
+            if not existing:
+                self.logger.error(f"Competitor with ID {competitor.id} not found")
+                return False
+                
+            # Update fields
+            existing.reference_brand = competitor.reference_brand
+            existing.reference_product = competitor.reference_product
+            existing.competitor_brand = competitor.competitor_brand
+            existing.search_query = competitor.search_query
+            existing.reference_product_description = competitor.reference_product_description
+            existing.min_price = float(competitor.min_price) if competitor.min_price else None
+            existing.max_price = float(competitor.max_price) if competitor.max_price else None
+            existing.site_id = competitor.site_id
+            existing.active = competitor.active
+            existing.updated_at = utc_now()
             
             session.commit()
-            return competitor.id
+            self.logger.info(f"Updated competitor with ID: {competitor.id}")
+            return True
         except Exception as e:
             session.rollback()
             self.logger.error(f"Error updating competitor: {e}")
-            raise
+            return False
         finally:
             session.close()
 
@@ -599,6 +629,10 @@ class PostgreSQLDatabase:
                     reference_product=competitor_db.reference_product,
                     competitor_brand=competitor_db.competitor_brand,
                     search_query=competitor_db.search_query,
+                    reference_product_description=competitor_db.reference_product_description,
+                    min_price=competitor_db.min_price,
+                    max_price=competitor_db.max_price,
+                    site_id=competitor_db.site_id,
                     active=competitor_db.active,
                     created_at=competitor_db.created_at,
                     updated_at=competitor_db.updated_at
@@ -908,5 +942,178 @@ class PostgreSQLDatabase:
             self.logger.error(f"Error creating psycopg2 connection: {e}")
             raise
 
-    # Implement other methods similar to DynamoDB class but using SQLAlchemy ORM
-    # For example: add_or_update_catalog_product, get_price_history, etc. 
+    # Site management methods
+    def add_site(self, site: Site) -> str:
+        """Add a new site to the database
+        
+        Args:
+            site: The site to add
+            
+        Returns:
+            The site ID
+        """
+        self.logger.debug(f"Adding site: {site.name}")
+        session = self.Session()
+        try:
+            # Generate ID if not provided
+            site_id = site.id or self._generate_id("site_")
+            
+            # Create DB model
+            site_db = SiteDB(
+                id=site_id,
+                name=site.name,
+                base_url=site.base_url,
+                oxylabs_parse_code=site.oxylabs_parse_code,
+                active=site.active,
+                created_at=site.created_at,
+                updated_at=site.updated_at
+            )
+            
+            session.add(site_db)
+            session.commit()
+            
+            # Update the model with the ID
+            site.id = site_id
+            
+            self.logger.info(f"Added site with ID: {site_id}")
+            return site_id
+        except Exception as e:
+            session.rollback()
+            self.logger.error(f"Error adding site: {e}")
+            raise
+        finally:
+            session.close()
+            
+    def update_site(self, site: Site) -> bool:
+        """Update an existing site
+        
+        Args:
+            site: The site to update (must have ID)
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        if not site.id:
+            raise ValueError("Site must have an ID to be updated")
+            
+        self.logger.debug(f"Updating site: {site.id}")
+        session = self.Session()
+        try:
+            existing = session.query(SiteDB).filter(SiteDB.id == site.id).first()
+            if not existing:
+                self.logger.warning(f"Site with ID {site.id} not found for update")
+                return False
+            
+            # Update fields
+            existing.name = site.name
+            existing.base_url = site.base_url
+            existing.oxylabs_parse_code = site.oxylabs_parse_code
+            existing.active = site.active
+            existing.updated_at = utc_now()
+            
+            session.commit()
+            self.logger.info(f"Updated site with ID: {site.id}")
+            return True
+        except Exception as e:
+            session.rollback()
+            self.logger.error(f"Error updating site: {e}")
+            return False
+        finally:
+            session.close()
+            
+    def get_site(self, site_id: str) -> Optional[Site]:
+        """Get a site by ID
+        
+        Args:
+            site_id: The ID of the site to retrieve
+            
+        Returns:
+            The site if found, None otherwise
+        """
+        self.logger.debug(f"Getting site with ID: {site_id}")
+        session = self.Session()
+        try:
+            site_db = session.query(SiteDB).filter(SiteDB.id == site_id).first()
+            if not site_db:
+                self.logger.debug(f"Site with ID {site_id} not found")
+                return None
+                
+            # Convert to Pydantic model
+            site = Site(
+                id=site_db.id,
+                name=site_db.name,
+                base_url=site_db.base_url,
+                oxylabs_parse_code=site_db.oxylabs_parse_code,
+                active=site_db.active,
+                created_at=site_db.created_at,
+                updated_at=site_db.updated_at
+            )
+            return site
+        except Exception as e:
+            self.logger.error(f"Error getting site: {e}")
+            return None
+        finally:
+            session.close()
+            
+    def get_all_sites(self) -> List[Site]:
+        """Get all sites from the database
+        
+        Returns:
+            List of all sites
+        """
+        self.logger.debug("Getting all sites")
+        session = self.Session()
+        try:
+            sites_db = session.query(SiteDB).all()
+            
+            # Convert to Pydantic models
+            sites = []
+            for site_db in sites_db:
+                site = Site(
+                    id=site_db.id,
+                    name=site_db.name,
+                    base_url=site_db.base_url,
+                    oxylabs_parse_code=site_db.oxylabs_parse_code,
+                    active=site_db.active,
+                    created_at=site_db.created_at,
+                    updated_at=site_db.updated_at
+                )
+                sites.append(site)
+            return sites
+        except Exception as e:
+            self.logger.error(f"Error getting all sites: {e}")
+            return []
+        finally:
+            session.close()
+            
+    def delete_site(self, site_id: str) -> bool:
+        """Delete a site by ID
+        
+        Args:
+            site_id: The ID of the site to delete
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        self.logger.debug(f"Deleting site with ID: {site_id}")
+        session = self.Session()
+        try:
+            # First update any competitors that reference this site
+            session.query(CompetitorBrandDB).filter(CompetitorBrandDB.site_id == site_id).update({CompetitorBrandDB.site_id: None})
+            
+            # Then delete the site
+            result = session.query(SiteDB).filter(SiteDB.id == site_id).delete()
+            session.commit()
+            
+            if result > 0:
+                self.logger.info(f"Deleted site with ID: {site_id}")
+                return True
+            else:
+                self.logger.warning(f"Site with ID {site_id} not found for deletion")
+                return False
+        except Exception as e:
+            session.rollback()
+            self.logger.error(f"Error deleting site: {e}")
+            return False
+        finally:
+            session.close()
