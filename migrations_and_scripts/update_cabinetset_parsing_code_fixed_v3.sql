@@ -1,0 +1,8 @@
+-- SQL script to update oxylabs_parse_code for CabinetSet.com site using dollar-quoting
+
+UPDATE sites
+SET oxylabs_parse_code = $${ "price": { "_fns": [ { "_fn": "xpath_one", "_args": [ ".//span[@class=\"price\"]/text()", "//span[@class='price-wrapper ']/span[@class='price']/text()", ".//span[@data-price-type]//span/text()", ".//span[@data-price-amount]//span/text()", ".//span[@class=\"price-wrapper \"]//span/text()", ".//span[@data-price-type=\"finalPrice\"]//span/text()", ".//span[@data-price-type]//span[@class=\"price\"]/text()", ".//span[contains(@class, \"price-wrapper\")]//span/text()", ".//span[@data-price-amount]//span[@class=\"price\"]/text()", ".//span[@itemprop=\"offers\"]//span[@class=\"price\"]/text()" ] }, { "_fn": "amount_from_string" } ] }, "description": { "_fns": [ { "_fn": "xpath", "_args": [ "//div[@class='product attribute overview']//div[@class='value']" ] }, { "_fn": "xpath", "_args": [ "normalize-space(.)" ] }, { "_fn": "join", "_args": " " } ] }, "SKU": { "_fns": [ { "_fn": "xpath_one", "_args": [ "//div[contains(@class, 'product-info-stock')]//div[contains(@class, 'value')]/text()", "//main[@id='maincontent']//div[contains(@class, 'product-info-main')]//div[contains(@class, 'product-info-stock-sku')]//div[contains(@class, 'value')]/text()" ] }, { "_fn": "regex_search", "_args": [ "^\\s*(.[\\s\\S]*?)\\s*$", 1 ] } ] }, "title": { "_fns": [ { "_fn": "xpath_one", "_args": [ "//h1[@class='page-title']/span[@class='base']/text()", "//h1[@class='page-title']/span[@itemprop='name']/text()" ] }, { "_fn": "regex_search", "_args": [ "^\\s*(.[\\s\\S]*?)\\s*$", 1 ] } ] } }$$
+WHERE name = 'CabinetSet.com';
+
+-- To verify the update was successful, you can run:
+-- SELECT name, oxylabs_parse_code FROM sites WHERE name = 'CabinetSet.com';

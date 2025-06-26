@@ -36,7 +36,7 @@ class CompetitorCatalogMap(BaseModel):
 class CatalogProduct(BaseModel):
     id: Optional[str] = None
     primary_merchant: Optional[str] = None
-    name: str
+    title: str
     url: str
     canonical_url: Optional[str] = None
     google_shopping_id: Optional[str] = None  # Made optional for direct website products

@@ -45,7 +45,7 @@ class SiteScanner:
             
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(f"Site: {site.name} ({site.id})\n")
-                f.write(f"Product: {product.name} ({product.id})\n")
+                f.write(f"Product: {product.title} ({product.id})\n")
                 f.write(f"URL: {product.url}\n")
                 f.write(f"Timestamp: {timestamp}\n")
                 f.write("="*50 + "\n\n")
@@ -111,7 +111,7 @@ class SiteScanner:
                 in_stock=bool(in_stock),
                 description=description
             )
-            price_id = self.db.add_price_history(price_entry)
+            price_id = self.db.add_price(price_entry)
             created_prices.append(price_id)
 
         except Exception as e:
@@ -125,7 +125,7 @@ class SiteScanner:
         """
         Scrape and process a single product from a direct website.
         """
-        self.logger.debug(f"Scanning product '{product.name}' from URL: {product.url}")
+        self.logger.debug(f"Scanning product '{product.title}' from URL: {product.url}")
         try:
             scraped_data = self.oxylabs.scrape_direct_website(
                 url=product.url,
@@ -141,7 +141,7 @@ class SiteScanner:
             self.logger.error(f"Error in scan_product for {product.id} ({product.url}): {e}")
             return {"created_prices": [], "updated_products": [], "errors": [{"product_id": product.id, "error": str(e)}]}
 
-    def scan_all_sites(self, show_progress: bool = False, max_workers: int = 5) -> Dict[str, Any]:
+    def scan_all_sites(self, show_progress: bool = False, max_workers: int = 5, competitor_brand: str = None) -> Dict[str, Any]:
         """
         Scan all active competitors associated with a site.
         """
@@ -149,7 +149,13 @@ class SiteScanner:
         self.logger.info(f"Starting site scan with {max_workers} workers.")
 
         all_competitors = self.db.get_active_competitors()
-        site_competitors = [c for c in all_competitors if c.site_id]
+        
+        # Filter competitors by site_id (must have a site) and optionally by reference_brand
+        if competitor_brand:
+            self.logger.info(f"Filtering competitors by reference_brand: {competitor_brand}")
+            site_competitors = [c for c in all_competitors if c.site_id and c.reference_brand == competitor_brand]
+        else:
+            site_competitors = [c for c in all_competitors if c.site_id]
 
         if not site_competitors:
             self.logger.info("No active site-associated competitors found to scan.")

@@ -32,7 +32,7 @@ class PriceUpdater:
         Returns:
             The new PriceHistory entry
         """
-        self.logger.debug(f"Updating price for product: {product.id} - {product.name}")
+        self.logger.debug(f"Updating price for product: {product.id} - {product.title}")
         
         # Get product details from Oxylabs
         self.logger.debug(f"Requesting product details from Oxylabs for URL: {product.url}")
@@ -109,7 +109,7 @@ class PriceUpdater:
                     
                     # Update progress bar if available
                     if pbar:
-                        short_name = (product.name[:30] + '...') if len(product.name) > 30 else product.name
+                        short_name = (product.title[:30] + '...') if len(product.title) > 30 else product.title
                         pbar.set_description(f"Updated {short_name}")
                         pbar.set_postfix(price=f"{price.price:.2f} {price.currency}")
                         pbar.update(1)
@@ -121,7 +121,7 @@ class PriceUpdater:
                     }
                         
                 except Exception as e:
-                    error_msg = f"Error updating price for product {product.id} - {product.name}: {str(e)}"
+                    error_msg = f"Error updating price for product {product.id} - {product.title}: {str(e)}"
                     self.logger.error(error_msg)
                     
                     # Update progress bar if available
@@ -133,7 +133,7 @@ class PriceUpdater:
                         "price": None,
                         "error": {
                             "product_id": product.id,
-                            "product_name": product.name,
+                            "product_name": product.title,
                             "competitor_brand_id": product.competitor_brand_id,
                             "error": str(e),
                             "traceback": traceback.format_exc()

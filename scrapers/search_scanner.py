@@ -188,7 +188,7 @@ class SearchScanner:
                     self.logger.debug(f"Extracted position for CatalogProduct: {product_position}")
                     
                     product = CatalogProduct(
-                        name=item['title'],
+                        title=item['title'],
                         url=item['url'],
                         canonical_url=item['merchant'].get('url'),
                         google_shopping_id=item['product_id'],
@@ -200,7 +200,7 @@ class SearchScanner:
                     self.logger.debug(f"Created CatalogProduct object: review_count={product.review_count}, position={product.position}")
                     
                     # Add/update in catalog
-                    self.logger.debug(f"Adding/updating product in database: {product.name}")
+                    self.logger.debug(f"Adding/updating product in database: {product.title}")
                     product_id, is_new = self.db.add_or_update_catalog_product_with_status(product, [competitor.id])
                     product.id = product_id
                     
@@ -232,7 +232,7 @@ class SearchScanner:
                         price_result = self.db.add_price(price)
                         if price_result == "OUT_OF_BOUNDS":
                             self.out_of_bounds_prices_count += 1
-                            self.logger.debug(f"Price out of bounds for {product.name} - incrementing counter to {self.out_of_bounds_prices_count}")
+                            self.logger.debug(f"Price out of bounds for {product.title} - incrementing counter to {self.out_of_bounds_prices_count}")
                         elif price_result:  # It's a price ID
                             self.logger.debug(f"Added price history: {price_result}")
                     except Exception as e:

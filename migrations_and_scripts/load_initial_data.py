@@ -112,12 +112,12 @@ def load_data():
                 competitor_id = competitors_by_key.get(competitor_key)
 
                 if not competitor_id:
-                    logger.warning(f"Competitor for brand '{row['competitor_brand']}' and query '{row['search_query']}' not found. Skipping product '{row['name']}'.")
+                    logger.warning(f"Competitor for brand '{row['competitor_brand']}' and query '{row['search_query']}' not found. Skipping product '{row.get('name', 'N/A')}'...")
                     continue
 
                 # Create a CatalogProduct object
                 product = CatalogProduct(
-                    name=row['name'],
+                    title=row['name'],
                     url=row['url'],
                     source_type=row.get('source_type', 'direct_website'),
                     brand=row['competitor_brand']
@@ -128,9 +128,9 @@ def load_data():
                 
                 if is_new:
                     products_created += 1
-                    logger.info(f"Created catalog product '{product.name}' with ID: {product_id}")
+                    logger.info(f"Created catalog product '{product.title}' with ID: {product_id}")
                 else:
-                    logger.info(f"Found existing product for '{product.name}'. Updating its mapping.")
+                    logger.info(f"Found existing product for '{product.title}'. Updating its mapping.")
                 mappings_created += 1
 
     except FileNotFoundError:

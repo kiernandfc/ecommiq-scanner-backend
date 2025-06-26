@@ -97,7 +97,7 @@ def run_single_scan():
         logger.info(f"Competitor: {scan_result['competitor'].competitor_brand}")
         logger.info(f"Created Products: {len(scan_result['created'])}")
         for i, product in enumerate(scan_result['created']):
-            logger.info(f"  [Created {i+1}] Name: {product.name}")
+            logger.info(f"  [Created {i+1}] Name: {product.title}")
             logger.info(f"              ID: {product.id}")
             logger.info(f"              Review Count: {product.review_count}")
             logger.info(f"              Position: {product.position}")
@@ -112,7 +112,7 @@ def run_single_scan():
 
         logger.info(f"Updated Products: {len(scan_result['updated'])}")
         for i, product in enumerate(scan_result['updated']):
-            logger.info(f"  [Updated {i+1}] Name: {product.name}")
+            logger.info(f"  [Updated {i+1}] Name: {product.title}")
             logger.info(f"              ID: {product.id}")
             logger.info(f"              Review Count: {product.review_count}")
             logger.info(f"              Position: {product.position}")

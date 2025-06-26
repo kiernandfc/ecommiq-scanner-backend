@@ -122,15 +122,27 @@ class OxylabsClient:
         """
         self.logger.debug(f"Scraping direct website URL: {url} with parse code: {parse_code}")
         
-        payload = {
-            'source': 'universal',
-            'url': url,
-            'geo_location': 'US',
-            'render': 'html',
-            'parse': True,
-            'parsing_instructions': {
-                'parse': parse_code
+        # The parse_code is expected to be a JSON object with parsing instructions
+        # We need to ensure it's a proper JSON object, not a string
+        try:
+            # If parse_code is already a dict, use it directly
+            if isinstance(parse_code, dict):
+                parsing_instructions = parse_code
+            else:
+                # Otherwise assume it's a JSON string and parse it
+                import json
+                parsing_instructions = json.loads(parse_code)
+                
+            payload = {
+                'source': 'universal',
+                'url': url,
+                'geo_location': 'US',
+                'render': 'html',
+                'parse': True,
+                'parsing_instructions': parsing_instructions
             }
-        }
-
+        except Exception as e:
+            self.logger.error(f"Error parsing parsing instructions: {e}")
+            raise ValueError(f"Invalid parsing instructions: {parse_code}. Error: {e}")
+        
         return self._make_request(payload)

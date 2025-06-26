@@ -464,8 +464,8 @@ class PostgreSQLDatabase:
             if existing:
                 # Update existing product
                 existing.google_shopping_id = product.google_shopping_id
-                existing.title = product.title if hasattr(product, 'title') else product.name
-                existing.link = product.link if hasattr(product, 'link') else product.url
+                existing.title = product.title
+                existing.link = product.url
                 existing.image_link = product.image_link if hasattr(product, 'image_link') else None
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
@@ -478,6 +478,7 @@ class PostgreSQLDatabase:
                 existing.last_checked = product.last_checked
                 existing.updated_at = product.updated_at
                 existing.description = product.description if hasattr(product, 'description') else None
+                existing.source_type = product.source_type if hasattr(product, 'source_type') else 'google_shopping'
                 
                 session.commit()
                 
@@ -505,8 +506,8 @@ class PostgreSQLDatabase:
                 catalog_db = CatalogProductDB(
                     id=product_id,
                     google_shopping_id=product.google_shopping_id,
-                    title=product.title if hasattr(product, 'title') else product.name,
-                    link=product.link if hasattr(product, 'link') else product.url,
+                    title=product.title,
+                    link=product.url,
                     image_link=product.image_link if hasattr(product, 'image_link') else None,
                     currency=product.currency if hasattr(product, 'currency') else None,
                     is_available=product.is_available if hasattr(product, 'is_available') else True,
@@ -518,7 +519,8 @@ class PostgreSQLDatabase:
                     last_checked=product.last_checked,
                     created_at=product.created_at,
                     updated_at=product.updated_at,
-                    description=product.description if hasattr(product, 'description') else None
+                    description=product.description if hasattr(product, 'description') else None,
+                source_type=product.source_type if hasattr(product, 'source_type') else 'google_shopping'
                 )
                 
                 session.add(catalog_db)
@@ -598,7 +600,7 @@ class PostgreSQLDatabase:
                 catalog_product = CatalogProduct(
                     id=product_db.id,
                     google_shopping_id=product_db.google_shopping_id,
-                    name=product_db.title,
+                    title=product_db.title,
                     url=product_db.link,
                     last_checked=product_db.last_checked,
                     created_at=product_db.created_at,
@@ -661,8 +663,8 @@ class PostgreSQLDatabase:
             catalog_product = CatalogProduct(
                 id=product_db.id,
                 google_shopping_id=product_db.google_shopping_id,
-                name=product_db.title,
-                url=product_db.link,
+                title=product_db.title,
+                url=product_db.url,
                 last_checked=product_db.last_checked,
                 created_at=product_db.created_at,
                 updated_at=product_db.updated_at
@@ -708,7 +710,7 @@ class PostgreSQLDatabase:
                     try:
                         product = session.query(CatalogProductDB).filter(CatalogProductDB.id == price.catalog_id).first()
                         if product:
-                            product_name = product.name
+                            product_name = product.title
                     except Exception:
                         # If we can't get the name, just continue with the default
                         pass
@@ -738,7 +740,7 @@ class PostgreSQLDatabase:
             
             # Generate a unique ID for the price history entry if needed
             price_id = price.id or self._generate_id("price_")
-
+            
             # Convert the PriceHistory model object to PriceHistoryDB for database interaction
             price_db = PriceHistoryDB(
                 id=price_id,
@@ -753,11 +755,31 @@ class PostgreSQLDatabase:
                 created_at=utc_now()
             )
             
+            # Add list_price if it exists in the PriceHistory object
+            if hasattr(price, 'list_price') and price.list_price is not None:
+                price_db.list_price = float(price.list_price)
+                
+            # Add description if it exists in the PriceHistory object
+            if hasattr(price, 'description') and price.description is not None:
+                price_db.description = price.description
+            
             session.add(price_db)
             session.commit()
             
             # Update the model with the ID
             price.id = price_id
+            
+            # Get product name for better logging
+            product_name = "Unknown"
+            try:
+                product = session.query(CatalogProductDB).filter(CatalogProductDB.id == price.catalog_id).first()
+                if product:
+                    product_name = product.title
+            except Exception:
+                # If we can't get the name, just continue with the default
+                pass
+                
+            self.logger.debug(f"Added price history for product '{product_name}' ({price.catalog_id})")
             return price_id
         except Exception as e:
             session.rollback()
@@ -810,7 +832,7 @@ class PostgreSQLDatabase:
                 catalog_product = CatalogProduct(
                     id=product_db.id,
                     google_shopping_id=product_db.google_shopping_id,
-                    name=product_db.title,
+                    title=product_db.title,
                     url=product_db.link,
                     last_checked=product_db.last_checked,
                     created_at=product_db.created_at,
@@ -931,10 +953,10 @@ class PostgreSQLDatabase:
         """Helper to convert CatalogProductDB ORM object to Pydantic model."""
         return CatalogProduct(
             id=product_db.id,
-            primary_merchant=product_db.primary_merchant,
-            name=product_db.name,
-            url=product_db.url,
-            canonical_url=product_db.canonical_url,
+            primary_merchant=getattr(product_db, 'primary_merchant', None),
+            title=product_db.title,
+            url=product_db.link,
+            canonical_url=getattr(product_db, 'canonical_url', None),
             google_shopping_id=product_db.google_shopping_id,
             sku=product_db.sku,
             brand=product_db.brand,
