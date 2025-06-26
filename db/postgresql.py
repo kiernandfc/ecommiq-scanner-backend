@@ -898,6 +898,54 @@ class PostgreSQLDatabase:
         finally:
             session.close()
 
+    def get_catalog_products_by_competitor(self, competitor_id: str) -> List[CatalogProduct]:
+        """
+        Get all catalog products associated with a specific competitor.
+
+        Args:
+            competitor_id: The ID of the competitor.
+
+        Returns:
+            A list of CatalogProduct objects.
+        """
+        session = self.Session()
+        try:
+            # Join CatalogProductDB with CompetitorCatalogMapDB to find products for the competitor
+            product_dbs = (
+                session.query(CatalogProductDB)
+                .join(CompetitorCatalogMapDB, CompetitorCatalogMapDB.catalog_id == CatalogProductDB.id)
+                .filter(CompetitorCatalogMapDB.competitor_id == competitor_id)
+                .all()
+            )
+
+            products = [self._convert_catalog_product_db_to_model(db) for db in product_dbs]
+            return products
+
+        except Exception as e:
+            self.logger.error(f"Error getting catalog products for competitor {competitor_id}: {e}")
+            return []
+        finally:
+            session.close()
+
+    def _convert_catalog_product_db_to_model(self, product_db: CatalogProductDB) -> CatalogProduct:
+        """Helper to convert CatalogProductDB ORM object to Pydantic model."""
+        return CatalogProduct(
+            id=product_db.id,
+            primary_merchant=product_db.primary_merchant,
+            name=product_db.name,
+            url=product_db.url,
+            canonical_url=product_db.canonical_url,
+            google_shopping_id=product_db.google_shopping_id,
+            sku=product_db.sku,
+            brand=product_db.brand,
+            source_type=product_db.source_type,
+            review_count=product_db.review_count,
+            position=product_db.position,
+            last_checked=product_db.last_checked,
+            created_at=product_db.created_at,
+            updated_at=product_db.updated_at,
+        )
+
     def get_total_catalog_count(self) -> int:
         """Get total number of products in the catalog"""
         session = self.Session()
