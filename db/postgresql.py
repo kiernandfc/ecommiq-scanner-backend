@@ -719,14 +719,14 @@ class PostgreSQLDatabase:
                     price_out_of_range = False
                     if overall_min_price is not None and product_price < overall_min_price:
                         price_out_of_range = True
-                        self.logger.warning(
+                        self.logger.debug(
                             f"Price {product_price:.2f} for product '{product_name}' (ID: {price.catalog_id}) "
                             f"is below the minimum price {overall_min_price}. Skipping price recording."
                         )
                     
                     if overall_max_price is not None and product_price > overall_max_price:
                         price_out_of_range = True
-                        self.logger.warning(
+                        self.logger.debug(
                             f"Price {product_price:.2f} for product '{product_name}' (ID: {price.catalog_id}) "
                             f"is above the maximum price {overall_max_price}. Skipping price recording."
                         )
