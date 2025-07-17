@@ -185,6 +185,9 @@ def main():
     # Add threads parameter
     parser.add_argument('--threads', type=int, default=5,
                       help='Number of threads to use for parallel processing (default: 5)')
+    # Add competitor-id parameter
+    parser.add_argument('--competitor-id', type=str,
+                      help='Specific competitor ID to scan (default: scan all competitors)')
     
     # Other arguments
     parser.add_argument('--log-level', type=str, default='INFO', help='Set logging level (DEBUG, INFO, WARNING, ERROR)')
@@ -240,8 +243,8 @@ def main():
         logger.info("Starting competitor product scan...")
         
     try:
-        # Pass progress flag and threads value to scanner
-        scan_results = scanner.scan_all_competitors(show_progress=args.progress, max_workers=args.threads)
+        # Pass progress flag, threads value, and competitor_id to scanner
+        scan_results = scanner.scan_all_competitors(show_progress=args.progress, max_workers=args.threads, competitor_id=args.competitor_id)
         
         # Display comprehensive scan summary
         print_scan_summary(scan_results, logger)

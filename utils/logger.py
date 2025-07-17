@@ -8,21 +8,37 @@ _ROOT_HANDLER_CONFIGURED = False
 
 def configure_logger(name: str, level: Optional[int] = logging.INFO) -> logging.Logger:
     """
-    Gets a logger instance. Configuration (level, handler) should be set
-    by setup_main_logger.
+    Gets a logger instance and ensures it has a console handler for output visibility.
 
     Args:
         name: The name of the logger.
-        level: The desired level for this specific logger (will be overridden by root if stricter).
+        level: The desired level for this specific logger.
 
     Returns:
-        A logger instance.
+        A logger instance with console output enabled.
     """
     logger = logging.getLogger(name)
-    # Set the individual logger level, but messages are still filtered by the root handler
+    # Set the individual logger level
     logger.setLevel(level)
-    # Ensure propagation is enabled so messages reach the root handler
+    
+    # Add a console handler if one doesn't exist already
+    has_console_handler = False
+    for handler in logger.handlers:
+        if isinstance(handler, logging.StreamHandler) and handler.stream.name == '<stdout>':
+            has_console_handler = True
+            break
+    
+    if not has_console_handler:
+        # Create and add a console handler with formatted output
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(level)
+        formatter = logging.Formatter('[%(levelname)s | %(asctime)s | %(name)s] %(message)s')
+        console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
+    
+    # Ensure propagation is enabled so messages can also reach the root handler if configured
     logger.propagate = True
+    
     return logger
 
 # Function to be called ONLY from main.py to set the initial root level

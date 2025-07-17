@@ -3,6 +3,7 @@ import requests
 from typing import Dict, Any
 from datetime import datetime
 import logging
+import json
 
 from utils.logger import configure_logger
 
@@ -42,20 +43,7 @@ class OxylabsClient:
             'parse': True
         }
 
-        self.logger.debug(f"Sending request to Oxylabs API")
-        response = requests.post(
-            self.base_url,
-            auth=(self.username, self.password),
-            json=payload
-        )
-        
-        if response.status_code != 200:
-            error_msg = f"Oxylabs API error: {response.status_code} - {response.text}"
-            self.logger.error(error_msg)
-            raise Exception(error_msg)
-        
-        self.logger.debug(f"Received successful response from Oxylabs API")    
-        return response.json()
+        return self._make_request(payload)
 
     def get_product_details(self, url: str) -> Dict[str, Any]:
         """
@@ -77,20 +65,7 @@ class OxylabsClient:
             'parse': True
         }
 
-        self.logger.debug(f"Sending request to Oxylabs API")
-        response = requests.post(
-            self.base_url,
-            auth=(self.username, self.password),
-            json=payload
-        )
-        
-        if response.status_code != 200:
-            error_msg = f"Oxylabs API error: {response.status_code} - {response.text}"
-            self.logger.error(error_msg)
-            raise Exception(error_msg)
-            
-        self.logger.debug(f"Received successful response from Oxylabs API")
-        return response.json()
+        return self._make_request(payload)
 
     def _make_request(self, payload):
         """Make a request to Oxylabs API"""
@@ -139,13 +114,13 @@ class OxylabsClient:
                 parsing_instructions = parse_code
             else:
                 # Otherwise assume it's a JSON string and parse it
-                import json
                 parsing_instructions = json.loads(parse_code)
                 
             payload = {
                 'source': 'universal',
                 'url': url,
                 'geo_location': 'US',
+                'render': 'html',
                 'parse': True,
                 'parsing_instructions': parsing_instructions
             }

@@ -269,13 +269,14 @@ class SearchScanner:
             "errors": errors
         }
 
-    def scan_all_competitors(self, show_progress: bool = False, max_workers: int = 5) -> dict:
+    def scan_all_competitors(self, show_progress: bool = False, max_workers: int = 5, competitor_id: str = None) -> dict:
         """
-        Scan all active competitors in the database
+        Scan active competitors in the database, optionally filtering by competitor_id
         
         Args:
             show_progress: If True, display a progress bar instead of detailed logs
             max_workers: Maximum number of threads to use for parallel scanning
+            competitor_id: Optional specific competitor ID to scan (if None, all active competitors are scanned)
             
         Returns:
             Dictionary with scan results including products created/updated and timing info
@@ -292,17 +293,50 @@ class SearchScanner:
         
         try:
             competitors = self.db.get_active_competitors()
-            
-            # Filter to only include Google Shopping competitors (those without a site_id)
-            google_shopping_competitors = [comp for comp in competitors if comp.site_id is None]
-            
+        
+        # Filter to only include Google Shopping competitors (those without a site_id)
+        google_shopping_competitors = [comp for comp in competitors if comp.site_id is None]
+        
+        # If a specific competitor_id was provided, filter to only that competitor
+        if competitor_id:
+            filtered_competitors = [comp for comp in google_shopping_competitors if comp.competitor_id == competitor_id]
+            if not filtered_competitors:
+                if not show_progress:
+                    self.logger.warning(f"No active competitor found with ID: {competitor_id}")
+                else:
+                    print(f"Warning: No active competitor found with ID: {competitor_id}")
+                # Return empty results if competitor not found
+                return {
+                    "created": [],
+                    "updated": [],
+                    "errors": [{
+                        "competitor": "UNKNOWN",
+                        "product": None,
+                        "error": f"No active competitor found with ID: {competitor_id}",
+                        "traceback": ""
+                    }],
+                    "error_summary": {"UNKNOWN": 1},
+                    "by_reference": {},
+                    "start_time": start_time,
+                    "end_time": utc_now(),
+                    "duration_seconds": (utc_now() - start_time).total_seconds(),
+                    "total_catalog_count": self.db.get_total_catalog_count(),
+                    "non_usd_scrapes_count": 0,
+                    "out_of_bounds_prices_count": 0
+                }
+            google_shopping_competitors = filtered_competitors
             if not show_progress:
-                self.logger.debug(f"Found {len(competitors)} active competitors total, {len(google_shopping_competitors)} Google Shopping competitors to scan")
+                self.logger.info(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
             else:
-                print(f"Found {len(google_shopping_competitors)} Google Shopping competitors to scan with {max_workers} threads")
-            
-            # Use filtered competitors for scanning
-            competitors = google_shopping_competitors
+                print(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
+        
+        if not show_progress:
+            self.logger.debug(f"Found {len(competitors)} active competitors total, {len(google_shopping_competitors)} Google Shopping competitors to scan")
+        else:
+            print(f"Found {len(google_shopping_competitors)} Google Shopping competitors to scan with {max_workers} threads")
+        
+        # Use filtered competitors for scanning
+        competitors = google_shopping_competitors
             
             # Get total catalog count before scan
             total_catalog_count = self.db.get_total_catalog_count()

@@ -64,12 +64,47 @@ def lambda_handler(event, context):
         else:
             duration_str = "Unknown"
         
-        # Determine log stream name - typically follows the pattern taskdef/container/task-id
+        # Determine log stream name - We now know the exact format used by Fargate
         log_group_name = f"/ecs/ecommiq-scanner"
-        log_stream_name = f"ecommiq-scanner/{container_name}/{task_id}"
         
-        # Fetch logs from CloudWatch
+        # Set the log stream name according to the known format
+        # Format is: ecs/container-name/task-id
+        log_stream_name = f"ecs/{container_name}/{task_id}"
+        print(f"Using log stream name: {log_stream_name}")
+        
+        # As a fallback, search for the log stream if the direct naming doesn't work
         logs_client = boto3.client('logs')
+        try:
+            # Check if the log stream exists first
+            try:
+                # Just a quick check to see if the stream exists
+                logs_client.get_log_stream(
+                    logGroupName=log_group_name,
+                    logStreamName=log_stream_name
+                )
+                print(f"Confirmed log stream exists: {log_stream_name}")
+            except Exception as e:
+                # If the stream doesn't exist with our format, search for it
+                print(f"Direct log stream not found: {str(e)}")
+                
+                # List log streams matching the task ID
+                response = logs_client.describe_log_streams(
+                    logGroupName=log_group_name,
+                    logStreamNamePrefix=task_id,
+                    limit=1
+                )
+                
+                if response.get('logStreams'):
+                    log_stream_name = response['logStreams'][0]['logStreamName']
+                    print(f"Found log stream via task ID: {log_stream_name}")
+                else:
+                    print(f"No log stream found with task ID: {task_id}")
+            
+        except Exception as e:
+            print(f"Error finding log stream: {str(e)}")
+            # Continue with the original log stream name as a best effort
+        
+        # Fetch logs from CloudWatch (logs_client already initialized above)
         try:
             log_events = logs_client.get_log_events(
                 logGroupName=log_group_name,
@@ -77,11 +112,15 @@ def lambda_handler(event, context):
                 limit=10000  # Adjust based on expected log volume
             )
             
-            # Format logs
-            log_output = ""
+            # Format logs in reverse order (newest first)
+            formatted_logs = []
             for event in log_events['events']:
                 timestamp = datetime.datetime.fromtimestamp(event['timestamp']/1000).strftime('%Y-%m-%d %H:%M:%S')
-                log_output += f"[{timestamp}] {event['message']}\n"
+                formatted_logs.append(f"[{timestamp}] {event['message']}")
+            
+            # Reverse the log entries so newest is at the top
+            formatted_logs.reverse()
+            log_output = "\n".join(formatted_logs)
         except ClientError as e:
             log_output = f"Error retrieving logs: {str(e)}"
         

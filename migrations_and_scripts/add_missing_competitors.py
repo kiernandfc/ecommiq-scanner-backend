@@ -7,6 +7,8 @@ import os
 import sys
 import csv
 import logging
+import decimal
+from decimal import Decimal
 from dotenv import load_dotenv
 import uuid
 
@@ -109,6 +111,26 @@ def add_missing_competitors():
                 search_query = row.get('Search Query', '').strip()
                 comp_brand = row.get('Competitor Brand', '').strip()
                 ref_product_desc = row.get('Reference Product Description', '')
+                
+                # Get the new fields - min price, max price, and site
+                min_price_str = row.get('Min Price', '').strip()
+                max_price_str = row.get('Max Price', '').strip()
+                site = row.get('Site', '').strip()
+                
+                # Parse min_price and max_price to Decimal if they exist
+                min_price = None
+                if min_price_str:
+                    try:
+                        min_price = Decimal(min_price_str)
+                    except (ValueError, TypeError, decimal.InvalidOperation) as e:
+                        logger.warning(f"Invalid min price '{min_price_str}' in row {i+1}: {e}")
+                
+                max_price = None
+                if max_price_str:
+                    try:
+                        max_price = Decimal(max_price_str)
+                    except (ValueError, TypeError, decimal.InvalidOperation) as e:
+                        logger.warning(f"Invalid max price '{max_price_str}' in row {i+1}: {e}")
 
                 # Skip if any required field is missing
                 if not all([ref_brand, ref_product, search_query, comp_brand]):
@@ -122,6 +144,19 @@ def add_missing_competitors():
                     skipped_count += 1
                     continue
 
+                # Get site_id if site is provided
+                site_id = None
+                if site:
+                    try:
+                        # Get site by name
+                        site_obj = postgres_db.get_site_by_name(site)
+                        if site_obj:
+                            site_id = site_obj.id
+                        else:
+                            logger.warning(f"Site '{site}' not found in database for row {i+1}")
+                    except Exception as e:
+                        logger.warning(f"Error getting site '{site}' from database for row {i+1}: {e}")
+
                 # Create new competitor entry
                 new_competitor = CompetitorBrand(
                     id=f"comp_{uuid.uuid4().hex[:8]}",
@@ -130,6 +165,9 @@ def add_missing_competitors():
                     search_query=search_query,
                     competitor_brand=comp_brand,
                     reference_product_description=ref_product_desc,
+                    min_price=min_price,
+                    max_price=max_price,
+                    site_id=site_id,
                     active=True
                 )
 

@@ -20,9 +20,9 @@ def run_scanner(competitor_brand=None):
         competitor_brand (str, optional): If provided, only scan products for competitors
             with this reference_brand. If None, scan all site-associated competitors.
     """
-    # Setup the main logger to stream to console
-    setup_main_logger('ecommiq_site_scanner', level=logging.INFO)
-    logger = configure_logger('run_site_scanner')
+    # Setup the main logger to stream to console with DEBUG level for more verbose output
+    setup_main_logger('ecommiq_site_scanner', level=logging.DEBUG)
+    logger = configure_logger('run_site_scanner', level=logging.DEBUG)
 
     try:
         logger.info("Initializing dependencies...")
@@ -52,4 +52,5 @@ if __name__ == "__main__":
     parser.add_argument('--competitor-brand', type=str, help='Filter scan to only include competitors with this reference_brand')
     args = parser.parse_args()
     
+    print("Running site scanner...", flush=True)
     run_scanner(competitor_brand=args.competitor_brand)

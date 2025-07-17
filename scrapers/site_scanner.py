@@ -138,8 +138,8 @@ class SiteScanner:
             return self._process_scraped_product(scraped_data, product, site)
 
         except Exception as e:
-            self.logger.error(f"Error in scan_product for {product.id} ({product.url}): {e}")
-            return {"created_prices": [], "updated_products": [], "errors": [{"product_id": product.id, "error": str(e)}]}
+            self.logger.error(f"Error in scan_product for {product.id} ({product.url}) on site {site.id} ({site.name}): {e}")
+            return {"created_prices": [], "updated_products": [], "errors": [{"product_id": product.id, "site_id": site.id, "error": str(e)}]}
 
     def scan_all_sites(self, show_progress: bool = False, max_workers: int = 5, competitor_brand: str = None) -> Dict[str, Any]:
         """
