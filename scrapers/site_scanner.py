@@ -41,7 +41,7 @@ class SiteScanner:
             filename = f"raw_site_scrape_{site.name.replace(' ', '_')}_{product.id}_{timestamp}.txt"
             filepath = os.path.join(self.logs_dir, filename)
             
-            self.logger.info(f"Dumping raw site scrape results to {filepath}")
+            self.logger.debug(f"Dumping raw site scrape results to {filepath}")
             
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(f"Site: {site.name} ({site.id})\n")
@@ -51,7 +51,7 @@ class SiteScanner:
                 f.write("="*50 + "\n\n")
                 f.write(json.dumps(results, indent=2, ensure_ascii=False))
                 
-            self.logger.info(f"Successfully saved raw scrape results to {filepath}")
+            self.logger.debug(f"Successfully saved raw scrape results to {filepath}")
         except Exception as e:
             self.logger.error(f"Error dumping raw results for site scrape: {str(e)}")
 

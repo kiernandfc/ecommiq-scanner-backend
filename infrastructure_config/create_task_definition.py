@@ -1,9 +1,14 @@
 import json
 import os
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables from .env
-load_dotenv()
+# Get the parent directory path for .env file
+parent_dir = str(Path(__file__).parent.parent.absolute())
+
+# Load environment variables from .env in parent directory
+load_dotenv(os.path.join(parent_dir, '.env'))
 
 # Create task definition
 task_def = {
@@ -33,13 +38,20 @@ task_def = {
 }
 
 # Add environment variables
-for key, value in os.environ.items():
-    # Only add variables that were in .env, not system variables
-    if key in open('.env').read():
-        task_def["containerDefinitions"][0]["environment"].append({
-            "name": key,
-            "value": value
-        })
+env_file_path = os.path.join(parent_dir, '.env')
+try:
+    with open(env_file_path, 'r') as env_file:
+        env_content = env_file.read()
+        
+    for key, value in os.environ.items():
+        # Only add variables that were in .env, not system variables
+        if key in env_content:
+            task_def["containerDefinitions"][0]["environment"].append({
+                "name": key,
+                "value": value
+            })
+except FileNotFoundError:
+    print(f"Warning: .env file not found at {env_file_path}")
 
 # Write to file
 with open('task-definition.json', 'w') as f:

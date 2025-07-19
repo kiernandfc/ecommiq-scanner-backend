@@ -18,11 +18,11 @@ from utils.logger import configure_logger
 from .oxylabs_client import OxylabsClient
 
 class SearchScanner:
-    def __init__(self, db: PostgreSQLDatabase, oxylabs: OxylabsClient):
+    def __init__(self, db: PostgreSQLDatabase, oxylabs: OxylabsClient, log_level=logging.INFO):
         self.db = db
         self.oxylabs = oxylabs
-        # Get logger instance, level is inherited from root config set in main.py
-        self.logger = configure_logger(f"{__name__}.SearchScanner")
+        # Get logger instance, using the log level passed from main.py if provided
+        self.logger = configure_logger(f"{__name__}.SearchScanner", log_level)
         # self.logger.debug("SearchScanner initialized") # This will be filtered if root is INFO
         
         # Create api_logs directory if it doesn't exist
@@ -32,6 +32,8 @@ class SearchScanner:
         # Tracking metrics
         self.non_usd_scrapes_count = 0
         self.out_of_bounds_prices_count = 0
+        self.skipped_missing_product_id_count = 0
+        self.skipped_merchant_filter_count = 0
 
     def _dump_raw_results(self, results: Dict[str, Any], competitor: CompetitorBrand, suffix: str = "") -> None:
         """
@@ -47,7 +49,7 @@ class SearchScanner:
             filename = f"raw_scrape_{competitor.competitor_brand.replace(' ', '_')}{('_' + suffix) if suffix else ''}_{timestamp}.txt"
             filepath = os.path.join(self.logs_dir, filename)
             
-            self.logger.info(f"Dumping raw scrape results to {filepath}")
+            self.logger.debug(f"Dumping raw scrape results to {filepath}")
             
             with open(filepath, 'w', encoding='utf-8') as f:
                 # Write competitor info
@@ -61,7 +63,7 @@ class SearchScanner:
                 # Write raw results
                 f.write(json.dumps(results, indent=2, ensure_ascii=False))
                 
-            self.logger.info(f"Successfully saved raw scrape results to {filepath}")
+            self.logger.debug(f"Successfully saved raw scrape results to {filepath}")
         except Exception as e:
             self.logger.error(f"Error dumping raw results: {str(e)}")
             self.logger.error(traceback.format_exc())
@@ -108,16 +110,19 @@ class SearchScanner:
         Returns:
             Dictionary with created/updated products and error information
         """
-        self.logger.info(f"Scanning for competitor: {competitor.competitor_brand} with query: {competitor.search_query}")
+        self.logger.debug(f"Scanning for competitor: {competitor.competitor_brand} with query: {competitor.search_query}")
         
         updated_products = []
         created_products = []
         errors = []
-        
+        skipped_merchant_filter_count_run = 0
+        skipped_missing_product_id_count_run = 0
+        out_of_bounds_prices_count_run = 0
+
         try:
             # Construct full search query by appending competitor brand
             full_search_query = f"{competitor.search_query.strip()} {competitor.competitor_brand.strip()}"
-            self.logger.info(f"Using full search query: '{full_search_query}'")
+            self.logger.debug(f"Using full search query: '{full_search_query}'")
             
             # Try up to 3 times to get results with USD currency
             max_attempts = 3
@@ -137,7 +142,7 @@ class SearchScanner:
                 all_usd = self._check_all_usd_currency(results)
                 
                 if all_usd:
-                    self.logger.info(f"All products have USD currency on attempt {attempt}")
+                    self.logger.debug(f"All products have USD currency on attempt {attempt}")
                     break
                 else:
                     self.logger.warning(f"Found non-USD currencies on attempt {attempt}, retrying...")
@@ -169,8 +174,22 @@ class SearchScanner:
             
             for item in organic_results:
                 try:
+                    # Skip products from filtered merchants (ebay, poshmark)
+                    merchant_name = item['merchant']['name'].lower()
+                    if 'ebay' in merchant_name or 'poshmark' in merchant_name:
+                        self.skipped_merchant_filter_count += 1
+                        skipped_merchant_filter_count_run += 1
+                        continue
+
+                    # Skip products without product_id
+                    if not item.get('product_id'):
+                        self.skipped_missing_product_id_count += 1
+                        skipped_missing_product_id_count_run += 1
+                        self.logger.debug(f"Skipping product due to missing product_id: {item.get('title', 'Unknown')}")
+                        continue
+                    
                     # Check if this is from the competitor brand we're monitoring
-                    brand_in_merchant = competitor.competitor_brand.lower() in item['merchant']['name'].lower()
+                    brand_in_merchant = competitor.competitor_brand.lower() in merchant_name
                     brand_in_title = competitor.competitor_brand.lower() in item['title'].lower()
                     
                     if not (brand_in_merchant or brand_in_title):
@@ -191,7 +210,7 @@ class SearchScanner:
                         title=item['title'],
                         url=item['url'],
                         canonical_url=item['merchant'].get('url'),
-                        google_shopping_id=item['product_id'],
+                        google_shopping_id=item.get('product_id'),  # Use .get() to handle missing key
                         primary_merchant=item['merchant']['name'],
                         review_count=product_review_count,
                         position=product_position,
@@ -232,6 +251,7 @@ class SearchScanner:
                         price_result = self.db.add_price(price)
                         if price_result == "OUT_OF_BOUNDS":
                             self.out_of_bounds_prices_count += 1
+                            out_of_bounds_prices_count_run += 1
                             self.logger.debug(f"Price out of bounds for {product.title} - incrementing counter to {self.out_of_bounds_prices_count}")
                         elif price_result:  # It's a price ID
                             self.logger.debug(f"Added price history: {price_result}")
@@ -261,7 +281,7 @@ class SearchScanner:
                 "traceback": traceback.format_exc()
             })
         
-        self.logger.info(f"Scan complete for {competitor.competitor_brand}. Created: {len(created_products)}, Updated: {len(updated_products)}, Errors: {len(errors)}")
+        self.logger.debug(f"Scan complete. Results: {len(updated_products)} u, {len(created_products)} c, {len(errors)} e || {out_of_bounds_prices_count_run} p, {skipped_merchant_filter_count_run} m, {skipped_missing_product_id_count_run} id    for {full_search_query}")
         return {
             "created": created_products, 
             "updated": updated_products, 
@@ -293,55 +313,55 @@ class SearchScanner:
         
         try:
             competitors = self.db.get_active_competitors()
-        
-        # Filter to only include Google Shopping competitors (those without a site_id)
-        google_shopping_competitors = [comp for comp in competitors if comp.site_id is None]
-        
-        # If a specific competitor_id was provided, filter to only that competitor
-        if competitor_id:
-            filtered_competitors = [comp for comp in google_shopping_competitors if comp.competitor_id == competitor_id]
-            if not filtered_competitors:
+            
+            # Filter to only include Google Shopping competitors (those without a site_id)
+            google_shopping_competitors = [comp for comp in competitors if comp.site_id is None]
+            
+            # If a specific competitor_id was provided, filter to only that competitor
+            if competitor_id:
+                filtered_competitors = [comp for comp in google_shopping_competitors if comp.competitor_id == competitor_id]
+                if not filtered_competitors:
+                    if not show_progress:
+                        self.logger.warning(f"No active competitor found with ID: {competitor_id}")
+                    else:
+                        print(f"Warning: No active competitor found with ID: {competitor_id}")
+                    # Return empty results if competitor not found
+                    return {
+                        "created": [],
+                        "updated": [],
+                        "errors": [{
+                            "competitor": "UNKNOWN",
+                            "product": None,
+                            "error": f"No active competitor found with ID: {competitor_id}",
+                            "traceback": ""
+                        }],
+                        "error_summary": {"UNKNOWN": 1},
+                        "by_reference": {},
+                        "start_time": start_time,
+                        "end_time": utc_now(),
+                        "duration_seconds": (utc_now() - start_time).total_seconds(),
+                        "total_catalog_count": self.db.get_total_catalog_count(),
+                        "non_usd_scrapes_count": 0,
+                        "out_of_bounds_prices_count": 0
+                    }
+                google_shopping_competitors = filtered_competitors
                 if not show_progress:
-                    self.logger.warning(f"No active competitor found with ID: {competitor_id}")
+                    self.logger.info(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
                 else:
-                    print(f"Warning: No active competitor found with ID: {competitor_id}")
-                # Return empty results if competitor not found
-                return {
-                    "created": [],
-                    "updated": [],
-                    "errors": [{
-                        "competitor": "UNKNOWN",
-                        "product": None,
-                        "error": f"No active competitor found with ID: {competitor_id}",
-                        "traceback": ""
-                    }],
-                    "error_summary": {"UNKNOWN": 1},
-                    "by_reference": {},
-                    "start_time": start_time,
-                    "end_time": utc_now(),
-                    "duration_seconds": (utc_now() - start_time).total_seconds(),
-                    "total_catalog_count": self.db.get_total_catalog_count(),
-                    "non_usd_scrapes_count": 0,
-                    "out_of_bounds_prices_count": 0
-                }
-            google_shopping_competitors = filtered_competitors
+                    print(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
+            
             if not show_progress:
-                self.logger.info(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
+                self.logger.debug(f"Found {len(competitors)} active competitors total, {len(google_shopping_competitors)} Google Shopping competitors to scan")
             else:
-                print(f"Filtering to scan only competitor with ID: {competitor_id} ({google_shopping_competitors[0].competitor_brand})")
-        
-        if not show_progress:
-            self.logger.debug(f"Found {len(competitors)} active competitors total, {len(google_shopping_competitors)} Google Shopping competitors to scan")
-        else:
-            print(f"Found {len(google_shopping_competitors)} Google Shopping competitors to scan with {max_workers} threads")
-        
-        # Use filtered competitors for scanning
-        competitors = google_shopping_competitors
+                print(f"Found {len(google_shopping_competitors)} Google Shopping competitors to scan with {max_workers} threads")
+            
+            # Use filtered competitors for scanning
+            competitors = google_shopping_competitors
             
             # Get total catalog count before scan
             total_catalog_count = self.db.get_total_catalog_count()
             
-            # Function to process competitor results and update progress
+            # Helper function to process competitor results and update progress
             def process_result(result, pbar=None):
                 nonlocal all_created, all_updated, all_errors, results_by_competitor, error_summary
                 
@@ -390,7 +410,7 @@ class SearchScanner:
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
                 # Submit all scanning tasks to the executor
                 future_to_competitor = {
-                    executor.submit(self.scan_for_competitor, competitor): competitor 
+                    executor.submit(self.scan_for_competitor, competitor): competitor
                     for competitor in competitors
                 }
                 
@@ -418,7 +438,6 @@ class SearchScanner:
             # Close progress bar
             if pbar:
                 pbar.close()
-                    
         except Exception as e:
             error_msg = f"Error in main scan loop: {str(e)}"
             self.logger.error(error_msg)

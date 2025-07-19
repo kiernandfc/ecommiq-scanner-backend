@@ -21,4 +21,4 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Use ENTRYPOINT to allow passing arguments at runtime
 ENTRYPOINT ["python", "main.py"]
 # Default arguments if none are provided at runtime
-CMD ["--progress", "--threads", "10"]
+CMD ["--progress", "--threads", "10", "--mode", "scan", "--log-level", "INFO"]

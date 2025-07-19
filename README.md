@@ -1,10 +1,11 @@
 # EcommiQ Scanner Backend
 
-A price monitoring service that tracks competitor product prices on Google Shopping using Oxylabs scraping API.
+A price monitoring service that tracks competitor product prices on Google Shopping and several direct brand websites using Oxylabs scraping API.
 
 ## Features
 
 - Automated Google Shopping price monitoring
+- Automated direct brand website price monitoring
 - Reference product and competitor brand mapping
 - New product discovery through search term monitoring
 - Price history tracking
@@ -39,12 +40,6 @@ Scans Google Shopping search results for configured search terms to:
 - Update catalog entries
 - Record current prices
 
-### Product Price Updater
-Processes existing catalog entries to:
-- Update prices for known products
-- Track stock status changes
-- Maintain price history
-
 ## Setup
 
 1. Clone the repository
@@ -52,6 +47,11 @@ Processes existing catalog entries to:
 3. Configure environment variables:
    - `OXYLABS_USERNAME`: Your Oxylabs username
    - `OXYLABS_PASSWORD`: Your Oxylabs password
+   - `POSTGRESQL_HOST`: Your PostgreSQL host
+   - `POSTGRESQL_DB`: Your PostgreSQL database name
+   - `POSTGRESQL_USER`: Your PostgreSQL username
+   - `POSTGRESQL_PASSWORD`: Your PostgreSQL password
+   - `POSTGRESQL_PORT`: Your PostgreSQL port
 4. Initialize the database: `python init_db.py`
 5. Run the scanner: `python main.py`
 
@@ -59,9 +59,9 @@ Processes existing catalog entries to:
 
 Built with:
 - Python 3.9+
-- TinyDB for local NoSQL storage
 - Oxylabs Scraper API for data collection
-- aiohttp for async HTTP requests
+- Communicates with AWS RDS Aurora PostgreSQL database for storage
+- Lambda functions included for notifications of scan completion and price changes
 
 ## License
 

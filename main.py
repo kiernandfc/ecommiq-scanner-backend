@@ -11,11 +11,47 @@ from db.factory import get_database
 from db.models import CompetitorBrand
 from scrapers.oxylabs_client import OxylabsClient
 from scrapers.search_scanner import SearchScanner
+from scrapers.site_scanner import SiteScanner
 from scrapers.price_updater import PriceUpdater
 from utils.helpers import utc_now
 from utils.logger import setup_main_logger, configure_logger
 # Import for relevancy calculation
 from brain.calculate_relevancy import get_products_to_score, get_batch_relevancy_scores, update_relevancy_scores, configure_logging
+
+def print_site_scan_summary(site_scan_results, logger):
+    """Print a detailed summary of site scan results"""
+    total_created = len(site_scan_results["created_prices"])
+    total_updated = len(site_scan_results["updated_products"])
+    total_errors = len(site_scan_results["errors"])
+    duration = site_scan_results["duration_seconds"]
+    
+    # Overall summary
+    logger.info("\n" + "="*60)
+    logger.info(f"SITE SCAN SUMMARY")
+    logger.info("="*60)
+    logger.info(f"Total prices created: {total_created}")
+    logger.info(f"Total products updated: {total_updated}")
+    logger.info(f"Total products processed: {total_created + total_updated}")
+    logger.info(f"Total errors encountered: {total_errors}")
+    logger.info(f"Total scan duration: {duration:.2f} seconds")
+    
+    # Error summary if any
+    if total_errors > 0:
+        logger.info("\n" + "="*60)
+        logger.info("SITE SCAN ERROR SUMMARY")
+        logger.info("="*60)
+        
+        # Show first 10 errors
+        for i, error in enumerate(site_scan_results["errors"][:10]):
+            logger.info(f"\nError {i+1}:")
+            logger.info(f"Product ID: {error.get('product_id', 'Unknown')}")
+            logger.info(f"Site ID: {error.get('site_id', 'Unknown')}")
+            logger.info(f"Error: {error.get('error', 'Unknown error')}")
+        
+        if len(site_scan_results["errors"]) > 10:
+            logger.info(f"\n... and {len(site_scan_results['errors']) - 10} more errors")
+    
+    logger.info("="*60)
 
 def print_scan_summary(scan_results, logger):
     """Print a detailed summary of scan results"""
@@ -234,13 +270,41 @@ def main():
     
     if not args.progress:
         pass
-    scanner = SearchScanner(db, oxylabs_client)
+    # Initialize scanner with database, oxylabs client, and the log level from command line
+    scanner = SearchScanner(db, oxylabs_client, log_level)
     
-    # Execute scan operation
+    # Initialize site scanner for direct website scraping
+    site_scanner = SiteScanner(db, oxylabs_client)
+    
+    # Execute site scan operation first
     if args.progress:
-        print("Starting competitor product scan...")
+        print("Starting site product scan...")
     else:
-        logger.info("Starting competitor product scan...")
+        logger.info("Starting site product scan...")
+        
+    try:
+        # Scan all individual sites first
+        site_scan_results = site_scanner.scan_all_sites(show_progress=args.progress, max_workers=args.threads, competitor_brand=args.competitor_id)
+        
+        # Display site scan summary
+        if site_scan_results.get('status') not in ['no_competitors', 'no_products']:
+            print_site_scan_summary(site_scan_results, logger)
+        else:
+            if args.progress:
+                print(f"Site scan completed: {site_scan_results.get('status')}")
+            else:
+                logger.info(f"Site scan completed: {site_scan_results.get('status')}")
+    
+    except Exception as e:
+        logger.error(f"Site scan failed: {str(e)}")
+        if args.progress:
+            print(f"Site scan failed: {str(e)}")
+    
+    # Execute Google Shopping scan operation
+    if args.progress:
+        print("Starting Google Shopping competitor product scan...")
+    else:
+        logger.info("Starting Google Shopping competitor product scan...")
         
     try:
         # Pass progress flag, threads value, and competitor_id to scanner
