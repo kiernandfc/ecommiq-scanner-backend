@@ -69,10 +69,12 @@ configure_logging(False)
 
 # OpenAI Configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
-    logger.error("OPENAI_API_KEY environment variable not found.")
-    exit(1)
 OPENAI_MODEL = "gpt-4.1-mini" # Updated model
+
+def check_required_env_vars():
+    if not OPENAI_API_KEY:
+        logger.error("OPENAI_API_KEY environment variable not found.")
+        sys.exit(1)
 
 # Database Configuration (Using existing POSTGRESQL_* variables)
 DB_HOST = os.getenv("POSTGRESQL_HOST")
@@ -81,9 +83,10 @@ DB_NAME = os.getenv("POSTGRESQL_DB")
 DB_USER = os.getenv("POSTGRESQL_USER")
 DB_PASSWORD = os.getenv("POSTGRESQL_PASSWORD")
 
-if not all([DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD]):
-    logger.error("One or more PostgreSQL environment variables are missing.")
-    exit(1)
+def check_db_env_vars():
+    if not all([DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD]):
+        logger.error("One or more PostgreSQL environment variables are missing.")
+        sys.exit(1)
 
 # --- Constants ---
 BATCH_SIZE = 25
@@ -131,11 +134,15 @@ BACKOFF_FACTOR = 2.0
 JITTER_FACTOR = 0.1 # Max 10% jitter
 
 # --- OpenAI Client ---
-try:
-    client = OpenAI(api_key=OPENAI_API_KEY)
-except Exception as e:
-    logger.error(f"Failed to initialize OpenAI client: {e}")
-    exit(1)
+def initialize_openai_client():
+    try:
+        return OpenAI(api_key=OPENAI_API_KEY)
+    except Exception as e:
+        logger.error(f"Failed to initialize OpenAI client: {e}")
+        sys.exit(1)
+
+# Only initialize the client when needed
+client = None
 
 # --- Database Connection ---
 def get_db_connection():
@@ -224,6 +231,10 @@ def get_products_to_score(conn, update_all=False, use_progress_bar=False):
 
 # --- Batch Relevancy Scoring ---
 def get_batch_relevancy_scores(reference_brand, competitor_products_batch, use_progress_bar=False):
+    # Initialize OpenAI client if needed
+    global client
+    if client is None:
+        client = initialize_openai_client()
     """Calls OpenAI API to get relevancy scores for a batch of competitor products
     using structured output with exponential backoff.
 
@@ -544,6 +555,12 @@ def clear_log_directory():
 
 # --- Main Execution ---
 if __name__ == "__main__":
+    # Check for required environment variables
+    check_required_env_vars()
+    check_db_env_vars()
+    
+    # Initialize OpenAI client
+    client = initialize_openai_client()
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Calculate relevancy scores for competitor products.")
     parser.add_argument("--limit", type=int, default=0, 
