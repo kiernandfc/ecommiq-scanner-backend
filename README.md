@@ -1,3 +1,7 @@
+[![Python Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml)
+
+[![End-to-End Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml)
+
 # EcommiQ Scanner Backend
 
 A price monitoring service that tracks competitor product prices on Google Shopping and several direct brand websites using Oxylabs scraping API.
@@ -67,7 +71,3 @@ Built with:
 ## License
 
 MIT License 
-
-[![Python Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml)
-
-[![End-to-End Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml)
