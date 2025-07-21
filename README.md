@@ -67,3 +67,7 @@ Built with:
 ## License
 
 MIT License 
+
+[![Python Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/tests.yml)
+
+[![End-to-End Tests](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml/badge.svg)](https://github.com/kiernandfc/ecommiq-scanner-backend/actions/workflows/end-to-end-tests.yml)
