@@ -10,6 +10,7 @@ A price monitoring service that tracks competitor product prices on Google Shopp
 - New product discovery through search term monitoring
 - Price history tracking
 - Stock status monitoring
+- Standard testing suite
 
 ## Database Schema
 
