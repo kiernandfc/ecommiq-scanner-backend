@@ -46,7 +46,7 @@ class SiteScanner:
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(f"Site: {site.name} ({site.id})\n")
                 f.write(f"Product: {product.title} ({product.id})\n")
-                f.write(f"URL: {product.url}\n")
+                f.write(f"URL: {product.link}\n")
                 f.write(f"Timestamp: {timestamp}\n")
                 f.write("="*50 + "\n\n")
                 f.write(json.dumps(results, indent=2, ensure_ascii=False))
@@ -125,10 +125,10 @@ class SiteScanner:
         """
         Scrape and process a single product from a direct website.
         """
-        self.logger.debug(f"Scanning product '{product.title}' from URL: {product.url}")
+        self.logger.debug(f"Scanning product '{product.title}' from URL: {product.link}")
         try:
             scraped_data = self.oxylabs.scrape_direct_website(
-                url=product.url,
+                url=product.link,
                 parse_code=site.oxylabs_parse_code
             )
             
@@ -138,7 +138,7 @@ class SiteScanner:
             return self._process_scraped_product(scraped_data, product, site)
 
         except Exception as e:
-            self.logger.error(f"Error in scan_product for {product.id} ({product.url}) on site {site.id} ({site.name}): {e}")
+            self.logger.error(f"Error in scan_product for {product.id} ({product.link}) on site {site.id} ({site.name}): {e}")
             return {"created_prices": [], "updated_products": [], "errors": [{"product_id": product.id, "site_id": site.id, "error": str(e)}]}
 
     def scan_all_sites(self, show_progress: bool = False, max_workers: int = 5, competitor_brand: str = None) -> Dict[str, Any]:

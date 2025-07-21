@@ -208,10 +208,8 @@ class SearchScanner:
                     
                     product = CatalogProduct(
                         title=item['title'],
-                        url=item['url'],
-                        canonical_url=item['merchant'].get('url'),
+                        link=item['url'],
                         google_shopping_id=item.get('product_id'),  # Use .get() to handle missing key
-                        primary_merchant=item['merchant']['name'],
                         review_count=product_review_count,
                         position=product_position,
                         last_checked=utc_now()
@@ -319,7 +317,7 @@ class SearchScanner:
             
             # If a specific competitor_id was provided, filter to only that competitor
             if competitor_id:
-                filtered_competitors = [comp for comp in google_shopping_competitors if comp.competitor_id == competitor_id]
+                filtered_competitors = [comp for comp in google_shopping_competitors if comp.id == competitor_id]
                 if not filtered_competitors:
                     if not show_progress:
                         self.logger.warning(f"No active competitor found with ID: {competitor_id}")

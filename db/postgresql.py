@@ -2,9 +2,8 @@ import os
 import logging
 import boto3
 from sqlalchemy import create_engine, Column, String, Float, Boolean, DateTime, ForeignKey, Text, MetaData, Integer, text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
-from datetime import datetime
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from datetime import datetime, UTC
 from typing import List, Optional, Dict, Any
 import uuid
 import time
@@ -17,6 +16,11 @@ from utils.logger import configure_logger
 
 Base = declarative_base()
 
+# Fixed: Use timezone-aware datetime instead of deprecated utcnow
+def utc_now():
+    """Return current UTC datetime - replaces deprecated datetime.utcnow"""
+    return datetime.now(UTC)
+
 class SiteDB(Base):
     __tablename__ = 'sites'
     
@@ -25,8 +29,8 @@ class SiteDB(Base):
     base_url = Column(String, nullable=False)
     oxylabs_parse_code = Column(String, nullable=False)
     active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
     
     competitors = relationship("CompetitorBrandDB", back_populates="site")
 
@@ -43,8 +47,8 @@ class CompetitorBrandDB(Base):
     max_price = Column(Float, nullable=True)
     site_id = Column(String, ForeignKey('sites.id'), nullable=True)
     active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
     
     catalog_products = relationship("CatalogProductDB", secondary="competitor_catalog_map", back_populates="competitors")
     site = relationship("SiteDB", back_populates="competitors")
@@ -55,7 +59,7 @@ class CompetitorCatalogMapDB(Base):
     id = Column(String, primary_key=True)
     competitor_id = Column(String, ForeignKey('competitors.id'), nullable=False)
     catalog_id = Column(String, ForeignKey('catalog.id'), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now)
     
 class CatalogProductDB(Base):
     __tablename__ = 'catalog'
@@ -70,9 +74,9 @@ class CatalogProductDB(Base):
     is_available = Column(Boolean, default=True)
     review_count = Column(Integer, nullable=True)
     position = Column(Integer, nullable=True)
-    last_checked = Column(DateTime, default=datetime.utcnow)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    last_checked = Column(DateTime, default=utc_now)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
     description = Column(Text)
     sku = Column(String, nullable=True)
     brand = Column(String, nullable=True)
@@ -91,8 +95,8 @@ class PriceHistoryDB(Base):
     currency = Column(String, nullable=False)
     merchant = Column(String)
     is_available = Column(Boolean, default=True)
-    date_checked = Column(DateTime, default=datetime.utcnow)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    date_checked = Column(DateTime, default=utc_now)
+    created_at = Column(DateTime, default=utc_now)
     review_count = Column(Integer, nullable=True)
     position = Column(Integer, nullable=True)
     description = Column(Text, nullable=True)
@@ -248,7 +252,7 @@ class PostgreSQLDatabase:
         session = self.Session()
         try:
             if tables is None:
-                tables = ['competitors', 'catalog', 'prices']
+                tables = ['competitors', 'catalog', 'prices', 'sites']
                 
             for table_name in tables:
                 if table_name == 'prices':
@@ -257,6 +261,8 @@ class PostgreSQLDatabase:
                     session.query(CatalogProductDB).delete()
                 if table_name == 'competitors':
                     session.query(CompetitorBrandDB).delete()
+                if table_name == 'sites':
+                    session.query(SiteDB).delete()
             
             session.commit()
             self.logger.info(f"Tables {', '.join(tables)} cleared")
@@ -465,7 +471,7 @@ class PostgreSQLDatabase:
                 # Update existing product
                 existing.google_shopping_id = product.google_shopping_id
                 existing.title = product.title
-                existing.link = product.url
+                existing.link = product.link
                 existing.image_link = product.image_link if hasattr(product, 'image_link') else None
                 existing.currency = product.currency if hasattr(product, 'currency') else None
                 existing.is_available = product.is_available if hasattr(product, 'is_available') else True
@@ -507,7 +513,7 @@ class PostgreSQLDatabase:
                     id=product_id,
                     google_shopping_id=product.google_shopping_id,
                     title=product.title,
-                    link=product.url,
+                    link=product.link,
                     image_link=product.image_link if hasattr(product, 'image_link') else None,
                     currency=product.currency if hasattr(product, 'currency') else None,
                     is_available=product.is_available if hasattr(product, 'is_available') else True,
@@ -664,7 +670,7 @@ class PostgreSQLDatabase:
                 id=product_db.id,
                 google_shopping_id=product_db.google_shopping_id,
                 title=product_db.title,
-                url=product_db.url,
+                link=product_db.link,
                 last_checked=product_db.last_checked,
                 created_at=product_db.created_at,
                 updated_at=product_db.updated_at
@@ -833,7 +839,7 @@ class PostgreSQLDatabase:
                     id=product_db.id,
                     google_shopping_id=product_db.google_shopping_id,
                     title=product_db.title,
-                    url=product_db.link,
+                    link=product_db.link,  # Fixed: use 'link' to match updated CatalogProduct model
                     last_checked=product_db.last_checked,
                     created_at=product_db.created_at,
                     updated_at=product_db.updated_at
@@ -955,7 +961,7 @@ class PostgreSQLDatabase:
             id=product_db.id,
             primary_merchant=getattr(product_db, 'primary_merchant', None),
             title=product_db.title,
-            url=product_db.link,
+            link=product_db.link,
             canonical_url=getattr(product_db, 'canonical_url', None),
             google_shopping_id=product_db.google_shopping_id,
             sku=product_db.sku,

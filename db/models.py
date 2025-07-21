@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, field_serializer
 from utils.helpers import utc_now
 from decimal import Decimal
 
@@ -35,11 +35,13 @@ class CompetitorCatalogMap(BaseModel):
 
 class CatalogProduct(BaseModel):
     id: Optional[str] = None
-    primary_merchant: Optional[str] = None
-    title: str
-    url: str
-    canonical_url: Optional[str] = None
     google_shopping_id: Optional[str] = None  # Made optional for direct website products
+    title: str
+    link: str  # Fixed: match database schema field name
+    image_link: Optional[str] = None
+    price: Optional[float] = None  # Fixed: match database schema type
+    currency: Optional[str] = "USD"
+    is_available: bool = True  # Fixed: match database schema field name
     sku: Optional[str] = None  # Added for direct website products
     brand: Optional[str] = None  # Added for direct website products
     source_type: Optional[str] = "google_shopping"  # Default to google_shopping, can be direct_website
@@ -48,6 +50,7 @@ class CatalogProduct(BaseModel):
     last_checked: datetime = utc_now()
     created_at: datetime = utc_now()
     updated_at: datetime = utc_now()
+    description: Optional[str] = None
 
 class PriceHistory(BaseModel):
     id: Optional[str] = None
@@ -61,9 +64,13 @@ class PriceHistory(BaseModel):
     review_count: Optional[int] = None
     position: Optional[int] = None
     timestamp: datetime = utc_now()
-
-    class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat(),
-            Decimal: lambda v: str(v)
-        } 
+    
+    @field_serializer('timestamp')
+    def serialize_timestamp(self, value: datetime) -> str:
+        """Serialize datetime to ISO format string"""
+        return value.isoformat()
+    
+    @field_serializer('price', 'list_price')
+    def serialize_decimal(self, value: Optional[Decimal]) -> Optional[str]:
+        """Serialize Decimal to string"""
+        return str(value) if value is not None else None 
