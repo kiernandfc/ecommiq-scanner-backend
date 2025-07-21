@@ -97,7 +97,6 @@ class TestEndToEndWorkflow:
         assert "created" in scan_result
         assert "updated" in scan_result
         assert "errors" in scan_result
-        assert len(scan_result["created"]) >= 0  # Should have created products
         assert len(scan_result["errors"]) == 0  # Should have no errors
         
         # Verify products were created (should match number of products in mock response)
@@ -279,7 +278,6 @@ class TestEndToEndWorkflow:
         
         # Verify overall results
         assert scan_result["duration_seconds"] > 0
-        assert len(scan_result["created"]) >= 0
         assert len(scan_result["by_reference"]) > 0
         
         # Should have results for multiple reference brands
@@ -367,11 +365,8 @@ class TestEndToEndWorkflow:
         scan_result = scanner.scan_all_competitors(show_progress=False, max_workers=1)
         
         # Verify error handling (errors may vary depending on retry logic)
-        assert len(scan_result["errors"]) >= 0
-        assert len(scan_result["created"]) >= 0  # Should have processed valid competitor
-        
-        # System should still be functional: created products exist in scan_result
-        assert len(scan_result["created"]) >= 0
+        assert len(scan_result["errors"]) > 0
+
 
     def test_data_quality_and_validation(self, integration_db):
         """Test data quality checks and validation throughout the pipeline."""
@@ -395,7 +390,7 @@ class TestEndToEndWorkflow:
                     "results": {
                         "organic": [
                             {
-                                "title": "Valid Product",
+                                "title": "Quality Competitor Valid Product",
                                 "price": 25.0,  # Within bounds
                                 "currency": "USD",
                                 "merchant": {"name": "Valid Store"},
@@ -404,7 +399,16 @@ class TestEndToEndWorkflow:
                                 "product_id": "valid-123"
                             },
                             {
-                                "title": "Expensive Product",
+                                "title": "Missing Brand Name Product",
+                                "price": 25.0,  # Within bounds
+                                "currency": "USD",
+                                "merchant": {"name": "Valid Store"},
+                                "url": "https://example.com/valid",
+                                "pos": 1,
+                                "product_id": "valid-123"
+                            },
+                            {
+                                "title": "Quality Competitor Expensive Product",
                                 "price": 100.0,  # Outside max_price
                                 "currency": "USD",
                                 "merchant": {"name": "Expensive Store"},
@@ -413,16 +417,7 @@ class TestEndToEndWorkflow:
                                 "product_id": "expensive-456"
                             },
                             {
-                                "title": "Non-USD Product",
-                                "price": 30.0,
-                                "currency": "EUR",  # Non-USD currency
-                                "merchant": {"name": "European Store"},
-                                "url": "https://example.com/eur",
-                                "pos": 3,
-                                "product_id": "eur-789"
-                            },
-                            {
-                                "title": "Missing ID Product",
+                                "title": "Quality Competitor Missing ID Product",
                                 "price": 20.0,
                                 "currency": "USD",
                                 "merchant": {"name": "No ID Store"},
@@ -442,5 +437,5 @@ class TestEndToEndWorkflow:
         scanner = SearchScanner(integration_db, mock_oxylabs)
         scan_result = scanner.scan_for_competitor(competitor)
         
-        # Should process at least the valid product
-        assert len(scan_result["created"]) >= 0
+        # Should create the valid product and the expensive product, only the valid product should have a price recording
+        assert len(scan_result["created"]) == 2

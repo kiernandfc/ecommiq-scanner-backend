@@ -104,8 +104,8 @@ class TestCompetitorBrandModel:
         )
         
         assert competitor.reference_product_description == "Description"
-        assert competitor.min_price == 10.0
-        assert competitor.max_price == 100.0
+        assert competitor.min_price == pytest.approx(10.0)
+        assert competitor.max_price == pytest.approx(100.0)
         assert competitor.site_id == "site-1"
 
     def test_competitor_defaults(self):
